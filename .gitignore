@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+.venv/
+Capstone_Project_Dataset_FTTT_2026/
+.cache/
+__pycache__/
+.pytest_cache/
+tmp/
+dist/
+*.zip
+voiceops_2026_capstone_brief.pdf
+sample_outputs/voice_inputs/
