@@ -1,6 +1,6 @@
 """Gnani-only REST speech, explicit served model, bounded retries, validated WAV."""
 from pathlib import Path
-import os,re,time,wave
+import io,os,re,struct,time,wave
 import requests
 from .config import ROOT
 
@@ -25,6 +25,29 @@ def for_ear(text:str,language:str='en') -> str:
         text=re.sub(r'(?:₹\s*)?(\d[\d,]*)\s*(rupees?|INR)',lambda m:spoken_number(int(m[1].replace(',','')))+' rupees',text,flags=re.I)
         text=re.sub(r'\b\d{1,5}\b',lambda m:spoken_number(int(m[0])),text)
     return re.sub(r'\s+',' ',text).strip()
+
+def canonical_wav(content:bytes) -> bytes:
+    """Finalize unknown-length RIFF streams without changing their PCM samples."""
+    if content[:4]!=b'RIFF' or content[8:12]!=b'WAVE':raise VoiceError('Expected WAV audio')
+    offset=12; declared=None
+    while offset+8<=len(content):
+        name=content[offset:offset+4];size=struct.unpack_from('<I',content,offset+4)[0]
+        if name==b'data':declared=size;break
+        if size==0xffffffff:raise VoiceError('Invalid unknown-length WAV metadata')
+        offset+=8+size+(size%2)
+    if declared is None:raise VoiceError('WAV audio has no sample data')
+    try:
+        with wave.open(io.BytesIO(content),'rb') as reader:
+            channels,width,rate=reader.getnchannels(),reader.getsampwidth(),reader.getframerate()
+            if declared!=0xffffffff and declared%(channels*width):raise VoiceError('WAV data contains an incomplete sample frame')
+            expected=reader.getnframes()*channels*width;frames=reader.readframes(reader.getnframes())
+        if not frames or len(frames)%(channels*width):raise VoiceError('WAV audio has empty or incomplete samples')
+        if declared!=0xffffffff and len(frames)!=expected:raise VoiceError('WAV audio is truncated')
+        output=io.BytesIO()
+        with wave.open(output,'wb') as writer:
+            writer.setnchannels(channels);writer.setsampwidth(width);writer.setframerate(rate);writer.writeframes(frames)
+        return output.getvalue()
+    except (wave.Error,EOFError,struct.error):raise VoiceError('Invalid WAV audio') from None
 
 class GnaniVoice:
     BASE='https://api.vachana.ai'
@@ -52,27 +75,26 @@ class GnaniVoice:
     def transcribe(self,path:Path,language:str='en-IN') -> str:
         if not path.exists() or path.stat().st_size==0:raise VoiceError('Empty or missing audio file')
         if path.suffix.lower()=='.wav':
-            try:
-                with wave.open(str(path),'rb') as f:
-                    if f.getnframes()/f.getframerate()>60:raise VoiceError('STT clip exceeds the 60-second REST limit')
-            except (wave.Error,EOFError):raise VoiceError('Invalid WAV file') from None
-        with path.open('rb') as f:
-            response=self._request('/stt/v3',files={'audio_file':(path.name,f)},data={'language_code':language,'format':'transcribe'})
+            normalized=canonical_wav(path.read_bytes())
+            with wave.open(io.BytesIO(normalized),'rb') as reader:
+                if reader.getnframes()/reader.getframerate()>60:raise VoiceError('STT clip exceeds the 60-second REST limit')
+            handle=io.BytesIO(normalized)
+        else:handle=path.open('rb')
+        with handle as audio:
+            response=self._request('/stt/v3',files={'audio_file':(path.name,audio)},data={'language_code':language,'format':'transcribe'})
         try:
             data=response.json()
-            if data.get('success') is False:raise VoiceError('Gnani transcription reported failure')
-            return str(data['transcript']).strip()
+            if not isinstance(data,dict) or data.get('success') is False:raise VoiceError('Gnani transcription reported failure')
+            heard=data.get('transcript')
+            if not isinstance(heard,str) or not heard.strip():raise VoiceError('Gnani returned an empty or invalid transcript; please repeat clearly')
+            return heard.strip()
         except (ValueError,KeyError):raise VoiceError('Gnani returned an invalid transcription response') from None
     def synthesize(self,text:str,path:Path,language:str='en') -> None:
         lang={'en':'en-IN','hi':'hi-IN','hi-en':'hi-en'}.get(language,language)
         voice={'en-IN':'Kaveri','hi-IN':'Nalini','hi-en':'Poorvi'}.get(lang,'Kaveri')
         payload={'text':for_ear(text,language),'voice':voice,'language':lang,'model':os.getenv('GNANI_TTS_MODEL','timbre-v2.5'),'speed':1.0,'audio_config':{'encoding':'linear_pcm','container':'wav','sample_rate':48000,'sample_width':2,'num_channels':1}}
         response=self._request('/api/v1/tts/inference',json=payload)
-        content=response.content
-        if content[:4]!=b'RIFF' or content[8:12]!=b'WAVE':raise VoiceError('Gnani TTS did not return a WAV; output not fabricated')
-        path.parent.mkdir(parents=True,exist_ok=True); temporary=path.with_suffix('.part'); temporary.write_bytes(content)
-        try:
-            with wave.open(str(temporary),'rb') as f:
-                if f.getnframes()==0:raise VoiceError('Gnani returned empty speech')
-        except wave.Error:temporary.unlink(missing_ok=True);raise VoiceError('Invalid synthesized WAV') from None
-        temporary.replace(path)
+        content=canonical_wav(response.content)
+        path.parent.mkdir(parents=True,exist_ok=True);temporary=path.with_suffix('.part')
+        try:temporary.write_bytes(content);temporary.replace(path)
+        finally:temporary.unlink(missing_ok=True)

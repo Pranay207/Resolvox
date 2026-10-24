@@ -59,3 +59,32 @@ def test_batch_continues_after_bad_clip(tmp_path,monkeypatch):
 def test_voice_formatting():
     text=for_ear('Order 12345678 costs 49 rupees on 24 October 2026.')
     assert '12345678' not in text and 'forty nine rupees' in text and 'two thousand twenty six' in text
+
+
+def test_streaming_wav_header_finalized_without_altering_pcm(tmp_path,monkeypatch):
+    import struct
+    from src.voice import canonical_wav
+    raw=bytearray(wav_bytes());struct.pack_into('<I',raw,4,0xffffffff);struct.pack_into('<I',raw,40,0xffffffff)
+    fixed=canonical_wav(bytes(raw))
+    assert fixed[44:]==wav_bytes()[44:]
+    with wave.open(io.BytesIO(fixed),'rb') as f:assert f.getnframes()==1600 and f.getframerate()==16000
+    voice=GnaniVoice('unit-test-placeholder');monkeypatch.setattr(voice.session,'post',lambda *a,**k:Response(200,bytes(raw)))
+    voice.synthesize('Hello',tmp_path/'finite.wav')
+    with wave.open(str(tmp_path/'finite.wav'),'rb') as f:assert f.getnframes()/f.getframerate()==.1
+
+def test_truncated_wav_rejected():
+    from src.voice import canonical_wav
+    with pytest.raises(VoiceError):canonical_wav(wav_bytes()[:-20])
+
+@pytest.mark.parametrize('heard',[None,[],{},'', '   ',123])
+def test_invalid_transcript_is_not_a_success(tmp_path,monkeypatch,heard):
+    voice=GnaniVoice('unit-test-placeholder');path=tmp_path/'input.wav';path.write_bytes(wav_bytes())
+    monkeypatch.setattr(voice.session,'post',lambda *a,**k:Response(200,data={'success':True,'transcript':heard}))
+    with pytest.raises(VoiceError):voice.transcribe(path)
+
+
+def test_partial_pcm_frame_rejected():
+    import struct
+    from src.voice import canonical_wav
+    blob=bytearray(wav_bytes()+b'1');struct.pack_into('<I',blob,4,len(blob)-8);struct.pack_into('<I',blob,40,3201)
+    with pytest.raises(VoiceError):canonical_wav(bytes(blob))
