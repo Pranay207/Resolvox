@@ -71,3 +71,20 @@ def test_ticket_failure_not_success(r,monkeypatch):
 
 def test_no_private_table_reader(r):
     with pytest.raises(ValueError): r.data.read('customers')
+
+
+@pytest.mark.parametrize('phrase',['My phone ends in 4533','My mobile ending is 4533','aakhri four digits 4533','आखिरी चार नंबर 4533'])
+def test_credentials_redacted_independent_of_session_state(r,phrase):
+    new=Agent(r);out=new.respond(phrase)
+    assert '4533' not in json.dumps(out,ensure_ascii=False)+repr(new.state.safe_history)
+    mixed=Agent(r);out=mixed.respond('Where is order 89782837? '+phrase)
+    assert '4533' not in json.dumps(out,ensure_ascii=False)+repr(mixed.state.safe_history)
+    assert out['verified']
+    out=mixed.respond(phrase)
+    assert '4533' not in json.dumps(out,ensure_ascii=False)+repr(mixed.state.safe_history)
+
+
+def test_phone_product_question_is_not_a_credential(r):
+    result=Agent(r).respond('I paid for my phone with UPI. How long will my refund take?')
+    assert result['intent']=='refund' and result['decision']=='answer' and '1 to 3' in result['answer']
+    assert result['transcript']!='[verification value redacted]'

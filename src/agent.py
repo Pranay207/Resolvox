@@ -40,7 +40,7 @@ class Agent:
     def respond(self,text:str) -> dict:
         start=time.perf_counter(); s=self.state; r=self.resources; s.turn+=1; s.language=language(text,s.language)
         intent=classify(text); oid=order_id(text); calls=[]
-        credential=bool(re.search(r'(last.?four|last.?4|digits|pincode|pin code|आख़िरी|अंतिम|अंक|पिनकोड)',text,re.I))
+        credential=bool(re.search(r'(last.?four|last.?4|digits|pincode|pin code|(?:phone|mobile|number).{0,18}(?:ends?|suffix|last|ending)|आख़?िरी|अंतिम|अंक|पिनकोड|aakhri|aakhiri|akhri)',text,re.I))
         proof=proof_value(text) if credential or (s.order_id and not s.order and not oid) else None
         safe_text=redact(text,credential_turn=bool(proof) or credential)
         # Authentication bypass, third-party disclosure and internal-note requests never reach the LLM/tools.
