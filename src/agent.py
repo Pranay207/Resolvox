@@ -130,6 +130,7 @@ class Agent:
                 _,trace=r.tools.lookup(oid); calls.append(trace)
                 if intent not in {'greeting','unknown'}: s.pending_intent=intent; s.pending_issue=safe_text
                 elif intent=='unknown' and re.search(r'status|track|shipment|parcel|arriv|where|when|कहाँ|कब',safe_text,re.I): s.pending_intent='delivery'; s.pending_issue=safe_text
+                elif re.search(r'issue|problem|concern|unresolved|समस्या',safe_text,re.I): s.pending_issue=safe_text
                 plan=self._verification_plan('ask')
                 # If caller supplies both ID and proof in one turn, accept the provided value, never disclose expected proof.
                 remainder=re.sub(r'\d{4}[ -]?\d{4}','',text)
@@ -145,6 +146,7 @@ class Agent:
             if intent=='unknown' and s.last_intent in {'refund','return'} and re.search(r'(how long|kitn|कितने|that|उस)',text,re.I): intent=s.last_intent
             if s.order is None and intent=='delivery' and re.search(r'(my order|where is|hasn.t arrived|मेरे ऑर्डर|मेरा ऑर्डर)',text,re.I):
                 s.pending_intent=intent; s.pending_issue=safe_text
+            elif s.order is None and intent in {'greeting','unknown'} and re.search(r'issue|problem|concern|unresolved|समस्या',safe_text,re.I): s.pending_issue=safe_text
             plan=grounded_plan(contextual_text,intent,s.order)
             if s.order and int(s.order.get('contacts_last_7_days') or 0)>=2 and intent in {'refund','delivery','damage','repeat'}:
                 plan=r.policy.plan(safe_text,'repeat',s.order)
@@ -160,6 +162,9 @@ class Agent:
                             plan=r.policy.plan(s.pending_issue,'repeat',s.order)
                     else:
                         plan=Plan('verification','answer','Verification succeeded. How can I help with this order?','सत्यापन सफल हुआ। इस ऑर्डर में क्या मदद चाहिए?','Verification successful. Order ke baare mein kya help chahiye?',['IDV-2'])
+                    if s.pending_issue and int(s.order.get('contacts_last_7_days') or 0)>=2:
+                        answer_query=s.pending_issue
+                        plan=r.policy.plan(s.pending_issue,'repeat',s.order)
                     auth_source_ids=['IDV-2']
                     s.pending_issue=''; s.pending_intent=''
                 else:

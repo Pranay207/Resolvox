@@ -34,6 +34,7 @@ def classify(text:str) -> str:
     t=text.lower()
     if has(t,r"\b(?:ignore|bypass|override)\b|system prompt|internal notes|another customer|someone else|person who ordered|other.*customer|दूसरे.*ग्राहक|निजी.*जानकारी") or has(t,r'(?:read|show|reveal|share|give|tell).{0,60}(?:(?:full|registered|account).{0,20}(?:phone|email|contact|address)|internal\s+notes)'): return 'privacy'
     if affirmed(t,r'\b(?:swell\w*|swollen|bulg\w*|puff\w*|burning|burnt|sparks?|smoke|injur\w*|overheat\w*)\b|battery.{0,15}\b(?:hot|heat)\b|आग|धुआ|चिंगारी|बैटरी.{0,15}फूल|jal.{0,10}raha'): return 'safety'
+    if has(t,r'\b(?:account activity|payment|transaction|charge|purchase|order)\b.{0,65}\b(?:i|we)\s+(?:(?:definitely|certainly|really)\s+)?(?:did not|didn.t)\s+(?:make|place|authori[sz]e|recogni[sz]e|approve)(?=\s*[.!?,;]|\s+(?:it|this|that|them)\b|$)'): return 'fraud'
     if has(t,r"\b(?:never\s+(?:placed|ordered)|didn.t\s+order|not\s+mine|fraud)\b|\b(?:did\s+not|didn.t)\s+(?:place|make)\s+(?:(?:this|the|an?|any|that|my)\s+)?(?:order|purchase|payment|transaction|charge)\b|\bunauthori[sz]ed\s+(?:activity|payment|order|charge|transaction|account|purchase)\b|(?:मैंने|मेरे).{0,30}(?:ऑर्डर|खरीद|भुगतान).{0,20}नहीं"): return 'fraud'
     if has(t,r'(legal action|consumer court|police|lawsuit|वकील|पुलिस|अदालत)'): return 'legal'
     if has(t,r'\b(?:human|representative|colleague|real person|speak to a person|talk to a person|agent please|insaan|insan)\b|\btransfer\s+me\b|इंसान|मानव|कर्मचारी'): return 'human'
