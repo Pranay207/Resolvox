@@ -37,5 +37,9 @@ def baseline(question:str,llm:LLM|None=None) -> dict:
     try:
         data=json.loads(client.complete(BASELINE_SYSTEM,question,json_mode=True)); answer=str(data.get('answer',''))
         if not answer: raise ValueError('Empty answer')
+        if not any(x in answer.lower() for x in ['ai assistant','ai support','artificial intelligence','एआई','कृत्रिम बुद्धिमत्ता']):
+            from .normalize import language
+            lang=language(question)
+            answer=({'en':"I'm ZentroMart's AI support assistant. ",'hi':'मैं ZentroMart की AI सहायता सहायक हूँ। ','hi-en':'Main ZentroMart ki AI support assistant hoon. '}[lang])+answer
         return {'answer':answer,'decision':data.get('decision','answer'),'intent':'baseline','retrieved_chunk_ids':[],'sources':[],'tool_calls':[],'provider':client.last_provider,'mode':'prompt_only'}
     except (LLMUnavailable,ValueError): return {'answer':'','decision':'error','intent':'baseline','retrieved_chunk_ids':[],'sources':[],'tool_calls':[],'mode':'blocked','error':'LLM unavailable or invalid JSON'}
