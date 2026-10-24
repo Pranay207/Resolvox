@@ -94,7 +94,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 12.71
+        "latency_ms": 39.64
       },
       "checks": {
         "passed": true,
@@ -108,7 +108,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 13.4
+      "latency_ms": 40.4
     },
     {
       "id": "PC002.2",
@@ -163,7 +163,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.33
+        "latency_ms": 1.29
       },
       "checks": {
         "passed": true,
@@ -177,7 +177,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.4
+      "latency_ms": 1.4
     },
     {
       "id": "PC002.3",
@@ -302,7 +302,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.32
+        "latency_ms": 0.59
       },
       "checks": {
         "passed": true,
@@ -316,7 +316,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.4
+      "latency_ms": 0.7
     },
     {
       "id": "PC002.4",
@@ -417,7 +417,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT43679efce2434c3a84148e4603fd4a75"
+              "ticket_id": "TKT6120432be79741f2a7609b709e3ba666"
             }
           }
         ],
@@ -426,7 +426,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 14.65
+        "latency_ms": 42.09
       },
       "checks": {
         "passed": true,
@@ -440,7 +440,7 @@
         "evidence_total": 3,
         "evidence_recall": 1.0
       },
-      "latency_ms": 15.0
+      "latency_ms": 43.0
     },
     {
       "id": "PC003.1",
@@ -525,7 +525,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 6.04
+        "latency_ms": 17.48
       },
       "checks": {
         "passed": true,
@@ -539,7 +539,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6.1
+      "latency_ms": 17.6
     },
     {
       "id": "PC003.2",
@@ -594,7 +594,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.16
+        "latency_ms": 0.38
       },
       "checks": {
         "passed": true,
@@ -608,7 +608,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC003.3",
@@ -724,7 +724,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.33
       },
       "checks": {
         "passed": true,
@@ -738,7 +738,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.4
     },
     {
       "id": "PC003.4",
@@ -863,9 +863,9 @@
         },
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 11.65
+        "latency_ms": 2747.57
       },
       "checks": {
         "passed": true,
@@ -879,7 +879,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 13.4
+      "latency_ms": 2751.2
     },
     {
       "id": "PC003.5",
@@ -984,9 +984,9 @@
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 12.07
+        "latency_ms": 2805.83
       },
       "checks": {
         "passed": true,
@@ -1000,7 +1000,7 @@
         "evidence_total": 3,
         "evidence_recall": 1.0
       },
-      "latency_ms": 12.2
+      "latency_ms": 2806.0
     },
     {
       "id": "PC004.1",
@@ -1085,7 +1085,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 6.15
+        "latency_ms": 9.4
       },
       "checks": {
         "passed": true,
@@ -1099,7 +1099,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6.2
+      "latency_ms": 9.5
     },
     {
       "id": "PC004.2",
@@ -1154,7 +1154,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.16
+        "latency_ms": 0.21
       },
       "checks": {
         "passed": true,
@@ -1168,7 +1168,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.3
     },
     {
       "id": "PC004.3",
@@ -1284,7 +1284,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.14
+        "latency_ms": 0.19
       },
       "checks": {
         "passed": true,
@@ -1412,9 +1412,9 @@
         },
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 11.21
+        "latency_ms": 5657.56
       },
       "checks": {
         "passed": true,
@@ -1428,7 +1428,7 @@
         "evidence_total": 3,
         "evidence_recall": 1.0
       },
-      "latency_ms": 11.5
+      "latency_ms": 5658.2
     },
     {
       "id": "PC004.5",
@@ -1533,9 +1533,9 @@
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 10.65
+        "latency_ms": 9083.66
       },
       "checks": {
         "passed": true,
@@ -1549,7 +1549,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 11.0
+      "latency_ms": 9084.3
     },
     {
       "id": "PC005.1",
@@ -1634,7 +1634,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 5.65
+        "latency_ms": 17.75
       },
       "checks": {
         "passed": true,
@@ -1648,7 +1648,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.7
+      "latency_ms": 17.9
     },
     {
       "id": "PC005.2",
@@ -1703,7 +1703,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.2
+        "latency_ms": 0.49
       },
       "checks": {
         "passed": true,
@@ -1717,7 +1717,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.3
+      "latency_ms": 0.7
     },
     {
       "id": "PC005.3",
@@ -1842,7 +1842,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.18
+        "latency_ms": 0.49
       },
       "checks": {
         "passed": true,
@@ -1856,7 +1856,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.6
     },
     {
       "id": "PC005.4",
@@ -1957,7 +1957,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT28bcfa87406f41eca08e79e676037be5"
+              "ticket_id": "TKT10327aa2835340b88dd1edc7239f4af1"
             }
           }
         ],
@@ -1966,7 +1966,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 9.13
+        "latency_ms": 22.82
       },
       "checks": {
         "passed": true,
@@ -1980,7 +1980,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 9.2
+      "latency_ms": 23.1
     },
     {
       "id": "PC006.1",
@@ -2065,7 +2065,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 6.0
+        "latency_ms": 17.04
       },
       "checks": {
         "passed": true,
@@ -2079,7 +2079,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6.1
+      "latency_ms": 17.2
     },
     {
       "id": "PC006.2",
@@ -2134,7 +2134,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.17
+        "latency_ms": 0.48
       },
       "checks": {
         "passed": true,
@@ -2148,7 +2148,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.6
     },
     {
       "id": "PC006.3",
@@ -2273,7 +2273,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.45
       },
       "checks": {
         "passed": true,
@@ -2287,7 +2287,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.6
     },
     {
       "id": "PC006.4",
@@ -2388,7 +2388,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTa5b7c4f9635c4767bb7be7a35cd6e791"
+              "ticket_id": "TKTbf9938e80ae94744a7a6ede1043d79df"
             }
           }
         ],
@@ -2397,7 +2397,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 6.98
+        "latency_ms": 20.43
       },
       "checks": {
         "passed": true,
@@ -2411,7 +2411,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 7.1
+      "latency_ms": 20.6
     },
     {
       "id": "PC007.1",
@@ -2496,7 +2496,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 5.56
+        "latency_ms": 14.78
       },
       "checks": {
         "passed": true,
@@ -2510,7 +2510,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.6
+      "latency_ms": 14.9
     },
     {
       "id": "PC007.2",
@@ -2565,7 +2565,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.41
       },
       "checks": {
         "passed": true,
@@ -2579,7 +2579,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC007.3",
@@ -2704,7 +2704,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.39
       },
       "checks": {
         "passed": true,
@@ -2718,7 +2718,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC007.4",
@@ -2784,7 +2784,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT4bfd7cbdd89d426d8c26753e8e8a3d04"
+              "ticket_id": "TKT655c0a88c2f14d84b9f08976ce4554fd"
             }
           }
         ],
@@ -2793,7 +2793,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 8.29
+        "latency_ms": 22.14
       },
       "checks": {
         "passed": true,
@@ -2807,7 +2807,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 8.4
+      "latency_ms": 22.3
     },
     {
       "id": "PC008.1",
@@ -2892,7 +2892,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 5.18
+        "latency_ms": 13.6
       },
       "checks": {
         "passed": true,
@@ -2906,7 +2906,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.2
+      "latency_ms": 13.7
     },
     {
       "id": "PC008.2",
@@ -2961,7 +2961,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.17
+        "latency_ms": 0.44
       },
       "checks": {
         "passed": true,
@@ -2975,7 +2975,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.6
     },
     {
       "id": "PC008.3",
@@ -3100,7 +3100,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.39
       },
       "checks": {
         "passed": true,
@@ -3114,7 +3114,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC008.4",
@@ -3215,7 +3215,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT0573f4a617654965b5f47db2ad9b9985"
+              "ticket_id": "TKT042cc5d2d2bd4fe7a3c3135beed009db"
             }
           }
         ],
@@ -3224,7 +3224,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 8.11
+        "latency_ms": 20.16
       },
       "checks": {
         "passed": true,
@@ -3238,7 +3238,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 8.2
+      "latency_ms": 20.3
     },
     {
       "id": "PC009.1",
@@ -3323,7 +3323,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 6.39
+        "latency_ms": 15.04
       },
       "checks": {
         "passed": true,
@@ -3337,7 +3337,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6.5
+      "latency_ms": 15.3
     },
     {
       "id": "PC009.2",
@@ -3392,7 +3392,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.16
+        "latency_ms": 0.44
       },
       "checks": {
         "passed": true,
@@ -3406,7 +3406,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.6
     },
     {
       "id": "PC009.3",
@@ -3513,7 +3513,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.14
+        "latency_ms": 0.39
       },
       "checks": {
         "passed": true,
@@ -3527,7 +3527,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC009.4",
@@ -3621,9 +3621,9 @@
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 10.95
+        "latency_ms": 7498.58
       },
       "checks": {
         "passed": true,
@@ -3637,7 +3637,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 11.0
+      "latency_ms": 7498.8
     },
     {
       "id": "PC010.1",
@@ -3722,7 +3722,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 5.84
+        "latency_ms": 12.76
       },
       "checks": {
         "passed": true,
@@ -3736,7 +3736,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.9
+      "latency_ms": 12.9
     },
     {
       "id": "PC010.2",
@@ -3791,7 +3791,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.16
+        "latency_ms": 0.38
       },
       "checks": {
         "passed": true,
@@ -3805,7 +3805,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC010.3",
@@ -3921,7 +3921,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.33
       },
       "checks": {
         "passed": true,
@@ -3935,7 +3935,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.4
     },
     {
       "id": "PC010.4",
@@ -4058,7 +4058,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT955e1dd645a9498ebf1efdc60bdf750a"
+              "ticket_id": "TKT824f2c35033d4307a7249d9de0ceeed4"
             }
           }
         ],
@@ -4070,7 +4070,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 9.98
+        "latency_ms": 24.85
       },
       "checks": {
         "passed": true,
@@ -4084,7 +4084,7 @@
         "evidence_total": 3,
         "evidence_recall": 1.0
       },
-      "latency_ms": 10.2
+      "latency_ms": 25.7
     },
     {
       "id": "PC011.1",
@@ -4180,7 +4180,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 9.02
+        "latency_ms": 27.03
       },
       "checks": {
         "passed": true,
@@ -4194,7 +4194,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 9.1
+      "latency_ms": 27.2
     },
     {
       "id": "PC011.2",
@@ -4249,7 +4249,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.19
+        "latency_ms": 0.49
       },
       "checks": {
         "passed": true,
@@ -4263,7 +4263,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.3
+      "latency_ms": 0.6
     },
     {
       "id": "PC011.3",
@@ -4402,9 +4402,9 @@
         },
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.74
+        "latency_ms": 2763.99
       },
       "checks": {
         "passed": true,
@@ -4418,14 +4418,14 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.8
+      "latency_ms": 2764.3
     },
     {
       "id": "PC011.4",
       "question": "And what if I'm not at home?",
       "prediction": {
         "transcript": "And what if I'm not at home?",
-        "answer": "The courier makes up to 3 delivery attempts; after a missed attempt, use the SMS to reschedule. After the third failed attempt, the parcel returns to the warehouse and prepaid refunds follow the refund policy.",
+        "answer": "After the third failed attempt, the parcel returns to the warehouse and prepaid refunds follow the refund policy. The courier makes up to 3 delivery attempts; after a missed attempt, use the SMS to reschedule.",
         "intent": "attempts",
         "decision": "answer",
         "language": "en",
@@ -4501,9 +4501,9 @@
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 10.21
+        "latency_ms": 4201.04
       },
       "checks": {
         "passed": true,
@@ -4517,7 +4517,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 10.3
+      "latency_ms": 4201.3
     },
     {
       "id": "PC012.1",
@@ -4613,7 +4613,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 7.11
+        "latency_ms": 23.0
       },
       "checks": {
         "passed": true,
@@ -4627,7 +4627,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 7.2
+      "latency_ms": 23.2
     },
     {
       "id": "PC012.2",
@@ -4682,7 +4682,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.2
+        "latency_ms": 0.44
       },
       "checks": {
         "passed": true,
@@ -4696,7 +4696,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.3
+      "latency_ms": 0.6
     },
     {
       "id": "PC012.3",
@@ -4835,9 +4835,9 @@
         },
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.73
+        "latency_ms": 1481.32
       },
       "checks": {
         "passed": true,
@@ -4851,14 +4851,14 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.8
+      "latency_ms": 1481.6
     },
     {
       "id": "PC012.4",
       "question": "And what if I'm not at home?",
       "prediction": {
         "transcript": "And what if I'm not at home?",
-        "answer": "The courier makes up to 3 delivery attempts; after a missed attempt, use the SMS to reschedule. After the third failed attempt, the parcel returns to the warehouse and prepaid refunds follow the refund policy.",
+        "answer": "After the third failed attempt, the parcel returns to the warehouse and prepaid refunds follow the refund policy. The courier makes up to 3 delivery attempts; after a missed attempt, use the SMS to reschedule.",
         "intent": "attempts",
         "decision": "answer",
         "language": "en",
@@ -4934,9 +4934,9 @@
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 9.76
+        "latency_ms": 24.84
       },
       "checks": {
         "passed": true,
@@ -4950,7 +4950,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 9.8
+      "latency_ms": 25.0
     },
     {
       "id": "PC013.1",
@@ -5035,7 +5035,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 5.33
+        "latency_ms": 13.69
       },
       "checks": {
         "passed": true,
@@ -5049,7 +5049,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.4
+      "latency_ms": 13.8
     },
     {
       "id": "PC013.2",
@@ -5104,7 +5104,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.32
       },
       "checks": {
         "passed": true,
@@ -5118,7 +5118,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.4
     },
     {
       "id": "PC013.3",
@@ -5225,7 +5225,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.14
+        "latency_ms": 0.33
       },
       "checks": {
         "passed": true,
@@ -5239,7 +5239,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC013.4",
@@ -5311,9 +5311,9 @@
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "deterministic_invalid_model_plan",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 10.02
+        "latency_ms": 3946.7
       },
       "checks": {
         "passed": true,
@@ -5327,7 +5327,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 10.1
+      "latency_ms": 3946.9
     },
     {
       "id": "PC013.5",
@@ -5401,9 +5401,9 @@
         },
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 6.36
+        "latency_ms": 2612.34
       },
       "checks": {
         "passed": true,
@@ -5417,7 +5417,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6.5
+      "latency_ms": 2612.6
     },
     {
       "id": "PC014.1",
@@ -5502,7 +5502,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 7.33
+        "latency_ms": 15.75
       },
       "checks": {
         "passed": true,
@@ -5516,7 +5516,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 7.4
+      "latency_ms": 15.9
     },
     {
       "id": "PC014.2",
@@ -5571,7 +5571,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.4
+        "latency_ms": 0.45
       },
       "checks": {
         "passed": true,
@@ -5585,7 +5585,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.5
+      "latency_ms": 0.6
     },
     {
       "id": "PC014.3",
@@ -5692,7 +5692,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.17
+        "latency_ms": 0.49
       },
       "checks": {
         "passed": true,
@@ -5706,7 +5706,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.6
     },
     {
       "id": "PC014.4",
@@ -5778,9 +5778,9 @@
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 9.51
+        "latency_ms": 2980.62
       },
       "checks": {
         "passed": true,
@@ -5794,7 +5794,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 9.6
+      "latency_ms": 2980.9
     },
     {
       "id": "PC014.5",
@@ -5868,9 +5868,9 @@
         },
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 8.14
+        "latency_ms": 2670.55
       },
       "checks": {
         "passed": true,
@@ -5884,7 +5884,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 8.3
+      "latency_ms": 2670.9
     },
     {
       "id": "PC015.1",
@@ -5969,7 +5969,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 5.45
+        "latency_ms": 15.99
       },
       "checks": {
         "passed": true,
@@ -5983,7 +5983,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.5
+      "latency_ms": 16.2
     },
     {
       "id": "PC015.2",
@@ -6038,7 +6038,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.43
       },
       "checks": {
         "passed": true,
@@ -6052,7 +6052,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC015.3",
@@ -6177,7 +6177,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.4
       },
       "checks": {
         "passed": true,
@@ -6191,7 +6191,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC015.4",
@@ -6276,7 +6276,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 6.91
+        "latency_ms": 17.08
       },
       "checks": {
         "passed": true,
@@ -6290,7 +6290,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 7.2
+      "latency_ms": 17.6
     },
     {
       "id": "PC016.1",
@@ -6375,7 +6375,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 6.47
+        "latency_ms": 15.41
       },
       "checks": {
         "passed": true,
@@ -6389,7 +6389,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6.5
+      "latency_ms": 15.6
     },
     {
       "id": "PC016.2",
@@ -6444,7 +6444,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.24
+        "latency_ms": 0.42
       },
       "checks": {
         "passed": true,
@@ -6458,7 +6458,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.3
+      "latency_ms": 0.5
     },
     {
       "id": "PC016.3",
@@ -6565,7 +6565,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.23
+        "latency_ms": 0.39
       },
       "checks": {
         "passed": true,
@@ -6579,7 +6579,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.3
+      "latency_ms": 0.5
     },
     {
       "id": "PC016.4",
@@ -6664,7 +6664,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 6.81
+        "latency_ms": 15.96
       },
       "checks": {
         "passed": true,
@@ -6678,7 +6678,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 7.0
+      "latency_ms": 16.5
     },
     {
       "id": "PC017.1",
@@ -6763,7 +6763,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 5.43
+        "latency_ms": 15.18
       },
       "checks": {
         "passed": true,
@@ -6777,7 +6777,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.5
+      "latency_ms": 15.3
     },
     {
       "id": "PC017.2",
@@ -6832,7 +6832,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.38
       },
       "checks": {
         "passed": true,
@@ -6846,7 +6846,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC017.3",
@@ -6971,7 +6971,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.16
+        "latency_ms": 0.4
       },
       "checks": {
         "passed": true,
@@ -6985,7 +6985,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC017.4",
@@ -7057,9 +7057,9 @@
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 6.94
+        "latency_ms": 3460.42
       },
       "checks": {
         "passed": true,
@@ -7073,7 +7073,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 7.1
+      "latency_ms": 3460.8
     },
     {
       "id": "PC018.1",
@@ -7158,7 +7158,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 5.2
+        "latency_ms": 15.42
       },
       "checks": {
         "passed": true,
@@ -7172,7 +7172,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.3
+      "latency_ms": 15.6
     },
     {
       "id": "PC018.2",
@@ -7227,7 +7227,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.41
       },
       "checks": {
         "passed": true,
@@ -7241,7 +7241,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC018.3",
@@ -7366,7 +7366,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.16
+        "latency_ms": 0.41
       },
       "checks": {
         "passed": true,
@@ -7380,7 +7380,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC018.4",
@@ -7452,9 +7452,9 @@
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 5.93
+        "latency_ms": 19.89
       },
       "checks": {
         "passed": true,
@@ -7468,7 +7468,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6.1
+      "latency_ms": 20.3
     },
     {
       "id": "PC019.1",
@@ -7553,7 +7553,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 4.91
+        "latency_ms": 15.56
       },
       "checks": {
         "passed": true,
@@ -7567,7 +7567,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.0
+      "latency_ms": 15.7
     },
     {
       "id": "PC019.2",
@@ -7622,7 +7622,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.42
       },
       "checks": {
         "passed": true,
@@ -7636,7 +7636,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC019.3",
@@ -7743,7 +7743,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.13
+        "latency_ms": 0.33
       },
       "checks": {
         "passed": true,
@@ -7757,7 +7757,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.4
     },
     {
       "id": "PC019.4",
@@ -7842,7 +7842,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 7.29
+        "latency_ms": 21.88
       },
       "checks": {
         "passed": true,
@@ -7856,7 +7856,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 7.6
+      "latency_ms": 22.9
     },
     {
       "id": "PC020.1",
@@ -7941,7 +7941,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 5.38
+        "latency_ms": 15.04
       },
       "checks": {
         "passed": true,
@@ -7955,7 +7955,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.4
+      "latency_ms": 15.2
     },
     {
       "id": "PC020.2",
@@ -8010,7 +8010,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.2
+        "latency_ms": 0.47
       },
       "checks": {
         "passed": true,
@@ -8024,7 +8024,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.7
     },
     {
       "id": "PC020.3",
@@ -8149,7 +8149,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.17
+        "latency_ms": 0.43
       },
       "checks": {
         "passed": true,
@@ -8163,7 +8163,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC020.4",
@@ -8248,7 +8248,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 6.23
+        "latency_ms": 19.46
       },
       "checks": {
         "passed": true,
@@ -8262,7 +8262,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6.5
+      "latency_ms": 20.1
     },
     {
       "id": "PC021.1",
@@ -8347,7 +8347,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 5.76
+        "latency_ms": 16.12
       },
       "checks": {
         "passed": true,
@@ -8361,7 +8361,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.8
+      "latency_ms": 16.3
     },
     {
       "id": "PC021.2",
@@ -8416,7 +8416,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.18
+        "latency_ms": 0.39
       },
       "checks": {
         "passed": true,
@@ -8430,7 +8430,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.3
+      "latency_ms": 0.6
     },
     {
       "id": "PC021.3",
@@ -8475,7 +8475,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.18
+        "latency_ms": 0.39
       },
       "checks": {
         "passed": true,
@@ -8489,7 +8489,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.3
+      "latency_ms": 0.6
     },
     {
       "id": "PC021.4",
@@ -8545,7 +8545,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.18
+        "latency_ms": 0.55
       },
       "checks": {
         "passed": true,
@@ -8559,7 +8559,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.5
+      "latency_ms": 1.5
     },
     {
       "id": "PC022.1",
@@ -8644,7 +8644,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 5.6
+        "latency_ms": 19.66
       },
       "checks": {
         "passed": true,
@@ -8658,7 +8658,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.7
+      "latency_ms": 19.8
     },
     {
       "id": "PC022.2",
@@ -8713,7 +8713,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.35
       },
       "checks": {
         "passed": true,
@@ -8727,7 +8727,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC022.3",
@@ -8772,7 +8772,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.13
+        "latency_ms": 0.32
       },
       "checks": {
         "passed": true,
@@ -8786,7 +8786,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC022.4",
@@ -8842,7 +8842,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.46
       },
       "checks": {
         "passed": true,
@@ -8856,7 +8856,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.4
+      "latency_ms": 1.1
     },
     {
       "id": "PC023.1",
@@ -8941,7 +8941,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 5.22
+        "latency_ms": 11.4
       },
       "checks": {
         "passed": true,
@@ -8955,7 +8955,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.3
+      "latency_ms": 11.5
     },
     {
       "id": "PC023.2",
@@ -9010,7 +9010,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.18
+        "latency_ms": 0.47
       },
       "checks": {
         "passed": true,
@@ -9024,7 +9024,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.6
     },
     {
       "id": "PC023.3",
@@ -9140,7 +9140,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.22
+        "latency_ms": 0.37
       },
       "checks": {
         "passed": true,
@@ -9154,7 +9154,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.3
+      "latency_ms": 0.5
     },
     {
       "id": "PC023.4",
@@ -9226,9 +9226,9 @@
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 9.0
+        "latency_ms": 4141.38
       },
       "checks": {
         "passed": true,
@@ -9242,7 +9242,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 9.2
+      "latency_ms": 4141.8
     },
     {
       "id": "PC024.1",
@@ -9327,7 +9327,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 5.23
+        "latency_ms": 15.27
       },
       "checks": {
         "passed": true,
@@ -9341,7 +9341,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.3
+      "latency_ms": 15.4
     },
     {
       "id": "PC024.2",
@@ -9396,7 +9396,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.18
+        "latency_ms": 0.45
       },
       "checks": {
         "passed": true,
@@ -9410,7 +9410,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.6
     },
     {
       "id": "PC024.3",
@@ -9517,7 +9517,7 @@
         "reference_date": "2026-10-20",
         "composition": "deterministic",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 0.15
+        "latency_ms": 0.44
       },
       "checks": {
         "passed": true,
@@ -9531,7 +9531,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 0.2
+      "latency_ms": 0.5
     },
     {
       "id": "PC024.4",
@@ -9603,9 +9603,9 @@
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "deterministic",
+        "composition": "llm_sentence_composition",
         "retrieval_mode": "multilingual MiniLM ONNX int8",
-        "latency_ms": 7.91
+        "latency_ms": 26.16
       },
       "checks": {
         "passed": true,
@@ -9619,7 +9619,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 8.0
+      "latency_ms": 26.4
     }
   ]
 }

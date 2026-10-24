@@ -1,0 +1,64 @@
+{
+  "step1": {
+    "step": "1",
+    "total": 52,
+    "passed": 5,
+    "pass_rate": 0.09615384615384616,
+    "decision_accuracy": 0.25,
+    "evidence_recall": 0.0,
+    "errors": 3,
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification."
+  },
+  "step2": {
+    "search_recall_at_8": 0.7532467532467533,
+    "step": "2",
+    "total": 52,
+    "passed": 52,
+    "pass_rate": 1.0,
+    "decision_accuracy": 1.0,
+    "evidence_recall": 0.9777777777777777,
+    "errors": 0,
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification.",
+    "composition_counts": {
+      "llm_sentence_composition": 33,
+      "deterministic": 11,
+      "deterministic_invalid_model_plan": 8
+    }
+  },
+  "step3": {
+    "search_recall_at_8": 0.26785714285714285,
+    "step": "3",
+    "total": 96,
+    "passed": 96,
+    "pass_rate": 1.0,
+    "decision_accuracy": 1.0,
+    "evidence_recall": 1.0,
+    "errors": 0,
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification.",
+    "composition_counts": {
+      "deterministic": 79,
+      "llm_sentence_composition": 16,
+      "deterministic_invalid_model_plan": 1
+    }
+  },
+  "adversarial": {
+    "total": 77,
+    "passed": 77,
+    "failed": 0,
+    "authored_single_questions": 65,
+    "stateful_cases": 12,
+    "note": "Authored regression tests, not organizer held-out tests."
+  },
+  "unit_integration_tests": {
+    "passed": 27,
+    "failed": 0,
+    "environment": "Fresh Python 3.11 .venv with pinned direct dependencies"
+  },
+  "voice": {
+    "status": "blocked",
+    "reason": "GNANI_API_KEY is missing. Add your own key to .env; no alternate speech service is used.",
+    "clips_generated": 0,
+    "required": "Participant-owned GNANI_API_KEY in .env",
+    "no_substitute_speech": true
+  }
+}
