@@ -1,0 +1,22 @@
+[
+  {
+    "id": "IDV-1",
+    "text": "## [IDV-1] When verification is needed\nBefore sharing anything about a specific order (status, items, address, amounts, refund details), verify the customer. General policy questions need no verification.",
+    "file": "agent_identity_verification.md",
+    "doc_type": "agent_guide",
+    "status": "current",
+    "effective_from": "2026-07-01",
+    "version": "1.2",
+    "title": "When verification is needed"
+  },
+  {
+    "id": "IDV-3",
+    "text": "## [IDV-3] If verification fails\nAllow one retry. If it fails again, do not share order details. Offer general policy help and suggest the customer contact support from the registered phone number.",
+    "file": "agent_identity_verification.md",
+    "doc_type": "agent_guide",
+    "status": "current",
+    "effective_from": "2026-07-01",
+    "version": "1.2",
+    "title": "If verification fails"
+  }
+]

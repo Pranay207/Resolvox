@@ -25,7 +25,7 @@ def mp4_duration(path:Path):
 def status():
     blockers=[];voice_path=ROOT/'sample_outputs/voice_validation.json'
     voice=json.loads(voice_path.read_text(encoding='utf-8')) if voice_path.exists() else {}
-    if voice.get('status')!='tested' or voice.get('batch',{}).get('failed',1) or voice.get('batch',{}).get('total',0)<5:blockers.append('Live Gnani validation incomplete: supply GNANI_API_KEY in .env and run generate_voice_samples.py')
+    if voice.get('status')!='tested' or voice.get('semantic_validation',{}).get('failed',1) or voice.get('batch',{}).get('failed',1) or voice.get('batch',{}).get('total',0)<5:blockers.append('Live Gnani validation incomplete: configure GNANI_API_KEY locally and run generate_voice_samples.py with semantic checks')
     duration=mp4_duration(ROOT/'demo.mp4')
     if duration is None:blockers.append('User-recorded demo.mp4 missing or duration unverified')
     elif duration>120:blockers.append('demo.mp4 exceeds the 120-second brief limit')

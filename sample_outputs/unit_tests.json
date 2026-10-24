@@ -1,0 +1,6 @@
+{
+  "passed": 41,
+  "failed": 0,
+  "environment": "Python 3.11 clean .venv",
+  "command": ".venv/Scripts/python.exe -m pytest -q"
+}

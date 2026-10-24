@@ -1,0 +1,115 @@
+{
+  "transcript": "mera net banking refund kab aayega",
+  "answer": "Main ZentroMart ki AI support assistant hoon. net banking refund initiation ke baad 3 to 5 business days; Sunday aur warehouse holidays exclude. Return refund QC ke baad pickup se 2 business days mein start; Plus ke liye pickup par.",
+  "intent": "refund",
+  "decision": "answer",
+  "language": "hi-en",
+  "retrieved_chunk_ids": [
+    "STY-1",
+    "REF-2",
+    "KB-00.1",
+    "RET-7",
+    "PLS-2"
+  ],
+  "sources": [
+    {
+      "id": "STY-1",
+      "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+      "file": "agent_conversation_style.md",
+      "doc_type": "agent_guide",
+      "status": "current",
+      "effective_from": "2026-07-01",
+      "version": "1.1",
+      "title": "Opening"
+    },
+    {
+      "id": "REF-2",
+      "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+      "file": "pol_refunds.md",
+      "doc_type": "policy",
+      "status": "current",
+      "effective_from": "2026-06-15",
+      "version": "2.1",
+      "title": "How long refunds take after initiation"
+    },
+    {
+      "id": "KB-00.1",
+      "text": "## [KB-00.1] Which document wins\nWhen two documents disagree, follow this order of precedence:\n\n1. **Policy documents** (doc_type: policy) with status `current`.\n2. **Agent guides** (doc_type: agent_guide).\n3. **Help articles** (doc_type: help).\n4. **FAQs** (doc_type: faq).\n5. **Marketing pages** (doc_type: marketing). These describe benefits in general terms and never override a policy.\n\n\nDocuments marked `status: superseded` are kept for reference only. They apply only to the cases their successor document says they still cover.",
+      "file": "00_about_this_knowledge_base.md",
+      "doc_type": "meta",
+      "status": "current",
+      "effective_from": "2026-08-01",
+      "version": "1.2",
+      "title": "Which document wins"
+    },
+    {
+      "id": "RET-7",
+      "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy.",
+      "file": "pol_returns_v4.md",
+      "doc_type": "policy",
+      "status": "current",
+      "effective_from": "2026-08-01",
+      "version": "4.0",
+      "title": "After pickup"
+    },
+    {
+      "id": "PLS-2",
+      "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+      "file": "pol_plus_membership.md",
+      "doc_type": "policy",
+      "status": "current",
+      "effective_from": "2026-01-01",
+      "version": "1.0",
+      "title": "Benefits"
+    }
+  ],
+  "retrieval_candidates": [
+    {
+      "id": "PAY-1",
+      "score": 0.056098,
+      "dense_score": 0.5136
+    },
+    {
+      "id": "REF-3",
+      "score": 0.05375,
+      "dense_score": 0.5474
+    },
+    {
+      "id": "RET-7",
+      "score": 0.053517,
+      "dense_score": 0.4959
+    },
+    {
+      "id": "REF-1",
+      "score": 0.052937,
+      "dense_score": 0.4985
+    },
+    {
+      "id": "PAY-3",
+      "score": 0.050024,
+      "dense_score": 0.4948
+    },
+    {
+      "id": "PAY-4",
+      "score": 0.047428,
+      "dense_score": 0.4591
+    },
+    {
+      "id": "REF-2",
+      "score": 0.046442,
+      "dense_score": 0.3426
+    },
+    {
+      "id": "CPN-3",
+      "score": 0.045536,
+      "dense_score": 0.4855
+    }
+  ],
+  "tool_calls": [],
+  "facts": {},
+  "verified": false,
+  "reference_date": "2026-10-20",
+  "composition": "llm_sentence_composition",
+  "retrieval_mode": "multilingual MiniLM ONNX int8",
+  "latency_ms": 3531.89
+}

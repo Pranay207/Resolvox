@@ -1,0 +1,42 @@
+{
+  "transcript": "[verification value redacted]",
+  "answer": "That did not match. Please try the last 4 digits of your registered phone again.",
+  "intent": "verification",
+  "decision": "clarify",
+  "language": "en",
+  "retrieved_chunk_ids": [
+    "IDV-3"
+  ],
+  "sources": [
+    {
+      "id": "IDV-3",
+      "text": "## [IDV-3] If verification fails\nAllow one retry. If it fails again, do not share order details. Offer general policy help and suggest the customer contact support from the registered phone number.",
+      "file": "agent_identity_verification.md",
+      "doc_type": "agent_guide",
+      "status": "current",
+      "effective_from": "2026-07-01",
+      "version": "1.2",
+      "title": "If verification fails"
+    }
+  ],
+  "retrieval_candidates": [],
+  "tool_calls": [
+    {
+      "name": "lookup_order",
+      "arguments": {
+        "order_id": "89782837",
+        "verification_value": "[REDACTED]"
+      },
+      "result": {
+        "verified": false,
+        "verification_required": true
+      }
+    }
+  ],
+  "facts": {},
+  "verified": false,
+  "reference_date": "2026-10-20",
+  "composition": "deterministic",
+  "retrieval_mode": "multilingual MiniLM ONNX int8",
+  "latency_ms": 0.25
+}

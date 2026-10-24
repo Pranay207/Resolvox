@@ -1,0 +1,32 @@
+[
+  {
+    "id": "STY-1",
+    "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+    "file": "agent_conversation_style.md",
+    "doc_type": "agent_guide",
+    "status": "current",
+    "effective_from": "2026-07-01",
+    "version": "1.1",
+    "title": "Opening"
+  },
+  {
+    "id": "IDV-1",
+    "text": "## [IDV-1] When verification is needed\nBefore sharing anything about a specific order (status, items, address, amounts, refund details), verify the customer. General policy questions need no verification.",
+    "file": "agent_identity_verification.md",
+    "doc_type": "agent_guide",
+    "status": "current",
+    "effective_from": "2026-07-01",
+    "version": "1.2",
+    "title": "When verification is needed"
+  },
+  {
+    "id": "IDV-2",
+    "text": "## [IDV-2] How to verify\nAsk for the order ID, then ask for **one** of: the last 4 digits of the registered phone number, or the delivery pincode for that order. Compare with the `phone_last4` or `delivery_pincode` fields from order lookup.",
+    "file": "agent_identity_verification.md",
+    "doc_type": "agent_guide",
+    "status": "current",
+    "effective_from": "2026-07-01",
+    "version": "1.2",
+    "title": "How to verify"
+  }
+]

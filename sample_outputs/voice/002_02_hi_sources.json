@@ -1,0 +1,32 @@
+[
+  {
+    "id": "STY-1",
+    "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+    "file": "agent_conversation_style.md",
+    "doc_type": "agent_guide",
+    "status": "current",
+    "effective_from": "2026-07-01",
+    "version": "1.1",
+    "title": "Opening"
+  },
+  {
+    "id": "DWM-1",
+    "text": "## [DWM-1] Reporting window\nReport a damaged, defective, expired, wrong or missing item within **48 hours of delivery**, with photos of the item and the packaging. This applies to every category, including grocery and other non-returnable items.",
+    "file": "pol_damaged_wrong_missing.md",
+    "doc_type": "policy",
+    "status": "current",
+    "effective_from": "2026-05-01",
+    "version": "1.3",
+    "title": "Reporting window"
+  },
+  {
+    "id": "DWM-2",
+    "text": "## [DWM-2] Resolution\nAfter verification the customer gets a free replacement or a full refund, including delivery fees. No reverse pickup fee applies.",
+    "file": "pol_damaged_wrong_missing.md",
+    "doc_type": "policy",
+    "status": "current",
+    "effective_from": "2026-05-01",
+    "version": "1.3",
+    "title": "Resolution"
+  }
+]
