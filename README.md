@@ -8,9 +8,9 @@ Built for From Tokens to Transformers, Consulting & Analytics Club, IIT Guwahati
 
 ## Current status
 
-The text/rules pipeline, multilingual dense retrieval, real Ollama baseline/composition, tests and Streamlit text demo run locally. See `sample_outputs/` for generated results. Mechanical practice checks are not organizer scores or a guarantee of hidden-test performance.
+The text/rules pipeline, multilingual dense retrieval, real Ollama baseline/composition and Streamlit text demo run locally. All 41 pytest tests pass. Six real Gnani voice round trips passed both audio and semantic checks using Gnani TTS-generated inputs. See `sample_outputs/` for generated results. Mechanical practice checks are not organizer scores or a guarantee of hidden-test performance.
 
-**Two external items remain:** add your own `GNANI_API_KEY` and run real speech validation, then record your own <=2-minute `demo.mp4`. No alternate/fake speech is supplied. `SUBMISSION_STATUS.json` and `BRIEF_CHECKLIST.md` record the exact release status. The ZIP is a draft until both items are present and speech succeeds.
+**One external item remains:** record your own `demo.mp4`, maximum 120 seconds. The participant-owned Gnani key is configured locally and ignored by Git; there is no missing-key blocker. No alternate/fake speech is supplied. `SUBMISSION_STATUS.json` and `BRIEF_CHECKLIST.md` record the exact release status. The ZIP remains a draft until the user-recorded video is included.
 
 ## Quick start (Windows PowerShell)
 
@@ -80,7 +80,9 @@ Steps 2/3 default to offline deterministic rules for fast checks; `--live` adds 
 
 The scorer tests decisions, required facts, forbidden claims and expected tool names; it cannot certify semantic correctness. Evidence recall on used sources and independent hybrid-search recall@8 are reported separately. Neither should be presented as the organizer's score. Practice-derived expectations are used only by evaluation, never the running agent/index.
 
-`generate_voice_samples.py` creates six genuine Gnani clips: English, Hindi, Hinglish, spoken order ID, and two failed verification turns; then runs the real batch. Without a key it writes an explicit blocked status and exits 2. Unit-test fake clients test failure handling only and are never claimed as live voice results.
+`generate_voice_samples.py` creates six genuine Gnani input clips and runs Gnani STT -> the same support agent -> Gnani TTS replies. The latest run passed all 6 audio checks and all 6 semantic checks: English refund, Hindi damage, Hinglish refund, spoken order ID, first wrong-proof clarification and second wrong-proof refusal. Verification-proof redaction was checked. Inputs are synthetic Gnani TTS, not human recordings; human speech robustness and subjective listening remain unverified. Unit-test fake clients test failure handling only and are never claimed as live voice results.
+
+To reuse the existing Gnani input clips while rerunning real STT, agent checks and reply TTS, run `.\.venv\Scripts\python.exe generate_voice_samples.py --reuse-inputs`. Validation uses the organizer CLI's LLM-composition path by default; add `--offline-rules` to use deterministic sentence plans. The adapter finalizes provider WAV headers with unknown `0xffffffff` RIFF/data lengths while preserving identical PCM samples, rejects truncated/incomplete WAV samples and null, blank or non-string STT transcripts, and redacts verification phrases without masking ordinary phone-product questions.
 
 ## Architecture and privacy
 

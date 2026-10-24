@@ -14,13 +14,13 @@ One support agent, four build steps
 | 1 - Baseline | Actual Ollama API call; role/limits; AI disclosure; no documents or order access. |
 | 2 - Grounding | Section-ID KB index; BM25 + multilingual MiniLM dense search; authority-aware ranking; traceable policy plans and abstention. |
 | 3 - Conversation | Session state, proof-gated supplied tools, date/eligibility rules, refusals and successful-ticket-only handover. |
-| 4 - Voice | Official Gnani REST STT/TTS wrapper, spoken-number handling and fault-isolated audio-folder CLI. Live validation requires a key. |
+| 4 - Voice | Official Gnani REST STT/TTS wrapper, spoken-number handling and fault-isolated audio-folder CLI. Six synthetic voice round trips and semantic checks verified. |
 
 Observed local results
 
 Baseline: 5/52 mechanical checks. Grounded: 52/52. Conversations: 96/96 turns. Original adversarial/stateful checks: 77/77. These are transparent local regression checks, not organizer scores or proof of hidden-test accuracy.
 
-Release status: text and local LLM paths verified; live Gnani speech is blocked by missing participant credentials. The user-recorded demo remains outstanding. This is not yet a fully verified final submission.
+Release status: text, local LLM composition and six real Gnani speech round trips verified. Synthetic audio does not establish human-speech robustness. The user-recorded demo remains outstanding.
 
 
 ---
@@ -74,6 +74,8 @@ Product aliases initially missed a swimsuit because of the hyphenated product na
 
 Broad hybrid search alone initially recalled 44.2% of single-question gold KB sections at eight candidates. Removing filler words and expanding intent vocabulary raised it to the figure reported above. Used-source recall is higher because deterministic policy routing separately retrieves governing sections. Conversation search recall includes many non-search authentication/greeting turns, so it is not directly comparable to standalone search quality.
 
+Live Gnani testing exposed stream-style WAV headers with unknown 0xffffffff lengths: short clips appeared longer than the STT limit. Header finalization now preserves identical PCM samples while recording actual lengths. Invalid transcripts and incomplete PCM frames are rejected; extra privacy tests cover spoken phone-ending phrases without masking ordinary product questions.
+
 Original tests also exposed routing bugs for unused beauty items and delivery-address changes. Added corpus-wide coverage catches these alongside proof lockout, order switching, safety, fraud, unsupported services, historical returns, festive boundaries and payment calendars. All raw generated results remain in sample_outputs/.
 
 
@@ -93,13 +95,15 @@ Gnani is the only STT/TTS provider. The REST adapter uses /stt/v3 and /api/v1/tt
 
 The batch runner isolates malformed clips, records errors in manifest.json, and attempts a real Gnani spoken recovery. It never creates fake speech. Successful clips save redacted transcript/decision/tool JSON, text, source chunks and reply WAV. Session-named filenames preserve multi-turn calls; unrelated files remain independent.
 
-Live speech status: blocked. No participant key was available, so zero real test clips were generated. generate_voice_samples.py is ready to create six actual Gnani clips and run them end to end once the key is supplied. Mock HTTP/WAV tests validate engineering behavior only; they do not verify provider account access, speech accuracy, native pronunciation or voice latency.
+Live speech status: tested. Six genuine Gnani TTS inputs passed STT, agent and spoken-reply checks: English UPI, Hindi damage, Hinglish net banking, spoken order ID, first wrong-proof clarification and second wrong-proof refusal. All six input-understanding, semantic, privacy and nonempty-speech checks passed. Live LLM composition is enabled for answer turns; verification gates remain deterministic.
+
+The inputs are synthetic TTS, not human recordings. Human accent/noise robustness and subjective pronunciation are still unverified. The measured pipeline uses only Gnani speech services; 41 automated engineering tests also pass. generate_voice_samples.py reproduces the live checks; --reuse-inputs reuses the same genuine input clips without inventing speech.
 
 Run and release
 
 Repository: https://github.com/Pranay207/ESD. One-command Windows setup: powershell -File setup.ps1. Organizer CLI: python run.py --audio_dir <in> --out_dir <out>. Run eval_step1.py, eval_step2.py --live, eval_step3.py --live, eval_adversarial.py, and python -m pytest -q from the clean .venv. requirements-lock.txt captures the tested Windows dependency set; setup.py pins the model revision.
 
-Before submitting: supply GNANI_API_KEY in .env, rerun generate_voice_samples.py, record demo.mp4 within 120 seconds using DEMO_SCRIPT.md, regenerate the report and package. package_submission.py excludes the dataset, secrets, environments and model caches and marks remaining blockers. The brief allows at most four report pages and two video minutes.
+Before submitting: keep GNANI_API_KEY only in the ignored local .env, record demo.mp4 within 120 seconds using DEMO_SCRIPT.md, and regenerate the package. Rerun generate_voice_samples.py after speech-related changes. package_submission.py excludes the dataset, secrets, environments and model caches and marks remaining blockers. The brief allows at most four report pages and two video minutes.
 
 Limitations and useful next work
 

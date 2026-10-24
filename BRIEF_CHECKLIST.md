@@ -11,8 +11,8 @@ Source of truth: voiceops_2026_capstone_brief.pdf, all 14 pages reviewed. All wo
 - [x] Verify caller before disclosing order information; one retry; no proof values or private contact fields in traces.
 - [x] Reference date 20 October 2026; Mon-Sat business days excluding holidays; calendar-day returns; current policy takes precedence.
 - [x] Step 4 adapter implementation and mocked failure checks: Gnani STT -> SAME agent -> Gnani TTS; specify served TTS model; handle empty/unclear audio.
-- [ ] Actual Gnani end-to-end verification with at least 5 test clips; no substitute speech provider.
-- [x] Unit tests, 40+ original adversarial cases, full practice evaluations, clean environment reproduction.
+- [x] Actual Gnani end-to-end verification: 6 Gnani TTS-generated input clips, 6 successful audio round trips and 6 passing semantic checks; no substitute speech provider. Human speech robustness and subjective listening remain unverified.
+- [x] 41 pytest tests, 40+ original adversarial cases, full practice evaluations, clean environment reproduction.
 
 ## Rubric (100)
 | Criterion | Marks |
@@ -28,7 +28,7 @@ Source of truth: voiceops_2026_capstone_brief.pdf, all 14 pages reviewed. All wo
 ## Submission (brief page 14)
 - [x] Public Git repository; README with public URL, installation and exact run command.
 - [x] Secret-free .env.example; dependencies and run.py (equivalent stacks allowed).
-- [x] One command accepts audio folder; validated JSON/text/source output and mock WAV behavior. Real Gnani audio still depends on the unchecked live requirement above.
+- [x] One command accepts audio folder; validated JSON/text/source output and real Gnani reply WAVs. Six synthetic-input voice cases passed audio and semantic checks.
 - [x] Report: report.pdf, MAXIMUM 4 pages; each step, baseline vs grounded scores, failures, future improvements, bonuses.
 - [ ] Demo: demo.mp4, MAXIMUM 2 minutes; documented answer + follow-up + handover or unknown answer. User records video.
 - [ ] Final-ready team_name_voiceops.zip contains README.md, .env.example, requirements.txt, run.py, src/, report.pdf, demo.mp4, sample_outputs/.
@@ -47,12 +47,14 @@ Source of truth: voiceops_2026_capstone_brief.pdf, all 14 pages reviewed. All wo
 ## Final verification evidence
 - Public repository connected and feature-stage commits pushed to https://github.com/Pranay207/ESD .
 - Clean `.venv` created from Python 3.11; pinned direct dependencies installed; transitives captured in requirements-lock.txt.
-- 27 unit/integration/UI tests pass.
+- 41 unit/integration/UI tests pass, including WAV stream finalization, invalid-transcript rejection and credential phrase redaction.
 - Real Ollama baseline: 5/52 mechanical passes, 3 malformed-output errors retained honestly.
 - Grounded live-composition run: 52/52 mechanical passes; 75.3% independent search recall@8; 97.8% used-source evidence recall.
 - Live-composition conversation run: 96/96 turns; source evidence recall 100%.
 - 65 original single questions + 12 stateful checks: 77/77 pass.
 - Report rendered and all four pages inspected visually.
-- BLOCKED: GNANI_API_KEY missing; no live clips or voice accuracy results fabricated.
-- USER ACTION: record demo.mp4 <=120 seconds after real speech validation.
-- Package is deliberately DRAFT until those two external deliverables are complete.
+- Live Gnani validation: 6/6 audio round trips and 6/6 semantic checks pass for English refund, Hindi damage, Hinglish refund, spoken order ID and two wrong-proof turns ending in refusal; proof redaction verified. Inputs are Gnani TTS-generated, not human recordings.
+- Provider `0xffffffff` RIFF/data lengths are finalized without changing PCM; null/blank/non-string STT is rejected. The participant-owned key is configured locally and ignored by Git; no missing-key blocker remains.
+- Human speech robustness and subjective listening remain unverified.
+- USER ACTION: record the still-missing demo.mp4, maximum 120 seconds.
+- Package is deliberately DRAFT until the user-recorded demo is included.
