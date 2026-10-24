@@ -31,9 +31,13 @@ def number_words(text:str) -> str:
     flush(); result=' '.join(out)
     return re.sub(r'\b(ele|fsh|hom|bks|inr|bea|gro|dig)\s*-?\s*(\d{4})\b',lambda m:m[1].upper()+'-'+m[2],result,flags=re.I)
 def order_id(text:str) -> str|None:
+    literal=re.search(r'(?<!\d)(\d{4})[\s-]*(\d{4})(?!\d)',ascii_digits(text))
+    if literal: return literal[1]+literal[2]
     m=re.search(r'(?<!\d)(\d{4})[\s-]*(\d{4})(?!\d)',number_words(text))
     return m[1]+m[2] if m else None
 def proof_value(text:str) -> str|None:
+    literal=[v for v in re.findall(r'(?<!\d)\d{4,6}(?!\d)',ascii_digits(text)) if len(v) in {4,6} and v!='2026']
+    if len(literal)==1: return literal[0]
     vals=[v for v in re.findall(r'(?<!\d)\d{4,6}(?!\d)',number_words(text)) if len(v) in {4,6} and v!='2026']
     return vals[0] if len(vals)==1 else None
 def redact(text:str,proof:str|None=None,credential_turn:bool=False) -> str:
