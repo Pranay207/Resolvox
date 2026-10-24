@@ -196,7 +196,7 @@ class Agent:
         answer=plan.text(s.language) if supported else abstention(s.language)
         composition='deterministic_guardrail' if guard else ('evidence_validated_rules' if supported else 'abstained_missing_evidence')
         validation_error=None; llm_ms=0.0
-        if self.compose and plan.decision=='answer' and not guard:
+        if self.compose and plan.decision=='answer' and not guard and plan.intent!='unsupported':
             # Select only actual query results; never append a planner's source.
             selected=sources if supported else ([x for x in pool if x.get('doc_type')=='catalog']+[x for x in pool if x.get('doc_type') in {'policy','help','agent_guide'}][:3])
             if selected:

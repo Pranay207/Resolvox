@@ -2,7 +2,7 @@
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
-import csv,json,re,time
+import csv,json,re,time,hashlib,os
 from .config import ROOT,dataset_dir
 from .normalize import redact,ascii_digits
 
@@ -10,7 +10,7 @@ def rows(name:str) -> list[dict]:
     with (dataset_dir()/'practice'/name).open(encoding='utf-8-sig',newline='') as f: return list(csv.DictReader(f))
 
 def canonical(text:str) -> str:
-    text=ascii_digits(text).lower().replace('?','').replace(',','')
+    text=ascii_digits(text).lower().replace('₹','').replace(',','')
     months={'जनवरी': 'January', 'फरवरी': 'February', 'मार्च': 'March', 'अप्रैल': 'April', 'मई': 'May', 'जून': 'June', 'जुलाई': 'July', 'अगस्त': 'August', 'सितंबर': 'September', 'अक्टूबर': 'October', 'नवंबर': 'November', 'दिसंबर': 'December'}
     for a,b in months.items(): text=text.replace(a,b.lower())
     def date_replace(m):
@@ -46,10 +46,26 @@ def save(path:Path,results:list[dict],step:str) -> dict:
     n=len(results); count=sum(x['checks']['passed'] for x in results)
     hits=sum(x['checks']['evidence_hits'] for x in results); total=sum(x['checks']['evidence_total'] for x in results)
     search_hits=sum(x['checks'].get('search_hits',0) for x in results); search_total=sum(x['checks'].get('search_total',0) for x in results)
-    summary={'search_recall_at_8':search_hits/search_total if search_total else None,'step':step,'total':n,'passed':count,'pass_rate':count/n if n else 0,'decision_accuracy':sum(x['checks']['decision_ok'] for x in results)/n if n else 0,
+    ks=sorted(set(x['prediction'].get('retrieval_k',0) for x in results if x['prediction'].get('retrieval_candidates')))
+    summary={'search_k':ks,'search_recall':search_hits/search_total if search_total else None,'step':step,'total':n,'passed':count,'pass_rate':count/n if n else 0,'decision_accuracy':sum(x['checks']['decision_ok'] for x in results)/n if n else 0,
              'evidence_recall':hits/total if total else None,'errors':sum(bool(x['prediction'].get('error')) for x in results),
-             'note':'Mechanical facts/decision/tool checks; not organizer scoring or semantic certification.'}
-    path.parent.mkdir(parents=True,exist_ok=True); path.write_text(json.dumps({'summary':summary,'results':results},ensure_ascii=False,indent=2),encoding='utf-8'); return summary
+             'composition_counts':dict(Counter(x['prediction'].get('composition',x['prediction'].get('mode','unknown')) for x in results)),
+             'note':'Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.'}
+    def percentile(values,p):
+        values=sorted(values)
+        return round(values[min(len(values)-1,int((len(values)-1)*p))],2) if values else None
+    groups={}
+    for row in results:
+        pred=row['prediction']; model=pred.get('llm',{})
+        label='cache_hit' if model.get('cache_hit') else ('uncached_llm_attempt' if model.get('attempts') else 'no_model_call')
+        groups.setdefault(label,[]).append(row['latency_ms'])
+    summary['latency_by_path']={k:{'count':len(v),'p50_ms':percentile(v,.5),'p95_ms':percentile(v,.95)} for k,v in groups.items()}
+    files=sorted((ROOT/'src').glob('*.py'))+[ROOT/'src/rule_bindings.json']
+    digest=hashlib.sha256(b''.join(p.name.encode()+p.read_bytes() for p in files if p.exists())).hexdigest()
+    configuration={'recorded_at':datetime.now().isoformat(timespec='seconds'),'runtime_sha256':digest,
+                   'llm_provider':os.getenv('LLM_PROVIDER','ollama'),'llm_model':os.getenv('LLM_MODEL','qwen3:1.7b'),
+                   'reference_date':os.getenv('REFERENCE_DATE','2026-10-20')}
+    path.parent.mkdir(parents=True,exist_ok=True); path.write_text(json.dumps({'configuration':configuration,'summary':summary,'results':results},ensure_ascii=False,indent=2),encoding='utf-8'); return summary
 
 def evaluate(step:int,limit:int|None=None,offline:bool=True) -> dict:
     path=ROOT/'sample_outputs'/f'eval_step{step}.json'; results=[]
@@ -70,5 +86,7 @@ def evaluate(step:int,limit:int|None=None,offline:bool=True) -> dict:
             started=time.perf_counter(); pred=agent.respond(text)
             ident=row.get('id') or row['conversation_id']+'.'+row['turn']
             results.append({'id':ident,'question':pred['transcript'],'prediction':pred,'checks':score(row,pred,step==3),'latency_ms':round(1000*(time.perf_counter()-started),1)})
+            save(path,results,'grounded_single_turn' if step==2 else 'conversation')
+            print(ident,results[-1]['checks']['passed'],pred.get('composition'),flush=True)
         save(path,results,'grounded_single_turn' if step==2 else 'conversation')
     return save(path,results,str(step))

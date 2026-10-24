@@ -61,6 +61,15 @@ def test_repeated_bare_proof_is_redacted_after_verification():
     assert '4533' not in json.dumps(out)+repr(a.state.safe_history)
 
 
+def test_uncovered_policy_never_invites_model_to_invent_a_restriction(monkeypatch):
+    r=Resources(dense=False)
+    def forbidden(*args,**kwargs):raise AssertionError('No generation for an uncovered policy')
+    monkeypatch.setattr(r.llm,'complete',forbidden)
+    out=Agent(r,compose=True).respond('Can I schedule a delivery at midnight?')
+    assert out['intent']=='unsupported' and "don't have" in out['answer']
+    assert 'cannot schedule' not in out['answer']
+
+
 def _fixed_retrieval(resources, monkeypatch, ids):
     """Keep stale index objects to exercise Agent's fresh source resolution."""
     rows = [{'chunk': resources.kb.chunks[cid], 'score': 1. - index / 100, 'dense_score': 0.}
