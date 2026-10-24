@@ -1,0 +1,13 @@
+{
+  "ready_to_submit": false,
+  "blockers": [
+    "Live Gnani validation incomplete: supply GNANI_API_KEY in .env and run generate_voice_samples.py",
+    "User-recorded demo.mp4 missing or duration unverified"
+  ],
+  "report_pages": 4,
+  "demo_seconds": null,
+  "public_repository": "https://github.com/Pranay207/ESD",
+  "team_name_assumption": "pranay",
+  "speech_provider": "Gnani only",
+  "warning": "Mechanical test passes are not organizer scores."
+}
