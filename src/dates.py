@@ -22,7 +22,7 @@ def return_window(category:str,delivered:date|None,placed:date|None,standard:int
     if category=='fashion' and placed and date(2026,10,1)<=placed<=date(2026,10,15): return 30
     return standard
 
-def return_deadline(delivered:date,days:int) -> date: return delivered+timedelta(days=days-1)
+def return_deadline(delivered:date,days:int) -> date: return delivered+timedelta(days=days)
 
 def fmt(value:date|str) -> str:
     d=parse_date(value) if isinstance(value,str) else value

@@ -1,12 +1,12 @@
 """Conservative speech/entity normalization and credential redaction."""
 import re,unicodedata
-DIGITS={'zero':'0','oh':'0','o':'0','one':'1','two':'2','to':'2','too':'2','three':'3','four':'4','for':'4','five':'5','six':'6','seven':'7','eight':'8','nine':'9','shunya':'0','ek':'1','do':'2','teen':'3','char':'4','chaar':'4','paanch':'5','panch':'5','chhe':'6','chhah':'6','saat':'7','aath':'8','nau':'9','?????':'0','??':'1','??':'2','???':'3','???':'4','????':'5','????':'5','??':'6','???':'7','??':'8','??':'9'}
-REPEAT={'double':2,'triple':3,'???':2,'??????':3}
-SCALES={'hundred','thousand','hazaar','hazar','sau','????','?????','??'}
+DIGITS={'zero':'0','oh':'0','o':'0','one':'1','two':'2','to':'2','too':'2','three':'3','four':'4','for':'4','five':'5','six':'6','seven':'7','eight':'8','nine':'9','shunya':'0','ek':'1','do':'2','teen':'3','char':'4','chaar':'4','paanch':'5','panch':'5','chhe':'6','chhah':'6','saat':'7','aath':'8','nau':'9','शून्य':'0','एक':'1','दो':'2','तीन':'3','चार':'4','पाँच':'5','पांच':'5','छह':'6','सात':'7','आठ':'8','नौ':'9'}
+REPEAT={'double':2,'triple':3,'डबल':2,'ट्रिपल':3}
+SCALES={'hundred','thousand','hazaar','hazar','sau','हजार','हज़ार','सौ'}
 def ascii_digits(text:str) -> str:
     return ''.join(str(unicodedata.digit(c)) if c.isdigit() else c for c in text)
 def number_words(text:str) -> str:
-    tokens=re.findall(r'[\w]+|[^\w\s]',ascii_digits(text).lower(),re.UNICODE); out=[]; run=[]
+    tokens=re.findall(r'\d+|[A-Za-z]+|[\u0900-\u0963\u0971-\u097f]+|[^\w\s]',ascii_digits(text).lower(),re.UNICODE); out=[]; run=[]
     def flush():
         if not run: return
         if any(x in SCALES for x in run):

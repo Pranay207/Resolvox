@@ -1,4 +1,4 @@
-﻿# VoiceOps 2026 - brief checklist
+# VoiceOps 2026 - brief checklist
 
 Source of truth: voiceops_2026_capstone_brief.pdf, all 14 pages reviewed. All work lives in ESD. Checkmarks mean verified, not merely implemented.
 
@@ -37,7 +37,7 @@ Source of truth: voiceops_2026_capstone_brief.pdf, all 14 pages reviewed. All wo
 - [ ] Synthetic dataset only; own voice or consented recordings only; participant's own Gnani account; Gnani ONLY for STT/TTS, including fallbacks.
 
 ## Resolved conflicts with requested plan
-- The supplied policy RET-2 says windows START ON the delivery date. Use delivery + N - 1 as inclusive last day. Do not use the suggested next-day rule.
+- The supplied policy RET-2 says windows START ON the delivery date. The brief does not specify inclusive arithmetic; practice deadlines consistently use delivery + N. Treat delivery as day zero and N elapsed calendar days as the deadline; retain this ambiguity in the report.
 - Superseded policy applies ONLY to grandfathered electronics delivered BEFORE 1 August 2026, as authorized by current RET-3.
 - Unverified lookup is permitted and expected: tool returns only a verification prompt, never private data. Proof must precede disclosure, not the harmless initial lookup.
 - Brief requires a maximum TWO-minute video, overriding the requested 3-4 minute script.

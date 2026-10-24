@@ -8,7 +8,25 @@ from .kb import KnowledgeBase,Chunk,AUTHORITY
 from .normalize import number_words
 MODEL_ID='sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2'
 MODEL_DIR=CACHE/'embedding_model'
-def tokenize(text:str) -> list[str]: return re.findall(r'\w+',text.lower(),re.UNICODE)
+STOP={'the','a','an','is','are','was','were','to','of','and','or','my','i','me','you','your','it','this','that','can','could','will','would','do','does','did','how','what','when','which','in','on','at','for','with','from','have','has','be','been','hai','hain','kya','mera','meri','mujhe','mein','ko','pe','se','ka','ki','ke','tha','ho','hoon','kar','please'}
+def tokenize(text:str) -> list[str]:
+    words=re.findall(r'\w+',text.lower(),re.UNICODE)
+    return [w[:-1] if w.isascii() and len(w)>3 and w.endswith('s') else w for w in words if w not in STOP]
+PROFILES={
+ 'refund':'refund payment method timeline after initiation business days original UPI card net banking Wallet quality check holidays source policy precedence',
+ 'return':'return windows calendar days category eligibility condition delivery fashion electronics change policy festive sale',
+ 'pickup':'reverse pickup fee waiver Plus damaged defective wrong collection',
+ 'warranty':'warranty Assured manufacturer brand marketplace seller coverage claim',
+ 'cancel':'cancellation shipped before shipping refusal prepaid warehouse',
+ 'damage':'damaged wrong missing reporting window photos high value replacement Priority Resolution',
+ 'late_delivery':'late express delivery paid fee wallet compensation Plus standard',
+ 'attempts':'delivery attempts courier failed reschedule warehouse RTO',
+ 'human':'human handover escalation ticket', 'privacy':'never share customer details verification privacy',
+ 'fraud':'unauthorized activity never placed fraud escalation human', 'safety':'product safety stop using immediately swelling battery sparks escalation',
+ 'verification':'identity verify order phone last four digits one retry failed',
+ 'delivery':'order status promised delivery date shipping', 'coupon':'coupon one per order expired technical error',
+ 'plus':'Plus membership benefits price return eligibility refund windows', 'troubleshoot':'troubleshooting electronics power speaker earbuds reset',
+ 'shipping_date':'order shipped status date'}
 class Dense:
     def __init__(self):
         from tokenizers import Tokenizer
@@ -41,8 +59,9 @@ class Retriever:
             else: self.vectors=self.model.encode([c.title+'\n'+c.text for c in self.chunks]); np.save(file,self.vectors)
             self.dense_status='multilingual MiniLM ONNX int8'
         elif enabled: self.dense_status='unavailable: run python setup.py --models'
-    def search(self,query:str,k:int=10,historical:bool=False) -> list[dict]:
-        q=Counter(tokenize(number_words(query))); bm=[]
+    def search(self,query:str,k:int=10,historical:bool=False,intent:str|None=None) -> list[dict]:
+        expanded=query+' '+PROFILES.get(intent,'')
+        q=Counter(tokenize(number_words(expanded))); bm=[]
         for tf,length in zip(self.tokens,self.lengths):
             score=0.
             for w in q:
@@ -53,7 +72,7 @@ class Retriever:
             if bm[i]>0: ranks[i]+=1/(40+rank)
         similarities=np.zeros(len(bm))
         if self.model is not None:
-            similarities=self.vectors@self.model.encode([query])[0]
+            similarities=self.vectors@self.model.encode([expanded])[0]
             for rank,i in enumerate(np.argsort(-similarities)): ranks[int(i)]+=1/(40+rank)
         scored=[]
         for i,c in enumerate(self.chunks):

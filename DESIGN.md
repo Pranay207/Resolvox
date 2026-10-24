@@ -1,4 +1,4 @@
-﻿# Design - ZentroMart VoiceOps
+# Design - ZentroMart VoiceOps
 
 ## Four cumulative steps
 1. Prompt-only baseline: same LLM with role, limits and disclosure but NO policies, catalog or retrieval; store actual predictions without manufacturing hallucinations.
@@ -13,7 +13,7 @@ customers(customer_id, phone, is_plus) -> orders(order_id, customer_id) -> order
 Current policy > agent guide > help > FAQ > marketing. Meta KB-00 governs precedence and dates. Preserve version/effective date/status. Exclude superseded retrieval except when successor RET-3 authorizes pre-August electronics windows (10 vs 7 days). FAQ-1's generic 5-7-day refund conflicts with payment-specific REF-2. Marketing promises cannot expand PLS-2. Marketplace MKS-3 denies Assured on seller items even when catalog badge is true. Historical support logs are never policy evidence.
 
 ## Deterministic boundaries
-Reference date 2026-10-20. Business days exclude Sundays and holidays; elapsed refund days start after initiation, matching practice dates. Return inclusive last day = delivery + window - 1. Fashion placed 1-15 October gets 30 days; other fashion 15. Returns v4 defines category windows; conditions/nonreturnable exceptions, damaged/wrong/missing 48 hours, >10,000 claims human review. No cancellation API exists: guide to My Orders only. Never claim a cancellation/replacement/compensation was executed.
+Reference date 2026-10-20. Business days exclude Sundays and holidays; elapsed refund days start after initiation, matching practice dates. Return deadline = delivery + window (delivery is day zero), matching the operational convention consistently used by the supplied practice dates. RET-2 says the window starts on delivery but does not spell out day-zero arithmetic; this is an explicitly documented ambiguity. Fashion placed 1-15 October gets 30 days; other fashion 15. Returns v4 defines category windows; conditions/nonreturnable exceptions, damaged/wrong/missing 48 hours, >10,000 claims human review. No cancellation API exists: guide to My Orders only. Never claim a cancellation/replacement/compensation was executed.
 
 ## Privacy
 Proof is used only at the supplied tool boundary and immediately discarded. Never echo, persist or send verification secrets to an LLM. Tool traces contain only redacted args and an allowlisted result. No private customer/contact records in retrieval. Verified order context is sanitized; pincode, name, customer ID and internal notes are removed. Two failed proofs lock that order in the session. Resetting/changing order must not clear its attempt counter. Ticket summaries include issue, intent, order, checks and reason, but no proof. Raw voice is transient and not copied into output. This is synthetic educational authentication, not production auth.

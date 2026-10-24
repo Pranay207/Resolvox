@@ -32,18 +32,21 @@ def score(row:dict,result:dict,conversation:bool=False) -> dict:
     _,missing=facts_present(answer,row.get('must_include',''))
     forbidden=[x for x in row.get('must_not_include','').split(' ; ') if x and canonical(x) in canonical(answer)]
     gold=set(filter(None,row.get('gold_evidence','').split(' ; '))); actual=set(result.get('retrieved_chunk_ids',[]))
+    kb_gold={g for g in gold if not g.startswith('products.csv:')}
+    search_ids={c['id'] for c in result.get('retrieval_candidates',[])}
     expected_tools=re.findall(r'(lookup_order|create_ticket)\(',row.get('expected_tool_calls',''))
     actual_tools=[t['name'] for t in result.get('tool_calls',[])]
     tools_ok=all(Counter(actual_tools)[t]>=n for t,n in Counter(expected_tools).items())
     decision_ok=result.get('decision') in accepted
     return {'passed':decision_ok and not missing and not forbidden and tools_ok and not result.get('error'),
             'decision_ok':decision_ok,'missing_facts':missing,'forbidden_claims':forbidden,'tools_ok':tools_ok,
-            'evidence_hits':len(gold&actual),'evidence_total':len(gold),'evidence_recall':len(gold&actual)/len(gold) if gold else None}
+            'search_hits':len(kb_gold&search_ids),'search_total':len(kb_gold),'evidence_hits':len(gold&actual),'evidence_total':len(gold),'evidence_recall':len(gold&actual)/len(gold) if gold else None}
 
 def save(path:Path,results:list[dict],step:str) -> dict:
     n=len(results); count=sum(x['checks']['passed'] for x in results)
     hits=sum(x['checks']['evidence_hits'] for x in results); total=sum(x['checks']['evidence_total'] for x in results)
-    summary={'step':step,'total':n,'passed':count,'pass_rate':count/n if n else 0,'decision_accuracy':sum(x['checks']['decision_ok'] for x in results)/n if n else 0,
+    search_hits=sum(x['checks'].get('search_hits',0) for x in results); search_total=sum(x['checks'].get('search_total',0) for x in results)
+    summary={'search_recall_at_8':search_hits/search_total if search_total else None,'step':step,'total':n,'passed':count,'pass_rate':count/n if n else 0,'decision_accuracy':sum(x['checks']['decision_ok'] for x in results)/n if n else 0,
              'evidence_recall':hits/total if total else None,'errors':sum(bool(x['prediction'].get('error')) for x in results),
              'note':'Mechanical facts/decision/tool checks; not organizer scoring or semantic certification.'}
     path.parent.mkdir(parents=True,exist_ok=True); path.write_text(json.dumps({'summary':summary,'results':results},ensure_ascii=False,indent=2),encoding='utf-8'); return summary

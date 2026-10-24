@@ -1,9 +1,10 @@
-﻿"""One-command environment/data/model setup. Run with Python 3.11+."""
+"""One-command environment/data/model setup. Run with Python 3.11+."""
 from pathlib import Path
 import argparse,hashlib,json,ssl,subprocess,sys,urllib.request,zipfile
 ROOT=Path(__file__).resolve().parent
 DATA_URL='https://drive.google.com/uc?export=download&id=1jeGjWgZJ4vdfmbB71kghovcCUYNeSHOY'
 MODEL='sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2'
+MODEL_REVISION='e8f8c211226b894fcb81acc59f3b34ba3efd5f42'
 def download(url,path):
     path.parent.mkdir(parents=True,exist_ok=True)
     request=urllib.request.Request(url,headers={'User-Agent':'VoiceOps-capstone/1.0'})
@@ -27,7 +28,7 @@ def main():
         revision=target/'revision.txt'
         if revision.exists(): sha=revision.read_text().strip()
         else:
-            with urllib.request.urlopen('https://huggingface.co/api/models/'+MODEL,context=ssl.create_default_context()) as r: sha=json.load(r)['sha']
+            sha=MODEL_REVISION
             revision.write_text(sha)
         for remote,local in [('tokenizer.json','tokenizer.json'),('onnx/model_quint8_avx2.onnx','model.onnx')]:
             file=target/local
