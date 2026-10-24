@@ -26,3 +26,9 @@ Measure actual decisions, must-include facts, forbidden claims, evidence recall 
 
 ## Deliverables and unresolved external requirements
 Max 4-page PDF report and max 2-minute user-recorded demo. Secret-free reproducible ZIP excludes dataset/model/cache/venv. Missing Gnani key blocks real speech tests; generation script must report blocked status and run as soon as the participant supplies GNANI_API_KEY. Public repository URL and recorded demo require final user-owned assets; do not invent either. A top-20 result cannot be guaranteed.
+
+## Verified implementation decisions
+- LLM generation is constrained to sentence ordering from approved English/Hindi/Hinglish plans; all indices must appear exactly once. Invalid output falls back to deterministic wording. This is intentionally more conservative than free-form LLM answer generation.
+- Intent vocabulary expands BM25/dense queries; search candidates are measured independently of rule-selected source evidence. Search-only recall@8 improved from 44.2% to 75.3% on the same question set.
+- Live speech uses official Gnani REST endpoints directly, rather than depending on SDK retry internals; both are allowed by the brief. The adapter rewinds multipart files on retry and validates returned WAV bytes.
+- Existing source PDF/dataset are kept locally for development, excluded from Git and the allowlisted archive. Demo video is user-recorded; no placeholder MP4 is manufactured.
