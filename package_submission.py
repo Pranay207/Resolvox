@@ -125,7 +125,10 @@ def main():
     for folder in ['src','scripts','tests','sample_outputs']:
         for p in (ROOT/folder).rglob('*'):
             if not p.is_file() or any(part in {'__pycache__','.pytest_cache','voice_inputs'} for part in p.relative_to(ROOT).parts):continue
-            if p.suffix.lower() in {'.py','.json','.txt','.wav','.md'}:files.append(p)
+            relative=p.relative_to(ROOT)
+            engineering_evidence=(relative.parts[:2]==('sample_outputs','engineering_artifacts')
+                                  and p.suffix.lower() in {'.xml','.log'})
+            if p.suffix.lower() in {'.py','.json','.txt','.wav','.md'} or engineering_evidence:files.append(p)
     manifest=[]
     for p in files:
         name=p.relative_to(ROOT).as_posix()

@@ -190,6 +190,51 @@ def return_condition_context(query, sources, *, reference_date):
             'ordinary_return_condition_check': _evaluate(policy, claim)}
 
 
+# A source requirement is not a factual description of this customer's item.
+
+def _premise_is_conditional(prefix):
+    local=re.split(r'[,;]|\b(?:and|but|however|then)\b|\u0932\u0947\u0915\u093f\u0928',prefix,flags=re.I)[-1]
+    if re.search(r'(?:\b(?:if|unless|assuming|provided|whether|agar|yadi)|\u092f\u0926\u093f|\u0905\u0917\u0930)\s*$',local,re.I):
+        return True
+    return bool(re.search(
+        r'\b(?:cannot|can.t|unable\s+to)\s+(?:confirm|verify|say|determine)\s+(?:that\s+)?$|'
+        r'\b(?:policy|rules?|conditions?)\b.{0,45}\b(?:requires?|states?|specif(?:y|ies))\s+(?:that\s+)?$',local,re.I))
+
+
+def _check_customer_condition_premises(answer, claim, item):
+    """Reject a definite item-state premise opposite to the explicit user claim.
+
+    Inputs stay customer-provided and unverified; this is consistency with
+    those inputs, never independent verification or complete eligibility.
+    Only singular item copular predicates are recognized in this bounded check.
+    """
+    if claim.get('scope') == 'ambiguous':
+        return
+    title=re.escape(item['title'])
+    subject=rf'(?:\bit\b|\b(?:your|this|the)\s+(?:item|product)\b|{title})'
+    patterns=[
+        ('opened',re.compile(subject+r'\s+(?:is|was|remains?)\s+(?P<neg>(?:(?:not|never)\s+)?)(?P<state>unopened|opened|open)\b',re.I)),
+        ('opened',re.compile(subject+r'\s+(?P<neg>(?:(?:nahi|nahin)\s+)?)(?P<state>unopened|opened|open|khula|khuli|khule|khola|kholi)\s+(?P<postneg>(?:(?:nahi|nahin)\s+)?)(?:hai|hain|tha|thi)\b',re.I)),
+        ('opened',re.compile(r'(?:\u092f\u0939|\u0907\u0938\u0947|\u0906\u092a\u0915\u093e\s+(?:\u0909\u0924\u094d\u092a\u093e\u0926|\u0938\u093e\u092e\u093e\u0928)|'+title+r')\s+(?P<neg>(?:\u0928\u0939\u0940\u0902\s+)?)(?P<state>\u0905\u0928\u0916\u0941\u0932[\u093e\u0940\u0947]|\u0916\u0941\u0932[\u093e\u0940\u0947]|\u0916\u094b\u0932[\u093e\u0940\u0947])\s+(?P<postneg>(?:\u0928\u0939\u0940\u0902\s+)?)(?:\u0939\u0948|\u0925\u093e|\u0925\u0940)(?=\s|[.,;!?\u0964]|$)',re.I)),
+        ('seal_intact',re.compile(r'\b(?:its|your|the\s+item.s)\s+seal\s+(?:is|was|remains?)\s+(?P<neg>(?:(?:not|never)\s+)?)(?P<state>intact|unbroken|broken)\b',re.I)),
+    ]
+    for clause in re.split(r'[.!?;\u0964\n]+',answer):
+        for key,pattern in patterns:
+            if type(claim.get(key)) is not bool:
+                continue
+            for match in pattern.finditer(clause):
+                if _premise_is_conditional(clause[:match.start()]):
+                    continue
+                state=match['state'].casefold()
+                asserted=(state not in {'unopened','intact','unbroken'} and not state.startswith('\u0905\u0928\u0916\u0941\u0932')) if key=='opened' else state in {'intact','unbroken'}
+                negations=sum(bool(match.groupdict().get(name,'').strip()) for name in ('neg','postneg'))
+                if negations>1:
+                    continue
+                if negations:asserted=not asserted
+                if asserted is not claim[key]:
+                    raise ValueError('contradicted_customer_item_premise:'+key)
+
+
 def check_return_condition_answer(answer, facts, sources):
     """Reject positive customer eligibility inconsistent with a necessary fact."""
     keys = {'return_condition_policy', 'customer_item_condition_claim', 'ordinary_return_condition_check'}
@@ -211,6 +256,7 @@ def check_return_condition_answer(answer, facts, sources):
     check = _evaluate(policy, claim)
     if check != facts['ordinary_return_condition_check']:
         raise ValueError('unbound_return_condition')
+    _check_customer_condition_premises(answer, claim, _catalog(sources, facts.get('reference_date'))[1])
     _check_requirement_polarity(answer, policy, _catalog(sources, facts.get('reference_date'))[1])
     if check['status'] != 'not_satisfied':
         return

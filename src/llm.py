@@ -1,13 +1,34 @@
 """Provider-neutral, bounded inference with settings-aware output caching."""
 import hashlib
 import json
+import math
 import os
 import time
+from datetime import timezone
+from email.utils import parsedate_to_datetime
 import requests
 from .config import CACHE
 
 class LLMUnavailable(RuntimeError):
     pass
+
+def _retry_after_seconds(value):
+    """Read server delay without storing headers or credential-bearing details."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    value = value.strip()
+    try:
+        seconds = float(value)
+    except ValueError:
+        try:
+            deadline = parsedate_to_datetime(value)
+            if deadline.tzinfo is None:
+                deadline = deadline.replace(tzinfo=timezone.utc)
+            seconds = max(0.0, deadline.timestamp() - time.time())
+        except (TypeError, ValueError, OverflowError, OSError):
+            return None
+    return seconds if math.isfinite(seconds) and seconds >= 0 else None
+
 
 class LLM:
     def __init__(self, provider=None, model=None):
@@ -25,7 +46,49 @@ class LLM:
         choices = [(self.provider, self.model, os.getenv('LLM_BASE_URL', 'http://127.0.0.1:11434'), os.getenv('LLM_API_KEY', ''))]
         if os.getenv('LLM_FALLBACK_PROVIDER'):
             choices.append((os.environ['LLM_FALLBACK_PROVIDER'], os.getenv('LLM_FALLBACK_MODEL', ''), os.getenv('LLM_FALLBACK_BASE_URL', ''), os.getenv('LLM_FALLBACK_API_KEY', '')))
-        self.last_metrics = {'cache_hit': False, 'attempts': 0}
+        self.last_metrics = {'cache_hit': False, 'attempts': 0, 'http_attempts': 0,
+                             'http_statuses': [], 'rate_limit_events': 0,
+                             'rate_limit_retries': 0, 'rate_limit_wait_ms': 0.0,
+                             'rate_limit_planned_wait_ms': 0.0}
+        planned_wait = 0.0
+
+        def send(url, **options):
+            self.last_metrics['attempts'] += 1
+            self.last_metrics['http_attempts'] += 1
+            response = requests.post(url, **options)
+            status = getattr(response, 'status_code', None)
+            if type(status) is int:
+                self.last_metrics['http_statuses'].append(status)
+                self.last_metrics['last_http_status'] = status
+            return response
+
+        def throttled(response):
+            nonlocal planned_wait
+            self.last_metrics['rate_limit_events'] += 1
+            self.last_metrics['rate_limit_last_http_status'] = 429
+            retries = self.last_metrics['rate_limit_retries']
+            headers = getattr(response, 'headers', {}) or {}
+            delay = _retry_after_seconds(headers.get('Retry-After', headers.get('retry-after')))
+            if delay is None:
+                delay = float(2 ** retries)
+            reason = 'retry_limit' if retries >= 3 else 'wait_budget' if delay > 60.0 - planned_wait else None
+            if reason:
+                self.last_metrics.update(rate_limit_exhausted=reason, unavailable=True,
+                                         wall_ms=round(1000*(time.perf_counter()-started), 2))
+                # Do not bypass a server delay through an outer attempt or a
+                # fallback choice when this complete() call cannot honor it.
+                raise LLMUnavailable('LLM rate limit exceeded the bounded retry budget; no response fabricated.')
+            planned_wait += delay
+            self.last_metrics['rate_limit_retries'] += 1
+            self.last_metrics['rate_limit_planned_wait_ms'] = round(1000 * planned_wait, 2)
+            waiting = time.perf_counter()
+            try:
+                time.sleep(delay)
+            finally:
+                measured = max(0.0, time.perf_counter() - waiting)
+                self.last_metrics['rate_limit_wait_ms'] = round(
+                    self.last_metrics['rate_limit_wait_ms'] + 1000 * measured, 2)
+
         for provider, model, base, key in choices:
             settings = {'provider': provider, 'model': model, 'base': base, 'temperature': 0,
                         'seed': 42, 'max_tokens': max_tokens, 'num_ctx': 4096,
@@ -41,7 +104,6 @@ class LLM:
                 except (ValueError, KeyError):
                     pass
             for attempt in range(attempts):
-                self.last_metrics['attempts'] += 1
                 try:
                     messages = [{'role': 'system', 'content': system}, {'role': 'user', 'content': user}]
                     if provider == 'ollama':
@@ -49,12 +111,16 @@ class LLM:
                                    'keep_alive': '10m', 'options': {'temperature': 0, 'seed': 42, 'num_predict': max_tokens, 'num_ctx': 4096}}
                         if json_mode or schema:
                             payload['format'] = schema or 'json'
-                        response = requests.post(base.rstrip('/')+'/api/chat', json=payload, timeout=(2, read_timeout))
+                        response = send(base.rstrip('/')+'/api/chat', json=payload, timeout=(2, read_timeout))
                     else:
                         payload = {'model': model, 'messages': messages, 'temperature': 0, 'max_tokens': max_tokens}
                         if json_mode or schema:
                             payload['response_format'] = {'type': 'json_object'}
-                        response = requests.post(base.rstrip('/')+'/chat/completions', headers={'Authorization': 'Bearer '+key}, json=payload, timeout=(2, read_timeout))
+                        while True:
+                            response = send(base.rstrip('/')+'/chat/completions', headers={'Authorization': 'Bearer '+key}, json=payload, timeout=(2, read_timeout))
+                            if getattr(response, 'status_code', None) != 429:
+                                break
+                            throttled(response)
                     response.raise_for_status()
                     data = response.json()
                     result = data['message']['content'] if provider == 'ollama' else data['choices'][0]['message']['content']

@@ -51,7 +51,13 @@ def save(path:Path,results:list[dict],step:str) -> dict:
     summary={'search_k':ks,'search_recall':search_hits/search_total if search_total else None,'step':step,'total':n,'passed':count,'pass_rate':count/n if n else 0,'decision_accuracy':sum(x['checks']['decision_ok'] for x in results)/n if n else 0,
              'evidence_recall':hits/total if total else None,'errors':sum(bool(x['prediction'].get('error')) for x in results),
              'composition_counts':dict(Counter(x['prediction'].get('composition',x['prediction'].get('mode','unknown')) for x in results)),
-             'note':'Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.'}
+             'note':'Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates; search_k is the requested direct budget, with extra dependencies reported separately. Guardrail lookups are separate.'}
+    summary['retrieval_budgets']={
+        'requested_direct_ks':sorted({p['retrieval_direct_k'] for p in (r['prediction'] for r in results) if type(p.get('retrieval_direct_k')) is int}),
+        'candidate_limits':sorted({p['retrieval_candidate_limit'] for p in (r['prediction'] for r in results) if type(p.get('retrieval_candidate_limit')) is int}),
+        'returned_count_histogram':dict(Counter(str(len(r['prediction'].get('retrieval_candidates',[]))) for r in results if r['prediction'].get('retrieval_candidates'))),
+        'candidate_role_counts':dict(Counter(c.get('retrieval_role','unrecorded') for r in results for c in r['prediction'].get('retrieval_candidates',[]))),
+        'scope':'Actual saved candidate arrays and trace metadata; missing roles remain unrecorded.'}
     def percentile(values,p):
         values=sorted(values)
         return round(values[min(len(values)-1,int((len(values)-1)*p))],2) if values else None
