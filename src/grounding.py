@@ -86,9 +86,17 @@ def _quantities(text):
 
 
 def _fact_quantities(facts):
+    """Collect typed scalar quantities recursively, including catalog lists."""
     values = set()
-    for key, value in (facts or {}).items():
-        if isinstance(value, dict):
+    if isinstance(facts, (list, tuple)):
+        for child in facts:
+            if isinstance(child, (dict, list, tuple)):
+                values.update(_fact_quantities(child))
+        return values
+    if not isinstance(facts, dict):
+        return values
+    for key, value in facts.items():
+        if isinstance(value, (dict, list, tuple)):
             values.update(_fact_quantities(value))
             continue
         name = key.casefold()
@@ -98,12 +106,11 @@ def _fact_quantities(facts):
                 'hour' if 'hour' in name else
                 'month' if 'month' in name else
                 'year' if 'year' in name else None)
-        if unit and isinstance(value,str) and re.fullmatch(r'\d+(?:\.\d+)?',value):
-            value=float(value) if '.' in value else int(value)
+        if unit and isinstance(value, str) and re.fullmatch(r'\d+(?:\.\d+)?', value):
+            value = float(value) if '.' in value else int(value)
         if unit and isinstance(value, (int, float)) and not isinstance(value, bool):
             values.add((str(value), unit))
     return values
-
 
 def _quantity_supported(quantity, support):
     number, unit = quantity
@@ -133,14 +140,29 @@ def _completed_action(answer):
                    r'(?:refund|payment|return|pickup|request|order|ticket)s?\s+'
                    r'(?:is|are|has\s+been|have\s+been)\s+'
                    r'(?:(?:already|successfully)\s+)*' + _COMPLETED + r'\b')
-    text = re.sub(conditional, '', answer, flags=re.I)
+    # A conditional generic policy consequence is not an assertion that the
+    # assistant performed the action. Mask only this indefinite present-tense
+    # predicate; actor-specific, past/perfect and other action claims remain.
+    def generic_consequence(match):
+        clause = match.group()
+        antecedent = clause.split(',', 1)[0]
+        if re.search(r'\b(?:was|were|had|has|have|already|yesterday|earlier|previously|failed|chose)\b', antecedent, re.I):
+            return clause
+        clause = re.sub(r'\ba refund is initiated\b(?!\s+(?:already|now|today|yesterday|on\s+\d))',
+                        'refund initiation occurs', clause, flags=re.I)
+        return re.sub(r'\b(?:a|the) refund is (?:initiated|processed)\b'
+                      r'(?=\s+(?:within|in)\s+(?:\d|' + _NUMBER_WORD + r'))',
+                      'refund timing applies', clause, flags=re.I)
+    conditional_view = re.sub(r'\b(?:If|When)\b[^.!?;\n]{1,240},[^.!?;\n]{0,400}',
+                              generic_consequence, answer, flags=re.I)
+    text = re.sub(conditional, '', conditional_view, flags=re.I)
     text = re.sub(r"\b(?:has|have|had|is|are|was|were)\s+not\s+(?:yet\s+)?(?:been\s+)?" + _COMPLETED, '', text, flags=re.I)
     patterns = [
         r'\b(?:I|we)\s+(?:(?:have|had|already|just|now|successfully)\s+)*' + _COMPLETED,
         r'\b(?:has|have|had|is|are|was|were)\s+(?:(?:been|already|just|now|successfully)\s+)*' + _COMPLETED,
         r'\b(?:order|refund|return|replacement|pickup|ticket|request|cancellation|booking)\s+(?:(?:now|already|successfully)\s+)*(?:complete(?:d)?|done|' + _COMPLETED + r')\b',
         r'\bguarantee(?:d)?\b',
-        r'(?:ऑर्डर|रिफंड|रिफ़ंड|टिकट|रिटर्न|भुगतान|पिकअप|रद्द|कैंसिल|कैंसल|मंजूर|मंज़ूर|जारी).{0,45}(?:कर\s*(?:दिया|दी|दिए)|हो\s*(?:गया|गई|गए|चुका|चुकी)|बना(?:या)?\s*(?:दिया|गया|गई)|(?:किया|की|किए)\s*(?:गया|गई|गए)|रद्द\s*(?:है|हुआ)|जारी\s*(?:है|हुआ))',
+        r'(?:ऑर्डर|रिफंड|रिफ़ंड|टिकट|रिटर्न(?!ेबल)|भुगतान|पिकअप|रद्द|कैंसिल|कैंसल|मंजूर|मंज़ूर|जारी).{0,45}(?:कर\s*(?:दिया|दी|दिए)|हो\s*(?:गया|गई|गए|चुका|चुकी)|बना(?:या)?\s*(?:दिया|गया|गई)|(?:किया|की|किए)\s*(?:गया|गई|गए)|रद्द\s*(?:है|हुआ)|जारी\s*(?:है|हुआ))',
         r'\b(?:order|refund|return|ticket|replacement|pickup|payment|cancel|approve|book|issue|process)\w*.{0,45}\b(?:kar\s*diya|kar\s*di|ho\s*gaya|ho\s*gayi|ho\s*chuka|ho\s*chuki)\b',
     ]
     return any(re.search(pattern, text, re.I) for pattern in patterns)
