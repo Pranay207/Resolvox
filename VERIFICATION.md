@@ -6,12 +6,14 @@ These are local measurements, not organizer scores. The source-only answer corre
 
 | Check | Current record |
 | --- | --- |
-| Current boolean-contract full suite | Rerun pending; prior three-field revision passed **626 tests**, not current-contract validation |
+| Current boolean-contract full suite, core `1914516` | **658/658 passed in 53.74 seconds** |
 | Live grounded practice | **52 questions planned; rerun pending** |
 | Live conversations | **96 turns planned; rerun pending** |
 | Gnani synthetic end-to-end speech | **Rerun pending** |
 | Report rendering and four-page QA | Existing PDF is a stale draft; regeneration and QA pending |
 | Revised ZIP extraction/hash/secret checks | Existing ZIP is stale; rebuild and verification pending |
+
+The first real boolean-contract public Hinglish warranty pilot returned the supported duration and claim route, with a host-derived answer decision and no repair. Its 93.7-second turn included initial loading and concurrent pytest CPU load; it is not a controlled warm/cold latency result. The card-refund pilot is still running. Neither diagnostic certifies the complete 52-question/96-turn suite or speech.
 
 The selected model is now `qwen3:4b-instruct`, with a 120-second per-request RAG timeout. The baseline used `qwen3:1.7b`; the comparison is not a controlled same-model baseline/RAG ablation. Earlier 45-second 4B probes timed out. Two later 120-second diagnostic cases produced relevant Hinglish warranty content and the correct public-date projection, but the first had an inconsistent refusal label and the second failed the completed-action wording guard. They are diagnostic evidence, **not passed final checks**; targeted decision/action repairs require fresh validation. Current live runs must retain source/input/settings hashes, completion flags, failures, timings, actual generation context and composition. Current output filenames are `sample_outputs/eval_step2_live_current.json` and `sample_outputs/eval_step3_live_current.json`. Pending is not passed.
 
@@ -27,6 +29,7 @@ Legacy fallback measurements and intermediate source-only pilots predate the fin
 
 | Check | Historical result |
 | --- | --- |
+| Prior three-field engineering revision | **626 passed**; historical |
 | Historical prompt-only baseline, `qwen3:1.7b` | **1/52**, one error |
 | Grounded practice, old offline composition | **52/52** |
 | Conversations, old offline composition | **96/96** |

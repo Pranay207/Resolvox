@@ -193,10 +193,12 @@ The source-only answer path was corrected on **25 October 2026**. Its recorded e
 
 | Check | Current record | Evidence |
 | --- | --- | --- |
-| Current boolean-contract engineering suite | **Full rerun pending** | Earlier three-field revision: 626 tests passed; not current boolean-contract validation |
+| Current boolean-contract engineering suite | **658/658 passed**, 53.74 seconds | Core `1914516`; [verification details](VERIFICATION.md) |
 | Current source-only policy questions | **Rerun pending**; 52 planned | Completion and composition will be recorded in current JSON |
 | Current source-only conversation turns | **Rerun pending**; 96 planned | Completion and composition will be recorded in current JSON |
 | Current Gnani synthetic round trips | **Rerun pending** | Earlier speech evidence remains historical |
+
+The public boolean-contract diagnostic has one completed Hinglish warranty case with a supported answer and no repair; the card-refund pilot is still pending. This is not a completed 52-question, 96-turn or voice evaluation.
 
 **Comparison boundary:** the historical prompt-only baseline used `qwen3:1.7b`; the current selected model is `qwen3:4b-instruct`. This is **not a controlled same-model baseline/RAG ablation**. Current measurements remain pending.
 
@@ -277,7 +279,7 @@ Mappings follow [Gnani's voice catalog](https://docs.gnani.ai/api/TTS/available-
 
 ## Submission Status
 
-**The current report PDF and submission ZIP are stale drafts from an earlier revision. Regeneration and verification are pending.** The boolean-contract code is implemented; current engineering, live and speech results remain pending. **The demo video will be recorded last**, after the own-voice rehearsal. The package remains a draft until current verification and the actual recording are complete.
+**The current report PDF and submission ZIP are stale drafts from an earlier revision. Regeneration and verification are pending.** The boolean-contract code and engineering checks are complete; current full live and speech results remain pending. **The demo video will be recorded last**, after the own-voice rehearsal. The package remains a draft until current verification and the actual recording are complete.
 
 | Deliverable | Status |
 | --- | --- |

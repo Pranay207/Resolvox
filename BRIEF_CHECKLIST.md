@@ -18,9 +18,10 @@ Source: `voiceops_2026_capstone_brief.pdf`. These checks describe inspectable be
 
 ## Current verification
 
-- [ ] Final boolean-contract full suite pending. The prior three-field revision passed **626 tests**; those are not current-contract results. Earlier core `8e6992b` passed 590/590 in 20.30 seconds. Dataset validation passed 9 CSVs and 21 KB documents.
+- [x] Current boolean-contract core `1914516`: **658/658 tests passed in 53.74 seconds**. Prior three-field 626 and earlier core 590/590 results remain historical. Dataset validation passed 9 CSVs and 21 KB documents.
 - [ ] Source-only live questions: **52 planned; rerun pending**. Current output will be `sample_outputs/eval_step2_live_current.json`.
 - [ ] Source-only live conversations: **96 turns planned; rerun pending**. Current output will be `sample_outputs/eval_step3_live_current.json`.
+- [ ] Public diagnostic pilot pair incomplete: Hinglish warranty completed with a supported answer/no repair; card-refund pilot pending. This is not a completed practice suite.
 - [ ] Current Gnani end-to-end synthetic speech rerun pending.
 - [ ] Current report rendering and package checks pending after revised measurements are saved.
 
@@ -48,7 +49,7 @@ Raw failures/provenance remain retained. Human accents/noise and subjective list
 
 ## Final submission and additional validation
 
-Current boolean-contract engineering, live and speech checks are pending. The existing report PDF and ZIP are stale drafts requiring regeneration and verification. The user-recorded demo remains the required uncreated artifact and will be done last. Live holdout, controlled cold-start and noisy-speech studies are additional validation.
+Current boolean-contract engineering checks passed; formal live and speech checks remain pending. The existing report PDF and ZIP are stale drafts requiring regeneration and verification. The user-recorded demo remains the required uncreated artifact and will be done last. Live holdout, controlled cold-start and noisy-speech studies are additional validation.
 
 - [ ] Live LLM holdout evaluation has **not** been performed. All recorded holdout results above are offline; do not present them as live-generation results or treat the later exposed regression as independent.
 - [ ] Controlled cold-start latency has **not** been measured. Per-turn uncached and cache measurements exclude prior resource startup and are not cold-start measurements.
