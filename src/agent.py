@@ -39,7 +39,7 @@ class Agent:
     def _verification_plan(self,kind:str) -> Plan:
         if kind=='locked': return Plan('verification','refuse',"I cannot share order details because verification failed twice. Please contact support from your registered phone; I can still help with general policies.",'दो बार सत्यापन असफल हुआ, इसलिए ऑर्डर की जानकारी साझा नहीं कर सकती। पंजीकृत फ़ोन से सपोर्ट से संपर्क करें; सामान्य पॉलिसी में मदद कर सकती हूँ।','Verification do baar fail hua, order details share nahi kar sakti. Registered phone se support contact karein; general policy mein help kar sakti hoon.',['IDV-1','IDV-3'])
         if kind=='retry': return Plan('verification','clarify',"That did not match. Please try the last 4 digits of your registered phone again.",'जानकारी मेल नहीं खाई। कृपया पंजीकृत फ़ोन के अंतिम 4 अंक दोबारा बताएँ।','Match nahi hua. Registered phone ke last 4 digits ek baar phir batayein.',['IDV-3'])
-        return Plan('verification','clarify','Please provide the last 4 digits of your registered phone.','कृपया अपने पंजीकृत फ़ोन के अंतिम 4 अंक बताएँ।','Registered phone ke last 4 digits batayein.',['IDV-1','IDV-2'])
+        return Plan('verification','clarify','Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.','कृपया एक सत्यापन जानकारी दें: पंजीकृत फ़ोन के अंतिम 4 अंक या ऑर्डर का डिलीवरी पिनकोड।','Ek verification detail dein: registered phone ke last 4 digits ya order ka delivery pincode.',['IDV-1','IDV-2'])
     def respond(self,text:str) -> dict:
         start=time.perf_counter(); s=self.state; r=self.resources; s.turn+=1; s.language=language(text,s.language)
         intent=classify(text); oid=order_id(text); calls=[]; candidates=[]; pool=[]; auth_source_ids=[]; retrieval_ms=0.0

@@ -163,3 +163,12 @@ def test_dependency_overlap_keeps_available_retrieval_budget(retriever):
 ])
 def test_refund_stage_and_implicit_timing_dependencies(retriever, query, expected):
     assert expected <= {row['chunk'].id for row in retriever.search(query, k=12)}
+
+
+@pytest.mark.parametrize('query', [
+    'COD refund ko bank mein lena hai',
+    'Cash-on-delivery refund mere bank mein chahiye',
+    'I want the COD refund paid into my bank account',
+])
+def test_bank_receipt_refund_keeps_method_timeline(retriever, query):
+    assert {'REF-2', 'REF-3'} <= {row['chunk'].id for row in retriever.search(query, k=12)}

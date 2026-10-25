@@ -76,6 +76,8 @@ GLOSSARY = (
 GLOSSARY += (
     (r"\b(manufacturer(?:'s)?|brand)\s+(?:cover|guarantee)\b", 'brand warranty manufacturer service centre'),
     (r'\b(expired|out.of.date)\b', 'damaged expired wrong missing reporting'),
+    # Bank-receipt wording (including Hinglish) still needs the method timeline.
+    (r'\b(?:refund\w*|money back)\b.{0,45}\bbank\b|\bbank\b.{0,45}\brefund\w*\b', 'NEFT transfer timeline initiation'),
     (r'\brefund\b.{0,30}\bstages?\b|\bstages?\b.{0,30}\brefund\b|\bpickup.to.initiation\b', 'refund initiation pickup quality check'),
     (r'\b(remedy|remedies|resolution|replacement)\b', 'resolution refund replacement verification'),
     (r'\b(evidence|photos?|photographs?|pictures?)\b', 'photos item packaging reporting'),
