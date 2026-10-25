@@ -38,7 +38,7 @@ class FakeVoice:
 def batch_fixture(folder, *, transcript='', tool_calls=None, silent_reply=False):
     folder.mkdir(parents=True, exist_ok=True)
     prediction = {'transcript': transcript,
-                  'answer': "Sorry, I couldn't understand that audio. Please record a short, clear clip.",
+                  'answer': "I'm ZentroMart's AI support assistant. Sorry, I couldn't understand that audio. Please record a short, clear clip.",
                   'intent': 'unclear_audio', 'decision': 'clarify', 'tool_calls': tool_calls or [],
                   'sources': [], 'voice_timings': {'stt_ms': 1, 'tts_ms': 2, 'total_ms': 3}}
     (folder / '001_silence.json').write_text(json.dumps(prediction), encoding='utf-8')
@@ -136,3 +136,14 @@ def test_runner_uses_rules_only_and_preserves_prior_attempts(tmp_path):
     assert len(second['attempt_history']) == 1
     assert first['assessment']['reply_audio']['path'] != second['assessment']['reply_audio']['path']
     assert len(observed) == 2
+
+
+def test_first_recovery_reply_must_disclose_ai_identity(tmp_path):
+    batch = batch_fixture(tmp_path)
+    path = tmp_path / '001_silence.json'
+    prediction = json.loads(path.read_text())
+    prediction['answer'] = prediction['answer'].replace("I'm ZentroMart's AI support assistant. ", '')
+    path.write_text(json.dumps(prediction))
+    result = assess_recovery(batch, tmp_path, observer_for_success())
+    assert not result['passed']
+    assert not result['checks']['ai_disclosure']

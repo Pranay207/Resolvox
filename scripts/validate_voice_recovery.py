@@ -139,6 +139,7 @@ def assess_recovery(batch: dict, folder: Path, observer: ObservedVoice) -> dict:
         'exact_silent_input': exact,
         'real_gnani_stt_response': observer.stt_calls == 1 and 200 in observer.stt_http_statuses,
         'silence_not_hallucinated_as_speech': not observer.recognized_speech_from_silence,
+        'ai_disclosure': bool(re.search(r'ZentroMart.{0,20}AI support assistant', answer, re.I)),
         'clarification_decision': prediction.get('decision') == 'clarify',
         'unclear_audio_intent': prediction.get('intent') == 'unclear_audio',
         'clear_repeat_request': bool(re.search(

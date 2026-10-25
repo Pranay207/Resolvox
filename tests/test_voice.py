@@ -55,6 +55,9 @@ def test_batch_continues_after_bad_clip(tmp_path,monkeypatch):
     assert result['total']==2 and result['succeeded']==1 and result['failed']==1
     assert len(list((tmp_path/'out').glob('*.txt')))==2
     assert len(list((tmp_path/'out').glob('*_sources.json')))==2
+    recovery=json.loads(next((tmp_path/'out').glob('*_bad.json')).read_text())
+    assert recovery['answer'].startswith("I'm ZentroMart's AI support assistant.")
+    assert recovery['decision']=='clarify' and not recovery['tool_calls']
 
 def test_voice_formatting():
     text=for_ear('Order 12345678 costs 49 rupees on 24 October 2026.')

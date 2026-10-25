@@ -46,7 +46,9 @@ def run_batch(audio_dir:Path,out_dir:Path,language:str='en-IN',session_mode:str=
         except (VoiceError,VoiceUnavailable) as error:
             entry['error']=str(error)
             # STT failure still attempts a real spoken recovery through Gnani, if available.
-            result={'transcript':'','answer':"Sorry, I couldn't understand that audio. Please record a short, clear clip.",'intent':'unclear_audio','decision':'clarify','retrieved_chunk_ids':[],'sources':[],'tool_calls':[],'error':str(error)}
+            first_reply=not getattr(getattr(agent,'state',None),'turn',0)
+            recovery=("I'm ZentroMart's AI support assistant. " if first_reply else '')+"Sorry, I couldn't understand that audio. Please record a short, clear clip."
+            result={'transcript':'','answer':recovery,'intent':'unclear_audio','decision':'clarify','retrieved_chunk_ids':[],'sources':[],'tool_calls':[],'error':str(error)}
             try:
                 stage_started=time.perf_counter()
                 try:voice.synthesize(result['answer'],out_dir/(stem+'_reply.wav'),'en')
