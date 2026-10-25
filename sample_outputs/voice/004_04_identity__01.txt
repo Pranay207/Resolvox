@@ -1,1 +1,1 @@
-I'm ZentroMart's AI support assistant. Please provide the last 4 digits of your registered phone.
+I'm ZentroMart's AI support assistant. Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.

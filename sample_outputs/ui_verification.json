@@ -1,16 +1,16 @@
 {
-  "checked_at_utc": "2026-10-25T07:40:47.405513+00:00",
-  "app_source_sha256": "214f79737983363daf5926f01b86f2bd3d97a1322dd2f5eabbfebb125293da4b",
+  "checked_at_utc": "2026-10-25T08:49:15.845477+00:00",
+  "app_source_sha256": "e467f77ec8860d58880732ed40104582f0fdcd492b5713f1a4c84f8fdaba316d",
   "theme_sha256": "68115b33253f9793b8d645685cf1e9d1b172bbba88023ea6027f72a59a56ef1a",
   "engineering_suite": {
-    "passed": 229,
-    "total": 229,
+    "passed": 404,
+    "total": 404,
     "exit_code": 0,
-    "elapsed_seconds": 23.44
+    "elapsed_seconds": 39.84
   },
   "streamlit_integration_tests": {
-    "passed": 6,
-    "total": 6,
+    "passed": 8,
+    "total": 8,
     "speech_provider": "mocked; no new real speech test claimed",
     "covered": [
       "grounded text answer and source panel",
@@ -18,7 +18,9 @@
       "redacted voice output and audio persist across reruns",
       "TTS retry preserves answer without repeating STT or agent",
       "only selected Record or Upload control is rendered",
-      "partial live evidence explicitly labeled incomplete"
+      "partial live evidence explicitly labeled incomplete",
+      "primary language defaults and explicit optional regional preview",
+      "Marathi selection remains distinct from Hindi"
     ]
   },
   "packaging_test": {
@@ -31,16 +33,23 @@
     "status_code": 200,
     "url": "http://localhost:8501",
     "product": "Resolvox",
-    "checked_at_utc": "2026-10-25T07:40:47.405513+00:00"
+    "checked_at_utc": "2026-10-25T08:49:15.845477+00:00"
   },
   "browser_visual_review": {
     "completed": false,
-    "reason": "Computer Use browser and native helper unavailable; no revised browser screenshot obtained."
+    "reason": "Direct Computer Use browser helper unavailable. User-provided evaluation screenshot reviewed for that earlier state; final flows verified with AppTest, not a direct browser inspection."
   },
   "language_support": [
     "English",
     "Hindi",
     "Hinglish"
   ],
-  "scope": "UI integration and packaging checks. Does not establish visual browser quality, human speech robustness or new live-model coverage."
+  "scope": "UI integration, packaging contract and local server health. Human listening and final direct browser inspection are not claimed.",
+  "optional_regional_preview": {
+    "enabled_by_default": false,
+    "synthetic_run_passed": 5,
+    "planned": 11,
+    "failed": 6,
+    "all_languages_claimed_working": false
+  }
 }

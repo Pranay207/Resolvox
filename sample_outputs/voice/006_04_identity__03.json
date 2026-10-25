@@ -57,11 +57,11 @@
     "retrieval_ms": 0.0,
     "llm_ms": 0.0
   },
-  "latency_ms": 2.38,
+  "latency_ms": 0.82,
   "voice_timings": {
-    "stt_ms": 326.45,
-    "agent_ms": 2.4,
-    "tts_ms": 1232.78,
-    "total_ms": 1561.77
+    "stt_ms": 227.95,
+    "agent_ms": 0.86,
+    "tts_ms": 1338.76,
+    "total_ms": 1567.72
   }
 }

@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "status": "tested",
+  "complete": true,
+  "attempt_id": "20261025T084253622883Z",
+  "started_at_utc": "2026-10-25T08:42:53.627900+00:00",
+  "speech_provider": "Gnani only",
+  "live_llm_composition_enabled": false,
+  "input_kind": "one_second_digital_silence",
+  "input_audio": {
+    "path": "tmp/voice_recovery_inputs/20261025T084253622883Z/silence.wav",
+    "sha256": "643f8a8dc8bd9c19225afffad2becfec5426180b3749cb208abdf1a6c8354efc",
+    "bytes": 32044,
+    "frames": 16000,
+    "sample_rate": 16000,
+    "sample_width": 2,
+    "channels": 1,
+    "seconds": 1.0,
+    "non_silent_pcm": false
+  },
+  "scope": "One synthetic digital-silence clip through real Gnani STT and reply TTS. This is not a human speech, noisy speech, or intelligibility test.",
+  "expected_behavior": "Ask for a clear repeat, produce genuine reply audio, perform no private action or ticket creation.",
+  "provenance": {
+    "runtime_commit": "cdcd24d7f1962db4c24f9e59bae85cb0f0d73002",
+    "runtime_source_sha256": {
+      "scripts/validate_voice_recovery.py": "87fa2dceeac74de717881cf7406556a127a6de0d68214915d221dc42c665d83e",
+      "run.py": "f5c4ccda879d1055a9ea0024d58fad6e7018cac6f4b288fe8b718e21a8e94bde",
+      "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+      "src/agent.py": "163e34808d5266953706e2aac45991e3cfac90527f2ce47fc3c30958702d093c",
+      "src/multilingual.py": "e780709e1cf5ef40160c05e84f628f354e94d76ab3dddd9ca8e3cf27d4d71416",
+      "src/normalize.py": "19567cf8d305066a30d690c67427c930b4054c230120ef221ef62ca4c301ec24",
+      "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+      "src/answering.py": "1d755adfa2c0ef6f1b8a7e51305199ff0626a92e3a7f4a1da12da9799a9193c8",
+      "src/tools_wrapper.py": "cdce9b295da7d1e0a095fef28406f3e0400dc496c2cbf6c6298fa2b947e60d14"
+    }
+  },
+  "attempt_history": [
+    {
+      "schema_version": 1,
+      "status": "tested",
+      "complete": true,
+      "attempt_id": "20261025T084024232306Z",
+      "started_at_utc": "2026-10-25T08:40:24.241797+00:00",
+      "speech_provider": "Gnani only",
+      "live_llm_composition_enabled": false,
+      "input_kind": "one_second_digital_silence",
+      "input_audio": {
+        "path": "tmp/voice_recovery_inputs/20261025T084024232306Z/silence.wav",
+        "sha256": "643f8a8dc8bd9c19225afffad2becfec5426180b3749cb208abdf1a6c8354efc",
+        "bytes": 32044,
+        "frames": 16000,
+        "sample_rate": 16000,
+        "sample_width": 2,
+        "channels": 1,
+        "seconds": 1.0,
+        "non_silent_pcm": false
+      },
+      "scope": "One synthetic digital-silence clip through real Gnani STT and reply TTS. This is not a human speech, noisy speech, or intelligibility test.",
+      "expected_behavior": "Ask for a clear repeat, produce genuine reply audio, perform no private action or ticket creation.",
+      "provenance": {
+        "runtime_commit": "cdcd24d7f1962db4c24f9e59bae85cb0f0d73002",
+        "runtime_source_sha256": {
+          "scripts/validate_voice_recovery.py": "7986393ddd46819fa2663139f81236a232e32b797f885de39c9520ebfa2de646",
+          "run.py": "5af583ee2c5c559192aaa463a143835aace09d99a2b8a8eee1a23c8b35393243",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "163e34808d5266953706e2aac45991e3cfac90527f2ce47fc3c30958702d093c",
+          "src/multilingual.py": "e780709e1cf5ef40160c05e84f628f354e94d76ab3dddd9ca8e3cf27d4d71416",
+          "src/normalize.py": "19567cf8d305066a30d690c67427c930b4054c230120ef221ef62ca4c301ec24",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/answering.py": "1d755adfa2c0ef6f1b8a7e51305199ff0626a92e3a7f4a1da12da9799a9193c8",
+          "src/tools_wrapper.py": "cdce9b295da7d1e0a095fef28406f3e0400dc496c2cbf6c6298fa2b947e60d14"
+        }
+      },
+      "assessment": {
+        "passed": true,
+        "checks": {
+          "exact_silent_input": true,
+          "real_gnani_stt_response": true,
+          "silence_not_hallucinated_as_speech": true,
+          "clarification_decision": true,
+          "unclear_audio_intent": true,
+          "clear_repeat_request": true,
+          "no_private_actions_or_tickets": true,
+          "no_claimed_completed_action": true,
+          "real_gnani_tts_response": true,
+          "valid_non_silent_reply_wav": true
+        },
+        "redacted_transcript": "",
+        "answer": "Sorry, I couldn't understand that audio. Please record a short, clear clip.",
+        "decision": "clarify",
+        "intent": "unclear_audio",
+        "sources": [],
+        "tool_calls_count": 0,
+        "reply_audio": {
+          "path": "sample_outputs/voice_recovery/20261025T084024232306Z/001_silence_reply.wav",
+          "sha256": "b03a7c196deb44771a72b6472803168f2401009209a11957f0972c8d18e15a52",
+          "bytes": 414764,
+          "frames": 207360,
+          "sample_rate": 48000,
+          "sample_width": 2,
+          "channels": 1,
+          "seconds": 4.32,
+          "non_silent_pcm": true
+        },
+        "voice_timings_ms": {
+          "stt_ms": 10568.71,
+          "agent_ms": 0.0,
+          "tts_ms": 1002.92,
+          "total_ms": 11612.03
+        },
+        "batch_entry_status": "error",
+        "batch_counts": {
+          "total": 1,
+          "succeeded": 0,
+          "failed": 1
+        },
+        "batch_startup_ms": 1996.92,
+        "batch_wall_ms": 13611.08,
+        "observation": {
+          "stt_calls": 1,
+          "tts_calls": 1,
+          "stt_http_statuses": [
+            200
+          ],
+          "tts_http_statuses": [
+            200
+          ],
+          "stt_failure_type": "VoiceError",
+          "recognized_speech_from_silence": false
+        }
+      },
+      "summary": {
+        "planned": 1,
+        "evaluated": 1,
+        "passed": 1,
+        "failed": 0
+      },
+      "ended_at_utc": "2026-10-25T08:40:37.946481+00:00",
+      "wall_ms": 13614.01
+    }
+  ],
+  "assessment": {
+    "passed": true,
+    "checks": {
+      "exact_silent_input": true,
+      "real_gnani_stt_response": true,
+      "silence_not_hallucinated_as_speech": true,
+      "ai_disclosure": true,
+      "clarification_decision": true,
+      "unclear_audio_intent": true,
+      "clear_repeat_request": true,
+      "no_private_actions_or_tickets": true,
+      "no_claimed_completed_action": true,
+      "real_gnani_tts_response": true,
+      "valid_non_silent_reply_wav": true
+    },
+    "redacted_transcript": "",
+    "answer": "I'm ZentroMart's AI support assistant. Sorry, I couldn't understand that audio. Please record a short, clear clip.",
+    "decision": "clarify",
+    "intent": "unclear_audio",
+    "sources": [],
+    "tool_calls_count": 0,
+    "reply_audio": {
+      "path": "sample_outputs/voice_recovery/20261025T084253622883Z/001_silence_reply.wav",
+      "sha256": "4f54455d2ce106b07642b25d5608c0f197116f7db90563ea5f17ee62dcf95de5",
+      "bytes": 599084,
+      "frames": 299520,
+      "sample_rate": 48000,
+      "sample_width": 2,
+      "channels": 1,
+      "seconds": 6.24,
+      "non_silent_pcm": true
+    },
+    "voice_timings_ms": {
+      "stt_ms": 747.03,
+      "agent_ms": 0.0,
+      "tts_ms": 1392.28,
+      "total_ms": 2141.17
+    },
+    "batch_entry_status": "error",
+    "batch_counts": {
+      "total": 1,
+      "succeeded": 0,
+      "failed": 1
+    },
+    "batch_startup_ms": 1234.06,
+    "batch_wall_ms": 3381.39,
+    "observation": {
+      "stt_calls": 1,
+      "tts_calls": 1,
+      "stt_http_statuses": [
+        200
+      ],
+      "tts_http_statuses": [
+        200
+      ],
+      "stt_failure_type": "VoiceError",
+      "recognized_speech_from_silence": false
+    }
+  },
+  "summary": {
+    "planned": 1,
+    "evaluated": 1,
+    "passed": 1,
+    "failed": 0
+  },
+  "ended_at_utc": "2026-10-25T08:42:57.120948+00:00",
+  "wall_ms": 3389.46
+}

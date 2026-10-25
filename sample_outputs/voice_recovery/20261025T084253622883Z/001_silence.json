@@ -1,0 +1,16 @@
+{
+  "transcript": "",
+  "answer": "I'm ZentroMart's AI support assistant. Sorry, I couldn't understand that audio. Please record a short, clear clip.",
+  "intent": "unclear_audio",
+  "decision": "clarify",
+  "retrieved_chunk_ids": [],
+  "sources": [],
+  "tool_calls": [],
+  "error": "Gnani returned an empty or invalid transcript; please repeat clearly",
+  "voice_timings": {
+    "stt_ms": 747.03,
+    "agent_ms": 0.0,
+    "tts_ms": 1392.28,
+    "total_ms": 2141.17
+  }
+}

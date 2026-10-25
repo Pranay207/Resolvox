@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "started_at_utc": "2026-10-25T08:43:23.579612+00:00",
+  "planned_languages": [
+    "hi"
+  ],
+  "cases": {
+    "hi": {
+      "language": "hi",
+      "language_name": "Hindi",
+      "synthetic_question": "UPI रिफंड शुरू होने के बाद आने में कितने कार्यदिवस लगते हैं?",
+      "stt_language_code": "hi-IN",
+      "tts_language_code": "hi-IN",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T08:43:23.585611+00:00",
+      "status": "passed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "cdcd24d7f1962db4c24f9e59bae85cb0f0d73002",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "e780709e1cf5ef40160c05e84f628f354e94d76ab3dddd9ca8e3cf27d4d71416",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "163e34808d5266953706e2aac45991e3cfac90527f2ce47fc3c30958702d093c",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+          "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+        },
+        "translation_model": {
+          "repository": "Xenova/nllb-200-distilled-600M",
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+          "files": {
+            "onnx/encoder_model_quantized.onnx": {
+              "bytes": 419120483,
+              "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+            },
+            "onnx/decoder_model_quantized.onnx": {
+              "bytes": 470533055,
+              "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+            },
+            "tokenizer.json": {
+              "bytes": 17331224,
+              "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+            }
+          },
+          "available": true
+        }
+      },
+      "timings_ms": {
+        "input_tts": 13.69,
+        "stt": 1118.23,
+        "agent": 6791.11,
+        "reply_tts": 1345.47,
+        "total": 9291.68
+      },
+      "attempt_id": "20261025T084323585611Z",
+      "input_audio": {
+        "seconds": 3.68,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 353324,
+        "sha256": "0ae3a0b1cf1bb043d0e16ce3d9352adfc669c0490b2f05705de4ab6281e411ba",
+        "reused": true
+      },
+      "redacted_transcript": "UPI रिफंड शुरू होने के बाद आने में कितने कार्य दिवस लगते हैं",
+      "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। UPI रिफंड शुरू होने के बाद 1 से 3 कार्यदिवस लगते हैं।",
+      "source_answer": "",
+      "output_language": "hi",
+      "decision": "answer",
+      "intent": "refund",
+      "composition": "grounded_llm",
+      "evidence_supported": true,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "REF-2",
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+          "file": "pol_refunds.md",
+          "doc_type": "policy",
+          "status": "current",
+          "effective_from": "2026-06-15",
+          "version": "2.1",
+          "title": "How long refunds take after initiation"
+        }
+      ],
+      "facts": {},
+      "localization": null,
+      "agent_timings_ms": {
+        "retrieval_ms": 130.52,
+        "llm_ms": 4934.86
+      },
+      "checks": {
+        "grounded_answer": true,
+        "refund_source": true,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": true,
+        "source_refund_duration": true,
+        "translation_validated": true,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/hi_20261025T084323585611Z_reply.wav",
+        "seconds": 6.72,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 645164,
+        "sha256": "1710b96887b13b0a49fd284b123d097f2d632da14a8707d46c62116179fca7c9"
+      },
+      "actual_spoken_language": "hi",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T08:43:32.880062+00:00"
+    }
+  },
+  "attempt_history": [],
+  "method": "Synthetic native question -> Gnani TTS -> Gnani STT -> source-grounded agent -> Gnani reply TTS",
+  "limitations": "One synthetic refund question per language. This does not establish human, noisy, accented, or broad-domain accuracy.",
+  "current_runtime": {
+    "runtime_commit": "cdcd24d7f1962db4c24f9e59bae85cb0f0d73002",
+    "runtime_source_sha256": {
+      "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+      "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+      "src/multilingual.py": "e780709e1cf5ef40160c05e84f628f354e94d76ab3dddd9ca8e3cf27d4d71416",
+      "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+      "src/agent.py": "163e34808d5266953706e2aac45991e3cfac90527f2ce47fc3c30958702d093c",
+      "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+      "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+      "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+    },
+    "translation_model": {
+      "repository": "Xenova/nllb-200-distilled-600M",
+      "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+      "files": {
+        "onnx/encoder_model_quantized.onnx": {
+          "bytes": 419120483,
+          "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+        },
+        "onnx/decoder_model_quantized.onnx": {
+          "bytes": 470533055,
+          "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+        },
+        "tokenizer.json": {
+          "bytes": 17331224,
+          "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+        }
+      },
+      "available": true
+    }
+  },
+  "recorded_at_utc": "2026-10-25T08:43:32.880062+00:00",
+  "complete": true,
+  "all_voice_passed": true,
+  "summary": {
+    "planned": 1,
+    "evaluated": 1,
+    "voice_passed": 1,
+    "text_only_passed": 0,
+    "failed": 0,
+    "pending": 0
+  }
+}

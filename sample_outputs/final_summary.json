@@ -83,11 +83,11 @@
     "complete": true
   },
   "engineering": {
-    "generated_at": "2026-10-25T07:38:21.062395+00:00",
-    "runtime_commit": "e81e2aa5cd42d150e195c1c5a4cb30b5907b95eb",
+    "generated_at": "2026-10-25T08:45:58.177261+00:00",
+    "runtime_commit": "4163da1ec5bce6fff1cbc6049d9a86c487af33f5",
     "pytest": {
-      "passed": 229,
-      "total": 229,
+      "passed": 404,
+      "total": 404,
       "exit_code": 0,
       "command": "python -m pytest -q -p no:cacheprovider"
     },
@@ -410,7 +410,7 @@
         "total": 2
       }
     },
-    "elapsed_seconds": 16.913
+    "elapsed_seconds": 15.451
   },
   "holdout_mode": "offline_compose_false",
   "privacy_check_failures": 0,
@@ -867,7 +867,7 @@
           "total": 2
         }
       },
-      "elapsed_seconds": 16.913
+      "elapsed_seconds": 15.451
     },
     "original_scorer": {
       "version": "legacy_v1_unversioned"
@@ -1094,5 +1094,219 @@
     "status": "tested",
     "audio_passed": 6,
     "semantic_passed": 6
+  },
+  "step2_live": {
+    "search_k": [
+      12
+    ],
+    "search_recall": 0.935064935064935,
+    "step": "2",
+    "total": 52,
+    "passed": 52,
+    "pass_rate": 1.0,
+    "decision_accuracy": 1.0,
+    "evidence_recall": 0.8666666666666667,
+    "errors": 0,
+    "composition_counts": {
+      "evidence_validated_fallback": 25,
+      "grounded_llm": 16,
+      "abstained_missing_evidence": 5,
+      "evidence_validated_rules": 2,
+      "deterministic_guardrail": 4
+    },
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+    "latency_by_path": {
+      "uncached_llm_attempt": {
+        "count": 29,
+        "p50_ms": 10876.8,
+        "p95_ms": 19333.3
+      },
+      "cache_hit": {
+        "count": 12,
+        "p50_ms": 60.2,
+        "p95_ms": 138.3
+      },
+      "no_model_call": {
+        "count": 11,
+        "p50_ms": 49.6,
+        "p95_ms": 108.3
+      }
+    },
+    "planned": 52,
+    "complete": true,
+    "scope": "Current runtime live practice; cached generation, checked fallbacks and guards are reported separately. Mechanical checks are not organizer scoring."
+  },
+  "step3_live": {
+    "search_k": [
+      12
+    ],
+    "search_recall": 0.29464285714285715,
+    "step": "3",
+    "total": 96,
+    "passed": 96,
+    "pass_rate": 1.0,
+    "decision_accuracy": 1.0,
+    "evidence_recall": 0.9732142857142857,
+    "errors": 0,
+    "composition_counts": {
+      "deterministic_guardrail": 77,
+      "evidence_validated_fallback": 9,
+      "grounded_llm": 8,
+      "evidence_validated_rules": 2
+    },
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+    "latency_by_path": {
+      "no_model_call": {
+        "count": 79,
+        "p50_ms": 2.3,
+        "p95_ms": 51.8
+      },
+      "uncached_llm_attempt": {
+        "count": 17,
+        "p50_ms": 7003.6,
+        "p95_ms": 15937.3
+      }
+    },
+    "planned": 96,
+    "complete": true,
+    "scope": "Current runtime live practice; cached generation, checked fallbacks and guards are reported separately. Mechanical checks are not organizer scoring."
+  },
+  "live_practice_complete": true,
+  "historical_postfix_live_subset": {
+    "search_k": [
+      12
+    ],
+    "search_recall": 0.9361702127659575,
+    "step": "grounded_single_turn",
+    "total": 32,
+    "passed": 32,
+    "pass_rate": 1.0,
+    "decision_accuracy": 1.0,
+    "evidence_recall": 0.8928571428571429,
+    "errors": 0,
+    "composition_counts": {
+      "evidence_validated_fallback": 19,
+      "grounded_llm": 6,
+      "abstained_missing_evidence": 4,
+      "evidence_validated_rules": 1,
+      "deterministic_guardrail": 2
+    },
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+    "latency_by_path": {
+      "uncached_llm_attempt": {
+        "count": 23,
+        "p50_ms": 20259.1,
+        "p95_ms": 24122.1
+      },
+      "cache_hit": {
+        "count": 2,
+        "p50_ms": 86.0,
+        "p95_ms": 86.0
+      },
+      "no_model_call": {
+        "count": 7,
+        "p50_ms": 104.5,
+        "p95_ms": 132.7
+      }
+    },
+    "complete": false,
+    "planned": 52,
+    "scope": "Partial live model evaluation after coverage fixes; stopped at a saved response boundary to prioritize user-requested fast delivery. Not a complete live practice rerun."
+  },
+  "regional_preview": {
+    "planned": 11,
+    "evaluated": 11,
+    "voice_passed": 5,
+    "text_only_passed": 0,
+    "failed": 6,
+    "pending": 0
+  },
+  "current_required_validation": {
+    "checked_at_utc": "2026-10-25T08:49:15.845477+00:00",
+    "questions": {
+      "search_k": [
+        12
+      ],
+      "search_recall": 0.935064935064935,
+      "step": "2",
+      "total": 52,
+      "passed": 52,
+      "pass_rate": 1.0,
+      "decision_accuracy": 1.0,
+      "evidence_recall": 0.8666666666666667,
+      "errors": 0,
+      "composition_counts": {
+        "evidence_validated_fallback": 25,
+        "grounded_llm": 16,
+        "abstained_missing_evidence": 5,
+        "evidence_validated_rules": 2,
+        "deterministic_guardrail": 4
+      },
+      "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+      "latency_by_path": {
+        "uncached_llm_attempt": {
+          "count": 29,
+          "p50_ms": 10876.8,
+          "p95_ms": 19333.3
+        },
+        "cache_hit": {
+          "count": 12,
+          "p50_ms": 60.2,
+          "p95_ms": 138.3
+        },
+        "no_model_call": {
+          "count": 11,
+          "p50_ms": 49.6,
+          "p95_ms": 108.3
+        }
+      },
+      "planned": 52,
+      "complete": true,
+      "scope": "Current runtime live practice; cached generation, checked fallbacks and guards are reported separately. Mechanical checks are not organizer scoring."
+    },
+    "conversations": {
+      "search_k": [
+        12
+      ],
+      "search_recall": 0.29464285714285715,
+      "step": "3",
+      "total": 96,
+      "passed": 96,
+      "pass_rate": 1.0,
+      "decision_accuracy": 1.0,
+      "evidence_recall": 0.9732142857142857,
+      "errors": 0,
+      "composition_counts": {
+        "deterministic_guardrail": 77,
+        "evidence_validated_fallback": 9,
+        "grounded_llm": 8,
+        "evidence_validated_rules": 2
+      },
+      "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+      "latency_by_path": {
+        "no_model_call": {
+          "count": 79,
+          "p50_ms": 2.3,
+          "p95_ms": 51.8
+        },
+        "uncached_llm_attempt": {
+          "count": 17,
+          "p50_ms": 7003.6,
+          "p95_ms": 15937.3
+        }
+      },
+      "planned": 96,
+      "complete": true,
+      "scope": "Current runtime live practice; cached generation, checked fallbacks and guards are reported separately. Mechanical checks are not organizer scoring."
+    },
+    "pytest_passed": 404,
+    "gnani_semantic_passed": 6,
+    "gnani_audio_passed": 6,
+    "hindi_upi_voice_passed": 1,
+    "unclear_audio_recovery_passed": 1,
+    "required_code_validation_complete": true,
+    "demo_video_pending": true,
+    "human_speech_listening_pending": true,
+    "scope": "Local mechanical and synthetic speech checks; generated answers and fallbacks remain separate. Not organizer scoring or universal correctness."
   }
 }

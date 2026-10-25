@@ -1,6 +1,6 @@
 {
   "evaluation": "Blinded official-source VoiceOps holdout",
-  "created_at_utc": "2026-10-25T06:46:30.747991+00:00",
+  "created_at_utc": "2026-10-25T08:44:58.647069+00:00",
   "mode": "offline_compose_false",
   "dense_retrieval": true,
   "reference_date": "2026-10-20",
@@ -263,12 +263,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 211.95,
+          "retrieval_ms": 77.48,
           "llm_ms": 0.0
         },
-        "latency_ms": 229.68
+        "latency_ms": 87.93
       },
-      "elapsed_seconds": 0.239
+      "elapsed_seconds": 0.092
     },
     {
       "id": "H002",
@@ -487,12 +487,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 188.6,
+          "retrieval_ms": 65.2,
           "llm_ms": 0.0
         },
-        "latency_ms": 191.72
+        "latency_ms": 66.35
       },
-      "elapsed_seconds": 0.198
+      "elapsed_seconds": 0.068
     },
     {
       "id": "H003",
@@ -705,12 +705,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 147.58,
+          "retrieval_ms": 57.88,
           "llm_ms": 0.0
         },
-        "latency_ms": 151.37
+        "latency_ms": 59.05
       },
-      "elapsed_seconds": 0.155
+      "elapsed_seconds": 0.06
     },
     {
       "id": "H004",
@@ -941,12 +941,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 184.92,
+          "retrieval_ms": 55.48,
           "llm_ms": 0.0
         },
-        "latency_ms": 189.97
+        "latency_ms": 56.69
       },
-      "elapsed_seconds": 0.194
+      "elapsed_seconds": 0.058
     },
     {
       "id": "H005",
@@ -1159,12 +1159,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 196.78,
+          "retrieval_ms": 68.11,
           "llm_ms": 0.0
         },
-        "latency_ms": 201.57
+        "latency_ms": 69.39
       },
-      "elapsed_seconds": 0.204
+      "elapsed_seconds": 0.071
     },
     {
       "id": "H006",
@@ -1409,12 +1409,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 198.24,
+          "retrieval_ms": 77.9,
           "llm_ms": 0.0
         },
-        "latency_ms": 207.1
+        "latency_ms": 80.26
       },
-      "elapsed_seconds": 0.216
+      "elapsed_seconds": 0.082
     },
     {
       "id": "H007",
@@ -1629,12 +1629,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 257.02,
+          "retrieval_ms": 71.09,
           "llm_ms": 0.0
         },
-        "latency_ms": 263.19
+        "latency_ms": 72.53
       },
-      "elapsed_seconds": 0.268
+      "elapsed_seconds": 0.074
     },
     {
       "id": "H008",
@@ -1838,12 +1838,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 227.11,
+          "retrieval_ms": 67.1,
           "llm_ms": 0.0
         },
-        "latency_ms": 231.6
+        "latency_ms": 68.2
       },
-      "elapsed_seconds": 0.234
+      "elapsed_seconds": 0.069
     },
     {
       "id": "H009",
@@ -2059,12 +2059,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 210.74,
+          "retrieval_ms": 64.8,
           "llm_ms": 0.0
         },
-        "latency_ms": 216.75
+        "latency_ms": 66.04
       },
-      "elapsed_seconds": 0.221
+      "elapsed_seconds": 0.068
     },
     {
       "id": "H010",
@@ -2266,12 +2266,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 158.2,
+          "retrieval_ms": 55.09,
           "llm_ms": 0.0
         },
-        "latency_ms": 160.76
+        "latency_ms": 56.26
       },
-      "elapsed_seconds": 0.163
+      "elapsed_seconds": 0.057
     },
     {
       "id": "H011",
@@ -2473,12 +2473,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 171.03,
+          "retrieval_ms": 61.31,
           "llm_ms": 0.0
         },
-        "latency_ms": 174.99
+        "latency_ms": 62.39
       },
-      "elapsed_seconds": 0.177
+      "elapsed_seconds": 0.063
     },
     {
       "id": "H012",
@@ -2732,12 +2732,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 181.98,
+          "retrieval_ms": 68.94,
           "llm_ms": 0.0
         },
-        "latency_ms": 185.19
+        "latency_ms": 70.45
       },
-      "elapsed_seconds": 0.188
+      "elapsed_seconds": 0.072
     },
     {
       "id": "H013",
@@ -2966,12 +2966,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 121.9,
+          "retrieval_ms": 37.24,
           "llm_ms": 0.0
         },
-        "latency_ms": 128.69
+        "latency_ms": 39.91
       },
-      "elapsed_seconds": 0.132
+      "elapsed_seconds": 0.041
     },
     {
       "id": "H014",
@@ -3176,12 +3176,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 82.28,
+          "retrieval_ms": 27.35,
           "llm_ms": 0.0
         },
-        "latency_ms": 90.67
+        "latency_ms": 29.21
       },
-      "elapsed_seconds": 0.093
+      "elapsed_seconds": 0.03
     },
     {
       "id": "H015",
@@ -3381,12 +3381,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 106.15,
+          "retrieval_ms": 43.21,
           "llm_ms": 0.0
         },
-        "latency_ms": 112.71
+        "latency_ms": 45.31
       },
-      "elapsed_seconds": 0.115
+      "elapsed_seconds": 0.046
     },
     {
       "id": "H016",
@@ -3585,12 +3585,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 71.93,
+          "retrieval_ms": 30.39,
           "llm_ms": 0.0
         },
-        "latency_ms": 77.35
+        "latency_ms": 32.19
       },
-      "elapsed_seconds": 0.08
+      "elapsed_seconds": 0.033
     },
     {
       "id": "H017",
@@ -3789,12 +3789,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 136.64,
+          "retrieval_ms": 47.82,
           "llm_ms": 0.0
         },
-        "latency_ms": 142.67
+        "latency_ms": 50.22
       },
-      "elapsed_seconds": 0.145
+      "elapsed_seconds": 0.051
     },
     {
       "id": "H018",
@@ -3999,12 +3999,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 66.94,
+          "retrieval_ms": 26.14,
           "llm_ms": 0.0
         },
-        "latency_ms": 73.48
+        "latency_ms": 27.9
       },
-      "elapsed_seconds": 0.076
+      "elapsed_seconds": 0.029
     },
     {
       "id": "H019",
@@ -4209,12 +4209,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 120.96,
+          "retrieval_ms": 46.62,
           "llm_ms": 0.0
         },
-        "latency_ms": 125.16
+        "latency_ms": 48.58
       },
-      "elapsed_seconds": 0.128
+      "elapsed_seconds": 0.05
     },
     {
       "id": "H020",
@@ -4431,12 +4431,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 91.6,
+          "retrieval_ms": 71.88,
           "llm_ms": 0.0
         },
-        "latency_ms": 95.82
+        "latency_ms": 75.05
       },
-      "elapsed_seconds": 0.1
+      "elapsed_seconds": 0.08
     },
     {
       "id": "H021",
@@ -4636,12 +4636,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 56.87,
+          "retrieval_ms": 148.15,
           "llm_ms": 0.0
         },
-        "latency_ms": 61.85
+        "latency_ms": 164.55
       },
-      "elapsed_seconds": 0.063
+      "elapsed_seconds": 0.167
     },
     {
       "id": "H022",
@@ -4864,12 +4864,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 154.31,
+          "retrieval_ms": 406.36,
           "llm_ms": 0.0
         },
-        "latency_ms": 159.25
+        "latency_ms": 413.83
       },
-      "elapsed_seconds": 0.163
+      "elapsed_seconds": 0.418
     },
     {
       "id": "H023",
@@ -5069,12 +5069,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 78.49,
+          "retrieval_ms": 84.36,
           "llm_ms": 0.0
         },
-        "latency_ms": 87.92
+        "latency_ms": 92.8
       },
-      "elapsed_seconds": 0.09
+      "elapsed_seconds": 0.095
     },
     {
       "id": "H024",
@@ -5286,12 +5286,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 83.72,
+          "retrieval_ms": 156.26,
           "llm_ms": 0.0
         },
-        "latency_ms": 90.74
+        "latency_ms": 161.45
       },
-      "elapsed_seconds": 0.093
+      "elapsed_seconds": 0.164
     },
     {
       "id": "H025",
@@ -5472,7 +5472,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTb5d506b7683445a6baf92df5e8b18b5b"
+              "ticket_id": "TKTe0a5b046ecea4fd6b3e97cad46653eee"
             }
           }
         ],
@@ -5489,9 +5489,9 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 5.95
+        "latency_ms": 7.88
       },
-      "elapsed_seconds": 0.009
+      "elapsed_seconds": 0.012
     },
     {
       "id": "H026",
@@ -5654,7 +5654,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTfcf9b60daed74c9dacb5f107492ef3f9"
+              "ticket_id": "TKT73ffc783fd624530a824914ee3a4a6a8"
             }
           }
         ],
@@ -5671,9 +5671,9 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 6.79
+        "latency_ms": 4.82
       },
-      "elapsed_seconds": 0.009
+      "elapsed_seconds": 0.007
     },
     {
       "id": "H027",
@@ -5836,7 +5836,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT15cf315444ce469c8c6e3243146b3fa4"
+              "ticket_id": "TKT963c90214ac44bd58f5f71a92f1a3ce6"
             }
           }
         ],
@@ -5853,9 +5853,9 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 8.47
+        "latency_ms": 5.04
       },
-      "elapsed_seconds": 0.011
+      "elapsed_seconds": 0.007
     },
     {
       "id": "H028",
@@ -6013,7 +6013,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTc5efd9065e1946e9ad30f86d104100cb"
+              "ticket_id": "TKTde91ede9fe164a0f8956e273adfeadd0"
             }
           }
         ],
@@ -6030,9 +6030,9 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.32
+        "latency_ms": 6.65
       },
-      "elapsed_seconds": 0.006
+      "elapsed_seconds": 0.01
     },
     {
       "id": "H029",
@@ -6251,7 +6251,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTdc595dcc05fd4f47af82f06fe2aa6a80"
+              "ticket_id": "TKT601f8fe43e9d40f08e8a7c089d2d77cd"
             }
           }
         ],
@@ -6265,12 +6265,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 46.34,
+          "retrieval_ms": 85.3,
           "llm_ms": 0.0
         },
-        "latency_ms": 55.84
+        "latency_ms": 96.23
       },
-      "elapsed_seconds": 0.058
+      "elapsed_seconds": 0.101
     },
     {
       "id": "H030",
@@ -6452,12 +6452,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 81.99,
+          "retrieval_ms": 226.02,
           "llm_ms": 0.0
         },
-        "latency_ms": 87.73
+        "latency_ms": 238.61
       },
-      "elapsed_seconds": 0.09
+      "elapsed_seconds": 0.244
     },
     {
       "id": "H031",
@@ -6652,12 +6652,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 68.44,
+          "retrieval_ms": 147.3,
           "llm_ms": 0.0
         },
-        "latency_ms": 73.61
+        "latency_ms": 157.36
       },
-      "elapsed_seconds": 0.077
+      "elapsed_seconds": 0.161
     },
     {
       "id": "H032",
@@ -6861,12 +6861,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 74.55,
+          "retrieval_ms": 174.04,
           "llm_ms": 0.0
         },
-        "latency_ms": 79.55
+        "latency_ms": 188.87
       },
-      "elapsed_seconds": 0.082
+      "elapsed_seconds": 0.198
     },
     {
       "id": "H033",
@@ -7060,12 +7060,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 61.55,
+          "retrieval_ms": 61.4,
           "llm_ms": 0.0
         },
-        "latency_ms": 65.84
+        "latency_ms": 66.16
       },
-      "elapsed_seconds": 0.069
+      "elapsed_seconds": 0.068
     },
     {
       "id": "H034",
@@ -7259,12 +7259,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 69.47,
+          "retrieval_ms": 77.91,
           "llm_ms": 0.0
         },
-        "latency_ms": 73.0
+        "latency_ms": 80.91
       },
-      "elapsed_seconds": 0.075
+      "elapsed_seconds": 0.084
     },
     {
       "id": "H035",
@@ -7451,12 +7451,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 79.98,
+          "retrieval_ms": 83.78,
           "llm_ms": 0.0
         },
-        "latency_ms": 86.61
+        "latency_ms": 87.77
       },
-      "elapsed_seconds": 0.089
+      "elapsed_seconds": 0.091
     },
     {
       "id": "H036",
@@ -7624,12 +7624,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 73.11,
+          "retrieval_ms": 108.13,
           "llm_ms": 0.0
         },
-        "latency_ms": 79.81
+        "latency_ms": 117.26
       },
-      "elapsed_seconds": 0.082
+      "elapsed_seconds": 0.119
     },
     {
       "id": "H037",
@@ -7797,12 +7797,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 76.3,
+          "retrieval_ms": 107.16,
           "llm_ms": 0.0
         },
-        "latency_ms": 80.31
+        "latency_ms": 114.12
       },
-      "elapsed_seconds": 0.082
+      "elapsed_seconds": 0.118
     },
     {
       "id": "H038",
@@ -7970,12 +7970,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 60.86,
+          "retrieval_ms": 144.11,
           "llm_ms": 0.0
         },
-        "latency_ms": 64.68
+        "latency_ms": 152.53
       },
-      "elapsed_seconds": 0.066
+      "elapsed_seconds": 0.156
     },
     {
       "id": "H039",
@@ -8169,12 +8169,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 70.91,
+          "retrieval_ms": 155.66,
           "llm_ms": 0.0
         },
-        "latency_ms": 76.71
+        "latency_ms": 165.56
       },
-      "elapsed_seconds": 0.078
+      "elapsed_seconds": 0.17
     },
     {
       "id": "H040",
@@ -8361,12 +8361,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 92.72,
+          "retrieval_ms": 153.08,
           "llm_ms": 0.0
         },
-        "latency_ms": 97.36
+        "latency_ms": 163.91
       },
-      "elapsed_seconds": 0.1
+      "elapsed_seconds": 0.166
     },
     {
       "id": "H041",
@@ -8565,12 +8565,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 114.93,
+          "retrieval_ms": 162.48,
           "llm_ms": 0.0
         },
-        "latency_ms": 125.08
+        "latency_ms": 166.91
       },
-      "elapsed_seconds": 0.129
+      "elapsed_seconds": 0.169
     },
     {
       "id": "H042",
@@ -8770,12 +8770,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 131.47,
+          "retrieval_ms": 126.01,
           "llm_ms": 0.0
         },
-        "latency_ms": 139.01
+        "latency_ms": 135.66
       },
-      "elapsed_seconds": 0.142
+      "elapsed_seconds": 0.14
     },
     {
       "id": "H043",
@@ -8975,12 +8975,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 85.88,
+          "retrieval_ms": 88.87,
           "llm_ms": 0.0
         },
-        "latency_ms": 91.02
+        "latency_ms": 95.4
       },
-      "elapsed_seconds": 0.096
+      "elapsed_seconds": 0.098
     },
     {
       "id": "H044",
@@ -9209,12 +9209,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 138.83,
+          "retrieval_ms": 165.39,
           "llm_ms": 0.0
         },
-        "latency_ms": 146.84
+        "latency_ms": 170.2
       },
-      "elapsed_seconds": 0.15
+      "elapsed_seconds": 0.173
     },
     {
       "id": "H045",
@@ -9444,12 +9444,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 121.34,
+          "retrieval_ms": 125.87,
           "llm_ms": 0.0
         },
-        "latency_ms": 127.44
+        "latency_ms": 130.21
       },
-      "elapsed_seconds": 0.133
+      "elapsed_seconds": 0.134
     },
     {
       "id": "H046",
@@ -9636,12 +9636,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 125.65,
+          "retrieval_ms": 121.78,
           "llm_ms": 0.0
         },
-        "latency_ms": 135.99
+        "latency_ms": 127.79
       },
-      "elapsed_seconds": 0.141
+      "elapsed_seconds": 0.133
     },
     {
       "id": "H047",
@@ -9828,12 +9828,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 79.68,
+          "retrieval_ms": 142.09,
           "llm_ms": 0.0
         },
-        "latency_ms": 86.13
+        "latency_ms": 152.82
       },
-      "elapsed_seconds": 0.089
+      "elapsed_seconds": 0.155
     },
     {
       "id": "H048",
@@ -10025,12 +10025,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 89.87,
+          "retrieval_ms": 186.8,
           "llm_ms": 0.0
         },
-        "latency_ms": 97.78
+        "latency_ms": 193.27
       },
-      "elapsed_seconds": 0.1
+      "elapsed_seconds": 0.196
     },
     {
       "id": "H049",
@@ -10222,12 +10222,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 89.91,
+          "retrieval_ms": 161.27,
           "llm_ms": 0.0
         },
-        "latency_ms": 95.63
+        "latency_ms": 167.36
       },
-      "elapsed_seconds": 0.098
+      "elapsed_seconds": 0.173
     },
     {
       "id": "H050",
@@ -10419,12 +10419,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 113.33,
+          "retrieval_ms": 175.46,
           "llm_ms": 0.0
         },
-        "latency_ms": 118.85
+        "latency_ms": 185.59
       },
-      "elapsed_seconds": 0.121
+      "elapsed_seconds": 0.189
     },
     {
       "id": "H051",
@@ -10628,12 +10628,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 118.01,
+          "retrieval_ms": 102.31,
           "llm_ms": 0.0
         },
-        "latency_ms": 124.86
+        "latency_ms": 107.03
       },
-      "elapsed_seconds": 0.129
+      "elapsed_seconds": 0.109
     },
     {
       "id": "H052",
@@ -10828,12 +10828,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 228.86,
+          "retrieval_ms": 135.34,
           "llm_ms": 0.0
         },
-        "latency_ms": 236.4
+        "latency_ms": 144.07
       },
-      "elapsed_seconds": 0.239
+      "elapsed_seconds": 0.148
     },
     {
       "id": "H053",
@@ -11041,12 +11041,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 166.5,
+          "retrieval_ms": 99.22,
           "llm_ms": 0.0
         },
-        "latency_ms": 170.67
+        "latency_ms": 106.39
       },
-      "elapsed_seconds": 0.176
+      "elapsed_seconds": 0.109
     },
     {
       "id": "H054",
@@ -11245,12 +11245,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 79.41,
+          "retrieval_ms": 94.7,
           "llm_ms": 0.0
         },
-        "latency_ms": 86.51
+        "latency_ms": 99.76
       },
-      "elapsed_seconds": 0.089
+      "elapsed_seconds": 0.104
     },
     {
       "id": "H055",
@@ -11455,12 +11455,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 106.17,
+          "retrieval_ms": 200.88,
           "llm_ms": 0.0
         },
-        "latency_ms": 111.93
+        "latency_ms": 208.67
       },
-      "elapsed_seconds": 0.114
+      "elapsed_seconds": 0.213
     },
     {
       "id": "H056",
@@ -11651,12 +11651,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 78.51,
+          "retrieval_ms": 195.06,
           "llm_ms": 0.0
         },
-        "latency_ms": 83.67
+        "latency_ms": 204.08
       },
-      "elapsed_seconds": 0.087
+      "elapsed_seconds": 0.207
     },
     {
       "id": "H057",
@@ -11847,12 +11847,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 94.44,
+          "retrieval_ms": 220.15,
           "llm_ms": 0.0
         },
-        "latency_ms": 103.29
+        "latency_ms": 228.74
       },
-      "elapsed_seconds": 0.106
+      "elapsed_seconds": 0.231
     },
     {
       "id": "H058",
@@ -12038,12 +12038,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 98.91,
+          "retrieval_ms": 122.7,
           "llm_ms": 0.0
         },
-        "latency_ms": 125.43
+        "latency_ms": 134.99
       },
-      "elapsed_seconds": 0.127
+      "elapsed_seconds": 0.14
     },
     {
       "id": "H059",
@@ -12235,12 +12235,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 90.53,
+          "retrieval_ms": 99.61,
           "llm_ms": 0.0
         },
-        "latency_ms": 96.27
+        "latency_ms": 106.24
       },
-      "elapsed_seconds": 0.109
+      "elapsed_seconds": 0.108
     },
     {
       "id": "H060",
@@ -12445,12 +12445,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 114.32,
+          "retrieval_ms": 165.99,
           "llm_ms": 0.0
         },
-        "latency_ms": 121.04
+        "latency_ms": 177.96
       },
-      "elapsed_seconds": 0.124
+      "elapsed_seconds": 0.18
     },
     {
       "id": "H061",
@@ -12642,12 +12642,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 67.72,
+          "retrieval_ms": 173.41,
           "llm_ms": 0.0
         },
-        "latency_ms": 71.53
+        "latency_ms": 204.69
       },
-      "elapsed_seconds": 0.074
+      "elapsed_seconds": 0.211
     },
     {
       "id": "H062",
@@ -12853,12 +12853,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 25.91,
+          "retrieval_ms": 52.75,
           "llm_ms": 0.0
         },
-        "latency_ms": 28.55
+        "latency_ms": 58.13
       },
-      "elapsed_seconds": 0.03
+      "elapsed_seconds": 0.061
     },
     {
       "id": "H063",
@@ -13050,12 +13050,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 32.32,
+          "retrieval_ms": 70.78,
           "llm_ms": 0.0
         },
-        "latency_ms": 39.04
+        "latency_ms": 79.95
       },
-      "elapsed_seconds": 0.041
+      "elapsed_seconds": 0.087
     },
     {
       "id": "H064",
@@ -13237,12 +13237,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 106.46,
+          "retrieval_ms": 150.69,
           "llm_ms": 0.0
         },
-        "latency_ms": 112.24
+        "latency_ms": 161.27
       },
-      "elapsed_seconds": 0.117
+      "elapsed_seconds": 0.163
     },
     {
       "id": "HC01/T1",
@@ -13402,7 +13402,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 8.61
+        "latency_ms": 8.6
       },
       "elapsed_seconds": 0.014
     },
@@ -13694,12 +13694,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 76.4,
+          "retrieval_ms": 158.24,
           "llm_ms": 0.0
         },
-        "latency_ms": 79.87
+        "latency_ms": 169.99
       },
-      "elapsed_seconds": 0.083
+      "elapsed_seconds": 0.176
     },
     {
       "id": "HC01/T3",
@@ -13905,12 +13905,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 55.32,
+          "retrieval_ms": 53.9,
           "llm_ms": 0.0
         },
-        "latency_ms": 57.43
+        "latency_ms": 56.62
       },
-      "elapsed_seconds": 0.06
+      "elapsed_seconds": 0.062
     },
     {
       "id": "HC02/T1",
@@ -14070,9 +14070,9 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.92
+        "latency_ms": 5.03
       },
-      "elapsed_seconds": 0.008
+      "elapsed_seconds": 0.011
     },
     {
       "id": "HC02/T2",
@@ -14222,7 +14222,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.74
+        "latency_ms": 3.84
       },
       "elapsed_seconds": 0.007
     },
@@ -14379,9 +14379,9 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.55
+        "latency_ms": 5.12
       },
-      "elapsed_seconds": 0.006
+      "elapsed_seconds": 0.01
     },
     {
       "id": "HC02/T4",
@@ -14505,7 +14505,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.37
+        "latency_ms": 3.14
       },
       "elapsed_seconds": 0.006
     },
@@ -14670,9 +14670,9 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.13
+        "latency_ms": 2.1
       },
-      "elapsed_seconds": 0.018
+      "elapsed_seconds": 0.004
     },
     {
       "id": "HC03/T2",
@@ -14966,12 +14966,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 61.93,
+          "retrieval_ms": 69.05,
           "llm_ms": 0.0
         },
-        "latency_ms": 65.02
+        "latency_ms": 70.92
       },
-      "elapsed_seconds": 0.067
+      "elapsed_seconds": 0.074
     },
     {
       "id": "HC03/T3",
@@ -15132,12 +15132,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 66.22,
+          "retrieval_ms": 101.07,
           "llm_ms": 0.0
         },
-        "latency_ms": 67.98
+        "latency_ms": 103.74
       },
-      "elapsed_seconds": 0.069
+      "elapsed_seconds": 0.106
     },
     {
       "id": "HC03/T4",
@@ -15269,7 +15269,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.89
+        "latency_ms": 3.31
       },
       "elapsed_seconds": 0.006
     },
@@ -15431,9 +15431,9 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 5.74
+        "latency_ms": 1.77
       },
-      "elapsed_seconds": 0.009
+      "elapsed_seconds": 0.004
     },
     {
       "id": "HC04/T2",
@@ -15793,7 +15793,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT4740a8a9b5f34ddf8fe1c5e531154fbc"
+              "ticket_id": "TKTf65d23a26bb8431c81d87041bae126a9"
             }
           }
         ],
@@ -15813,12 +15813,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 73.2,
+          "retrieval_ms": 113.29,
           "llm_ms": 0.0
         },
-        "latency_ms": 76.34
+        "latency_ms": 119.13
       },
-      "elapsed_seconds": 0.081
+      "elapsed_seconds": 0.134
     },
     {
       "id": "HC05/T1",
@@ -15978,9 +15978,9 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.22
+        "latency_ms": 6.3
       },
-      "elapsed_seconds": 0.008
+      "elapsed_seconds": 0.012
     },
     {
       "id": "HC05/T2",
@@ -16287,12 +16287,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 81.2,
+          "retrieval_ms": 103.45,
           "llm_ms": 0.0
         },
-        "latency_ms": 83.19
+        "latency_ms": 106.86
       },
-      "elapsed_seconds": 0.087
+      "elapsed_seconds": 0.114
     },
     {
       "id": "HC06/T1",
@@ -16451,9 +16451,9 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.01
+        "latency_ms": 6.04
       },
-      "elapsed_seconds": 0.007
+      "elapsed_seconds": 0.01
     },
     {
       "id": "HC06/T2",
@@ -16725,7 +16725,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT324c8ca22eb24e00920688906b5fffb0"
+              "ticket_id": "TKT008f3159c2e24f62a7a36551c41aa80a"
             }
           }
         ],
@@ -16742,7 +16742,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 7.32
+        "latency_ms": 7.2
       },
       "elapsed_seconds": 0.011
     },
@@ -16925,7 +16925,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTfb0211c2a0b8475e943a108a333044e8"
+              "ticket_id": "TKT399458921a3446319fcfb67dcd973979"
             }
           }
         ],
@@ -16942,9 +16942,9 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 7.49
+        "latency_ms": 5.46
       },
-      "elapsed_seconds": 0.01
+      "elapsed_seconds": 0.008
     },
     {
       "id": "HC07/T2",
@@ -17095,9 +17095,9 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 5.63
+        "latency_ms": 3.84
       },
-      "elapsed_seconds": 0.008
+      "elapsed_seconds": 0.006
     },
     {
       "id": "HC08/T1",
@@ -17296,12 +17296,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 79.66,
+          "retrieval_ms": 113.91,
           "llm_ms": 0.0
         },
-        "latency_ms": 83.53
+        "latency_ms": 119.02
       },
-      "elapsed_seconds": 0.086
+      "elapsed_seconds": 0.123
     },
     {
       "id": "HC08/T2",
@@ -17504,12 +17504,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 212.06,
+          "retrieval_ms": 226.43,
           "llm_ms": 0.0
         },
-        "latency_ms": 219.43
+        "latency_ms": 229.83
       },
-      "elapsed_seconds": 0.222
+      "elapsed_seconds": 0.233
     },
     {
       "id": "HC08/T3",
@@ -17711,12 +17711,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 175.74,
+          "retrieval_ms": 236.25,
           "llm_ms": 0.0
         },
-        "latency_ms": 178.84
+        "latency_ms": 244.69
       },
-      "elapsed_seconds": 0.182
+      "elapsed_seconds": 0.247
     },
     {
       "id": "HC09/T1",
@@ -17933,12 +17933,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 167.68,
+          "retrieval_ms": 448.42,
           "llm_ms": 0.0
         },
-        "latency_ms": 172.19
+        "latency_ms": 451.97
       },
-      "elapsed_seconds": 0.175
+      "elapsed_seconds": 0.455
     },
     {
       "id": "HC09/T2",
@@ -18135,12 +18135,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 148.86,
+          "retrieval_ms": 209.43,
           "llm_ms": 0.0
         },
-        "latency_ms": 152.5
+        "latency_ms": 214.0
       },
-      "elapsed_seconds": 0.154
+      "elapsed_seconds": 0.217
     },
     {
       "id": "HC09/T3",
@@ -18349,12 +18349,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 163.79,
+          "retrieval_ms": 240.76,
           "llm_ms": 0.0
         },
-        "latency_ms": 170.24
+        "latency_ms": 248.28
       },
-      "elapsed_seconds": 0.173
+      "elapsed_seconds": 0.253
     },
     {
       "id": "HC10/T1",
@@ -18514,9 +18514,9 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.58
+        "latency_ms": 4.47
       },
-      "elapsed_seconds": 0.004
+      "elapsed_seconds": 0.009
     },
     {
       "id": "HC10/T2",
@@ -18810,12 +18810,12 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 35.01,
+          "retrieval_ms": 79.13,
           "llm_ms": 0.0
         },
-        "latency_ms": 36.85
+        "latency_ms": 81.43
       },
-      "elapsed_seconds": 0.04
+      "elapsed_seconds": 0.086
     }
   ],
   "summary": {
@@ -18964,6 +18964,6 @@
         "total": 2
       }
     },
-    "elapsed_seconds": 16.913
+    "elapsed_seconds": 15.451
   }
 }

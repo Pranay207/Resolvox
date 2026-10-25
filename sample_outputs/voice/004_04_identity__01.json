@@ -1,6 +1,6 @@
 {
   "transcript": "my order number is 89782837",
-  "answer": "I'm ZentroMart's AI support assistant. Please provide the last 4 digits of your registered phone.",
+  "answer": "I'm ZentroMart's AI support assistant. Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
   "intent": "verification",
   "decision": "clarify",
   "language": "en",
@@ -78,11 +78,11 @@
     "retrieval_ms": 0.0,
     "llm_ms": 0.0
   },
-  "latency_ms": 8.35,
+  "latency_ms": 5.52,
   "voice_timings": {
-    "stt_ms": 314.74,
-    "agent_ms": 8.36,
-    "tts_ms": 849.25,
-    "total_ms": 1172.5
+    "stt_ms": 287.56,
+    "agent_ms": 5.59,
+    "tts_ms": 1161.68,
+    "total_ms": 1455.07
   }
 }

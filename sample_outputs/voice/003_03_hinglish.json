@@ -102,26 +102,20 @@
   "evidence_supported": true,
   "validation_error": "omitted_policy_aspect:initiation",
   "llm": {
-    "cache_hit": false,
-    "attempts": 1,
-    "provider": "ollama:qwen3:1.7b",
-    "wall_ms": 5341.16,
-    "load_ms": 39.78,
-    "prompt_eval_ms": 1755.62,
-    "eval_ms": 3359.5,
-    "prompt_eval_count": 406,
-    "eval_count": 24,
-    "done_reason": "stop"
+    "cache_hit": true,
+    "attempts": 0,
+    "wall_ms": 1.87,
+    "provider": "ollama:qwen3:1.7b"
   },
   "timings": {
-    "retrieval_ms": 101.5,
-    "llm_ms": 5344.83
+    "retrieval_ms": 30.76,
+    "llm_ms": 2.44
   },
-  "latency_ms": 5449.88,
+  "latency_ms": 34.34,
   "voice_timings": {
-    "stt_ms": 230.98,
-    "agent_ms": 5449.9,
-    "tts_ms": 1133.26,
-    "total_ms": 6814.25
+    "stt_ms": 225.02,
+    "agent_ms": 34.37,
+    "tts_ms": 1050.57,
+    "total_ms": 1310.16
   }
 }

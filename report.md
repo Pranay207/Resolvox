@@ -20,11 +20,11 @@ Four cumulative build steps
 
 Evidence snapshot at report generation
 
-Baseline 1/52; current offline grounded questions 52/52; offline conversation turns 96/96; development adversarial/stateful checks 77/77. These are mechanical local checks. The practice and adversarial sets were used during development; answer quality is not established by retrieval recall or a successful fallback alone.
+Actual prompt-only baseline: 1/52. LLM-enabled grounded questions: 52/52 planned; 52 evaluated; complete=True; errors 0. LLM-enabled conversation turns: 96/96 planned; 96 evaluated; complete=True; errors 0. Offline checks remain separate: 52/52 questions, 96/96 conversation turns; development adversarial/stateful checks 77/77. Mechanical checks on development practice do not establish unseen semantic quality.
 
-Grounded run model metadata: configured ollama/qwen3:1.7b.
+Grounded run model metadata: configured ollama/qwen3:1.7b; recorded calls ollama:qwen3:1.7b (40).
 
-Engineering pytest result: 229/229 passed; exit code 0. Required report limit: four pages. The user records the final demo within 120 seconds after validation.
+Engineering pytest result: 404/404 passed; exit code 0. Required report limit: four pages. The user records the final demo within 120 seconds after validation.
 
 
 ---
@@ -58,17 +58,17 @@ Evaluation and observed limitations
 
 | Recorded evaluation | Passes | Interpretation |
 | Prompt-only questions | 1/52 | 1.9%; errors 1 |
-| Grounded practice (offline) | 52/52 | 100.0%; compose=False; search 93.5% at k=12 |
-| Conversation practice (offline) | 96/96 | 100.0%; compose=False; answer/auth turns |
+| Grounded questions (LLM-enabled) | 52/52 | 52/52 evaluated; complete=True; compose=True |
+| Conversation turns (LLM-enabled) | 96/96 | 96/96 evaluated; complete=True; compose=True |
+| Offline questions / conversations | 52/52 / 96/96 | compose=False; separate rules/guard checks |
 | Development adversarial/stateful | 77/77 | 100.0%; used for development |
-| Post-fix live subset | 32/52 planned | 32 evaluated; incomplete live rerun |
 | First holdout (offline) | 23/91 | 25.3% |
 | Post-fix holdout (offline) | 91/91 | 100.0% |
-| Used-source evidence recall | Single / conversation | 86.7% / 97.3% |
+| Used-source recall (selected runs) | Single / conversation | 86.7% / 97.3% |
 
 The scorer checks decisions, required/forbidden facts and expected tools; independent holdout checks also inspect language, evidence, tool arguments and privacy. Mechanical regex/fact checks can miss semantic errors or reject valid paraphrases. Conversation search includes many guard/verification turns and is not directly comparable with standalone query recall.
 
-Complete current practice runs are offline compose=False; earlier complete live results predate the fixes. Current live evidence is the separately recorded incomplete subset. Single-question composition: abstained_missing_evidence: 5; deterministic_guardrail: 4; evidence_validated_rules: 43. Conversation composition: deterministic_guardrail: 77; evidence_validated_rules: 19.
+LLM-enabled question composition: generated 16; checked fallbacks 25; guards 4; rules 2; abstentions 5. LLM-enabled conversation composition: generated 8; checked fallbacks 9; guards 77; rules 2; abstentions 0. These include cached generation, reviewed fallbacks and guards; a passing live run is not all fresh generation. Historical 32/52 partial subset remains preserved unchanged. Earlier complete live runs are separate historical evidence.
 
 Frozen holdout and honest reruns
 
@@ -89,25 +89,31 @@ Latency, voice and reproducibility
 
 Model and latency evidence
 
-Current live subset turn timing: uncached_llm_attempt: n=23, p50 20.26s, p95 24.12s; cache_hit: n=2, p50 0.09s, p95 0.09s; no_model_call: n=7, p50 0.10s, p95 0.13s. Offline timing is recorded separately. All outliers are retained; configured request timeouts do not establish a hard end-to-end latency bound.
+Recorded LLM-enabled question timing: uncached_llm_attempt: n=29, p50 10.88s, p95 19.33s; cache_hit: n=12, p50 0.06s, p95 0.14s; no_model_call: n=11, p50 0.05s, p95 0.11s. Conversation timings are retained in eval_step3_live_current.json; offline measurements remain separate. All outliers are retained; request timeouts do not establish a hard end-to-end bound.
 
 | Recorded model experiment | Accepted generation | Mean case wall | Warm-up wall |
-| selected-model check: qwen3:1.7b (uncached requests) | 5/23 | 74.83 s | not recorded |
-| selected-model check: qwen3:1.7b (output cache) | 1/2 | 0.18 s | not recorded |
+| selected-model check: qwen3:1.7b (uncached requests) | 10/29 | 10.94 s | not recorded |
+| selected-model check: qwen3:1.7b (output cache) | 6/12 | 0.08 s | not recorded |
 
 Benchmarks use a small development sample and do not estimate unseen quality. Warm-up wall includes its request and may include loading; it is not automatically a controlled cold start. Warm uncached inference performs a new request, whereas an output-cache hit reuses stored text. Agent turn latency excludes resource creation before respond; inspect cache status and provider load/prompt/decode timings. Full prompt/source/fact/model settings enter cache keys; private-order calls bypass persistent output caching.
+
+Optional regional-language preview
+
+Primary support is English, Hindi and Hinglish. Additional regional choices are an optional preview using separate local translation with masked identifiers and round-trip checks. Optional regional-language preview remains experimental. The saved synthetic language run passed 5/11 voice cases; 6 failed and 0 are pending. This does not establish all ten languages as working; each language has only one refund-question check, and native intelligibility was not independently reviewed. Failures and prior attempts remain in language_validation.json; translation weights are excluded from the archive.
 
 Real Gnani speech; separate time measures
 
 Status: tested. Audio batches: 6/6 succeeded; semantic/privacy checks passed: 6, failed: 0. Results describe the saved run, not a human listening study.
 
-Saved voice processing wall range: 1.03-22.26 s; generated reply audio duration: 4.00-12.00 s. Processing time and playback length are different quantities. Gnani TTS input clips are synthetic, not human recordings; accent/noise robustness and subjective listening remain unverified.
+Separate current speech checks: Hindi UPI 1/1; silent-clip recovery 1/1. Recovery required a genuine Gnani spoken clarification, first-reply AI disclosure, no hallucinated speech, and no actions or tickets. These are synthetic-input checks, not human listening evidence.
+
+Saved voice processing wall range: 1.03-13.44 s; generated reply audio duration: 4.16-17.28 s. Processing time and playback length are different quantities. Gnani TTS input clips are synthetic, not human recordings; accent/noise robustness and subjective listening remain unverified.
 
 Gnani is the only STT/TTS provider. Bounded retries rewind inputs; invalid transcripts, truncated PCM and empty speech are rejected. Stream-style WAV sizes are finalized without changing samples. Batch results retain redacted transcripts, sources, tool traces, timing and per-file errors. An offline-rules run disables answer generation but still requires Gnani speech.
 
 Reproduce and release
 
-Repository: https://github.com/Pranay207/ESD. Setup: powershell -File setup.ps1. Batch: python run.py --audio_dir <in> --out_dir <out>. Evaluate eval_step1.py, eval_step2.py --live, eval_step3.py --live, eval_adversarial.py, eval_holdout.py --check-only, eval_holdout.py, and python -m pytest -q. Reproduce voice with generate_voice_samples.py --reuse-inputs. Generated JSON retains the measured configuration and failures.
+Repository: https://github.com/Pranay207/Resolvox. Setup: powershell -File setup.ps1. Batch: python run.py --audio_dir <in> --out_dir <out>. Current live practice: python scripts/resume_live_practice.py --step 2, then --step 3; separate baseline/adversarial/holdout scripts retain earlier evidence. Run python -m pytest -q. Reproduce voice with generate_voice_samples.py --reuse-inputs. Generated JSON retains the measured configuration and failures.
 
 After final checks, regenerate the report, visually inspect all pages, record demo.mp4 within 120 seconds, then build/verify the release ZIP. Packaging excludes .env, dataset copies, model weights, caches, environments and private audio. Educational proof checking is not production authentication. No rank, prize or real customer outcome is promised.
 

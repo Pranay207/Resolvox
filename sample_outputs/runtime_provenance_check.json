@@ -1,0 +1,8 @@
+{
+  "checked_at_utc": "2026-10-25T08:49:15.845477+00:00",
+  "current_live_question_sources_match": true,
+  "current_live_conversation_sources_match": true,
+  "question_rows": 52,
+  "conversation_rows": 96,
+  "scope": "Every inference source file recorded by both live runs matches the final core/driver bytes. UI and batch-only error-reply changes are separate."
+}

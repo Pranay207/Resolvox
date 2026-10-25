@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-25T07:42:31.361298+00:00",
+  "checked_at_utc": "2026-10-25T08:49:15.845477+00:00",
   "source": "voiceops_2026_capstone_brief.pdf",
   "source_sha256": "8a5136192666a204f2fd7dfdb9cbb87d0f4ffdaf8db98fb0ac491139c057b629",
   "all_requirements_fully_fulfilled": false,
@@ -12,8 +12,8 @@
       "pages": [
         11
       ],
-      "status": "implemented",
-      "finding": "Any supported language may be used; all ten are not mandatory. App scope is English, Hindi and Hinglish."
+      "status": "optional_extension_configured",
+      "finding": "Any supported language may be used; all ten are not mandatory. All ten base languages plus Hinglish are now configured as an optional extension. Per-language live results, failures and limits are recorded separately in language_validation.json."
     },
     {
       "requirement": "Step 1 prompt-only LLM and AI disclosure",
@@ -39,8 +39,8 @@
         9,
         12
       ],
-      "status": "partial_assurance",
-      "finding": "Actual source-text LLM generation and evidence checks exist, but static policy fallbacks remain. Current live subset: 19 evidence_validated_fallback, 6 grounded_llm, 4 abstentions, 1 rules answer, 2 guards. Fingerprint-bound fallback is not proof of broad unseen-question compliance."
+      "status": "implemented_and_practice_checked_with_limits",
+      "finding": "Completed current LLM-enabled questions 52/52: 16 generated, 25 evidence-validated fallbacks, 5 abstentions, 2 rules answers and 4 guards. Static fallbacks remain explicit; this does not prove universal unseen-question compliance."
     },
     {
       "requirement": "Step 1 versus Step 2 comparison",
@@ -49,16 +49,16 @@
         13,
         14
       ],
-      "status": "partial_current_validation",
-      "finding": "Report distinguishes real baseline 1/52 from current offline 52/52. Current LLM-enabled comparison is incomplete: 32 evaluated of 52 planned; not all answers were generated."
+      "status": "complete_current_practice_comparison",
+      "finding": "Actual prompt-only baseline 1/52 versus current LLM-enabled 52/52, complete. Generated answers, fallbacks and guards are separated in the report; offline 52/52 remains distinct."
     },
     {
       "requirement": "Step 3 context, follow-ups, clarification, policy refusal, tools and handover",
       "pages": [
         9
       ],
-      "status": "implemented_partial_live_validation",
-      "evidence": "96/96 offline conversation turns; no current complete live conversation rerun."
+      "status": "implemented_and_current_live_practice_checked",
+      "evidence": "Current LLM-enabled 96/96 conversation turns, complete: 8 generated, 9 checked fallbacks, 77 guards and 2 rules replies."
     },
     {
       "requirement": "Caller verification and confirmed ticket creation",
@@ -86,7 +86,7 @@
         12
       ],
       "status": "demonstrated_limited_scope",
-      "evidence": "Six real synthetic-input Gnani STT/agent/TTS round trips and six semantic/privacy checks. No other speech provider."
+      "evidence": "Fresh six genuine synthetic Gnani round trips pass audio and semantic/privacy checks; separate corrected Hindi UPI check passes 1/1. No human/noise/listening claim."
     },
     {
       "requirement": "Speech clarity and own recorded voice testing",
@@ -95,8 +95,8 @@
         11,
         13
       ],
-      "status": "partial",
-      "finding": "Number/date formatting and unclear-audio recovery implemented. Human voice, accent/noise and subjective listening not completed."
+      "status": "synthetic_recovery_checked_human_rehearsal_pending",
+      "finding": "Real silent-clip check passes 1/1 with first-reply AI disclosure, actual Gnani spoken retry and no actions/tickets. User-recorded speech and subjective listening are deferred to final demo rehearsal."
     },
     {
       "requirement": "Interface records and plays audio",
@@ -104,15 +104,15 @@
         12
       ],
       "status": "implemented_and_integration_checked",
-      "evidence": "Streamlit record/upload/playback; six integration checks. Browser visual review unavailable."
+      "evidence": "Streamlit record/upload/playback and eight UI checks within 404 passing tests. Regional preview defaults off; direct final browser review unavailable."
     },
     {
       "requirement": "README, dependencies, keyless env example and public code repo",
       "pages": [
         14
       ],
-      "status": "files_present",
-      "evidence": "https://github.com/Pranay207/ESD; install/run instructions and empty credentials in .env.example. Final push verified separately."
+      "status": "repository_and_instructions_present",
+      "evidence": "https://github.com/Pranay207/Resolvox; README, install/run commands and keyless .env.example included. Final commit is pushed and its remote ID verified during release closeout."
     },
     {
       "requirement": "One folder batch command saves text, audio and document chunks",
@@ -120,7 +120,7 @@
         14
       ],
       "status": "implemented_and_limited_live_checked",
-      "evidence": "python run.py --audio_dir <in> --out_dir <out>; six synthetic clips; per-file failures retained."
+      "evidence": "python run.py --audio_dir <in> --out_dir <out>; fresh six synthetic clips pass. Text, actual audio, full source chunks, failures and session context saved."
     },
     {
       "requirement": "Report at most four pages",
@@ -128,7 +128,7 @@
         14
       ],
       "status": "complete",
-      "evidence": "Current four-page report rendered and visually reviewed; pdf_qa.json records SHA and 229 tests."
+      "evidence": "Regenerated report has four pages, all visually reviewed; PDF SHA and 404 tests recorded in pdf_qa.json."
     },
     {
       "requirement": "Demo at most two minutes, grounded answer plus follow-up and handover or abstention",
@@ -144,9 +144,12 @@
       "pages": [
         14
       ],
-      "status": "draft",
-      "finding": "Missing required demo; package smoke and configured-secret audit recorded separately."
+      "status": "verified_draft_demo_pending",
+      "finding": "Updated 179-entry draft ZIP extracted and passed import, answer and CLI smoke tests. Configured-secret scan passed; model weights, dataset, environments and secrets excluded. Required demo remains absent by user request."
     }
   ],
-  "scope": "Implementation, artifact presence and observed validation are separated. This is not organizer scoring or proof of unseen-audio correctness."
+  "scope": "Implementation, artifact presence and observed validation are separated. This is not organizer scoring or proof of unseen-audio correctness.",
+  "non_video_release_verification_pending": false,
+  "non_video_package_verified": true,
+  "remaining_required_user_artifact": "demo.mp4, at most 120 seconds, recorded last"
 }

@@ -8,14 +8,18 @@
   ],
   "layout_issues_found": false,
   "final_metrics_verified": {
-    "pytest": "229/229",
+    "pytest": "404/404",
     "practice_offline": "52/52",
     "conversations_offline": "96/96",
     "offline_regression": "91/91",
-    "partial_live_model": "32passed of52planned, incomplete",
-    "real_gnani": "6/6"
+    "real_gnani": "6/6",
+    "current_live_questions": "52/52 complete",
+    "current_live_conversations": "96/96 complete",
+    "historical_live_subset": "32/52 preserved",
+    "hindi_upi_speech": "1/1",
+    "unclear_audio_recovery": "1/1"
   },
-  "pdf_sha256": "ee54b3c517e47711f7d3da41d82d00a6c93a58eb6c299cae97c9cb27181e52cf",
-  "reviewed_at_utc": "2026-10-25T07:40:47.405513+00:00",
+  "pdf_sha256": "aeeceb9b3a32f4d1e806d62f8dd6f14eb70968979eea4467f9d08dc980421bbf",
+  "reviewed_at_utc": "2026-10-25T08:49:15.845477+00:00",
   "product_title": "Resolvox"
 }

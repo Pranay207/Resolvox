@@ -3,8 +3,8 @@
   "succeeded": 6,
   "failed": 0,
   "speech_provider": "Gnani only",
-  "startup_ms": 3677.15,
-  "batch_wall_ms": 46136.82,
+  "startup_ms": 1260.67,
+  "batch_wall_ms": 23867.24,
   "entries": [
     {
       "input": "01_en.wav",
@@ -14,11 +14,11 @@
       "agent_succeeded": true,
       "decision": "answer",
       "audio": "001_01_en_reply.wav",
-      "stt_ms": 3187.93,
-      "agent_ms": 5282.26,
-      "tts_ms": 1110.56,
-      "total_ms": 9581.07,
-      "latency_ms": 9581.07
+      "stt_ms": 955.66,
+      "agent_ms": 1664.84,
+      "tts_ms": 1145.41,
+      "total_ms": 3768.64,
+      "latency_ms": 3768.64
     },
     {
       "input": "02_hi.wav",
@@ -28,11 +28,11 @@
       "agent_succeeded": true,
       "decision": "answer",
       "audio": "002_02_hi_reply.wav",
-      "stt_ms": 188.68,
-      "agent_ms": 20100.6,
-      "tts_ms": 1970.28,
-      "total_ms": 22259.72,
-      "latency_ms": 22259.72
+      "stt_ms": 191.26,
+      "agent_ms": 11305.48,
+      "tts_ms": 1947.67,
+      "total_ms": 13444.62,
+      "latency_ms": 13444.62
     },
     {
       "input": "03_hinglish.wav",
@@ -42,11 +42,11 @@
       "agent_succeeded": true,
       "decision": "answer",
       "audio": "003_03_hinglish_reply.wav",
-      "stt_ms": 230.98,
-      "agent_ms": 5449.9,
-      "tts_ms": 1133.26,
-      "total_ms": 6814.25,
-      "latency_ms": 6814.25
+      "stt_ms": 225.02,
+      "agent_ms": 34.37,
+      "tts_ms": 1050.57,
+      "total_ms": 1310.16,
+      "latency_ms": 1310.16
     },
     {
       "input": "04_identity__01.wav",
@@ -56,11 +56,11 @@
       "agent_succeeded": true,
       "decision": "clarify",
       "audio": "004_04_identity__01_reply.wav",
-      "stt_ms": 314.74,
-      "agent_ms": 8.36,
-      "tts_ms": 849.25,
-      "total_ms": 1172.5,
-      "latency_ms": 1172.5
+      "stt_ms": 287.56,
+      "agent_ms": 5.59,
+      "tts_ms": 1161.68,
+      "total_ms": 1455.07,
+      "latency_ms": 1455.07
     },
     {
       "input": "04_identity__02.wav",
@@ -70,11 +70,11 @@
       "agent_succeeded": true,
       "decision": "clarify",
       "audio": "005_04_identity__02_reply.wav",
-      "stt_ms": 300.74,
-      "agent_ms": 2.34,
-      "tts_ms": 730.91,
-      "total_ms": 1034.13,
-      "latency_ms": 1034.13
+      "stt_ms": 288.47,
+      "agent_ms": 1.28,
+      "tts_ms": 744.07,
+      "total_ms": 1034.02,
+      "latency_ms": 1034.02
     },
     {
       "input": "04_identity__03.wav",
@@ -84,11 +84,11 @@
       "agent_succeeded": true,
       "decision": "refuse",
       "audio": "006_04_identity__03_reply.wav",
-      "stt_ms": 326.45,
-      "agent_ms": 2.4,
-      "tts_ms": 1232.78,
-      "total_ms": 1561.77,
-      "latency_ms": 1561.77
+      "stt_ms": 227.95,
+      "agent_ms": 0.86,
+      "tts_ms": 1338.76,
+      "total_ms": 1567.72,
+      "latency_ms": 1567.72
     }
   ]
 }

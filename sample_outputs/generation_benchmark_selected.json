@@ -1,12 +1,83 @@
 {
-  "scope": "Current post-fix partial live run; 32 evaluated of 52 planned. Incomplete live evaluation; cached and uncached paths separate. All measured latencies retained, including outliers; no hard end-to-end timeout or controlled cold-start claim.",
+  "scope": "Current LLM-enabled question run; 52/52 planned; 52 evaluated; complete=True; errors 0. Cached and uncached paths are separate. All measured latencies are retained, including outliers; no hard end-to-end timeout or controlled cold-start claim.",
   "configuration": {
-    "recorded_at": "2026-10-25T12:10:33",
-    "runtime_sha256": "31cc94706ac19b43cb1c8d38b3511124317f452f4565d32645015261c899271d",
+    "recorded_at": "2026-10-25T14:00:44",
+    "runtime_sha256": "75e444d593f48383c4ba7db7df286c334fb0ae794d8bcd59b55c5488900981de",
     "llm_provider": "ollama",
     "llm_model": "qwen3:1.7b",
     "reference_date": "2026-10-20",
-    "evaluation_mode": "partial_live_compose_true"
+    "evaluation_mode": "live_compose_true",
+    "inference_fingerprint": "628cf3ec6fd6805f62972b7eac45b0a40bcbecf3aa8098894e03b5c4a557a3b5",
+    "provenance": {
+      "step": 2,
+      "evaluation_mode": "live_compose_true",
+      "runtime_source_sha256": {
+        "src/__init__.py": "5cb8a924bc6e83dcc878dbe665e7606bad931b5a0c561cc16e0c4bc07f1c583b",
+        "src/agent.py": "163e34808d5266953706e2aac45991e3cfac90527f2ce47fc3c30958702d093c",
+        "src/answering.py": "1d755adfa2c0ef6f1b8a7e51305199ff0626a92e3a7f4a1da12da9799a9193c8",
+        "src/config.py": "18c865ef49d50adff72e359acf9caff729b28c44f09bbeba2e6e73d09077596d",
+        "src/data.py": "2e5551d9265ca8be32874553dfffe6a6951941fa0f9cff61dc65a5c86fae0474",
+        "src/dates.py": "9117a31dd36c34fec7bef096a0015bcfe898251702344268b921edbae794c37f",
+        "src/evals.py": "1c0ac3d5ecdf7dff7eb0da202f6b7b0b139d0a96c971a4e519fa9a9833675660",
+        "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+        "src/kb.py": "55530323842609e0f9aca7c06fdc3b107e853f5cccc5d6a308bcda3488ea48b2",
+        "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+        "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+        "src/multilingual.py": "e780709e1cf5ef40160c05e84f628f354e94d76ab3dddd9ca8e3cf27d4d71416",
+        "src/normalize.py": "19567cf8d305066a30d690c67427c930b4054c230120ef221ef62ca4c301ec24",
+        "src/retrieval.py": "03347389c34c184c2211953c1aa7265cda59a11b203778fff3d9bb1a9d125003",
+        "src/tools_wrapper.py": "cdce9b295da7d1e0a095fef28406f3e0400dc496c2cbf6c6298fa2b947e60d14",
+        "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+        "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+        "src/rule_bindings.json": "0ee0a5ff77203b257672011629794d0b23b717088c5677a3442078f0e6c383de",
+        "scripts/resume_live_practice.py": "ac4a641a63574d7e12fb281495cbce5b18183385935682aac3e0434cbf8193fb"
+      },
+      "dataset_sha256": {
+        "kb/00_about_this_knowledge_base.md": "de509ece6ea3f6c9fc451f4118fd3b513c3e3069f16fe49d666859a497e40a00",
+        "kb/agent_conversation_style.md": "1e2f8b6e8057c08bfab0f2781c35753906788535a9e5ed6762f9d2ebfffdc064",
+        "kb/agent_escalation_handoff.md": "7cdcf1cac2e1ef96097234c620660b44961d8e323b588c9b5cee7759b78d243c",
+        "kb/agent_identity_verification.md": "65080cf86c01fa180321c77ab27c7d1dffdf6b3bca915cf162bb8c1a694cf182",
+        "kb/faq_general.md": "17f9846d1ffb33ded2206d25dfec3e3e431b1e0759edd4a49fc342106d17cd5a",
+        "kb/faq_hindi.md": "abc9f07bd99100f28ad8ba2f652bc21540b8a1cf7898bb5c0b98a2f783d669a2",
+        "kb/help_reverse_pickup.md": "8b05d9c3c6be72cdf782471372f6b209af48b0a712e747b395c97df3c79350b5",
+        "kb/help_track_order.md": "8c8fe651e97e1b1d088934a25de1bbcb81552fa2ecf5e2e2756374a5679c4bed",
+        "kb/help_troubleshooting_electronics.md": "0aa55f0933a5db0663619d343634ca6a12a2792a1c58258cfc14d9d971965e87",
+        "kb/mkt_plus_benefits_page.md": "f7d1bb3f9a2b555f51cd759c099654e2d36d11132efb231ccc87767c2082f6d7",
+        "kb/pol_cancellations.md": "a81de76931982a96d79416e130fd81d4cacc54b65bce43812767d76d8af66a00",
+        "kb/pol_coupons_offers.md": "e5201e45767003eabb79f8e930ee6b43204a7e08713350579181041233d3467c",
+        "kb/pol_damaged_wrong_missing.md": "6287c52adb81c8f8febf9c262ef34362af2ad33a373dc0768ae7e9d07bf7ec71",
+        "kb/pol_delivery_shipping.md": "828a75578e9f1307b2e4f64f6f151d93636bfd2f2f9bc39fcef86b273b8226eb",
+        "kb/pol_marketplace_sellers.md": "76e1291bf8990152b7f9029c79f58bddcc286f57800fb65de550586f45887dc0",
+        "kb/pol_payments_cod.md": "3d88d83c934a0477955fbe63beb4cae5db3491889ecf01b985ef233d7c19c68f",
+        "kb/pol_plus_membership.md": "9ea896ff307ddb4c28d0aaedcc567cfdf3825335c9eded8f02adacbbb7d6c877",
+        "kb/pol_refunds.md": "aa315a1c5c1ae2f19b1c5678b138ef3970279d1f2ae002c1392db61a4851f48c",
+        "kb/pol_returns_v3_superseded.md": "5f37e77ac47d5aa34d056460ba3b0ef6369f0a846921b74e35801066a01cfd17",
+        "kb/pol_returns_v4.md": "964b54f48edbd9f079d718f11cfc3164e20ba95b3943b723e03eb49fa1ee30f6",
+        "kb/pol_warranty_assured.md": "b2522a4289f808f8d7a2087fef8df5f624fd164770bcad6ce863975c7d0465b1",
+        "data/customers.csv": "1f3aff8002de497698f1e4ff6342c67ceca3c7bb0b68ea97f780126bfe786dc2",
+        "data/holidays.csv": "21b4804250b38150182fa00efc673997dfb81687efa7996403136da688c4d05f",
+        "data/order_items.csv": "62e344a4713ddaa9e10055c8b4931b7b8fab28f6350a5836968ff404046d0dc3",
+        "data/orders.csv": "9fb915f9f401ae26a1d00c0f064f87ab17fcde048cb9652d6e8a234a1401068b",
+        "data/pincodes.csv": "89f17fc33ae98223e70975a36e3e5a55e1bc2e0616e19a3fd45896adceeed19b",
+        "data/products.csv": "0eb917871836ecb5f74100dfa61e85f2adf78eecdaf10554c521e8bc9b461fd7",
+        "data/support_logs.csv": "2ab97c83b46f690310a133a10cdec01e670122bd7f996a15fe18b00c30a60739",
+        "practice/conversations.csv": "f6c9d24112f63047f4af62a9b3f2cfd34c941597b55cf661df8415e8d59fcfc3",
+        "practice/questions.csv": "cac2302c995389f82c831800589b627c9d567620013bc44d6721c7d3c90e9190",
+        "tools/tools.py": "e4192adc096a4d9b5b13bb0f11604354a4c6d3e9cb887915f87756851679d743"
+      },
+      "inference": {
+        "LLM_PROVIDER": "ollama",
+        "LLM_MODEL": "qwen3:1.7b",
+        "RAG_LLM_TIMEOUT": "20",
+        "LLM_TIMEOUT": "30",
+        "DENSE_ENABLED": "true",
+        "REFERENCE_DATE": "2026-10-20",
+        "LLM_FALLBACK_PROVIDER": "",
+        "LLM_FALLBACK_MODEL": "",
+        "LLM_BASE_URL_sha256": "b26993598dffd1f14aed97def57ef67f753518a9b773d8a12033c82b4fa545ca",
+        "LLM_FALLBACK_BASE_URL_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
   },
   "models": [
     {
@@ -15,321 +86,495 @@
         {
           "id": "PQ0002",
           "composition": "evidence_validated_fallback",
-          "latency_ms": 359865.0,
-          "llm": {
-            "cache_hit": false,
-            "attempts": 1,
-            "wall_ms": 359507.42,
-            "unavailable": true
-          }
-        },
-        {
-          "id": "PQ0006",
-          "composition": "grounded_llm",
-          "latency_ms": 12078.6,
+          "latency_ms": 14881.5,
           "llm": {
             "cache_hit": false,
             "attempts": 1,
             "provider": "ollama:qwen3:1.7b",
-            "wall_ms": 12019.08,
-            "load_ms": 1282.05,
-            "prompt_eval_ms": 179.44,
-            "eval_ms": 9350.1,
-            "prompt_eval_count": 510,
-            "eval_count": 62,
-            "done_reason": "stop"
+            "wall_ms": 14639.68,
+            "load_ms": 168.13,
+            "prompt_eval_ms": 162.82,
+            "eval_ms": 13894.33,
+            "prompt_eval_count": 692,
+            "eval_count": 240,
+            "done_reason": "length"
           }
         },
         {
           "id": "PQ0008",
           "composition": "evidence_validated_fallback",
-          "latency_ms": 20259.1,
-          "llm": {
-            "cache_hit": false,
-            "attempts": 1,
-            "wall_ms": 20033.75,
-            "unavailable": true
-          }
-        },
-        {
-          "id": "PQ0010",
-          "composition": "evidence_validated_fallback",
-          "latency_ms": 8854.9,
+          "latency_ms": 14127.0,
           "llm": {
             "cache_hit": false,
             "attempts": 1,
             "provider": "ollama:qwen3:1.7b",
-            "wall_ms": 8545.45,
-            "load_ms": 277.61,
-            "prompt_eval_ms": 1149.01,
-            "eval_ms": 6562.09,
-            "prompt_eval_count": 499,
-            "eval_count": 43,
+            "wall_ms": 13957.37,
+            "load_ms": 36.41,
+            "prompt_eval_ms": 7854.88,
+            "eval_ms": 5789.65,
+            "prompt_eval_count": 648,
+            "eval_count": 64,
             "done_reason": "stop"
           }
         },
         {
           "id": "PQ0013",
-          "composition": "evidence_validated_fallback",
-          "latency_ms": 20532.2,
-          "llm": {
-            "cache_hit": false,
-            "attempts": 1,
-            "wall_ms": 20014.93,
-            "unavailable": true
-          }
-        },
-        {
-          "id": "PQ0014",
-          "composition": "evidence_validated_fallback",
-          "latency_ms": 20476.2,
-          "llm": {
-            "cache_hit": false,
-            "attempts": 1,
-            "wall_ms": 20046.46,
-            "unavailable": true
-          }
-        },
-        {
-          "id": "PQ0016",
           "composition": "grounded_llm",
-          "latency_ms": 19104.7,
+          "latency_ms": 16389.6,
           "llm": {
             "cache_hit": false,
             "attempts": 1,
             "provider": "ollama:qwen3:1.7b",
-            "wall_ms": 18776.87,
-            "load_ms": 95.97,
-            "prompt_eval_ms": 7369.38,
-            "eval_ms": 10884.98,
-            "prompt_eval_count": 493,
-            "eval_count": 71,
+            "wall_ms": 16138.58,
+            "load_ms": 27.52,
+            "prompt_eval_ms": 6617.32,
+            "eval_ms": 9298.02,
+            "prompt_eval_count": 557,
+            "eval_count": 138,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0014",
+          "composition": "grounded_llm",
+          "latency_ms": 12936.9,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 12821.84,
+            "load_ms": 20.78,
+            "prompt_eval_ms": 9433.85,
+            "eval_ms": 3283.3,
+            "prompt_eval_count": 719,
+            "eval_count": 51,
             "done_reason": "stop"
           }
         },
         {
           "id": "PQ0019",
           "composition": "evidence_validated_fallback",
-          "latency_ms": 20259.3,
+          "latency_ms": 15612.6,
           "llm": {
             "cache_hit": false,
             "attempts": 1,
-            "wall_ms": 20015.4,
-            "unavailable": true
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 15520.1,
+            "load_ms": 19.06,
+            "prompt_eval_ms": 9323.45,
+            "eval_ms": 6125.67,
+            "prompt_eval_count": 950,
+            "eval_count": 86,
+            "done_reason": "stop"
           }
         },
         {
           "id": "PQ0020",
-          "composition": "evidence_validated_fallback",
-          "latency_ms": 20207.3,
-          "llm": {
-            "cache_hit": false,
-            "attempts": 1,
-            "wall_ms": 20018.33,
-            "unavailable": true
-          }
-        },
-        {
-          "id": "PQ0021",
-          "composition": "evidence_validated_fallback",
-          "latency_ms": 18847.0,
-          "llm": {
-            "cache_hit": false,
-            "attempts": 1,
-            "provider": "ollama:qwen3:1.7b",
-            "wall_ms": 18719.19,
-            "load_ms": 52.9,
-            "prompt_eval_ms": 10067.22,
-            "eval_ms": 8415.27,
-            "prompt_eval_count": 482,
-            "eval_count": 75,
-            "done_reason": "stop"
-          }
-        },
-        {
-          "id": "PQ0022",
-          "composition": "evidence_validated_fallback",
-          "latency_ms": 8282.9,
-          "llm": {
-            "cache_hit": false,
-            "attempts": 1,
-            "provider": "ollama:qwen3:1.7b",
-            "wall_ms": 8108.3,
-            "load_ms": 44.21,
-            "prompt_eval_ms": 2702.47,
-            "eval_ms": 5162.15,
-            "prompt_eval_count": 642,
-            "eval_count": 49,
-            "done_reason": "stop"
-          }
-        },
-        {
-          "id": "PQ0024",
           "composition": "grounded_llm",
-          "latency_ms": 16083.9,
+          "latency_ms": 11079.8,
           "llm": {
             "cache_hit": false,
             "attempts": 1,
             "provider": "ollama:qwen3:1.7b",
-            "wall_ms": 15889.35,
-            "load_ms": 54.03,
-            "prompt_eval_ms": 7634.66,
-            "eval_ms": 7892.15,
-            "prompt_eval_count": 725,
-            "eval_count": 54,
-            "done_reason": "stop"
-          }
-        },
-        {
-          "id": "PQ0025",
-          "composition": "grounded_llm",
-          "latency_ms": 7900.7,
-          "llm": {
-            "cache_hit": false,
-            "attempts": 1,
-            "provider": "ollama:qwen3:1.7b",
-            "wall_ms": 7424.15,
-            "load_ms": 491.15,
-            "prompt_eval_ms": 1735.53,
-            "eval_ms": 4769.46,
-            "prompt_eval_count": 407,
-            "eval_count": 34,
+            "wall_ms": 11006.15,
+            "load_ms": 23.11,
+            "prompt_eval_ms": 4563.64,
+            "eval_ms": 6312.43,
+            "prompt_eval_count": 675,
+            "eval_count": 98,
             "done_reason": "stop"
           }
         },
         {
           "id": "PQ0026",
           "composition": "evidence_validated_fallback",
-          "latency_ms": 988024.5,
+          "latency_ms": 12990.3,
           "llm": {
             "cache_hit": false,
             "attempts": 1,
-            "wall_ms": 987741.84,
-            "unavailable": true
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 12900.62,
+            "load_ms": 22.28,
+            "prompt_eval_ms": 4613.66,
+            "eval_ms": 8142.31,
+            "prompt_eval_count": 701,
+            "eval_count": 122,
+            "done_reason": "stop"
           }
         },
         {
           "id": "PQ0027",
           "composition": "evidence_validated_fallback",
-          "latency_ms": 24122.1,
-          "llm": {
-            "cache_hit": false,
-            "attempts": 1,
-            "wall_ms": 23763.74,
-            "unavailable": true
-          }
-        },
-        {
-          "id": "PQ0028",
-          "composition": "evidence_validated_fallback",
-          "latency_ms": 14615.0,
+          "latency_ms": 13128.9,
           "llm": {
             "cache_hit": false,
             "attempts": 1,
             "provider": "ollama:qwen3:1.7b",
-            "wall_ms": 14328.48,
-            "load_ms": 704.73,
-            "prompt_eval_ms": 2329.99,
-            "eval_ms": 10677.31,
-            "prompt_eval_count": 643,
-            "eval_count": 59,
-            "done_reason": "stop"
-          }
-        },
-        {
-          "id": "PQ0029",
-          "composition": "evidence_validated_fallback",
-          "latency_ms": 17463.4,
-          "llm": {
-            "cache_hit": false,
-            "attempts": 1,
-            "provider": "ollama:qwen3:1.7b",
-            "wall_ms": 17177.24,
-            "load_ms": 745.73,
-            "prompt_eval_ms": 3665.56,
-            "eval_ms": 11607.21,
-            "prompt_eval_count": 648,
-            "eval_count": 65,
-            "done_reason": "stop"
-          }
-        },
-        {
-          "id": "PQ0031",
-          "composition": "grounded_llm",
-          "latency_ms": 17566.5,
-          "llm": {
-            "cache_hit": false,
-            "attempts": 1,
-            "provider": "ollama:qwen3:1.7b",
-            "wall_ms": 16907.14,
-            "load_ms": 954.31,
-            "prompt_eval_ms": 6478.17,
-            "eval_ms": 8975.36,
-            "prompt_eval_count": 352,
-            "eval_count": 57,
+            "wall_ms": 13049.22,
+            "load_ms": 24.98,
+            "prompt_eval_ms": 2180.0,
+            "eval_ms": 10736.7,
+            "prompt_eval_count": 647,
+            "eval_count": 168,
             "done_reason": "stop"
           }
         },
         {
           "id": "PQ0032",
           "composition": "evidence_validated_fallback",
-          "latency_ms": 20329.8,
+          "latency_ms": 19876.4,
           "llm": {
             "cache_hit": false,
             "attempts": 1,
-            "wall_ms": 20013.67,
-            "unavailable": true
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 19817.15,
+            "load_ms": 18.96,
+            "prompt_eval_ms": 4280.34,
+            "eval_ms": 15418.95,
+            "prompt_eval_count": 684,
+            "eval_count": 240,
+            "done_reason": "length"
           }
         },
         {
           "id": "PQ0033",
           "composition": "evidence_validated_fallback",
-          "latency_ms": 21301.0,
+          "latency_ms": 4687.3,
           "llm": {
             "cache_hit": false,
             "attempts": 1,
-            "wall_ms": 20120.82,
-            "unavailable": true
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 4575.0,
+            "load_ms": 30.17,
+            "prompt_eval_ms": 2160.57,
+            "eval_ms": 2265.95,
+            "prompt_eval_count": 643,
+            "eval_count": 32,
+            "done_reason": "stop"
           }
         },
         {
           "id": "PQ0034",
-          "composition": "evidence_validated_fallback",
-          "latency_ms": 23438.0,
+          "composition": "grounded_llm",
+          "latency_ms": 4847.1,
           "llm": {
             "cache_hit": false,
             "attempts": 1,
-            "wall_ms": 20235.33,
-            "unavailable": true
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 4807.21,
+            "load_ms": 15.41,
+            "prompt_eval_ms": 3061.91,
+            "eval_ms": 1650.21,
+            "prompt_eval_count": 362,
+            "eval_count": 32,
+            "done_reason": "stop"
           }
         },
         {
           "id": "PQ0035",
           "composition": "evidence_validated_fallback",
-          "latency_ms": 20875.1,
+          "latency_ms": 8889.9,
           "llm": {
             "cache_hit": false,
             "attempts": 1,
-            "wall_ms": 20036.42,
-            "unavailable": true
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 8825.82,
+            "load_ms": 14.05,
+            "prompt_eval_ms": 1905.69,
+            "eval_ms": 6837.93,
+            "prompt_eval_count": 649,
+            "eval_count": 119,
+            "done_reason": "stop"
           }
         },
         {
           "id": "PQ0036",
           "composition": "evidence_validated_fallback",
-          "latency_ms": 20551.3,
+          "latency_ms": 9640.9,
           "llm": {
             "cache_hit": false,
             "attempts": 1,
-            "wall_ms": 20018.11,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 9566.64,
+            "load_ms": 15.82,
+            "prompt_eval_ms": 4444.68,
+            "eval_ms": 5034.33,
+            "prompt_eval_count": 448,
+            "eval_count": 94,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0039",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 6929.4,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 6884.06,
+            "load_ms": 17.75,
+            "prompt_eval_ms": 814.71,
+            "eval_ms": 6015.6,
+            "prompt_eval_count": 452,
+            "eval_count": 99,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0040",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 18059.2,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 17988.81,
+            "load_ms": 17.0,
+            "prompt_eval_ms": 5376.35,
+            "eval_ms": 12516.54,
+            "prompt_eval_count": 501,
+            "eval_count": 180,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0041",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 10876.8,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 10661.47,
+            "load_ms": 32.73,
+            "prompt_eval_ms": 2174.85,
+            "eval_ms": 8276.77,
+            "prompt_eval_count": 688,
+            "eval_count": 107,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0042",
+          "composition": "grounded_llm",
+          "latency_ms": 4576.6,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 4532.99,
+            "load_ms": 32.75,
+            "prompt_eval_ms": 1209.81,
+            "eval_ms": 3058.74,
+            "prompt_eval_count": 359,
+            "eval_count": 51,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0044",
+          "composition": "grounded_llm",
+          "latency_ms": 5970.0,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 5884.82,
+            "load_ms": 26.68,
+            "prompt_eval_ms": 2721.75,
+            "eval_ms": 2766.06,
+            "prompt_eval_count": 579,
+            "eval_count": 45,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0045",
+          "composition": "grounded_llm",
+          "latency_ms": 2541.6,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 2470.26,
+            "load_ms": 74.39,
+            "prompt_eval_ms": 668.83,
+            "eval_ms": 1485.67,
+            "prompt_eval_count": 401,
+            "eval_count": 24,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0047",
+          "composition": "grounded_llm",
+          "latency_ms": 8329.2,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 8201.27,
+            "load_ms": 36.77,
+            "prompt_eval_ms": 3261.4,
+            "eval_ms": 4698.55,
+            "prompt_eval_count": 362,
+            "eval_count": 74,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0048",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 20061.2,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "wall_ms": 20011.79,
             "unavailable": true
+          }
+        },
+        {
+          "id": "PQ0049",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 19333.3,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 19015.89,
+            "load_ms": 30.28,
+            "prompt_eval_ms": 8013.82,
+            "eval_ms": 10805.4,
+            "prompt_eval_count": 829,
+            "eval_count": 97,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0050",
+          "composition": "grounded_llm",
+          "latency_ms": 10211.3,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 10081.63,
+            "load_ms": 39.0,
+            "prompt_eval_ms": 3649.94,
+            "eval_ms": 6193.62,
+            "prompt_eval_count": 526,
+            "eval_count": 72,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0052",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 13183.9,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 13059.77,
+            "load_ms": 23.28,
+            "prompt_eval_ms": 1928.2,
+            "eval_ms": 10912.17,
+            "prompt_eval_count": 649,
+            "eval_count": 170,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0054",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 4640.8,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 4595.44,
+            "load_ms": 20.48,
+            "prompt_eval_ms": 3751.84,
+            "eval_ms": 736.5,
+            "prompt_eval_count": 637,
+            "eval_count": 12,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0056",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 9332.6,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 9224.96,
+            "load_ms": 15.71,
+            "prompt_eval_ms": 2958.81,
+            "eval_ms": 6217.63,
+            "prompt_eval_count": 693,
+            "eval_count": 103,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0057",
+          "composition": "grounded_llm",
+          "latency_ms": 10936.7,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 10820.13,
+            "load_ms": 19.0,
+            "prompt_eval_ms": 5323.51,
+            "eval_ms": 5413.93,
+            "prompt_eval_count": 748,
+            "eval_count": 86,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0058",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 7707.0,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 7656.38,
+            "load_ms": 16.95,
+            "prompt_eval_ms": 1844.86,
+            "eval_ms": 5728.04,
+            "prompt_eval_count": 607,
+            "eval_count": 92,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0059",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 5346.6,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 5286.91,
+            "load_ms": 20.6,
+            "prompt_eval_ms": 2019.87,
+            "eval_ms": 3166.88,
+            "prompt_eval_count": 642,
+            "eval_count": 56,
+            "done_reason": "stop"
           }
         }
       ],
       "summary": {
-        "evaluated": 23,
-        "grounded_llm_count": 5,
-        "mean_latency_ms": 74827.76086956522
+        "evaluated": 29,
+        "grounded_llm_count": 10,
+        "mean_latency_ms": 10935.324137931035
       }
     },
     {
@@ -338,30 +583,140 @@
         {
           "id": "PQ0003",
           "composition": "grounded_llm",
-          "latency_ms": 269.2,
+          "latency_ms": 123.4,
           "llm": {
             "cache_hit": true,
             "attempts": 0,
-            "wall_ms": 0.73,
+            "wall_ms": 0.8,
             "provider": "ollama:qwen3:1.7b"
           }
         },
         {
           "id": "PQ0005",
           "composition": "evidence_validated_fallback",
-          "latency_ms": 86.0,
+          "latency_ms": 248.5,
           "llm": {
             "cache_hit": true,
             "attempts": 0,
-            "wall_ms": 0.42,
+            "wall_ms": 1.68,
+            "provider": "ollama:qwen3:1.7b"
+          }
+        },
+        {
+          "id": "PQ0006",
+          "composition": "grounded_llm",
+          "latency_ms": 138.3,
+          "llm": {
+            "cache_hit": true,
+            "attempts": 0,
+            "wall_ms": 0.81,
+            "provider": "ollama:qwen3:1.7b"
+          }
+        },
+        {
+          "id": "PQ0010",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 44.0,
+          "llm": {
+            "cache_hit": true,
+            "attempts": 0,
+            "wall_ms": 1.7,
+            "provider": "ollama:qwen3:1.7b"
+          }
+        },
+        {
+          "id": "PQ0016",
+          "composition": "grounded_llm",
+          "latency_ms": 109.3,
+          "llm": {
+            "cache_hit": true,
+            "attempts": 0,
+            "wall_ms": 0.85,
+            "provider": "ollama:qwen3:1.7b"
+          }
+        },
+        {
+          "id": "PQ0021",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 62.4,
+          "llm": {
+            "cache_hit": true,
+            "attempts": 0,
+            "wall_ms": 1.21,
+            "provider": "ollama:qwen3:1.7b"
+          }
+        },
+        {
+          "id": "PQ0022",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 46.7,
+          "llm": {
+            "cache_hit": true,
+            "attempts": 0,
+            "wall_ms": 0.84,
+            "provider": "ollama:qwen3:1.7b"
+          }
+        },
+        {
+          "id": "PQ0024",
+          "composition": "grounded_llm",
+          "latency_ms": 60.2,
+          "llm": {
+            "cache_hit": true,
+            "attempts": 0,
+            "wall_ms": 1.03,
+            "provider": "ollama:qwen3:1.7b"
+          }
+        },
+        {
+          "id": "PQ0025",
+          "composition": "grounded_llm",
+          "latency_ms": 33.8,
+          "llm": {
+            "cache_hit": true,
+            "attempts": 0,
+            "wall_ms": 1.17,
+            "provider": "ollama:qwen3:1.7b"
+          }
+        },
+        {
+          "id": "PQ0028",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 86.2,
+          "llm": {
+            "cache_hit": true,
+            "attempts": 0,
+            "wall_ms": 0.61,
+            "provider": "ollama:qwen3:1.7b"
+          }
+        },
+        {
+          "id": "PQ0029",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 45.0,
+          "llm": {
+            "cache_hit": true,
+            "attempts": 0,
+            "wall_ms": 0.94,
+            "provider": "ollama:qwen3:1.7b"
+          }
+        },
+        {
+          "id": "PQ0031",
+          "composition": "grounded_llm",
+          "latency_ms": 18.5,
+          "llm": {
+            "cache_hit": true,
+            "attempts": 0,
+            "wall_ms": 0.36,
             "provider": "ollama:qwen3:1.7b"
           }
         }
       ],
       "summary": {
-        "evaluated": 2,
-        "grounded_llm_count": 1,
-        "mean_latency_ms": 177.6
+        "evaluated": 12,
+        "grounded_llm_count": 6,
+        "mean_latency_ms": 84.69166666666666
       }
     }
   ]

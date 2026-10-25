@@ -116,10 +116,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 107.21,
+          "retrieval_ms": 78.45,
           "llm_ms": 0.0
         },
-        "latency_ms": 139.77
+        "latency_ms": 97.98
       },
       "passed": true,
       "expected": {
@@ -235,10 +235,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 67.19,
+          "retrieval_ms": 20.35,
           "llm_ms": 0.0
         },
-        "latency_ms": 71.09
+        "latency_ms": 22.15
       },
       "passed": true,
       "expected": {
@@ -354,10 +354,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 88.83,
+          "retrieval_ms": 24.45,
           "llm_ms": 0.0
         },
-        "latency_ms": 92.36
+        "latency_ms": 25.57
       },
       "passed": true,
       "expected": {
@@ -473,10 +473,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 80.34,
+          "retrieval_ms": 22.1,
           "llm_ms": 0.0
         },
-        "latency_ms": 82.95
+        "latency_ms": 23.17
       },
       "passed": true,
       "expected": {
@@ -606,10 +606,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 68.97,
+          "retrieval_ms": 22.6,
           "llm_ms": 0.0
         },
-        "latency_ms": 73.18
+        "latency_ms": 23.85
       },
       "passed": true,
       "expected": {
@@ -739,10 +739,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 75.62,
+          "retrieval_ms": 23.95,
           "llm_ms": 0.0
         },
-        "latency_ms": 78.85
+        "latency_ms": 25.32
       },
       "passed": true,
       "expected": {
@@ -869,10 +869,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 55.52,
+          "retrieval_ms": 23.66,
           "llm_ms": 0.0
         },
-        "latency_ms": 58.79
+        "latency_ms": 24.84
       },
       "passed": true,
       "expected": {
@@ -999,10 +999,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 69.27,
+          "retrieval_ms": 21.43,
           "llm_ms": 0.0
         },
-        "latency_ms": 71.88
+        "latency_ms": 22.52
       },
       "passed": true,
       "expected": {
@@ -1129,10 +1129,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 40.36,
+          "retrieval_ms": 15.56,
           "llm_ms": 0.0
         },
-        "latency_ms": 46.56
+        "latency_ms": 17.85
       },
       "passed": true,
       "expected": {
@@ -1259,10 +1259,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 36.53,
+          "retrieval_ms": 14.56,
           "llm_ms": 0.0
         },
-        "latency_ms": 39.43
+        "latency_ms": 15.68
       },
       "passed": true,
       "expected": {
@@ -1378,10 +1378,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 52.62,
+          "retrieval_ms": 17.03,
           "llm_ms": 0.0
         },
-        "latency_ms": 55.79
+        "latency_ms": 18.09
       },
       "passed": true,
       "expected": {
@@ -1497,10 +1497,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 71.33,
+          "retrieval_ms": 19.54,
           "llm_ms": 0.0
         },
-        "latency_ms": 74.51
+        "latency_ms": 20.69
       },
       "passed": true,
       "expected": {
@@ -1616,10 +1616,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 23.54,
+          "retrieval_ms": 7.84,
           "llm_ms": 0.0
         },
-        "latency_ms": 27.48
+        "latency_ms": 8.93
       },
       "passed": true,
       "expected": {
@@ -1735,10 +1735,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 61.16,
+          "retrieval_ms": 17.37,
           "llm_ms": 0.0
         },
-        "latency_ms": 64.95
+        "latency_ms": 18.46
       },
       "passed": true,
       "expected": {
@@ -1826,7 +1826,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTe0c3a9ae23844371b86d161c56b30a4b"
+              "ticket_id": "TKT7e6435cb090e4a83bdc3bbe1eecc3dc1"
             }
           }
         ],
@@ -1843,7 +1843,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 5.03
+        "latency_ms": 4.46
       },
       "passed": true,
       "expected": {
@@ -1931,7 +1931,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTc815ee4fbfca49cc9d1871f096d9af11"
+              "ticket_id": "TKTd10cb6002e404e60b394e1eed8e7f053"
             }
           }
         ],
@@ -1948,7 +1948,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.37
+        "latency_ms": 1.87
       },
       "passed": true,
       "expected": {
@@ -2025,7 +2025,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTaf4c569598fb48fc803a5900f8dd15a3"
+              "ticket_id": "TKT68792c10126a478dbe8f7d7c3e11957a"
             }
           }
         ],
@@ -2042,7 +2042,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 6.03
+        "latency_ms": 1.32
       },
       "passed": true,
       "expected": {
@@ -2119,7 +2119,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTaea434d15d884a9abba1cd16859ba141"
+              "ticket_id": "TKT881aac2a6dfa48ca94fb952c33d3f24b"
             }
           }
         ],
@@ -2136,7 +2136,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.4
+        "latency_ms": 1.17
       },
       "passed": true,
       "expected": {
@@ -2213,7 +2213,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT0ade25726fc844de9f0f1563890d9f51"
+              "ticket_id": "TKT294a95e29fc04fbaafdf0ef44ac1da73"
             }
           }
         ],
@@ -2230,7 +2230,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.43
+        "latency_ms": 1.29
       },
       "passed": true,
       "expected": {
@@ -2307,7 +2307,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTa76fd520a0e24a92b88dac2025275359"
+              "ticket_id": "TKTbf7a78cef74c4a7f942033fd708ceaa3"
             }
           }
         ],
@@ -2324,7 +2324,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.17
+        "latency_ms": 1.45
       },
       "passed": true,
       "expected": {
@@ -2404,7 +2404,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 5.33
+        "latency_ms": 0.9
       },
       "passed": true,
       "expected": {
@@ -2484,7 +2484,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.89
+        "latency_ms": 0.84
       },
       "passed": true,
       "expected": {
@@ -2564,7 +2564,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.38
+        "latency_ms": 0.84
       },
       "passed": true,
       "expected": {
@@ -2644,7 +2644,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.93
+        "latency_ms": 0.73
       },
       "passed": true,
       "expected": {
@@ -2771,10 +2771,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 28.74,
+          "retrieval_ms": 9.65,
           "llm_ms": 0.0
         },
-        "latency_ms": 31.22
+        "latency_ms": 10.68
       },
       "passed": true,
       "expected": {
@@ -2901,10 +2901,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 53.67,
+          "retrieval_ms": 17.54,
           "llm_ms": 0.0
         },
-        "latency_ms": 56.64
+        "latency_ms": 18.98
       },
       "passed": true,
       "expected": {
@@ -3020,10 +3020,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 61.44,
+          "retrieval_ms": 21.71,
           "llm_ms": 0.0
         },
-        "latency_ms": 65.14
+        "latency_ms": 22.71
       },
       "passed": true,
       "expected": {
@@ -3139,10 +3139,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 40.77,
+          "retrieval_ms": 13.96,
           "llm_ms": 0.0
         },
-        "latency_ms": 43.1
+        "latency_ms": 14.96
       },
       "passed": true,
       "expected": {
@@ -3269,10 +3269,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 48.64,
+          "retrieval_ms": 18.62,
           "llm_ms": 0.0
         },
-        "latency_ms": 51.58
+        "latency_ms": 19.76
       },
       "passed": true,
       "expected": {
@@ -3399,10 +3399,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 64.69,
+          "retrieval_ms": 18.61,
           "llm_ms": 0.0
         },
-        "latency_ms": 67.03
+        "latency_ms": 19.71
       },
       "passed": true,
       "expected": {
@@ -3518,10 +3518,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 46.85,
+          "retrieval_ms": 16.78,
           "llm_ms": 0.0
         },
-        "latency_ms": 49.35
+        "latency_ms": 17.9
       },
       "passed": true,
       "expected": {
@@ -3659,10 +3659,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 41.97,
+          "retrieval_ms": 16.69,
           "llm_ms": 0.0
         },
-        "latency_ms": 44.52
+        "latency_ms": 17.81
       },
       "passed": true,
       "expected": {
@@ -3778,10 +3778,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 58.91,
+          "retrieval_ms": 23.25,
           "llm_ms": 0.0
         },
-        "latency_ms": 61.37
+        "latency_ms": 24.6
       },
       "passed": true,
       "expected": {
@@ -3899,10 +3899,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 80.46,
+          "retrieval_ms": 33.39,
           "llm_ms": 0.0
         },
-        "latency_ms": 82.68
+        "latency_ms": 34.71
       },
       "passed": true,
       "expected": {
@@ -4034,10 +4034,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 51.71,
+          "retrieval_ms": 19.3,
           "llm_ms": 0.0
         },
-        "latency_ms": 54.01
+        "latency_ms": 20.36
       },
       "passed": true,
       "expected": {
@@ -4180,10 +4180,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 43.86,
+          "retrieval_ms": 19.1,
           "llm_ms": 0.0
         },
-        "latency_ms": 46.61
+        "latency_ms": 20.41
       },
       "passed": true,
       "expected": {
@@ -4315,10 +4315,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 54.75,
+          "retrieval_ms": 19.88,
           "llm_ms": 0.0
         },
-        "latency_ms": 57.61
+        "latency_ms": 21.58
       },
       "passed": true,
       "expected": {
@@ -4450,10 +4450,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 48.25,
+          "retrieval_ms": 21.18,
           "llm_ms": 0.0
         },
-        "latency_ms": 52.55
+        "latency_ms": 22.62
       },
       "passed": true,
       "expected": {
@@ -4585,10 +4585,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 54.12,
+          "retrieval_ms": 22.37,
           "llm_ms": 0.0
         },
-        "latency_ms": 57.33
+        "latency_ms": 23.62
       },
       "passed": true,
       "expected": {
@@ -4720,10 +4720,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 45.88,
+          "retrieval_ms": 16.68,
           "llm_ms": 0.0
         },
-        "latency_ms": 49.01
+        "latency_ms": 17.88
       },
       "passed": true,
       "expected": {
@@ -4850,10 +4850,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 26.3,
+          "retrieval_ms": 9.83,
           "llm_ms": 0.0
         },
-        "latency_ms": 29.23
+        "latency_ms": 11.0
       },
       "passed": true,
       "expected": {
@@ -4969,10 +4969,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 29.46,
+          "retrieval_ms": 13.44,
           "llm_ms": 0.0
         },
-        "latency_ms": 31.66
+        "latency_ms": 14.54
       },
       "passed": true,
       "expected": {
@@ -5099,10 +5099,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 36.32,
+          "retrieval_ms": 13.14,
           "llm_ms": 0.0
         },
-        "latency_ms": 38.82
+        "latency_ms": 14.43
       },
       "passed": true,
       "expected": {
@@ -5207,10 +5207,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 36.32,
+          "retrieval_ms": 15.12,
           "llm_ms": 0.0
         },
-        "latency_ms": 38.83
+        "latency_ms": 16.08
       },
       "passed": true,
       "expected": {
@@ -5315,10 +5315,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 29.28,
+          "retrieval_ms": 12.76,
           "llm_ms": 0.0
         },
-        "latency_ms": 31.34
+        "latency_ms": 13.75
       },
       "passed": true,
       "expected": {
@@ -5423,10 +5423,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 16.16,
+          "retrieval_ms": 8.03,
           "llm_ms": 0.0
         },
-        "latency_ms": 19.31
+        "latency_ms": 9.08
       },
       "passed": true,
       "expected": {
@@ -5531,10 +5531,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 22.03,
+          "retrieval_ms": 6.77,
           "llm_ms": 0.0
         },
-        "latency_ms": 27.59
+        "latency_ms": 7.9
       },
       "passed": true,
       "expected": {
@@ -5639,10 +5639,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 29.2,
+          "retrieval_ms": 8.47,
           "llm_ms": 0.0
         },
-        "latency_ms": 33.48
+        "latency_ms": 9.43
       },
       "passed": true,
       "expected": {
@@ -5719,7 +5719,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT947911ca108442b3955d8efc201465a4"
+              "ticket_id": "TKTbbf3a2010d5646b49969936ad56032b1"
             }
           }
         ],
@@ -5736,7 +5736,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 10.34
+        "latency_ms": 1.34
       },
       "passed": true,
       "expected": {
@@ -5852,10 +5852,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 65.71,
+          "retrieval_ms": 20.7,
           "llm_ms": 0.0
         },
-        "latency_ms": 68.82
+        "latency_ms": 21.68
       },
       "passed": true,
       "expected": {
@@ -5932,7 +5932,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT148832a0e12f4b9eae3e63343907e5cf"
+              "ticket_id": "TKT11ad2f296a23430a93ccb0eececb15ce"
             }
           }
         ],
@@ -5949,7 +5949,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 7.81
+        "latency_ms": 1.48
       },
       "passed": true,
       "expected": {
@@ -6076,10 +6076,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 97.4,
+          "retrieval_ms": 21.82,
           "llm_ms": 0.0
         },
-        "latency_ms": 100.53
+        "latency_ms": 22.91
       },
       "passed": true,
       "expected": {
@@ -6206,10 +6206,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 44.2,
+          "retrieval_ms": 12.12,
           "llm_ms": 0.0
         },
-        "latency_ms": 48.38
+        "latency_ms": 13.44
       },
       "passed": true,
       "expected": {
@@ -6325,10 +6325,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 88.72,
+          "retrieval_ms": 17.52,
           "llm_ms": 0.0
         },
-        "latency_ms": 92.81
+        "latency_ms": 18.94
       },
       "passed": true,
       "expected": {
@@ -6455,10 +6455,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 52.04,
+          "retrieval_ms": 13.13,
           "llm_ms": 0.0
         },
-        "latency_ms": 55.84
+        "latency_ms": 14.37
       },
       "passed": true,
       "expected": {
@@ -6585,10 +6585,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 94.27,
+          "retrieval_ms": 19.98,
           "llm_ms": 0.0
         },
-        "latency_ms": 98.49
+        "latency_ms": 21.14
       },
       "passed": true,
       "expected": {
@@ -6709,10 +6709,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 82.31,
+          "retrieval_ms": 14.94,
           "llm_ms": 0.0
         },
-        "latency_ms": 88.92
+        "latency_ms": 16.13
       },
       "passed": true,
       "expected": {
@@ -6833,10 +6833,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 189.38,
+          "retrieval_ms": 22.75,
           "llm_ms": 0.0
         },
-        "latency_ms": 196.17
+        "latency_ms": 23.85
       },
       "passed": true,
       "expected": {
@@ -6952,10 +6952,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 56.45,
+          "retrieval_ms": 17.08,
           "llm_ms": 0.0
         },
-        "latency_ms": 60.12
+        "latency_ms": 18.19
       },
       "passed": true,
       "expected": {
@@ -7082,10 +7082,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 48.56,
+          "retrieval_ms": 16.63,
           "llm_ms": 0.0
         },
-        "latency_ms": 51.97
+        "latency_ms": 17.75
       },
       "passed": true,
       "expected": {
@@ -7223,10 +7223,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 86.15,
+          "retrieval_ms": 24.83,
           "llm_ms": 0.0
         },
-        "latency_ms": 90.05
+        "latency_ms": 26.01
       },
       "passed": true,
       "expected": {
@@ -7342,10 +7342,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 47.64,
+          "retrieval_ms": 15.72,
           "llm_ms": 0.0
         },
-        "latency_ms": 51.99
+        "latency_ms": 17.01
       },
       "passed": true,
       "expected": {
@@ -7461,10 +7461,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 51.41,
+          "retrieval_ms": 15.42,
           "llm_ms": 0.0
         },
-        "latency_ms": 56.25
+        "latency_ms": 16.6
       },
       "passed": true,
       "expected": {
@@ -7580,10 +7580,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 61.1,
+          "retrieval_ms": 15.97,
           "llm_ms": 0.0
         },
-        "latency_ms": 64.15
+        "latency_ms": 17.32
       },
       "passed": true,
       "expected": {
@@ -7699,10 +7699,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 56.33,
+          "retrieval_ms": 18.94,
           "llm_ms": 0.0
         },
-        "latency_ms": 61.0
+        "latency_ms": 20.91
       },
       "passed": true,
       "expected": {
@@ -7760,7 +7760,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 6.43
+        "latency_ms": 1.81
       }
     },
     {
@@ -7835,7 +7835,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.99
+        "latency_ms": 2.1
       }
     },
     {
@@ -7888,7 +7888,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.05
+        "latency_ms": 2.37
       }
     },
     {
@@ -7963,7 +7963,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.94
+        "latency_ms": 2.12
       }
     },
     {
@@ -8016,7 +8016,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.43
+        "latency_ms": 2.51
       }
     },
     {
@@ -8091,7 +8091,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.1
+        "latency_ms": 2.18
       }
     },
     {
@@ -8144,7 +8144,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.83
+        "latency_ms": 3.01
       }
     },
     {
@@ -8219,7 +8219,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.46
+        "latency_ms": 2.52
       }
     },
     {
@@ -8272,7 +8272,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.93
+        "latency_ms": 3.53
       }
     },
     {
@@ -8347,7 +8347,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.01
+        "latency_ms": 2.45
       }
     },
     {
@@ -8400,7 +8400,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.23
+        "latency_ms": 2.57
       }
     },
     {
@@ -8475,7 +8475,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.2
+        "latency_ms": 2.11
       }
     }
   ]

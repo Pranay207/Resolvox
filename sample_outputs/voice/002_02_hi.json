@@ -1,6 +1,6 @@
 {
   "transcript": "मेरा सामान खराब आया है, अब क्या करूँ?",
-  "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। डिलीवरी के 48 घंटे में सामान और पैकिंग की फ़ोटो के साथ शिकायत करें। जाँच के बाद मुफ़्त रिप्लेसमेंट या डिलीवरी फ़ीस सहित पूरा रिफ़ंड मिलेगा, पिकअप फ़ीस नहीं।",
+  "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। आप खराब आया हुआ सामान के 48 घंटे बाद डिलीवरी के बाद शिकायत कर सकें, जिसमें सामान की फोटो और पैकिंग की फोटो शामिल होंगी। जाँच के बाद आप मुफ्त रिप्लेसमेंट या पूरा रिफ़ंड मिलेगा, जिसमें डिलीवरी फ़ीस शामिल होगी, लेकिन पिकअप फ़ीस नहीं।",
   "intent": "damage",
   "decision": "answer",
   "language": "hi",
@@ -107,26 +107,32 @@
   "facts": {},
   "verified": false,
   "reference_date": "2026-10-20",
-  "composition": "evidence_validated_fallback",
+  "composition": "grounded_llm",
   "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
   "retrieval_k": 12,
   "evidence_supported": true,
-  "validation_error": "model_unavailable_or_invalid",
+  "validation_error": null,
   "llm": {
     "cache_hit": false,
     "attempts": 1,
-    "wall_ms": 20034.09,
-    "unavailable": true
+    "provider": "ollama:qwen3:1.7b",
+    "wall_ms": 11257.24,
+    "load_ms": 24.19,
+    "prompt_eval_ms": 681.83,
+    "eval_ms": 10472.65,
+    "prompt_eval_count": 533,
+    "eval_count": 227,
+    "done_reason": "stop"
   },
   "timings": {
-    "retrieval_ms": 60.69,
-    "llm_ms": 20034.87
+    "retrieval_ms": 40.8,
+    "llm_ms": 11261.53
   },
-  "latency_ms": 20100.59,
+  "latency_ms": 11305.39,
   "voice_timings": {
-    "stt_ms": 188.68,
-    "agent_ms": 20100.6,
-    "tts_ms": 1970.28,
-    "total_ms": 22259.72
+    "stt_ms": 191.26,
+    "agent_ms": 11305.48,
+    "tts_ms": 1947.67,
+    "total_ms": 13444.62
   }
 }

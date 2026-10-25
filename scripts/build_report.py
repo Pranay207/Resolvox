@@ -325,6 +325,13 @@ def main():
         p('Primary support is English, Hindi and Hinglish. Additional regional choices are an optional preview using separate local translation with masked identifiers and round-trip checks. '+regional_preview_text(extra_languages)+' Failures and prior attempts remain in language_validation.json; translation weights are excluded from the archive.', 'SmallV')
     h('Real Gnani speech; separate time measures')
     p(voice_text(voice))
+    recovery = load('voice_recovery.json')
+    hindi_voice = load('primary_hindi_voice_validation.json')
+    if recovery or hindi_voice:
+        rs = recovery.get('summary', {})
+        hs = hindi_voice.get('summary', {})
+        p(f"Separate current speech checks: Hindi UPI {hs.get('voice_passed', 0)}/{hs.get('planned', '?')}; silent-clip recovery {rs.get('passed', 0)}/{rs.get('planned', '?')}. Recovery required a genuine Gnani spoken clarification, first-reply AI disclosure, no hallucinated speech, and no actions or tickets. These are synthetic-input checks, not human listening evidence.", 'SmallV')
+
     wall = [row.get('latency_ms') for row in voice.get('batch', {}).get('entries', [])]
     audio = [row.get('reply_seconds') for row in voice.get('semantic_validation', {}).get('checks', [])]
     p('Saved voice processing wall range: ' + seconds_range(wall, milliseconds=True) + '; generated reply audio duration: ' + seconds_range(audio) + '. Processing time and playback length are different quantities. Gnani TTS input clips are synthetic, not human recordings; accent/noise robustness and subjective listening remain unverified.', 'SmallV')

@@ -1,0 +1,1831 @@
+{
+  "schema_version": 1,
+  "started_at_utc": "2026-10-25T07:49:20.257636+00:00",
+  "planned_languages": [
+    "te",
+    "en",
+    "hi",
+    "bn",
+    "gu",
+    "kn",
+    "ml",
+    "mr",
+    "pa",
+    "ta",
+    "hi-en"
+  ],
+  "cases": {
+    "te": {
+      "language": "te",
+      "language_name": "Telugu",
+      "synthetic_question": "UPI రీఫండ్ ప్రారంభించిన తర్వాత రావడానికి ఎన్ని పని దినాలు పడుతుంది?",
+      "stt_language_code": "te-IN",
+      "tts_language_code": "te-IN",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T08:10:22.603769+00:00",
+      "status": "passed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "436c180784fb668aefe06d4b5520caca7711a593",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "eba6148ce06f65b00b85239d57a9a8415b35b32c0027c839aedf57585c7dd04f",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+          "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+        },
+        "translation_model": {
+          "repository": "Xenova/nllb-200-distilled-600M",
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+          "files": {
+            "onnx/encoder_model_quantized.onnx": {
+              "bytes": 419120483,
+              "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+            },
+            "onnx/decoder_model_quantized.onnx": {
+              "bytes": 470533055,
+              "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+            },
+            "tokenizer.json": {
+              "bytes": 17331224,
+              "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+            }
+          },
+          "available": true
+        }
+      },
+      "timings_ms": {
+        "input_tts": 16.53,
+        "stt": 1091.63,
+        "agent": 30768.28,
+        "reply_tts": 1177.49,
+        "total": 33101.31
+      },
+      "attempt_id": "20261025T081022603769Z",
+      "input_audio": {
+        "seconds": 4.8,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 460844,
+        "sha256": "e996d57df90fcf6362db45058ee484000d6279d2151cd1248d6bccb2330807ec",
+        "reused": true
+      },
+      "redacted_transcript": "UPI రీఫండ్ ప్రారంభించిన తర్వాత రావడానికి ఎన్ని పని దినాలు పడుతుంది",
+      "answer": "నేను ZentroMart AI సహాయకుడిని. UPI రిఫండ్లు ప్రారంభించిన 1 నుంచి 3 పనిదినాలు.",
+      "source_answer": "I'm ZentroMart's AI support assistant. UPI refunds take 1 to 3 business days after initiation.",
+      "output_language": "te",
+      "decision": "answer",
+      "intent": "refund",
+      "composition": "evidence_validated_fallback",
+      "evidence_supported": true,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "REF-2",
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+          "file": "pol_refunds.md",
+          "doc_type": "policy",
+          "status": "current",
+          "effective_from": "2026-06-15",
+          "version": "2.1",
+          "title": "How long refunds take after initiation"
+        }
+      ],
+      "facts": {},
+      "localization": {
+        "requested_language": "te",
+        "status": "translated",
+        "query_translated": true,
+        "answer_translated": true,
+        "roundtrip_checked": true,
+        "error": null,
+        "engine": "local"
+      },
+      "agent_timings_ms": {
+        "retrieval_ms": 125.14,
+        "llm_ms": 6.51,
+        "localization_ms": 15945.95
+      },
+      "checks": {
+        "grounded_answer": true,
+        "refund_source": true,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": true,
+        "source_refund_duration": true,
+        "translation_validated": true,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/te_20261025T081022603769Z_reply.wav",
+        "seconds": 6.88,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 660524,
+        "sha256": "81a83c24c4b37d82d1948068497d151f30d25b1ce2be5db7a0fcb2471603f904"
+      },
+      "actual_spoken_language": "te",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T08:10:55.709982+00:00"
+    },
+    "en": {
+      "language": "en",
+      "language_name": "English",
+      "synthetic_question": "How many business days does a UPI refund take after initiation?",
+      "stt_language_code": "en-IN",
+      "tts_language_code": "en-IN",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T08:11:32.501181+00:00",
+      "status": "passed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "436c180784fb668aefe06d4b5520caca7711a593",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "eba6148ce06f65b00b85239d57a9a8415b35b32c0027c839aedf57585c7dd04f",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+          "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+        },
+        "translation_model": {
+          "repository": "Xenova/nllb-200-distilled-600M",
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+          "files": {
+            "onnx/encoder_model_quantized.onnx": {
+              "bytes": 419120483,
+              "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+            },
+            "onnx/decoder_model_quantized.onnx": {
+              "bytes": 470533055,
+              "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+            },
+            "tokenizer.json": {
+              "bytes": 17331224,
+              "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+            }
+          },
+          "available": true
+        }
+      },
+      "timings_ms": {
+        "input_tts": 1379.93,
+        "stt": 428.99,
+        "agent": 3615.12,
+        "reply_tts": 873.39,
+        "total": 6318.03
+      },
+      "attempt_id": "20261025T081132501181Z",
+      "input_audio": {
+        "seconds": 3.36,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 322604,
+        "sha256": "32a08fedb939895015e26df36e5a944dff04c29b951aa93285cc205cddd03879",
+        "reused": false
+      },
+      "redacted_transcript": "how many business days does a upi refund take after initiation",
+      "answer": "I'm ZentroMart's AI support assistant. A UPI refund takes 1 to 3 business days after initiation.",
+      "source_answer": "",
+      "output_language": "en",
+      "decision": "answer",
+      "intent": "refund",
+      "composition": "grounded_llm",
+      "evidence_supported": true,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "REF-2",
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+          "file": "pol_refunds.md",
+          "doc_type": "policy",
+          "status": "current",
+          "effective_from": "2026-06-15",
+          "version": "2.1",
+          "title": "How long refunds take after initiation"
+        }
+      ],
+      "facts": {},
+      "localization": null,
+      "agent_timings_ms": {
+        "retrieval_ms": 34.12,
+        "llm_ms": 1648.8
+      },
+      "checks": {
+        "grounded_answer": true,
+        "refund_source": true,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": true,
+        "source_refund_duration": true,
+        "translation_validated": true,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/en_20261025T081132501181Z_reply.wav",
+        "seconds": 5.76,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 553004,
+        "sha256": "a37a8b116ef3139a3fc6fbc3ca8545ff91f215ab4b0a90ac7d2f892100201742"
+      },
+      "actual_spoken_language": "en",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T08:11:38.826235+00:00"
+    },
+    "hi": {
+      "language": "hi",
+      "language_name": "Hindi",
+      "synthetic_question": "UPI रिफंड शुरू होने के बाद आने में कितने कार्यदिवस लगते हैं?",
+      "stt_language_code": "hi-IN",
+      "tts_language_code": "hi-IN",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T08:11:38.833242+00:00",
+      "status": "failed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "436c180784fb668aefe06d4b5520caca7711a593",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "eba6148ce06f65b00b85239d57a9a8415b35b32c0027c839aedf57585c7dd04f",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+          "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+        },
+        "translation_model": {
+          "repository": "Xenova/nllb-200-distilled-600M",
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+          "files": {
+            "onnx/encoder_model_quantized.onnx": {
+              "bytes": 419120483,
+              "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+            },
+            "onnx/decoder_model_quantized.onnx": {
+              "bytes": 470533055,
+              "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+            },
+            "tokenizer.json": {
+              "bytes": 17331224,
+              "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+            }
+          },
+          "available": true
+        }
+      },
+      "timings_ms": {
+        "input_tts": 960.53,
+        "stt": 339.24,
+        "agent": 60.34,
+        "reply_tts": 1086.34,
+        "total": 2476.81
+      },
+      "attempt_id": "20261025T081138833242Z",
+      "input_audio": {
+        "seconds": 3.68,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 353324,
+        "sha256": "0ae3a0b1cf1bb043d0e16ce3d9352adfc669c0490b2f05705de4ab6281e411ba",
+        "reused": false
+      },
+      "redacted_transcript": "यू पी आई रिफंड शुरू होने के बाद आने में कितने कार्य दिवस लगते हैं",
+      "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। आपने किस तरीके से भुगतान किया था?",
+      "source_answer": "",
+      "output_language": "hi",
+      "decision": "clarify",
+      "intent": "refund",
+      "composition": "evidence_validated_rules",
+      "evidence_supported": true,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "REF-2",
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+          "file": "pol_refunds.md",
+          "doc_type": "policy",
+          "status": "current",
+          "effective_from": "2026-06-15",
+          "version": "2.1",
+          "title": "How long refunds take after initiation"
+        },
+        {
+          "id": "STY-5",
+          "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "One question at a time"
+        }
+      ],
+      "facts": {},
+      "localization": null,
+      "agent_timings_ms": {
+        "retrieval_ms": 49.86,
+        "llm_ms": 0.0
+      },
+      "checks": {
+        "grounded_answer": false,
+        "refund_source": true,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": false,
+        "source_refund_duration": false,
+        "translation_validated": true,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/hi_20261025T081138833242Z_reply.wav",
+        "seconds": 5.12,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 491564,
+        "sha256": "c3148035604260324f77ff2f04f8f087d5a50d9a603c8f8b531a99af0878ccab"
+      },
+      "actual_spoken_language": "hi",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T08:11:41.313916+00:00"
+    },
+    "bn": {
+      "language": "bn",
+      "language_name": "Bengali",
+      "synthetic_question": "UPI রিফান্ড শুরু হওয়ার পরে পেতে কত কর্মদিবস লাগে?",
+      "stt_language_code": "bn-IN",
+      "tts_language_code": "bn-IN",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T08:11:41.332586+00:00",
+      "status": "failed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "436c180784fb668aefe06d4b5520caca7711a593",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "eba6148ce06f65b00b85239d57a9a8415b35b32c0027c839aedf57585c7dd04f",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+          "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+        },
+        "translation_model": {
+          "repository": "Xenova/nllb-200-distilled-600M",
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+          "files": {
+            "onnx/encoder_model_quantized.onnx": {
+              "bytes": 419120483,
+              "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+            },
+            "onnx/decoder_model_quantized.onnx": {
+              "bytes": 470533055,
+              "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+            },
+            "tokenizer.json": {
+              "bytes": 17331224,
+              "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+            }
+          },
+          "available": true
+        }
+      },
+      "timings_ms": {
+        "input_tts": 1217.72,
+        "stt": 406.52,
+        "agent": 26954.76,
+        "reply_tts": 2579.26,
+        "total": 31188.53
+      },
+      "attempt_id": "20261025T081141332586Z",
+      "input_audio": {
+        "seconds": 4.64,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 445484,
+        "sha256": "98ab197d30f80a08acfa1a5630793a7b6671d4198479e3434aa3d61e766a02be",
+        "reused": false
+      },
+      "redacted_transcript": "UPI রিফান্ড শুরু হওয়ার পরে পেতে কত কর্মদিবস লাগে",
+      "answer": "আমি ZentroMart-এর AI সহায়ক। এই ভাষায় উত্তরটি নিরাপদে অনুবাদ করতে পারিনি। দয়া করে আবার বলুন অথবা ইংরেজি বেছে নিন।",
+      "source_answer": "I'm ZentroMart's AI support assistant. UPI refunds take 1 to 3 working days after the start.",
+      "output_language": "bn",
+      "decision": "answer",
+      "intent": "refund",
+      "composition": "grounded_llm",
+      "evidence_supported": true,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "REF-2",
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+          "file": "pol_refunds.md",
+          "doc_type": "policy",
+          "status": "current",
+          "effective_from": "2026-06-15",
+          "version": "2.1",
+          "title": "How long refunds take after initiation"
+        }
+      ],
+      "facts": {},
+      "localization": {
+        "requested_language": "bn",
+        "status": "answer_translation_failed",
+        "query_translated": true,
+        "answer_translated": false,
+        "roundtrip_checked": false,
+        "error": "answer_translation_rejected",
+        "engine": "local"
+      },
+      "agent_timings_ms": {
+        "retrieval_ms": 37.0,
+        "llm_ms": 2561.27,
+        "localization_ms": 13364.99
+      },
+      "checks": {
+        "grounded_answer": true,
+        "refund_source": true,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": false,
+        "source_refund_duration": true,
+        "translation_validated": false,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/bn_20261025T081141332586Z_reply.wav",
+        "seconds": 10.08,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 967724,
+        "sha256": "1990119c547c52933e3382e6a840dfb6c80e8574dd594e18919b1f59a84988bb"
+      },
+      "actual_spoken_language": "bn",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T08:12:12.532534+00:00"
+    },
+    "gu": {
+      "language": "gu",
+      "language_name": "Gujarati",
+      "synthetic_question": "UPI રિફંડ શરૂ થયા પછી મળવામાં કેટલા કામકાજના દિવસો લાગે છે?",
+      "stt_language_code": "gu-IN",
+      "tts_language_code": "gu-IN",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T08:12:12.553535+00:00",
+      "status": "failed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "436c180784fb668aefe06d4b5520caca7711a593",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "eba6148ce06f65b00b85239d57a9a8415b35b32c0027c839aedf57585c7dd04f",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+          "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+        },
+        "translation_model": {
+          "repository": "Xenova/nllb-200-distilled-600M",
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+          "files": {
+            "onnx/encoder_model_quantized.onnx": {
+              "bytes": 419120483,
+              "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+            },
+            "onnx/decoder_model_quantized.onnx": {
+              "bytes": 470533055,
+              "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+            },
+            "tokenizer.json": {
+              "bytes": 17331224,
+              "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+            }
+          },
+          "available": true
+        }
+      },
+      "timings_ms": {
+        "input_tts": 852.14,
+        "stt": 432.46,
+        "agent": 16512.49,
+        "reply_tts": 1166.77,
+        "total": 19001.58
+      },
+      "attempt_id": "20261025T081212553535Z",
+      "input_audio": {
+        "seconds": 4.48,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 430124,
+        "sha256": "1e123b09b945a65f3a974aa7e98ff58d727632b802e64de7be368667c35c46d2",
+        "reused": false
+      },
+      "redacted_transcript": "UPI રિફંડ શરૂ થયા પછી મળવામાં કેટલા કામકાજના દિવસો લાગે છે",
+      "answer": "હું ZentroMartનો AI સહાયક છું. UPI રિફંડ પ્રક્રિયા શરૂ થયા પછી 1થી 3 વ્યવસાય દિવસ સુધી લે છે.",
+      "source_answer": "I'm ZentroMart's AI support assistant. UPI refunds take 1 to 3 business days after the start of the process.",
+      "output_language": "gu",
+      "decision": "answer",
+      "intent": "refund",
+      "composition": "grounded_llm",
+      "evidence_supported": true,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "REF-2",
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+          "file": "pol_refunds.md",
+          "doc_type": "policy",
+          "status": "current",
+          "effective_from": "2026-06-15",
+          "version": "2.1",
+          "title": "How long refunds take after initiation"
+        }
+      ],
+      "facts": {},
+      "localization": {
+        "requested_language": "gu",
+        "status": "translated",
+        "query_translated": true,
+        "answer_translated": true,
+        "roundtrip_checked": true,
+        "error": null,
+        "engine": "local"
+      },
+      "agent_timings_ms": {
+        "retrieval_ms": 30.62,
+        "llm_ms": 1757.71,
+        "localization_ms": 9876.79
+      },
+      "checks": {
+        "grounded_answer": true,
+        "refund_source": true,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": false,
+        "source_refund_duration": true,
+        "translation_validated": true,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/gu_20261025T081212553535Z_reply.wav",
+        "seconds": 7.84,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 752684,
+        "sha256": "13c97277aceaaa3b49f272ae05be6950dbee955456d514b1e637175e99adbee4"
+      },
+      "actual_spoken_language": "gu",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T08:12:31.570016+00:00"
+    },
+    "kn": {
+      "language": "kn",
+      "language_name": "Kannada",
+      "synthetic_question": "UPI ಮರುಪಾವತಿ ಪ್ರಾರಂಭವಾದ ನಂತರ ಬರಲು ಎಷ್ಟು ಕೆಲಸದ ದಿನಗಳು ಬೇಕಾಗುತ್ತವೆ?",
+      "stt_language_code": "kn-IN",
+      "tts_language_code": "kn-IN",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T08:12:31.579015+00:00",
+      "status": "passed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "436c180784fb668aefe06d4b5520caca7711a593",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "eba6148ce06f65b00b85239d57a9a8415b35b32c0027c839aedf57585c7dd04f",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+          "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+        },
+        "translation_model": {
+          "repository": "Xenova/nllb-200-distilled-600M",
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+          "files": {
+            "onnx/encoder_model_quantized.onnx": {
+              "bytes": 419120483,
+              "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+            },
+            "onnx/decoder_model_quantized.onnx": {
+              "bytes": 470533055,
+              "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+            },
+            "tokenizer.json": {
+              "bytes": 17331224,
+              "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+            }
+          },
+          "available": true
+        }
+      },
+      "timings_ms": {
+        "input_tts": 898.95,
+        "stt": 410.94,
+        "agent": 15926.34,
+        "reply_tts": 1090.3,
+        "total": 18359.36
+      },
+      "attempt_id": "20261025T081231579015Z",
+      "input_audio": {
+        "seconds": 5.12,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 491564,
+        "sha256": "7ebb64e88c5f1544c145f1963930c1432abe050c90601d9eb528e19ba6f58305",
+        "reused": false
+      },
+      "redacted_transcript": "UPI ಮರುಪಾವತಿ ಪ್ರಾರಂಭವಾದ ನಂತರ ಬರಲು ಎಷ್ಟು ಕೆಲಸದ ದಿನಗಳು ಬೇಕಾಗುತ್ತವೆ",
+      "answer": "ನಾನು ZentroMartನ AI ಸಹಾಯಕ. UPI ಮರುಪಾವತಿ ಆರಂಭದ ನಂತರ 1 ರಿಂದ 3 ವ್ಯವಹಾರ ದಿನಗಳು.",
+      "source_answer": "I'm ZentroMart's AI support assistant. UPI refunds take 1 to 3 business days after initiation.",
+      "output_language": "kn",
+      "decision": "answer",
+      "intent": "refund",
+      "composition": "evidence_validated_fallback",
+      "evidence_supported": true,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "REF-2",
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+          "file": "pol_refunds.md",
+          "doc_type": "policy",
+          "status": "current",
+          "effective_from": "2026-06-15",
+          "version": "2.1",
+          "title": "How long refunds take after initiation"
+        }
+      ],
+      "facts": {},
+      "localization": {
+        "requested_language": "kn",
+        "status": "translated",
+        "query_translated": true,
+        "answer_translated": true,
+        "roundtrip_checked": true,
+        "error": null,
+        "engine": "local"
+      },
+      "agent_timings_ms": {
+        "retrieval_ms": 56.91,
+        "llm_ms": 2074.01,
+        "localization_ms": 9651.09
+      },
+      "checks": {
+        "grounded_answer": true,
+        "refund_source": true,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": true,
+        "source_refund_duration": true,
+        "translation_validated": true,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/kn_20261025T081231579015Z_reply.wav",
+        "seconds": 6.88,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 660524,
+        "sha256": "f36d1ec03f5c4ce55f6345f40567a9ee575a4018a28efacde6dab19094660938"
+      },
+      "actual_spoken_language": "kn",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T08:12:49.942658+00:00"
+    },
+    "ml": {
+      "language": "ml",
+      "language_name": "Malayalam",
+      "synthetic_question": "UPI റീഫണ്ട് ആരംഭിച്ചതിന് ശേഷം ലഭിക്കാൻ എത്ര പ്രവൃത്തി ദിവസങ്ങൾ എടുക്കും?",
+      "stt_language_code": "ml-IN",
+      "tts_language_code": "ml-IN",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T08:12:49.958652+00:00",
+      "status": "passed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "436c180784fb668aefe06d4b5520caca7711a593",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "eba6148ce06f65b00b85239d57a9a8415b35b32c0027c839aedf57585c7dd04f",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+          "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+        },
+        "translation_model": {
+          "repository": "Xenova/nllb-200-distilled-600M",
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+          "files": {
+            "onnx/encoder_model_quantized.onnx": {
+              "bytes": 419120483,
+              "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+            },
+            "onnx/decoder_model_quantized.onnx": {
+              "bytes": 470533055,
+              "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+            },
+            "tokenizer.json": {
+              "bytes": 17331224,
+              "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+            }
+          },
+          "available": true
+        }
+      },
+      "timings_ms": {
+        "input_tts": 820.31,
+        "stt": 389.48,
+        "agent": 15816.16,
+        "reply_tts": 1258.61,
+        "total": 18330.93
+      },
+      "attempt_id": "20261025T081249958652Z",
+      "input_audio": {
+        "seconds": 4.64,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 445484,
+        "sha256": "f2dd68b948489c07ec0f059bdee74f2f8abfc74ea81767488b3b5b39b4895be1",
+        "reused": false
+      },
+      "redacted_transcript": "UPI റീഫണ്ട് ആരംഭിച്ചതിന് ശേഷം ലഭിക്കാന് എത്ര പ്രവൃത്തി ദിവസങ്ങള് എടുക്കും",
+      "answer": "ഞാൻ ZentroMartന്റെ AI സഹായിയാണ്. UPI റീഫണ്ടുകള് പ്രക്രിയ ആരംഭിച്ചതിന് ശേഷം 1 മുതൽ 3 പ്രവൃത്തി ദിവസങ്ങള് വരെയാണ്.",
+      "source_answer": "I'm ZentroMart's AI support assistant. UPI refunds take 1 to 3 business days after the start of the process.",
+      "output_language": "ml",
+      "decision": "answer",
+      "intent": "refund",
+      "composition": "grounded_llm",
+      "evidence_supported": true,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "REF-2",
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+          "file": "pol_refunds.md",
+          "doc_type": "policy",
+          "status": "current",
+          "effective_from": "2026-06-15",
+          "version": "2.1",
+          "title": "How long refunds take after initiation"
+        }
+      ],
+      "facts": {},
+      "localization": {
+        "requested_language": "ml",
+        "status": "translated",
+        "query_translated": true,
+        "answer_translated": true,
+        "roundtrip_checked": true,
+        "error": null,
+        "engine": "local"
+      },
+      "agent_timings_ms": {
+        "retrieval_ms": 25.18,
+        "llm_ms": 0.98,
+        "localization_ms": 11917.54
+      },
+      "checks": {
+        "grounded_answer": true,
+        "refund_source": true,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": true,
+        "source_refund_duration": true,
+        "translation_validated": true,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/ml_20261025T081249958652Z_reply.wav",
+        "seconds": 8.32,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 798764,
+        "sha256": "b59e60c49b80ec88c727b3d23343d2761b53301eae6d8a63937479931a5012fb"
+      },
+      "actual_spoken_language": "ml",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T08:13:08.298037+00:00"
+    },
+    "mr": {
+      "language": "mr",
+      "language_name": "Marathi",
+      "synthetic_question": "UPI परतावा सुरू झाल्यानंतर मिळण्यासाठी किती कामकाजाचे दिवस लागतात?",
+      "stt_language_code": "mr-IN",
+      "tts_language_code": "mr-IN",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T08:13:08.308038+00:00",
+      "status": "failed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "436c180784fb668aefe06d4b5520caca7711a593",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "eba6148ce06f65b00b85239d57a9a8415b35b32c0027c839aedf57585c7dd04f",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+          "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+        },
+        "translation_model": {
+          "repository": "Xenova/nllb-200-distilled-600M",
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+          "files": {
+            "onnx/encoder_model_quantized.onnx": {
+              "bytes": 419120483,
+              "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+            },
+            "onnx/decoder_model_quantized.onnx": {
+              "bytes": 470533055,
+              "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+            },
+            "tokenizer.json": {
+              "bytes": 17331224,
+              "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+            }
+          },
+          "available": true
+        }
+      },
+      "timings_ms": {
+        "input_tts": 943.11,
+        "stt": 457.69,
+        "agent": 7438.37,
+        "reply_tts": 961.98,
+        "total": 9829.46
+      },
+      "attempt_id": "20261025T081308308038Z",
+      "input_audio": {
+        "seconds": 4.48,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 430124,
+        "sha256": "ffc19f0517aa298b6748643993b87b6332ed6516910daa84c62e72d11d835236",
+        "reused": false
+      },
+      "redacted_transcript": "UPI परतावा सुरू झाल्यानंतर मिळण्यासाठी किती कामकाजाचे दिवस लागतात",
+      "answer": "मी ZentroMartचा AI सहाय्यक आहे. कोणत्या उत्पादनाची किंवा श्रेणीची तुम्हाला परत पाठवायची आहे?",
+      "source_answer": "I'm ZentroMart's AI support assistant. Which product or category would you like to return?",
+      "output_language": "mr",
+      "decision": "clarify",
+      "intent": "return",
+      "composition": "evidence_validated_rules",
+      "evidence_supported": true,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "RET-2",
+          "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+          "file": "pol_returns_v4.md",
+          "doc_type": "policy",
+          "status": "current",
+          "effective_from": "2026-08-01",
+          "version": "4.0",
+          "title": "Return windows by category"
+        },
+        {
+          "id": "STY-5",
+          "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "One question at a time"
+        }
+      ],
+      "facts": {},
+      "localization": {
+        "requested_language": "mr",
+        "status": "translated",
+        "query_translated": true,
+        "answer_translated": true,
+        "roundtrip_checked": true,
+        "error": null,
+        "engine": "local"
+      },
+      "agent_timings_ms": {
+        "retrieval_ms": 32.83,
+        "llm_ms": 0.0,
+        "localization_ms": 4729.97
+      },
+      "checks": {
+        "grounded_answer": false,
+        "refund_source": false,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": false,
+        "source_refund_duration": false,
+        "translation_validated": true,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/mr_20261025T081308308038Z_reply.wav",
+        "seconds": 6.24,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 599084,
+        "sha256": "7e2fa7f607eba653f8613308f7119d6a64262a923d007b8fd9c586f31a8739b7"
+      },
+      "actual_spoken_language": "mr",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T08:13:18.144312+00:00"
+    },
+    "pa": {
+      "language": "pa",
+      "language_name": "Punjabi",
+      "synthetic_question": "UPI ਰਿਫੰਡ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ ਬਾਅਦ ਮਿਲਣ ਲਈ ਕਿੰਨੇ ਕੰਮਕਾਜੀ ਦਿਨ ਲੱਗਦੇ ਹਨ?",
+      "stt_language_code": "pa-IN",
+      "tts_language_code": "pa-IN",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T08:13:18.217877+00:00",
+      "status": "failed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "436c180784fb668aefe06d4b5520caca7711a593",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "eba6148ce06f65b00b85239d57a9a8415b35b32c0027c839aedf57585c7dd04f",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+          "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+        },
+        "translation_model": {
+          "repository": "Xenova/nllb-200-distilled-600M",
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+          "files": {
+            "onnx/encoder_model_quantized.onnx": {
+              "bytes": 419120483,
+              "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+            },
+            "onnx/decoder_model_quantized.onnx": {
+              "bytes": 470533055,
+              "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+            },
+            "tokenizer.json": {
+              "bytes": 17331224,
+              "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+            }
+          },
+          "available": true
+        }
+      },
+      "timings_ms": {
+        "input_tts": 862.07,
+        "stt": 482.65,
+        "agent": 10799.91,
+        "reply_tts": 1646.7,
+        "total": 13832.79
+      },
+      "attempt_id": "20261025T081318217877Z",
+      "input_audio": {
+        "seconds": 4.64,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 445484,
+        "sha256": "fb0ab360dabe84ef35a58178eb0f6b4760a6afbfed7e0efbd67b0aad53e513a6",
+        "reused": false
+      },
+      "redacted_transcript": "UPI ਰਿਫੰਡ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ ਬਾਅਦ ਮਿਲਣ ਲਈ ਕਿੰਨੇ ਕੰਮਕਾਜ਼ੀ ਦਿਨ ਲੱਗਦੇ ਹਨ",
+      "answer": "ਮੈਂ ZentroMart ਦਾ AI ਸਹਾਇਕ ਹਾਂ। ਇਸ ਭਾਸ਼ਾ ਵਿੱਚ ਜਵਾਬ ਦਾ ਸੁਰੱਖਿਅਤ ਅਨੁਵਾਦ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕਹੋ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਚੁਣੋ।",
+      "source_answer": "I'm ZentroMart's AI support assistant. UPI Refunds take 1 to 3 working days after commencement.",
+      "output_language": "pa",
+      "decision": "answer",
+      "intent": "refund",
+      "composition": "grounded_llm",
+      "evidence_supported": true,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "REF-2",
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+          "file": "pol_refunds.md",
+          "doc_type": "policy",
+          "status": "current",
+          "effective_from": "2026-06-15",
+          "version": "2.1",
+          "title": "How long refunds take after initiation"
+        }
+      ],
+      "facts": {},
+      "localization": {
+        "requested_language": "pa",
+        "status": "answer_translation_failed",
+        "query_translated": true,
+        "answer_translated": false,
+        "roundtrip_checked": false,
+        "error": "answer_translation_rejected",
+        "engine": "local"
+      },
+      "agent_timings_ms": {
+        "retrieval_ms": 22.61,
+        "llm_ms": 1417.02,
+        "localization_ms": 6573.76
+      },
+      "checks": {
+        "grounded_answer": true,
+        "refund_source": true,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": false,
+        "source_refund_duration": true,
+        "translation_validated": false,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/pa_20261025T081318217877Z_reply.wav",
+        "seconds": 9.12,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 875564,
+        "sha256": "c6dd639d7a426a47c71ec03efcfd74e643fd0dd0772872ab2c2b50edd8e55fd5"
+      },
+      "actual_spoken_language": "pa",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T08:13:32.063965+00:00"
+    },
+    "ta": {
+      "language": "ta",
+      "language_name": "Tamil",
+      "synthetic_question": "UPI பணத்தைத் திரும்பப் பெறும் செயல்முறை தொடங்கிய பிறகு எத்தனை வேலை நாட்கள் ஆகும்?",
+      "stt_language_code": "ta-IN",
+      "tts_language_code": "ta-IN",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T08:13:32.087970+00:00",
+      "status": "failed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "436c180784fb668aefe06d4b5520caca7711a593",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "eba6148ce06f65b00b85239d57a9a8415b35b32c0027c839aedf57585c7dd04f",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+          "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+        },
+        "translation_model": {
+          "repository": "Xenova/nllb-200-distilled-600M",
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+          "files": {
+            "onnx/encoder_model_quantized.onnx": {
+              "bytes": 419120483,
+              "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+            },
+            "onnx/decoder_model_quantized.onnx": {
+              "bytes": 470533055,
+              "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+            },
+            "tokenizer.json": {
+              "bytes": 17331224,
+              "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+            }
+          },
+          "available": true
+        }
+      },
+      "timings_ms": {
+        "input_tts": 1107.0,
+        "stt": 453.56,
+        "agent": 16098.43,
+        "reply_tts": 1462.74,
+        "total": 19165.5
+      },
+      "attempt_id": "20261025T081332087970Z",
+      "input_audio": {
+        "seconds": 4.32,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 414764,
+        "sha256": "b5dc42f63b102d55cf23fb595d3922fb19330f877ffc23c8f84df9c8a62ff809",
+        "reused": false
+      },
+      "redacted_transcript": "UPI பணத்தை திரும்பப் பெறும் செயல்முறை தொடங்கிய பிறகு எத்தனை வேலை நாட்களாகும்",
+      "answer": "நான் ZentroMart இன் AI உதவியாளர். மீட்டெடுக்கப்பட்ட ஆவணங்களில் எனக்கு போதுமான ஆதாரங்கள் இல்லை. ஒரு மனித சக ஊழியரை அணுக நான் உங்களுக்கு உதவ முடியும்.",
+      "source_answer": "I'm ZentroMart's AI support assistant. I don't have enough supported information in the retrieved documents. I can help you reach a human colleague.",
+      "output_language": "ta",
+      "decision": "answer",
+      "intent": "unsupported",
+      "composition": "abstained_missing_evidence",
+      "evidence_supported": false,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        }
+      ],
+      "facts": {},
+      "localization": {
+        "requested_language": "ta",
+        "status": "translated",
+        "query_translated": true,
+        "answer_translated": true,
+        "roundtrip_checked": true,
+        "error": null,
+        "engine": "local"
+      },
+      "agent_timings_ms": {
+        "retrieval_ms": 32.19,
+        "llm_ms": 0.0,
+        "localization_ms": 13351.79
+      },
+      "checks": {
+        "grounded_answer": false,
+        "refund_source": false,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": false,
+        "source_refund_duration": false,
+        "translation_validated": true,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/ta_20261025T081332087970Z_reply.wav",
+        "seconds": 9.12,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 875564,
+        "sha256": "cf4d2901e4eb3e6d85ac18ed67279b6fec1f4cc2a45a697c11a48d8f146cff3d"
+      },
+      "actual_spoken_language": "ta",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T08:13:51.269321+00:00"
+    },
+    "hi-en": {
+      "language": "hi-en",
+      "language_name": "Hinglish",
+      "synthetic_question": "UPI refund initiate hone ke baad kitne business days lagte hain?",
+      "stt_language_code": "en-IN",
+      "tts_language_code": "hi-en",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T08:13:51.292313+00:00",
+      "status": "passed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "436c180784fb668aefe06d4b5520caca7711a593",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "eba6148ce06f65b00b85239d57a9a8415b35b32c0027c839aedf57585c7dd04f",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+          "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+        },
+        "translation_model": {
+          "repository": "Xenova/nllb-200-distilled-600M",
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+          "files": {
+            "onnx/encoder_model_quantized.onnx": {
+              "bytes": 419120483,
+              "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+            },
+            "onnx/decoder_model_quantized.onnx": {
+              "bytes": 470533055,
+              "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+            },
+            "tokenizer.json": {
+              "bytes": 17331224,
+              "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+            }
+          },
+          "available": true
+        }
+      },
+      "timings_ms": {
+        "input_tts": 644.53,
+        "stt": 444.65,
+        "agent": 3062.03,
+        "reply_tts": 1218.99,
+        "total": 5401.72
+      },
+      "attempt_id": "20261025T081351292313Z",
+      "input_audio": {
+        "seconds": 3.52,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 337964,
+        "sha256": "b09f1984c24897ab70b410235aa03fbf618abf6b2e30cab2c282dc060a172dd3",
+        "reused": false
+      },
+      "redacted_transcript": "upi refund initiate hone ke baad kitne business days lagte hain",
+      "answer": "Main ZentroMart ki AI support assistant hoon. UPi refund initiation ke baad 1 to 3 business days lagte hain.",
+      "source_answer": "",
+      "output_language": "hi-en",
+      "decision": "answer",
+      "intent": "refund",
+      "composition": "grounded_llm",
+      "evidence_supported": true,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "REF-2",
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+          "file": "pol_refunds.md",
+          "doc_type": "policy",
+          "status": "current",
+          "effective_from": "2026-06-15",
+          "version": "2.1",
+          "title": "How long refunds take after initiation"
+        }
+      ],
+      "facts": {},
+      "localization": null,
+      "agent_timings_ms": {
+        "retrieval_ms": 46.89,
+        "llm_ms": 3004.79
+      },
+      "checks": {
+        "grounded_answer": true,
+        "refund_source": true,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": true,
+        "source_refund_duration": true,
+        "translation_validated": true,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/hi-en_20261025T081351292313Z_reply.wav",
+        "seconds": 6.56,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 629804,
+        "sha256": "61e0e52894232e52dde81242c059c59228493584953ccee023f807aa5d1593ef"
+      },
+      "actual_spoken_language": "hi-en",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T08:13:56.703454+00:00"
+    }
+  },
+  "attempt_history": [
+    {
+      "language": "te",
+      "language_name": "Telugu",
+      "synthetic_question": "UPI రీఫండ్ ప్రారంభించిన తర్వాత రావడానికి ఎన్ని పని దినాలు పడుతుంది?",
+      "stt_language_code": "te-IN",
+      "tts_language_code": "te-IN",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T07:49:20.267634+00:00",
+      "status": "failed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "70dad4dc3417ce1186d8f3d8c6ee2f49401b89fb",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "67920626c1ec5594b17cbe5fd5ac21feeb561a5290d4f1e2d30ea2a1aa48c271",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "9d4378b50b8a4aed9496c71336dff1b1905b47c234aade95ef5c151f87f97f27",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655"
+        }
+      },
+      "timings_ms": {
+        "input_tts": 1758.0,
+        "stt": 589.74,
+        "agent": 24473.51,
+        "reply_tts": 1247.49,
+        "total": 28088.68
+      },
+      "input_audio": {
+        "seconds": 4.8,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 460844,
+        "sha256": "e996d57df90fcf6362db45058ee484000d6279d2151cd1248d6bccb2330807ec",
+        "reused": false
+      },
+      "redacted_transcript": "యూపీఐ రీఫండ్ ప్రారంభించిన తర్వాత రావడానికి ఎన్ని పని దినాలు పడుతుంది",
+      "answer": "ఇంటర్నీయుయు పేమెంట్ మెథడ్ కొంతసాధారణంగా ఉంటుంది. ఆప్టిమాల్ పేమెంట్ మెథడ్ ఎంచుకోండి వారికి ఎంచుకోండి.",
+      "source_answer": "I'm ZentroMart's AI support assistant. Which payment method did you use?",
+      "output_language": "te",
+      "decision": "clarify",
+      "intent": "refund",
+      "composition": "evidence_validated_rules",
+      "evidence_supported": true,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "REF-2",
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+          "file": "pol_refunds.md",
+          "doc_type": "policy",
+          "status": "current",
+          "effective_from": "2026-06-15",
+          "version": "2.1",
+          "title": "How long refunds take after initiation"
+        },
+        {
+          "id": "STY-5",
+          "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "One question at a time"
+        }
+      ],
+      "facts": {},
+      "localization": {
+        "requested_language": "te",
+        "status": "translated",
+        "query_translated": true,
+        "answer_translated": true,
+        "roundtrip_checked": true,
+        "error": null
+      },
+      "agent_timings_ms": {
+        "retrieval_ms": 90.63,
+        "llm_ms": 0.0,
+        "localization_ms": 13122.26
+      },
+      "checks": {
+        "grounded_answer": false,
+        "refund_source": true,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": false,
+        "source_refund_duration": false,
+        "translation_validated": true,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/te_reply.wav",
+        "seconds": 6.88,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 660524,
+        "sha256": "e93aaef16c1e0f5c8d68defa71c075c6e398edb7314effcedf3ae15ddef29de4"
+      },
+      "actual_spoken_language": "te",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T07:49:48.364332+00:00"
+    },
+    {
+      "language": "te",
+      "language_name": "Telugu",
+      "synthetic_question": "UPI రీఫండ్ ప్రారంభించిన తర్వాత రావడానికి ఎన్ని పని దినాలు పడుతుంది?",
+      "stt_language_code": "te-IN",
+      "tts_language_code": "te-IN",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T08:06:35.896220+00:00",
+      "status": "failed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "70dad4dc3417ce1186d8f3d8c6ee2f49401b89fb",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "b3e68912dc6b08080f8a0d1b2ce8ea1328235d39edcb1d0c72391dd6c5a1be92",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+          "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+        },
+        "translation_model": {
+          "repository": "Xenova/nllb-200-distilled-600M",
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+          "files": {
+            "onnx/encoder_model_quantized.onnx": {
+              "bytes": 419120483,
+              "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+            },
+            "onnx/decoder_model_quantized.onnx": {
+              "bytes": 470533055,
+              "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+            },
+            "tokenizer.json": {
+              "bytes": 17331224,
+              "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+            }
+          },
+          "available": true
+        }
+      },
+      "timings_ms": {
+        "input_tts": 14.97,
+        "stt": 1531.69,
+        "agent": 30489.89,
+        "reply_tts": 1515.61,
+        "total": 33580.72
+      },
+      "attempt_id": "20261025T080635896220Z",
+      "input_audio": {
+        "seconds": 4.8,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 460844,
+        "sha256": "e996d57df90fcf6362db45058ee484000d6279d2151cd1248d6bccb2330807ec",
+        "reused": true
+      },
+      "redacted_transcript": "UPI రీఫండ్ ప్రారంభించిన తర్వాత రావడానికి ఎన్ని పని దినాలు పడుతుంది",
+      "answer": "నేను ZentroMart AI సహాయకుడిని. ఈ భాషలో సమాధానాన్ని సురక్షితంగా అనువదించలేకపోయాను. దయచేసి మళ్లీ చెప్పండి లేదా ఇంగ్లీష్ ఎంచుకోండి.",
+      "source_answer": "I'm ZentroMart's AI support assistant. UPI refunds take 1 to 3 business days after initiation.",
+      "output_language": "te",
+      "decision": "answer",
+      "intent": "refund",
+      "composition": "grounded_llm",
+      "evidence_supported": true,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "REF-2",
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+          "file": "pol_refunds.md",
+          "doc_type": "policy",
+          "status": "current",
+          "effective_from": "2026-06-15",
+          "version": "2.1",
+          "title": "How long refunds take after initiation"
+        }
+      ],
+      "facts": {},
+      "localization": {
+        "requested_language": "te",
+        "status": "answer_translation_failed",
+        "query_translated": true,
+        "answer_translated": false,
+        "roundtrip_checked": false,
+        "error": "answer_translation_rejected",
+        "engine": "local"
+      },
+      "agent_timings_ms": {
+        "retrieval_ms": 34.88,
+        "llm_ms": 11135.05,
+        "localization_ms": 9476.29
+      },
+      "checks": {
+        "grounded_answer": true,
+        "refund_source": true,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": false,
+        "source_refund_duration": true,
+        "translation_validated": false,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/te_20261025T080635896220Z_reply.wav",
+        "seconds": 9.6,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 921644,
+        "sha256": "bc9919bb5a8bd8cff7aa02172825cc4d01b51e272bfe711d555f4ecf15108b77"
+      },
+      "actual_spoken_language": "te",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T08:07:09.481921+00:00"
+    },
+    {
+      "language": "te",
+      "language_name": "Telugu",
+      "synthetic_question": "UPI రీఫండ్ ప్రారంభించిన తర్వాత రావడానికి ఎన్ని పని దినాలు పడుతుంది?",
+      "stt_language_code": "te-IN",
+      "tts_language_code": "te-IN",
+      "mode": "live_gnani",
+      "started_at_utc": "2026-10-25T08:08:55.484575+00:00",
+      "status": "failed",
+      "stage": "complete",
+      "provenance": {
+        "runtime_commit": "70dad4dc3417ce1186d8f3d8c6ee2f49401b89fb",
+        "runtime_source_sha256": {
+          "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+          "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+          "src/multilingual.py": "bd4ee515126a9af3d938b9a026750df24f8f1bcf890d4a4c7c2ab93bb18693ca",
+          "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+          "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+          "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+          "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+          "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+        },
+        "translation_model": {
+          "repository": "Xenova/nllb-200-distilled-600M",
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+          "files": {
+            "onnx/encoder_model_quantized.onnx": {
+              "bytes": 419120483,
+              "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+            },
+            "onnx/decoder_model_quantized.onnx": {
+              "bytes": 470533055,
+              "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+            },
+            "tokenizer.json": {
+              "bytes": 17331224,
+              "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+            }
+          },
+          "available": true
+        }
+      },
+      "timings_ms": {
+        "input_tts": 9.57,
+        "stt": 3224.73,
+        "agent": 22035.61,
+        "reply_tts": 1846.79,
+        "total": 27141.21
+      },
+      "attempt_id": "20261025T080855484575Z",
+      "input_audio": {
+        "seconds": 4.8,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 460844,
+        "sha256": "e996d57df90fcf6362db45058ee484000d6279d2151cd1248d6bccb2330807ec",
+        "reused": true
+      },
+      "redacted_transcript": "UPI రీఫండ్ ప్రారంభించిన తర్వాత రావడానికి ఎన్ని పని దినాలు పడుతుంది",
+      "answer": "నేను ZentroMart AI సహాయకుడిని. ఈ భాషలో సమాధానాన్ని సురక్షితంగా అనువదించలేకపోయాను. దయచేసి మళ్లీ చెప్పండి లేదా ఇంగ్లీష్ ఎంచుకోండి.",
+      "source_answer": "I'm ZentroMart's AI support assistant. UPI refunds take 1 to 3 business days after initiation.",
+      "output_language": "te",
+      "decision": "answer",
+      "intent": "refund",
+      "composition": "evidence_validated_fallback",
+      "evidence_supported": true,
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "REF-2",
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+          "file": "pol_refunds.md",
+          "doc_type": "policy",
+          "status": "current",
+          "effective_from": "2026-06-15",
+          "version": "2.1",
+          "title": "How long refunds take after initiation"
+        }
+      ],
+      "facts": {},
+      "localization": {
+        "requested_language": "te",
+        "status": "answer_translation_failed",
+        "query_translated": true,
+        "answer_translated": false,
+        "roundtrip_checked": false,
+        "error": "answer_translation_rejected",
+        "engine": "local"
+      },
+      "agent_timings_ms": {
+        "retrieval_ms": 83.07,
+        "llm_ms": 2518.99,
+        "localization_ms": 7485.01
+      },
+      "checks": {
+        "grounded_answer": true,
+        "refund_source": true,
+        "requested_language": true,
+        "target_script": true,
+        "target_refund_duration": false,
+        "source_refund_duration": true,
+        "translation_validated": false,
+        "real_input_audio": true,
+        "real_reply_audio": true
+      },
+      "reply_audio": {
+        "path": "sample_outputs/language_voice/te_20261025T080855484575Z_reply.wav",
+        "seconds": 9.76,
+        "sample_rate": 48000,
+        "channels": 1,
+        "sample_width": 2,
+        "bytes": 937004,
+        "sha256": "030957896a524ef0c141a497630f5044f89bc5166f2aede2460adcd4a7f7490a"
+      },
+      "actual_spoken_language": "te",
+      "spoken_language_evidence": "Target-script reply text sent to the registered Gnani voice. Audio language and intelligibility have not been independently reviewed.",
+      "ended_at_utc": "2026-10-25T08:09:22.633586+00:00"
+    }
+  ],
+  "method": "Synthetic native question -> Gnani TTS -> Gnani STT -> source-grounded agent -> Gnani reply TTS",
+  "limitations": "One synthetic refund question per language. This does not establish human, noisy, accented, or broad-domain accuracy.",
+  "current_runtime": {
+    "runtime_commit": "436c180784fb668aefe06d4b5520caca7711a593",
+    "runtime_source_sha256": {
+      "scripts/validate_languages.py": "2729e237c4e4ea4fbb6627ffb44d1bf83481699cd905f10a93a07c8d517e0e43",
+      "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+      "src/multilingual.py": "eba6148ce06f65b00b85239d57a9a8415b35b32c0027c839aedf57585c7dd04f",
+      "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+      "src/agent.py": "194a0870e54d7c4b27def2c87d11a4e110d00903ced294b227cc567c1be4e2ad",
+      "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+      "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+      "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935"
+    },
+    "translation_model": {
+      "repository": "Xenova/nllb-200-distilled-600M",
+      "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+      "files": {
+        "onnx/encoder_model_quantized.onnx": {
+          "bytes": 419120483,
+          "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+        },
+        "onnx/decoder_model_quantized.onnx": {
+          "bytes": 470533055,
+          "sha256": "ddea619b640379609719becf91a488c5e6ce4c4b2052efbb5388edaed465a552"
+        },
+        "tokenizer.json": {
+          "bytes": 17331224,
+          "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+        }
+      },
+      "available": true
+    }
+  },
+  "recorded_at_utc": "2026-10-25T08:14:26.235038+00:00",
+  "complete": true,
+  "all_voice_passed": false,
+  "summary": {
+    "planned": 11,
+    "evaluated": 11,
+    "voice_passed": 5,
+    "text_only_passed": 0,
+    "failed": 6,
+    "pending": 0
+  },
+  "stop_requested_at_utc": "2026-10-25T08:14:26.235038+00:00",
+  "stop_request_outcome": "Already completed before the verified process stop; no optional worker remains."
+}

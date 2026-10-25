@@ -1,5 +1,5 @@
 {
-  "transcript": "how long does a upi refund take",
+  "transcript": "how long does a UPI refund take",
   "answer": "I'm ZentroMart's AI support assistant. A UPI refund takes 1 to 3 business days after initiation.",
   "intent": "refund",
   "decision": "answer",
@@ -34,62 +34,62 @@
     {
       "id": "REF-2",
       "score": 0.188847,
-      "dense_score": 0.5293
+      "dense_score": 0.5468
     },
     {
       "id": "RET-7",
-      "score": 0.175405,
-      "dense_score": 0.5621
+      "score": 0.174051,
+      "dense_score": 0.5841
     },
     {
       "id": "REF-3",
-      "score": 0.170103,
-      "dense_score": 0.5969
+      "score": 0.171456,
+      "dense_score": 0.6124
     },
     {
       "id": "REF-1",
-      "score": 0.167651,
-      "dense_score": 0.627
+      "score": 0.166487,
+      "dense_score": 0.6524
     },
     {
       "id": "FAQ-1",
-      "score": 0.158432,
-      "dense_score": 0.7351
+      "score": 0.159437,
+      "dense_score": 0.7644
     },
     {
       "id": "REF-6",
       "score": 0.154227,
-      "dense_score": 0.4927
+      "dense_score": 0.5345
     },
     {
       "id": "REF-5",
       "score": 0.140205,
-      "dense_score": 0.5708
+      "dense_score": 0.5914
     },
     {
       "id": "REF-4",
-      "score": 0.131456,
-      "dense_score": 0.4204
+      "score": 0.130968,
+      "dense_score": 0.4336
     },
     {
       "id": "KB-00.3",
-      "score": 0.08457,
-      "dense_score": 0.1364
+      "score": 0.084751,
+      "dense_score": 0.152
     },
     {
       "id": "KB-00.1",
-      "score": 0.060312,
-      "dense_score": 0.0433
+      "score": 0.061032,
+      "dense_score": 0.0478
     },
     {
       "id": "PLS-2",
-      "score": 0.060311,
-      "dense_score": 0.4195
+      "score": 0.061031,
+      "dense_score": 0.4086
     },
     {
       "id": "DEL-3",
-      "score": 0.06031,
-      "dense_score": 0.3347
+      "score": 0.06103,
+      "dense_score": 0.3717
     }
   ],
   "tool_calls": [],
@@ -105,23 +105,23 @@
     "cache_hit": false,
     "attempts": 1,
     "provider": "ollama:qwen3:1.7b",
-    "wall_ms": 5078.97,
-    "load_ms": 60.55,
-    "prompt_eval_ms": 1598.36,
-    "eval_ms": 3273.11,
+    "wall_ms": 1548.11,
+    "load_ms": 18.55,
+    "prompt_eval_ms": 519.98,
+    "eval_ms": 933.55,
     "prompt_eval_count": 399,
     "eval_count": 23,
     "done_reason": "stop"
   },
   "timings": {
-    "retrieval_ms": 140.9,
-    "llm_ms": 5102.44
+    "retrieval_ms": 68.33,
+    "llm_ms": 1561.11
   },
-  "latency_ms": 5282.23,
+  "latency_ms": 1663.12,
   "voice_timings": {
-    "stt_ms": 3187.93,
-    "agent_ms": 5282.26,
-    "tts_ms": 1110.56,
-    "total_ms": 9581.07
+    "stt_ms": 955.66,
+    "agent_ms": 1664.84,
+    "tts_ms": 1145.41,
+    "total_ms": 3768.64
   }
 }
