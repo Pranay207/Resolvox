@@ -1,0 +1,124 @@
+{
+  "scope": "Historical exposed nine-message development diagnostic, not a blind holdout, official organizer score, current release proof or adjusted answer score. Predictions and original provenance are byte-identical copies.",
+  "archived_at_utc": "2026-10-25T14:41:46.599056+00:00",
+  "source_file_sha256_before": {
+    "source_first_live_pilots.json": "66b575ccb053b73e7845e68522149256a422ca3a21482098b49895b2663f1b7f",
+    "source_first_pilot_done.json": "64ed4a9a85349c638533bbcdeeaa4df751043d45606f76538d32d532e386ed8b",
+    "run_source_first_pilots.py": "945ec86dd249827fa0d51e138349fab3d887b323aa04ae2974d65001adbc4b2f",
+    "run_source_first_pilot_wrapper.ps1": "cf5d2f0fbfa1a9f2618e6e22a50facc73015a6a1b2ab594480aa33539e918c3a",
+    "source_first_pilot.log": "95bfc74317d494a0bb4a368b1a65444c8fe381bb09d631125203ecd80899862d",
+    "source_first_pilot_pids.json": "6affd5ed57463b9f0ba255fa8b638242e5e65099a85fa716955873cf40a4120a"
+  },
+  "source_file_sha256_after": {
+    "source_first_live_pilots.json": "66b575ccb053b73e7845e68522149256a422ca3a21482098b49895b2663f1b7f",
+    "source_first_pilot_done.json": "64ed4a9a85349c638533bbcdeeaa4df751043d45606f76538d32d532e386ed8b",
+    "run_source_first_pilots.py": "945ec86dd249827fa0d51e138349fab3d887b323aa04ae2974d65001adbc4b2f",
+    "run_source_first_pilot_wrapper.ps1": "cf5d2f0fbfa1a9f2618e6e22a50facc73015a6a1b2ab594480aa33539e918c3a",
+    "source_first_pilot.log": "95bfc74317d494a0bb4a368b1a65444c8fe381bb09d631125203ecd80899862d",
+    "source_first_pilot_pids.json": "6affd5ed57463b9f0ba255fa8b638242e5e65099a85fa716955873cf40a4120a"
+  },
+  "raw_artifacts": [
+    {
+      "original_path": "tmp/source_first_live_pilots.json",
+      "archive_path": "raw/source_first_live_pilots.json",
+      "bytes": 145622,
+      "sha256": "66b575ccb053b73e7845e68522149256a422ca3a21482098b49895b2663f1b7f"
+    },
+    {
+      "original_path": "tmp/source_first_pilot_done.json",
+      "archive_path": "raw/source_first_pilot_done.json",
+      "bytes": 87,
+      "sha256": "64ed4a9a85349c638533bbcdeeaa4df751043d45606f76538d32d532e386ed8b"
+    },
+    {
+      "original_path": "tmp/run_source_first_pilots.py",
+      "archive_path": "raw/run_source_first_pilots.py",
+      "bytes": 3115,
+      "sha256": "945ec86dd249827fa0d51e138349fab3d887b323aa04ae2974d65001adbc4b2f"
+    },
+    {
+      "original_path": "tmp/run_source_first_pilot_wrapper.ps1",
+      "archive_path": "raw/run_source_first_pilot_wrapper.ps1",
+      "bytes": 451,
+      "sha256": "cf5d2f0fbfa1a9f2618e6e22a50facc73015a6a1b2ab594480aa33539e918c3a"
+    },
+    {
+      "original_path": "tmp/source_first_pilot.log",
+      "archive_path": "raw/source_first_pilot.log",
+      "bytes": 832,
+      "sha256": "95bfc74317d494a0bb4a368b1a65444c8fe381bb09d631125203ecd80899862d"
+    },
+    {
+      "original_path": "tmp/source_first_pilot_pids.json",
+      "archive_path": "raw/source_first_pilot_pids.json",
+      "bytes": 131,
+      "sha256": "6affd5ed57463b9f0ba255fa8b638242e5e65099a85fa716955873cf40a4120a"
+    }
+  ],
+  "raw_bytes_verified": true,
+  "recorded_run_started_at_utc": "2026-10-25T14:19:59.355265+00:00",
+  "recorded_run_finished_at_utc": "2026-10-25T14:35:31.216922+00:00",
+  "recorded_wrapper_finished_at_utc": "2026-10-25T14:35:34.9145357Z",
+  "recorded_messages": 9,
+  "recorded_complete": true,
+  "recorded_runtime_unchanged": true,
+  "runner_sha256_at_archive": "945ec86dd249827fa0d51e138349fab3d887b323aa04ae2974d65001adbc4b2f",
+  "runner_hash_scope": "The archived runner bytes were hashed at archival. The original pilot receipt snapshots src/dataset/inference before and after; it does not separately record a runner hash at run start.",
+  "selected_model_and_public_settings": {
+    "LLM_PROVIDER": "ollama",
+    "LLM_MODEL": "qwen3:4b-instruct",
+    "RAG_LLM_TIMEOUT": "180",
+    "LLM_TIMEOUT": "180",
+    "DENSE_ENABLED": "true",
+    "REFERENCE_DATE": "2026-10-20",
+    "LLM_FALLBACK_PROVIDER": "",
+    "LLM_FALLBACK_MODEL": "",
+    "LLM_BASE_URL_sha256": "7e17659853212fae1a14d3b55d651aa8ecd6ff5fc343619102ba8f0a1a622f52",
+    "LLM_FALLBACK_BASE_URL_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "supplemental_available_cache_files": [
+    {
+      "archive_path": "raw/available_first_cache/7794e30af5973859b0154c6d3178dabc021c835b79ab00ed68ee697b45f5c161.json",
+      "original_cache_name": "7794e30af5973859b0154c6d3178dabc021c835b79ab00ed68ee697b45f5c161.json",
+      "sha256": "a1b303b3a5b76074d5bb4e94db6a9afff87f0a20f7dd1a2780df0ceb7ef35a80",
+      "bytes": 384,
+      "last_write_utc_at_archive": "2026-10-25T14:21:46.138523+00:00"
+    },
+    {
+      "archive_path": "raw/available_first_cache/79b767f28c102f74ac24a53cbfd6ee22a8ea2dff6c04d061ebc956124ccc5d7d.json",
+      "original_cache_name": "79b767f28c102f74ac24a53cbfd6ee22a8ea2dff6c04d061ebc956124ccc5d7d.json",
+      "sha256": "30b025d5f378852dd3ee3f0ec357c9724205003db1f09fae2c10713817f55740",
+      "bytes": 201,
+      "last_write_utc_at_archive": "2026-10-25T14:29:48.278987+00:00"
+    },
+    {
+      "archive_path": "raw/available_first_cache/c4f9cb502a41ad8cadcac15d2a3fb010a192d77b02ce5da8a5515502b925b6cf.json",
+      "original_cache_name": "c4f9cb502a41ad8cadcac15d2a3fb010a192d77b02ce5da8a5515502b925b6cf.json",
+      "sha256": "457da5e24e64f9eadb1f9784e93943146da38e483464e22230bfd97a6be6d870",
+      "bytes": 328,
+      "last_write_utc_at_archive": "2026-10-25T14:35:31.094135+00:00"
+    },
+    {
+      "archive_path": "raw/available_first_cache/de6c16eeba2523be0fc4abbe1943339aa7cd5ad9cb1553f0bfab4cc083f5f789.json",
+      "original_cache_name": "de6c16eeba2523be0fc4abbe1943339aa7cd5ad9cb1553f0bfab4cc083f5f789.json",
+      "sha256": "f68138d6ee0e3f361ac0a242dd18165ce024300394fdfbaa143e207eaf82d8d8",
+      "bytes": 318,
+      "last_write_utc_at_archive": "2026-10-25T14:23:33.129799+00:00"
+    },
+    {
+      "archive_path": "raw/available_first_cache/ea2d43d907263f6e0102a900e8a04e6422678420cb7789450447a787659e33f8.json",
+      "original_cache_name": "ea2d43d907263f6e0102a900e8a04e6422678420cb7789450447a787659e33f8.json",
+      "sha256": "82539eb81ebfe45fffd931fc40efae81486bf014e473a6114c445b2239278220",
+      "bytes": 347,
+      "last_write_utc_at_archive": "2026-10-25T14:28:35.112482+00:00"
+    },
+    {
+      "archive_path": "raw/available_first_cache/fdce4e48f999868ae55be45ae8f613acf84fc2265dcb25c38c4fa486787cecb4.json",
+      "original_cache_name": "fdce4e48f999868ae55be45ae8f613acf84fc2265dcb25c38c4fa486787cecb4.json",
+      "sha256": "993e0c3226eaaa7ef83c1b5ca6eb24dc0436cb368ec2996adf38d312d58c42d4",
+      "bytes": 572,
+      "last_write_utc_at_archive": "2026-10-25T14:25:45.332812+00:00"
+    }
+  ],
+  "cache_scope": "These six exact cache files had write timestamps within the isolated pilot interval. Association to a row is topic/time-based, not a re-derived request digest. They are supplemental initial-output observations; repair calls disable caching, and timeout has no fabricated model output. No missing repair text is reconstructed."
+}
