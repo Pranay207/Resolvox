@@ -494,7 +494,7 @@ def main():
     h('Four cumulative build steps')
     diagram = Drawing(510, 83)
     xs, widths = [0, 67, 150, 254, 346, 426], [57, 73, 94, 82, 70, 80]
-    labels = [['Audio'], ['Gnani STT'], ['State + search', 'k=12 sources'], ['Verified facts', 'order tools'], ['LLM answer', '+ checks'], ['Gnani TTS', '+ source trace']]
+    labels = [['Audio'], ['Gnani STT'], ['State + search', '12 + up to 4 deps'], ['Verified facts', 'order tools'], ['LLM answer', '+ checks'], ['Gnani TTS', '+ source trace']]
     for x, width, lines in zip(xs, widths, labels):
         diagram.add(Rect(x, 29, width, 43, rx=5, ry=5, fillColor=MINT, strokeColor=BLUE, strokeWidth=.7))
         for j, label in enumerate(lines):

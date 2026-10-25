@@ -8,7 +8,7 @@ Source: `voiceops_2026_capstone_brief.pdf`. These checks describe inspectable be
 - [x] KB section chunks retain IDs and authority/version/effective-date/status metadata.
 - [x] Query-first lexical/multilingual hybrid retrieval preserves 12 direct candidates plus up to 4 distinct source dependencies (maximum 16 KB candidates), with separate actual counts in traces. Generation receives actual source sections and sanitized verified/source-derived facts.
 - [x] LLM JSON with answer and strict covered/needs_clarification booleans; host derives operational decisions and records model_flags/decision_origin; validated Boolean uncertainty stays covered=False with reply_kind=uncertainty and evidence_status=insufficient_evidence; save full actual generation chunks and IDs as host context provenance, not model-selected citations. Conservative quantity/privacy/action checks allow one repair, then abstention. Prewritten policy fallback is removed from normal answer generation. No per-claim semantic proof is claimed.
-- [x] Source-derived finite checks for missing table inputs, unopened/seal conditions, unknown date premises, conditional exceptions, permission direction, warranty scope and paid-fee/Plus credit conditions. Language-only repair preserves the JSON field/flag contract. These checks do not certify full semantic correctness.
+- [x] Finite source-derived checks also cover named navigation steps, arrival/scheduling-clock support, personal monetary roles, verification prerequisites on definite remedies, and explicit customer item-state premises. A recognized denial cannot be justified merely by missing documentation. An authenticated order does not prove claim verification; a policy fee does not establish a customer refund amount. New support facts are added only to a bounded repair; they are not authored policy replies or extra primary-prompt summaries. These checks cover defined language forms and do not prove every claim or condition.
 - [x] Deterministic authentication/privacy/safety workflows and actual tool outcomes. Source-derived high-value-damage, overdue-refund and same-issue repeat-contact conditions are checked before business tickets; policy explanations are generated from actual sources, separately from confirmed ticket results.
 - [x] Source-first selection retains actual policy/help context for unfamiliar public routes; no planner answer enters generation. Uncovered model output must pass strict non-substantive checks. Legacy explicit and deterministic privacy refusals retain their decisions.
 - [x] Required source-table category/payment-method inputs use a neutral zero-LLM question; choices rebind current rows, hashes and order scope. Ambiguous “Bank” replies remain unresolved. Prospective public delivery capability reaches source-first generation, while compound private requests retain verification.
@@ -21,8 +21,8 @@ Source: `voiceops_2026_capstone_brief.pdf`. These checks describe inspectable be
 
 ## Current verification
 
-- [x] Current code `3b1c8dd` passed **1741/1741 engineering cases**, no failures/errors/skips; **40.905 s JUnit**, **45.061 s pytest wall**. [Current receipt](sample_outputs/engineering_verification.json) and [JUnit](sample_outputs/engineering_artifacts/20261025T144952060290Z_a76b357f/pytest.xml) bind actual bytes. Current dataset validation passed 9 CSVs and 21 KB documents.
-- [ ] Source-only live questions: **52 planned; rerun pending**. Current output will be `sample_outputs/eval_step2_live_current.json`.
+- [x] Current code `5c4df02`: **2069/2069 engineering cases passed**, no failures/errors/skips; **51.561 s JUnit**, **56.357 s pytest wall**. [Receipt](sample_outputs/engineering_verification.json) and [JUnit](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/pytest.xml) bind actual bytes. Dataset validation passed 9 CSVs and 21 KB documents.
+- [ ] Current source-only questions: **52 planned; hosted run not started**, transmission approval pending.
 - [ ] Source-only live conversations: **96 turns planned; rerun pending**. Current output will be `sample_outputs/eval_step3_live_current.json`.
 - [ ] Current same-model prompt-only baseline: **52 planned**, to run with `python scripts/resume_live_practice.py --step 1`.
 - [ ] Current live adversarial/development checks: **77 planned**, pending.
@@ -30,11 +30,13 @@ Source: `voiceops_2026_capstone_brief.pdf`. These checks describe inspectable be
 - [ ] Current Gnani end-to-end synthetic speech rerun pending.
 - [ ] Current report rendering and package checks pending after revised measurements are saved.
 
-The recorded local model is `qwen3:4b-instruct`, with both `LLM_TIMEOUT` and `RAG_LLM_TIMEOUT` selected at **300 seconds**. Code and `.env.example` defaults remain **120 seconds**; request timeouts do not bound a complete voice turn. The historical baseline used `qwen3:1.7b`, so that comparison is not controlled. A new current-model baseline is planned; its result remains pending.
+The selected private configuration is **Groq through the compatible endpoint**, model `openai/gpt-oss-120b`, with `LLM_TIMEOUT=120` and `RAG_LLM_TIMEOUT=120`. The connection/JSON health probe succeeded, but **fresh hosted document-context verification has not started**. Approval to send questions, policy context and selected synthetic record fields to Groq is pending. The supported local `.env.example` defaults remain Ollama with `qwen3:4b-instruct` and 120-second request timeouts. Timeouts do not bound a complete turn, and model changes prevent a controlled comparison with earlier runs.
 
 Final runtime sources use LF under `.gitattributes`; current receipts bind actual Git HEAD and matching source/input hashes. CRLF conversion can change byte hashes even when Git reports no content change. Generated `tools/tickets_created.csv` is excluded from input fingerprints.
 
 Generated document answers, uncached inference, cache hits, operational guards and abstentions are separate events. Context provenance and finite quantity/action checks are not organizer scoring or per-claim semantic certification.
+
+The stopped local `qwen3:4b-instruct` run checked **13 of 52 planned questions**, with **11/13 mechanical passes**. Separate assistant source-by-source review classified **5 supported with limits, 4 material errors and 4 uncertain**. These categories are not an adjusted score or certification. The unchanged [predictions](sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/raw/eval_step2_live_current.json) and [assistant review](sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/assistant_semantic_review.json) are archived; the run predates the latest guards and hosted selection.
 
 ## Historical measurements retained
 
@@ -59,7 +61,7 @@ Raw failures/provenance remain retained. Human accents/noise and subjective list
 
 ## Final submission and additional validation
 
-Current full engineering is complete. Formal live and speech checks remain pending. The report PDF and ZIP remain drafts until regenerated and verified against current measurements. The user-recorded demo remains required and will be done last. Live exposed regression remains exposed development data; cold-start and noisy-speech studies are additional validation.
+Current full engineering at `5c4df02` is complete. Hosted document-context verification has not started while transmission approval is pending. Full live/speech checks, regenerated report and verified final package remain pending. The user records the demo last.
 
 - [ ] Current live exposed-regression evaluation is pending. Historical holdout results are offline; a new live run still does not make the exposed set independent.
 - [ ] Controlled cold-start latency has **not** been measured. Per-turn uncached and cache measurements exclude prior resource startup and are not cold-start measurements.

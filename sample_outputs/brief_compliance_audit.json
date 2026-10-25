@@ -1,155 +1,624 @@
 {
-  "checked_at_utc": "2026-10-25T08:49:15.845477+00:00",
+  "schema_version": 2,
+  "checked_at_utc": "2026-10-25T16:12:36.524271+00:00",
   "source": "voiceops_2026_capstone_brief.pdf",
   "source_sha256": "8a5136192666a204f2fd7dfdb9cbb87d0f4ffdaf8db98fb0ac491139c057b629",
+  "source_pages_read": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "scope": "Local brief-to-implementation and artifact audit. Implementation, actual engineering evidence, historical diagnostics and pending live validation are separate. Not organizer scoring, independent certification or proof of unseen-audio correctness. No inference or network transmission was performed by this audit.",
   "all_requirements_fully_fulfilled": false,
   "mandatory_missing_artifacts": [
     "demo.mp4"
   ],
+  "non_video_release_verification_pending": true,
+  "non_video_package_verified": false,
+  "remaining_required_user_artifact": "demo.mp4, at most 120 seconds, recorded last after final validation and own-voice rehearsal",
+  "current_engineering": {
+    "artifact": "sample_outputs/engineering_verification.json",
+    "sha256": "7f8c40ca4e525c0ce2107bf6a0f4e775bbb4ea02c100b7c752b48b23fa922eda",
+    "status": "tested",
+    "complete": true,
+    "runtime_commit": "5c4df02f8fbdf4fe99566237a93713b06b7978e2",
+    "actual_git_head_at_audit": "5c4df02f8fbdf4fe99566237a93713b06b7978e2",
+    "runtime_source_matches_current_files_at_audit": true,
+    "source_runtime_unchanged": true,
+    "all_verification_inputs_unchanged": true,
+    "pytest": {
+      "total": 2069,
+      "passed": 2069,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "duration_seconds": 51.561,
+      "wall_duration_seconds": 56.356925,
+      "result_source": "pytest_junit_xml"
+    },
+    "pytest_junit": {
+      "path": "sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/pytest.xml",
+      "present": true,
+      "sha256": "37b892b5b8ae957db6ca3cc210721e7fe987744236b32f1a9cf64df153a7e907",
+      "status": "current_engineering_evidence",
+      "bytes": 365712
+    },
+    "pytest_log": {
+      "path": "sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/pytest.log",
+      "present": true,
+      "sha256": "8f596bcf6dac9455b98f4b3529eb136aa410ac42cc7874b79feff26f2a742fac",
+      "status": "current_engineering_evidence",
+      "bytes": 2490
+    },
+    "official_dataset_validation": {
+      "exit_code": 0,
+      "csv_files": 9,
+      "kb_documents": 21,
+      "orders": 1000,
+      "order_items": 1783,
+      "support_logs": 244,
+      "practice_questions": 52,
+      "conversations": 23,
+      "wall_duration_seconds": 1.219288,
+      "result_source": "official_validator_stdout"
+    },
+    "dataset_log": {
+      "path": "sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/dataset_validation.log",
+      "present": true,
+      "sha256": "1940c9b3a5861098b475edb214b36b0ba2a8c16b68444385e25ac83260b19bd3",
+      "status": "current_official_validator_evidence",
+      "bytes": 229
+    },
+    "runtime_source_sha256": {
+      "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+      "src/agent.py": "cec00fb56cd003c4db845984fcfdcc90edc38068898f555c874dc9fdbbd8c692",
+      "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+      "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+      "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+      "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+      "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+      "src/document_answers.py": "8fc9edb095c8983f9741cf52cc09826fd169a4b60e200ad8e3968d3620b80531",
+      "src/document_context.py": "ddf988e1f6f7266c7ad39c34fdc579a352f261477ee000ed458dabbeb496dffc",
+      "src/escalation_rules.py": "4179c3f45bb4499ac56deb8912a8b0b95daa4ba1d038d814f42befaa87c14775",
+      "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+      "src/event_dates.py": "6b11f226ed84526bed3b3757061d2f29bde134fb599c929af80cdb3bc436e470",
+      "src/grounding.py": "4f4969bddeb334cd47a40c2436d2ec261265a19de9b13a40c78053cb04da0899",
+      "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+      "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+      "src/llm.py": "f794cec90041e1c5a12a90f3e34f2d0cdcf8fd3542c5f1ce1c1fc55cd0e6a4de",
+      "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+      "src/navigation_labels.py": "247cb6aa153f687bb1aa9262952d21866de10b034d8efc3c5a13d1622d2cc28a",
+      "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+      "src/operational_explanations.py": "d7f8b9eb932e1f17d2209a3f478ac88b879529d9e01322da6689c6119ec2b433",
+      "src/personal_money.py": "8ea87f0839fa060d0854a6734318179d6bdf9204df4cfba1c8655af706735d1c",
+      "src/placement_conditions.py": "af80197b28304fc7107d2cc4676ba919fa89ed8e5854e69d898e9dd7e586a5a0",
+      "src/remedy_prerequisites.py": "fa7ad7561b328ae8410ab4a02c2e244e057a64e32ee76e8f133b7de572b639e1",
+      "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+      "src/return_conditions.py": "b41b815183b5b42b137f6dc4989a5c2935bc43ef4fe7649da6895618bda6f922",
+      "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1",
+      "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+      "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
+      "src/source_semantics.py": "576dee7bc682e507b9e334cfe39245b10e70ae399e0818c54ddac8f7815ccbcc",
+      "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+      "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+      "src/voice.py": "75565d0e213fa98328e8b8522ebb42c17e6f15428ae96a4a9250a09889a79264",
+      "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b"
+    },
+    "scope": "Engineering and official dataset checks only; no current LLM answer or speech pass is inferred."
+  },
+  "selected_public_inference_configuration": {
+    "provider": "compatible",
+    "model": "openai/gpt-oss-120b",
+    "request_timeout_seconds": 120.0,
+    "llm_timeout_seconds": 120.0,
+    "rag_llm_timeout_seconds": 120.0,
+    "configuration_scope": "Selected application settings; no inference score is claimed by this engineering run.",
+    "endpoint_service": "Groq compatible API",
+    "hosted_payload_approval_status": "pending_explicit_user_approval",
+    "hosted_evaluation_started": false,
+    "note": "A successful generic connection probe is not a practice, conversation, baseline or speech evaluation. Current configured-model evaluation is not started while payload approval is pending."
+  },
+  "current_validation_pending": [
+    {
+      "requirement": "Step 1 prompt-only baseline",
+      "planned": 52,
+      "status": "not_started_current_configuration"
+    },
+    {
+      "requirement": "Step 2 source-only questions",
+      "planned": 52,
+      "status": "not_started_current_configuration"
+    },
+    {
+      "requirement": "Step 3 source-only conversation turns",
+      "planned": 96,
+      "status": "not_started_current_configuration"
+    },
+    {
+      "requirement": "Development adversarial live checks",
+      "planned": 77,
+      "status": "pending",
+      "scope": "Development data, not blind evidence."
+    },
+    {
+      "requirement": "Exposed regression live checks",
+      "planned": 91,
+      "status": "pending",
+      "scope": "Exposed development regression, not a new independent holdout."
+    },
+    {
+      "requirement": "Gnani synthetic end-to-end speech",
+      "status": "pending_current_runtime"
+    },
+    {
+      "requirement": "Gnani unclear-audio recovery",
+      "status": "pending_current_runtime"
+    },
+    {
+      "requirement": "Human own-voice/browser rehearsal and listening",
+      "status": "unverified_deferred_to_final_demo_rehearsal"
+    },
+    {
+      "requirement": "Current report and complete ZIP validation",
+      "status": "pending_final_measurements_and_demo"
+    }
+  ],
+  "stopped_local_diagnostic": {
+    "status": "archived_stopped_partial_historical_noncurrent",
+    "archive": "sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z",
+    "predictions": {
+      "path": "sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/raw/eval_step2_live_current.json",
+      "present": true,
+      "sha256": "95f4293e2eb47b2872d45435911eb840a511dc9571f7403dcad7696745ad26d2",
+      "status": "historical_partial_local_diagnostic",
+      "bytes": 355213
+    },
+    "archive_manifest": {
+      "path": "sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/archive_manifest.json",
+      "present": true,
+      "sha256": "aa226c36a4c1264e88915781a567187be7cdb1b7369e2058c82c746bff27a5cb",
+      "status": "archived_exact_raw_byte_inventory",
+      "bytes": 2545
+    },
+    "planned": 52,
+    "checked": 13,
+    "mechanical_passed": 11,
+    "mechanical_failed": 2,
+    "complete": false,
+    "assistant_semantic_review": {
+      "path": "sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/assistant_semantic_review.json",
+      "present": true,
+      "sha256": "6d4fcbc6cef0658711f0d231eb058e32ec5a4871c44c6d3e72c8d8c04ba32d2c",
+      "status": "separate_assistant_review_not_a_replacement_score",
+      "bytes": 22120
+    },
+    "review_receipt": {
+      "path": "sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/semantic_checkpoint_receipt.json",
+      "present": true,
+      "sha256": "4135d4bdbd18f95e94f8cb204bfe126bea70a2ea05002205f5b4b3ad948acb62",
+      "status": "separate_review_integrity_receipt",
+      "bytes": 95605
+    },
+    "assistant_semantic_status_counts": {
+      "pending": 0,
+      "supported_with_limits": 5,
+      "material_error": 4,
+      "uncertain": 4
+    },
+    "original_predictions_or_scores_changed": false,
+    "scope": "Local qwen3:4b-instruct diagnostic intentionally stopped before hosted-model switch. Eleven mechanical passes among thirteen checked are not a complete 52-question result. Five supported-with-limits, four material-error and four uncertain judgments are a separate assistant review, not an adjusted score or independent certification."
+  },
+  "historical_measurements": {
+    "prompt_only_baseline": {
+      "artifact": "sample_outputs/eval_step1.json",
+      "sha256": "553ad8bb4a08c5b4d0165ebb100db7ab7dd9883cbefe4534414ea3f40e24c8d5",
+      "status": "historical_noncurrent",
+      "passed": 1,
+      "total": 52,
+      "errors": 1,
+      "composition_counts": {
+        "prompt_only": 51,
+        "blocked": 1
+      },
+      "scope": "Earlier runtime. Saved labels saying current are original historical text and are not adopted by this audit."
+    },
+    "legacy_fallback_questions": {
+      "artifact": "sample_outputs/history/pre_document_answers/eval_step2_live_current.json",
+      "sha256": "897b10642b0a28ebcdc39ef21cbcd572378ed57837942e3ef3f02a14cd6701fa",
+      "status": "historical_noncurrent",
+      "passed": 52,
+      "total": 52,
+      "errors": 0,
+      "composition_counts": {
+        "evidence_validated_fallback": 25,
+        "grounded_llm": 16,
+        "abstained_missing_evidence": 5,
+        "evidence_validated_rules": 2,
+        "deterministic_guardrail": 4
+      },
+      "scope": "Earlier runtime. Saved labels saying current are original historical text and are not adopted by this audit."
+    },
+    "legacy_fallback_conversations": {
+      "artifact": "sample_outputs/history/pre_document_answers/eval_step3_live_current.json",
+      "sha256": "9e2ee606c54440e5a89c3dd72b6cdc3a22ca152ffb2b7675b1b24a45674e5884",
+      "status": "historical_noncurrent",
+      "passed": 96,
+      "total": 96,
+      "errors": 0,
+      "composition_counts": {
+        "deterministic_guardrail": 77,
+        "evidence_validated_fallback": 9,
+        "grounded_llm": 8,
+        "evidence_validated_rules": 2
+      },
+      "scope": "Earlier runtime. Saved labels saying current are original historical text and are not adopted by this audit."
+    },
+    "comparison_limit": "Historical perfect question/conversation scores included authored fallback or rules output. They are not current source-only model results. Model/version and implementation differences confound comparisons; current same-model reruns remain pending."
+  },
   "requirements": [
     {
       "requirement": "Language choice",
       "pages": [
         11
       ],
-      "status": "optional_extension_configured",
-      "finding": "Any supported language may be used; all ten are not mandatory. All ten base languages plus Hinglish are now configured as an optional extension. Per-language live results, failures and limits are recorded separately in language_validation.json."
+      "status": "implemented_with_limited_verified_scope",
+      "finding": "Any supported Gnani language is permitted; all ten are not mandatory. Primary scope is English, Hindi and Hinglish. Additional regional routes remain optional previews; configuration is not proof of language quality.",
+      "evidence": [
+        "src/languages.py",
+        "src/multilingual.py",
+        "README.md"
+      ]
     },
     {
-      "requirement": "Step 1 prompt-only LLM and AI disclosure",
+      "requirement": "Step 1 prompt-only LLM and first-reply AI disclosure",
       "pages": [
         8
       ],
-      "status": "implemented_and_measured",
-      "evidence": "eval_step1.json: 1/52, one error; real configured LLM. First reply disclosure in Agent."
+      "status": "implemented_current_same_model_measurement_pending",
+      "finding": "The baseline calls the LLM without company documents, catalog, private orders or Agent context. Historical baseline output is preserved. A complete baseline using the current configured provider/model has not run.",
+      "evidence": [
+        "src/llm.py",
+        "eval_step1.py",
+        "scripts/resume_live_practice.py",
+        "sample_outputs/eval_step1.json"
+      ]
     },
     {
-      "requirement": "Step 2 embeddings, retrieval and saved sources",
+      "requirement": "Step 2 document chunks, embeddings, vector retrieval and saved sources",
       "pages": [
         6,
         9
       ],
-      "status": "implemented",
-      "evidence": "src/kb.py, src/retrieval.py and recorded per-answer sources."
+      "status": "implemented_current_live_validation_pending",
+      "finding": "Section IDs and authority/status/effective-date metadata are retained. Lexical and multilingual dense retrieval preserve direct candidates plus bounded source dependencies. Actual supplied source sections and IDs are saved; they are context provenance, not per-claim semantic proof.",
+      "evidence": [
+        "src/kb.py",
+        "src/retrieval.py",
+        "src/source_selection.py",
+        "src/document_answers.py",
+        "run.py"
+      ]
     },
     {
-      "requirement": "Grounded replies, abstention and unseen questions",
+      "requirement": "Grounded answers, abstention and unseen questions without hardcoded answers",
       "pages": [
         3,
         9,
         12
       ],
-      "status": "implemented_and_practice_checked_with_limits",
-      "finding": "Completed current LLM-enabled questions 52/52: 16 generated, 25 evidence-validated fallbacks, 5 abstentions, 2 rules answers and 4 guards. Static fallbacks remain explicit; this does not prove universal unseen-question compliance."
+      "status": "implemented_with_known_limits_current_rerun_pending",
+      "finding": "Normal policy text is generated from actual retrieved sources and safe source-derived or verified facts. No authored policy answer fallback is substituted after failure. Finite source-bound validation and one repair may end in uncertainty. Operational authentication/privacy/safety and reviewed tool workflows remain deterministic. Neither engineering tests nor exposed practice prove unseen-question correctness.",
+      "evidence": [
+        "src/agent.py",
+        "src/document_answers.py",
+        "src/document_context.py",
+        "sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/assistant_semantic_review.json"
+      ]
     },
     {
-      "requirement": "Step 1 versus Step 2 comparison",
+      "requirement": "Step 1 versus Step 2 evaluation comparison",
       "pages": [
         9,
         13,
         14
       ],
-      "status": "complete_current_practice_comparison",
-      "finding": "Actual prompt-only baseline 1/52 versus current LLM-enabled 52/52, complete. Generated answers, fallbacks and guards are separated in the report; offline 52/52 remains distinct."
+      "status": "current_same_model_comparison_pending",
+      "finding": "Historical scores are noncurrent. The old perfect RAG scores included authored fallback output and cannot be presented as current source-only generation performance. Current configured-model baseline and complete source-only question results must be measured and compared, with composition and limitations disclosed.",
+      "evidence": [
+        "sample_outputs/eval_step1.json",
+        "sample_outputs/history/pre_document_answers/eval_step2_live_current.json",
+        "scripts/resume_live_practice.py",
+        "scripts/build_report.py"
+      ]
     },
     {
-      "requirement": "Step 3 context, follow-ups, clarification, policy refusal, tools and handover",
+      "requirement": "Step 3 session context, follow-ups, one clarification, refusal and handover",
       "pages": [
         9
       ],
-      "status": "implemented_and_current_live_practice_checked",
-      "evidence": "Current LLM-enabled 96/96 conversation turns, complete: 8 generated, 9 checked fallbacks, 77 guards and 2 rules replies."
+      "status": "implemented_current_conversation_validation_pending",
+      "finding": "A shared session retains relevant public and verified state, asks for missing inputs, and uses the supplied tools. The historical 96-turn result is not evidence for the revised runtime; the full current conversation rerun remains pending.",
+      "evidence": [
+        "src/agent.py",
+        "src/source_inputs.py",
+        "src/tools_wrapper.py",
+        "sample_outputs/history/pre_document_answers/eval_step3_live_current.json"
+      ]
     },
     {
       "requirement": "Caller verification and confirmed ticket creation",
       "pages": [
-        6
+        6,
+        9
       ],
-      "status": "implemented_and_regression_checked",
-      "evidence": "Supplied tool wrapper and ticket created=True gating; 191 recorded privacy assertions, zero failures."
+      "status": "implemented_engineering_checked_live_validation_pending",
+      "finding": "Supplied lookup tools require proof before private details are exposed. Ticket success requires actual created=True; tool failure is retained. Engineering checks exercise these contracts, but no current complete live conversation pass is inferred.",
+      "evidence": [
+        "src/tools_wrapper.py",
+        "src/agent.py",
+        "sample_outputs/engineering_verification.json"
+      ]
     },
     {
-      "requirement": "Official dataset, IDs, authority, fixed date and date arithmetic",
+      "requirement": "Official dataset, string IDs, policy authority and calendar rules",
       "pages": [
         5,
         6,
         7
       ],
-      "status": "implemented_and_regression_checked",
-      "evidence": "Validator passes nine CSVs/21 documents; string IDs; reference date 2026-10-20; Mon-Sat minus supplied holidays."
+      "status": "implemented_and_current_official_validator_passed",
+      "finding": "The official validator passed nine CSVs and 21 KB documents. IDs remain strings; reference date is 2026-10-20, business days are Mon-Sat excluding supplied holidays, and return windows use calendar days. Source precedence and successor-authorized historical scope are represented.",
+      "evidence": [
+        "src/data.py",
+        "src/kb.py",
+        "src/dates.py",
+        "src/document_context.py",
+        "sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/dataset_validation.log"
+      ]
     },
     {
-      "requirement": "Gnani-only speech through same agent",
+      "requirement": "Gnani-only STT and TTS around the same conversation agent",
       "pages": [
         8,
         10,
         12
       ],
-      "status": "demonstrated_limited_scope",
-      "evidence": "Fresh six genuine synthetic Gnani round trips pass audio and semantic/privacy checks; separate corrected Hindi UPI check passes 1/1. No human/noise/listening claim."
+      "status": "implemented_current_speech_rerun_pending",
+      "finding": "The REST adapter uses Gnani only, explicit timbre-v2.5 and validated reply WAVs. Batch and UI use the same stateful agent. Earlier synthetic speech successes belong to earlier runtimes and do not validate the current source-only/hosted configuration.",
+      "evidence": [
+        "src/voice.py",
+        "run.py",
+        "app.py",
+        "generate_voice_samples.py"
+      ]
     },
     {
-      "requirement": "Speech clarity and own recorded voice testing",
+      "requirement": "Short speech replies, spoken dates/IDs and unclear-audio recovery",
       "pages": [
         6,
         11,
         13
       ],
-      "status": "synthetic_recovery_checked_human_rehearsal_pending",
-      "finding": "Real silent-clip check passes 1/1 with first-reply AI disclosure, actual Gnani spoken retry and no actions/tickets. User-recorded speech and subjective listening are deferred to final demo rehearsal."
+      "status": "implemented_human_own_voice_and_listening_unverified",
+      "finding": "Speech formatting groups long numeric IDs and handles spoken numbers; WAV clips above the REST duration limit are rejected locally. Failure recovery attempts genuine Gnani reply audio. Current speech/recovery validation, own-voice rehearsal and subjective listening remain pending; synthetic round trips do not establish accent/noise robustness.",
+      "evidence": [
+        "src/voice.py",
+        "run.py",
+        "scripts/validate_voice_recovery.py",
+        "DEMO_SCRIPT.md"
+      ]
     },
     {
       "requirement": "Interface records and plays audio",
       "pages": [
         12
       ],
-      "status": "implemented_and_integration_checked",
-      "evidence": "Streamlit record/upload/playback and eight UI checks within 404 passing tests. Regional preview defaults off; direct final browser review unavailable."
+      "status": "implemented_final_browser_and_own_voice_check_pending",
+      "finding": "Streamlit recording, upload and reply playback meet the permitted interface category. A richer frontend, deployment and telephony are not mandatory. Code and engineering checks do not replace final browser/own-voice review.",
+      "evidence": [
+        "app.py",
+        "tests/test_app.py",
+        "sample_outputs/engineering_verification.json"
+      ]
     },
     {
-      "requirement": "README, dependencies, keyless env example and public code repo",
+      "requirement": "README, dependencies, keyless env example and public repository",
       "pages": [
         14
       ],
-      "status": "repository_and_instructions_present",
-      "evidence": "https://github.com/Pranay207/Resolvox; README, install/run commands and keyless .env.example included. Final commit is pushed and its remote ID verified during release closeout."
+      "status": "files_present_final_public_revision_verification_pending",
+      "finding": "Installation and the exact organizer command are documented, with a keyless environment template. The declared public repository is https://github.com/Pranay207/Resolvox. Final docs/configuration refresh, final push and verification of the public final commit remain pending; this audit makes no network/public-access claim.",
+      "evidence": [
+        "README.md",
+        "requirements.txt",
+        ".env.example",
+        "setup.py",
+        "setup.ps1"
+      ]
     },
     {
-      "requirement": "One folder batch command saves text, audio and document chunks",
+      "requirement": "One audio-folder command saves text, speech and document chunks",
       "pages": [
         14
       ],
-      "status": "implemented_and_limited_live_checked",
-      "evidence": "python run.py --audio_dir <in> --out_dir <out>; fresh six synthetic clips pass. Text, actual audio, full source chunks, failures and session context saved."
+      "status": "implemented_current_end_to_end_batch_validation_pending",
+      "finding": "python run.py --audio_dir <in> --out_dir <out> writes answer text, JSON, source chunks and real Gnani reply WAVs on successful speech, with per-file failures and session controls. The current final speech batch has not run.",
+      "evidence": [
+        "run.py",
+        "README.md",
+        "generate_voice_samples.py"
+      ]
     },
     {
-      "requirement": "Report at most four pages",
+      "requirement": "Report at most four pages with steps, scores, failures and fixes",
       "pages": [
         14
       ],
-      "status": "complete",
-      "evidence": "Regenerated report has four pages, all visually reviewed; PDF SHA and 404 tests recorded in pdf_qa.json."
+      "status": "draft_requires_current_metrics_and_visual_qa",
+      "finding": "The present PDF is a draft. Final baseline/RAG results, failures and actual model configuration must be included before rendering and visual inspection. Existing PDF QA describes an earlier runtime and cannot certify revised bytes.",
+      "evidence": [
+        "scripts/build_report.py",
+        "report.pdf",
+        "sample_outputs/pdf_qa.json"
+      ]
     },
     {
-      "requirement": "Demo at most two minutes, grounded answer plus follow-up and handover or abstention",
+      "requirement": "Demo at most two minutes with grounded question, follow-up and handover or uncertainty",
       "pages": [
         11,
         14
       ],
-      "status": "missing",
-      "finding": "User-recorded demo.mp4 remains pending."
+      "status": "missing_record_last",
+      "finding": "demo.mp4 is absent. The user explicitly wants this last, after final validation and own-voice rehearsal. Required content and the 120-second cap remain unchanged.",
+      "evidence": [
+        "DEMO_SCRIPT.md",
+        "README.md"
+      ]
     },
     {
-      "requirement": "Final ZIP includes required files and excludes secrets/dataset/venv",
+      "requirement": "Final submission ZIP layout and exclusion of secrets, environment and dataset",
       "pages": [
         14
       ],
-      "status": "verified_draft_demo_pending",
-      "finding": "Updated 179-entry draft ZIP extracted and passed import, answer and CLI smoke tests. Configured-secret scan passed; model weights, dataset, environments and secrets excluded. Required demo remains absent by user request."
+      "status": "stale_draft_final_build_and_checks_pending",
+      "finding": "The existing pranay_voiceops.zip is an old draft without demo.mp4 and does not represent current source bytes. Rebuild only after final deliverables are ready; verify extraction, root layout, hashes, key exclusions and current batch entry point. The team-name assumption pranay still needs final confirmation.",
+      "evidence": [
+        "package_submission.py",
+        "scripts/verify_package.py",
+        "scripts/audit_release.py",
+        "dist/pranay_voiceops.zip"
+      ]
     }
   ],
-  "scope": "Implementation, artifact presence and observed validation are separated. This is not organizer scoring or proof of unseen-audio correctness.",
-  "non_video_release_verification_pending": false,
-  "non_video_package_verified": true,
-  "remaining_required_user_artifact": "demo.mp4, at most 120 seconds, recorded last"
+  "submission_structure": {
+    "archive_name_pattern": "team_name_voiceops.zip",
+    "draft_path": "dist/pranay_voiceops.zip",
+    "team_name_assumption": "pranay",
+    "required_at_root": [
+      "README.md",
+      ".env.example",
+      "requirements.txt",
+      "run.py",
+      "src/",
+      "report.pdf",
+      "demo.mp4",
+      "sample_outputs/"
+    ],
+    "equivalent_stack_files_allowed": true,
+    "excluded": [
+      ".env",
+      "API keys",
+      "virtual environments",
+      "dataset copies",
+      "model weights and caches",
+      "private input audio"
+    ],
+    "report_max_pages": 4,
+    "demo_max_seconds": 120,
+    "demo_must_be_last": true,
+    "draft_report_detected_pages": 4,
+    "public_repository_declared": "https://github.com/Pranay207/Resolvox",
+    "final_public_commit_verified_by_this_audit": false
+  },
+  "artifact_inventory": [
+    {
+      "path": "report.pdf",
+      "present": true,
+      "sha256": "1974e432341ba6040895bce278abe083fe2c4cd8b0544c1435771a9fa775f9c5",
+      "status": "draft_not_final_current_metric_report",
+      "bytes": 13483
+    },
+    {
+      "path": "sample_outputs/pdf_qa.json",
+      "present": true,
+      "sha256": "346c1a1f532f59a913ac02294699c1b25a87a638277c066515b2ac05f37f954f",
+      "status": "historical_stale_not_current_pdf_certification",
+      "bytes": 716
+    },
+    {
+      "path": "dist/pranay_voiceops.zip",
+      "present": true,
+      "sha256": "10ececbafc067d749032b966e503902d0c2b70af599786ff79be1c390c269ddb",
+      "status": "stale_draft_missing_demo_not_current_runtime_package",
+      "bytes": 14666347
+    },
+    {
+      "path": "sample_outputs/package_smoke.json",
+      "present": true,
+      "sha256": "b4a10bd7e2749610815dee033ebfba87465a32c662e2530b689f8327cb8f737f",
+      "status": "historical_stale_not_current_package_certification",
+      "bytes": 288
+    },
+    {
+      "path": "sample_outputs/secret_audit.json",
+      "present": true,
+      "sha256": "7f4b8a979a1cfce9acb81ad52bbafb574be01406bc791eba0d8eda6a1d3fa5a7",
+      "status": "existing_snapshot_requires_final_package_rescan",
+      "bytes": 190
+    },
+    {
+      "path": "SUBMISSION_STATUS.json",
+      "present": true,
+      "sha256": "dd274fd2cd74f31ba08be545eb1dcd63a87186b9e347ab156a6f36dc1a2fb834",
+      "status": "existing_snapshot_requires_regeneration",
+      "bytes": 2483
+    },
+    {
+      "path": "demo.mp4",
+      "present": false,
+      "sha256": null,
+      "status": "missing_record_last"
+    },
+    {
+      "path": "sample_outputs/eval_step2_live_current.json",
+      "present": true,
+      "sha256": "95f4293e2eb47b2872d45435911eb840a511dc9571f7403dcad7696745ad26d2",
+      "status": "stale_local_partial_not_current_configuration_result",
+      "bytes": 355213
+    },
+    {
+      "path": "sample_outputs/eval_step1_live_current.json",
+      "present": false,
+      "sha256": null,
+      "status": "missing_current_configuration_result"
+    },
+    {
+      "path": "sample_outputs/eval_step3_live_current.json",
+      "present": false,
+      "sha256": null,
+      "status": "missing_current_configuration_result"
+    },
+    {
+      "path": "sample_outputs/voice_validation.json",
+      "present": false,
+      "sha256": null,
+      "status": "missing_current_runtime_speech_result"
+    },
+    {
+      "path": "sample_outputs/voice_recovery.json",
+      "present": false,
+      "sha256": null,
+      "status": "missing_current_runtime_recovery_result"
+    }
+  ],
+  "release_actions_remaining": [
+    "Obtain explicit approval for the hosted evaluation payload before transmitting it.",
+    "Complete and preserve current configured-model baseline, source-only question/conversation, requested additional live and Gnani speech/recovery checks; review actual answers and retain failures.",
+    "Refresh documentation and the at-most-four-page report from actual results and configuration; render and inspect the final PDF.",
+    "Complete own-voice/browser rehearsal and subjective listening, then record the required at-most-120-second demo last.",
+    "Build the final correctly named ZIP with all root deliverables and generated sample outputs; repeat extraction, CLI/import smoke, manifest/hash and secret/exclusion checks.",
+    "Publish the final repository revision and verify its public URL and remote commit after the demo and release evidence are included."
+  ]
 }

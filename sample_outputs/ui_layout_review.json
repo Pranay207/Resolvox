@@ -1,0 +1,32 @@
+{
+  "checked_at_utc": "2026-10-25T16:11:31.114903+00:00",
+  "scope": "Actual browser layout observation only; no model or microphone request submitted. Not end-to-end speech or semantic certification.",
+  "url": "http://localhost:8501/",
+  "http_health": {
+    "status": 200,
+    "body": "ok"
+  },
+  "viewport_observed": {
+    "width": 1280,
+    "height": 752,
+    "browser_zoom": "90%"
+  },
+  "views_observed": [
+    "Voice support",
+    "Text support",
+    "Evaluation"
+  ],
+  "findings": [
+    "Branding, sidebar and voice/text panels render without overlap in the observed viewport.",
+    "Evaluation view labels old offline scores historical and current document-only question/conversation results pending.",
+    "Voice recorder, spoken-language selection and record/upload choice are present."
+  ],
+  "not_checked": [
+    "Microphone permission or human speech",
+    "Live model reply",
+    "Audio listening quality",
+    "Other viewport sizes"
+  ],
+  "app_source_sha256": "a8e9a34a0da9f7fa7157de1724dfd86211f121f3fb068c64e8492e10b0af0fd1",
+  "runtime_commit": "5c4df02f8fbdf4fe99566237a93713b06b7978e2"
+}

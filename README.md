@@ -87,20 +87,20 @@ GNANI_API_KEY=your_gnani_api_key
 LLM_PROVIDER=ollama
 LLM_BASE_URL=http://127.0.0.1:11434
 LLM_MODEL=qwen3:4b-instruct
-LLM_TIMEOUT=300
-RAG_LLM_TIMEOUT=300
+LLM_TIMEOUT=120
+RAG_LLM_TIMEOUT=120
 COMPOSE_WITH_LLM=true
 ```
 
 Keep the remaining defaults from [.env.example](.env.example), including `REFERENCE_DATE=2026-10-20`. Credentials belong only in the ignored `.env`; use synthetic or consented audio.
 
-Install the selected local model:
+Install the model when using the default local Ollama configuration:
 
 ```sh
 ollama pull qwen3:4b-instruct
 ```
 
-The recorded local configuration uses `qwen3:4b-instruct` with both request timeouts set to **300 seconds**. Code and `.env.example` defaults remain **120 seconds**. A request timeout does not bound a complete response, including repair and speech. Ensure Ollama is running. If its service is not already running, start `ollama serve` in a separate terminal.
+The example above uses the supported local defaults. Ensure Ollama is running; if needed, start `ollama serve` in a separate terminal. The selected private configuration is **Groq through the compatible endpoint**, model `openai/gpt-oss-120b`, with `LLM_TIMEOUT=120` and `RAG_LLM_TIMEOUT=120`. The connection/JSON health probe succeeded, but **fresh hosted document-context verification has not started**. Approval to send questions, policy context and selected synthetic record fields to Groq is pending. The supported local `.env.example` defaults remain Ollama with `qwen3:4b-instruct` and 120-second request timeouts. Timeouts do not bound a complete turn, and model changes prevent a controlled comparison with earlier runs.
 
 <details>
 <summary>Use a compatible hosted LLM instead</summary>
@@ -172,7 +172,7 @@ flowchart TD
 
 **Answer checks.** Numeric values/units, language, private identifiers and invented actions are checked against the actual supplied context and verified facts. Question-relevant category windows, calculated refund dates and delivery-attempt limits have source-bound numeric checks; repeated questions and one-word policy replies are rejected. Invalid output gets at most one repair; unavailable inference or another invalid output produces uncertainty. An uncovered reply must be non-substantive clarification or uncertainty. **Prewritten policy fallback is removed from normal answer generation.** Context provenance and finite validation do not prove per-claim semantic support, correct application of a condition or complete question coverage. Normal generation returns `citations=[]` rather than claiming exact model-selected quotes.
 
-**Source-derived safeguards.** Additional finite checks cover unopened/seal requirements, permission direction, warranty scope, paid-fee/Plus credit conditions and conditional return exceptions. Missing category or refund-arrival method inputs can trigger a source-bound host question with zero LLM calls. Initiation-clock questions and COD option overviews do not force a payment-method lookup. These checks do not establish complete semantic correctness.
+**Source-derived safeguards.** Finite source-derived checks also cover named navigation steps, arrival/scheduling-clock support, personal monetary roles, verification prerequisites on definite remedies, and explicit customer item-state premises. A recognized denial cannot be justified merely by missing documentation. An authenticated order does not prove claim verification; a policy fee does not establish a customer refund amount. New support facts are added only to a bounded repair; they are not authored policy replies or extra primary-prompt summaries. These checks cover defined language forms and do not prove every claim or condition. Missing category or refund-arrival method inputs can trigger a neutral host question with zero LLM calls.
 
 **Routing and operational guards.** Current policy text and verified records determine the supported high-value-damage, overdue-refund and repeat-contact conditions **before** a business ticket is created. These typed decisions retain actual source hashes and calculation inputs; missing or ambiguous authority cannot authorize an automatic business handover. The business explanation is generated from those sources and safe facts, while a separate host message reports the actual ticket-tool result. Failed explanation generation retains the real tool outcome with uncertainty; it does not substitute authored business policy prose. Authentication, privacy, safety and explicit human-request workflows remain deterministic. With `compose=False`, ordinary domain output is a `document_excerpts` diagnostic.
 
@@ -185,7 +185,7 @@ flowchart TD
 | Component | Implementation |
 | --- | --- |
 | Interface | Streamlit voice, text and evaluation console |
-| Answer model | Qwen3 4B Instruct through Ollama; compatible endpoints supported |
+| Answer model | Ollama or compatible endpoint; selected Groq GPT-OSS 120B verification has not started |
 | Retrieval | Lexical search + multilingual MiniLM embeddings using quantized ONNX |
 | Speech | Gnani STT and TTS only |
 | State and tools | Shared agent session with supplied dataset lookup/ticket tools |
@@ -195,23 +195,25 @@ See [DESIGN.md](DESIGN.md) for the state model, retrieval strategy and evidence 
 
 ## Evaluation
 
-The source-only answer path was corrected on **25 October 2026**. The frozen runtime at code `3b1c8dd` has current engineering evidence; fresh full live and speech verification remains pending:
+The source-only answer path was corrected on **25 October 2026**. Code `5c4df02` has current engineering evidence; complete hosted model and speech verification remains pending:
 
 | Check | Current record | Evidence |
 | --- | --- | --- |
-| Current engineering suite | **1741/1741 passed**; no failures, errors or skips | [Current receipt](sample_outputs/engineering_verification.json); 40.905 s JUnit, 45.061 s pytest wall |
-| Current source-only policy questions | **Rerun pending**; 52 planned | Completion and composition will be recorded in current JSON |
+| Current engineering suite | **2069/2069 passed**; no failures, errors or skips | [Receipt](sample_outputs/engineering_verification.json); 51.561 s JUnit, 56.357 s pytest wall |
+| Current source-only policy questions | **52 planned; hosted run not started** | Transmission approval pending; no current 52-question pass claim |
 | Current source-only conversation turns | **Rerun pending**; 96 planned | Completion and composition will be recorded in current JSON |
 | Current Gnani synthetic round trips | **Rerun pending** | Earlier speech evidence remains historical |
-| Current dataset validation | **Passed**; 9 CSVs, 21 KB documents, 1,000 orders and 1,783 items | [Dataset log](sample_outputs/engineering_artifacts/20261025T144952060290Z_a76b357f/dataset_validation.log) |
+| Current dataset validation | **Passed**; 9 CSVs, 21 KB documents, 1,000 orders and 1,783 items | [Dataset log](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/dataset_validation.log) |
 
-The planned verification order is 52 questions, 96 conversation turns, 77 live development checks, 91 live exposed regression responses, a 52-question same-model baseline, six Gnani round trips and silence recovery. Full live results remain pending; early passing cases are not a completed suite.
+The planned verification order is 52 questions, 96 conversation turns, 77 development checks, 91 exposed regression responses, a 52-question same-model baseline, six Gnani round trips and silence recovery. Hosted verification has not started while transmission approval is pending; the plan is not a completed result.
 
-**Comparison boundary:** the historical prompt-only baseline used `qwen3:1.7b`; the current selected model is `qwen3:4b-instruct`. That historical comparison is **not a controlled same-model baseline/RAG ablation**. A new 52-question baseline using the current 4B model is planned; the current same-model comparison remains pending.
+**Comparison boundary:** historical baseline `qwen3:1.7b`, stopped local `qwen3:4b-instruct` and selected hosted `openai/gpt-oss-120b` differ in model/configuration. Their scores are not a controlled same-model RAG ablation. A fresh 52-question baseline on the selected hosted model remains pending.
 
 **Trace contract:** normal generation records `model_flags` and `decision_origin=host_boolean_mapping`. Boolean uncertainty stays explicitly uncovered with `reply_kind=uncertainty` and insufficient-evidence status. Host table-input questions are separately labeled and make no LLM call. Evidence, numeric, privacy, action and language checks still apply.
 
 **How to read these results:** document answers are generated from supplied evidence; operational guards and abstentions are reported separately. A cache hit is not a fresh inference. Current live results must match the source-only runtime before they can be called verified. These are local mechanical checks, not organizer scores or proof of hidden-test performance.
+
+The stopped local `qwen3:4b-instruct` run checked **13 of 52 planned questions**, with **11/13 mechanical passes**. Separate assistant source-by-source review classified **5 supported with limits, 4 material errors and 4 uncertain**. These categories are not an adjusted score or certification. The unchanged [predictions](sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/raw/eval_step2_live_current.json) and [assistant review](sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/assistant_semantic_review.json) are archived; the run predates the latest guards and hosted selection.
 
 <details>
 <summary>Historical results and validation limits</summary>
