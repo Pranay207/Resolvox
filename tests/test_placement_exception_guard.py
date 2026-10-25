@@ -349,3 +349,31 @@ def test_unrelated_conditional_cannot_rescue_invented_date(staged, placement, an
 def test_unrelated_condition_cannot_authorize_exception_duration(staged, placement):
     with pytest.raises(ValueError, match='unsupported_placement_exception_entitlement'):
         check(staged, 'If the item is unused, you get 24 days.', placement)
+
+
+@pytest.mark.parametrize('answer', [
+    'The standard window is 12 days. I cannot confirm that your order qualifies for 24 days.',
+    'I cannot confirm that your order qualifies for 24 days, but you have 12 days under the standard window.',
+    'I cannot confirm that your order qualifies for 24 days and you have 12 days under the standard window.',
+])
+def test_uncertain_exception_entitlement_is_not_a_definite_claim(staged, placement, answer):
+    check(staged, answer, placement)
+
+
+@pytest.mark.parametrize('answer', [
+    'I cannot confirm that your order qualifies for 24 days, but you get 24 days.',
+    'I cannot confirm that your order qualifies for 24 days and it qualifies for 24 days.',
+    'I cannot confirm that your order qualifies for 24 days, however your order qualifies for 24 days.',
+])
+def test_uncertainty_does_not_rescue_a_later_definite_entitlement(staged, placement, answer):
+    with pytest.raises(ValueError, match='unsupported_placement_exception_entitlement'):
+        check(staged, answer, placement)
+
+
+def test_uncertain_historical_duration_is_not_definite_delivery_entitlement(staged, delivery):
+    check(staged, 'I cannot confirm that you have 9 days. The current general window is 6 days.', delivery)
+
+
+def test_uncertainty_does_not_rescue_a_later_definite_personal_date(staged, placement):
+    with pytest.raises(ValueError, match='invented_placement_premise'):
+        check(staged, 'I cannot confirm your order was placed during this period, but your order was placed during this period.', placement)

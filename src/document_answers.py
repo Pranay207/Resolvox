@@ -714,6 +714,20 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                     'Ask one focused question for the first repair_required_inputs key in the resolved language. '
                     'Set needs_clarification true; do not choose an unsupported table row or repeat the original question. ' +
                     CONTEXT_LANGUAGE[language])
+            elif context_provenance and errors[-1].startswith((
+                    'invented_placement_', 'invented_delivery_',
+                    'unsupported_placement_exception_', 'unsupported_delivery_exception_')):
+                payload['repair_instruction'] = (
+                    'Read the actual supplied customer and verified date inputs. Do not invent a personal '
+                    'placement or delivery date or assume reference_date is that date. Present an exception '
+                    'conditionally when its input is missing; do not assert individual exception eligibility. '
+                    'Give the supported general policy or ask a genuinely necessary detail. ' + CONTEXT_LANGUAGE[language])
+            elif context_provenance and errors[-1] == 'contradicted_return_condition':
+                payload['repair_instruction'] = (
+                    'Preserve the source-derived necessary conditions and the explicitly unverified item-state claim. '
+                    'Do not affirm ordinary-return eligibility when the supplied condition check is not satisfied. '
+                    'Keep any documented damage exception separate and conditional. Use only original evidence. ' +
+                    CONTEXT_LANGUAGE[language])
             elif context_provenance and errors[-1] in {'unsupported_number', 'unsupported_quantity_unit'}:
                 payload['repair_instruction'] = (
                     'Use only quantities established in the original source_text or validated deterministic_facts. '

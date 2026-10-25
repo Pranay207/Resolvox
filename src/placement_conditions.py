@@ -243,6 +243,12 @@ def _implicit_date_condition(clause, kind):
                           r'(?:it\s+(?:was|is|has\s+been)\s+)?' + predicate + r'\b', clause, re.I))
 
 
+def _uncertain_predicate(clause, position):
+    # Uncertainty governs only the immediate predicate, not a later assertion.
+    prefix = re.split(r'[,;]|\b(?:and|but|however|yet|then)\b', clause[:position], flags=re.I)[-1]
+    return bool(_EPISTEMIC.search(prefix))
+
+
 def _mentions_days(clause, days, normalizer):
     normalized = normalizer(clause.casefold().replace('-', ' '))
     return bool(re.search(r'(?<!\d)' + re.escape(str(days)) + r'\s*(?:calendar\s*)?(?:days?|din|\u0926\u093f\u0928)(?![A-Za-z])', normalized, re.I))
@@ -262,20 +268,23 @@ def check_placement_exception_answer(answer, facts, sources, *, normalizer=_nume
     for clause in re.split(r'[.!?;\u0964\n]+', answer):
         conditional_dates = {}
         for kind, pattern in (('placement', _PLACED_ASSERTION), ('delivery', _DELIVERED_ASSERTION)):
-            asserted = pattern.search(clause)
-            conditional_dates[kind] = bool(asserted and _conditional(clause, asserted.start())) or _implicit_date_condition(clause, kind)
-            if inputs[kind] is None and asserted and not conditional_dates[kind]:
-                if not _EPISTEMIC.search(clause[:asserted.start()]):
-                    raise ValueError('invented_' + kind + '_premise')
-        entitlement = _ENTITLEMENT.search(clause)
-        if not entitlement:
-            continue
-        local = clause[max(0, entitlement.start() - 15):entitlement.end() + 15]
-        if _NEGATED.search(local):
-            continue
-        for kind, status in (('placement', placement), ('delivery', delivery)):
-            if not status or status['applicability'] == 'met' or conditional_dates[kind]:
+            assertions = list(pattern.finditer(clause))
+            conditional_dates[kind] = any(_conditional(clause, match.start()) for match in assertions) or _implicit_date_condition(clause, kind)
+            for asserted in assertions:
+                if inputs[kind] is None and not _conditional(clause, asserted.start()):
+                    if not _uncertain_predicate(clause, asserted.start()):
+                        raise ValueError('invented_' + kind + '_premise')
+        for entitlement in _ENTITLEMENT.finditer(clause):
+            if _uncertain_predicate(clause, entitlement.start()):
                 continue
-            if (status['window_calendar_days'] != status['standard_window_calendar_days']
-                    and _mentions_days(clause, status['window_calendar_days'], normalizer)):
-                raise ValueError('unsupported_' + kind + '_exception_entitlement')
+            local = clause[max(0, entitlement.start() - 15):entitlement.end() + 15]
+            if _NEGATED.search(local):
+                continue
+            # A preceding uncertain amount is not this predicate's duration.
+            claim = re.split(r'[,;]|\b(?:and|but|however|yet|then)\b', clause[entitlement.start():], flags=re.I)[0]
+            for kind, status in (('placement', placement), ('delivery', delivery)):
+                if not status or status['applicability'] == 'met' or conditional_dates[kind]:
+                    continue
+                if (status['window_calendar_days'] != status['standard_window_calendar_days']
+                        and _mentions_days(claim, status['window_calendar_days'], normalizer)):
+                    raise ValueError('unsupported_' + kind + '_exception_entitlement')
