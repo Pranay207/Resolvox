@@ -116,17 +116,24 @@ def test_first_two_steps_use_independent_question_units():
     assert _units(turns, 3) == [turns] and _id(turns[1], 3) == 'A.2'
 
 def current_baseline_fixture():
+    from scripts.resume_live_practice import fingerprint
+    provenance = {'step': 1, 'runtime_source_sha256': {'src/llm.py': 'fresh'},
+                  'dataset_sha256': {'practice/questions.csv': 'fixed-fixture'}}
     return {'configuration': {'evaluation_mode': 'live_prompt_only', 'llm_provider': 'mock',
-                             'llm_model': 'new-model', 'provenance': {'runtime_source_sha256': {'src/llm.py': 'fresh'}}},
+                             'llm_model': 'new-model', 'provenance': provenance,
+                             'inference_fingerprint': fingerprint(provenance)},
             'complete': True, 'summary': {'total': 1, 'planned': 1, 'passed': 0, 'complete': True},
-            'results': [{'prediction': {}}]}
+            'results': [{'id': 'one', 'prediction': {}}]}
 
 
 def test_report_selects_only_complete_current_prompt_only_baseline():
     import copy
     from scripts.build_report import select_current_baseline
     data = current_baseline_fixture()
-    name, selected = select_current_baseline(lambda _: data, {'src/llm.py': 'fresh'})
+    expected = data['configuration']['provenance']
+    def select(record):
+        return select_current_baseline(lambda _: record, expected_provenance=expected, expected_ids=['one'])
+    name, selected = select(data)
     assert name == 'eval_step1_live_current.json' and selected is data
     for variant in ('partial', 'wrong_mode', 'stale_runtime', 'missing_row'):
         changed = copy.deepcopy(data)
@@ -138,7 +145,7 @@ def test_report_selects_only_complete_current_prompt_only_baseline():
             changed['configuration']['provenance']['runtime_source_sha256']['src/llm.py'] = 'old'
         else:
             changed['results'] = []
-        assert select_current_baseline(lambda _: changed, {'src/llm.py': 'fresh'})[1] == {}, variant
+        assert select(changed)[1] == {}, variant
 
 
 def test_report_compares_recorded_models_without_assuming_old_baseline():

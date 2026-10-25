@@ -148,6 +148,22 @@ def voice_text(data):
             f"failed: {semantic.get('failed', '?')}. Results describe the saved run, not a human listening study.")
 
 
+def recovery_summary_text(recovery, historical_hindi):
+    notes = []
+    hs = summary(historical_hindi)
+    if hs.get('voice_passed') is not None and hs.get('planned') is not None:
+        notes.append(f"Historical Hindi UPI {hs['voice_passed']}/{hs['planned']}; this predates the new answer path.")
+    elif historical_hindi:
+        notes.append('Historical Hindi UPI has no recorded complete count; no result is inferred.')
+    rs = summary(recovery)
+    if rs.get('passed') is not None and rs.get('planned') is not None:
+        notes.append(f"Current saved silence recovery {rs['passed']}/{rs['planned']}; check its runtime provenance.")
+    else:
+        notes.append('Current silence recovery is pending; no result is recorded.')
+    notes.append('Recovery means an honest spoken clarification with AI disclosure and no actions, not successful speech transcription.')
+    return ' '.join(notes)
+
+
 def engineering_text(data):
     check = data.get('pytest', {})
     if isinstance(check, dict) and check.get('passed') is not None:
@@ -191,11 +207,215 @@ def latency_text(data):
     return '; '.join(parts) or 'path-separated turn timings not recorded'
 
 
-def document_run(data):
-    """Recognize new source-only evidence without promoting legacy live files."""
-    provenance = data.get('configuration', {}).get('provenance', {})
-    hashes = provenance.get('runtime_source_sha256', {})
-    return all(name in hashes for name in ('src/document_answers.py', 'src/document_context.py'))
+def _sha(path):
+    import hashlib
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def current_core_hashes():
+    files = sorted((ROOT / 'src').glob('*.py')) + [ROOT / 'src/rule_bindings.json']
+    hashes = {path.relative_to(ROOT).as_posix(): _sha(path) for path in files if path.is_file()}
+    required = {'src/agent.py', 'src/document_answers.py', 'src/document_context.py', 'src/rule_bindings.json'}
+    return hashes if required <= hashes.keys() else {}
+
+
+def _hashes_match(record, expected, *, finished=False):
+    if not expected:
+        return False
+    if finished:
+        candidates = [record.get('runtime_source_sha256_finished', {})]
+    else:
+        candidates = [record.get('runtime_source_sha256', {})]
+        config = record.get('configuration', {})
+        config = config if isinstance(config, dict) else {}
+        for parent in (record.get('provenance', {}), config.get('provenance', {})):
+            if isinstance(parent, dict):
+                candidates.append(parent.get('runtime_source_sha256', {}))
+    return any(isinstance(hashes, dict) and all(hashes.get(key) == value for key, value in expected.items())
+               for hashes in candidates)
+
+
+def _practice_ids(step):
+    from src.evals import rows
+    dataset = rows('questions.csv' if step in (1, 2) else 'conversations.csv')
+    return [row['id'] if step in (1, 2) else row['conversation_id'] + '.' + row['turn'] for row in dataset]
+
+
+def select_report_live(step, reader=None, *, expected_provenance=None, expected_ids=None, require_complete=False):
+    """Match current runtime/settings/fixture and exact saved prefix before use."""
+    from scripts.resume_live_practice import provenance, fingerprint
+    reader = reader or load
+    name = f'eval_step{step}_live_current.json'
+    data = reader(name)
+    mode = 'live_prompt_only' if step == 1 else 'live_compose_true'
+    config = data.get('configuration', {})
+    if not isinstance(config, dict) or config.get('evaluation_mode') != mode:
+        return name, {}
+    expected_provenance = provenance(step) if expected_provenance is None else expected_provenance
+    expected_ids = _practice_ids(step) if expected_ids is None else expected_ids
+    if config.get('provenance') != expected_provenance or config.get('inference_fingerprint') != fingerprint(expected_provenance):
+        return name, {}
+    values = summary(data)
+    results = data.get('results', [])
+    total = values.get('total')
+    if (not isinstance(results, list) or type(total) is not int or not 0 < total <= len(expected_ids)
+            or values.get('planned') != len(expected_ids) or len(results) != total
+            or any(not isinstance(row, dict) for row in results)
+            or [row.get('id') for row in results] != expected_ids[:total]):
+        return name, {}
+    complete = total == len(expected_ids)
+    if values.get('complete') is not complete or data.get('complete') is not complete:
+        return name, {}
+    if require_complete and not complete:
+        return name, {}
+    if type(values.get('passed')) is not int or not 0 <= values['passed'] <= total:
+        return name, {}
+    return name, data
+
+
+def select_current_baseline(reader=None, *, expected_provenance=None, expected_ids=None):
+    return select_report_live(1, reader, expected_provenance=expected_provenance,
+                              expected_ids=expected_ids, require_complete=True)
+
+
+def current_engineering(record):
+    values = record.get('pytest', {})
+    if (_hashes_match(record, current_core_hashes()) and isinstance(values, dict)
+            and type(values.get('total')) is int and values['total'] > 0
+            and type(values.get('passed')) is int and 0 <= values['passed'] <= values['total']
+            and type(values.get('exit_code')) is int):
+        return record
+    return {}
+
+
+def current_voice(record):
+    expected = current_core_hashes()
+    batch = record.get('batch', {})
+    semantic = record.get('semantic_validation', {})
+    if not isinstance(batch, dict) or not isinstance(semantic, dict):
+        return {}
+    if (not _hashes_match(record, expected) or not _hashes_match(record, expected, finished=True)
+            or record.get('source_runtime_unchanged') is not True
+            or record.get('live_llm_composition_enabled') is not True
+            or record.get('status') not in {'tested', 'failed'}):
+        return {}
+    total = batch.get('total')
+    entries, checks = batch.get('entries', []), semantic.get('checks', [])
+    if (total != 6 or not isinstance(entries, list) or len(entries) != total
+            or not isinstance(checks, list) or len(checks) != total
+            or any(type(batch.get(key)) is not int for key in ('succeeded', 'failed'))
+            or batch['succeeded'] + batch['failed'] != total
+            or any(type(semantic.get(key)) is not int for key in ('passed', 'failed'))
+            or semantic['passed'] + semantic['failed'] != total
+            or any(not isinstance(check, dict) or type(check.get('passed')) is not bool for check in checks)
+            or sum(check['passed'] for check in checks) != semantic['passed']):
+        return {}
+    return record
+
+
+def current_recovery(record):
+    # These are the exact operational sources recorded by the recovery runner;
+    # it performs no normal answer generation or private transaction operation.
+    names = ('scripts/validate_voice_recovery.py', 'run.py', 'src/voice.py',
+             'src/agent.py', 'src/multilingual.py', 'src/normalize.py',
+             'src/languages.py', 'src/answering.py', 'src/tools_wrapper.py')
+    if not all((ROOT / name).is_file() for name in names):
+        return {}
+    expected = {name: _sha(ROOT / name) for name in names}
+    values = summary(record)
+    if (not _hashes_match(record, expected) or record.get('complete') is not True
+            or record.get('status') not in {'tested', 'failed'}
+            or record.get('speech_provider') != 'Gnani only'
+            or record.get('live_llm_composition_enabled') is not False
+            or values.get('planned') != 1 or values.get('evaluated') != 1
+            or type(values.get('passed')) is not int or values['passed'] not in (0, 1)
+            or values.get('failed') != 1 - values['passed']):
+        return {}
+    return record
+
+
+def current_adversarial(record):
+    fixture = ROOT / 'tests/adversarial_cases.json'
+    runner = ROOT / 'eval_adversarial.py'
+    if not fixture.is_file() or not runner.is_file():
+        return {}
+    cases = json.loads(fixture.read_text(encoding='utf-8'))
+    expected_ids = [case['id'] for case in cases]
+    expected_ids += [f'MULTI_{kind}{index}' for index in range(1, 7) for kind in ('LOCK', 'SWITCH')]
+    expected = dict(current_core_hashes(), **{'eval_adversarial.py': _sha(runner)})
+    if (not _hashes_match(record, expected) or not _hashes_match(record, expected, finished=True)
+            or record.get('source_runtime_unchanged') is not True
+            or record.get('mode') != 'live_compose_true'
+            or record.get('configuration', {}).get('evaluation_mode') != 'live_compose_true'
+            or record.get('configuration', {}).get('fixture_sha256') != _sha(fixture)
+            or record.get('complete') is not True or record.get('status') not in {'tested', 'failed'}):
+        return {}
+    values = summary(record)
+    results = record.get('results', [])
+    if (not isinstance(results, list) or values.get('total') != len(expected_ids)
+            or values.get('planned') != len(expected_ids) or values.get('complete') is not True
+            or any(not isinstance(row, dict) or type(row.get('passed')) is not bool for row in results)
+            or [row.get('id') for row in results] != expected_ids
+            or values.get('passed') != sum(row['passed'] for row in results)
+            or values.get('failed') != sum(not row['passed'] for row in results)):
+        return {}
+    return record
+
+
+def current_holdout(record, receipt):
+    """Require a real frozen-batch sidecar binding exact holdout artifact bytes."""
+    artifact = ROOT / 'sample_outputs/eval_holdout_live_current.json'
+    fixture = ROOT / 'tests/holdout_cases.json'
+    runner = ROOT / 'eval_holdout.py'
+    if not artifact.is_file() or not fixture.is_file() or not runner.is_file():
+        return {}
+    try:
+        if record != json.loads(artifact.read_text(encoding='utf-8')):
+            return {}
+    except (OSError, ValueError):
+        return {}
+    expected = current_core_hashes()
+    if (receipt.get('receipt_scope') != 'frozen_validation_batch'
+            or receipt.get('artifact') != 'sample_outputs/eval_holdout_live_current.json'
+            or receipt.get('artifact_sha256') != _sha(artifact)
+            or receipt.get('source_runtime_unchanged') is not True
+            or not _hashes_match(receipt, expected) or not _hashes_match(receipt, expected, finished=True)):
+        return {}
+    import eval_holdout
+    fixture_data = json.loads(fixture.read_text(encoding='utf-8'))
+    try:
+        coverage = eval_holdout.validate_fixture(fixture_data)
+    except (ValueError, KeyError, TypeError):
+        return {}
+    ids = [case['id'] for case in fixture_data['single_cases']]
+    ids += [scenario['id'] + '/' + turn['id'] for scenario in fixture_data['scenarios'] for turn in scenario['turns']]
+    results, values = record.get('results', []), summary(record)
+    scorer = record.get('scorer', {})
+    if (record.get('mode') != 'llm_compose_true' or record.get('coverage') != coverage
+            or scorer.get('source_sha256') != _sha(runner)
+            or scorer.get('version') != eval_holdout.SCORER_VERSION
+            or scorer.get('frozen_rubric_unchanged') is not True
+            or values.get('complete') is not True or values.get('planned') != len(ids)
+            or values.get('evaluated') != len(ids) or not isinstance(results, list)
+            or any(not isinstance(row, dict) for row in results)
+            or [row.get('id') for row in results] != ids
+            or any(not isinstance(row.get('judgment'), dict) or type(row['judgment'].get('passed')) is not bool for row in results)
+            or values.get('passed') != sum(row['judgment']['passed'] for row in results)
+            or values.get('failed') != sum(not row['judgment']['passed'] for row in results)):
+        return {}
+    return record
+
+
+def baseline_comparison_text(base, rag, *, current=False):
+    if not current:
+        return 'The displayed baseline is historical; no fresh complete matching-runtime baseline is selected. Model/version and implementation changes can confound comparison.'
+    def identity(data):
+        config = data.get('configuration', {})
+        return config.get('llm_provider'), config.get('llm_model')
+    base_id, rag_id = identity(base), identity(rag)
+    if all(base_id) and base_id == rag_id:
+        return 'Current baseline and RAG record the same configured provider/model. Document context, prompting and validation still differ, so the comparison does not isolate retrieval alone.'
+    return 'The baseline and RAG provider/model configurations differ or are incomplete; model/version changes confound their score comparison. This is not a same-model retrieval ablation.'
 
 
 def document_composition(data):
@@ -208,17 +428,20 @@ def document_composition(data):
 
 
 def main():
-    base, old_rag, old_conv, old_adv, voice = [load(name) for name in
+    historical_base, old_rag, old_conv, old_adv, saved_voice = [load(name) for name in
         ('eval_step1.json', 'eval_step2.json', 'eval_step3.json', 'eval_adversarial.json', 'voice_validation.json')]
     holdout = load('eval_holdout.json')
-    live2_name, live2 = select_current_live(2, load)
-    live3_name, live3 = select_current_live(3, load)
-    # A stale perfect score must never become evidence for the replacement path.
-    for name, data in ((live2_name, live2), (live3_name, live3)):
-        if data and not document_run(data):
-            raise RuntimeError(f'{name} is legacy evidence. Archive it and run the source-only runtime before authoring the report.')
+    baseline_name, current_base = select_current_baseline()
+    base = current_base or historical_base
+    base_label = 'Current prompt-only baseline' if current_base else 'Historical prompt-only baseline'
+    baseline_artifact = baseline_name if current_base else 'eval_step1.json'
+    live2_name, live2 = select_report_live(2, load)
+    live3_name, live3 = select_report_live(3, load)
+    live_adv = current_adversarial(load('eval_adversarial_live_current.json'))
+    live_holdout = current_holdout(load('eval_holdout_live_current.json'), load('live_holdout_receipt.json'))
+    voice = current_voice(saved_voice)
     first_name, first = first_holdout()
-    engineering = load('engineering_verification.json')
+    engineering = current_engineering(load('engineering_verification.json'))
     styles = getSampleStyleSheet()
     styles.add(ParagraphStyle(name='TitleV', fontName='Helvetica-Bold', fontSize=25, leading=29, textColor=NAVY, spaceAfter=12))
     styles.add(ParagraphStyle(name='HeadingV', fontName='Helvetica-Bold', fontSize=14, leading=18, textColor=NAVY, spaceBefore=10, spaceAfter=6))
@@ -277,8 +500,8 @@ def main():
         ['4 - Voice', 'Gnani STT/TTS only, spoken-number normalization, redaction, JSON/text/WAV/source outputs and per-file errors.'],
     ], [94, 416])
     h('Recorded current evidence')
-    p(f'Historical prompt-only baseline: {pass_text(base)}. Source-only LLM-enabled questions: {live_result_text(live2)}. Source-only conversation turns: {live_result_text(live3)}. Generated answers, guards and abstentions are counted separately; a completed run does not mean every answer passed or was newly generated.')
-    p('Current question model metadata: ' + model_text(live2) + '. Historical baseline: ' + model_text(base) + '.', 'SmallV')
+    p(f'{base_label}: {pass_text(base)}. Source-only LLM-enabled questions: {live_result_text(live2)}. Source-only conversation turns: {live_result_text(live3)}. Generated answers, guards and abstentions are counted separately; a completed run does not mean every answer passed or was newly generated.')
+    p('Current question model metadata: ' + model_text(live2) + '. ' + base_label + ': ' + model_text(base) + '.', 'SmallV')
     p(engineering_text(engineering) + ' Historical rules-based scores are retained separately and do not validate the new answer path. Demo video remains the final user-recorded artifact.', 'SmallV')
 
     page()
@@ -298,22 +521,23 @@ def main():
     p('Evaluation and observed limitations', 'TitleV')
     rows = [
         ['Recorded check', 'Passes', 'Scope'],
-        ['Historical prompt-only baseline', pass_text(base), 'Earlier model/version; errors ' + str(summary(base).get('errors', '?'))],
+        [base_label, pass_text(base), ('No documents/tools; errors ' if current_base else 'Historical configuration; errors ') + str(summary(base).get('errors', '?'))],
         ['Current source-only policy questions', pass_text(live2), live_result_text(live2)],
         ['Current source-only conversation turns', pass_text(live3), live_result_text(live3)],
         ['Historical offline questions / turns', pass_text(old_rag) + ' / ' + pass_text(old_conv), 'Earlier rules/fallback runtime; not current generation proof'],
-        ['Historical adversarial/stateful run', pass_text(old_adv), 'Saved development regression; not current policy generation proof'],
+        ['Current development adversarial (live)', pass_text(live_adv), 'Fresh full fixture; development cases, not blind evaluation'],
+        ['Current exposed regression (live)', pass_text(live_holdout), 'Frozen-batch receipt; exposed cases, not new independent evidence'],
+        ['Historical adversarial / exposed offline', pass_text(old_adv) + ' / ' + pass_text(holdout), 'Prior runtime only; not current generation proof'],
     ]
     if first:
         rows.append(['First independent holdout, historical', pass_text(first), 'Offline first pass preserved before tuning'])
-    rows.append(['Historical exposed offline regression', pass_text(holdout), 'Prior runtime; exposed cases, not a fresh blind/live result'])
     table(rows, [195, 75, 240])
     h('Current response composition')
     p('Questions: ' + (document_composition(live2) if live2 else 'pending') + '.', 'SmallV')
     p('Conversation turns: ' + (document_composition(live3) if live3 else 'pending') + '.', 'SmallV')
-    p('Current live artifacts: ' + live2_name + ' and ' + live3_name + '. Public output-cache hits may reuse a previously validated generation with the same full prompt/source/fact/model key. Private-order calls bypass persistent output caching. Generation attempts, repairs, validation failures and latency remain in raw predictions; no failure is converted to a passing answer.', 'SmallV')
+    p('Baseline artifact: ' + baseline_artifact + '; current live artifacts: ' + live2_name + ' and ' + live3_name + '; live regressions: eval_adversarial_live_current.json and eval_holdout_live_current.json. Public output-cache hits may reuse a previously validated generation with the same full prompt/source/fact/model key. Private-order calls bypass persistent output caching. Generation attempts, repairs, validation failures and latency remain in raw predictions; no failure is converted to a passing answer.', 'SmallV')
     h('What these scores establish')
-    p('The historical prompt-only baseline used qwen3:1.7b; current runs use a different model/version. Model, retrieval, prompting and validation changes are confounded: this is not a same-model retrieval ablation. Mechanical scorers can reject valid wording or miss semantic errors. Development practice and exposed regressions are not unseen generalization evidence; historical rules/fallback scores are not carried over to the new path.')
+    p(baseline_comparison_text(base, live2, current=bool(current_base)) + ' Mechanical scorers can reject valid wording or miss semantic errors. Development practice and exposed regressions are not unseen generalization evidence; historical rules/fallback scores are not carried over to the new path.')
     strict_pilot = load('history/pre_document_answers/strict_quote_pilot.json')
     if strict_pilot:
         p('Historical strict-quote pilot: ' + pass_text(strict_pilot) + '; partial development run, not current context-provenance evaluation.', 'SmallV')
@@ -330,18 +554,15 @@ def main():
     wall = [row.get('latency_ms') for row in voice.get('batch', {}).get('entries', [])]
     audio = [row.get('reply_seconds') for row in voice.get('semantic_validation', {}).get('checks', [])]
     p('Saved processing wall range: ' + seconds_range(wall, milliseconds=True) + '; reply audio duration: ' + seconds_range(audio) + '. Processing time and playback duration are different. Only a refreshed run of the current source-only agent establishes integration evidence for this version; old speech outputs remain historical.', 'SmallV')
-    recovery = load('voice_recovery.json')
+    recovery = current_recovery(load('voice_recovery.json'))
     hindi_voice = load('history/pre_document_answers/primary_hindi_voice_validation.json')
-    if recovery or hindi_voice:
-        rs = recovery.get('summary', {})
-        hs = hindi_voice.get('summary', {})
-        p(f"Historical Hindi UPI {hs.get('voice_passed', 0)}/{hs.get('planned', '?')}; separately saved silence recovery {rs.get('passed', 0)}/{rs.get('planned', '?')}. Hindi predates the new answer path; check recovery runtime provenance. Silence recovery means an honest spoken clarification with AI disclosure and no actions, not successful transcription of speech.", 'SmallV')
+    p(recovery_summary_text(recovery, hindi_voice), 'SmallV')
     p('Primary scope is English, Hindi and Hinglish. Gnani is the only STT/TTS provider. Additional languages are optional translation previews. Synthetic Gnani-generated inputs establish neither human accent/noise robustness nor subjective intelligibility. Human own-voice rehearsal and listening remain for the final demo step.', 'SmallV')
     extra_languages = load('language_validation.json')
     if extra_languages:
         p('Historical optional preview: ' + regional_preview_text(extra_languages), 'SmallV')
     h('Reproduce and finish the release')
-    p('Repository: https://github.com/Pranay207/Resolvox. Install: powershell -File setup.ps1; configure .env and Ollama before launch. Batch: python run.py --audio_dir <in> --out_dir <out>. Live questions/conversations: python scripts/resume_live_practice.py --step 2, then --step 3. Engineering: python -m pytest -q -p no:cacheprovider. Speech: python generate_voice_samples.py --reuse-inputs. Preserve earlier artifacts before reruns.', 'SmallV')
+    p('Repository: https://github.com/Pranay207/Resolvox. Install: powershell -File setup.ps1; configure .env and Ollama before launch. Batch: python run.py --audio_dir <in> --out_dir <out>. Live baseline/questions/conversations: python scripts/resume_live_practice.py --step 1, then --step 2 and --step 3. Engineering: python -m pytest -q -p no:cacheprovider. Speech: python generate_voice_samples.py --reuse-inputs. Preserve earlier artifacts before reruns.', 'SmallV')
     p('Demo video stays last and remains pending until recorded by the user: at most 120 seconds, showing a grounded answer, follow-up and handover or uncertainty. Then rebuild and verify the final ZIP. The draft excludes .env, dataset copies, weights, caches, environments and private input audio. Educational proof checking is not production authentication; no rank, prize or real customer outcome is promised.', 'SmallV')
     p('Sources: capstone brief; supplied dataset KB, catalog, calendar and tools; official Gnani documentation; model cards; recorded sample_outputs JSON. This report loads its counts from evidence at generation time. Historical measurements are not relabeled as current.', 'SmallV')
 
