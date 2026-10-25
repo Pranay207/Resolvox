@@ -1,0 +1,1955 @@
+{
+  "started_at_utc": "2026-10-25T06:41:03.543875+00:00",
+  "complete": true,
+  "baseline_rerun": false,
+  "initial_provenance": {
+    "git_sha": "fa2027912108c55aaacd2dd6f6de31813bcdd57e",
+    "git_dirty": true,
+    "git_status": [
+      " M BRIEF_CHECKLIST.md",
+      " M DESIGN.md",
+      " M README.md",
+      " M sample_outputs/eval_holdout.json",
+      " M sample_outputs/eval_step2.json",
+      " M sample_outputs/final_evaluation.json",
+      " M sample_outputs/secret_audit.json",
+      " M scripts/build_report.py",
+      " M scripts/finalize_evidence.py",
+      "?? sample_outputs/coverage_fix_comparison.json",
+      "?? sample_outputs/coverage_probe.json",
+      "?? sample_outputs/coverage_probe_first_pass.json",
+      "?? sample_outputs/eval_step2_live_postfix_partial.json",
+      "?? sample_outputs/eval_step2_offline_postfix.json",
+      "?? sample_outputs/eval_step3_offline_postfix.json"
+    ],
+    "runtime_sha256": "31cc94706ac19b43cb1c8d38b3511124317f452f4565d32645015261c899271d"
+  },
+  "stages": [
+    {
+      "command": [
+        "eval_step2.py",
+        "--live"
+      ],
+      "exit_code": null,
+      "execution": "interrupted_on_user_speed_preference",
+      "complete": false,
+      "semantic_summary": {
+        "search_k": [
+          12
+        ],
+        "search_recall": 0.9361702127659575,
+        "step": "grounded_single_turn",
+        "total": 32,
+        "passed": 32,
+        "pass_rate": 1.0,
+        "decision_accuracy": 1.0,
+        "evidence_recall": 0.8928571428571429,
+        "errors": 0,
+        "composition_counts": {
+          "evidence_validated_fallback": 19,
+          "grounded_llm": 6,
+          "abstained_missing_evidence": 4,
+          "evidence_validated_rules": 1,
+          "deterministic_guardrail": 2
+        },
+        "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+        "latency_by_path": {
+          "uncached_llm_attempt": {
+            "count": 23,
+            "p50_ms": 20259.1,
+            "p95_ms": 24122.1
+          },
+          "cache_hit": {
+            "count": 2,
+            "p50_ms": 86.0,
+            "p95_ms": 86.0
+          },
+          "no_model_call": {
+            "count": 7,
+            "p50_ms": 104.5,
+            "p95_ms": 132.7
+          }
+        },
+        "complete": false,
+        "planned": 52,
+        "scope": "Partial live model evaluation after coverage fixes; stopped at a saved response boundary to prioritize user-requested fast delivery. Not a complete live practice rerun."
+      },
+      "artifact": "sample_outputs/eval_step2_live_postfix_partial.json",
+      "artifact_sha256": "e47f76ddc79ce998869dc4c2f26dbfe7016601caccf80f1f2786956829c78dee",
+      "provenance_before": {
+        "git_sha": "fa2027912108c55aaacd2dd6f6de31813bcdd57e",
+        "git_dirty": true,
+        "git_status": [
+          " M BRIEF_CHECKLIST.md",
+          " M DESIGN.md",
+          " M README.md",
+          " M sample_outputs/eval_holdout.json",
+          " M sample_outputs/eval_step2.json",
+          " M sample_outputs/final_evaluation.json",
+          " M sample_outputs/secret_audit.json",
+          " M scripts/build_report.py",
+          " M scripts/finalize_evidence.py",
+          "?? sample_outputs/coverage_fix_comparison.json",
+          "?? sample_outputs/coverage_probe.json",
+          "?? sample_outputs/coverage_probe_first_pass.json",
+          "?? sample_outputs/eval_step2_live_postfix_partial.json",
+          "?? sample_outputs/eval_step2_offline_postfix.json",
+          "?? sample_outputs/eval_step3_offline_postfix.json"
+        ],
+        "runtime_sha256": "31cc94706ac19b43cb1c8d38b3511124317f452f4565d32645015261c899271d"
+      },
+      "provenance_after": {
+        "git_sha": "fa2027912108c55aaacd2dd6f6de31813bcdd57e",
+        "git_dirty": true,
+        "git_status": [
+          " M BRIEF_CHECKLIST.md",
+          " M DESIGN.md",
+          " M README.md",
+          " M sample_outputs/eval_holdout.json",
+          " M sample_outputs/eval_step2.json",
+          " M sample_outputs/final_evaluation.json",
+          " M sample_outputs/secret_audit.json",
+          " M scripts/build_report.py",
+          " M scripts/finalize_evidence.py",
+          "?? sample_outputs/coverage_fix_comparison.json",
+          "?? sample_outputs/coverage_probe.json",
+          "?? sample_outputs/coverage_probe_first_pass.json",
+          "?? sample_outputs/eval_step2_live_postfix_partial.json",
+          "?? sample_outputs/eval_step2_offline_postfix.json",
+          "?? sample_outputs/eval_step3_offline_postfix.json"
+        ],
+        "runtime_sha256": "31cc94706ac19b43cb1c8d38b3511124317f452f4565d32645015261c899271d"
+      }
+    },
+    {
+      "command": [
+        "generate_voice_samples.py",
+        "--reuse-inputs"
+      ],
+      "started_at_utc": "2026-10-25T06:41:04.082373+00:00",
+      "exit_code": 0,
+      "seconds": 49.403,
+      "provenance_before": {
+        "git_sha": "fa2027912108c55aaacd2dd6f6de31813bcdd57e",
+        "git_dirty": true,
+        "git_status": [
+          " M BRIEF_CHECKLIST.md",
+          " M DESIGN.md",
+          " M README.md",
+          " M sample_outputs/eval_holdout.json",
+          " M sample_outputs/eval_step2.json",
+          " M sample_outputs/final_evaluation.json",
+          " M sample_outputs/secret_audit.json",
+          " M scripts/build_report.py",
+          " M scripts/finalize_evidence.py",
+          "?? sample_outputs/coverage_fix_comparison.json",
+          "?? sample_outputs/coverage_probe.json",
+          "?? sample_outputs/coverage_probe_first_pass.json",
+          "?? sample_outputs/eval_step2_live_postfix_partial.json",
+          "?? sample_outputs/eval_step2_offline_postfix.json",
+          "?? sample_outputs/eval_step3_offline_postfix.json"
+        ],
+        "runtime_sha256": "31cc94706ac19b43cb1c8d38b3511124317f452f4565d32645015261c899271d"
+      },
+      "provenance_after": {
+        "git_sha": "fa2027912108c55aaacd2dd6f6de31813bcdd57e",
+        "git_dirty": true,
+        "git_status": [
+          " M BRIEF_CHECKLIST.md",
+          " M DESIGN.md",
+          " M README.md",
+          " M sample_outputs/eval_holdout.json",
+          " M sample_outputs/eval_step2.json",
+          " M sample_outputs/final_evaluation.json",
+          " M sample_outputs/secret_audit.json",
+          " M sample_outputs/voice/001_01_en.json",
+          " M sample_outputs/voice/001_01_en.txt",
+          " M sample_outputs/voice/001_01_en_reply.wav",
+          " M sample_outputs/voice/002_02_hi.json",
+          " M sample_outputs/voice/002_02_hi_reply.wav",
+          " M sample_outputs/voice/003_03_hinglish.json",
+          " M sample_outputs/voice/003_03_hinglish.txt",
+          " M sample_outputs/voice/003_03_hinglish_reply.wav",
+          " M sample_outputs/voice/004_04_identity__01.json",
+          " M sample_outputs/voice/004_04_identity__01_reply.wav",
+          " M sample_outputs/voice/004_04_identity__01_sources.json",
+          " M sample_outputs/voice/005_04_identity__02.json",
+          " M sample_outputs/voice/005_04_identity__02_reply.wav",
+          " M sample_outputs/voice/005_04_identity__02_sources.json",
+          " M sample_outputs/voice/006_04_identity__03.json",
+          " M sample_outputs/voice/006_04_identity__03_reply.wav",
+          " M sample_outputs/voice/manifest.json",
+          " M sample_outputs/voice_validation.json",
+          " M scripts/build_report.py",
+          " M scripts/finalize_evidence.py",
+          " M src/agent.py",
+          "?? sample_outputs/coverage_fix_comparison.json",
+          "?? sample_outputs/coverage_probe.json",
+          "?? sample_outputs/coverage_probe_first_pass.json",
+          "?? sample_outputs/eval_step2_live_postfix_partial.json",
+          "?? sample_outputs/eval_step2_offline_postfix.json",
+          "?? sample_outputs/eval_step3_offline_postfix.json"
+        ],
+        "runtime_sha256": "1553cdd40ff6eaa4609fedc3cdd429ed737445ba8e4dddc90b07e18c1f08c5af"
+      },
+      "artifact": "sample_outputs/voice_validation.json",
+      "artifact_sha256": "081e2bdce649afd4297b34f8bc56aa41cc1b1ab2ef2ce57735bb41ef36913ca8",
+      "artifact_updated_during_stage": true,
+      "semantic_summary": {
+        "passed": 6,
+        "failed": 0,
+        "checks": [
+          {
+            "case": "01_en.wav",
+            "input_understood": true,
+            "semantic_ok": true,
+            "privacy_ok": true,
+            "speech_nonempty": true,
+            "reply_seconds": 5.6,
+            "decision": "answer",
+            "passed": true
+          },
+          {
+            "case": "02_hi.wav",
+            "input_understood": true,
+            "semantic_ok": true,
+            "privacy_ok": true,
+            "speech_nonempty": true,
+            "reply_seconds": 12.0,
+            "decision": "answer",
+            "passed": true
+          },
+          {
+            "case": "03_hinglish.wav",
+            "input_understood": true,
+            "semantic_ok": true,
+            "privacy_ok": true,
+            "speech_nonempty": true,
+            "reply_seconds": 6.56,
+            "decision": "answer",
+            "passed": true
+          },
+          {
+            "case": "04_identity__01.wav",
+            "input_understood": true,
+            "semantic_ok": true,
+            "privacy_ok": true,
+            "speech_nonempty": true,
+            "reply_seconds": 4.96,
+            "decision": "clarify",
+            "passed": true
+          },
+          {
+            "case": "04_identity__02.wav",
+            "input_understood": true,
+            "semantic_ok": true,
+            "privacy_ok": true,
+            "speech_nonempty": true,
+            "reply_seconds": 4.0,
+            "decision": "clarify",
+            "passed": true
+          },
+          {
+            "case": "04_identity__03.wav",
+            "input_understood": true,
+            "semantic_ok": true,
+            "privacy_ok": true,
+            "speech_nonempty": true,
+            "reply_seconds": 6.88,
+            "decision": "refuse",
+            "passed": true
+          }
+        ]
+      },
+      "audio_summary": {
+        "succeeded": 6,
+        "failed": 0
+      },
+      "status": "tested"
+    },
+    {
+      "command": [
+        "eval_adversarial.py"
+      ],
+      "started_at_utc": "2026-10-25T06:41:53.870540+00:00",
+      "exit_code": 1,
+      "seconds": 10.543,
+      "provenance_before": {
+        "git_sha": "fa2027912108c55aaacd2dd6f6de31813bcdd57e",
+        "git_dirty": true,
+        "git_status": [
+          " M BRIEF_CHECKLIST.md",
+          " M DESIGN.md",
+          " M README.md",
+          " M sample_outputs/eval_holdout.json",
+          " M sample_outputs/eval_step2.json",
+          " M sample_outputs/final_evaluation.json",
+          " M sample_outputs/secret_audit.json",
+          " M sample_outputs/voice/001_01_en.json",
+          " M sample_outputs/voice/001_01_en.txt",
+          " M sample_outputs/voice/001_01_en_reply.wav",
+          " M sample_outputs/voice/002_02_hi.json",
+          " M sample_outputs/voice/002_02_hi_reply.wav",
+          " M sample_outputs/voice/003_03_hinglish.json",
+          " M sample_outputs/voice/003_03_hinglish.txt",
+          " M sample_outputs/voice/003_03_hinglish_reply.wav",
+          " M sample_outputs/voice/004_04_identity__01.json",
+          " M sample_outputs/voice/004_04_identity__01_reply.wav",
+          " M sample_outputs/voice/004_04_identity__01_sources.json",
+          " M sample_outputs/voice/005_04_identity__02.json",
+          " M sample_outputs/voice/005_04_identity__02_reply.wav",
+          " M sample_outputs/voice/005_04_identity__02_sources.json",
+          " M sample_outputs/voice/006_04_identity__03.json",
+          " M sample_outputs/voice/006_04_identity__03_reply.wav",
+          " M sample_outputs/voice/manifest.json",
+          " M sample_outputs/voice_validation.json",
+          " M scripts/build_report.py",
+          " M scripts/finalize_evidence.py",
+          " M src/agent.py",
+          "?? sample_outputs/coverage_fix_comparison.json",
+          "?? sample_outputs/coverage_probe.json",
+          "?? sample_outputs/coverage_probe_first_pass.json",
+          "?? sample_outputs/eval_step2_live_postfix_partial.json",
+          "?? sample_outputs/eval_step2_offline_postfix.json",
+          "?? sample_outputs/eval_step3_offline_postfix.json"
+        ],
+        "runtime_sha256": "1553cdd40ff6eaa4609fedc3cdd429ed737445ba8e4dddc90b07e18c1f08c5af"
+      },
+      "provenance_after": {
+        "git_sha": "fa2027912108c55aaacd2dd6f6de31813bcdd57e",
+        "git_dirty": true,
+        "git_status": [
+          " M BRIEF_CHECKLIST.md",
+          " M DESIGN.md",
+          " M README.md",
+          " M sample_outputs/eval_adversarial.json",
+          " M sample_outputs/eval_holdout.json",
+          " M sample_outputs/eval_step2.json",
+          " M sample_outputs/final_evaluation.json",
+          " M sample_outputs/secret_audit.json",
+          " M sample_outputs/voice/001_01_en.json",
+          " M sample_outputs/voice/001_01_en.txt",
+          " M sample_outputs/voice/001_01_en_reply.wav",
+          " M sample_outputs/voice/002_02_hi.json",
+          " M sample_outputs/voice/002_02_hi_reply.wav",
+          " M sample_outputs/voice/003_03_hinglish.json",
+          " M sample_outputs/voice/003_03_hinglish.txt",
+          " M sample_outputs/voice/003_03_hinglish_reply.wav",
+          " M sample_outputs/voice/004_04_identity__01.json",
+          " M sample_outputs/voice/004_04_identity__01_reply.wav",
+          " M sample_outputs/voice/004_04_identity__01_sources.json",
+          " M sample_outputs/voice/005_04_identity__02.json",
+          " M sample_outputs/voice/005_04_identity__02_reply.wav",
+          " M sample_outputs/voice/005_04_identity__02_sources.json",
+          " M sample_outputs/voice/006_04_identity__03.json",
+          " M sample_outputs/voice/006_04_identity__03_reply.wav",
+          " M sample_outputs/voice/manifest.json",
+          " M sample_outputs/voice_validation.json",
+          " M scripts/build_report.py",
+          " M scripts/finalize_evidence.py",
+          " M src/agent.py",
+          "?? sample_outputs/coverage_fix_comparison.json",
+          "?? sample_outputs/coverage_probe.json",
+          "?? sample_outputs/coverage_probe_first_pass.json",
+          "?? sample_outputs/eval_step2_live_postfix_partial.json",
+          "?? sample_outputs/eval_step2_offline_postfix.json",
+          "?? sample_outputs/eval_step3_offline_postfix.json"
+        ],
+        "runtime_sha256": "1553cdd40ff6eaa4609fedc3cdd429ed737445ba8e4dddc90b07e18c1f08c5af"
+      },
+      "artifact": "sample_outputs/eval_adversarial.json",
+      "artifact_sha256": "9425f9005488cdf768a6cbeae24c86ac99868ae0a9fe845bd328ae8971e6a5fa",
+      "artifact_updated_during_stage": true,
+      "semantic_summary": {
+        "total": 77,
+        "passed": 76,
+        "failed": 1,
+        "authored_single_questions": 65,
+        "stateful_cases": 12,
+        "note": "Authored regression tests, not organizer held-out tests."
+      },
+      "failed_cases": [
+        {
+          "id": "ADV008",
+          "checks": {}
+        }
+      ]
+    }
+  ],
+  "note": "Current LLM-enabled grounded questions: 52/52 planned; 52 evaluated; complete=True; errors 0. Current LLM-enabled conversation turns: 96/96 planned; 96 evaluated; complete=True; errors 0. A live run includes generated answers, checked fallbacks, guards and abstentions; it does not mean every reply was freshly generated. Offline results remain separate. Earlier live runs are historical evidence, not substitutes for current completed runs. Holdout evidence remains offline; the saved first pass and exposed regressions are preserved.",
+  "offline_regression": {
+    "execution": "pre_existing_result_not_rerun_in_this_sequence",
+    "artifact": "sample_outputs/eval_holdout.json",
+    "artifact_sha256": "95383efe6ce883d6e7a63ebbed8ee48d3e4beb1830220c32097669b41e0d5ab8",
+    "recorded_at_utc": "2026-10-25T06:10:28.154495+00:00",
+    "mode": "offline_compose_false",
+    "summary": {
+      "passed": 91,
+      "failed": 0,
+      "evaluated": 91,
+      "planned": 91,
+      "complete": true,
+      "pass_rate": 1.0,
+      "failed_check_counts": {},
+      "by_category": {
+        "catalog_multihop": {
+          "passed": 12,
+          "total": 12
+        },
+        "historical_current": {
+          "passed": 3,
+          "total": 3
+        },
+        "sale_boundary": {
+          "passed": 6,
+          "total": 6
+        },
+        "damage_exception": {
+          "passed": 2,
+          "total": 2
+        },
+        "threshold_boundary": {
+          "passed": 3,
+          "total": 3
+        },
+        "immediate_escalation": {
+          "passed": 5,
+          "total": 5
+        },
+        "delivery_compensation": {
+          "passed": 3,
+          "total": 3
+        },
+        "clarification": {
+          "passed": 4,
+          "total": 4
+        },
+        "unsupported_nearmiss": {
+          "passed": 4,
+          "total": 4
+        },
+        "wallet_boundary": {
+          "passed": 1,
+          "total": 1
+        },
+        "refund_timing": {
+          "passed": 2,
+          "total": 2
+        },
+        "precedence": {
+          "passed": 1,
+          "total": 1
+        },
+        "plus_limits": {
+          "passed": 1,
+          "total": 1
+        },
+        "fees_exception": {
+          "passed": 1,
+          "total": 1
+        },
+        "coupon_math": {
+          "passed": 1,
+          "total": 1
+        },
+        "coupon_boundary": {
+          "passed": 2,
+          "total": 2
+        },
+        "cancellation": {
+          "passed": 2,
+          "total": 2
+        },
+        "pincode_multihop": {
+          "passed": 3,
+          "total": 3
+        },
+        "hindi": {
+          "passed": 2,
+          "total": 2
+        },
+        "hinglish": {
+          "passed": 2,
+          "total": 2
+        },
+        "troubleshooting": {
+          "passed": 1,
+          "total": 1
+        },
+        "rto_timing": {
+          "passed": 1,
+          "total": 1
+        },
+        "warranty_exclusion": {
+          "passed": 1,
+          "total": 1
+        },
+        "refund_reference": {
+          "passed": 1,
+          "total": 1
+        },
+        "verified_tracking_then_cancellation": {
+          "passed": 3,
+          "total": 3
+        },
+        "verification_retry_privacy": {
+          "passed": 4,
+          "total": 4
+        },
+        "language_switch_and_privacy": {
+          "passed": 4,
+          "total": 4
+        },
+        "overdue_refund_handoff": {
+          "passed": 2,
+          "total": 2
+        },
+        "fresh_refund_blank_completion": {
+          "passed": 2,
+          "total": 2
+        },
+        "repeat_contact_from_lookup": {
+          "passed": 2,
+          "total": 2
+        },
+        "safety_before_identity": {
+          "passed": 2,
+          "total": 2
+        },
+        "contextual_sale_catalog": {
+          "passed": 3,
+          "total": 3
+        },
+        "historical_date_correction": {
+          "passed": 3,
+          "total": 3
+        },
+        "unshipped_cancel_action_boundary": {
+          "passed": 2,
+          "total": 2
+        }
+      },
+      "elapsed_seconds": 21.387
+    },
+    "coverage": {
+      "single_cases": 64,
+      "scenarios": 10,
+      "scenario_turns": 27,
+      "total_turns": 91,
+      "questions_sha256": "dae8714691901953f1ee0dea2c4c74f45764a4b60509046a117d1d39004373dc",
+      "rubric_sha256": "5f345355d495379623ecc7dfcecdbd7a78f56c3edab62fda5d6f6edfea9d03c7"
+    },
+    "scorer": {
+      "version": "2.0.0",
+      "source_sha256": "ec90400716a926f7725990698e3a356d68579941196cf6037dd982b0825760f7",
+      "normalizations": [
+        "unicode_nfkc_and_digits",
+        "lowercase_and_whitespace",
+        "english_and_hindi_number_words",
+        "english_ordinal_suffixes",
+        "hyphenated_duration_units",
+        "hyphens_between_english_words"
+      ],
+      "frozen_rubric_unchanged": true,
+      "limitation": "Regex checks approximate meaning; equivalent spellings do not prove semantic correctness."
+    },
+    "subprocess_exit_code": null,
+    "note": "Source hash for this previous runtime execution was not recorded by that evaluator; no new execution or exit code is asserted."
+  },
+  "historical_complete_live_measurements_before_coverage_fixes": [
+    {
+      "name": "eval_step2.json",
+      "artifact_sha256": "7922d1d9b8226702dd774afda814e312c47645971585338b8e8cf58a7e981f0d",
+      "configuration": {
+        "recorded_at": "2026-10-24T22:29:54",
+        "runtime_sha256": "76a44dc2840bc7c3332df7e074a01534d83f47a23dff59e739967106a7cdf4a3",
+        "llm_provider": "ollama",
+        "llm_model": "qwen3:1.7b",
+        "reference_date": "2026-10-20"
+      },
+      "summary": {
+        "search_k": [
+          12
+        ],
+        "search_recall": 0.961038961038961,
+        "step": "2",
+        "total": 52,
+        "passed": 52,
+        "pass_rate": 1.0,
+        "decision_accuracy": 1.0,
+        "evidence_recall": 0.8555555555555555,
+        "errors": 0,
+        "composition_counts": {
+          "evidence_validated_fallback": 24,
+          "grounded_llm": 17,
+          "abstained_missing_evidence": 5,
+          "evidence_validated_rules": 2,
+          "deterministic_guardrail": 4
+        },
+        "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+        "latency_by_path": {
+          "uncached_llm_attempt": {
+            "count": 38,
+            "p50_ms": 15581.1,
+            "p95_ms": 20155.0
+          },
+          "cache_hit": {
+            "count": 3,
+            "p50_ms": 173.7,
+            "p95_ms": 173.7
+          },
+          "no_model_call": {
+            "count": 11,
+            "p50_ms": 62.4,
+            "p95_ms": 108.4
+          }
+        }
+      },
+      "scope": "Historical complete run before current coverage fixes, not current live validation."
+    },
+    {
+      "name": "eval_step3.json",
+      "artifact_sha256": "24064107fa896c67686d1263772449552db477fb6d9d707a38f5ab552d43ab61",
+      "configuration": {
+        "recorded_at": "2026-10-24T22:29:54",
+        "runtime_sha256": "76a44dc2840bc7c3332df7e074a01534d83f47a23dff59e739967106a7cdf4a3",
+        "llm_provider": "ollama",
+        "llm_model": "qwen3:1.7b",
+        "reference_date": "2026-10-20"
+      },
+      "summary": {
+        "search_k": [
+          12
+        ],
+        "search_recall": 0.29464285714285715,
+        "step": "3",
+        "total": 96,
+        "passed": 96,
+        "pass_rate": 1.0,
+        "decision_accuracy": 1.0,
+        "evidence_recall": 0.9732142857142857,
+        "errors": 0,
+        "composition_counts": {
+          "deterministic_guardrail": 77,
+          "evidence_validated_fallback": 12,
+          "grounded_llm": 5,
+          "evidence_validated_rules": 2
+        },
+        "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+        "latency_by_path": {
+          "no_model_call": {
+            "count": 79,
+            "p50_ms": 5.7,
+            "p95_ms": 98.7
+          },
+          "uncached_llm_attempt": {
+            "count": 17,
+            "p50_ms": 14122.7,
+            "p95_ms": 20229.2
+          }
+        }
+      },
+      "scope": "Historical complete run before current coverage fixes, not current live validation."
+    }
+  ],
+  "full_live_practice_rerun_complete": true,
+  "recorded_at_utc": "2026-10-25T06:42:05.372802+00:00",
+  "final_provenance": {
+    "git_sha": "fa2027912108c55aaacd2dd6f6de31813bcdd57e",
+    "git_dirty": true,
+    "git_status": [
+      " M BRIEF_CHECKLIST.md",
+      " M DESIGN.md",
+      " M README.md",
+      " M sample_outputs/eval_adversarial.json",
+      " M sample_outputs/eval_holdout.json",
+      " M sample_outputs/eval_step2.json",
+      " M sample_outputs/final_evaluation.json",
+      " M sample_outputs/secret_audit.json",
+      " M sample_outputs/voice/001_01_en.json",
+      " M sample_outputs/voice/001_01_en.txt",
+      " M sample_outputs/voice/001_01_en_reply.wav",
+      " M sample_outputs/voice/002_02_hi.json",
+      " M sample_outputs/voice/002_02_hi_reply.wav",
+      " M sample_outputs/voice/003_03_hinglish.json",
+      " M sample_outputs/voice/003_03_hinglish.txt",
+      " M sample_outputs/voice/003_03_hinglish_reply.wav",
+      " M sample_outputs/voice/004_04_identity__01.json",
+      " M sample_outputs/voice/004_04_identity__01_reply.wav",
+      " M sample_outputs/voice/004_04_identity__01_sources.json",
+      " M sample_outputs/voice/005_04_identity__02.json",
+      " M sample_outputs/voice/005_04_identity__02_reply.wav",
+      " M sample_outputs/voice/005_04_identity__02_sources.json",
+      " M sample_outputs/voice/006_04_identity__03.json",
+      " M sample_outputs/voice/006_04_identity__03_reply.wav",
+      " M sample_outputs/voice/manifest.json",
+      " M sample_outputs/voice_validation.json",
+      " M scripts/build_report.py",
+      " M scripts/finalize_evidence.py",
+      " M src/agent.py",
+      "?? sample_outputs/coverage_fix_comparison.json",
+      "?? sample_outputs/coverage_probe.json",
+      "?? sample_outputs/coverage_probe_first_pass.json",
+      "?? sample_outputs/eval_step2_live_postfix_partial.json",
+      "?? sample_outputs/eval_step2_offline_postfix.json",
+      "?? sample_outputs/eval_step3_offline_postfix.json"
+    ],
+    "runtime_sha256": "1553cdd40ff6eaa4609fedc3cdd429ed737445ba8e4dddc90b07e18c1f08c5af"
+  },
+  "runtime_unchanged_during_sequence": false,
+  "requested_validation_processes_succeeded": false,
+  "final_saved_regressions": {
+    "eval_step2.json": {
+      "summary": {
+        "search_k": [
+          12
+        ],
+        "search_recall": 0.935064935064935,
+        "step": "2",
+        "total": 52,
+        "passed": 52,
+        "pass_rate": 1.0,
+        "decision_accuracy": 1.0,
+        "evidence_recall": 0.8666666666666667,
+        "errors": 0,
+        "composition_counts": {
+          "evidence_validated_rules": 43,
+          "abstained_missing_evidence": 5,
+          "deterministic_guardrail": 4
+        },
+        "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+        "latency_by_path": {
+          "no_model_call": {
+            "count": 52,
+            "p50_ms": 159.8,
+            "p95_ms": 504.4
+          }
+        },
+        "planned": 52,
+        "complete": true
+      },
+      "artifact_sha256": "3dee501d0218e68f31aa0538b082d88485e0ea77f74900b5b020a26f7994c1f2",
+      "mode": "offline_compose_false"
+    },
+    "eval_step3.json": {
+      "summary": {
+        "search_k": [
+          12
+        ],
+        "search_recall": 0.29464285714285715,
+        "step": "3",
+        "total": 96,
+        "passed": 96,
+        "pass_rate": 1.0,
+        "decision_accuracy": 1.0,
+        "evidence_recall": 0.9732142857142857,
+        "errors": 0,
+        "composition_counts": {
+          "deterministic_guardrail": 77,
+          "evidence_validated_rules": 19
+        },
+        "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+        "latency_by_path": {
+          "no_model_call": {
+            "count": 96,
+            "p50_ms": 18.6,
+            "p95_ms": 165.6
+          }
+        },
+        "planned": 96,
+        "complete": true
+      },
+      "artifact_sha256": "85646c56224b9b2349b6aae33c4df5e4baa948abb02f73d714fa84c62874d3aa",
+      "mode": "offline_compose_false"
+    },
+    "eval_holdout.json": {
+      "summary": {
+        "passed": 91,
+        "failed": 0,
+        "evaluated": 91,
+        "planned": 91,
+        "complete": true,
+        "pass_rate": 1.0,
+        "failed_check_counts": {},
+        "by_category": {
+          "catalog_multihop": {
+            "passed": 12,
+            "total": 12
+          },
+          "historical_current": {
+            "passed": 3,
+            "total": 3
+          },
+          "sale_boundary": {
+            "passed": 6,
+            "total": 6
+          },
+          "damage_exception": {
+            "passed": 2,
+            "total": 2
+          },
+          "threshold_boundary": {
+            "passed": 3,
+            "total": 3
+          },
+          "immediate_escalation": {
+            "passed": 5,
+            "total": 5
+          },
+          "delivery_compensation": {
+            "passed": 3,
+            "total": 3
+          },
+          "clarification": {
+            "passed": 4,
+            "total": 4
+          },
+          "unsupported_nearmiss": {
+            "passed": 4,
+            "total": 4
+          },
+          "wallet_boundary": {
+            "passed": 1,
+            "total": 1
+          },
+          "refund_timing": {
+            "passed": 2,
+            "total": 2
+          },
+          "precedence": {
+            "passed": 1,
+            "total": 1
+          },
+          "plus_limits": {
+            "passed": 1,
+            "total": 1
+          },
+          "fees_exception": {
+            "passed": 1,
+            "total": 1
+          },
+          "coupon_math": {
+            "passed": 1,
+            "total": 1
+          },
+          "coupon_boundary": {
+            "passed": 2,
+            "total": 2
+          },
+          "cancellation": {
+            "passed": 2,
+            "total": 2
+          },
+          "pincode_multihop": {
+            "passed": 3,
+            "total": 3
+          },
+          "hindi": {
+            "passed": 2,
+            "total": 2
+          },
+          "hinglish": {
+            "passed": 2,
+            "total": 2
+          },
+          "troubleshooting": {
+            "passed": 1,
+            "total": 1
+          },
+          "rto_timing": {
+            "passed": 1,
+            "total": 1
+          },
+          "warranty_exclusion": {
+            "passed": 1,
+            "total": 1
+          },
+          "refund_reference": {
+            "passed": 1,
+            "total": 1
+          },
+          "verified_tracking_then_cancellation": {
+            "passed": 3,
+            "total": 3
+          },
+          "verification_retry_privacy": {
+            "passed": 4,
+            "total": 4
+          },
+          "language_switch_and_privacy": {
+            "passed": 4,
+            "total": 4
+          },
+          "overdue_refund_handoff": {
+            "passed": 2,
+            "total": 2
+          },
+          "fresh_refund_blank_completion": {
+            "passed": 2,
+            "total": 2
+          },
+          "repeat_contact_from_lookup": {
+            "passed": 2,
+            "total": 2
+          },
+          "safety_before_identity": {
+            "passed": 2,
+            "total": 2
+          },
+          "contextual_sale_catalog": {
+            "passed": 3,
+            "total": 3
+          },
+          "historical_date_correction": {
+            "passed": 3,
+            "total": 3
+          },
+          "unshipped_cancel_action_boundary": {
+            "passed": 2,
+            "total": 2
+          }
+        },
+        "elapsed_seconds": 16.913
+      },
+      "artifact_sha256": "ad9a349749c64ae2a1f76bd5c531287f9166ce5eb5f72fafee4508fff20f8e6b",
+      "mode": "offline_compose_false"
+    },
+    "eval_adversarial.json": {
+      "summary": {
+        "total": 77,
+        "passed": 77,
+        "failed": 0,
+        "authored_single_questions": 65,
+        "stateful_cases": 12,
+        "note": "Authored regression tests, not organizer held-out tests."
+      },
+      "artifact_sha256": "d4541d8cf0d0e79aab77bba502a47185ded2c770d8e57a26f81dca0bd551cfae",
+      "mode": "offline_compose_false"
+    }
+  },
+  "finalized_at_utc": "2026-10-25T06:47:22.313087+00:00",
+  "post_run_verification": {
+    "number_format_rescoring": "Raw predictions unchanged; original checks retained in eval_step*_raw_scoring.json.",
+    "adversarial_rerun": {
+      "total": 77,
+      "passed": 77,
+      "failed": 0,
+      "authored_single_questions": 65,
+      "stateful_cases": 12,
+      "note": "Authored regression tests, not organizer held-out tests."
+    },
+    "pytest": {
+      "passed": 404,
+      "total": 404,
+      "exit_code": 0,
+      "command": "python -m pytest -q -p no:cacheprovider"
+    },
+    "known_holdout_failures_retained": 0,
+    "holdout_scorer_comparison": {
+      "original_product_score": {
+        "passed": 49,
+        "failed": 42,
+        "evaluated": 91,
+        "planned": 91,
+        "complete": true,
+        "pass_rate": 0.5384615384615384,
+        "failed_check_counts": {
+          "required": 52,
+          "gold_evidence_coverage": 29,
+          "decision": 5
+        },
+        "by_category": {
+          "catalog_multihop": {
+            "passed": 7,
+            "total": 12
+          },
+          "historical_current": {
+            "passed": 1,
+            "total": 3
+          },
+          "sale_boundary": {
+            "passed": 4,
+            "total": 6
+          },
+          "damage_exception": {
+            "passed": 1,
+            "total": 2
+          },
+          "threshold_boundary": {
+            "passed": 1,
+            "total": 3
+          },
+          "immediate_escalation": {
+            "passed": 5,
+            "total": 5
+          },
+          "delivery_compensation": {
+            "passed": 2,
+            "total": 3
+          },
+          "clarification": {
+            "passed": 0,
+            "total": 4
+          },
+          "unsupported_nearmiss": {
+            "passed": 1,
+            "total": 4
+          },
+          "wallet_boundary": {
+            "passed": 1,
+            "total": 1
+          },
+          "refund_timing": {
+            "passed": 0,
+            "total": 2
+          },
+          "precedence": {
+            "passed": 0,
+            "total": 1
+          },
+          "plus_limits": {
+            "passed": 0,
+            "total": 1
+          },
+          "fees_exception": {
+            "passed": 0,
+            "total": 1
+          },
+          "coupon_math": {
+            "passed": 1,
+            "total": 1
+          },
+          "coupon_boundary": {
+            "passed": 2,
+            "total": 2
+          },
+          "cancellation": {
+            "passed": 2,
+            "total": 2
+          },
+          "pincode_multihop": {
+            "passed": 0,
+            "total": 3
+          },
+          "hindi": {
+            "passed": 1,
+            "total": 2
+          },
+          "hinglish": {
+            "passed": 2,
+            "total": 2
+          },
+          "troubleshooting": {
+            "passed": 1,
+            "total": 1
+          },
+          "rto_timing": {
+            "passed": 1,
+            "total": 1
+          },
+          "warranty_exclusion": {
+            "passed": 1,
+            "total": 1
+          },
+          "refund_reference": {
+            "passed": 0,
+            "total": 1
+          },
+          "verified_tracking_then_cancellation": {
+            "passed": 1,
+            "total": 3
+          },
+          "verification_retry_privacy": {
+            "passed": 4,
+            "total": 4
+          },
+          "language_switch_and_privacy": {
+            "passed": 1,
+            "total": 4
+          },
+          "overdue_refund_handoff": {
+            "passed": 1,
+            "total": 2
+          },
+          "fresh_refund_blank_completion": {
+            "passed": 1,
+            "total": 2
+          },
+          "repeat_contact_from_lookup": {
+            "passed": 1,
+            "total": 2
+          },
+          "safety_before_identity": {
+            "passed": 2,
+            "total": 2
+          },
+          "contextual_sale_catalog": {
+            "passed": 1,
+            "total": 3
+          },
+          "historical_date_correction": {
+            "passed": 1,
+            "total": 3
+          },
+          "unshipped_cancel_action_boundary": {
+            "passed": 2,
+            "total": 2
+          }
+        },
+        "elapsed_seconds": 417.845
+      },
+      "same_predictions_rescored": {
+        "passed": 51,
+        "failed": 40,
+        "evaluated": 91,
+        "planned": 91,
+        "complete": true,
+        "pass_rate": 0.5604395604395604,
+        "failed_check_counts": {
+          "required": 50,
+          "gold_evidence_coverage": 29,
+          "decision": 5
+        },
+        "by_category": {
+          "catalog_multihop": {
+            "passed": 8,
+            "total": 12
+          },
+          "historical_current": {
+            "passed": 1,
+            "total": 3
+          },
+          "sale_boundary": {
+            "passed": 4,
+            "total": 6
+          },
+          "damage_exception": {
+            "passed": 1,
+            "total": 2
+          },
+          "threshold_boundary": {
+            "passed": 1,
+            "total": 3
+          },
+          "immediate_escalation": {
+            "passed": 5,
+            "total": 5
+          },
+          "delivery_compensation": {
+            "passed": 2,
+            "total": 3
+          },
+          "clarification": {
+            "passed": 0,
+            "total": 4
+          },
+          "unsupported_nearmiss": {
+            "passed": 1,
+            "total": 4
+          },
+          "wallet_boundary": {
+            "passed": 1,
+            "total": 1
+          },
+          "refund_timing": {
+            "passed": 0,
+            "total": 2
+          },
+          "precedence": {
+            "passed": 0,
+            "total": 1
+          },
+          "plus_limits": {
+            "passed": 0,
+            "total": 1
+          },
+          "fees_exception": {
+            "passed": 1,
+            "total": 1
+          },
+          "coupon_math": {
+            "passed": 1,
+            "total": 1
+          },
+          "coupon_boundary": {
+            "passed": 2,
+            "total": 2
+          },
+          "cancellation": {
+            "passed": 2,
+            "total": 2
+          },
+          "pincode_multihop": {
+            "passed": 0,
+            "total": 3
+          },
+          "hindi": {
+            "passed": 1,
+            "total": 2
+          },
+          "hinglish": {
+            "passed": 2,
+            "total": 2
+          },
+          "troubleshooting": {
+            "passed": 1,
+            "total": 1
+          },
+          "rto_timing": {
+            "passed": 1,
+            "total": 1
+          },
+          "warranty_exclusion": {
+            "passed": 1,
+            "total": 1
+          },
+          "refund_reference": {
+            "passed": 0,
+            "total": 1
+          },
+          "verified_tracking_then_cancellation": {
+            "passed": 1,
+            "total": 3
+          },
+          "verification_retry_privacy": {
+            "passed": 4,
+            "total": 4
+          },
+          "language_switch_and_privacy": {
+            "passed": 1,
+            "total": 4
+          },
+          "overdue_refund_handoff": {
+            "passed": 1,
+            "total": 2
+          },
+          "fresh_refund_blank_completion": {
+            "passed": 1,
+            "total": 2
+          },
+          "repeat_contact_from_lookup": {
+            "passed": 1,
+            "total": 2
+          },
+          "safety_before_identity": {
+            "passed": 2,
+            "total": 2
+          },
+          "contextual_sale_catalog": {
+            "passed": 1,
+            "total": 3
+          },
+          "historical_date_correction": {
+            "passed": 1,
+            "total": 3
+          },
+          "unshipped_cancel_action_boundary": {
+            "passed": 2,
+            "total": 2
+          }
+        },
+        "elapsed_seconds": 417.845
+      },
+      "current_product_score": {
+        "passed": 91,
+        "failed": 0,
+        "evaluated": 91,
+        "planned": 91,
+        "complete": true,
+        "pass_rate": 1.0,
+        "failed_check_counts": {},
+        "by_category": {
+          "catalog_multihop": {
+            "passed": 12,
+            "total": 12
+          },
+          "historical_current": {
+            "passed": 3,
+            "total": 3
+          },
+          "sale_boundary": {
+            "passed": 6,
+            "total": 6
+          },
+          "damage_exception": {
+            "passed": 2,
+            "total": 2
+          },
+          "threshold_boundary": {
+            "passed": 3,
+            "total": 3
+          },
+          "immediate_escalation": {
+            "passed": 5,
+            "total": 5
+          },
+          "delivery_compensation": {
+            "passed": 3,
+            "total": 3
+          },
+          "clarification": {
+            "passed": 4,
+            "total": 4
+          },
+          "unsupported_nearmiss": {
+            "passed": 4,
+            "total": 4
+          },
+          "wallet_boundary": {
+            "passed": 1,
+            "total": 1
+          },
+          "refund_timing": {
+            "passed": 2,
+            "total": 2
+          },
+          "precedence": {
+            "passed": 1,
+            "total": 1
+          },
+          "plus_limits": {
+            "passed": 1,
+            "total": 1
+          },
+          "fees_exception": {
+            "passed": 1,
+            "total": 1
+          },
+          "coupon_math": {
+            "passed": 1,
+            "total": 1
+          },
+          "coupon_boundary": {
+            "passed": 2,
+            "total": 2
+          },
+          "cancellation": {
+            "passed": 2,
+            "total": 2
+          },
+          "pincode_multihop": {
+            "passed": 3,
+            "total": 3
+          },
+          "hindi": {
+            "passed": 2,
+            "total": 2
+          },
+          "hinglish": {
+            "passed": 2,
+            "total": 2
+          },
+          "troubleshooting": {
+            "passed": 1,
+            "total": 1
+          },
+          "rto_timing": {
+            "passed": 1,
+            "total": 1
+          },
+          "warranty_exclusion": {
+            "passed": 1,
+            "total": 1
+          },
+          "refund_reference": {
+            "passed": 1,
+            "total": 1
+          },
+          "verified_tracking_then_cancellation": {
+            "passed": 3,
+            "total": 3
+          },
+          "verification_retry_privacy": {
+            "passed": 4,
+            "total": 4
+          },
+          "language_switch_and_privacy": {
+            "passed": 4,
+            "total": 4
+          },
+          "overdue_refund_handoff": {
+            "passed": 2,
+            "total": 2
+          },
+          "fresh_refund_blank_completion": {
+            "passed": 2,
+            "total": 2
+          },
+          "repeat_contact_from_lookup": {
+            "passed": 2,
+            "total": 2
+          },
+          "safety_before_identity": {
+            "passed": 2,
+            "total": 2
+          },
+          "contextual_sale_catalog": {
+            "passed": 3,
+            "total": 3
+          },
+          "historical_date_correction": {
+            "passed": 3,
+            "total": 3
+          },
+          "unshipped_cancel_action_boundary": {
+            "passed": 2,
+            "total": 2
+          }
+        },
+        "elapsed_seconds": 15.451
+      },
+      "original_scorer": {
+        "version": "legacy_v1_unversioned"
+      },
+      "rescored_scorer": {
+        "version": "2.0.0",
+        "source_sha256": "ec90400716a926f7725990698e3a356d68579941196cf6037dd982b0825760f7",
+        "normalizations": [
+          "unicode_nfkc_and_digits",
+          "lowercase_and_whitespace",
+          "english_and_hindi_number_words",
+          "english_ordinal_suffixes",
+          "hyphenated_duration_units",
+          "hyphens_between_english_words"
+        ],
+        "frozen_rubric_unchanged": true,
+        "limitation": "Regex checks approximate meaning; equivalent spellings do not prove semantic correctness."
+      },
+      "current_scorer": {
+        "version": "2.0.0",
+        "source_sha256": "ec90400716a926f7725990698e3a356d68579941196cf6037dd982b0825760f7",
+        "normalizations": [
+          "unicode_nfkc_and_digits",
+          "lowercase_and_whitespace",
+          "english_and_hindi_number_words",
+          "english_ordinal_suffixes",
+          "hyphenated_duration_units",
+          "hyphens_between_english_words"
+        ],
+        "frozen_rubric_unchanged": true,
+        "limitation": "Regex checks approximate meaning; equivalent spellings do not prove semantic correctness."
+      },
+      "rescoring_provenance": {
+        "created_at_utc": "2026-10-25T05:53:53.046230+00:00",
+        "source_file": "eval_holdout_before_normalization_v2.json",
+        "source_file_sha256": "91713b141defba2a7e971461d224bbbff1fb8d61682dea2901c2e82aa0eff5cc",
+        "source_scorer": {
+          "version": "legacy_v1_unversioned"
+        },
+        "predictions_sha256": "dc817d8a04439a407258cfd53d2e54ee82750415c5b0c44344292b3f92028521",
+        "predictions_unchanged": true,
+        "product_rerun": false,
+        "previous_summary": {
+          "passed": 49,
+          "failed": 42,
+          "evaluated": 91,
+          "planned": 91,
+          "complete": true,
+          "pass_rate": 0.5384615384615384,
+          "failed_check_counts": {
+            "required": 52,
+            "gold_evidence_coverage": 29,
+            "decision": 5
+          },
+          "by_category": {
+            "catalog_multihop": {
+              "passed": 7,
+              "total": 12
+            },
+            "historical_current": {
+              "passed": 1,
+              "total": 3
+            },
+            "sale_boundary": {
+              "passed": 4,
+              "total": 6
+            },
+            "damage_exception": {
+              "passed": 1,
+              "total": 2
+            },
+            "threshold_boundary": {
+              "passed": 1,
+              "total": 3
+            },
+            "immediate_escalation": {
+              "passed": 5,
+              "total": 5
+            },
+            "delivery_compensation": {
+              "passed": 2,
+              "total": 3
+            },
+            "clarification": {
+              "passed": 0,
+              "total": 4
+            },
+            "unsupported_nearmiss": {
+              "passed": 1,
+              "total": 4
+            },
+            "wallet_boundary": {
+              "passed": 1,
+              "total": 1
+            },
+            "refund_timing": {
+              "passed": 0,
+              "total": 2
+            },
+            "precedence": {
+              "passed": 0,
+              "total": 1
+            },
+            "plus_limits": {
+              "passed": 0,
+              "total": 1
+            },
+            "fees_exception": {
+              "passed": 0,
+              "total": 1
+            },
+            "coupon_math": {
+              "passed": 1,
+              "total": 1
+            },
+            "coupon_boundary": {
+              "passed": 2,
+              "total": 2
+            },
+            "cancellation": {
+              "passed": 2,
+              "total": 2
+            },
+            "pincode_multihop": {
+              "passed": 0,
+              "total": 3
+            },
+            "hindi": {
+              "passed": 1,
+              "total": 2
+            },
+            "hinglish": {
+              "passed": 2,
+              "total": 2
+            },
+            "troubleshooting": {
+              "passed": 1,
+              "total": 1
+            },
+            "rto_timing": {
+              "passed": 1,
+              "total": 1
+            },
+            "warranty_exclusion": {
+              "passed": 1,
+              "total": 1
+            },
+            "refund_reference": {
+              "passed": 0,
+              "total": 1
+            },
+            "verified_tracking_then_cancellation": {
+              "passed": 1,
+              "total": 3
+            },
+            "verification_retry_privacy": {
+              "passed": 4,
+              "total": 4
+            },
+            "language_switch_and_privacy": {
+              "passed": 1,
+              "total": 4
+            },
+            "overdue_refund_handoff": {
+              "passed": 1,
+              "total": 2
+            },
+            "fresh_refund_blank_completion": {
+              "passed": 1,
+              "total": 2
+            },
+            "repeat_contact_from_lookup": {
+              "passed": 1,
+              "total": 2
+            },
+            "safety_before_identity": {
+              "passed": 2,
+              "total": 2
+            },
+            "contextual_sale_catalog": {
+              "passed": 1,
+              "total": 3
+            },
+            "historical_date_correction": {
+              "passed": 1,
+              "total": 3
+            },
+            "unshipped_cancel_action_boundary": {
+              "passed": 2,
+              "total": 2
+            }
+          },
+          "elapsed_seconds": 417.845
+        },
+        "passed_delta": 2,
+        "changed_cases": [
+          {
+            "id": "H004",
+            "previous_passed": false,
+            "rescored_passed": true,
+            "changed_checks": [
+              "required:claim_1"
+            ]
+          },
+          {
+            "id": "H046",
+            "previous_passed": false,
+            "rescored_passed": true,
+            "changed_checks": [
+              "required:claim_2"
+            ]
+          }
+        ]
+      },
+      "scorer_only_pass_delta": 2,
+      "runtime_pass_delta_same_scorer": 40
+    },
+    "privacy_checks": {
+      "count": 191,
+      "failed": 0,
+      "status": "recorded"
+    }
+  },
+  "current_live_practice": {
+    "2": {
+      "artifact": "eval_step2_live_current.json",
+      "summary": {
+        "search_k": [
+          12
+        ],
+        "search_recall": 0.935064935064935,
+        "step": "2",
+        "total": 52,
+        "passed": 52,
+        "pass_rate": 1.0,
+        "decision_accuracy": 1.0,
+        "evidence_recall": 0.8666666666666667,
+        "errors": 0,
+        "composition_counts": {
+          "evidence_validated_fallback": 25,
+          "grounded_llm": 16,
+          "abstained_missing_evidence": 5,
+          "evidence_validated_rules": 2,
+          "deterministic_guardrail": 4
+        },
+        "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+        "latency_by_path": {
+          "uncached_llm_attempt": {
+            "count": 29,
+            "p50_ms": 10876.8,
+            "p95_ms": 19333.3
+          },
+          "cache_hit": {
+            "count": 12,
+            "p50_ms": 60.2,
+            "p95_ms": 138.3
+          },
+          "no_model_call": {
+            "count": 11,
+            "p50_ms": 49.6,
+            "p95_ms": 108.3
+          }
+        },
+        "planned": 52,
+        "complete": true,
+        "scope": "Current runtime live practice; cached generation, checked fallbacks and guards are reported separately. Mechanical checks are not organizer scoring."
+      },
+      "configuration": {
+        "recorded_at": "2026-10-25T14:00:44",
+        "runtime_sha256": "75e444d593f48383c4ba7db7df286c334fb0ae794d8bcd59b55c5488900981de",
+        "llm_provider": "ollama",
+        "llm_model": "qwen3:1.7b",
+        "reference_date": "2026-10-20",
+        "evaluation_mode": "live_compose_true",
+        "inference_fingerprint": "628cf3ec6fd6805f62972b7eac45b0a40bcbecf3aa8098894e03b5c4a557a3b5",
+        "provenance": {
+          "step": 2,
+          "evaluation_mode": "live_compose_true",
+          "runtime_source_sha256": {
+            "src/__init__.py": "5cb8a924bc6e83dcc878dbe665e7606bad931b5a0c561cc16e0c4bc07f1c583b",
+            "src/agent.py": "163e34808d5266953706e2aac45991e3cfac90527f2ce47fc3c30958702d093c",
+            "src/answering.py": "1d755adfa2c0ef6f1b8a7e51305199ff0626a92e3a7f4a1da12da9799a9193c8",
+            "src/config.py": "18c865ef49d50adff72e359acf9caff729b28c44f09bbeba2e6e73d09077596d",
+            "src/data.py": "2e5551d9265ca8be32874553dfffe6a6951941fa0f9cff61dc65a5c86fae0474",
+            "src/dates.py": "9117a31dd36c34fec7bef096a0015bcfe898251702344268b921edbae794c37f",
+            "src/evals.py": "1c0ac3d5ecdf7dff7eb0da202f6b7b0b139d0a96c971a4e519fa9a9833675660",
+            "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+            "src/kb.py": "55530323842609e0f9aca7c06fdc3b107e853f5cccc5d6a308bcda3488ea48b2",
+            "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+            "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+            "src/multilingual.py": "e780709e1cf5ef40160c05e84f628f354e94d76ab3dddd9ca8e3cf27d4d71416",
+            "src/normalize.py": "19567cf8d305066a30d690c67427c930b4054c230120ef221ef62ca4c301ec24",
+            "src/retrieval.py": "03347389c34c184c2211953c1aa7265cda59a11b203778fff3d9bb1a9d125003",
+            "src/tools_wrapper.py": "cdce9b295da7d1e0a095fef28406f3e0400dc496c2cbf6c6298fa2b947e60d14",
+            "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+            "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+            "src/rule_bindings.json": "0ee0a5ff77203b257672011629794d0b23b717088c5677a3442078f0e6c383de",
+            "scripts/resume_live_practice.py": "ac4a641a63574d7e12fb281495cbce5b18183385935682aac3e0434cbf8193fb"
+          },
+          "dataset_sha256": {
+            "kb/00_about_this_knowledge_base.md": "de509ece6ea3f6c9fc451f4118fd3b513c3e3069f16fe49d666859a497e40a00",
+            "kb/agent_conversation_style.md": "1e2f8b6e8057c08bfab0f2781c35753906788535a9e5ed6762f9d2ebfffdc064",
+            "kb/agent_escalation_handoff.md": "7cdcf1cac2e1ef96097234c620660b44961d8e323b588c9b5cee7759b78d243c",
+            "kb/agent_identity_verification.md": "65080cf86c01fa180321c77ab27c7d1dffdf6b3bca915cf162bb8c1a694cf182",
+            "kb/faq_general.md": "17f9846d1ffb33ded2206d25dfec3e3e431b1e0759edd4a49fc342106d17cd5a",
+            "kb/faq_hindi.md": "abc9f07bd99100f28ad8ba2f652bc21540b8a1cf7898bb5c0b98a2f783d669a2",
+            "kb/help_reverse_pickup.md": "8b05d9c3c6be72cdf782471372f6b209af48b0a712e747b395c97df3c79350b5",
+            "kb/help_track_order.md": "8c8fe651e97e1b1d088934a25de1bbcb81552fa2ecf5e2e2756374a5679c4bed",
+            "kb/help_troubleshooting_electronics.md": "0aa55f0933a5db0663619d343634ca6a12a2792a1c58258cfc14d9d971965e87",
+            "kb/mkt_plus_benefits_page.md": "f7d1bb3f9a2b555f51cd759c099654e2d36d11132efb231ccc87767c2082f6d7",
+            "kb/pol_cancellations.md": "a81de76931982a96d79416e130fd81d4cacc54b65bce43812767d76d8af66a00",
+            "kb/pol_coupons_offers.md": "e5201e45767003eabb79f8e930ee6b43204a7e08713350579181041233d3467c",
+            "kb/pol_damaged_wrong_missing.md": "6287c52adb81c8f8febf9c262ef34362af2ad33a373dc0768ae7e9d07bf7ec71",
+            "kb/pol_delivery_shipping.md": "828a75578e9f1307b2e4f64f6f151d93636bfd2f2f9bc39fcef86b273b8226eb",
+            "kb/pol_marketplace_sellers.md": "76e1291bf8990152b7f9029c79f58bddcc286f57800fb65de550586f45887dc0",
+            "kb/pol_payments_cod.md": "3d88d83c934a0477955fbe63beb4cae5db3491889ecf01b985ef233d7c19c68f",
+            "kb/pol_plus_membership.md": "9ea896ff307ddb4c28d0aaedcc567cfdf3825335c9eded8f02adacbbb7d6c877",
+            "kb/pol_refunds.md": "aa315a1c5c1ae2f19b1c5678b138ef3970279d1f2ae002c1392db61a4851f48c",
+            "kb/pol_returns_v3_superseded.md": "5f37e77ac47d5aa34d056460ba3b0ef6369f0a846921b74e35801066a01cfd17",
+            "kb/pol_returns_v4.md": "964b54f48edbd9f079d718f11cfc3164e20ba95b3943b723e03eb49fa1ee30f6",
+            "kb/pol_warranty_assured.md": "b2522a4289f808f8d7a2087fef8df5f624fd164770bcad6ce863975c7d0465b1",
+            "data/customers.csv": "1f3aff8002de497698f1e4ff6342c67ceca3c7bb0b68ea97f780126bfe786dc2",
+            "data/holidays.csv": "21b4804250b38150182fa00efc673997dfb81687efa7996403136da688c4d05f",
+            "data/order_items.csv": "62e344a4713ddaa9e10055c8b4931b7b8fab28f6350a5836968ff404046d0dc3",
+            "data/orders.csv": "9fb915f9f401ae26a1d00c0f064f87ab17fcde048cb9652d6e8a234a1401068b",
+            "data/pincodes.csv": "89f17fc33ae98223e70975a36e3e5a55e1bc2e0616e19a3fd45896adceeed19b",
+            "data/products.csv": "0eb917871836ecb5f74100dfa61e85f2adf78eecdaf10554c521e8bc9b461fd7",
+            "data/support_logs.csv": "2ab97c83b46f690310a133a10cdec01e670122bd7f996a15fe18b00c30a60739",
+            "practice/conversations.csv": "f6c9d24112f63047f4af62a9b3f2cfd34c941597b55cf661df8415e8d59fcfc3",
+            "practice/questions.csv": "cac2302c995389f82c831800589b627c9d567620013bc44d6721c7d3c90e9190",
+            "tools/tools.py": "e4192adc096a4d9b5b13bb0f11604354a4c6d3e9cb887915f87756851679d743"
+          },
+          "inference": {
+            "LLM_PROVIDER": "ollama",
+            "LLM_MODEL": "qwen3:1.7b",
+            "RAG_LLM_TIMEOUT": "20",
+            "LLM_TIMEOUT": "30",
+            "DENSE_ENABLED": "true",
+            "REFERENCE_DATE": "2026-10-20",
+            "LLM_FALLBACK_PROVIDER": "",
+            "LLM_FALLBACK_MODEL": "",
+            "LLM_BASE_URL_sha256": "b26993598dffd1f14aed97def57ef67f753518a9b773d8a12033c82b4fa545ca",
+            "LLM_FALLBACK_BASE_URL_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        }
+      },
+      "complete": true
+    },
+    "3": {
+      "artifact": "eval_step3_live_current.json",
+      "summary": {
+        "search_k": [
+          12
+        ],
+        "search_recall": 0.29464285714285715,
+        "step": "3",
+        "total": 96,
+        "passed": 96,
+        "pass_rate": 1.0,
+        "decision_accuracy": 1.0,
+        "evidence_recall": 0.9732142857142857,
+        "errors": 0,
+        "composition_counts": {
+          "deterministic_guardrail": 77,
+          "evidence_validated_fallback": 9,
+          "grounded_llm": 8,
+          "evidence_validated_rules": 2
+        },
+        "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+        "latency_by_path": {
+          "no_model_call": {
+            "count": 79,
+            "p50_ms": 2.3,
+            "p95_ms": 51.8
+          },
+          "uncached_llm_attempt": {
+            "count": 17,
+            "p50_ms": 7003.6,
+            "p95_ms": 15937.3
+          }
+        },
+        "planned": 96,
+        "complete": true,
+        "scope": "Current runtime live practice; cached generation, checked fallbacks and guards are reported separately. Mechanical checks are not organizer scoring."
+      },
+      "configuration": {
+        "recorded_at": "2026-10-25T14:03:54",
+        "runtime_sha256": "75e444d593f48383c4ba7db7df286c334fb0ae794d8bcd59b55c5488900981de",
+        "llm_provider": "ollama",
+        "llm_model": "qwen3:1.7b",
+        "reference_date": "2026-10-20",
+        "evaluation_mode": "live_compose_true",
+        "inference_fingerprint": "d61745118b8eb2befa5c8028a55fccfd82a654b8137f7eef404e94863df02f45",
+        "provenance": {
+          "step": 3,
+          "evaluation_mode": "live_compose_true",
+          "runtime_source_sha256": {
+            "src/__init__.py": "5cb8a924bc6e83dcc878dbe665e7606bad931b5a0c561cc16e0c4bc07f1c583b",
+            "src/agent.py": "163e34808d5266953706e2aac45991e3cfac90527f2ce47fc3c30958702d093c",
+            "src/answering.py": "1d755adfa2c0ef6f1b8a7e51305199ff0626a92e3a7f4a1da12da9799a9193c8",
+            "src/config.py": "18c865ef49d50adff72e359acf9caff729b28c44f09bbeba2e6e73d09077596d",
+            "src/data.py": "2e5551d9265ca8be32874553dfffe6a6951941fa0f9cff61dc65a5c86fae0474",
+            "src/dates.py": "9117a31dd36c34fec7bef096a0015bcfe898251702344268b921edbae794c37f",
+            "src/evals.py": "1c0ac3d5ecdf7dff7eb0da202f6b7b0b139d0a96c971a4e519fa9a9833675660",
+            "src/grounding.py": "fe46ad3238b15aed8802680a35a394d29b358aeff91bffdf7429aa9821dc5655",
+            "src/kb.py": "55530323842609e0f9aca7c06fdc3b107e853f5cccc5d6a308bcda3488ea48b2",
+            "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+            "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+            "src/multilingual.py": "e780709e1cf5ef40160c05e84f628f354e94d76ab3dddd9ca8e3cf27d4d71416",
+            "src/normalize.py": "19567cf8d305066a30d690c67427c930b4054c230120ef221ef62ca4c301ec24",
+            "src/retrieval.py": "03347389c34c184c2211953c1aa7265cda59a11b203778fff3d9bb1a9d125003",
+            "src/tools_wrapper.py": "cdce9b295da7d1e0a095fef28406f3e0400dc496c2cbf6c6298fa2b947e60d14",
+            "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+            "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+            "src/rule_bindings.json": "0ee0a5ff77203b257672011629794d0b23b717088c5677a3442078f0e6c383de",
+            "scripts/resume_live_practice.py": "ac4a641a63574d7e12fb281495cbce5b18183385935682aac3e0434cbf8193fb"
+          },
+          "dataset_sha256": {
+            "kb/00_about_this_knowledge_base.md": "de509ece6ea3f6c9fc451f4118fd3b513c3e3069f16fe49d666859a497e40a00",
+            "kb/agent_conversation_style.md": "1e2f8b6e8057c08bfab0f2781c35753906788535a9e5ed6762f9d2ebfffdc064",
+            "kb/agent_escalation_handoff.md": "7cdcf1cac2e1ef96097234c620660b44961d8e323b588c9b5cee7759b78d243c",
+            "kb/agent_identity_verification.md": "65080cf86c01fa180321c77ab27c7d1dffdf6b3bca915cf162bb8c1a694cf182",
+            "kb/faq_general.md": "17f9846d1ffb33ded2206d25dfec3e3e431b1e0759edd4a49fc342106d17cd5a",
+            "kb/faq_hindi.md": "abc9f07bd99100f28ad8ba2f652bc21540b8a1cf7898bb5c0b98a2f783d669a2",
+            "kb/help_reverse_pickup.md": "8b05d9c3c6be72cdf782471372f6b209af48b0a712e747b395c97df3c79350b5",
+            "kb/help_track_order.md": "8c8fe651e97e1b1d088934a25de1bbcb81552fa2ecf5e2e2756374a5679c4bed",
+            "kb/help_troubleshooting_electronics.md": "0aa55f0933a5db0663619d343634ca6a12a2792a1c58258cfc14d9d971965e87",
+            "kb/mkt_plus_benefits_page.md": "f7d1bb3f9a2b555f51cd759c099654e2d36d11132efb231ccc87767c2082f6d7",
+            "kb/pol_cancellations.md": "a81de76931982a96d79416e130fd81d4cacc54b65bce43812767d76d8af66a00",
+            "kb/pol_coupons_offers.md": "e5201e45767003eabb79f8e930ee6b43204a7e08713350579181041233d3467c",
+            "kb/pol_damaged_wrong_missing.md": "6287c52adb81c8f8febf9c262ef34362af2ad33a373dc0768ae7e9d07bf7ec71",
+            "kb/pol_delivery_shipping.md": "828a75578e9f1307b2e4f64f6f151d93636bfd2f2f9bc39fcef86b273b8226eb",
+            "kb/pol_marketplace_sellers.md": "76e1291bf8990152b7f9029c79f58bddcc286f57800fb65de550586f45887dc0",
+            "kb/pol_payments_cod.md": "3d88d83c934a0477955fbe63beb4cae5db3491889ecf01b985ef233d7c19c68f",
+            "kb/pol_plus_membership.md": "9ea896ff307ddb4c28d0aaedcc567cfdf3825335c9eded8f02adacbbb7d6c877",
+            "kb/pol_refunds.md": "aa315a1c5c1ae2f19b1c5678b138ef3970279d1f2ae002c1392db61a4851f48c",
+            "kb/pol_returns_v3_superseded.md": "5f37e77ac47d5aa34d056460ba3b0ef6369f0a846921b74e35801066a01cfd17",
+            "kb/pol_returns_v4.md": "964b54f48edbd9f079d718f11cfc3164e20ba95b3943b723e03eb49fa1ee30f6",
+            "kb/pol_warranty_assured.md": "b2522a4289f808f8d7a2087fef8df5f624fd164770bcad6ce863975c7d0465b1",
+            "data/customers.csv": "1f3aff8002de497698f1e4ff6342c67ceca3c7bb0b68ea97f780126bfe786dc2",
+            "data/holidays.csv": "21b4804250b38150182fa00efc673997dfb81687efa7996403136da688c4d05f",
+            "data/order_items.csv": "62e344a4713ddaa9e10055c8b4931b7b8fab28f6350a5836968ff404046d0dc3",
+            "data/orders.csv": "9fb915f9f401ae26a1d00c0f064f87ab17fcde048cb9652d6e8a234a1401068b",
+            "data/pincodes.csv": "89f17fc33ae98223e70975a36e3e5a55e1bc2e0616e19a3fd45896adceeed19b",
+            "data/products.csv": "0eb917871836ecb5f74100dfa61e85f2adf78eecdaf10554c521e8bc9b461fd7",
+            "data/support_logs.csv": "2ab97c83b46f690310a133a10cdec01e670122bd7f996a15fe18b00c30a60739",
+            "practice/conversations.csv": "f6c9d24112f63047f4af62a9b3f2cfd34c941597b55cf661df8415e8d59fcfc3",
+            "practice/questions.csv": "cac2302c995389f82c831800589b627c9d567620013bc44d6721c7d3c90e9190",
+            "tools/tools.py": "e4192adc096a4d9b5b13bb0f11604354a4c6d3e9cb887915f87756851679d743"
+          },
+          "inference": {
+            "LLM_PROVIDER": "ollama",
+            "LLM_MODEL": "qwen3:1.7b",
+            "RAG_LLM_TIMEOUT": "20",
+            "LLM_TIMEOUT": "30",
+            "DENSE_ENABLED": "true",
+            "REFERENCE_DATE": "2026-10-20",
+            "LLM_FALLBACK_PROVIDER": "",
+            "LLM_FALLBACK_MODEL": "",
+            "LLM_BASE_URL_sha256": "b26993598dffd1f14aed97def57ef67f753518a9b773d8a12033c82b4fa545ca",
+            "LLM_FALLBACK_BASE_URL_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        }
+      },
+      "complete": true
+    }
+  },
+  "current_required_validation": {
+    "checked_at_utc": "2026-10-25T08:49:15.845477+00:00",
+    "questions": {
+      "search_k": [
+        12
+      ],
+      "search_recall": 0.935064935064935,
+      "step": "2",
+      "total": 52,
+      "passed": 52,
+      "pass_rate": 1.0,
+      "decision_accuracy": 1.0,
+      "evidence_recall": 0.8666666666666667,
+      "errors": 0,
+      "composition_counts": {
+        "evidence_validated_fallback": 25,
+        "grounded_llm": 16,
+        "abstained_missing_evidence": 5,
+        "evidence_validated_rules": 2,
+        "deterministic_guardrail": 4
+      },
+      "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+      "latency_by_path": {
+        "uncached_llm_attempt": {
+          "count": 29,
+          "p50_ms": 10876.8,
+          "p95_ms": 19333.3
+        },
+        "cache_hit": {
+          "count": 12,
+          "p50_ms": 60.2,
+          "p95_ms": 138.3
+        },
+        "no_model_call": {
+          "count": 11,
+          "p50_ms": 49.6,
+          "p95_ms": 108.3
+        }
+      },
+      "planned": 52,
+      "complete": true,
+      "scope": "Current runtime live practice; cached generation, checked fallbacks and guards are reported separately. Mechanical checks are not organizer scoring."
+    },
+    "conversations": {
+      "search_k": [
+        12
+      ],
+      "search_recall": 0.29464285714285715,
+      "step": "3",
+      "total": 96,
+      "passed": 96,
+      "pass_rate": 1.0,
+      "decision_accuracy": 1.0,
+      "evidence_recall": 0.9732142857142857,
+      "errors": 0,
+      "composition_counts": {
+        "deterministic_guardrail": 77,
+        "evidence_validated_fallback": 9,
+        "grounded_llm": 8,
+        "evidence_validated_rules": 2
+      },
+      "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+      "latency_by_path": {
+        "no_model_call": {
+          "count": 79,
+          "p50_ms": 2.3,
+          "p95_ms": 51.8
+        },
+        "uncached_llm_attempt": {
+          "count": 17,
+          "p50_ms": 7003.6,
+          "p95_ms": 15937.3
+        }
+      },
+      "planned": 96,
+      "complete": true,
+      "scope": "Current runtime live practice; cached generation, checked fallbacks and guards are reported separately. Mechanical checks are not organizer scoring."
+    },
+    "pytest_passed": 404,
+    "gnani_semantic_passed": 6,
+    "gnani_audio_passed": 6,
+    "hindi_upi_voice_passed": 1,
+    "unclear_audio_recovery_passed": 1,
+    "required_code_validation_complete": true,
+    "demo_video_pending": true,
+    "human_speech_listening_pending": true,
+    "scope": "Local mechanical and synthetic speech checks; generated answers and fallbacks remain separate. Not organizer scoring or universal correctness."
+  }
+}

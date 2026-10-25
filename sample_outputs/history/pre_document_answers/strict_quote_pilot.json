@@ -1,0 +1,1291 @@
+{
+  "configuration": {
+    "recorded_at": "2026-10-25T15:48:06",
+    "runtime_sha256": "2aa3328ed9bc1374080d77dfe4d6903a05e9b812b64b5974efb397caa36ed497",
+    "llm_provider": "ollama",
+    "llm_model": "qwen3:1.7b",
+    "reference_date": "2026-10-20",
+    "evaluation_mode": "live_compose_true",
+    "inference_fingerprint": "de9402f38aa9294204fc1d5f91499ea705a5d8cc02369966375aecd3d3a82f95",
+    "provenance": {
+      "step": 2,
+      "evaluation_mode": "live_compose_true",
+      "runtime_source_sha256": {
+        "src/__init__.py": "5cb8a924bc6e83dcc878dbe665e7606bad931b5a0c561cc16e0c4bc07f1c583b",
+        "src/agent.py": "8efb4dcd9ad9612e33a147e149547cbc9563a15d194b170c56b9071b6e3124bd",
+        "src/answering.py": "1d755adfa2c0ef6f1b8a7e51305199ff0626a92e3a7f4a1da12da9799a9193c8",
+        "src/config.py": "18c865ef49d50adff72e359acf9caff729b28c44f09bbeba2e6e73d09077596d",
+        "src/data.py": "2e5551d9265ca8be32874553dfffe6a6951941fa0f9cff61dc65a5c86fae0474",
+        "src/dates.py": "9117a31dd36c34fec7bef096a0015bcfe898251702344268b921edbae794c37f",
+        "src/document_answers.py": "95d38154c5713737e67c9bc9aa5736dcfe86ed532f529294ee75134454a43b7a",
+        "src/document_context.py": "4be6354232285eb44a9d57aa4c69e600ee26ff8fd47782051cc9bf85eeb7ad01",
+        "src/evals.py": "1c0ac3d5ecdf7dff7eb0da202f6b7b0b139d0a96c971a4e519fa9a9833675660",
+        "src/grounding.py": "c138a22e57bbadcaab24c06e1a3205372d0edfdac760e392be908da72fb12309",
+        "src/kb.py": "55530323842609e0f9aca7c06fdc3b107e853f5cccc5d6a308bcda3488ea48b2",
+        "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+        "src/llm.py": "ad6374cd76d68942ecf667f77a0275ad90ab1ff695fdefc959da69604ff1e173",
+        "src/multilingual.py": "e780709e1cf5ef40160c05e84f628f354e94d76ab3dddd9ca8e3cf27d4d71416",
+        "src/normalize.py": "19567cf8d305066a30d690c67427c930b4054c230120ef221ef62ca4c301ec24",
+        "src/retrieval.py": "03347389c34c184c2211953c1aa7265cda59a11b203778fff3d9bb1a9d125003",
+        "src/tools_wrapper.py": "cdce9b295da7d1e0a095fef28406f3e0400dc496c2cbf6c6298fa2b947e60d14",
+        "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+        "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+        "src/rule_bindings.json": "0ee0a5ff77203b257672011629794d0b23b717088c5677a3442078f0e6c383de",
+        "scripts/resume_live_practice.py": "ac4a641a63574d7e12fb281495cbce5b18183385935682aac3e0434cbf8193fb"
+      },
+      "dataset_sha256": {
+        "kb/00_about_this_knowledge_base.md": "de509ece6ea3f6c9fc451f4118fd3b513c3e3069f16fe49d666859a497e40a00",
+        "kb/agent_conversation_style.md": "1e2f8b6e8057c08bfab0f2781c35753906788535a9e5ed6762f9d2ebfffdc064",
+        "kb/agent_escalation_handoff.md": "7cdcf1cac2e1ef96097234c620660b44961d8e323b588c9b5cee7759b78d243c",
+        "kb/agent_identity_verification.md": "65080cf86c01fa180321c77ab27c7d1dffdf6b3bca915cf162bb8c1a694cf182",
+        "kb/faq_general.md": "17f9846d1ffb33ded2206d25dfec3e3e431b1e0759edd4a49fc342106d17cd5a",
+        "kb/faq_hindi.md": "abc9f07bd99100f28ad8ba2f652bc21540b8a1cf7898bb5c0b98a2f783d669a2",
+        "kb/help_reverse_pickup.md": "8b05d9c3c6be72cdf782471372f6b209af48b0a712e747b395c97df3c79350b5",
+        "kb/help_track_order.md": "8c8fe651e97e1b1d088934a25de1bbcb81552fa2ecf5e2e2756374a5679c4bed",
+        "kb/help_troubleshooting_electronics.md": "0aa55f0933a5db0663619d343634ca6a12a2792a1c58258cfc14d9d971965e87",
+        "kb/mkt_plus_benefits_page.md": "f7d1bb3f9a2b555f51cd759c099654e2d36d11132efb231ccc87767c2082f6d7",
+        "kb/pol_cancellations.md": "a81de76931982a96d79416e130fd81d4cacc54b65bce43812767d76d8af66a00",
+        "kb/pol_coupons_offers.md": "e5201e45767003eabb79f8e930ee6b43204a7e08713350579181041233d3467c",
+        "kb/pol_damaged_wrong_missing.md": "6287c52adb81c8f8febf9c262ef34362af2ad33a373dc0768ae7e9d07bf7ec71",
+        "kb/pol_delivery_shipping.md": "828a75578e9f1307b2e4f64f6f151d93636bfd2f2f9bc39fcef86b273b8226eb",
+        "kb/pol_marketplace_sellers.md": "76e1291bf8990152b7f9029c79f58bddcc286f57800fb65de550586f45887dc0",
+        "kb/pol_payments_cod.md": "3d88d83c934a0477955fbe63beb4cae5db3491889ecf01b985ef233d7c19c68f",
+        "kb/pol_plus_membership.md": "9ea896ff307ddb4c28d0aaedcc567cfdf3825335c9eded8f02adacbbb7d6c877",
+        "kb/pol_refunds.md": "aa315a1c5c1ae2f19b1c5678b138ef3970279d1f2ae002c1392db61a4851f48c",
+        "kb/pol_returns_v3_superseded.md": "5f37e77ac47d5aa34d056460ba3b0ef6369f0a846921b74e35801066a01cfd17",
+        "kb/pol_returns_v4.md": "964b54f48edbd9f079d718f11cfc3164e20ba95b3943b723e03eb49fa1ee30f6",
+        "kb/pol_warranty_assured.md": "b2522a4289f808f8d7a2087fef8df5f624fd164770bcad6ce863975c7d0465b1",
+        "data/customers.csv": "1f3aff8002de497698f1e4ff6342c67ceca3c7bb0b68ea97f780126bfe786dc2",
+        "data/holidays.csv": "21b4804250b38150182fa00efc673997dfb81687efa7996403136da688c4d05f",
+        "data/order_items.csv": "62e344a4713ddaa9e10055c8b4931b7b8fab28f6350a5836968ff404046d0dc3",
+        "data/orders.csv": "9fb915f9f401ae26a1d00c0f064f87ab17fcde048cb9652d6e8a234a1401068b",
+        "data/pincodes.csv": "89f17fc33ae98223e70975a36e3e5a55e1bc2e0616e19a3fd45896adceeed19b",
+        "data/products.csv": "0eb917871836ecb5f74100dfa61e85f2adf78eecdaf10554c521e8bc9b461fd7",
+        "data/support_logs.csv": "2ab97c83b46f690310a133a10cdec01e670122bd7f996a15fe18b00c30a60739",
+        "practice/conversations.csv": "f6c9d24112f63047f4af62a9b3f2cfd34c941597b55cf661df8415e8d59fcfc3",
+        "practice/questions.csv": "cac2302c995389f82c831800589b627c9d567620013bc44d6721c7d3c90e9190",
+        "tools/tools.py": "e4192adc096a4d9b5b13bb0f11604354a4c6d3e9cb887915f87756851679d743"
+      },
+      "inference": {
+        "LLM_PROVIDER": "ollama",
+        "LLM_MODEL": "qwen3:1.7b",
+        "RAG_LLM_TIMEOUT": "45",
+        "LLM_TIMEOUT": "30",
+        "DENSE_ENABLED": "true",
+        "REFERENCE_DATE": "2026-10-20",
+        "LLM_FALLBACK_PROVIDER": "",
+        "LLM_FALLBACK_MODEL": "",
+        "LLM_BASE_URL_sha256": "b26993598dffd1f14aed97def57ef67f753518a9b773d8a12033c82b4fa545ca",
+        "LLM_FALLBACK_BASE_URL_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "summary": {
+    "search_k": [
+      12
+    ],
+    "search_recall": 0.9,
+    "step": "2",
+    "total": 8,
+    "passed": 1,
+    "pass_rate": 0.125,
+    "decision_accuracy": 0.125,
+    "evidence_recall": 0.0,
+    "errors": 0,
+    "composition_counts": {
+      "abstained_model_or_evidence": 7,
+      "grounded_llm": 1
+    },
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+    "latency_by_path": {
+      "uncached_llm_attempt": {
+        "count": 8,
+        "p50_ms": 19329.9,
+        "p95_ms": 28617.5
+      }
+    },
+    "planned": 52,
+    "complete": false,
+    "scope": "Current runtime live practice; cached generation, checked fallbacks and guards are reported separately. Mechanical checks are not organizer scoring."
+  },
+  "results": [
+    {
+      "id": "PQ0002",
+      "question": "SKU ELE-0012 pe ZentroMart Assured hai kya? Claim kaise karein?",
+      "prediction": {
+        "transcript": "SKU ELE-0012 pe ZentroMart Assured hai kya? Claim kaise karein?",
+        "answer": "Main ZentroMart ki AI support assistant hoon. Documents mein is bare mein jaankari nahi hai. Human colleague se connect karne mein help kar sakti hoon.",
+        "intent": "unsupported",
+        "decision": "refuse",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "STY-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "WAR-2",
+            "score": 0.186565,
+            "dense_score": 0.5064
+          },
+          {
+            "id": "RET-1",
+            "score": 0.175428,
+            "dense_score": 0.4939
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.160494,
+            "dense_score": 0.3119
+          },
+          {
+            "id": "RET-2",
+            "score": 0.160376,
+            "dense_score": 0.3565
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.152313,
+            "dense_score": 0.3809
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.150326,
+            "dense_score": 0.3735
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.149055,
+            "dense_score": 0.4407
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.146579,
+            "dense_score": 0.4122
+          },
+          {
+            "id": "RET-3",
+            "score": 0.134692,
+            "dense_score": 0.31
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.109579,
+            "dense_score": 0.3058
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.096634,
+            "dense_score": 0.0831
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.056849,
+            "dense_score": 0.246
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [],
+          "public_context": {
+            "sku": "ELE-0012"
+          },
+          "catalog": [
+            {
+              "sku": "ELE-0012",
+              "title": "Kestrel K7 Smartphone 128 GB, Beige",
+              "brand": "Kestrel",
+              "return_category": "electronics",
+              "price_inr": "17549",
+              "fulfilled_by": "ZentroMart",
+              "assured": "True",
+              "warranty_months": "12",
+              "description": "Kestrel K7 Smartphone 128 GB, Beige. Sold on ZentroMart."
+            }
+          ],
+          "date_labels": {
+            "2026-10-20": "20 October 2026"
+          }
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "abstained_model_or_evidence",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "document_generation_failed:uncited_policy_claim:replacement",
+        "citations": [],
+        "generation": {},
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 14639.93,
+          "load_ms": 17.38,
+          "prompt_eval_ms": 3752.28,
+          "eval_ms": 10815.91,
+          "prompt_eval_count": 1404,
+          "eval_count": 167,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 126.45,
+          "llm_ms": 35365.28
+        },
+        "latency_ms": 35510.99
+      },
+      "checks": {
+        "passed": false,
+        "decision_ok": false,
+        "missing_facts": [
+          "12",
+          "My Orders / app"
+        ],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 1,
+        "search_total": 1,
+        "evidence_hits": 0,
+        "evidence_total": 2,
+        "evidence_recall": 0.0
+      },
+      "latency_ms": 35512.0
+    },
+    {
+      "id": "PQ0003",
+      "question": "How fast are refunds to the ZentroMart Wallet?",
+      "prediction": {
+        "transcript": "How fast are refunds to the ZentroMart Wallet?",
+        "answer": "I'm ZentroMart's AI support assistant. I don't have enough supported information in the retrieved documents. I can help you reach a human colleague.",
+        "intent": "unsupported",
+        "decision": "refuse",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-2",
+            "score": 0.190405,
+            "dense_score": 0.6488
+          },
+          {
+            "id": "REF-3",
+            "score": 0.179223,
+            "dense_score": 0.7801
+          },
+          {
+            "id": "RET-7",
+            "score": 0.178626,
+            "dense_score": 0.689
+          },
+          {
+            "id": "REF-1",
+            "score": 0.167432,
+            "dense_score": 0.7458
+          },
+          {
+            "id": "PAY-4",
+            "score": 0.158866,
+            "dense_score": 0.6454
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.144962,
+            "dense_score": 0.6376
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.13456,
+            "dense_score": 0.5785
+          },
+          {
+            "id": "REF-6",
+            "score": 0.131002,
+            "dense_score": 0.4648
+          },
+          {
+            "id": "FAQ-1",
+            "score": 0.129713,
+            "dense_score": 0.6538
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.093999,
+            "dense_score": 0.2693
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.093998,
+            "dense_score": 0.4891
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.052865,
+            "dense_score": 0.2819
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [],
+          "date_labels": {
+            "2026-10-20": "20 October 2026"
+          }
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "abstained_model_or_evidence",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "document_generation_failed:uncited_policy_claim:refund",
+        "citations": [],
+        "generation": {},
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 5983.93,
+          "load_ms": 20.95,
+          "prompt_eval_ms": 2027.45,
+          "eval_ms": 3886.0,
+          "prompt_eval_count": 947,
+          "eval_count": 71,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 60.59,
+          "llm_ms": 14617.86
+        },
+        "latency_ms": 14683.64
+      },
+      "checks": {
+        "passed": false,
+        "decision_ok": false,
+        "missing_facts": [
+          "instant / 2 hours / two hours / तुरंत / turant"
+        ],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 1,
+        "search_total": 2,
+        "evidence_hits": 0,
+        "evidence_total": 2,
+        "evidence_recall": 0.0
+      },
+      "latency_ms": 14684.2
+    },
+    {
+      "id": "PQ0004",
+      "question": "Can I schedule a delivery at midnight?",
+      "prediction": {
+        "transcript": "Can I schedule a delivery at midnight?",
+        "answer": "I'm ZentroMart's AI support assistant. No, you cannot schedule a delivery at midnight.",
+        "intent": "unsupported",
+        "decision": "refuse",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "CAN-3"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "CAN-3",
+            "text": "## [CAN-3] Grocery delivery slots\nGrocery orders can be cancelled up to 2 hours before the start of the chosen delivery slot.\nIf the slot start time is not in the order record, ask the customer for the time shown in My Orders before confirming whether the cutoff has passed.",
+            "file": "pol_cancellations.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-05-01",
+            "version": "1.4",
+            "title": "Grocery delivery slots"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "DEL-1",
+            "score": 0.172586,
+            "dense_score": 0.5725
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.167492,
+            "dense_score": 0.3665
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.156448,
+            "dense_score": 0.5357
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.145519,
+            "dense_score": 0.5228
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.143993,
+            "dense_score": 0.3206
+          },
+          {
+            "id": "CAN-2",
+            "score": 0.130642,
+            "dense_score": 0.3598
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.129194,
+            "dense_score": 0.3151
+          },
+          {
+            "id": "PAY-2",
+            "score": 0.12484,
+            "dense_score": 0.3441
+          },
+          {
+            "id": "FAQ-3",
+            "score": 0.122646,
+            "dense_score": 0.2631
+          },
+          {
+            "id": "REF-5",
+            "score": 0.120803,
+            "dense_score": 0.2107
+          },
+          {
+            "id": "TRK-2",
+            "score": 0.11626,
+            "dense_score": 0.3589
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.064595,
+            "dense_score": 0.2124
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [],
+          "date_labels": {
+            "2026-10-20": "20 October 2026"
+          }
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "grounded_llm",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "citations": [
+          {
+            "id": "CAN-3",
+            "quote": "Grocery orders can be cancelled up to 2 hours before the start of the chosen delivery slot."
+          }
+        ],
+        "generation": {
+          "repair_attempted": false,
+          "generation_attempts": 1,
+          "repair_errors": [],
+          "validation_error": null,
+          "attempt_metrics": [
+            {
+              "cache_hit": false,
+              "attempts": 1,
+              "provider": "ollama:qwen3:1.7b",
+              "wall_ms": 13684.33,
+              "load_ms": 16.51,
+              "prompt_eval_ms": 9042.3,
+              "eval_ms": 4567.73,
+              "prompt_eval_count": 1106,
+              "eval_count": 72,
+              "done_reason": "stop"
+            }
+          ]
+        },
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 13684.33,
+          "load_ms": 16.51,
+          "prompt_eval_ms": 9042.3,
+          "eval_ms": 4567.73,
+          "prompt_eval_count": 1106,
+          "eval_count": 72,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 31.46,
+          "llm_ms": 13699.8
+        },
+        "latency_ms": 13732.87
+      },
+      "checks": {
+        "passed": false,
+        "decision_ok": false,
+        "missing_facts": [
+          "don't have / do not have / not sure / no information / can't find / not able to find / couldn't find / जानकारी नहीं / pata nahi / jaankari nahi / connect / सहयोगी"
+        ],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 0,
+        "search_total": 0,
+        "evidence_hits": 0,
+        "evidence_total": 0,
+        "evidence_recall": null
+      },
+      "latency_ms": 13733.3
+    },
+    {
+      "id": "PQ0005",
+      "question": "SKU ELE-0002 pe ZentroMart Assured hai kya? Claim kaise karein?",
+      "prediction": {
+        "transcript": "SKU ELE-0002 pe ZentroMart Assured hai kya? Claim kaise karein?",
+        "answer": "Main ZentroMart ki AI support assistant hoon. Documents mein is bare mein jaankari nahi hai. Human colleague se connect karne mein help kar sakti hoon.",
+        "intent": "unsupported",
+        "decision": "refuse",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "STY-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "WAR-2",
+            "score": 0.186565,
+            "dense_score": 0.5106
+          },
+          {
+            "id": "RET-1",
+            "score": 0.175428,
+            "dense_score": 0.4911
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.164486,
+            "dense_score": 0.323
+          },
+          {
+            "id": "RET-2",
+            "score": 0.15926,
+            "dense_score": 0.3431
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.151847,
+            "dense_score": 0.3899
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.149789,
+            "dense_score": 0.3683
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.148697,
+            "dense_score": 0.4401
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.146257,
+            "dense_score": 0.4211
+          },
+          {
+            "id": "RET-4",
+            "score": 0.136811,
+            "dense_score": 0.3708
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.110954,
+            "dense_score": 0.3031
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.099101,
+            "dense_score": 0.0897
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.057801,
+            "dense_score": 0.2626
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [],
+          "public_context": {
+            "sku": "ELE-0002"
+          },
+          "catalog": [
+            {
+              "sku": "ELE-0002",
+              "title": "Nimbus X2 Wireless Earbuds, Black",
+              "brand": "Nimbus",
+              "return_category": "electronics",
+              "price_inr": "1899",
+              "fulfilled_by": "ZentroMart",
+              "assured": "True",
+              "warranty_months": "12",
+              "description": "Nimbus X2 Wireless Earbuds, Black. Sold on ZentroMart."
+            }
+          ],
+          "date_labels": {
+            "2026-10-20": "20 October 2026"
+          }
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "abstained_model_or_evidence",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "document_generation_failed:uncited_policy_claim:replacement",
+        "citations": [],
+        "generation": {},
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 13553.9,
+          "load_ms": 20.28,
+          "prompt_eval_ms": 3603.39,
+          "eval_ms": 9878.81,
+          "prompt_eval_count": 1367,
+          "eval_count": 151,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 116.93,
+          "llm_ms": 28499.35
+        },
+        "latency_ms": 28617.3
+      },
+      "checks": {
+        "passed": false,
+        "decision_ok": false,
+        "missing_facts": [
+          "12",
+          "My Orders / app"
+        ],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 1,
+        "search_total": 1,
+        "evidence_hits": 0,
+        "evidence_total": 2,
+        "evidence_recall": 0.0
+      },
+      "latency_ms": 28617.5
+    },
+    {
+      "id": "PQ0006",
+      "question": "As a ZentroMart Plus member, will I be charged the pickup fee for returning shoes I just don't like?",
+      "prediction": {
+        "transcript": "As a ZentroMart Plus member, will I be charged the pickup fee for returning shoes I just don't like?",
+        "answer": "I'm ZentroMart's AI support assistant. I don't have enough supported information in the retrieved documents. I can help you reach a human colleague.",
+        "intent": "unsupported",
+        "decision": "refuse",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-6",
+            "score": 0.200683,
+            "dense_score": 0.6314
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.172199,
+            "dense_score": 0.5199
+          },
+          {
+            "id": "PLS-1",
+            "score": 0.16196,
+            "dense_score": 0.5491
+          },
+          {
+            "id": "RET-7",
+            "score": 0.159766,
+            "dense_score": 0.4587
+          },
+          {
+            "id": "REF-1",
+            "score": 0.147015,
+            "dense_score": 0.4831
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.139848,
+            "dense_score": 0.4292
+          },
+          {
+            "id": "RET-8",
+            "score": 0.138076,
+            "dense_score": 0.3779
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.137678,
+            "dense_score": 0.4386
+          },
+          {
+            "id": "DWM-2",
+            "score": 0.130696,
+            "dense_score": 0.4085
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.128775,
+            "dense_score": 0.5169
+          },
+          {
+            "id": "RET-1",
+            "score": 0.125187,
+            "dense_score": 0.5107
+          },
+          {
+            "id": "RET-9",
+            "score": 0.117471,
+            "dense_score": 0.3308
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [],
+          "public_context": {
+            "category": "fashion"
+          },
+          "date_labels": {
+            "2026-10-20": "20 October 2026"
+          }
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "abstained_model_or_evidence",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "document_generation_failed:uncited_policy_claim:pickup",
+        "citations": [],
+        "generation": {},
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 7605.48,
+          "load_ms": 19.87,
+          "prompt_eval_ms": 2136.85,
+          "eval_ms": 5393.65,
+          "prompt_eval_count": 1087,
+          "eval_count": 89,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 72.44,
+          "llm_ms": 19253.28
+        },
+        "latency_ms": 19329.69
+      },
+      "checks": {
+        "passed": false,
+        "decision_ok": false,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 0,
+        "evidence_total": 2,
+        "evidence_recall": 0.0
+      },
+      "latency_ms": 19329.9
+    },
+    {
+      "id": "PQ0008",
+      "question": "credit card wala refund 17 October 2026 ko shuru hua, kab tak aa jaana chahiye?",
+      "prediction": {
+        "transcript": "credit card wala refund 17 October 2026 ko shuru hua, kab tak aa jaana chahiye?",
+        "answer": "Main ZentroMart ki AI support assistant hoon. Documents mein is bare mein jaankari nahi hai. Human colleague se connect karne mein help kar sakti hoon.",
+        "intent": "unsupported",
+        "decision": "refuse",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "STY-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-2",
+            "score": 0.169107,
+            "dense_score": 0.31
+          },
+          {
+            "id": "REF-6",
+            "score": 0.163625,
+            "dense_score": 0.4335
+          },
+          {
+            "id": "REF-3",
+            "score": 0.161561,
+            "dense_score": 0.4167
+          },
+          {
+            "id": "REF-1",
+            "score": 0.153182,
+            "dense_score": 0.3969
+          },
+          {
+            "id": "RET-8",
+            "score": 0.142121,
+            "dense_score": 0.3995
+          },
+          {
+            "id": "RET-7",
+            "score": 0.141947,
+            "dense_score": 0.3052
+          },
+          {
+            "id": "PAY-1",
+            "score": 0.133495,
+            "dense_score": 0.3682
+          },
+          {
+            "id": "REF-5",
+            "score": 0.131178,
+            "dense_score": 0.4352
+          },
+          {
+            "id": "PAY-4",
+            "score": 0.128951,
+            "dense_score": 0.4514
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.116147,
+            "dense_score": 0.2396
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.112768,
+            "dense_score": 0.3121
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.105494,
+            "dense_score": 0.3252
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [],
+          "date_labels": {
+            "2026-10-20": "20 October 2026"
+          }
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "abstained_model_or_evidence",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "document_generation_failed:uncited_policy_claim:refund",
+        "citations": [],
+        "generation": {},
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 9746.43,
+          "load_ms": 12.72,
+          "prompt_eval_ms": 2583.14,
+          "eval_ms": 7098.83,
+          "prompt_eval_count": 1187,
+          "eval_count": 106,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 70.82,
+          "llm_ms": 23986.68
+        },
+        "latency_ms": 24060.56
+      },
+      "checks": {
+        "passed": false,
+        "decision_ok": false,
+        "missing_facts": [
+          "2026-10-27 / 27 October 2026 / 27 अक्टूबर 2026"
+        ],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 0,
+        "evidence_total": 2,
+        "evidence_recall": 0.0
+      },
+      "latency_ms": 24066.7
+    },
+    {
+      "id": "PQ0009",
+      "question": "Is there a student discount?",
+      "prediction": {
+        "transcript": "Is there a student discount?",
+        "answer": "I'm ZentroMart's AI support assistant. I don't have enough supported information in the retrieved documents. I can help you reach a human colleague.",
+        "intent": "unsupported",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-4",
+            "score": 0.098608,
+            "dense_score": 0.2463
+          },
+          {
+            "id": "PAY-4",
+            "score": 0.091856,
+            "dense_score": 0.2021
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.069808,
+            "dense_score": 0.1765
+          },
+          {
+            "id": "PLS-1",
+            "score": 0.029687,
+            "dense_score": 0.3377
+          },
+          {
+            "id": "RET-6",
+            "score": 0.028499,
+            "dense_score": 0.2871
+          },
+          {
+            "id": "PAY-2",
+            "score": 0.027403,
+            "dense_score": 0.2781
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.026388,
+            "dense_score": 0.2737
+          },
+          {
+            "id": "PAY-1",
+            "score": 0.024568,
+            "dense_score": 0.2522
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.022265,
+            "dense_score": 0.2403
+          },
+          {
+            "id": "FAQ-3",
+            "score": 0.021976,
+            "dense_score": 0.2617
+          },
+          {
+            "id": "REF-3",
+            "score": 0.020877,
+            "dense_score": 0.1924
+          },
+          {
+            "id": "CPN-2",
+            "score": 0.020876,
+            "dense_score": 0.1449
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [],
+          "date_labels": {
+            "2026-10-20": "20 October 2026"
+          }
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "abstained_model_or_evidence",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "document_generation_failed:uncited_substantive_refusal",
+        "citations": [],
+        "generation": {},
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 2896.59,
+          "load_ms": 20.56,
+          "prompt_eval_ms": 1349.36,
+          "eval_ms": 1474.86,
+          "prompt_eval_count": 1100,
+          "eval_count": 25,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 22.82,
+          "llm_ms": 12217.41
+        },
+        "latency_ms": 12241.56
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 0,
+        "search_total": 0,
+        "evidence_hits": 0,
+        "evidence_total": 0,
+        "evidence_recall": null
+      },
+      "latency_ms": 12241.8
+    },
+    {
+      "id": "PQ0010",
+      "question": "Is the collection free if the UrbanThread Slim Fit Jeans came torn?",
+      "prediction": {
+        "transcript": "Is the collection free if the UrbanThread Slim Fit Jeans came torn?",
+        "answer": "I'm ZentroMart's AI support assistant. I don't have enough supported information in the retrieved documents. I can help you reach a human colleague.",
+        "intent": "unsupported",
+        "decision": "refuse",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-4",
+            "score": 0.128088,
+            "dense_score": 0.3116
+          },
+          {
+            "id": "DWM-2",
+            "score": 0.119264,
+            "dense_score": 0.1824
+          },
+          {
+            "id": "RET-5",
+            "score": 0.116492,
+            "dense_score": 0.304
+          },
+          {
+            "id": "RET-6",
+            "score": 0.108063,
+            "dense_score": 0.2326
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.108062,
+            "dense_score": 0.2403
+          },
+          {
+            "id": "DWM-1",
+            "score": 0.095675,
+            "dense_score": 0.2515
+          },
+          {
+            "id": "RET-9",
+            "score": 0.091914,
+            "dense_score": 0.1532
+          },
+          {
+            "id": "RVP-3",
+            "score": 0.089008,
+            "dense_score": 0.1803
+          },
+          {
+            "id": "RET-8",
+            "score": 0.08496,
+            "dense_score": 0.2855
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.028769,
+            "dense_score": 0.1125
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.028768,
+            "dense_score": 0.1853
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.028767,
+            "dense_score": 0.2924
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [],
+          "public_context": {
+            "category": "fashion"
+          },
+          "date_labels": {
+            "2026-10-20": "20 October 2026"
+          }
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "abstained_model_or_evidence",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "document_generation_failed:omitted_negative_condition",
+        "citations": [],
+        "generation": {},
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 12927.53,
+          "load_ms": 26.4,
+          "prompt_eval_ms": 2973.16,
+          "eval_ms": 9879.37,
+          "prompt_eval_count": 1140,
+          "eval_count": 145,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 63.5,
+          "llm_ms": 23793.65
+        },
+        "latency_ms": 23859.6
+      },
+      "checks": {
+        "passed": false,
+        "decision_ok": false,
+        "missing_facts": [
+          "free / no fee / waived / no charge"
+        ],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 0,
+        "evidence_total": 2,
+        "evidence_recall": 0.0
+      },
+      "latency_ms": 23859.9
+    }
+  ],
+  "segments": [
+    {
+      "started_at_utc": "2026-10-25T10:15:14.484346+00:00",
+      "git_sha": "eadd49398e12cef70f7c61266b9ab4f6d8871809",
+      "reused_responses": 0,
+      "new_responses": 8,
+      "completed": false,
+      "checkpoint_at_utc": "2026-10-25T10:18:06.963420+00:00"
+    }
+  ],
+  "complete": false
+}
