@@ -1,4 +1,4 @@
-﻿"""Verify archive hashes and smoke-test its explicit offline excerpt diagnostic."""
+"""Verify archive hashes and smoke-test its explicit offline excerpt diagnostic."""
 from pathlib import Path, PurePosixPath
 import hashlib,json,os,re,subprocess,sys,tempfile,zipfile
 ROOT=Path(__file__).resolve().parents[1]

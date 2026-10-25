@@ -1,4 +1,4 @@
-﻿"""Uncovered routes abstain before merely related context can invite guessing."""
+"""Uncovered routes abstain before merely related context can invite guessing."""
 import json
 import re
 

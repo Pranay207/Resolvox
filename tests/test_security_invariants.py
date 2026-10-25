@@ -1,4 +1,4 @@
-﻿"""Order-scoped authentication and escalation regression tests; no live services."""
+"""Order-scoped authentication and escalation regression tests; no live services."""
 import json
 
 import pytest

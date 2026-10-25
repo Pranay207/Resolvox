@@ -1,4 +1,4 @@
-﻿"""Evidence wording must follow saved completion and composition, not filenames."""
+"""Evidence wording must follow saved completion and composition, not filenames."""
 import copy
 
 import pytest

@@ -1,4 +1,4 @@
-﻿"""Runner CLI/mode/provenance checks use synthetic clients, never inference."""
+"""Runner CLI/mode/provenance checks use synthetic clients, never inference."""
 import json
 import sys
 from types import SimpleNamespace

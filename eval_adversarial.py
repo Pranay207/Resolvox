@@ -1,4 +1,4 @@
-﻿"""Original adversarial questions and verification flows, with explicit live mode."""
+"""Original adversarial questions and verification flows, with explicit live mode."""
 from collections import Counter
 from datetime import datetime,timezone
 from pathlib import Path

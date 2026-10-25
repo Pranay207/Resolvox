@@ -1,4 +1,4 @@
-﻿"""The finalizer summarizes real receipts and never manufactures completion."""
+"""The finalizer summarizes real receipts and never manufactures completion."""
 import hashlib
 import json
 import sys
