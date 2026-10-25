@@ -32,7 +32,7 @@ Built for **From Tokens to Transformers**, Consulting & Analytics Club, IIT Guwa
 | Verified order support | Checks a phone suffix or delivery pincode before revealing private order information. |
 | Confirmed handover | Creates a ticket with the supplied tool and reports success only after confirmation. |
 | Voice and text | Uses one shared agent for typed questions and Gnani speech input/output. |
-| Uncertainty handling | Uses checked fallbacks or abstains when the available evidence is insufficient. |
+| Uncertainty handling | Attempts one bounded repair of invalid model output, then abstains if a supported answer is unavailable. |
 
 ### Customer Workflow
 
@@ -86,7 +86,7 @@ Edit your local `.env` before launching the app:
 GNANI_API_KEY=your_gnani_api_key
 LLM_PROVIDER=ollama
 LLM_BASE_URL=http://127.0.0.1:11434
-LLM_MODEL=qwen3:1.7b
+LLM_MODEL=qwen3:4b-instruct
 COMPOSE_WITH_LLM=true
 ```
 
@@ -95,10 +95,10 @@ Keep the remaining defaults from [.env.example](.env.example), including `REFERE
 Install the selected local model:
 
 ```sh
-ollama pull qwen3:1.7b
+ollama pull qwen3:4b-instruct
 ```
 
-Ensure Ollama is running. If its service is not already running, start `ollama serve` in a separate terminal.
+The selected local model is `qwen3:4b-instruct`. The default per-request RAG timeout is 120 seconds; this is not a total response-time guarantee. Ensure Ollama is running. If its service is not already running, start `ollama serve` in a separate terminal.
 
 <details>
 <summary>Use a compatible hosted LLM instead</summary>
@@ -146,7 +146,7 @@ Each clip produces answer text, JSON, full source chunks and an actual Gnani rep
 - Language: `--language hi-IN` selects Hindi; `en-IN` accepts English/Hinglish. Additional routes are listed under [Language support](#language-support).
 - Sessions: files are independent by default. In auto mode, `call_id__001.wav` and `call_id__002.wav` share context. Use `--session_mode sequential` for one folder-wide session, or `sessions.json` for explicit mapping.
 - Exit codes: `0` means all inputs succeeded, `1` means failed or no inputs, and `2` means usage errors.
-- `--offline-rules` disables LLM answer generation. Speech still uses Gnani; it does not enable offline speech or regional translation.
+- `--offline-rules` disables LLM generation and displays document excerpts for diagnosis, alongside operational guards. It does not enable offline speech/regional translation.
 - Raw input audio is not copied to outputs. Verification proofs are redacted from transcripts, tool arguments and model context.
 
 </details>
@@ -160,15 +160,17 @@ flowchart TD
     Text["Typed question"] --> Agent
     Agent <--> Tools["Supplied order lookup and ticket tools"]
     Agent --> Search["Hybrid policy retrieval: lexical + multilingual embeddings"]
-    Search --> Answer["Source-text LLM generation + deterministic facts"]
-    Answer --> Check["Source-contract and privacy checks"]
-    Check --> Reply["Answer, checked fallback or abstention + saved sources"]
+    Search --> Answer["Source-text LLM generation + verified facts"]
+    Answer --> Check["Context, quantity and privacy checks; one repair"]
+    Check --> Reply["Document answer or abstention + saved context"]
     Reply --> TTS["Gnani TTS and spoken playback"]
 ```
 
-**Retrieval and generation.** Query-first search fuses raw and narrowly expanded lexical/dense queries at **k=12**. Full policy sections retain metadata and table context. Authority, effective dates and successor-authorized historical scope determine which rules govern an answer. The LLM reads the actual source text and generates answer JSON; code attaches the supplied source sections for provenance.
+**Retrieval and generation.** Query-first search fuses raw and narrowly expanded lexical/dense queries at **k=12**. The model receives actual selected section text and metadata, sanitized verified/public records and calculations derived from retrieved policy inputs. It returns an answer and two boolean flags, `covered` and `needs_clarification`. The host derives the operational decision: clarify when a detail is needed, otherwise answer when covered, otherwise refuse. The host saves the complete actual generation context and its source IDs; these are context provenance, not model-selected citations. The normal prompt contains no authored policy answer or rule summary.
 
-**Answer checks.** Validation checks source membership, required coverage, numeric values, selected conditions, language, private identifiers and common invented actions. If generation fails, a static fallback is allowed only when its required sections were retrieved and match reviewed content and metadata fingerprints. Missing or changed evidence causes abstention. These checks are conservative heuristics; provenance records supplied context and does not prove every claim is semantically correct.
+**Answer checks.** Numeric values/units, language, private identifiers and invented actions are checked against the actual supplied context and verified facts. Question-relevant category windows, calculated refund dates and delivery-attempt limits have source-bound numeric checks; repeated questions and one-word policy replies are rejected. Invalid output gets at most one repair; unavailable inference or another invalid output produces uncertainty. An uncovered reply must be non-substantive clarification or uncertainty. **Prewritten policy fallback is removed from normal answer generation.** Context provenance and finite validation do not prove per-claim semantic support, correct application of a condition or complete question coverage. Normal generation returns `citations=[]` rather than claiming exact model-selected quotes.
+
+**Routing and operational guards.** The legacy planner still supplies routing hints and deterministic verification, privacy, safety, handover and limited missing-record messages. Guard/escalation explanations can include policy text, bound to their explicit evidence and actual tool results. The planner's policy prose and constants are not supplied as normal answer summaries or used as generation fallbacks. With `compose=False`, the ordinary domain path displays `document_excerpts` as a diagnostic, not generated answers.
 
 **Order access and actions.** Private order information requires verification, with one retry. Per-order failure counts survive order switches; tickets are reused only for the same order and reason. Ticket success requires `created=True`. The agent does not execute cancellations, refunds or replacements through nonexistent tools. Authentication and tool-result guards are labeled separately from answer retrieval.
 
@@ -177,7 +179,7 @@ flowchart TD
 | Component | Implementation |
 | --- | --- |
 | Interface | Streamlit voice, text and evaluation console |
-| Answer model | Qwen3 1.7B through Ollama; compatible endpoints supported |
+| Answer model | Qwen3 4B Instruct through Ollama; compatible endpoints supported |
 | Retrieval | Lexical search + multilingual MiniLM embeddings using quantized ONNX |
 | Speech | Gnani STT and TTS only |
 | State and tools | Shared agent session with supplied dataset lookup/ticket tools |
@@ -187,31 +189,38 @@ See [DESIGN.md](DESIGN.md) for the state model, retrieval strategy and evidence 
 
 ## Evaluation
 
-Local results recorded on **25 October 2026**, using **qwen3:1.7b** for the selected-model runs:
+The source-only answer path was corrected on **25 October 2026**. Its recorded engineering result and current live-validation status are:
 
-| Check | Recorded result | Evidence |
+| Check | Current record | Evidence |
 | --- | --- | --- |
-| Prompt-only LLM baseline | **1/52**, one error | [Baseline outputs](sample_outputs/eval_step1.json) |
-| Current LLM-enabled policy questions | **52/52**, complete | [Question outputs](sample_outputs/eval_step2_live_current.json) |
-| Current LLM-enabled conversation turns | **96/96**, complete | [Conversation outputs](sample_outputs/eval_step3_live_current.json) |
-| Offline practice | **52/52** questions; **96/96** turns | [Questions](sample_outputs/eval_step2.json) · [Conversations](sample_outputs/eval_step3.json) |
-| Engineering tests | **404/404** passed | [Engineering verification](sample_outputs/engineering_verification.json) |
-| Development adversarial checks | **77/77** | [Adversarial outputs](sample_outputs/eval_adversarial.json) |
-| Exposed-set offline regression | **91/91** | [Regression outputs](sample_outputs/eval_holdout.json) |
-| Gnani synthetic-audio round trips | **6/6** audio; **6/6** semantic/privacy checks | [Voice validation](sample_outputs/voice_validation.json) |
+| Current boolean-contract engineering suite | **Full rerun pending** | Earlier three-field revision: 626 tests passed; not current boolean-contract validation |
+| Current source-only policy questions | **Rerun pending**; 52 planned | Completion and composition will be recorded in current JSON |
+| Current source-only conversation turns | **Rerun pending**; 96 planned | Completion and composition will be recorded in current JSON |
+| Current Gnani synthetic round trips | **Rerun pending** | Earlier speech evidence remains historical |
 
-**How to read these results:** LLM-enabled runs include generated answers, checked fallbacks, guards and abstentions; not every reply is freshly generated. The practice and later regression cases were used during development. These are local mechanical checks, not organizer scores or proof of hidden-test performance.
+**Comparison boundary:** the historical prompt-only baseline used `qwen3:1.7b`; the current selected model is `qwen3:4b-instruct`. This is **not a controlled same-model baseline/RAG ablation**. Current measurements remain pending.
+
+**Trace contract:** normal generation records `model_flags` and `decision_origin=host_boolean_mapping`. Operational labels are derived by the host, not claimed as model-selected decisions. Evidence, numeric, privacy, action and language checks still apply.
+
+**How to read these results:** document answers are generated from supplied evidence; operational guards and abstentions are reported separately. A cache hit is not a fresh inference. Current live results must match the source-only runtime before they can be called verified. These are local mechanical checks, not organizer scores or proof of hidden-test performance.
 
 <details>
-<summary>Answer composition, historical results and validation limits</summary>
+<summary>Historical results and validation limits</summary>
 
-- Current questions: **16** generated, **25** checked fallbacks, **4** guards, **2** rules replies and **5** abstentions. Conversation turns: **8** generated, **9** checked fallbacks, **77** guards and **2** rules replies. Cache status and timings remain in the raw traces.
-- The first independent offline holdout scored **23/91**. The later **91/91** is an exposed-set regression. The old **49/91** predictions score **51/91** under scorer v2 without changing predictions: two points came from wording normalization. Original predictions, the frozen rubric hash and the incomplete historical 32-question live subset remain preserved in [VERIFICATION.md](VERIFICATION.md) and the saved evidence.
-- Recorded holdout privacy assertions: **191**, with **0** failures. The official dataset validator passed **9 CSVs and 21 KB documents**.
-- Separate genuine Gnani follow-ups passed **1/1** for [Hindi UPI recognition](sample_outputs/primary_hindi_voice_validation.json) and **1/1** for [silent-audio recovery](sample_outputs/voice_recovery.json), including AI disclosure and a spoken retry without actions.
-- Synthetic TTS-input round trips do not establish human accent/noise robustness or subjective speech quality. Own-voice testing and listening remain for the final demo rehearsal.
-- Eight Streamlit integration checks pass within the test suite. Direct final browser review was unavailable; recorded local server health was HTTP 200.
-- Cold-start, warm uncached and cache-hit timings are different measurements. Agent-turn timing excludes prior resource initialization; voice timing also includes STT/TTS. No controlled cold-start study or live LLM holdout run has been performed.
+The earlier fallback implementation and incomplete development pilots remain available for audit. Their scores are **not scores of the final source-only revision**:
+
+- Historical prompt-only baseline (`qwen3:1.7b`): **1/52**, one error, in [baseline outputs](sample_outputs/eval_step1.json). This baseline did not use the document-policy fallback.
+- Legacy live questions **52/52** and conversation turns **96/96** are preserved in [pre-change history](sample_outputs/history/pre_document_answers/). Questions included **16** generated answers, **25** checked fallbacks, **4** guards, **2** rules replies and **5** abstentions. Conversations included **8** generated answers, **9** checked fallbacks, **77** guards and **2** rules replies.
+- Legacy offline practice **52/52** and **96/96**, development adversarial **77/77**, exposed offline regression **91/91**, and **191** privacy assertions with no failures describe that earlier runtime. The current offline path is an excerpt diagnostic and cannot reproduce those authored-answer scores.
+- The first independent offline holdout was **23/91**. Earlier **49/91** predictions rescore to **51/91** under scorer v2 without changing predictions; only two points came from wording normalization. The later legacy **91/91** was an exposed-set regression after development, not a fresh blind result.
+- The strict quote-generation pilot passed **1/8 checked questions** before it was stopped; it was incomplete and is preserved in [pilot history](sample_outputs/history/pre_document_answers/strict_quote_pilot.json).
+- The first context-mode diagnostic passed **10/30 checked questions of 52 planned**, then was stopped. Its incomplete predictions remain in [diagnostic history](sample_outputs/history/source_context_first_pass/eval_step2_live_current.json). Later source-derived calculation, language and quality fixes require a new measured run; no policy templates were restored.
+- Earlier Gnani checks recorded **6/6** synthetic round trips, plus **1/1** Hindi UPI and **1/1** silent-audio recovery. They predate the source-only change and do not certify the revised end-to-end path.
+- Current dataset validation passed **9 CSVs and 21 KB documents**. Twelve Streamlit integration cases are included in the engineering suite. Direct final browser review was unavailable.
+- Human accents, noise and subjective listening remain unverified. Own-voice rehearsal and the demo stay last.
+- Cold startup, warm uncached inference and output-cache hits are different measurements. No controlled cold-start study or live LLM holdout has been completed.
+
+See [VERIFICATION.md](VERIFICATION.md) for provenance, failures and the current validation boundary.
 
 </details>
 
@@ -225,21 +234,19 @@ python -m pytest -q
 python eval_step1.py
 python scripts/resume_live_practice.py --step 2
 python scripts/resume_live_practice.py --step 3
-python eval_adversarial.py
 python eval_holdout.py --check-only
-python eval_holdout.py --offline --output sample_outputs/eval_holdout_rerun.json
 python generate_voice_samples.py --reuse-inputs
 ```
 
-The resumable practice driver preserves completed units and rejects checkpoints whose inference inputs changed. Use `--output` to choose a separate result file for a fresh run. `eval_step2.py --live` and `eval_step3.py --live` are the non-resumable alternatives; without `--live`, they use deterministic composition. `eval_holdout.py` uses live generation by default; the explicit `--offline` command above matches the mode of the recorded regression.
+The resumable practice driver preserves completed units and rejects checkpoints whose inference inputs changed. Use `--output` to choose a separate result file for a fresh run. `eval_step2.py --live` and `eval_step3.py --live` are the non-resumable alternatives; without `--live`, ordinary policy turns use the `document_excerpts` diagnostic. `eval_holdout.py` uses live generation by default; `--offline` now tests excerpts and operational guards, not the legacy authored-answer path. Historical offline/adversarial files must not be relabeled as new-runtime measurements.
 
-Inspect `composition`, `validation_error`, `retrieval_k`, `timings`, `llm` and source traces alongside aggregate scores. Unit-test fake clients are not live speech evidence. Persistent LLM output caching includes model/settings and the full generation payload; verified-order turns do not use that cache.
+Inspect `composition`, `generation_context_sources`, `generation`, `validation_error`, `retrieval_k`, `timings`, `llm` and source traces alongside aggregate scores. Unit-test fake clients are not live speech evidence. Persistent LLM output caching includes model/settings and the full generation payload; verified-order turns do not use that cache.
 
 ## Language Support
 
 **English, Hindi and Hinglish are the primary scope.** Select the spoken language before recording. Additional regional languages are an optional preview, disabled by default.
 
-The first synthetic run across all ten base languages plus Hinglish passed **5/11** checks; six failures remain documented. Configured routing does not establish working language support. Native intelligibility and human-speech quality have not been independently reviewed. See [per-language results](sample_outputs/language_validation.json).
+The historical synthetic run across all ten base languages plus Hinglish passed **5/11** checks; six failures remain documented. That run predates the source-only change and has not been rerun for the revised runtime. Configured routing does not establish working language support. Native intelligibility and human-speech quality have not been independently reviewed. See [per-language results](sample_outputs/language_validation.json).
 
 <details>
 <summary>Configure the optional regional preview and inspect voice routes</summary>
@@ -270,15 +277,15 @@ Mappings follow [Gnani's voice catalog](https://docs.gnani.ai/api/TTS/available-
 
 ## Submission Status
 
-The code, evidence and four-page report are available. **The demo video will be recorded last**, after the own-voice rehearsal. The package remains a draft until the actual recording is included and verified.
+**The current report PDF and submission ZIP are stale drafts from an earlier revision. Regeneration and verification are pending.** The boolean-contract code is implemented; current engineering, live and speech results remain pending. **The demo video will be recorded last**, after the own-voice rehearsal. The package remains a draft until current verification and the actual recording are complete.
 
 | Deliverable | Status |
 | --- | --- |
 | Public source, dependencies, setup and batch command | Available in this repository |
-| Report, maximum four pages | [report.pdf](report.pdf), four pages verified |
-| Generated text, sources and speech outputs | [sample_outputs/](sample_outputs/) |
+| Report, maximum four pages | [report.pdf](report.pdf) is a stale draft; regeneration and four-page QA pending |
+| Generated text, sources and speech outputs | [sample_outputs/](sample_outputs/); current reruns pending, historical evidence retained |
 | Demo, maximum two minutes | Reserved above; recording pending |
-| Submission archive | Draft `dist/pranay_voiceops.zip`, generated locally |
+| Submission archive | Earlier draft `dist/pranay_voiceops.zip` is stale; rebuild/checks pending |
 
 After adding `demo.mp4` to the project root, rebuild and verify the archive:
 
