@@ -1,0 +1,41 @@
+{
+  "scope": "Complete frozen diagnostic before source-derived repairs; not current runtime validation",
+  "artifact": "eval_step2_live_current.json",
+  "artifact_sha256": "2ee8b2d65b2442686e548c7cd4e0591d6d0d240048ee0cd5306292aec3c74c08",
+  "total": 52,
+  "mechanical_passed": 36,
+  "source_runtime_unchanged": true,
+  "failed_ids": [
+    "PQ0008",
+    "PQ0013",
+    "PQ0018",
+    "PQ0019",
+    "PQ0021",
+    "PQ0026",
+    "PQ0029",
+    "PQ0034",
+    "PQ0035",
+    "PQ0039",
+    "PQ0048",
+    "PQ0050",
+    "PQ0051",
+    "PQ0052",
+    "PQ0054",
+    "PQ0058"
+  ],
+  "semantic_review": "Assistant source-by-source review is separate from the official mechanical scorer; known additional issues are preserved in semantic_review.md when finalized.",
+  "scorer_or_gold_changed": false,
+  "assistant_semantic_review": {
+    "artifact": "semantic_review.md",
+    "reviewed_rows": 52,
+    "additional_material_errors_among_mechanical_passes": [
+      "PQ0024",
+      "PQ0033",
+      "PQ0040",
+      "PQ0041",
+      "PQ0047",
+      "PQ0057"
+    ],
+    "scope": "Assistant source-by-source review; not human validation or semantic certification"
+  }
+}

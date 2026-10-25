@@ -1,0 +1,50 @@
+{
+  "stopped_for": "Repair and rerun complete 52-question batch before remaining stages",
+  "summary": {
+    "search_k": [
+      12
+    ],
+    "search_recall": 0.935064935064935,
+    "step": "2",
+    "total": 52,
+    "passed": 36,
+    "pass_rate": 0.6923076923076923,
+    "decision_accuracy": 0.7115384615384616,
+    "evidence_recall": 0.6111111111111112,
+    "errors": 0,
+    "composition_counts": {
+      "grounded_llm": 30,
+      "abstained_missing_evidence": 5,
+      "abstained_model_or_evidence": 13,
+      "deterministic_guardrail": 4
+    },
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+    "latency_by_path": {
+      "cache_hit": {
+        "count": 4,
+        "p50_ms": 72.5,
+        "p95_ms": 121.6
+      },
+      "no_model_call": {
+        "count": 9,
+        "p50_ms": 63.6,
+        "p95_ms": 583.0
+      },
+      "uncached_llm_attempt": {
+        "count": 39,
+        "p50_ms": 69859.0,
+        "p95_ms": 164207.3
+      }
+    },
+    "planned": 52,
+    "complete": true,
+    "scope": "Current source-driven live practice; generation, guards, clarifications and abstentions are reported separately. No authored policy fallback. Mechanical checks are not organizer scoring."
+  },
+  "stopped_owned_process_ids": [
+    23200,
+    21752,
+    37744,
+    35468
+  ],
+  "stopped_at_utc": "2026-10-25T12:27:23.6763062Z"
+}

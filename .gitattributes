@@ -7,3 +7,14 @@
 *.wav binary
 *.mp4 binary
 *.zip binary
+
+# Preserve captured evidence bytes referenced by SHA-256 receipts.
+sample_outputs/engineering_artifacts/** -text whitespace=cr-at-eol
+sample_outputs/engineering_verification.json -text whitespace=cr-at-eol
+sample_outputs/history/boolean_context_first_pass/** -text whitespace=cr-at-eol
+sample_outputs/history/source_context_boolean_full_first_pass/** -text whitespace=cr-at-eol
+sample_outputs/eval_*_live_current.json -text whitespace=cr-at-eol
+sample_outputs/voice_validation.json -text whitespace=cr-at-eol
+sample_outputs/manifest.json -text whitespace=cr-at-eol
+sample_outputs/final_evaluation.json -text whitespace=cr-at-eol
+.gitattributes text eol=lf

@@ -1,0 +1,56 @@
+{
+  "generated_at": "2026-10-25T11:23:40.775371+00:00",
+  "runtime_commit": "8f839ff307b398e6c352067870f8682db52b62e5",
+  "pytest": {
+    "passed": 678,
+    "total": 678,
+    "exit_code": 0,
+    "duration_seconds": 85.94,
+    "command": "python -m pytest -q -p no:cacheprovider",
+    "log": "tmp/final_engineering_pytest.log"
+  },
+  "dataset_validation": {
+    "exit_code": 0,
+    "csv_files": 9,
+    "kb_documents": 21,
+    "orders": 1000,
+    "order_items": 1783,
+    "practice_questions": 52,
+    "conversations": 23
+  },
+  "scope": "Engineering regressions and official dataset integrity; not semantic certification or organizer scoring.",
+  "answer_path": "document_context_generation; model boolean flags with host decisions; no authored policy fallback",
+  "runtime_source_sha256": {
+    "src/__init__.py": "5cb8a924bc6e83dcc878dbe665e7606bad931b5a0c561cc16e0c4bc07f1c583b",
+    "src/agent.py": "62b3385450677a9fd1d7547272f297c77c3df0dbffbb4255152ddba81951bdf3",
+    "src/answering.py": "1d755adfa2c0ef6f1b8a7e51305199ff0626a92e3a7f4a1da12da9799a9193c8",
+    "src/config.py": "18c865ef49d50adff72e359acf9caff729b28c44f09bbeba2e6e73d09077596d",
+    "src/data.py": "2e5551d9265ca8be32874553dfffe6a6951941fa0f9cff61dc65a5c86fae0474",
+    "src/dates.py": "9117a31dd36c34fec7bef096a0015bcfe898251702344268b921edbae794c37f",
+    "src/document_answers.py": "2ec8301042b4dacb39ece3d020b921d184e273bc87d02bd5999b4e77bbe91f4a",
+    "src/document_context.py": "33b5ff95b8509d5564f41cbdddb3b2ba8606c00ff9f3fee8c6cc2d5950f4c357",
+    "src/evals.py": "3c4400cae363d641abef74933b7e12a949ce8125f3087f11ad636de14eab063a",
+    "src/grounding.py": "c138a22e57bbadcaab24c06e1a3205372d0edfdac760e392be908da72fb12309",
+    "src/kb.py": "55530323842609e0f9aca7c06fdc3b107e853f5cccc5d6a308bcda3488ea48b2",
+    "src/languages.py": "7fcc739a71a24b7d5be73a1440b8f70781bd2166d07c5e21063e03b03de07da2",
+    "src/llm.py": "a9ad335045753ad569e84c388974919e3e22d8db89fc1a66e6754ec3099c2336",
+    "src/multilingual.py": "e780709e1cf5ef40160c05e84f628f354e94d76ab3dddd9ca8e3cf27d4d71416",
+    "src/normalize.py": "19567cf8d305066a30d690c67427c930b4054c230120ef221ef62ca4c301ec24",
+    "src/retrieval.py": "03347389c34c184c2211953c1aa7265cda59a11b203778fff3d9bb1a9d125003",
+    "src/tools_wrapper.py": "cdce9b295da7d1e0a095fef28406f3e0400dc496c2cbf6c6298fa2b947e60d14",
+    "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+    "src/voice.py": "acb717cdaef6c63320bbe33e2d0da0293e80d0c122342a4c07c42da3db4eb8af",
+    "src/rule_bindings.json": "0ee0a5ff77203b257672011629794d0b23b717088c5677a3442078f0e6c383de"
+  },
+  "inference_environment": {
+    "provider": "ollama",
+    "model": "qwen3:4b-instruct",
+    "request_timeout_seconds": 120,
+    "local_server_version": "0.40.11",
+    "cpu_only": true,
+    "prompt_cache_mib": 256,
+    "num_parallel": 1,
+    "max_loaded_models": 1,
+    "note": "Project-isolated localhost service; resource settings are recorded, not a latency guarantee."
+  }
+}
