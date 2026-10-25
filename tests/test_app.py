@@ -68,9 +68,9 @@ def voice_double(monkeypatch, *, fail_audio=False):
     calls = []
     respond = Agent.respond
 
-    def tracked_respond(self, text):
+    def tracked_respond(self, text, **kwargs):
         calls.append(text)
-        return respond(self, text)
+        return respond(self, text, **kwargs)
 
     monkeypatch.setattr(Agent, 'respond', tracked_respond)
     return FakeVoice, calls
@@ -183,6 +183,8 @@ def test_partial_live_evaluation_is_clearly_incomplete(monkeypatch):
     read_text = Path.read_text
 
     def report_text(path, *args, **kwargs):
+        if path.name in {'eval_step2_live_current.json', 'eval_step3_live_current.json'}:
+            return '{}'
         if path.name == 'eval_step2_live_postfix_partial.json':
             return json.dumps({'summary': {'passed': 32, 'total': 32,
                                           'planned': 52, 'complete': False}})
@@ -194,3 +196,27 @@ def test_partial_live_evaluation_is_clearly_incomplete(monkeypatch):
     assert '32 passed, 32 checked of 52 planned' in status
     assert 'incomplete' in status
     assert 'Complete recorded run' not in status
+
+def test_all_ten_voice_languages_are_available_as_optional_preview():
+    app = start()
+    assert set(app.selectbox[0].options) == {'English / Hinglish', 'Hindi'}
+    app.toggle[1].set_value(True).run()
+    languages = set(app.selectbox[0].options)
+    assert languages == {'English / Hinglish', 'Hindi', 'Tamil', 'Telugu', 'Kannada',
+                         'Malayalam', 'Marathi', 'Bengali', 'Gujarati', 'Punjabi'}
+    app.selectbox[0].set_value('Telugu').run()
+    assert not app.exception
+    assert app.selectbox[0].value == 'Telugu'
+
+
+def test_marathi_text_choice_does_not_become_hindi():
+    app = start()
+    app.toggle[1].set_value(True).run()
+    app.selectbox[1].set_value('Marathi').run()
+    app.chat_input[0].set_value('UPI परतावा कधी मिळेल?').run()
+    assert not app.exception
+    output = app.session_state.messages[0]['output']
+    assert output['language'] == 'mr'
+    assert output['localization']['status'] == 'unavailable_offline'
+    assert output['decision'] == 'clarify'
+    assert not output['tool_calls']

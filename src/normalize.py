@@ -51,3 +51,10 @@ def language(text:str,previous:str='en') -> str:
     if re.search(r'[\u0900-\u097f]',text): return 'hi'
     if re.search(r'\b(mera|meri|mujhe|kya|hai|hain|kitne|kab|kaise|chahiye|nahi|kar|wala|mein|hoon|sawaal|parso|theek|namaste)\b',text,re.I): return 'hi-en'
     return 'en' if re.search(r'[A-Za-z]{3,}',text) else previous
+
+
+_UPI_ACRONYM = re.compile(r'(?<![A-Za-z])U[\s.]*P[\s.]*I(?![A-Za-z])|यू[\s.]*पी[\s.]*आई|यू[\s.]*पी[\s.]*आय|య[ుూ][\s.]*ప[ిీ][\s.]*ఐ|ய[ுூ]?[\s.]*பி[\s.]*ஐ|ಯ[ುೂ][\s.]*ಪಿ[\s.]*ಐ|യ[ുൂ][\s.]*പി[\s.]*ഐ|ਯੂ[\s.]*ਪੀ[\s.]*ਆਈ|ইউ[\s.]*পি[\s.]*আই|યુ[\s.]*પી[\s.]*આઈ', re.I)
+
+def public_acronyms(text:str) -> str:
+    """Canonicalize public UPI spellings from speech; never touch digits/proof."""
+    return _UPI_ACRONYM.sub('UPI', text)

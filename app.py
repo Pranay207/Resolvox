@@ -4,7 +4,9 @@ import tempfile
 from pathlib import Path
 
 import streamlit as st
-from src.agent import Agent, resources
+from src.agent import resources
+from src.multilingual import MultilingualAgent as Agent
+from src.languages import LANGUAGE_NAMES, STT_CODES, normalize_language
 from src.config import ROOT
 from src.voice import GnaniVoice, VoiceError, VoiceUnavailable
 
@@ -17,7 +19,7 @@ st.markdown("""<style>
 [data-testid="stMain"] label,[data-testid="stMain"] [data-testid="stMarkdownContainer"] {color:#14243b;}
 [data-testid="stMain"] h1 {font-size:2.65rem;letter-spacing:-1.6px;line-height:1.1;}
 [data-testid="stMain"] h3 {font-size:1.2rem;letter-spacing:-.3px;}
-[data-testid="stCaptionContainer"] {color:#596b82!important;}
+[data-testid="stCaptionContainer"],[data-testid="stCaptionContainer"] * {color:#596b82!important;}
 [data-testid="stSidebar"] {background:#eef3fb;border-right:1px solid #dce5f1;}
 [data-testid="stSidebar"] [data-testid="stMarkdownContainer"],
 [data-testid="stSidebar"] label {color:#233b58;}
@@ -61,8 +63,8 @@ def shared():
     return resources()
 
 r = shared()
-if st.session_state.get('ui_version') != 'support-console-v2':
-    st.session_state.ui_version = 'support-console-v2'
+if st.session_state.get('ui_version') != 'support-console-v4':
+    st.session_state.ui_version = 'support-console-v4'
     st.session_state.agent = Agent(r)
     st.session_state.messages = []
     st.session_state.voice_epoch = 0
@@ -92,8 +94,9 @@ with st.sidebar:
         live = st.toggle('Generate from retrieved policies', value=True, key='compose_live',
                          help='Generate from source text. Invalid or timed-out output uses a checked policy fallback. Turn off for offline rules.')
         st.caption('Synthetic order records · 20 October 2026')
-        st.caption('Gnani speech · English, Hindi and Hinglish')
-    st.link_button('Project & documentation ↗', 'https://github.com/Pranay207/ESD', use_container_width=True)
+        st.caption('Primary speech: English, Hindi and Hinglish')
+        regional_preview = st.toggle('Preview additional languages', value=False, key='regional_preview', help='Experimental regional translation. Per-language results are shown in Evaluation details.')
+    st.link_button('Project & documentation ↗', 'https://github.com/Pranay207/Resolvox', use_container_width=True)
 
 st.session_state.agent.compose = live
 head, badge = st.columns([3, 1])
@@ -102,7 +105,8 @@ with head:
     st.title('Resolvox')
     st.write('Speak naturally. Get help with your ZentroMart order.')
 with badge:
-    st.markdown('<div class="hero-note">English · हिन्दी · Hinglish</div>', unsafe_allow_html=True)
+    badge_text = '10 languages + Hinglish · preview' if regional_preview else 'English · हिन्दी · Hinglish'
+    st.markdown(f'<div class="hero-note">{badge_text}</div>', unsafe_allow_html=True)
 st.markdown('<div class="topic-row"><span class="topic">Returns & refunds</span><span class="topic">Orders & delivery</span><span class="topic">Product support</span></div>', unsafe_allow_html=True)
 voice_tab, text_tab, eval_tab = st.tabs(['Voice support', 'Text support', 'Evaluation'])
 
@@ -153,6 +157,13 @@ def render_conversation(channel):
                     st.rerun()
             evidence(out)
 
+VOICE_LANGUAGES = {'English / Hinglish': 'en', **{name: code for code, name in LANGUAGE_NAMES.items() if code not in {'en', 'hi-en'}}}
+
+def respond_in_language(text, selected=None):
+    if selected is None:
+        return st.session_state.agent.respond(text)
+    return st.session_state.agent.respond(text, language_hint=selected)
+
 def process_voice(audio, spoken_language):
     folder = ROOT / 'tmp/voice_ui'
     folder.mkdir(parents=True, exist_ok=True)
@@ -168,10 +179,11 @@ def process_voice(audio, spoken_language):
         with st.status('Listening to your message…', expanded=True) as progress:
             voice = GnaniVoice()
             st.write('1 / 3 · Listening with Gnani')
-            heard = voice.transcribe(path, 'hi-IN' if spoken_language == 'Hindi' else 'en-IN')
+            selected = VOICE_LANGUAGES[spoken_language]
+            heard = voice.transcribe(path, STT_CODES[selected])
             progress.update(label='Checking your question…')
             st.write('2 / 3 · Checking information and conversation context')
-            out = st.session_state.agent.respond(heard)
+            out = respond_in_language(heard, None if spoken_language == 'English / Hinglish' else selected)
             entry = {'output': out, 'audio': None, 'audio_error': None}
             st.session_state.messages.append(entry)
             progress.update(label='Preparing your voice reply…')
@@ -193,7 +205,7 @@ with voice_tab:
         with controls:
             st.subheader('Speak with Resolvox')
             st.caption('Record a question or send an audio clip. You can switch to text at any time.')
-            spoken_language = st.selectbox('Spoken language', ['English / Hinglish', 'Hindi'], key='spoken_language')
+            spoken_language = st.selectbox('Spoken language', list(VOICE_LANGUAGES) if regional_preview else ['English / Hinglish', 'Hindi'], key='spoken_language')
             audio_source = st.radio('Audio source', ['Record', 'Upload'], horizontal=True, key='audio_source')
             epoch = st.session_state.voice_epoch
             if audio_source == 'Record':
@@ -218,6 +230,8 @@ with text_tab:
     with st.container(border=True, key='text_workspace'):
         st.subheader('Continue by text')
         st.caption('The same conversation and verified order context carry across voice and text.')
+        text_choices = LANGUAGE_NAMES.values() if regional_preview else [LANGUAGE_NAMES[c] for c in ['en', 'hi', 'hi-en']]
+        text_language = st.selectbox('Question language', ['Auto-detect', *text_choices], key='text_language')
         render_conversation('text')
         examples = [('Refund timing', 'How long does a UPI refund take?'),
                     ('Return policy', 'What is the return window for electronics?'),
@@ -229,7 +243,8 @@ with text_tab:
         prompt = st.chat_input('Type your question…', key='support_chat') or example_prompt
         if prompt:
             with st.spinner('Checking your question…'):
-                out = st.session_state.agent.respond(prompt)
+                selected = None if text_language == 'Auto-detect' else normalize_language(text_language)
+                out = respond_in_language(prompt, selected)
             st.session_state.messages.append({'output': out, 'audio': None, 'audio_error': None})
             st.rerun()
 
@@ -250,19 +265,28 @@ with eval_tab:
         summary = load_report(filename).get('summary', {})
         total = summary.get('total', summary.get('evaluated'))
         col.metric(label, f"{summary['passed']} / {total}" if 'passed' in summary and total else 'Not recorded')
-    live_report = load_report('eval_step2_live_postfix_partial.json')
+    live_report = load_report('eval_step2_live_current.json') or load_report('eval_step2_live_postfix_partial.json')
     if live_report:
         summary = live_report.get('summary', {})
         evaluated = summary.get('total', summary.get('evaluated', 0))
         planned = summary.get('planned', 52)
         st.info(f"Live model subset: {summary.get('passed', 0)} passed, {evaluated} checked of {planned} planned. "
                 + ('Complete recorded run.' if summary.get('complete') else 'The full live rerun is incomplete.'))
+    live_conversations = load_report('eval_step3_live_current.json')
+    if live_conversations:
+        summary = live_conversations.get('summary', {})
+        st.info(f"Live conversations: {summary.get('passed', 0)} passed, {summary.get('total', 0)} checked of {summary.get('planned', 96)} planned. "
+                + ('Complete recorded run.' if summary.get('complete') else 'The live conversation rerun is incomplete.'))
     voice_report = load_report('voice_validation.json')
     if voice_report:
         semantic = voice_report.get('semantic_validation', {})
         st.write(f"**Gnani speech check:** {semantic.get('passed', 0)} passed, {semantic.get('failed', 0)} failed.")
         st.caption('Recorded synthetic-audio round trips; human speech and noisy-room performance remain unverified.')
     with st.expander('Evaluation details'):
+        language_check = load_report('language_validation.json').get('summary', {})
+        if language_check:
+            st.write(f"Optional regional-language preview: {language_check.get('voice_passed', 0)}/{language_check.get('planned', 0)} synthetic voice checks passed; {language_check.get('failed', 0)} failed.")
+            st.caption('Experimental language routing is separate from primary English/Hindi/Hinglish support. Failed checks remain visible.')
         baseline = load_report('eval_step1.json').get('summary', {})
         st.write(f"Prompt-only baseline: {baseline.get('passed', '?')} / {baseline.get('total', '?')}")
         adversarial = load_report('eval_adversarial.json').get('summary', {})

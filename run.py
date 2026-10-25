@@ -1,7 +1,9 @@
 """Batch runner: python run.py --audio_dir <in> --out_dir <out>."""
 from pathlib import Path
 import argparse,json,re,sys,time
-from src.agent import Agent,resources
+from src.agent import resources
+from src.multilingual import MultilingualAgent as Agent
+from src.languages import LANGUAGE_NAMES, STT_CODES, normalize_language
 from src.normalize import redact
 from src.voice import GnaniVoice,VoiceError,VoiceUnavailable
 
@@ -9,6 +11,7 @@ FORMATS={'.wav','.mp3','.ogg','.flac','.aac','.m4a'}
 
 def run_batch(audio_dir:Path,out_dir:Path,language:str='en-IN',session_mode:str='auto',compose:bool=True,voice=None) -> dict:
     batch_started=time.perf_counter()
+    language=normalize_language(language)
     if not audio_dir.is_dir():raise ValueError('Input audio directory does not exist')
     if audio_dir.resolve()==out_dir.resolve():raise ValueError('Input and output directories must differ')
     out_dir.mkdir(parents=True,exist_ok=True); voice=voice or GnaniVoice(); shared=resources(); sessions={}; entries=[]
@@ -25,10 +28,12 @@ def run_batch(audio_dir:Path,out_dir:Path,language:str='en-IN',session_mode:str=
         result=None; durations={'stt_ms':0.,'agent_ms':0.,'tts_ms':0.}
         try:
             stage_started=time.perf_counter()
-            try:transcript=voice.transcribe(path,meta.get('language',language))
+            try:
+                selected=normalize_language(meta.get('language',language))
+                transcript=voice.transcribe(path,STT_CODES[selected])
             finally:durations['stt_ms']+=1000*(time.perf_counter()-stage_started)
             stage_started=time.perf_counter()
-            try:result=agent.respond(transcript)
+            try:result=agent.respond(transcript) if selected == 'en' else agent.respond(transcript,language_hint=selected)
             finally:durations['agent_ms']+=1000*(time.perf_counter()-stage_started)
             entry['agent_succeeded']=True; entry['decision']=result['decision']
             try:
@@ -66,7 +71,7 @@ def run_batch(audio_dir:Path,out_dir:Path,language:str='en-IN',session_mode:str=
     (out_dir/'manifest.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8');return summary
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__); p.add_argument('--audio_dir',required=True,type=Path);p.add_argument('--out_dir',required=True,type=Path);p.add_argument('--language',default='en-IN');p.add_argument('--session_mode',choices=['auto','independent','sequential'],default='auto');p.add_argument('--offline-rules',action='store_true');a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__); p.add_argument('--audio_dir',required=True,type=Path);p.add_argument('--out_dir',required=True,type=Path);p.add_argument('--language',default='en-IN',help='Spoken language: '+', '.join(dict.fromkeys(STT_CODES.values()))+'; hi-en uses en-IN speech recognition');p.add_argument('--session_mode',choices=['auto','independent','sequential'],default='auto');p.add_argument('--offline-rules',action='store_true');a=p.parse_args()
     try:result=run_batch(a.audio_dir,a.out_dir,a.language,a.session_mode,not a.offline_rules)
     except (ValueError,OSError) as e:p.error(str(e))
     print(json.dumps({k:v for k,v in result.items() if k!='entries'},indent=2));return 0 if result['total'] and not result['failed'] else 1

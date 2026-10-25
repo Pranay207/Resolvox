@@ -34,7 +34,7 @@ def offline_pipeline(monkeypatch):
         def __init__(self, shared, compose):
             assert compose is False
 
-        def respond(self, transcript):
+        def respond(self, transcript, **kwargs):
             clock.advance(2.)
             if mode["failure"] == "agent":
                 raise RuntimeError("private-exception-sentinel")

@@ -12,7 +12,7 @@ def download(url,path):
         while block:=response.read(1024*1024): f.write(block)
     path.with_suffix(path.suffix+'.part').replace(path)
 def main():
-    p=argparse.ArgumentParser(); p.add_argument('--models',action='store_true'); p.add_argument('--skip-install',action='store_true'); args=p.parse_args()
+    p=argparse.ArgumentParser(); p.add_argument('--models',action='store_true'); p.add_argument('--regional-languages',action='store_true'); p.add_argument('--skip-install',action='store_true'); args=p.parse_args()
     if not args.skip_install: subprocess.run([sys.executable,'-m','pip','install','-r',str(ROOT/'requirements.txt')],check=True)
     data=ROOT/'Capstone_Project_Dataset_FTTT_2026'
     if not data.exists():
@@ -37,5 +37,7 @@ def main():
         hashes={name:hashlib.sha256((target/name).read_bytes()).hexdigest() for name in ['tokenizer.json','model.onnx']}
         (target/'checksums.json').write_text(json.dumps(hashes,indent=2))
         print('Model pinned to',sha,flush=True)
+    if args.regional_languages:
+        subprocess.run([sys.executable,'-X','utf8',str(ROOT/'scripts/setup_translation.py')],check=True)
     print('Setup complete. Configure .env; python -m streamlit run app.py')
 if __name__=='__main__': main()
