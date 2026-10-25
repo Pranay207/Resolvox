@@ -304,6 +304,77 @@ def _check_deictic_delivery_membership(answer, status, normalizer):
         previous_dated_class = current_dated_class
 
 
+def _check_personal_current_window(answer, status, normalizer):
+    """Do not apply a date-dependent current window to an undated personal unit.
+
+    ``status`` has just been rebound by delivery_exception_status. This finite
+    English predicate check does not establish general semantic entailment.
+    """
+    if not status or status.get('input_origin') != 'missing':
+        return
+    current = status.get('standard_window_calendar_days')
+    if type(current) is not int or current == status.get('window_calendar_days'):
+        return
+    boundary = _date(status.get('delivery_before'))
+    if boundary is None:
+        raise ValueError('unbound_delivery_exception')
+    dates = [boundary.isoformat(), f'{boundary.day} {boundary:%B %Y}',
+             f'{boundary.day:02d} {boundary:%B %Y}', f'{boundary.day} {boundary:%b %Y}']
+    date_reference = (r'(?:' + '|'.join(re.escape(value.casefold()) for value in dates) +
+                      r'|(?:this|that|the)\s+(?:date|cut[ -]?off)|(?:the\s+)?cut[ -]?off)')
+    unit = r'(?:purchase|order|item|product|unit)'
+    personal_unit = r'(?:your|this)\s+(?:[A-Za-z0-9_-]+\s+){0,6}' + unit
+    # A category or named model is not necessarily an individual delivered unit.
+    personal = re.compile(
+        r'\byour\s+return\s+(?:deadline|window|period|duration)\b|'
+        r'\bfor\s+' + personal_unit + r'\s*[,;]\s*(?:the\s+)?(?:return\s+)?(?:deadline|window|period|duration)\b|'
+        r'\b(?:deadline|window|period|duration|time)\b[^.;]{0,90}\b' + personal_unit + r'\b|'
+        r'\b' + personal_unit + r'\b[^.;]{0,90}\b(?:return\w*|deadline|window)\b|'
+        r'\byou\s+(?:have|get|receive|can|may|must)\b', re.I)
+    subject = (r'(?:(?:your|the|this)\s+(?!(?:other|another|different)\b)(?:[A-Za-z0-9_-]+\s+){0,6}' + unit +
+               r'|it|you|items?|orders?|products?)')
+    auxiliaries = r'(?:(?:was|were|is|are|has\s+been|have\s+been)\s+)?'
+    conditional_delivery = re.compile(
+        r'(?:\b(?:if|provided|assuming|when|whether)\s+(?:' + subject + r'\s+)?' + auxiliaries +
+        r'|\bfor\s+(?:items?|orders?|products?)\s+)'
+        r'(?:delivered|received|got)\s+(?:(?:it|the\s+(?:item|order|product))\s+)?'
+        r'(?P<comparison>on\s+or\s+after|after|since|from)\s+' + date_reference + r'\b', re.I)
+    for original in re.findall(r'[^.!?;\u0964\n]+[.!?;\u0964\n]?', answer):
+        clause = normalizer(original.casefold().replace(',', ';'))
+        if not _mentions_days(clause, current, normalizer):
+            continue
+        if not re.search(r'\b(?:return\w*|deadline|window)\b', clause, re.I):
+            continue
+        matches = list(personal.finditer(clause))
+        if not matches:
+            continue
+        if re.match(r'^\s*(?:is|are|can|could|does|do|would|will|what|which|when|whether)\b', clause) and '?' in original:
+            continue
+        for match in matches:
+            if _uncertain_predicate(clause, match.start()):
+                continue
+            tail = re.split(r';|\b(?:and|but|however|yet|then)\b', clause[match.end():], maxsplit=1)[0]
+            personal_claim = clause[match.start():match.end()] + tail
+            if not _mentions_days(personal_claim, current, normalizer):
+                continue
+            qualified = False
+            if not re.search(r'\b(?:regardless|irrespective|whatever)\b', personal_claim):
+                for condition in conditional_delivery.finditer(clause):
+                    if condition.end() <= match.start():
+                        gap = clause[condition.end():match.start()]
+                        # A condition must directly introduce this predicate,
+                        # not a preceding general rule or coordinated claim.
+                        qualified = bool(re.fullmatch(r'\s*;?\s*(?:then\s+)?(?:the\s+)?', gap))
+                    elif condition.start() >= match.end():
+                        gap = clause[match.end():condition.start()]
+                        qualified = (not re.search(r';|\b(?:and|but|however|yet|then|regardless|irrespective)\b', gap)
+                                     and _mentions_days(gap, current, normalizer))
+                    if qualified:
+                        break
+            if not qualified:
+                raise ValueError('unsupported_delivery_exception_personal_window')
+
+
 def check_placement_exception_answer(answer, facts, sources, *, normalizer=_numeric_text):
     """Check unsupported personal date premises and definite exception entitlement."""
     policy = facts.get('return_policy', {})
@@ -339,3 +410,4 @@ def check_placement_exception_answer(answer, facts, sources, *, normalizer=_nume
                 if (status['window_calendar_days'] != status['standard_window_calendar_days']
                         and _mentions_days(claim, status['window_calendar_days'], normalizer)):
                     raise ValueError('unsupported_' + kind + '_exception_entitlement')
+    _check_personal_current_window(answer, delivery, normalizer)
