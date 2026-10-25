@@ -67,8 +67,8 @@ def test_host_records_the_actual_context_without_model_citation_claims():
     assert out['generation_attempts'] == 1
     assert client.calls[0]['payload']['source_text'] == sorted(original, key=lambda s: s['id'])
     schema = client.calls[0]['options']['schema']
-    assert set(schema['required']) == {'answer', 'decision', 'covered'}
-    assert set(schema['properties']) == {'answer', 'decision', 'covered'}
+    assert set(schema['required']) == {'answer', 'covered', 'needs_clarification'}
+    assert set(schema['properties']) == {'answer', 'covered', 'needs_clarification'}
     for key in ('verified_rule_summary', 'plan', 'policy_plan', 'required_ids',
                 'expected_answer', 'required_citations', 'sentences'):
         assert key not in client.calls[0]['payload']

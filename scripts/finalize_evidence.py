@@ -113,79 +113,128 @@ def regression_note(hold,comparison):
     return text+' The first independent pass and original predictions remain preserved. Later results are exposed regressions, not a new blind holdout, live-generation test, organizer score, guarantee of placing or proof of universal semantic correctness.'
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--pytest-passed',type=int,required=True);args=parser.parse_args()
-    engineering=load('engineering_verification.json')
-    engineering['pytest'].update(passed=args.pytest_passed,total=args.pytest_passed,exit_code=0)
-    engineering['runtime_commit']=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
-    engineering['generated_at']=datetime.now(timezone.utc).isoformat();write('engineering_verification.json',engineering)
-    stages={step:load(f'eval_step{step}.json') for step in (1,2,3)}
-    live_partial=optional('eval_step2_live_postfix_partial.json')
-    live2_name,live2=select_current_live(2);live3_name,live3=select_current_live(3)
-    benchmark=live2 or live_partial or stages[2]
-    benchmark_scope=('Current LLM-enabled question run; '+live_result_text(live2)) if live2 else ('Historical post-fix live subset; '+live_result_text(live_partial) if live_partial else 'Offline grounded practice; no live generation claim')
-    groups={}
-    for row in benchmark['results']:
-        pred=row['prediction'];metrics=pred.get('llm',{})
-        if not metrics:continue
-        label='output cache' if metrics.get('cache_hit') else 'uncached requests'
-        groups.setdefault(label,[]).append({'id':row['id'],'composition':pred['composition'],'latency_ms':row['latency_ms'],'llm':metrics})
-    models=[]
-    for label,cases in groups.items():
-        models.append({'model':benchmark['configuration']['llm_model']+' ('+label+')','cases':cases,
-            'summary':{'evaluated':len(cases),'grounded_llm_count':sum(c['composition']=='grounded_llm' for c in cases),'mean_latency_ms':mean(c['latency_ms'] for c in cases)}})
-    write('generation_benchmark_selected.json',{'scope':benchmark_scope+'. Cached and uncached paths are separate. All measured latencies are retained, including outliers; no hard end-to-end timeout or controlled cold-start claim.','configuration':benchmark['configuration'],'models':models})
-    hold=load('eval_holdout.json');first=load('eval_holdout_first_pass.json');adv=load('eval_adversarial.json');voice=load('voice_validation.json')
-    privacy_checks=[c for r in hold['results'] for c in r['judgment']['checks'] if c['check'] in {'no_private_email','no_full_phone_number'} or c['check'].startswith(('privacy','unverified_lookup_has_no_private_data:'))]
-    failed_privacy=sum(not c['passed'] for c in privacy_checks) if privacy_checks else None
-    comparison=holdout_comparison(hold)
-    probe=optional('coverage_probe.json')
-    summary={f'step{step}':data['summary'] for step,data in stages.items()}
-    summary.update(engineering=engineering,adversarial=adv['summary'],holdout_first_pass=first['summary'],holdout_regression=hold['summary'],holdout_mode=hold['mode'],privacy_check_failures=failed_privacy,privacy_check_count=len(privacy_checks),privacy_check_status='recorded' if privacy_checks else 'not_recorded',holdout_scorer_comparison=comparison,development_probe=probe.get('summary',{}),voice={'status':voice['status'],'audio_passed':voice['batch']['succeeded'],'semantic_passed':voice['semantic_validation']['passed']})
-    summary.update(step2_live=live2.get('summary',{}),step3_live=live3.get('summary',{}),
-        live_practice_complete=live_complete(live2) and live_complete(live3),
-        historical_postfix_live_subset=live_partial.get('summary',{}),
-        regional_preview=optional('language_validation.json').get('summary',{}))
-    write('final_summary.json',summary)
-    run=load('final_evaluation.json')
-    run['post_run_verification']={'number_format_rescoring':'Raw predictions unchanged; original checks retained in eval_step*_raw_scoring.json.','adversarial_rerun':adv['summary'],'pytest':engineering['pytest'],'known_holdout_failures_retained':hold['summary']['failed'],'holdout_scorer_comparison':comparison,'privacy_checks':{'count':len(privacy_checks),'failed':failed_privacy,'status':'recorded' if privacy_checks else 'not_recorded'}}
-    run['current_live_practice']={str(step):{'artifact':name,'summary':data.get('summary',{}),'configuration':data.get('configuration',{}),'complete':live_complete(data)} for step,name,data in ((2,live2_name,live2),(3,live3_name,live3))}
-    run['full_live_practice_rerun_complete']=live_complete(live2) and live_complete(live3)
-    run['note']=live_narrative(live2,live3)+' Holdout evidence remains offline; the saved first pass and exposed regressions are preserved.'
-    write('final_evaluation.json',run)
-    lines=['# Verification record','', 'These are local measurements, not organizer scores. All raw failures and the first independent holdout are retained.','', '| Check | Recorded result |','|---|---|',f"| Engineering tests | {args.pytest_passed}/{args.pytest_passed} passed |",'| Official dataset validator | Passed: 9 CSVs, 21 KB documents |']
-    for step,label in ((1,'Prompt-only, selected model'),(2,'Grounded practice'),(3,'Conversation practice')):
-        s=stages[step]['summary'];mode=stages[step].get('configuration',{}).get('evaluation_mode','mode not recorded');lines.append(f"| {label} ({mode}) | {s['passed']}/{s['total']}; errors {s['errors']} |")
-    for label,data in (('Current LLM-enabled questions',live2),('Current LLM-enabled conversations',live3)):
-        lines.append(f'| {label} | {live_result_text(data)} |')
-        if data:lines.append(f'| {label}: composition | {composition_text(data)} |')
-    if live_partial:
-        partial=live_partial['summary'];lines.append(f"| Historical post-fix live subset | {partial['passed']}/{partial.get('planned','?')} planned; {partial['total']} evaluated; incomplete; preserved unchanged |")
-    lines += [f"| Development adversarial/stateful | {adv['summary']['passed']}/{adv['summary']['total']} |",f"| First independent holdout, offline | {first['summary']['passed']}/{first['summary']['evaluated']} |",f"| Exposed holdout after fixes, offline | {hold['summary']['passed']}/{hold['summary']['evaluated']}; {hold['summary']['failed']} remaining evaluated failures |",f"| Real Gnani synthetic-audio round trips | {voice['batch']['succeeded']}/6 audio and {voice['semantic_validation']['passed']}/6 semantic checks |",'', 'The selected model is qwen3:1.7b. '+live_narrative(live2,live3)+' Actual timing outliers are retained; configured request timeouts do not prove a hard end-to-end latency bound. Human accent/noise robustness and subjective speech quality were not tested.','', 'Number words and digits are scored consistently: the two conversation checks for “three” versus “3” were rescored without changing model predictions or gold expectations. Original checks are preserved.','',regression_note(hold,comparison),'', 'The four-page report, archive inspection and configured-secret scan are verified separately in sample_outputs/pdf_qa.json, package_smoke.json and secret_audit.json. The dataset, .env, model caches and virtual environment are excluded from the ZIP.','', 'The user-recorded demo.mp4 remains pending and must be at most 120 seconds. The ZIP is a reviewable draft until that required file is included.','', 'Reproduce current live practice separately: python scripts/resume_live_practice.py --step 2, then --step 3. Run python -m pytest -q, rebuild/render the report, then package/verify/audit the ZIP. Earlier raw predictions remain preserved.']
-    lines += ['',regional_preview_text(optional('language_validation.json'))]
-    if probe.get('summary'):
-        ps=probe['summary']
-        lines += ['',f"Fresh development coverage probe: {ps['passed']}/{ps['evaluated']}. Earlier failures remain in coverage_probe_first_pass.json; these are exposed engineering checks, not an independent blind evaluation."]
-    lines.insert(lines.index('| Official dataset validator | Passed: 9 CSVs, 21 KB documents |')+1,f"| Holdout privacy assertions | {len(privacy_checks)} checked; {failed_privacy} failures |" if privacy_checks else '| Holdout privacy assertions | Not recorded; no zero-failure claim |')
-    (ROOT/'VERIFICATION.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
-    for filename in ('README.md','BRIEF_CHECKLIST.md'):
-        path=ROOT/filename;text=path.read_text(encoding='utf-8')
-        if filename=='README.md':text=update_readiness(text,stages,live2,live3,hold,args.pytest_passed)
+    """Summarize actual receipts; never run checks or improve their scores."""
+    import hashlib
+
+    parser=argparse.ArgumentParser(description='Summarize current recorded validation without rewriting tests or documents.')
+    parser.add_argument('--pytest-passed',type=int,help='Optional assertion against the actual engineering receipt; never changes its count.')
+    args=parser.parse_args()
+    engineering=optional('engineering_verification.json')
+    pytest=engineering.get('pytest',{})
+    if not isinstance(pytest,dict):pytest={}
+    if args.pytest_passed is not None and (type(pytest.get('passed')) is not int or args.pytest_passed!=pytest['passed']):
+        parser.error('--pytest-passed must match the recorded engineering passed count')
+    expected={path.relative_to(ROOT).as_posix():hashlib.sha256(path.read_bytes()).hexdigest()
+              for path in sorted((ROOT/'src').glob('*.py')) if path.is_file()}
+    required={'src/agent.py','src/document_answers.py','src/document_context.py'}
+
+    def fresh(record,*,finished=False):
+        if not required<=set(expected):return False
+        if finished:
+            candidates=[record.get('runtime_source_sha256_finished',{})]
         else:
-            text=re.sub(r'\*\*\d+/\d+ pytest tests\*\*',f'**{args.pytest_passed}/{args.pytest_passed} pytest tests**',text)
-            start=text.index('## Recorded verification');end=text.index('## Still incomplete',start)
-            records=['## Recorded verification','',f"- [x] Engineering: **{args.pytest_passed}/{args.pytest_passed} pytest tests**; official dataset validator passed."]
-            records += [f"- [x] {label}: **{stages[step]['summary']['passed']}/{stages[step]['summary']['total']}**, errors {stages[step]['summary']['errors']}; see `sample_outputs/eval_step{step}.json` for actual composition, configuration and timings." for step,label in ((1,'Prompt-only selected-model baseline'),(2,'Grounded practice questions ('+stages[2].get('configuration',{}).get('evaluation_mode','mode not recorded')+')'),(3,'Conversation practice turns ('+stages[3].get('configuration',{}).get('evaluation_mode','mode not recorded')+')'))]
-            for label,name,data in (('Current LLM-enabled grounded questions',live2_name,live2),('Current LLM-enabled conversation turns',live3_name,live3)):
-                mark='x' if live_complete(data) and data['summary'].get('passed')==data['summary'].get('total') else ' '
-                records.append(f'- [{mark}] {label}: {live_result_text(data)}; see `sample_outputs/{name}`.')
-                if data:records.append('  Composition: '+composition_text(data)+'.')
-            if live_partial:
-                partial=live_partial['summary'];records.append(f"- [x] Historical live subset preserved unchanged: {partial['passed']}/{partial.get('planned','?')} planned; {partial['total']} evaluated. This is not current complete-run evidence.")
-            records += ['',regional_preview_text(optional('language_validation.json')),'']
-            records += [f"- [x] Development adversarial/stateful regression: **{adv['summary']['passed']}/{adv['summary']['total']}**; development data, not blind evaluation.",'- [x] '+regression_note(hold,comparison),f"- [x] Holdout privacy assertions: {len(privacy_checks)} recorded, {failed_privacy} failed." if privacy_checks else '- [ ] Holdout privacy assertions were not recorded.',f"- [x] Real Gnani synthetic-audio round trips: **{voice['batch']['succeeded']}/6** audio, **{voice['semantic_validation']['passed']}/6** semantic/privacy checks. Human accent/noise robustness and subjective listening remain unverified.",'','Measured JSON and `VERIFICATION.md` preserve provenance, failures, timing and composition. A live run includes checked fallbacks and guards; it does not mean every reply was freshly generated.','']
-            text=text[:start]+'\n'.join(records)+'\n'+text[end:]
-            text=re.sub(r'Full compliance is not claimed\..*?(?=\n\n)',lambda match:'Full compliance is not claimed. The required user demo is still pending; human speech/listening and live holdout checks remain unverified. '+live_narrative(live2,live3)+' '+regional_preview_text(optional('language_validation.json'))+' See `sample_outputs/brief_compliance_audit.json` for the page-by-page requirement review.',text,count=1,flags=re.S)
-        path.write_text(text,encoding='utf-8')
-    print(json.dumps({'practice':[stages[s]['summary']['passed'] for s in (1,2,3)],'tests':args.pytest_passed,'holdout_regression':hold['summary']['passed'],'voice':voice['status']}))
+            candidates=[record.get('runtime_source_sha256',{})]
+            for parent in (record.get('provenance',{}),record.get('configuration',{}).get('provenance',{})
+                           if isinstance(record.get('configuration',{}),dict) else {}):
+                if isinstance(parent,dict):candidates.append(parent.get('runtime_source_sha256',{}))
+        return any(isinstance(hashes,dict) and all(hashes.get(name)==digest for name,digest in expected.items())
+                   for hashes in candidates)
+
+    def receipt(name):
+        path=ROOT/'sample_outputs'/name
+        return {'artifact':'sample_outputs/'+name,'present':path.is_file(),
+                'artifact_sha256':hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None}
+
+    engineering_current=fresh(engineering)
+    engineering_complete=(engineering_current and type(pytest.get('total')) is int and pytest['total']>0
+                          and type(pytest.get('exit_code')) is int)
+    engineering_passed=(engineering_complete and type(pytest.get('passed')) is int
+                        and pytest['passed']==pytest['total'] and pytest['exit_code']==0)
+    engineering_record={**receipt('engineering_verification.json'),'runtime_current':engineering_current,
+        'pytest':pytest,'dataset_validation':engineering.get('dataset_validation',{}),
+        'runtime_commit':engineering.get('runtime_commit'),'complete':engineering_complete,'passed':engineering_passed}
+    live_records={}
+    blockers=[]
+    if not engineering_passed:blockers.append('Current engineering verification is missing, stale, incomplete or failing')
+    for step,planned in ((2,52),(3,96)):
+        name=f'eval_step{step}_live_current.json'
+        data=optional(name);config=data.get('configuration',{})
+        if not isinstance(config,dict):config={}
+        actual_summary=data.get('summary',{})
+        if not isinstance(actual_summary,dict):actual_summary={}
+        eligible=fresh(data) and config.get('evaluation_mode')=='live_compose_true'
+        complete=(eligible and live_complete(data) and actual_summary.get('planned')==planned)
+        passed=(complete and actual_summary.get('passed')==planned
+                and actual_summary.get('failed',0)==0 and actual_summary.get('errors')==0)
+        results=data.get('results',[])
+        if not isinstance(results,list):results=[]
+        predictions=[row.get('prediction',{}) for row in results if isinstance(row,dict)]
+        predictions=[value for value in predictions if isinstance(value,dict)]
+        counts=Counter(value.get('composition','unrecorded') for value in predictions)
+        providers=Counter((value.get('llm',{}).get('provider') if isinstance(value.get('llm',{}),dict) else None)
+                          or value.get('provider','unrecorded') for value in predictions)
+        live_records[str(step)]={**receipt(name),'runtime_current':eligible,'complete':complete,'passed':passed,
+            'configuration':config,'summary':actual_summary if eligible else {},
+            'rejected_recorded_summary':actual_summary if not eligible else {},
+            'composition_counts':dict(counts) if eligible else {},
+            'actual_provider_counts':dict(providers) if eligible else {},
+            'cache_hits':sum(value.get('llm',{}).get('cache_hit') is True for value in predictions
+                             if isinstance(value.get('llm',{}),dict)) if eligible else 0}
+        if not eligible:blockers.append(f'Current live step {step} evidence is missing or stale')
+        elif not complete:blockers.append(f'Current live step {step} is incomplete')
+        elif not passed:blockers.append(f'Current live step {step} contains failed or erroneous responses')
+    voice=optional('voice_validation.json')
+    batch=voice.get('batch',{});semantic=voice.get('semantic_validation',{})
+    if not isinstance(batch,dict):batch={}
+    if not isinstance(semantic,dict):semantic={}
+    total=batch.get('total',0);checks=semantic.get('checks',[])
+    entries=batch.get('entries',[])
+    voice_current=fresh(voice) and fresh(voice,finished=True) and voice.get('source_runtime_unchanged') is True
+    voice_complete=(voice_current and voice.get('status') in {'tested','failed'}
+        and type(total) is int and total>0 and isinstance(entries,list) and len(entries)==total
+        and isinstance(checks,list) and len(checks)==total
+        and type(batch.get('succeeded')) is int and type(batch.get('failed')) is int
+        and batch['succeeded']+batch['failed']==total)
+    voice_passed=(voice_complete and voice.get('live_llm_composition_enabled') is True
+        and voice.get('status')=='tested' and batch.get('failed')==0 and batch.get('succeeded')==total
+        and semantic.get('failed')==0 and semantic.get('passed')==total
+        and all(isinstance(check,dict) and check.get('passed') is True for check in checks))
+    voice_record={**receipt('voice_validation.json'),'runtime_current':voice_current,
+        'status':voice.get('status','pending'),'complete':voice_complete,'passed':voice_passed,
+        'live_llm_composition_enabled':voice.get('live_llm_composition_enabled'),
+        'started_at_utc':voice.get('started_at_utc'),'finished_at_utc':voice.get('finished_at_utc'),
+        'source_runtime_unchanged':voice.get('source_runtime_unchanged'),
+        'batch':batch,'semantic_validation':semantic,'reason':voice.get('reason')}
+    if not voice_passed:blockers.append('Current Gnani speech verification is missing, stale, incomplete or failing')
+    complete=engineering_complete and all(row['complete'] for row in live_records.values()) and voice_complete
+    validation_passed=engineering_passed and all(row['passed'] for row in live_records.values()) and voice_passed
+    release_path=ROOT/'SUBMISSION_STATUS.json'
+    try:release=json.loads(release_path.read_text(encoding='utf-8'))
+    except (OSError,ValueError):release={}
+    if not isinstance(release,dict):release={}
+    submission_ready=validation_passed and fresh(release) and release.get('ready_to_submit') is True
+    historical_names=('eval_step1.json','eval_step2.json','eval_step3.json','eval_step2_live_postfix_partial.json',
+                      'eval_adversarial.json','eval_holdout_first_pass.json','eval_holdout.json','language_validation.json')
+    historical=['sample_outputs/'+name for name in historical_names if (ROOT/'sample_outputs'/name).is_file()]
+    history=ROOT/'sample_outputs/history'
+    historical+=sorted(path.relative_to(ROOT).as_posix() for path in history.rglob('*.json') if path.is_file())
+    run={'generated_at_utc':datetime.now(timezone.utc).isoformat(),'answer_path':'document_context_generation',
+        'scope':'Summary of actual current validation receipts; no tests, inference, speech or scoring are executed here.',
+        'runtime_source_sha256':expected,'complete':complete,'validation_passed':validation_passed,
+        'ready':submission_ready,'ready_to_submit':submission_ready,'validation_blockers':blockers,
+        'submission_status':{'artifact':'SUBMISSION_STATUS.json','runtime_current':fresh(release),
+            'ready_to_submit':release.get('ready_to_submit') is True,
+            'blockers':release.get('blockers',['Final submission readiness has not been verified'])},
+        'engineering':engineering_record,'current_live_practice':live_records,
+        'full_live_practice_rerun_complete':all(row['complete'] for row in live_records.values()),
+        'voice':voice_record,'historical_evidence_paths':historical,
+        'historical_evidence_note':'Earlier scores and predictions are preserved separately and are never promoted to current validation.',
+        'limitations':'Mechanical local checks do not establish organizer scores, unseen semantic correctness or human-speech quality. The own-voice rehearsal and user demo remain separate final steps.'}
+    write('final_evaluation.json',run)
+    print(json.dumps({'complete':complete,'validation_passed':validation_passed,'ready_to_submit':submission_ready,
+        'current_live':{step:{'complete':row['complete'],'passed':row['passed'],'summary':row['summary']}
+                        for step,row in live_records.items()},'voice_status':voice_record['status'],
+        'validation_blockers':blockers},indent=2))
+    return 0
 
 if __name__=='__main__':main()

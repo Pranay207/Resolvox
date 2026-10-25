@@ -90,8 +90,8 @@ def test_supported_negative_answer_is_not_defined_as_refusing_to_help():
     out = reply(client)
     assert out['decision'] == 'answer'
     system = client.calls[0]['system']
-    assert 'supported negative yes/no answer is still decision answer' in system
-    assert 'declining an unsafe or prohibited request' in system
+    assert 'All supported policy explanations, positive or negative, have covered true' in system
+    assert 'do not output a decision field' in system
     assert 'never return just yes or no' in system
 
 

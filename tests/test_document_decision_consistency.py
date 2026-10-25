@@ -75,7 +75,7 @@ def test_system_explicitly_labels_all_supported_policy_explanations():
     client=Client(candidate('Orchid membership includes collection.'))
     reply(client)
     assert 'All supported policy explanations' in client.calls[0]['system']
-    assert 'must use decision answer with covered true' in client.calls[0]['system']
+    assert 'positive or negative, have covered true' in client.calls[0]['system']
 
 
 def test_action_repair_preserves_evidence_and_requests_neutral_date_projection():
