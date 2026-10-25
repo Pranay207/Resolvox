@@ -1,4 +1,4 @@
-# Design - ZentroMart VoiceOps
+# Resolvox - Engineering Design
 
 ## Four cumulative steps
 
@@ -47,7 +47,7 @@ Speech uses the official Gnani REST endpoints only. Multipart inputs are rewound
 
 ## Evaluation and timing
 
-Keep practice, development adversarial cases and the frozen independent holdout distinct. The practice set was used during implementation. The frozen `tests/holdout_cases.json` contains 64 single questions plus 10 scenarios/27 turns: 91 judged responses. Full rubric SHA-256: `5f345355d495379623ecc7dfcecdbd7a78f56c3edab62fda5d6f6edfea9d03c7`. Validate with `python eval_holdout.py --check-only`; `python eval_holdout.py` evaluates live generation and `--offline` evaluates rules. Results belong in `sample_outputs/eval_holdout.json`. No pending run has a claimed score.
+Keep practice, development adversarial cases and the frozen independent holdout distinct. The practice set was used during implementation. The frozen `tests/holdout_cases.json` contains 64 single questions plus 10 scenarios/27 turns: 91 judged responses. Full rubric SHA-256: `5f345355d495379623ecc7dfcecdbd7a78f56c3edab62fda5d6f6edfea9d03c7`. Validate with `python eval_holdout.py --check-only`; `python eval_holdout.py` evaluates live generation and `--offline` evaluates rules. Results belong in `sample_outputs/eval_holdout.json`. The first independent offline pass is preserved at 23/91. The latest exposed-set offline regression is 91/91 under scorer v2, with zero remaining evaluated failures. Old 49/91 predictions were separately rescored unchanged at 51/91; the two scorer-only gains are distinct from runtime improvement from 51 to 91 under v2. `eval_holdout_before_normalization_v2.json` and `eval_holdout_scorer_v2_same_predictions.json` retain this provenance. Later runs after inspecting failures are exposed regressions, not new blind evaluations. Offline success does not establish live generation, human speech robustness or universal semantic correctness.
 
 Report decisions, required/forbidden facts, tools, retrieval coverage and answer-used evidence separately. Retain invalid JSON, timeouts, fallback frequency, abstentions and semantic failures. Exact keyword/rubric matching is not a semantic certificate or organizer score. Generated JSON, model benchmarks and final verification outputs are the source for current numbers; historical sentence-ordering scores must not be reused for this generation architecture.
 

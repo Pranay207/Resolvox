@@ -1,4 +1,4 @@
-# User-recorded demo runbook (maximum 120 seconds)
+# Resolvox - Two-minute Demo Script
 
 Record your screen and narration after final validation, and save `demo.mp4` at the project root. Leave a few seconds below the 120-second limit. Show real app/tool/speech output; do not replace answers, hide failures or display simulated success. Keep `.env`, private table rows and unredacted proof inputs off-screen.
 
@@ -15,7 +15,7 @@ Record your screen and narration after final validation, and save `demo.mp4` at 
 
 | Time | Action and concise narration |
 |---|---|
-| 00:00-00:10 | Show app title. "This is ZentroMart's AI support assistant. It searches company policies, verifies order access, and uses Gnani for speech." |
+| 00:00-00:10 | Show app title. "This is Resolvox, ZentroMart's multilingual AI support assistant. It searches company policies, verifies order access, and uses Gnani for speech." |
 | 00:10-00:35 | Ask a documented policy question, such as UPI refund timing. Open Sources and composition/timing evidence. "It retrieved these sections first. The model generated the answer from their actual text. The source trace records the exact sections supplied; checks can reject unsupported values, but do not prove every claim." State whether the response was warm uncached or cached; if fallback occurred, say so. |
 | 00:35-01:00 | Ask about the prepared synthetic order, show the verification prompt, provide proof off-screen and reveal the redacted successful lookup trace. "Order details are withheld until verification succeeds. The credential is removed from the trace and model input." |
 | 01:00-01:20 | Ask a follow-up on that order, then request a human if time permits. Show the actual ticket result. "The session keeps the verified order context. A ticket is reported only after the supplied tool confirms success." If creation fails, describe the failure honestly. |

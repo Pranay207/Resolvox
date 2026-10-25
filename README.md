@@ -1,6 +1,6 @@
-# ZentroMart VoiceOps 2026
+# Resolvox — Multilingual AI Voice Support
 
-A customer support agent that retrieves company policies before generating English, Hindi and Hinglish replies, verifies order access, creates handover tickets through the supplied tools, and uses Gnani for speech.
+Built for ZentroMart’s online shoppers. A customer support agent that retrieves company policies before generating English, Hindi and Hinglish replies, verifies order access, creates handover tickets through the supplied tools, and uses Gnani for speech.
 
 **Public repository:** https://github.com/Pranay207/ESD
 
@@ -8,9 +8,9 @@ Built for From Tokens to Transformers, Consulting & Analytics Club, IIT Guwahati
 
 ## Current status
 
-The implementation includes query-first hybrid retrieval, source-text LLM generation, checked deterministic fallbacks, session verification, and the Gnani speech wrapper. The selected local model is `qwen3:1.7b`; final evaluation is being rerun for this architecture. Read the generated JSON in `sample_outputs/` for measured composition modes, failures and timings; older sentence-ordering results do not establish the current system's performance.
+The implementation includes query-first hybrid retrieval, source-text LLM generation, checked deterministic fallbacks, session verification, and the Gnani speech wrapper. The selected local model is `qwen3:1.7b`. The latest broader offline regression passes **91/91**, with **0 remaining failures in these evaluated cases**; the engineering suite passes **223/223**. Complete post-fix practice runs are offline `compose=False`. The separate current live subset has **32 passing cases of 52 planned**, with 32 evaluated and `complete=False`; it is not a complete live rerun. Earlier full live results predate these fixes. Speech results are recorded separately in `sample_outputs/`, with configuration, timestamps, composition modes and actual timings including outliers; request timeout settings do not establish a hard end-to-end bound. An offline pass does not establish live-generation or human-speech performance.
 
-`tests/holdout_cases.json` is a frozen independent evaluation suite: 64 single questions and 10 stateful scenarios containing 27 turns, for 91 judged responses. Its full rubric SHA-256 is `5f345355d495379623ecc7dfcecdbd7a78f56c3edab62fda5d6f6edfea9d03c7`. The suite is not runtime knowledge. A completed holdout result must come from `sample_outputs/eval_holdout.json`; no score is claimed here before that run.
+`tests/holdout_cases.json` is a frozen independent evaluation suite: 64 single questions and 10 stateful scenarios containing 27 turns, for 91 judged responses. Its full rubric SHA-256 is `5f345355d495379623ecc7dfcecdbd7a78f56c3edab62fda5d6f6edfea9d03c7`. The suite is not runtime knowledge. Its first independent offline pass remains preserved at **23/91**. After exposure and general fixes, `sample_outputs/eval_holdout.json` records **91/91 offline** under scorer v2; this is an exposed-set regression, not a new blind result. The old **49/91** predictions score **51/91** under v2 without changing predictions: only **2 points** came from equivalent-wording normalization. The rise from **51 to 91 under the same scorer** reflects runtime fixes. Both old predictions and rescoring provenance are retained; zero failures here does not guarantee hidden-test correctness or placement.
 
 The final `demo.mp4` must be recorded by the user and last at most 120 seconds. The package remains a draft until required artifacts and final verification are complete. See `BRIEF_CHECKLIST.md`, `VERIFICATION.md` and `SUBMISSION_STATUS.json`.
 

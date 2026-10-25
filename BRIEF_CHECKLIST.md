@@ -18,23 +18,25 @@ Source: `voiceops_2026_capstone_brief.pdf`. Work lives in `ESD`. Implementation 
 
 ## Recorded verification
 
-- [x] Full engineering suite: **145/145 pytest tests**, exit code 0; official dataset validation also exited 0. Evidence: `sample_outputs/engineering_verification.json`.
-- [x] Selected same-model comparison with `qwen3:1.7b`: prompt-only baseline **1/52**, with **1 error** retained; live RAG practice **52/52**; live conversation practice **96/96**. Evidence: `eval_step1.json`, `eval_step2.json`, `eval_step3.json` in `sample_outputs/`.
-- [x] Judgment normalizes equivalent spelled-number/digit forms; raw model predictions remain unchanged and preserved. Mechanical passes do not certify every claim or hidden-test quality.
-- [x] Composition is reported separately: single questions contain **17 grounded LLM**, **24 checked fallback**, **5 missing-evidence abstention**, **2 checked rule** and **4 guardrail** responses. Conversation turns contain **5 grounded LLM**, **12 checked fallback**, **2 checked rule** and **77 guardrail** responses. A live run does not mean every response was freshly generated.
-- [x] Development adversarial/stateful checks: **77/77** in `sample_outputs/eval_adversarial.json`; these are development regressions, not an independent holdout.
-- [x] Retrieval is measured separately at **k=12**: single-question search recall **96.1%**, used-source recall **85.6%**. Conversation search recall **29.5%**, used-source recall **97.3%**; many conversation turns use explicit authentication/guard sources rather than query search.
-- [x] Selected-model actual-practice timing is separated by path: **38 uncached requests, mean 14.78 s**, versus **3 output-cache responses, mean 0.234 s**, in `sample_outputs/generation_benchmark_selected.json`. Accepted grounded-generation counts for those groups are 15 and 2 respectively; fallback and cache success are not fresh-generation success.
-- [x] Real Gnani validation: **6/6 audio round trips** and **6/6 semantic/privacy checks** in `sample_outputs/voice_validation.json`. Inputs are synthetic Gnani TTS clips.
-- [x] Frozen fixture integrity is preserved. First independent **offline** holdout: **23/91**; post-fix **offline exposed-set regression: 49/91**, with **42 unresolved**. Retain both `eval_holdout_first_pass.json` and `eval_holdout.json`; fixtures and original predictions are not rewritten to hide failures.
+- [x] Engineering: **223/223 pytest tests**; official dataset validator passed.
+- [x] Prompt-only selected-model baseline: **1/52**, errors 1; see `sample_outputs/eval_step1.json` for actual composition, configuration and timings.
+- [x] Grounded practice questions (offline_compose_false): **52/52**, errors 0; see `sample_outputs/eval_step2.json` for actual composition, configuration and timings.
+- [x] Conversation practice turns (offline_compose_false): **96/96**, errors 0; see `sample_outputs/eval_step3.json` for actual composition, configuration and timings.
+- [x] Post-fix live subset: **32/52 planned**, 32 evaluated, complete=False. This is not a complete live rerun; earlier complete live runs predate these fixes.
+- [x] Development adversarial/stateful regression: **77/77**; development data, not blind evaluation.
+- [x] The latest exposed-set offline regression passed 91/91, with 0 remaining failures in the evaluated cases. Old predictions scored 49/91 originally and 51/91 under scorer v2 without prediction changes: 2 points came from scoring normalization, not product improvement. The current product improved from 51 to 91 under that same scorer after runtime fixes. The first independent pass and original predictions remain preserved. Later results are exposed regressions, not a new blind holdout, live-generation test, organizer score, guarantee of placing or proof of universal semantic correctness.
+- [x] Holdout privacy assertions: 191 recorded, 0 failed.
+- [x] Real Gnani synthetic-audio round trips: **6/6** audio, **6/6** semantic/privacy checks. Human accent/noise robustness and subjective listening remain unverified.
+
+Measured JSON and `VERIFICATION.md` preserve provenance, failures, timing and composition. A live run includes checked fallbacks and guards; it does not mean every reply was freshly generated.
 
 ## Still incomplete
 
-- [ ] Live LLM holdout evaluation has **not** been performed. The two recorded holdout results above are offline; do not present them as live-generation results or treat the later exposed regression as independent.
+- [ ] Live LLM holdout evaluation has **not** been performed. All recorded holdout results above are offline; do not present them as live-generation results or treat the later exposed regression as independent.
 - [ ] Controlled cold-start latency has **not** been measured. Per-turn uncached and cache measurements exclude prior resource startup and are not cold-start measurements.
 - [ ] Human speech testing and subjective listening have **not** been completed. Synthetic TTS-input round trips do not establish human accent/noise robustness.
-- [ ] Complete final `report.pdf` QA: maximum four pages, render and inspect every page against the latest JSON evidence.
-- [ ] Complete final ZIP/release-content QA and package allowlist checks; retain package-verifier output.
+- [x] Final `report.pdf` QA: four pages rendered and visually inspected against current results; see `sample_outputs/pdf_qa.json`.
+- [x] Final ZIP extraction, import/answer smoke test and package allowlist checks passed; retain `sample_outputs/package_smoke.json`.
 - [ ] Push the latest verified revision and final evidence to the public repository; earlier public commits do not establish that the final revision was pushed.
 - [ ] User records `demo.mp4` (maximum 120 seconds) after final validation; show actual generation mode, sources, verification/handover and live Gnani speech.
 - [ ] Build final-ready `team_name_voiceops.zip` with the required report, demo and generated sample outputs. Keep draft status until required artifacts exist and verification passes.
@@ -49,7 +51,7 @@ Fixture: `tests/holdout_cases.json`. Full rubric SHA-256:
 5f345355d495379623ecc7dfcecdbd7a78f56c3edab62fda5d6f6edfea9d03c7
 ```
 
-The fixture is evaluation data, never runtime retrieval or answer-generation knowledge. The preserved first independent offline pass scored **23/91 (25.3%)**. After inspecting failures and making general fixes, the exposed-set offline regression scored **49/91 (53.8%)**, leaving **42 failures**. That improvement is a regression result on an exposed set, not a second independent holdout. No live holdout run has been performed. All original fixtures and first-pass outputs remain retained; mechanical rubric matching does not replace semantic review.
+The fixture is evaluation data, never runtime retrieval or answer-generation knowledge. The preserved first independent offline pass scored **23/91 (25.3%)**. After inspecting failures and making general fixes, the exposed-set offline regression scored **91/91 (100%)** under scorer v2, leaving **0 failures in the evaluated cases**. The prior 49/91 predictions are preserved in `eval_holdout_before_normalization_v2.json`; rescoring those same unchanged predictions yields **51/91** in `eval_holdout_scorer_v2_same_predictions.json`. Thus **2 points** came from scoring normalization, and improvement from **51 to 91** is measured after runtime fixes under the same v2 scorer. This is an exposed-set regression, not a second independent holdout or proof of complete customer-question coverage. No live holdout run has been performed. All original fixtures and first-pass outputs remain retained; mechanical rubric matching does not replace semantic review.
 
 ## Rubric
 

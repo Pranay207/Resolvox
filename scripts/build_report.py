@@ -112,6 +112,21 @@ def first_holdout():
     return None, {}
 
 
+def holdout_progress_text(holdout):
+    current=summary(holdout)
+    if not current:return 'The current holdout result is pending; no completed score is inferred.'
+    remaining=current.get('failed')
+    text=f"The current exposed-set offline regression has {remaining} remaining evaluated failures."
+    previous=load('eval_holdout_before_normalization_v2.json')
+    rescored=load('eval_holdout_scorer_v2_same_predictions.json')
+    provenance=rescored.get('rescoring',{})
+    if provenance.get('predictions_unchanged'):
+        text+=f" Old predictions scored {pass_text(previous)} originally and {pass_text(rescored)} under scorer v2 unchanged; {provenance.get('passed_delta','?')} points are scoring normalization, not runtime improvement."
+        if rescored.get('scorer',{}).get('version')==holdout.get('scorer',{}).get('version'):
+            text+=f" Runtime fixes then reached {pass_text(holdout)} under that same scorer."
+    return text+' Zero evaluated failures would not establish unseen semantic correctness or live-generation performance.'
+
+
 def seconds_range(values, milliseconds=False):
     values = [value for value in values if isinstance(value, (int, float))]
     if not values:
@@ -178,6 +193,7 @@ def main():
     base, rag, conv, adv, voice = [load(name) for name in
         ('eval_step1.json', 'eval_step2.json', 'eval_step3.json', 'eval_adversarial.json', 'voice_validation.json')]
     holdout = load('eval_holdout.json')
+    live_partial = load('eval_step2_live_postfix_partial.json')
     first_name, first = first_holdout()
     engineering = load('engineering_verification.json')
     sections = load('generation_benchmark_sections.json')
@@ -214,7 +230,8 @@ def main():
         md.append('\n---\n')
 
     p('VoiceOps 2026', 'SmallV')
-    p('ZentroMart: support that listens', 'TitleV')
+    p('Resolvox', 'TitleV')
+    p('Multilingual AI Voice Support for ZentroMart', 'SmallV')
     p('Technical report | Pranay207 | C&A Club, IIT Guwahati x Gnani.ai', 'SmallV')
     p('One multilingual support agent combines retrieval-first source-text generation, deterministic verification and arithmetic, supplied order/ticket tools, and Gnani speech. Recorded results distinguish generated answers, checked fallbacks, guardrails and abstentions. No organizer score or placing is claimed.')
     h('Four cumulative build steps')
@@ -239,7 +256,7 @@ def main():
         ['4 - Voice', 'Official Gnani STT/TTS, spoken-number normalization, redaction, per-file failure isolation and JSON/text/WAV/source outputs.'],
     ], [94, 416])
     h('Evidence snapshot at report generation')
-    p(f'Baseline {pass_text(base)}; grounded questions {pass_text(rag)}; conversation turns {pass_text(conv)}; development adversarial/stateful checks {pass_text(adv)}. These are mechanical local checks. The practice and adversarial sets were used during development; answer quality is not established by retrieval recall or a successful fallback alone.')
+    p(f'Baseline {pass_text(base)}; current offline grounded questions {pass_text(rag)}; offline conversation turns {pass_text(conv)}; development adversarial/stateful checks {pass_text(adv)}. These are mechanical local checks. The practice and adversarial sets were used during development; answer quality is not established by retrieval recall or a successful fallback alone.')
     p('Grounded run model metadata: ' + model_text(rag) + '.', 'SmallV')
     p(engineering_text(engineering) + ' Required report limit: four pages. The user records the final demo within 120 seconds after validation.', 'SmallV')
 
@@ -261,10 +278,13 @@ def main():
     rows = [
         ['Recorded evaluation', 'Passes', 'Interpretation'],
         ['Prompt-only questions', pass_text(base), rate_text(base) + '; errors ' + str(summary(base).get('errors', 'not recorded'))],
-        ['Grounded single questions', pass_text(rag), rate_text(rag) + '; search ' + search_text(rag)],
-        ['Conversation turns', pass_text(conv), rate_text(conv) + '; mixed answer/authentication turns'],
+        ['Grounded practice (offline)', pass_text(rag), rate_text(rag) + '; compose=False; search ' + search_text(rag)],
+        ['Conversation practice (offline)', pass_text(conv), rate_text(conv) + '; compose=False; answer/auth turns'],
         ['Development adversarial/stateful', pass_text(adv), rate_text(adv) + '; used for development'],
     ]
+    if live_partial:
+        ls=summary(live_partial)
+        rows.append(['Post-fix live subset',f"{ls.get('passed','?')}/{ls.get('planned','?')} planned",f"{ls.get('total','?')} evaluated; incomplete live rerun"])
     if first:
         rows.append(['First holdout (offline)', pass_text(first), rate_text(first)])
         if holdout:
@@ -274,11 +294,11 @@ def main():
     rows.append(['Used-source evidence recall', 'Single / conversation', pct(summary(rag).get('evidence_recall')) + ' / ' + pct(summary(conv).get('evidence_recall'))])
     table(rows, [207, 72, 231])
     p('The scorer checks decisions, required/forbidden facts and expected tools; independent holdout checks also inspect language, evidence, tool arguments and privacy. Mechanical regex/fact checks can miss semantic errors or reject valid paraphrases. Conversation search includes many guard/verification turns and is not directly comparable with standalone query recall.')
-    p('Single-question composition: ' + count_text(composition(rag)) + '. Conversation composition: ' + count_text(composition(conv)) + '.', 'SmallV')
+    p('Complete current practice runs are offline compose=False; earlier complete live results predate the fixes. Current live evidence is the separately recorded incomplete subset. Single-question composition: ' + count_text(composition(rag)) + '. Conversation composition: ' + count_text(composition(conv)) + '.', 'SmallV')
     h('Frozen holdout and honest reruns')
     p('The independent fixture contains 64 single questions and 10 scenarios/27 turns: 91 judged responses. Full rubric SHA-256: ' + HOLDOUT_HASH + '. It is evaluation data, never runtime knowledge. Preserve the first pass before observing failures; later runs after fixes are regressions on an exposed set, not a new independent holdout.', 'SmallV')
     if first:
-        p('First-pass artifact: ' + first_name + '. Current results: eval_holdout.json. Retain both; do not replace the initial failure record.', 'SmallV')
+        p(holdout_progress_text(holdout) + ' First-pass artifact: ' + first_name + '; current: eval_holdout.json. Scorer provenance is retained in eval_holdout_scorer_v2_same_predictions.json.', 'SmallV')
     else:
         p('A separately named first-pass artifact is not present. A saved current holdout score alone does not establish whether it preceded tuning; pending results remain pending.', 'SmallV')
     h('Failures that shaped the implementation')
@@ -288,7 +308,7 @@ def main():
     page()
     p('Latency, voice and reproducibility', 'TitleV')
     h('Model and latency evidence')
-    p('Grounded turn timing: ' + latency_text(rag) + '.', 'SmallV')
+    p('Current live subset turn timing: ' + latency_text(live_partial) + '. Offline timing is recorded separately. All outliers are retained; configured request timeouts do not establish a hard end-to-end latency bound.', 'SmallV')
     bench = benchmark_rows('selected-model check', selected) if selected else benchmark_rows('section experiment', sections)
     if bench:
         table([['Recorded model experiment', 'Accepted generation', 'Mean case wall', 'Warm-up wall']] + bench[:3], [218, 88, 97, 107])
@@ -311,16 +331,16 @@ def main():
         canvas.line(42, 37, 553, 37)
         canvas.setFont('Helvetica', 8)
         canvas.setFillColor(GRAY)
-        canvas.drawString(42, 24, 'VOICEOPS 2026  |  ZENTROMART  |  PRANAY207')
+        canvas.drawString(42, 24, 'RESOLVOX  |  VOICEOPS 2026  |  PRANAY207')
         canvas.drawRightString(553, 24, str(doc.page))
 
     document = SimpleDocTemplate(str(ROOT / 'report.pdf'), pagesize=(595.28, 841.89),
         leftMargin=42, rightMargin=42, topMargin=37, bottomMargin=48,
-        title='ZentroMart VoiceOps 2026 - Technical Report', author='Pranay207')
+        title='Resolvox - ZentroMart VoiceOps 2026 Technical Report', author='Pranay207')
     document.build(story, onFirstPage=footer, onLaterPages=footer)
     if document.page > 4:
         raise RuntimeError(f'Report overflowed to {document.page} pages; revise layout and rerender before release.')
-    (ROOT / 'report.md').write_text('# ZentroMart VoiceOps 2026\n\n' + '\n'.join(md), encoding='utf-8')
+    (ROOT / 'report.md').write_text('# Resolvox - Multilingual AI Voice Support\n\n' + '\n'.join(md), encoding='utf-8')
     print('Created report.pdf and synchronized report.md; render and inspect before release.')
 
 

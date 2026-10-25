@@ -6,14 +6,14 @@ from src.agent import Agent,resources
 from src.config import ROOT
 from src.voice import GnaniVoice,VoiceError,VoiceUnavailable
 
-st.set_page_config(page_title='ZentroMart | VoiceOps',page_icon='🎧',layout='wide')
+st.set_page_config(page_title='Resolvox | ZentroMart',page_icon='🎧',layout='wide')
 st.markdown("""<style>.stApp{background:linear-gradient(135deg,#f5f8fd,#ffffff)}h1{letter-spacing:-1.2px}div[data-testid='stMetric']{background:#eaf1fb;border-radius:14px;padding:18px}section[data-testid='stSidebar']{background:#101f38}section[data-testid='stSidebar'] *{color:#eef4ff}</style>""",unsafe_allow_html=True)
 @st.cache_resource
 def shared():return resources()
 r=shared()
 with st.sidebar:
-    st.title('ZentroMart')
-    st.caption('VOICEOPS 2026 · AI SUPPORT')
+    st.title('Resolvox')
+    st.caption('ZENTROMART · VOICEOPS 2026')
     st.write('Ask about returns, refunds, deliveries and your order.')
     live=st.toggle('Generate from retrieved policies',value=True,help='The model receives actual source text and checked facts. Invalid or timed-out output uses an evidence-checked fallback. Turn off for offline rules.')
     if st.button('New conversation',use_container_width=True):
@@ -25,8 +25,8 @@ if 'voice_agent' not in st.session_state:st.session_state.voice_agent=Agent(r,co
 if 'messages' not in st.session_state:st.session_state.messages=[]
 st.session_state.agent.compose=live;st.session_state.voice_agent.compose=live
 st.caption('C&A CLUB, IIT GUWAHATI × GNANI.AI')
-st.title('Support that listens.')
-st.write('Company policies, checked order details, and a clear next step.')
+st.title('Resolvox')
+st.write('Multilingual AI voice support for ZentroMart. Policies, checked order details, and a clear next step.')
 text_tab,voice_tab,eval_tab=st.tabs(['💬 Text conversation','🎙️ Voice conversation','📊 Evaluation'])
 def evidence(out):
     with st.expander('Sources and actions'):
