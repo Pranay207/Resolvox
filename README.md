@@ -59,6 +59,14 @@ Files are independent by default. In auto mode, `call_id__001.wav` and `call_id_
 
 `--offline-rules` disables LLM answer generation. Speech still calls Gnani; there is no offline STT/TTS substitute.
 
+## Demo interface
+
+The Streamlit console opens in Voice support with a consistent light theme. Choose Record or Upload explicitly, select the spoken language, and send a clip of up to 60 seconds. Progress shows listening, checking and reply preparation.
+
+Voice and Text support share one conversation and verification state. Redacted transcripts, answers and generated reply audio persist across reruns. If speech synthesis fails, the text answer remains available; Retry reply audio only synthesizes the existing answer. New conversation clears the conversation, authentication and audio inputs. Sources and actions are expandable; recorded evaluation clearly separates offline checks from the incomplete live subset.
+
+The packaged `.streamlit/config.toml` keeps native controls and page colors consistent. Uploads are limited to 20 MB. API credentials stay in the ignored `.env`; do not add `.streamlit/secrets.toml` to Git.
+
 ## How answers are produced
 
 ```text

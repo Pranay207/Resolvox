@@ -1,0 +1,20 @@
+# Keep native Streamlit controls and the Resolvox page on the same light theme.
+[theme]
+base = "light"
+primaryColor = "#2563eb"
+backgroundColor = "#f5f8fd"
+secondaryBackgroundColor = "#eaf0f8"
+textColor = "#14243b"
+font = "sans-serif"
+
+[theme.sidebar]
+primaryColor = "#2563eb"
+backgroundColor = "#eef3fa"
+secondaryBackgroundColor = "#e0e9f5"
+textColor = "#14243b"
+
+[server]
+maxUploadSize = 20
+
+[client]
+toolbarMode = "minimal"

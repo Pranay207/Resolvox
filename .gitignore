@@ -11,3 +11,5 @@ dist/
 *.zip
 voiceops_2026_capstone_brief.pdf
 sample_outputs/voice_inputs/
+
+.streamlit/secrets.toml

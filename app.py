@@ -1,80 +1,271 @@
-"""Local Streamlit demo; text and voice use exactly the same agent."""
-import json,tempfile
+"""Resolvox support console. Voice and text share one verified conversation."""
+import json
+import tempfile
 from pathlib import Path
-import streamlit as st
-from src.agent import Agent,resources
-from src.config import ROOT
-from src.voice import GnaniVoice,VoiceError,VoiceUnavailable
 
-st.set_page_config(page_title='Resolvox | ZentroMart',page_icon='🎧',layout='wide')
-st.markdown("""<style>.stApp{background:linear-gradient(135deg,#f5f8fd,#ffffff)}h1{letter-spacing:-1.2px}div[data-testid='stMetric']{background:#eaf1fb;border-radius:14px;padding:18px}section[data-testid='stSidebar']{background:#101f38}section[data-testid='stSidebar'] *{color:#eef4ff}</style>""",unsafe_allow_html=True)
+import streamlit as st
+from src.agent import Agent, resources
+from src.config import ROOT
+from src.voice import GnaniVoice, VoiceError, VoiceUnavailable
+
+st.set_page_config(page_title='Resolvox | ZentroMart', page_icon='🎧', layout='wide')
+st.markdown("""<style>
+.stApp {background:#f5f8fd;color:#14243b;color-scheme:light;}
+[data-testid="stHeader"] {background:#f5f8fd;}
+[data-testid="stMainBlockContainer"] {max-width:1320px;padding:2.5rem 2.5rem 3rem;}
+[data-testid="stMain"] h1,[data-testid="stMain"] h2,[data-testid="stMain"] h3,
+[data-testid="stMain"] label,[data-testid="stMain"] [data-testid="stMarkdownContainer"] {color:#14243b;}
+[data-testid="stMain"] h1 {font-size:2.65rem;letter-spacing:-1.6px;line-height:1.1;}
+[data-testid="stMain"] h3 {font-size:1.2rem;letter-spacing:-.3px;}
+[data-testid="stCaptionContainer"] {color:#596b82!important;}
+[data-testid="stSidebar"] {background:#eef3fb;border-right:1px solid #dce5f1;}
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"],
+[data-testid="stSidebar"] label {color:#233b58;}
+[data-testid="stSidebar"] h1 {font-size:1.65rem;letter-spacing:-.8px;}
+[data-testid="stSidebar"] [data-testid="stSidebarContent"] {padding-top:1.5rem;}
+.st-key-voice_workspace,.st-key-text_workspace {background:white;border-radius:22px;border:1px solid #dfe7f2;box-shadow:0 10px 35px #233b5806;}
+[data-testid="stTabs"] [role="tablist"] {gap:1.4rem;border-bottom:1px solid #dbe4f0;}
+[data-testid="stTabs"] [role="tab"] {color:#52647c;padding:.8rem .2rem;font-weight:600;}
+[data-testid="stTabs"] [aria-selected="true"] {color:#2563eb;}
+[data-testid="stTabs"] [data-baseweb="tab-highlight"] {background:#2563eb;}
+[data-testid="stMetric"] {background:#fff;border:1px solid #dfe7f2;border-radius:16px;padding:1.1rem;}
+[data-testid="stMetricValue"],[data-testid="stMetricLabel"] {color:#14243b;}
+[data-testid="stChatMessage"] {background:#f5f8fd;border-radius:16px;}
+[data-testid="stFileUploaderDropzone"] {background:#f5f8fd;border:1px dashed #b9c9df;color:#233b58;border-radius:14px;}
+[data-testid="stFileUploaderDropzone"] [data-testid="stMarkdownContainer"] {color:#233b58;}
+[data-baseweb="select"]>div {background:#f5f8fd;color:#14243b;border-color:#cedaeb;border-radius:12px;}
+[data-baseweb="select"] input {color:#14243b;}
+[data-testid="stChatInput"] {background:#f5f8fd;border-color:#cedaeb;}
+[data-testid="stChatInput"] textarea {color:#14243b;}
+[data-testid="stAudioInput"] {color-scheme:light;}
+[data-testid="stBaseButton-primary"] {background:#2563eb;color:#fff;border-radius:12px;border-color:#2563eb;min-height:3rem;}
+[data-testid="stBaseButton-primary"] [data-testid="stMarkdownContainer"] {color:#fff!important;}
+[data-testid="stBaseButton-secondary"] {background:white;color:#233b58;border:1px solid #cedaeb;border-radius:12px;}
+[data-testid="stBaseButton-secondary"] [data-testid="stMarkdownContainer"] {color:#233b58;}
+.brand-mark {display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;background:#2563eb;color:white;border-radius:12px;font-weight:800;font-size:22px;margin-bottom:8px;}
+.eyebrow {color:#2563eb;font-size:.73rem;letter-spacing:1.6px;font-weight:750;margin-bottom:.6rem;}
+.hero-note {display:inline-flex;gap:9px;align-items:center;border:1px solid #dce5f1;border-radius:30px;padding:8px 14px;background:#fff;color:#52647c;font-size:.8rem;margin-top:1rem;}
+.topic-row {display:flex;gap:10px;flex-wrap:wrap;margin:.75rem 0 1.5rem;}
+.topic {background:#eaf1fc;border:1px solid #dce7f9;border-radius:9px;color:#345783;padding:7px 12px;font-size:.8rem;}
+.empty-reply {display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:290px;text-align:center;padding:1.7rem;background:#f7faff;border:1px dashed #d5e0ef;border-radius:18px;margin-top:10px;}
+.empty-reply strong {color:#233b58;font-size:1.05rem;margin-top:18px;}
+.empty-reply p {color:#667890!important;font-size:.9rem;max-width:280px;margin-top:8px;}
+.wave {height:48px;display:flex;align-items:center;gap:5px;}
+.wave i {display:block;width:6px;border-radius:8px;background:#729bf0;}
+.step-guide {font-size:.8rem;color:#667890;line-height:1.7;margin-bottom:1rem;}
+@media(max-width:800px) {[data-testid="stMainBlockContainer"] {padding:1.5rem 1rem;}[data-testid="stMain"] h1 {font-size:2rem;}.empty-reply {min-height:170px;}}
+</style>""", unsafe_allow_html=True)
+
 @st.cache_resource
-def shared():return resources()
-r=shared()
+def shared():
+    return resources()
+
+r = shared()
+if st.session_state.get('ui_version') != 'support-console-v2':
+    st.session_state.ui_version = 'support-console-v2'
+    st.session_state.agent = Agent(r)
+    st.session_state.messages = []
+    st.session_state.voice_epoch = 0
+    st.session_state.voice_error = None
+    st.session_state.pop('voice_agent', None)
+
+def reset_conversation():
+    st.session_state.agent = Agent(r, compose=st.session_state.get('compose_live', True))
+    st.session_state.messages = []
+    st.session_state.voice_error = None
+    st.session_state.voice_epoch += 1
+    for key in list(st.session_state):
+        if key.startswith(('voice_recording_', 'voice_upload_')):
+            del st.session_state[key]
+
 with st.sidebar:
+    st.markdown('<div class="brand-mark">R</div>', unsafe_allow_html=True)
     st.title('Resolvox')
-    st.caption('ZENTROMART · VOICEOPS 2026')
-    st.write('Ask about returns, refunds, deliveries and your order.')
-    live=st.toggle('Generate from retrieved policies',value=True,help='The model receives actual source text and checked facts. Invalid or timed-out output uses an evidence-checked fallback. Turn off for offline rules.')
-    if st.button('New conversation',use_container_width=True):
-        st.session_state.agent=Agent(r,compose=live);st.session_state.messages=[];st.session_state.voice_agent=Agent(r,compose=live)
-    st.caption('Dataset date: 20 October 2026')
-    st.caption('Synthetic customer records only')
-if 'agent' not in st.session_state:st.session_state.agent=Agent(r,compose=live)
-if 'voice_agent' not in st.session_state:st.session_state.voice_agent=Agent(r,compose=live)
-if 'messages' not in st.session_state:st.session_state.messages=[]
-st.session_state.agent.compose=live;st.session_state.voice_agent.compose=live
-st.caption('C&A CLUB, IIT GUWAHATI × GNANI.AI')
-st.title('Resolvox')
-st.write('Multilingual AI voice support for ZentroMart. Policies, checked order details, and a clear next step.')
-text_tab,voice_tab,eval_tab=st.tabs(['💬 Text conversation','🎙️ Voice conversation','📊 Evaluation'])
+    st.caption('VOICE SUPPORT FOR ZENTROMART')
+    st.write('A clear next step, in your language.')
+    st.button('＋ New conversation', use_container_width=True, on_click=reset_conversation)
+    st.divider()
+    st.markdown('**How it works**')
+    st.caption('1. Record or type your question.\n\n2. We check the relevant information.\n\n3. Read or listen to the reply.')
+    st.caption('Voice and text share the same conversation.')
+    with st.expander('Demo settings'):
+        live = st.toggle('Generate from retrieved policies', value=True, key='compose_live',
+                         help='Generate from source text. Invalid or timed-out output uses a checked policy fallback. Turn off for offline rules.')
+        st.caption('Synthetic order records · 20 October 2026')
+        st.caption('Gnani speech · English, Hindi and Hinglish')
+    st.link_button('Project & documentation ↗', 'https://github.com/Pranay207/ESD', use_container_width=True)
+
+st.session_state.agent.compose = live
+head, badge = st.columns([3, 1])
+with head:
+    st.markdown('<div class="eyebrow">MULTILINGUAL AI CUSTOMER SUPPORT</div>', unsafe_allow_html=True)
+    st.title('Resolvox')
+    st.write('Speak naturally. Get help with your ZentroMart order.')
+with badge:
+    st.markdown('<div class="hero-note">English · हिन्दी · Hinglish</div>', unsafe_allow_html=True)
+st.markdown('<div class="topic-row"><span class="topic">Returns & refunds</span><span class="topic">Orders & delivery</span><span class="topic">Product support</span></div>', unsafe_allow_html=True)
+voice_tab, text_tab, eval_tab = st.tabs(['Voice support', 'Text support', 'Evaluation'])
+
 def evidence(out):
     with st.expander('Sources and actions'):
-        st.write(' · '.join(out.get('retrieved_chunk_ids',[])) or 'No supporting company document found.')
-        for source in out.get('sources',[]):
-            st.markdown('**'+source['id']+'** — '+source.get('file',''));st.text(source['text'])
-        if out.get('tool_calls'):st.json(out['tool_calls'])
-        st.caption(f"Decision: {out['decision']} · {out.get('latency_ms',0):.0f} ms · {out.get('composition','')}")
-with text_tab:
-    st.caption('Try: “What is the refund timeline for UPI?” Verification values are hidden from history.')
-    for item in st.session_state.messages:
-        with st.chat_message('user'):st.write(item['transcript'])
-        with st.chat_message('assistant'):st.write(item['answer']);evidence(item)
-    prompt=st.chat_input('How can we help?',key='support_chat')
-    if prompt:
-        with st.spinner('Checking the policy…'):out=st.session_state.agent.respond(prompt)
-        st.session_state.messages.append(out);st.rerun()
+        ids = out.get('retrieved_chunk_ids', [])
+        st.write(' · '.join(ids) or 'No supporting company information found.')
+        for source in out.get('sources', []):
+            st.markdown('**' + source['id'] + '** — ' + source.get('file', ''))
+            st.text(source['text'])
+        if out.get('tool_calls'):
+            st.json(out['tool_calls'])
+        st.caption(f"Decision: {out['decision']} · {out.get('latency_ms', 0):.0f} ms · {out.get('composition', '')}")
+
+def speak_reply(entry, voice=None):
+    folder = ROOT / 'tmp/voice_ui'
+    folder.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(dir=folder, suffix='.wav', delete=False) as handle:
+        reply_path = Path(handle.name)
+    try:
+        (voice or GnaniVoice()).synthesize(entry['output']['answer'], reply_path, entry['output']['language'])
+        entry['audio'] = reply_path.read_bytes()
+        entry['audio_error'] = None
+    finally:
+        reply_path.unlink(missing_ok=True)
+
+def render_conversation(channel):
+    messages = st.session_state.messages
+    if not messages:
+        st.markdown('<div class="empty-reply"><div class="wave" aria-hidden="true"><i style="height:14px"></i><i style="height:28px"></i><i style="height:44px"></i><i style="height:32px"></i><i style="height:20px"></i></div><strong>Your conversation starts here</strong><p>Your transcript, answer and voice reply will appear here.</p></div>', unsafe_allow_html=True)
+        return
+    for i, entry in enumerate(messages):
+        out = entry['output']
+        with st.chat_message('user'):
+            st.write(out['transcript'])  # Only the agent's redacted transcript.
+        with st.chat_message('assistant'):
+            st.write(out['answer'])
+            if entry.get('audio'):
+                st.audio(entry['audio'], format='audio/wav')
+            if entry.get('audio_error'):
+                st.warning('Your text answer is saved. Voice playback is unavailable; you can continue in text or retry the audio.')
+                if st.button('Retry reply audio', key=f'{channel}_retry_audio_{i}'):
+                    try:
+                        with st.spinner('Preparing reply audio…'):
+                            speak_reply(entry)
+                    except (VoiceError, VoiceUnavailable, OSError) as exc:
+                        entry['audio_error'] = str(exc)
+                    st.rerun()
+            evidence(out)
+
+def process_voice(audio, spoken_language):
+    folder = ROOT / 'tmp/voice_ui'
+    folder.mkdir(parents=True, exist_ok=True)
+    suffix = Path(audio.name).suffix.lower()
+    if suffix not in {'.wav', '.mp3', '.ogg', '.flac', '.aac', '.m4a'}:
+        suffix = '.wav'
+    with tempfile.NamedTemporaryFile(dir=folder, suffix=suffix, delete=False) as handle:
+        path = Path(handle.name)
+        handle.write(audio.getvalue())
+    entry = None
+    st.session_state.voice_error = None
+    try:
+        with st.status('Listening to your message…', expanded=True) as progress:
+            voice = GnaniVoice()
+            st.write('1 / 3 · Listening with Gnani')
+            heard = voice.transcribe(path, 'hi-IN' if spoken_language == 'Hindi' else 'en-IN')
+            progress.update(label='Checking your question…')
+            st.write('2 / 3 · Checking information and conversation context')
+            out = st.session_state.agent.respond(heard)
+            entry = {'output': out, 'audio': None, 'audio_error': None}
+            st.session_state.messages.append(entry)
+            progress.update(label='Preparing your voice reply…')
+            st.write('3 / 3 · Preparing reply audio')
+            speak_reply(entry, voice)
+            progress.update(label='Reply ready', state='complete', expanded=False)
+    except (VoiceUnavailable, VoiceError, OSError) as exc:
+        if entry is not None:
+            entry['audio_error'] = str(exc)
+        else:
+            st.session_state.voice_error = str(exc)
+    finally:
+        path.unlink(missing_ok=True)
+        st.session_state.voice_epoch += 1
+
 with voice_tab:
-    st.write('Record a short message or upload a clip. Gnani listens and speaks; the support agent stays the same.')
-    language=st.selectbox('Spoken language',['English / Hinglish','Hindi'])
-    recording=st.audio_input('Record your message')
-    uploaded=st.file_uploader('Or upload audio',type=['wav','mp3','ogg','flac','aac','m4a'])
-    audio=recording or uploaded
-    if st.button('Ask by voice',disabled=audio is None):
-        folder=ROOT/'tmp/voice_ui';folder.mkdir(parents=True,exist_ok=True)
-        with tempfile.NamedTemporaryFile(dir=folder,suffix=Path(audio.name).suffix or '.wav',delete=False) as handle:
-            path=Path(handle.name);handle.write(audio.getvalue())
-        reply_path=path.with_name(path.stem+'_reply.wav')
-        try:
-            voice=GnaniVoice()
-            with st.spinner('Listening with Gnani…'):heard=voice.transcribe(path,'hi-IN' if language=='Hindi' else 'en-IN')
-            with st.spinner('Checking and replying…'):out=st.session_state.voice_agent.respond(heard)
-            st.caption('Transcript');st.write(out['transcript']);st.write(out['answer']);evidence(out)
-            voice.synthesize(out['answer'],reply_path,out['language']);st.audio(reply_path.read_bytes(),format='audio/wav')
-        except (VoiceUnavailable,VoiceError) as error:st.error(str(error))
-        finally:path.unlink(missing_ok=True);reply_path.unlink(missing_ok=True)
+    with st.container(border=True, key='voice_workspace'):
+        controls, conversation = st.columns([1, 1.15], gap='large')
+        with controls:
+            st.subheader('Speak with Resolvox')
+            st.caption('Record a question or send an audio clip. You can switch to text at any time.')
+            spoken_language = st.selectbox('Spoken language', ['English / Hinglish', 'Hindi'], key='spoken_language')
+            audio_source = st.radio('Audio source', ['Record', 'Upload'], horizontal=True, key='audio_source')
+            epoch = st.session_state.voice_epoch
+            if audio_source == 'Record':
+                audio = st.audio_input('Record your question', key=f'voice_recording_{epoch}')
+            else:
+                audio = st.file_uploader('Choose an audio clip', type=['wav', 'mp3', 'ogg', 'flac', 'aac', 'm4a'], key=f'voice_upload_{epoch}')
+            st.caption('Up to 60 seconds · WAV, MP3, OGG, FLAC, AAC or M4A')
+            send_voice = st.button('Send voice message', type='primary', use_container_width=True, disabled=audio is None)
+            st.markdown('<div class="step-guide">Listen → Check → Reply<br>Try: “When will my UPI refund arrive?”</div>', unsafe_allow_html=True)
+            if st.session_state.voice_error:
+                st.error('We could not process that recording. Try a clear, short clip or continue in Text support.')
+                st.caption(st.session_state.voice_error)
+            if send_voice:
+                process_voice(audio, spoken_language)
+                st.rerun()
+        with conversation:
+            st.subheader('Your conversation')
+            st.caption('Transcripts hide verification details. Private order information requires verification.')
+            render_conversation('voice')
+
+with text_tab:
+    with st.container(border=True, key='text_workspace'):
+        st.subheader('Continue by text')
+        st.caption('The same conversation and verified order context carry across voice and text.')
+        render_conversation('text')
+        examples = [('Refund timing', 'How long does a UPI refund take?'),
+                    ('Return policy', 'What is the return window for electronics?'),
+                    ('Track an order', 'Where is my order?')]
+        example_prompt = None
+        for col, (label, question) in zip(st.columns(3), examples):
+            if col.button(label, use_container_width=True):
+                example_prompt = question
+        prompt = st.chat_input('Type your question…', key='support_chat') or example_prompt
+        if prompt:
+            with st.spinner('Checking your question…'):
+                out = st.session_state.agent.respond(prompt)
+            st.session_state.messages.append({'output': out, 'audio': None, 'audio_error': None})
+            st.rerun()
+
+def load_report(name):
+    try:
+        value = json.loads((ROOT / 'sample_outputs' / name).read_text(encoding='utf-8'))
+        return value if isinstance(value, dict) else {}
+    except (OSError, ValueError):
+        return {}
+
 with eval_tab:
-    values=[]
-    for step in [1,2,3]:
-        path=ROOT/'sample_outputs'/f'eval_step{step}.json'
-        if path.exists():values.append(json.loads(path.read_text(encoding='utf-8'))['summary'])
-    columns=st.columns(3)
-    for col,s,label in zip(columns,values,['Prompt-only baseline','Grounded questions','Conversation turns']):col.metric(label,f"{s['passed']} / {s['total']}")
-    st.caption('Mechanical regression checks on supplied practice cases. These are not organizer scores or a guarantee of held-out performance.')
-    path=ROOT/'sample_outputs/eval_adversarial.json'
-    if path.exists():
-        s=json.loads(path.read_text(encoding='utf-8'))['summary'];st.write(f"Original adversarial checks: {s['passed']} / {s['total']}")
-    path=ROOT/'sample_outputs/voice_validation.json'
-    if path.exists():
-        value=json.loads(path.read_text(encoding='utf-8'));st.write('Live voice validation: '+value['status'])
-    st.caption('Dense retrieval: '+r.retriever.dense_status)
+    st.subheader('Recorded evaluation')
+    st.caption('These are saved local checks, not organizer scores. Offline rules, model generation and speech are measured separately.')
+    reports = [('Grounded questions · offline', 'eval_step2.json'),
+               ('Conversation turns · offline', 'eval_step3.json'),
+               ('Broader regression · offline', 'eval_holdout.json')]
+    for col, (label, filename) in zip(st.columns(3), reports):
+        summary = load_report(filename).get('summary', {})
+        total = summary.get('total', summary.get('evaluated'))
+        col.metric(label, f"{summary['passed']} / {total}" if 'passed' in summary and total else 'Not recorded')
+    live_report = load_report('eval_step2_live_postfix_partial.json')
+    if live_report:
+        summary = live_report.get('summary', {})
+        evaluated = summary.get('total', summary.get('evaluated', 0))
+        planned = summary.get('planned', 52)
+        st.info(f"Live model subset: {summary.get('passed', 0)} passed, {evaluated} checked of {planned} planned. "
+                + ('Complete recorded run.' if summary.get('complete') else 'The full live rerun is incomplete.'))
+    voice_report = load_report('voice_validation.json')
+    if voice_report:
+        semantic = voice_report.get('semantic_validation', {})
+        st.write(f"**Gnani speech check:** {semantic.get('passed', 0)} passed, {semantic.get('failed', 0)} failed.")
+        st.caption('Recorded synthetic-audio round trips; human speech and noisy-room performance remain unverified.')
+    with st.expander('Evaluation details'):
+        baseline = load_report('eval_step1.json').get('summary', {})
+        st.write(f"Prompt-only baseline: {baseline.get('passed', '?')} / {baseline.get('total', '?')}")
+        adversarial = load_report('eval_adversarial.json').get('summary', {})
+        st.write(f"Development adversarial checks: {adversarial.get('passed', '?')} / {adversarial.get('total', '?')}")
+        st.caption('The supplied practice and exposed regression sets were used during development. Read the repository evidence for source hashes, failed earlier runs, composition and timings.')
+        st.caption('Dense retrieval: ' + r.retriever.dense_status)

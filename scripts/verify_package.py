@@ -9,6 +9,7 @@ def main():
         names=z.namelist()
         assert all(not n.startswith(('Capstone_Project_Dataset_FTTT_2026/','.venv/','.cache/','.git/')) for n in names)
         assert '.env' not in names and '.env.example' in names and 'pytest.ini' in names
+        assert '.streamlit/config.toml' in names, 'Release is missing the native UI theme'
         for name in names:assert (target/name).resolve().is_relative_to(target)
         z.extractall(target)
     env=os.environ.copy();env['DATASET_DIR']=str(ROOT/'Capstone_Project_Dataset_FTTT_2026');env['DENSE_ENABLED']='false';env['COMPOSE_WITH_LLM']='false'
