@@ -6,6 +6,13 @@ from .config import REFERENCE_DATE
 from .dates import parse_date,business_add,business_elapsed,return_deadline,return_window,fmt,partial_refund
 from .normalize import number_words
 
+def hindi_record_terms(text:str) -> str:
+    """Render catalog status/date terms in the caller's selected Hindi language."""
+    translations={'January':'जनवरी','February':'फ़रवरी','March':'मार्च','April':'अप्रैल','May':'मई','June':'जून','July':'जुलाई','August':'अगस्त','September':'सितंबर','October':'अक्टूबर','November':'नवंबर','December':'दिसंबर','shipped':'शिप हो चुका','delivered':'डिलीवर हो चुका','processing':'प्रोसेसिंग में','cancelled':'रद्द','returned':'वापस आ चुका','pending':'लंबित','completed':'पूरा'}
+    for original,translated in translations.items():
+        text=re.sub(r'\b'+re.escape(original)+r'\b',translated,text,flags=re.I)
+    return text
+
 @dataclass
 class Plan:
     intent:str
@@ -16,7 +23,8 @@ class Plan:
     ids:list[str]=field(default_factory=list)
     reason:str|None=None
     facts:dict=field(default_factory=dict)
-    def text(self,language:str) -> str: return self.hi if language=='hi' else self.hinglish if language=='hi-en' else self.en
+    def __post_init__(self): self.hi=hindi_record_terms(self.hi)
+    def text(self,language:str) -> str: return hindi_record_terms(self.hi) if language=='hi' else self.hinglish if language=='hi-en' else self.en
 
 def has(text:str,pattern:str) -> bool: return bool(re.search(pattern,text,re.I))
 
@@ -52,10 +60,11 @@ def classify(text:str) -> str:
         membership_refund=has(t,r'cancel|membership.{0,30}full refund|refund.{0,20}membership|रकम.*वापस|सदस्यता.*वापस')
         return 'cancel' if membership_refund and not has(t,r'\b(?:return|pickup|bank|upi|card)\b') else 'refund'
     if has(t,r'(cancel|stop it|कैंसिल|रद्द)'): return 'cancel'
-    if has(t,r'(refund|rrn|refund reference|money.*(?:back|revers)|रिफ़ंड|रिफंड|पैसे.*वापस)'): return 'refund'
+    if has(t,r'(refund|rrn|refund reference|money.*(?:back|revers)|रिफ़ंड|रिफंड|पैसे.*वापस)') or has(t,r'\b(?:return|returned)\b.{0,20}\b(?:money|payment)\b|\b(?:money|bank)\b.{0,65}\b(?:reference|trace)\b'): return 'refund'
+    if has(t,r'\b(?:refund|initiat\w*|bank)\b') and has(t,r'\b(?:pickup|quality\s+check|qc|returned?)\b'): return 'refund'
     if has(t,r'(pickup|pick.up|collect|पिकअप|पिकअप|उठाने)') and not has(t,r'(store|दुकान)'): return 'pickup'
     if has(t,r'(return|send.*back|रिटर्न|लौटा|वापस|badal|exchange)'): return 'return'
-    if has(t,r'(change|update)') and has(t,r'(address)'): return 'delivery'
+    if has(t,r'(change|update|redirect)') and has(t,r'(address|office)'): return 'delivery'
     if has(t,r'\b(?:late|delay\w*)\b|arriv.*late|देर|लेट') or (has(t,r'compensat|मुआव') and has(t,r'express|standard')): return 'late_delivery'
     if has(t,r'(ship.*when|when.*ship|kab ship|कब.*शिप|ship hua|shipped)') and not has(t,r'(cancel|return)'): return 'shipping_date'
     if has(t,r'(deliver|shipping|express|change.*address|redirect|where is|hasn.t arrived|order.*status|track|स्थिति|कहाँ|कब.*आए|kab.*aay|kahaan|kahan)'): return 'delivery'
@@ -99,15 +108,15 @@ class Policy:
         if order and len(order.get('items',[]))==1: return self.data.products[order['items'][0]['sku']]
         return None
     def _date_in(self,text:str) -> date|None:
-        iso=re.search(r'\b(2026-\d{2}-\d{2})\b',text)
+        iso=re.search(r'(?<!\d)(\d{4}-\d{2}-\d{2})(?!\d)',text)
         if iso:
             try:return date.fromisoformat(iso[1])
             except ValueError:return None
         months={'january':1,'february':2,'march':3,'april':4,'may':5,'june':6,'july':7,'august':8,'september':9,'october':10,'november':11,'december':12,'अक्टूबर':10,'जुलाई':7,'अगस्त':8,'नवंबर':11}
         for month,n in months.items():
-            m=re.search(r'(\d{1,2})\s+'+month+r'(?:\s+(2026))?',text,re.I)
+            m=re.search(r'(?<!\d)(\d{1,2})(?:st|nd|rd|th)?\s+'+month+r'(?:\s+(\d{4})(?!\d))?',text,re.I)
             if m:
-                try:return date(2026,n,int(m[1]))
+                try:return date(int(m[2]) if m[2] else REFERENCE_DATE.year,n,int(m[1]))
                 except ValueError:return None
         return None
     def plan(self,text:str,intent:str,order:dict|None=None) -> Plan:
@@ -120,6 +129,7 @@ class Policy:
         component keeps its own governing IDs for the existing evidence contract.
         """
         primary=self._plan_single(text,intent,order)
+        if intent=='refund' and order: primary=self._refund_record_note(primary,order)
         if intent in {'safety','fraud','privacy','human','legal','repeat','verification','greeting'} or primary.decision=='escalate': return primary
         topics=[intent]
         if has(text,r'\b(?:return\w*|send.{0,15}back)\b|रिटर्न|लौटा') and has(text,r'\b(?:warrant\w*|assured|manufacturer.{0,12}cover|brand.{0,12}cover)\b|वारंटी'):
@@ -135,13 +145,31 @@ class Policy:
             product=self.product(text,order); category=self._category(text,product)
             item=self._return_window(text,order,product,category)
             if item.intent!='unsupported' and item.decision!='clarify': plans.append(item)
-        if len(plans)==1: return primary
-        merged=Plan(intent,'refuse' if any(x.decision=='refuse' for x in plans) else 'clarify' if any(x.decision=='clarify' for x in plans) else 'answer',
+        # A fee question may also ask for the category's time limit. Classifying
+        # by the word 'pickup' must not discard the other requested aspect.
+        if intent=='pickup' and has(text,r'\b(?:window|period|days?|deadline)\b|how\s+long|अवधि|दिन'):
+            product=self.product(text,order); category=self._category(text,product)
+            if category:
+                item=self._return_window(text,order,product,category)
+                if item.intent!='unsupported':
+                    if len(plans)==1 and 'RET-6' in item.ids:
+                        primary=item; plans=[item]
+                    else: plans.append(item)
+        if len(plans)==1: return self._precedence_note(primary,text)
+        merged=Plan(intent,'clarify' if any(x.decision=='clarify' for x in plans) else 'answer' if intent=='cancel' and len(plans)>1 else 'refuse' if any(x.decision=='refuse' for x in plans) else 'answer',
                     ' '.join(dict.fromkeys(x.en for x in plans)), ' '.join(dict.fromkeys(x.hi for x in plans)),
                     ' '.join(dict.fromkeys(x.hinglish for x in plans)),
                     list(dict.fromkeys(cid for x in plans for cid in x.ids)),facts={key:value for x in plans for key,value in x.facts.items()})
         if any(x.facts.get('return_condition_eligible') is False for x in plans): merged.facts['eligible']=False
-        return merged
+        return self._precedence_note(merged,text)
+
+    def _precedence_note(self,plan,text):
+        if plan.intent in {'return','pickup','refund'} and has(text,r'\b(?:old|outdated|superseded|faq|general\s+(?:page|article))\b') and plan.intent!='unsupported':
+            plan.en+=' The current policy takes precedence over an old page or general FAQ; superseded rules apply only where the current policy explicitly preserves them.'
+            plan.hi+=' मौजूदा पॉलिसी पुराने पेज या सामान्य FAQ से ऊपर है; पुराने नियम केवल मौजूदा पॉलिसी की स्पष्ट छूट में लागू हैं।'
+            plan.hinglish+=' Current policy purane page ya general FAQ se upar hai; old rules sirf current policy ki explicit exception mein apply hote hain.'
+            plan.ids=list(dict.fromkeys(plan.ids+['KB-00.1']))
+        return plan
 
     def _category(self,text,product=None):
         if product: return product['return_category']
@@ -165,7 +193,7 @@ class Policy:
     def _return_window(self,text,order=None,product=None,category=None,product_ids=None):
         t=text.lower(); cat=category or self._category(text,product)
         product_ids=product_ids if product_ids is not None else ['products.csv:'+product['sku']] if product else []
-        festive=has(t,r'\b(?:festiv\w*|sale|october|extend\w*)\b|त्योहार|अक्टूबर')
+        festive=has(t,r'\b(?:festiv\w*|sale|october|extend\w*)\b|त्योहार|अक्टूबर') or bool(cat=='fashion' and ((parse_date(order.get('placed_at')) if order else self._event_date(text,'placement')) or date.min).month==10)
         if not cat:
             if festive:
                 return Plan('return','answer','Only clothing, footwear and bags ordered from 1 to 15 October 2026 get 30 calendar days from delivery. Other categories retain their normal return windows; the order placement date controls the offer, not the delivery date.','केवल 1 से 15 अक्टूबर 2026 के कपड़े, जूते और बैग के ऑर्डर पर डिलीवरी से 30 कैलेंडर दिन मिलते हैं। अन्य श्रेणियों की सामान्य अवधि रहती है; ऑफ़र ऑर्डर की तारीख से तय होता है, डिलीवरी से नहीं।','Sirf 1 to 15 October 2026 placed clothing, footwear aur bags orders par delivery se 30 calendar days milte hain. Other categories ki normal window same hai; order placement date matter karti hai, delivery date nahi.',['RET-2','RET-8'])
@@ -192,16 +220,41 @@ class Policy:
             en=f'The catalog return category is {label}; its window is {days} calendar days from delivery, subject to item condition.'
             hi=f'कैटलॉग की रिटर्न श्रेणी {label} है; डिलीवरी से {days} कैलेंडर दिन, सामान की शर्तों के अनुसार।'
             hing=f'Catalog return category {label} hai; delivery se {days} calendar days, condition rules ke saath.'
+        if cat=='electronics' and delivered:
+            if delivered<date(2026,8,1):
+                en+=' Delivery before 1 August 2026 keeps the earlier 10-day rule under the current policy historical exception.'
+                hi+=' 1 अगस्त 2026 से पहले डिलीवरी होने पर मौजूदा पॉलिसी की छूट से पुराने 10 दिन मिलते हैं।'
+                hing+=' 1 August 2026 se pehle delivery par current policy exception ke under purana 10-day rule rehta hai.'
+            else:
+                en+=' Delivery on or after 1 August 2026 uses the current 7-day electronics window.'
+                hi+=' 1 अगस्त 2026 या बाद की डिलीवरी पर इलेक्ट्रॉनिक्स की मौजूदा 7 दिन की अवधि है।'
+                hing+=' 1 August 2026 ya uske baad delivery par current 7-day electronics window hai.'
+        if festive and placed:
+            in_sale=date(2026,10,1)<=placed<=date(2026,10,15)
+            if cat=='fashion' and in_sale:
+                en+=f' Yes, the order placement date of {fmt(placed)} is inside the offer; both 1 and 15 October are included.'
+                hi+=' हाँ, ऑर्डर की तारीख ऑफ़र के अंदर है; 1 और 15 अक्टूबर दोनों शामिल हैं।'
+                hing+=' Haan, order placement offer ke andar hai; 1 aur 15 October dono included hain.'
+            elif cat=='fashion':
+                en+=' No, that order was placed outside the offer dates, so delivery during the festival does not extend its normal return period.'
+                hi+=' नहीं, ऑर्डर ऑफ़र की तारीखों के बाहर है; त्योहार में डिलीवरी होने से सामान्य अवधि नहीं बढ़ती।'
+                hing+=' Nahi, order offer dates ke bahar place hua; festival mein delivery se normal window extend nahi hoti.'
         if festive:
             en+=' The 30-day festive extension is only for clothing, footwear and bags placed from 1 to 15 October 2026; other categories keep their ordinary window.'
             hi+=' 30 दिन का ऑफ़र केवल 1 से 15 अक्टूबर 2026 के कपड़े, जूते और बैग के ऑर्डर पर है; अन्य श्रेणियों की अवधि नहीं बदलती।'
             hing+=' 30-day festive extension sirf 1 to 15 October 2026 placed clothing, footwear aur bags par hai; other categories ki window same hai.'
         if cat=='fashion' and (order or has(t,r'\b(?:fee|pickup|charge|cost)\b|शुल्क|फ़ीस|फीस')):
-            fee=0 if order and order.get('is_plus') else 49
+            positive_plus=has(t,r'\bplus\b|प्लस') and not has(t,r'\bnon[ -]?plus\b|\bnot\s+(?:a\s+)?plus\b|without.{0,10}plus|प्लस.{0,8}नहीं')
+            fee=0 if (bool(order.get('is_plus')) if order else positive_plus) else 49
             en+=f' Change-of-mind reverse pickup costs {fee} rupees'+(' for Plus members.' if not fee else '; Plus members and damaged, defective or wrong items are exempt.')
             hi+=f' पसंद बदलने के पिकअप की फ़ीस {fee} रुपये; प्लस और खराब, दोषपूर्ण या गलत सामान पर छूट।'
             hing+=f' Change-of-mind pickup fee {fee} rupees; Plus aur damaged, defective ya wrong item exempt hain.'
             ids+=['RET-6']
+        if has(t,r'\bplus\b|प्लस') and not has(t,r'\bnon[ -]?plus\b|without.{0,10}plus'):
+            en+=' Plus does not extend the return window or change item eligibility.'
+            hi+=' प्लस से रिटर्न अवधि या सामान की पात्रता नहीं बदलती।'
+            hing+=' Plus se return window ya item eligibility change nahi hoti.'
+            ids+=['PLS-2']
         if has(t,r'\bseller\b|marketplace'):
             en+=' Seller-fulfilled items use the same return windows and pickup rules.'
             hi+=' विक्रेता के सामान पर भी वही रिटर्न अवधि और पिकअप नियम लागू हैं।'
@@ -217,6 +270,10 @@ class Policy:
                 cat=candidates[0]['return_category']; product_ids=['products.csv:'+v['sku'] for v in candidates]
         if intent in {'safety','fraud','legal','human','repeat'}:
             lead='Stop using the product immediately. ' if intent=='safety' else ''
+            if intent=='repeat' and order and int(order.get('contacts_last_7_days') or 0)>=2:
+                earlier=int(order['contacts_last_7_days'])
+                return Plan(intent,'escalate',f'The order record shows {earlier} earlier contacts in the last 7 days, so this is at least your third contact about the same issue. This needs a human colleague; I will request a support ticket.',f'ऑर्डर रिकॉर्ड में पिछले 7 दिनों में {earlier} पहले के संपर्क हैं; यह उसी मुद्दे पर कम से कम तीसरा संपर्क है। मानव सहयोगी के लिए टिकट का अनुरोध करूँगी।',f'Order record mein last 7 days ke {earlier} earlier contacts hain; same issue par yeh kam se kam third contact hai. Human colleague ke liye ticket request karungi.',['ESC-1','ESC-2','ESC-3'],intent)
+
             return Plan(intent,'escalate',lead+'This needs a human colleague; I will request a support ticket.',('कृपया सामान का उपयोग तुरंत बंद करें। ' if intent=='safety' else '')+'इस मामले के लिए मानव सहयोगी और टिकट ज़रूरी है।',('Product use turant band karein. ' if intent=='safety' else '')+'Iske liye human team ka ticket zaroori hai.',['ESC-1','ESC-2','ESC-3']+(['DWM-5'] if intent=='safety' else []),intent)
         if intent=='privacy': return Plan(intent,'refuse',"I can't share another customer's details, internal notes, or bypass verification.",'मैं दूसरे ग्राहक की जानकारी या आंतरिक नोट्स साझा नहीं कर सकती और सत्यापन नहीं छोड़ सकती।',"Main kisi aur customer ki details share nahi kar sakti ya verification bypass nahi kar sakti.",['ESC-4','IDV-1','IDV-4'])
         if intent=='compensation': return Plan(intent,'refuse',"I'm sorry, I can't grant a voucher or compensation outside policy. For a late Express delivery, only the paid 79 rupee fee is credited to Wallet within 48 hours; Plus members who paid no fee get no credit; Standard delays have no compensation.",'माफ़ कीजिए, पॉलिसी के बाहर वाउचर या मुआवज़ा नहीं दे सकती। देर से आई एक्सप्रेस डिलीवरी में केवल चुकाई गई 79 रुपये की फ़ीस 48 घंटे में वॉलेट में आती है; प्लस में फ़ीस नहीं दी तो क्रेडिट नहीं।','Maaf karein, policy ke bahar voucher ya compensation nahi de sakti. Late Express par sirf paid 79 rupee fee 48 hours mein Wallet mein aati hai; Plus ki free delivery par credit nahi.',['DEL-4','ESC-4'])
@@ -251,7 +308,7 @@ class Policy:
         if intent=='refund':
             if has(t,r'plus|membership|प्लस') and has(t,r'immediat|instant|every|तुरंत|turant'):
                 if has(t,r'\b(?:beauty|opened|eligible|returnable|stage|bank|change\w*)\b|सील|खोल'):
-                    result=Plan('refund','answer','Plus changes initiation of return refunds to the pickup time; it does not change return eligibility, return windows or payment-method timelines after initiation.','प्लस में रिटर्न रिफ़ंड पिकअप पर शुरू होता है; रिटर्न पात्रता, अवधि या शुरू होने के बाद भुगतान की समयसीमा नहीं बदलती।','Plus return refund pickup par initiate karta hai; return eligibility, window aur initiation ke baad payment timeline change nahi hoti.',['PLS-2','RET-7'])
+                    result=Plan('refund','answer','Plus changes return refund initiation to the pickup time. After initiation, payment-method timelines remain unchanged. Plus does not change return eligibility or return windows.','प्लस में रिटर्न रिफ़ंड पिकअप पर शुरू होता है; रिटर्न पात्रता, अवधि या शुरू होने के बाद भुगतान की समयसीमा नहीं बदलती।','Plus return refund pickup par initiate karta hai; return eligibility, window aur initiation ke baad payment timeline change nahi hoti.',['PLS-2','RET-7','REF-2'])
                     if cat=='beauty_sealed' and has(t,r'open|खोल|खुल'):
                         result.en+=' Opened beauty items remain ineligible for change-of-mind returns; the seal must be intact.'
                         result.hi+=' खुले ब्यूटी सामान पसंद बदलने पर नहीं लौटते; सील सही होनी चाहिए।'
@@ -269,7 +326,7 @@ class Policy:
             facts={'brand_warranty_months':int(months or 0),'assured_warranty_months':12 if assured else 0,'assured_eligible':assured}
             if assured:
                 return Plan(intent,'answer',f'This has 12 months of ZentroMart Assured coverage from delivery, in addition to the {months}-month brand warranty. Start an Assured claim in My Orders; claim the brand warranty through the manufacturer service centre. Physical/liquid damage, normal wear and unauthorized repairs are excluded.',f'डिलीवरी से 12 महीने की ZentroMart Assured के अतिरिक्त {months} महीने की ब्रांड वारंटी है। Assured दावा My Orders से और ब्रांड दावा निर्माता के सेवा केंद्र से करें। भौतिक या पानी की क्षति, सामान्य घिसावट और अनधिकृत मरम्मत शामिल नहीं।',f'Delivery se 12 months ZentroMart Assured, {months} months brand warranty ke alawa hai. Assured claim My Orders se, brand claim manufacturer service centre par karein. Physical/liquid damage, normal wear aur unauthorized repairs cover nahi.',['WAR-1','WAR-2','WAR-3']+product_ids,facts=facts)
-            reason=('Marketplace seller items never have ZentroMart Assured coverage, even if the listing badge says assured.' if seller else 'This catalog item is not marked Assured; shipment by ZentroMart alone does not create Assured eligibility.')
+            reason=('Marketplace seller items carry only the brand warranty, not ZentroMart Assured coverage, even if the listing badge says assured.' if seller else 'This catalog item is not marked Assured; shipment by ZentroMart alone does not create Assured eligibility.')
             hi_reason='मार्केटप्लेस विक्रेता के सामान पर बैज होने पर भी ZentroMart Assured लागू नहीं।' if seller else 'कैटलॉग में इस सामान पर Assured नहीं है; केवल ZentroMart से शिप होना पात्रता नहीं बनाता।'
             hing_reason='Marketplace seller item par badge ke bawajood ZentroMart Assured nahi lagta.' if seller else 'Catalog mein Assured false hai; sirf ZentroMart shipment se Assured eligibility nahi milti.'
             return Plan(intent,'answer',f'The brand warranty is {months} months, claimed through the manufacturer service centre. '+reason,f'ब्रांड वारंटी {months} महीने है, दावा निर्माता के सेवा केंद्र में करें। '+hi_reason,f'Brand warranty {months} months hai; manufacturer service centre par claim karein. '+hing_reason,['WAR-1','MKS-3' if seller else 'WAR-2']+product_ids,facts=facts)
@@ -291,20 +348,33 @@ class Policy:
         if intent=='damage':
             value=int(p['price_inr']) if p else 0
             if not p and not order and has(t,r'high.value|priority|threshold'):
-                return Plan(intent,'answer','Priority Resolution applies only when the item value is more than 10,000 rupees; exactly 10,000 rupees does not cross that threshold. Damage, wrong or missing claims still follow the reporting and verification rules.','Priority Resolution केवल 10,000 रुपये से अधिक मूल्य पर लागू है; ठीक 10,000 रुपये सीमा से अधिक नहीं है। नुकसान, गलत या गुम सामान पर रिपोर्ट और जाँच के नियम लागू हैं।','Priority Resolution sirf 10,000 rupees se zyada value par hai; exactly 10,000 threshold cross nahi karta. Damage, wrong ya missing claims par reporting aur verification rules apply hote hain.',['DWM-3','DWM-1'])
+                return Plan(intent,'answer','Priority Resolution applies only when the item value is more than 10,000 rupees; exactly 10,000 rupees does not cross that threshold. Damage, wrong or missing claims still follow the reporting and verification rules.','Priority Resolution केवल 10,000 रुपये से अधिक मूल्य पर लागू है; ठीक 10,000 रुपये सीमा से अधिक नहीं है। नुकसान, गलत या गुम सामान पर रिपोर्ट और जाँच के नियम लागू हैं।','Priority Resolution sirf 10,000 rupees se zyada value par hai; exactly 10,000 threshold cross nahi karta. Damage, wrong ya missing claims par reporting aur verification rules apply hote hain.',['DWM-3','DWM-1','ESC-1'])
             if order:
                 relevant=[i for i in order.get('items',[]) if not p or i['sku']==p['sku']]
                 if relevant: value=max(int(i['unit_price_inr']) for i in relevant)
             if value>10000: return Plan(intent,'escalate','Damage claims above 10,000 rupees need the Priority Resolution team; I cannot approve a replacement. I will request a ticket.','10,000 रुपये से ऊपर के नुकसान के लिए Priority Resolution टीम ज़रूरी है; मैं रिप्लेसमेंट मंज़ूर नहीं कर सकती। टिकट का अनुरोध करूँगी।','10,000 rupees se upar damage claim Priority Resolution team handle karti hai; main replacement approve nahi kar sakti. Ticket request karungi.',['DWM-3','ESC-1','ESC-4']+product_ids,'high_value_damage')
             if has(t,r'(collection|pickup|free)'): return self.plan(text,'pickup',order)
-            return Plan(intent,'answer','Report damaged, defective, expired, wrong or missing items within 48 hours of delivery, with photos of the item and packaging. After verification, the policy provides a free replacement or full refund including delivery fees, with no pickup fee.','डिलीवरी के 48 घंटे में सामान और पैकिंग की फ़ोटो के साथ शिकायत करें। जाँच के बाद मुफ़्त रिप्लेसमेंट या डिलीवरी फ़ीस सहित पूरा रिफ़ंड मिलेगा, पिकअप फ़ीस नहीं।','Delivery ke 48 hours mein item aur packaging photos ke saath report karein. Verification ke baad free replacement ya full refund including delivery fees, pickup fee nahi.',['DWM-1','DWM-2'])
-        if intent=='late_delivery': return Plan(intent,'answer','For a late Express order, the paid 79 rupee Express fee is automatically credited to ZentroMart Wallet within 48 hours. Plus members who paid no Express fee get no credit; Standard delays have no compensation.','देर से आई एक्सप्रेस डिलीवरी की चुकाई 79 रुपये फ़ीस 48 घंटे में ZentroMart Wallet में आती है। प्लस में फ़ीस नहीं दी तो क्रेडिट नहीं; सामान्य डिलीवरी में मुआवज़ा नहीं।','Late Express ki paid 79 rupee fee 48 hours mein ZentroMart Wallet mein automatically credit hoti hai. Plus ne fee nahi di to credit nahi; Standard delay par compensation nahi.',['DEL-4'])
+            result=Plan(intent,'answer','Report damaged, defective, expired, wrong or missing items within 48 hours of delivery, with photos of the item and packaging. After verification, the policy provides a free replacement or full refund including delivery fees, with no pickup fee.','डिलीवरी के 48 घंटे में सामान और पैकिंग की फ़ोटो के साथ शिकायत करें। जाँच के बाद मुफ़्त रिप्लेसमेंट या डिलीवरी फ़ीस सहित पूरा रिफ़ंड मिलेगा, पिकअप फ़ीस नहीं।','Delivery ke 48 hours mein item aur packaging photos ke saath report karein. Verification ke baad free replacement ya full refund including delivery fees, pickup fee nahi.',['DWM-1','DWM-2'])
+            if cat in {'grocery','innerwear','digital'} or has(t,r'non[ -]?returnable'):
+                result.en='The change-of-mind exclusion does not prevent a damaged, expired, wrong or missing item claim. '+result.en
+                result.hi='पसंद बदलने पर रिटर्न की मनाही खराब, एक्सपायर, गलत या गुम सामान की शिकायत नहीं रोकती। '+result.hi
+                result.hinglish='Change-of-mind exclusion damaged, expired, wrong ya missing claim ko nahi rokta. '+result.hinglish
+                result.ids.append('RET-5')
+            return result
+        if intent=='late_delivery': return Plan(intent,'answer','For a late Express order, the paid 79 rupee Express fee is automatically credited to ZentroMart Wallet within 48 hours. Plus members who paid no Express fee get no credit; Standard delays have no compensation.','देर से आई एक्सप्रेस डिलीवरी की चुकाई 79 रुपये फ़ीस 48 घंटे में ZentroMart Wallet में आती है। प्लस में फ़ीस नहीं दी तो क्रेडिट नहीं; सामान्य डिलीवरी में मुआवज़ा नहीं।','Late Express ki paid 79 rupee fee 48 hours mein ZentroMart Wallet mein automatically credit hoti hai. Plus ne fee nahi di to credit nahi; Standard delay par compensation nahi.',['DEL-4']+(['PLS-2'] if has(t,r'\bplus\b|प्लस') else []))
         if intent=='delivery':
-            if has(t,r'(change|update|बदल)') and has(t,r'(address|पता)'):
+            if has(t,r'(change|update|redirect|बदल)') and has(t,r'(address|office|पता)'):
                 shipped=bool(order and order.get('shipped_on')) or has(t,r'(shipped|shipping.*already)')
                 return Plan(intent,'answer','After shipping, the address cannot be changed.' if shipped else 'The delivery address can be changed before shipping; after shipping it cannot be changed.','शिप होने के बाद पता नहीं बदल सकता।' if shipped else 'शिप होने से पहले डिलीवरी पता बदल सकते हैं; बाद में नहीं।','Shipping ke baad address change nahi hota.' if shipped else 'Shipping se pehle delivery address badal sakte hain; baad mein nahi.',['DEL-6'])
             if has(t,r'(fee|cost|free|charge|फ़ीस|शुल्क)'):
-                return Plan(intent,'answer','Standard delivery is free for orders of 499 rupees or more, otherwise 40 rupees. Express costs 79 rupees and is free for Plus members where available.','499 रुपये या अधिक पर सामान्य डिलीवरी मुफ़्त, वरना 40 रुपये। एक्सप्रेस 79 रुपये; उपलब्ध जगह प्लस के लिए मुफ़्त।','Standard delivery 499 rupees ya above par free, otherwise 40 rupees. Express 79 rupees, available area mein Plus ke liye free.',['DEL-2','PLS-2'])
+                result=Plan(intent,'answer','Standard delivery is free for orders of 499 rupees or more, otherwise 40 rupees. Express costs 79 rupees and is free for Plus members where available.','499 रुपये या अधिक पर सामान्य डिलीवरी मुफ़्त, वरना 40 रुपये। एक्सप्रेस 79 रुपये; उपलब्ध जगह प्लस के लिए मुफ़्त।','Standard delivery 499 rupees ya above par free, otherwise 40 rupees. Express 79 rupees, available area mein Plus ke liye free.',['DEL-2','PLS-2'])
+                amounts=list(dict.fromkeys(int(v.replace(',','')) for v in re.findall(r'(?:₹|rupees?\s+)([0-9][0-9,]*)',text,re.I)))
+                for amount in amounts[:4]:
+                    fee=0 if amount>=499 else 40
+                    result.en+=f' For a {amount} rupee basket, Standard delivery costs {fee} rupees.'
+                    result.hi+=f' {amount} रुपये के ऑर्डर पर सामान्य डिलीवरी की फ़ीस {fee} रुपये है।'
+                    result.hinglish+=f' {amount} rupee basket par Standard delivery fee {fee} rupees hai.'
+                return result
             if has(t,r'(standard|metro|how long|shipping time|days.*deliver|express.*cutoff|2 pm|time.*express)') and not order:
                 return Plan(intent,'answer','Standard delivery takes 3 to 6 business days in metros, 5 to 9 elsewhere. At enabled metro pincodes, Express is next business day if ordered before 2 pm, otherwise the following business day; the checkout promised date is the commitment.','मेट्रो में सामान्य डिलीवरी 3 से 6 कार्यदिवस, अन्य जगह 5 से 9। उपलब्ध मेट्रो पिनकोड पर दोपहर 2 बजे से पहले एक्सप्रेस ऑर्डर अगले कार्यदिवस, बाद में उसके अगले कार्यदिवस; चेकआउट की तारीख वादा है।','Standard metro mein 3 to 6 business days, elsewhere 5 to 9. Enabled metro pincodes par 2 pm se pehle Express next business day, otherwise uske agle business day; checkout promised date commitment hai.',['DEL-1','DEL-5','KB-00.3'])
             if (not order or order.get('status')=='Delivered') and has(t,r'(?:delivered|डिलीवर्ड).{0,100}(?:not received|never received|nowhere|missing|नहीं मिला|nahi mila)|(?:not received|never received).{0,40}delivered'):
@@ -325,24 +395,52 @@ class Policy:
                 return Plan(intent,'answer','COD is available up to 10,000 rupees only at enabled pincodes, with a 25 rupee fee per order.','COD 10,000 रुपये तक उपलब्ध पिनकोड में, प्रति ऑर्डर 25 रुपये फ़ीस है।','COD 10,000 rupees tak enabled pincodes par hai, 25 rupee fee per order.',['PAY-2'])
             return Plan(intent,'answer','Payment methods include UPI, cards, net banking, Wallet and COD where enabled.','UPI, कार्ड, नेट बैंकिंग, वॉलेट और उपलब्ध जगह COD से भुगतान करें।','UPI, cards, net banking, Wallet aur enabled areas mein COD payment available hai.',['PAY-1','PAY-2'])
         return self.unknown()
+    def _refund_record_note(self,plan,order):
+        # The lookup record establishes initiation, never an unrecorded bank
+        # credit. Include the available amount and reference for all refund paths.
+        for prefix in ['return','cancellation','rto']:
+            started=order.get(prefix+'_refund_initiated_on')
+            if not started: continue
+            amount=order.get(prefix+'_refund_amount_inr')
+            reference=order.get(prefix+'_rrn')
+            completed=order.get(prefix+'_refund_completed_on')
+            label=f' of {amount} rupees' if amount is not None and amount!='' else ''
+            plan.en+=f' The order record shows a refund{label} initiated on {fmt(started)}.'
+            plan.hi+=f' रिकॉर्ड में {amount if amount is not None else ""} रुपये का रिफ़ंड {fmt(started)} को शुरू दर्ज है।'
+            plan.hinglish+=f' Order record mein refund{label} {fmt(started)} ko initiated hai.'
+            if not completed:
+                plan.en+=' Completion is not recorded; I cannot confirm that the money has reached your bank.'
+                plan.hi+=' पूरा होना दर्ज नहीं है; बैंक में पैसा पहुँचने की पुष्टि नहीं कर सकती।'
+                plan.hinglish+=' Completion recorded nahi hai; bank credit confirm nahi kar sakti.'
+            if reference and str(reference) not in plan.en:
+                plan.en+=f' Your refund reference number (RRN) is {reference}; your bank can trace it.'
+                plan.hi+=f' रिफ़ंड reference number (RRN) {reference} से बैंक जाँच सकता है।'
+                plan.hinglish+=f' Refund reference number (RRN) {reference} se bank trace kar sakta hai.'
+            if reference: plan.ids=list(dict.fromkeys(plan.ids+['REF-6']))
+            plan.facts.update({'refund_initiated_on':started,'refund_amount_inr':amount,'refund_completion_recorded':bool(completed)})
+            break
+        if plan.decision=='escalate': plan.ids=list(dict.fromkeys(plan.ids+['ESC-2']))
+        plan.hi=hindi_record_terms(plan.hi)
+        return plan
+
     def unknown(self) -> Plan:
         return Plan('unsupported','answer',"I don't have information about that in the supplied documents. I can connect you to a human colleague.",'दिए गए दस्तावेज़ों में इस बारे में जानकारी नहीं है। मैं आपको मानव सहयोगी से जोड़ सकती हूँ।','Documents mein iski jaankari nahi hai; human colleague se connect kar sakti hoon.',[])
     def refund(self,text:str,order:dict|None) -> Plan:
-        t=text.lower(); method=None; initiated=None; ids=['REF-2','KB-00.1']; rrn=None
+        t=text.lower(); method=None; initiated=None; ids=['REF-2']; rrn=None
         if has(t,r'\b(?:coupon|discount)\b') and has(t,r'\b(?:partial|minimum|remaining|basket|sticker|share)\b'):
             return Plan('refund','answer',"A partial refund uses the item's price after its share of the coupon discount. If the remaining order falls below the coupon minimum, the remaining items' coupon discount is also deducted from the refund.",'आंशिक रिफ़ंड में उस सामान के हिस्से का कूपन डिस्काउंट घटता है। बाकी ऑर्डर कूपन की न्यूनतम राशि से नीचे हो तो बाकी सामान का कूपन डिस्काउंट भी रिफ़ंड से घटता है।','Partial refund mein item price se uska coupon discount share deduct hota hai. Remaining order coupon minimum se neeche ho to remaining items ka coupon discount bhi refund se deduct hota hai.',['REF-4'])
         if has(t,r'\b(?:delivery|cod)\b.{0,20}\b(?:fee|fees|charge|charges)\b') and has(t,r'\b(?:refund|returned|cancelled|whole|entire)\b'):
-            return Plan('refund','answer','Delivery fees and the 25 rupee COD fee are refunded only if the whole order is cancelled before shipping or returned because it was damaged, defective or wrong; a change-of-mind return does not qualify.','डिलीवरी और 25 रुपये COD फ़ीस केवल पूरा ऑर्डर शिप होने से पहले कैंसिल हो या खराब, दोषपूर्ण या गलत होने से लौटे तो वापस होती है; पसंद बदलने पर नहीं।','Delivery fees aur 25 rupee COD fee sirf whole order shipping se pehle cancel ho ya damaged, defective ya wrong hone par return ho to refund hoti hai; change-of-mind par nahi.',['REF-5'])
+            return Plan('refund','answer','Delivery fees and the 25 rupee COD fee are refunded only if the whole order is cancelled before shipping or returned because it was damaged, defective or wrong; delivery and COD fees are not refunded for a change-of-mind return.','डिलीवरी और 25 रुपये COD फ़ीस केवल पूरा ऑर्डर शिप होने से पहले कैंसिल हो या खराब, दोषपूर्ण या गलत होने से लौटे तो वापस होती है; पसंद बदलने पर नहीं।','Delivery fees aur 25 rupee COD fee sirf whole order shipping se pehle cancel ho ya damaged, defective ya wrong hone par return ho to refund hoti hai; change-of-mind par nahi.',['REF-5'])
         if has(t,r'wallet|वॉलेट') and has(t,r'\b(?:transfer|moved?|bank|expire\w*)\b') and has(t,r'already|landed|credited|balance|unused|now|पहले|आ चुका'):
             return self._plan_single(text,'payment',order)
         if not order and has(t,r'\b(?:rrn|reference|trace)\b'):
-            return Plan('refund','answer','An initiated refund has a refund reference number (RRN); support can share it so your bank can trace the refund. The specific reference requires verified order access.','शुरू हुए रिफ़ंड का refund reference number (RRN) होता है; इसे बैंक रिफ़ंड ट्रेस करने के लिए उपयोग कर सकता है। खास RRN के लिए ऑर्डर सत्यापन चाहिए।','Initiated refund ka refund reference number (RRN) hota hai; bank usse refund trace kar sakta hai. Specific RRN ke liye verified order access chahiye.',['REF-6','IDV-1'])
+            return Plan('refund','answer','An initiated refund has a refund reference number (RRN); support can share it so your bank can trace the refund. Support can share that reference after checking the relevant order.','शुरू हुए रिफ़ंड का refund reference number (RRN) होता है; इसे बैंक रिफ़ंड ट्रेस करने के लिए उपयोग कर सकता है। खास RRN के लिए ऑर्डर सत्यापन चाहिए।','Initiated refund ka refund reference number (RRN) hota hai; bank usse refund trace kar sakta hai. Specific RRN ke liye verified order access chahiye.',['REF-6'])
         if has(t,r'(upi|u p i|यूपीआई)'): method='upi'
         elif has(t,r'(credit|debit|card|कार्ड)'): method='card'
         elif has(t,r'(net.?bank|नेट बैंक)'): method='netbanking'
         elif has(t,r'(wallet|वॉलेट)'): method='wallet'
         if has(t,r'(cash[ -]on[ -]delivery|\bcod\b|कैश ऑन)') and (not method or (has(t,r'\bbank\b') and has(t,r'wallet|वॉलेट'))):
-            return Plan('refund','answer','For COD refunds, choose ZentroMart Wallet, instant, or bank transfer, 5 to 7 business days after verified bank details.','COD रिफ़ंड के लिए ZentroMart Wallet तुरंत, या बैंक डिटेल्स जाँच के बाद 5 से 7 कार्यदिवस में बैंक ट्रांसफ़र चुनें।','COD refund mein ZentroMart Wallet instant, ya verified bank details ke baad 5 to 7 business days bank transfer choose karein.',['REF-3'])
+            return Plan('refund','answer','For COD refunds, choose ZentroMart Wallet, instant within 2 hours after initiation, or bank transfer, 5 to 7 business days after verified bank details.','COD रिफ़ंड के लिए ZentroMart Wallet तुरंत, या बैंक डिटेल्स जाँच के बाद 5 से 7 कार्यदिवस में बैंक ट्रांसफ़र चुनें।','COD refund mein ZentroMart Wallet instant, ya verified bank details ke baad 5 to 7 business days bank transfer choose karein.',['REF-3','REF-2'])
         if order and order.get('return_refund_completed_on'):
             completed=fmt(order['return_refund_completed_on']); reference=order.get('return_rrn') or 'not recorded'
             return Plan('refund','answer',f'The order record marks the refund completed on {completed}; this does not prove your bank has posted it. Your refund reference number (RRN) is {reference}; your bank can trace it.',f'रिकॉर्ड में रिफ़ंड {completed} को पूरा दर्ज है; इससे बैंक में पैसा दिखना साबित नहीं होता। RRN {reference} से बैंक जाँच सकता है।',f'Record mein refund {completed} ko completed hai; bank credit confirm nahi hota. Refund reference number (RRN) {reference} se bank trace kar sakta hai.',['REF-6'])
