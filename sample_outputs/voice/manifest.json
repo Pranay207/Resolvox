@@ -3,6 +3,8 @@
   "succeeded": 6,
   "failed": 0,
   "speech_provider": "Gnani only",
+  "startup_ms": 4155.58,
+  "batch_wall_ms": 56481.22,
   "entries": [
     {
       "input": "01_en.wav",
@@ -12,7 +14,11 @@
       "agent_succeeded": true,
       "decision": "answer",
       "audio": "001_01_en_reply.wav",
-      "latency_ms": 20962.39
+      "stt_ms": 12379.31,
+      "agent_ms": 5981.93,
+      "tts_ms": 969.44,
+      "total_ms": 19331.14,
+      "latency_ms": 19331.14
     },
     {
       "input": "02_hi.wav",
@@ -22,7 +28,11 @@
       "agent_succeeded": true,
       "decision": "answer",
       "audio": "002_02_hi_reply.wav",
-      "latency_ms": 10356.97
+      "stt_ms": 265.83,
+      "agent_ms": 20101.62,
+      "tts_ms": 1919.52,
+      "total_ms": 22287.12,
+      "latency_ms": 22287.12
     },
     {
       "input": "03_hinglish.wav",
@@ -32,7 +42,11 @@
       "agent_succeeded": true,
       "decision": "answer",
       "audio": "003_03_hinglish_reply.wav",
-      "latency_ms": 5561.8
+      "stt_ms": 260.11,
+      "agent_ms": 5331.18,
+      "tts_ms": 996.93,
+      "total_ms": 6588.38,
+      "latency_ms": 6588.38
     },
     {
       "input": "04_identity__01.wav",
@@ -42,7 +56,11 @@
       "agent_succeeded": true,
       "decision": "clarify",
       "audio": "004_04_identity__01_reply.wav",
-      "latency_ms": 1156.71
+      "stt_ms": 323.76,
+      "agent_ms": 9.75,
+      "tts_ms": 833.25,
+      "total_ms": 1166.99,
+      "latency_ms": 1166.99
     },
     {
       "input": "04_identity__02.wav",
@@ -52,7 +70,11 @@
       "agent_succeeded": true,
       "decision": "clarify",
       "audio": "005_04_identity__02_reply.wav",
-      "latency_ms": 1137.04
+      "stt_ms": 457.57,
+      "agent_ms": 3.58,
+      "tts_ms": 914.06,
+      "total_ms": 1375.38,
+      "latency_ms": 1375.38
     },
     {
       "input": "04_identity__03.wav",
@@ -62,7 +84,11 @@
       "agent_succeeded": true,
       "decision": "refuse",
       "audio": "006_04_identity__03_reply.wav",
-      "latency_ms": 1335.18
+      "stt_ms": 251.17,
+      "agent_ms": 2.14,
+      "tts_ms": 1270.16,
+      "total_ms": 1523.65,
+      "latency_ms": 1523.65
     }
   ]
 }

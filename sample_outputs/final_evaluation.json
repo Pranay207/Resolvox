@@ -1,0 +1,64 @@
+{
+  "recorded_at_utc": "2026-10-24T16:58:03.254504+00:00",
+  "complete": true,
+  "stages": [
+    {
+      "command": [
+        "eval_step2.py",
+        "--live"
+      ],
+      "exit_code": 0,
+      "seconds": 573.101
+    },
+    {
+      "command": [
+        "eval_step3.py",
+        "--live"
+      ],
+      "exit_code": 0,
+      "seconds": 398.771
+    },
+    {
+      "command": [
+        "eval_adversarial.py"
+      ],
+      "exit_code": 1,
+      "seconds": 12.465
+    },
+    {
+      "command": [
+        "eval_holdout.py",
+        "--offline"
+      ],
+      "exit_code": 1,
+      "seconds": 419.924
+    },
+    {
+      "command": [
+        "generate_voice_samples.py",
+        "--reuse-inputs"
+      ],
+      "exit_code": 0,
+      "seconds": 60.904
+    }
+  ],
+  "note": "Held-out first-pass results are preserved separately. The later holdout run is a regression after fixes.",
+  "post_run_verification": {
+    "number_format_rescoring": "Raw predictions unchanged; original checks retained in eval_step*_raw_scoring.json.",
+    "adversarial_rerun": {
+      "total": 77,
+      "passed": 77,
+      "failed": 0,
+      "authored_single_questions": 65,
+      "stateful_cases": 12,
+      "note": "Authored regression tests, not organizer held-out tests."
+    },
+    "pytest": {
+      "passed": 145,
+      "total": 145,
+      "exit_code": 0,
+      "command": "python -m pytest -q -p no:cacheprovider"
+    },
+    "known_holdout_failures_retained": 42
+  }
+}

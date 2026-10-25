@@ -57,7 +57,21 @@
   "facts": {},
   "verified": false,
   "reference_date": "2026-10-20",
-  "composition": "deterministic",
-  "retrieval_mode": "multilingual MiniLM ONNX int8",
-  "latency_ms": 3.38
+  "composition": "deterministic_guardrail",
+  "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+  "retrieval_k": 12,
+  "evidence_supported": true,
+  "validation_error": null,
+  "llm": {},
+  "timings": {
+    "retrieval_ms": 0.0,
+    "llm_ms": 0.0
+  },
+  "latency_ms": 9.73,
+  "voice_timings": {
+    "stt_ms": 323.76,
+    "agent_ms": 9.75,
+    "tts_ms": 833.25,
+    "total_ms": 1166.99
+  }
 }

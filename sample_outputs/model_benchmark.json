@@ -1,0 +1,46 @@
+[
+  {
+    "model": "qwen3:4b-instruct",
+    "run": 1,
+    "wall_ms": 37621.9,
+    "load_ms": 14216.6,
+    "prompt_ms": 16409.6,
+    "generation_ms": 6853.5,
+    "prompt_tokens": 248,
+    "output_tokens": 31,
+    "raw_answer": "{\"answer\": \"A UPI refund will take 1 to 3 business days to reach you.\", \"source_ids\": [\"REF-2\"]}"
+  },
+  {
+    "model": "qwen3:4b-instruct",
+    "run": 2,
+    "wall_ms": 7299.6,
+    "load_ms": 51.2,
+    "prompt_ms": 200.8,
+    "generation_ms": 6854.4,
+    "prompt_tokens": 248,
+    "output_tokens": 31,
+    "raw_answer": "{\"answer\": \"A UPI refund will take 1 to 3 business days to reach you.\", \"source_ids\": [\"REF-2\"]}"
+  },
+  {
+    "model": "qwen2.5:1.5b",
+    "run": 1,
+    "wall_ms": 18126.6,
+    "load_ms": 7585.0,
+    "prompt_ms": 6478.6,
+    "generation_ms": 3922.0,
+    "prompt_tokens": 248,
+    "output_tokens": 32,
+    "raw_answer": "{\"answer\": \"UPI refunds typically take 1 to 3 business days to reach the original payment method.\", \"source_ids\": [\"REF-2\"]}"
+  },
+  {
+    "model": "qwen2.5:1.5b",
+    "run": 2,
+    "wall_ms": 4414.0,
+    "load_ms": 113.4,
+    "prompt_ms": 221.6,
+    "generation_ms": 3933.4,
+    "prompt_tokens": 248,
+    "output_tokens": 32,
+    "raw_answer": "{\"answer\": \"UPI refunds typically take 1 to 3 business days to reach the original payment method.\", \"source_ids\": [\"REF-2\"]}"
+  }
+]

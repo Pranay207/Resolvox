@@ -1,0 +1,441 @@
+{
+  "step1": {
+    "search_k": [],
+    "search_recall": 0.0,
+    "step": "1",
+    "total": 52,
+    "passed": 1,
+    "pass_rate": 0.019230769230769232,
+    "decision_accuracy": 0.07692307692307693,
+    "evidence_recall": 0.0,
+    "errors": 1,
+    "composition_counts": {
+      "prompt_only": 51,
+      "blocked": 1
+    },
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+    "latency_by_path": {
+      "uncached_llm_attempt": {
+        "count": 51,
+        "p50_ms": 6972.5,
+        "p95_ms": 14315.6
+      },
+      "no_model_call": {
+        "count": 1,
+        "p50_ms": 26765.0,
+        "p95_ms": 26765.0
+      }
+    }
+  },
+  "step2": {
+    "search_k": [
+      12
+    ],
+    "search_recall": 0.961038961038961,
+    "step": "2",
+    "total": 52,
+    "passed": 52,
+    "pass_rate": 1.0,
+    "decision_accuracy": 1.0,
+    "evidence_recall": 0.8555555555555555,
+    "errors": 0,
+    "composition_counts": {
+      "evidence_validated_fallback": 24,
+      "grounded_llm": 17,
+      "abstained_missing_evidence": 5,
+      "evidence_validated_rules": 2,
+      "deterministic_guardrail": 4
+    },
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+    "latency_by_path": {
+      "uncached_llm_attempt": {
+        "count": 38,
+        "p50_ms": 15581.1,
+        "p95_ms": 20155.0
+      },
+      "cache_hit": {
+        "count": 3,
+        "p50_ms": 173.7,
+        "p95_ms": 173.7
+      },
+      "no_model_call": {
+        "count": 11,
+        "p50_ms": 62.4,
+        "p95_ms": 108.4
+      }
+    }
+  },
+  "step3": {
+    "search_k": [
+      12
+    ],
+    "search_recall": 0.29464285714285715,
+    "step": "3",
+    "total": 96,
+    "passed": 96,
+    "pass_rate": 1.0,
+    "decision_accuracy": 1.0,
+    "evidence_recall": 0.9732142857142857,
+    "errors": 0,
+    "composition_counts": {
+      "deterministic_guardrail": 77,
+      "evidence_validated_fallback": 12,
+      "grounded_llm": 5,
+      "evidence_validated_rules": 2
+    },
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+    "latency_by_path": {
+      "no_model_call": {
+        "count": 79,
+        "p50_ms": 5.7,
+        "p95_ms": 98.7
+      },
+      "uncached_llm_attempt": {
+        "count": 17,
+        "p50_ms": 14122.7,
+        "p95_ms": 20229.2
+      }
+    }
+  },
+  "engineering": {
+    "generated_at": "2026-10-25T05:35:43.841108+00:00",
+    "runtime_commit": "529a740efab8bad488ab28ff40fa40884b0d9c77",
+    "pytest": {
+      "passed": 145,
+      "total": 145,
+      "exit_code": 0,
+      "command": "python -m pytest -q -p no:cacheprovider"
+    },
+    "dataset_validation": {
+      "exit_code": 0,
+      "csv_files": 9,
+      "kb_documents": 21,
+      "orders": 1000,
+      "order_items": 1783,
+      "practice_questions": 52,
+      "conversations": 23
+    },
+    "scope": "Engineering regressions and official dataset integrity; not semantic certification or organizer scoring."
+  },
+  "adversarial": {
+    "total": 77,
+    "passed": 77,
+    "failed": 0,
+    "authored_single_questions": 65,
+    "stateful_cases": 12,
+    "note": "Authored regression tests, not organizer held-out tests."
+  },
+  "holdout_first_pass": {
+    "passed": 23,
+    "failed": 68,
+    "evaluated": 91,
+    "planned": 91,
+    "complete": true,
+    "pass_rate": 0.25274725274725274,
+    "failed_check_counts": {
+      "required": 113,
+      "gold_evidence_coverage": 54,
+      "decision": 24,
+      "required_tool": 3,
+      "forbidden_tool": 5
+    },
+    "by_category": {
+      "catalog_multihop": {
+        "passed": 2,
+        "total": 12
+      },
+      "historical_current": {
+        "passed": 0,
+        "total": 3
+      },
+      "sale_boundary": {
+        "passed": 1,
+        "total": 6
+      },
+      "damage_exception": {
+        "passed": 0,
+        "total": 2
+      },
+      "threshold_boundary": {
+        "passed": 1,
+        "total": 3
+      },
+      "immediate_escalation": {
+        "passed": 4,
+        "total": 5
+      },
+      "delivery_compensation": {
+        "passed": 1,
+        "total": 3
+      },
+      "clarification": {
+        "passed": 0,
+        "total": 4
+      },
+      "unsupported_nearmiss": {
+        "passed": 0,
+        "total": 4
+      },
+      "wallet_boundary": {
+        "passed": 0,
+        "total": 1
+      },
+      "refund_timing": {
+        "passed": 0,
+        "total": 2
+      },
+      "precedence": {
+        "passed": 0,
+        "total": 1
+      },
+      "plus_limits": {
+        "passed": 0,
+        "total": 1
+      },
+      "fees_exception": {
+        "passed": 0,
+        "total": 1
+      },
+      "coupon_math": {
+        "passed": 0,
+        "total": 1
+      },
+      "coupon_boundary": {
+        "passed": 2,
+        "total": 2
+      },
+      "cancellation": {
+        "passed": 1,
+        "total": 2
+      },
+      "pincode_multihop": {
+        "passed": 0,
+        "total": 3
+      },
+      "hindi": {
+        "passed": 0,
+        "total": 2
+      },
+      "hinglish": {
+        "passed": 1,
+        "total": 2
+      },
+      "troubleshooting": {
+        "passed": 0,
+        "total": 1
+      },
+      "rto_timing": {
+        "passed": 0,
+        "total": 1
+      },
+      "warranty_exclusion": {
+        "passed": 0,
+        "total": 1
+      },
+      "refund_reference": {
+        "passed": 0,
+        "total": 1
+      },
+      "verified_tracking_then_cancellation": {
+        "passed": 1,
+        "total": 3
+      },
+      "verification_retry_privacy": {
+        "passed": 4,
+        "total": 4
+      },
+      "language_switch_and_privacy": {
+        "passed": 0,
+        "total": 4
+      },
+      "overdue_refund_handoff": {
+        "passed": 1,
+        "total": 2
+      },
+      "fresh_refund_blank_completion": {
+        "passed": 1,
+        "total": 2
+      },
+      "repeat_contact_from_lookup": {
+        "passed": 1,
+        "total": 2
+      },
+      "safety_before_identity": {
+        "passed": 1,
+        "total": 2
+      },
+      "contextual_sale_catalog": {
+        "passed": 0,
+        "total": 3
+      },
+      "historical_date_correction": {
+        "passed": 1,
+        "total": 3
+      },
+      "unshipped_cancel_action_boundary": {
+        "passed": 0,
+        "total": 2
+      }
+    },
+    "elapsed_seconds": 12.12
+  },
+  "holdout_regression": {
+    "passed": 49,
+    "failed": 42,
+    "evaluated": 91,
+    "planned": 91,
+    "complete": true,
+    "pass_rate": 0.5384615384615384,
+    "failed_check_counts": {
+      "required": 52,
+      "gold_evidence_coverage": 29,
+      "decision": 5
+    },
+    "by_category": {
+      "catalog_multihop": {
+        "passed": 7,
+        "total": 12
+      },
+      "historical_current": {
+        "passed": 1,
+        "total": 3
+      },
+      "sale_boundary": {
+        "passed": 4,
+        "total": 6
+      },
+      "damage_exception": {
+        "passed": 1,
+        "total": 2
+      },
+      "threshold_boundary": {
+        "passed": 1,
+        "total": 3
+      },
+      "immediate_escalation": {
+        "passed": 5,
+        "total": 5
+      },
+      "delivery_compensation": {
+        "passed": 2,
+        "total": 3
+      },
+      "clarification": {
+        "passed": 0,
+        "total": 4
+      },
+      "unsupported_nearmiss": {
+        "passed": 1,
+        "total": 4
+      },
+      "wallet_boundary": {
+        "passed": 1,
+        "total": 1
+      },
+      "refund_timing": {
+        "passed": 0,
+        "total": 2
+      },
+      "precedence": {
+        "passed": 0,
+        "total": 1
+      },
+      "plus_limits": {
+        "passed": 0,
+        "total": 1
+      },
+      "fees_exception": {
+        "passed": 0,
+        "total": 1
+      },
+      "coupon_math": {
+        "passed": 1,
+        "total": 1
+      },
+      "coupon_boundary": {
+        "passed": 2,
+        "total": 2
+      },
+      "cancellation": {
+        "passed": 2,
+        "total": 2
+      },
+      "pincode_multihop": {
+        "passed": 0,
+        "total": 3
+      },
+      "hindi": {
+        "passed": 1,
+        "total": 2
+      },
+      "hinglish": {
+        "passed": 2,
+        "total": 2
+      },
+      "troubleshooting": {
+        "passed": 1,
+        "total": 1
+      },
+      "rto_timing": {
+        "passed": 1,
+        "total": 1
+      },
+      "warranty_exclusion": {
+        "passed": 1,
+        "total": 1
+      },
+      "refund_reference": {
+        "passed": 0,
+        "total": 1
+      },
+      "verified_tracking_then_cancellation": {
+        "passed": 1,
+        "total": 3
+      },
+      "verification_retry_privacy": {
+        "passed": 4,
+        "total": 4
+      },
+      "language_switch_and_privacy": {
+        "passed": 1,
+        "total": 4
+      },
+      "overdue_refund_handoff": {
+        "passed": 1,
+        "total": 2
+      },
+      "fresh_refund_blank_completion": {
+        "passed": 1,
+        "total": 2
+      },
+      "repeat_contact_from_lookup": {
+        "passed": 1,
+        "total": 2
+      },
+      "safety_before_identity": {
+        "passed": 2,
+        "total": 2
+      },
+      "contextual_sale_catalog": {
+        "passed": 1,
+        "total": 3
+      },
+      "historical_date_correction": {
+        "passed": 1,
+        "total": 3
+      },
+      "unshipped_cancel_action_boundary": {
+        "passed": 2,
+        "total": 2
+      }
+    },
+    "elapsed_seconds": 417.845
+  },
+  "holdout_mode": "offline_compose_false",
+  "privacy_check_failures": 0,
+  "voice": {
+    "status": "tested",
+    "audio_passed": 6,
+    "semantic_passed": 6
+  }
+}

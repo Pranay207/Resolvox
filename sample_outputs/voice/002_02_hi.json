@@ -44,50 +44,89 @@
   "retrieval_candidates": [
     {
       "id": "DWM-1",
-      "score": 0.054886,
-      "dense_score": 0.5297
+      "score": 0.119749,
+      "dense_score": 0.2922
     },
     {
       "id": "RET-5",
-      "score": 0.052381,
-      "dense_score": 0.3558
+      "score": 0.115258,
+      "dense_score": 0.3982
     },
     {
-      "id": "DWM-3",
-      "score": 0.051692,
-      "dense_score": 0.3293
+      "id": "FAQH-3",
+      "score": 0.109988,
+      "dense_score": 0.3812
     },
     {
       "id": "DWM-2",
-      "score": 0.051212,
-      "dense_score": 0.3348
+      "score": 0.102821,
+      "dense_score": 0.2409
     },
     {
       "id": "RET-4",
-      "score": 0.047876,
-      "dense_score": 0.3598
+      "score": 0.102386,
+      "dense_score": 0.299
     },
     {
-      "id": "RET-3",
-      "score": 0.044494,
-      "dense_score": 0.2539
+      "id": "DWM-3",
+      "score": 0.098781,
+      "dense_score": 0.2111
     },
     {
-      "id": "REF-5",
-      "score": 0.043125,
-      "dense_score": 0.1764
+      "id": "DWM-4",
+      "score": 0.097211,
+      "dense_score": 0.2488
     },
     {
-      "id": "RET-2",
-      "score": 0.042724,
-      "dense_score": 0.2194
+      "id": "RET-6",
+      "score": 0.070498,
+      "dense_score": 0.2687
+    },
+    {
+      "id": "DWM-5",
+      "score": 0.07034,
+      "dense_score": 0.1952
+    },
+    {
+      "id": "KB-00.1",
+      "score": 0.034444,
+      "dense_score": -0.0049
+    },
+    {
+      "id": "ESC-1",
+      "score": 0.034443,
+      "dense_score": 0.1663
+    },
+    {
+      "id": "ESC-2",
+      "score": 0.034442,
+      "dense_score": 0.0855
     }
   ],
   "tool_calls": [],
   "facts": {},
   "verified": false,
   "reference_date": "2026-10-20",
-  "composition": "llm_sentence_composition",
-  "retrieval_mode": "multilingual MiniLM ONNX int8",
-  "latency_ms": 8141.36
+  "composition": "evidence_validated_fallback",
+  "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+  "retrieval_k": 12,
+  "evidence_supported": true,
+  "validation_error": "model_unavailable_or_invalid",
+  "llm": {
+    "cache_hit": false,
+    "attempts": 1,
+    "wall_ms": 20026.92,
+    "unavailable": true
+  },
+  "timings": {
+    "retrieval_ms": 71.86,
+    "llm_ms": 20027.08
+  },
+  "latency_ms": 20101.61,
+  "voice_timings": {
+    "stt_ms": 265.83,
+    "agent_ms": 20101.62,
+    "tts_ms": 1919.52,
+    "total_ms": 22287.12
+  }
 }

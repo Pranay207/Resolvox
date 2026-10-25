@@ -6,107 +6,106 @@ ZentroMart: support that listens
 
 Technical report | Pranay207 | C&A Club, IIT Guwahati x Gnani.ai
 
-A multilingual support agent grounded in the supplied synthetic retailer policies and order tools. Its priority is defensible answers and safe handovers, rather than unconstrained generation. A top-20 ranking is an aspiration, not an evaluated result.
+One multilingual support agent combines retrieval-first source-text generation, deterministic verification and arithmetic, supplied order/ticket tools, and Gnani speech. Recorded results distinguish generated answers, checked fallbacks, guardrails and abstentions. No organizer score or placing is claimed.
 
-One support agent, four build steps
+Four cumulative build steps
 
-| Stage | What was built |
-| 1 - Baseline | Actual Ollama API call; role/limits; AI disclosure; no documents or order access. |
-| 2 - Grounding | Section-ID KB index; BM25 + multilingual MiniLM dense search; authority-aware ranking; traceable policy plans and abstention. |
-| 3 - Conversation | Session state, proof-gated supplied tools, date/eligibility rules, refusals and successful-ticket-only handover. |
-| 4 - Voice | Official Gnani REST STT/TTS wrapper, spoken-number handling and fault-isolated audio-folder CLI. Six synthetic voice round trips and semantic checks verified. |
+| Stage | Implementation |
+| 1 - Baseline | Actual configured LLM; role/limits and AI disclosure; no company documents or order access. |
+| 2 - RAG | Search first; scope policy rules to actual results; generate from supplied section text and checked facts; record source provenance. |
+| 3 - Conversation | Session/order state, proof-gated lookup, calendar/coupon arithmetic, explicit guard policies and confirmed-ticket-only handover. |
+| 4 - Voice | Official Gnani STT/TTS, spoken-number normalization, redaction, per-file failure isolation and JSON/text/WAV/source outputs. |
 
-Observed local results
+Evidence snapshot at report generation
 
-Baseline: 5/52 mechanical checks. Grounded: 52/52. Conversations: 96/96 turns. Original adversarial/stateful checks: 77/77. These are transparent local regression checks, not organizer scores or proof of hidden-test accuracy.
+Baseline 1/52; grounded questions 52/52; conversation turns 96/96; development adversarial/stateful checks 77/77. These are mechanical local checks. The practice and adversarial sets were used during development; answer quality is not established by retrieval recall or a successful fallback alone.
 
-Release status: text, local LLM composition and six real Gnani speech round trips verified. Synthetic audio does not establish human-speech robustness. The user-recorded demo remains outstanding.
+Grounded run model metadata: configured ollama/qwen3:1.7b; recorded calls ollama:qwen3:1.7b (32).
 
-
----
-
-Design choices and boundaries
-
-Grounding is a data contract
-
-All 21 knowledge documents were read, preserving section IDs, version, status and effective dates. The public catalog and calendar are loaded separately. Customer and order tables are accessed only through the unchanged organizer tool module. Practice questions, expected answers and historical support logs never enter the runtime index.
-
-Authority is current policy > agent guide > help > FAQ > marketing. KB-00 supplies the date and precedence rules. Superseded text cannot govern unless its successor explicitly preserves a historical case: RET-3 keeps the 10-day electronics window only for deliveries before 1 August 2026; otherwise 7 days applies. A marketplace badge cannot override MKS-3, which excludes seller items from Assured coverage.
-
-Hybrid retrieval without a heavyweight training stack
-
-BM25 uses stop-word removal and light plural normalization. Dense retrieval uses the official 118 MB int8 ONNX export of multilingual MiniLM (384 dimensions), pinned to an immutable model revision. Intent vocabulary expands Hinglish and colloquial queries into policy terminology. Reciprocal-rank fusion combines both searches, with a modest authority prior. Model and section embeddings load once and are cached on disk.
-
-Search candidates and governing evidence are distinct. Policy rules retrieve specific source sections for decisions, while broad search candidates are logged independently. Explicit rule coverage helps structured policy cases but limits open-ended generalization; high answer-check pass rates must not hide weak search or intent coverage.
-
-Deterministic decisions; constrained LLM composition
-
-Code computes date windows, business-day deadlines, coupon arithmetic, proof limits and eligibility. Policy-derived statements are written in English, Hindi and Hinglish. The LLM arranges a verified sentence bank; its output must contain every sentence index exactly once. Invalid plans fall back to the original verified wording. This deliberately limits language freedom and prevents invented policy facts; it is not an unrestricted answer-generation model.
-
-Dates and a documented ambiguity
-
-The reference date is 20 October 2026. Refund/logistics days are Monday-Saturday excluding the four supplied holidays; initiation day is day zero. RET-2 says returns start on delivery, but does not spell out inclusive arithmetic. The supplied expected deadlines consistently use delivery + N calendar days. That operational convention is used globally and tested at category, sale-period and historical-policy boundaries; no question-specific date exceptions are coded.
-
-Schema: 300 customers -> 1,000 orders -> 1,783 order lines -> 70 products. Delivery pincodes reference 36 serviceability rows; four holidays define the business calendar. Identifiers remain strings. Blank completion dates are not interpreted as completed refunds.
+Engineering pytest result: 145/145 passed; exit code 0. Required report limit: four pages. The user records the final demo within 120 seconds after validation.
 
 
 ---
 
-Evaluation and failure analysis
+Architecture and evidence boundaries
 
-| Generated evaluation | Passes | Rate / interpretation |
-| Prompt-only, same 52 questions | 5/52 | 9.6%; 3 invalid-output errors counted |
-| Grounded single questions | 52/52 | 100.0% mechanical fact/decision checks |
-| Conversation turns | 96/96 | 100.0%; 23 sequential sessions |
-| Original adversarial + stateful | 77/77 | 65 authored questions + 12 stateful cases |
-| Independent KB search recall@8 | Single questions | 75.3% |
-| Used-source evidence recall | Single / conversation | 97.8% / 100.0% |
+Retrieval before policy planning
 
-The scorer checks acceptable decisions, required factual alternatives, forbidden claims and expected tool names. Dates are canonicalized across English/Hindi forms. It does not judge every semantic entailment, language nuance or action argument, so a perfect local pass rate is not equivalent to a perfect support agent.
+KB sections preserve IDs, file, authority, status, version and effective date. Raw-query BM25 and multilingual MiniLM channels are fused separately from narrow glossary expansion. Complete tables and concise heading/prose embeddings provide complementary views; Hindi tokenization retains combining marks. Intent is a weak hint, not a mapping from practice questions to evidence.
 
-Single-turn LLM composition counts: {'llm_sentence_composition': 33, 'deterministic': 11, 'deterministic_invalid_model_plan': 8}. Conversation composition counts: {'deterministic': 79, 'llm_sentence_composition': 16, 'deterministic_invalid_model_plan': 1}. Deterministic gates and abstentions need no LLM call. Saved baseline results are real API outputs; identical prompts may subsequently use cache. Invalid baseline JSON remains an error, not an edited answer.
+The agent searches at k=12 before planning. Explicit references, named policy concepts and bounded calendar/precedence/exception dependencies add governing context. Planning sees only retrieved sections, with public catalog/pincode facts supplied independently. A planner cannot append preferred citations from the full KB. Historical filtering excludes obsolete text unless the current successor authorizes that case.
 
-What broke, and what changed
+Actual source-text generation; explicit provenance
 
-The baseline predicted Wallet refunds take 3-5 business days. REF-2 instead says instant, within 2 hours. The grounded path resolves payment methods before choosing a timeline and cites the policy rather than the generic FAQ.
+The LLM receives actual section text, authority/version metadata, deterministic facts and an optional checked rule summary. It writes new reply wording. The current answer-only output contract avoids asking small models to reproduce section identifiers or select citation spans. Code records the IDs and exact full sections actually supplied as context provenance; this does not prove that every generated claim follows from those sections.
 
-Product aliases initially missed a swimsuit because of the hyphenated product name and omitted colour. Matching now distinguishes exact variants from shared-category variants, using category evidence without inventing a specific variant. Initial return dates used inclusive counting and failed two expected dates; the globally applied day-zero convention above corrected that ambiguity.
+Source-contract validation checks source membership, required coverage, numeric values and units, selected omitted constraints, language, private identifiers and common invented completed actions. These are finite heuristics, not general semantic entailment. Broad section support can contain multiple payment rows or exceptions; a model can still misapply them. Citation provenance and factual correctness are reported separately.
 
-Broad hybrid search alone initially recalled 44.2% of single-question gold KB sections at eight candidates. Removing filler words and expanding intent vocabulary raised it to the figure reported above. Used-source recall is higher because deterministic policy routing separately retrieves governing sections. Conversation search recall includes many non-search authentication/greeting turns, so it is not directly comparable to standalone search quality.
+Reviewed fallback and guard paths
 
-Live Gnani testing exposed stream-style WAV headers with unknown 0xffffffff lengths: short clips appeared longer than the STT limit. Header finalization now preserves identical PCM samples while recording actual lengths. Invalid transcripts and incomplete PCM frames are rejected; extra privacy tests cover spoken phone-ending phrases without masking ordinary product questions.
+Offline, invalid-output and timeout fallback uses a static policy answer only when every governing section was actually retrieved and matches its reviewed content/metadata SHA-256 in rule_bindings.json. Missing or changed evidence causes abstention. Policy edits require reviewing rules and bindings; hashes do not automatically update policy logic. Authentication, privacy, urgent escalation and tool-result wording use explicit guard-policy lookups, labeled separately from answer search.
 
-Original tests also exposed routing bugs for unused beauty items and delivery-address changes. Added corpus-wide coverage catches these alongside proof lockout, order switching, safety, fraud, unsupported services, historical returns, festive boundaries and payment calendars. All raw generated results remain in sample_outputs/.
+Policy, time and private state
+
+Current policy outranks agent guide, help, FAQ and marketing; historical support logs never govern. The frozen date is 20 October 2026. Business days are Monday-Saturday excluding supplied holidays. Return deadlines use delivery + N calendar days: the supplied wording leaves inclusive counting ambiguous, so the consistent day-zero convention is documented. Proof is discarded after the supplied lookup; order switches clear verified context while retaining per-order failure counts. Tickets are deduplicated by order and reason, and success requires created=True.
 
 
 ---
 
-Reproducibility, voice and next steps
+Evaluation and observed limitations
 
-Privacy and tool correctness
+| Recorded evaluation | Passes | Interpretation |
+| Prompt-only questions | 1/52 | 1.9%; errors 1 |
+| Grounded single questions | 52/52 | 100.0%; search 96.1% at k=12 |
+| Conversation turns | 96/96 | 100.0%; mixed answer/authentication turns |
+| Development adversarial/stateful | 77/77 | 100.0%; used for development |
+| First holdout (offline) | 23/91 | 25.3% |
+| Post-fix holdout (offline) | 49/91 | 53.8% |
+| Used-source evidence recall | Single / conversation | 85.6% / 97.3% |
 
-The initial lookup never discloses order status or existence. Caller proof is sent only to the unchanged supplied lookup function, then discarded. A maximum of two attempts is tracked per order per session, and changing orders clears verified order context without clearing its failed-attempt counter. Sanitized traces hide proof, phone, email, pincode and internal notes; the LLM never sees verification values.
+The scorer checks decisions, required/forbidden facts and expected tools; independent holdout checks also inspect language, evidence, tool arguments and privacy. Mechanical regex/fact checks can miss semantic errors or reject valid paraphrases. Conversation search includes many guard/verification turns and is not directly comparable with standalone query recall.
 
-Handover summaries record the issue, intent, order, checks and reason. Success wording requires created=True. No cancellation, compensation or replacement execution is fabricated: the provided tools cannot perform those actions. Their identity mechanism is an educational synthetic simulation, not secure real-world authentication.
+Single-question composition: abstained_missing_evidence: 5; deterministic_guardrail: 4; evidence_validated_fallback: 24; evidence_validated_rules: 2; grounded_llm: 17. Conversation composition: deterministic_guardrail: 77; evidence_validated_fallback: 12; evidence_validated_rules: 2; grounded_llm: 5.
 
-Voice implementation and honest validation status
+Frozen holdout and honest reruns
 
-Gnani is the only STT/TTS provider. The REST adapter uses /stt/v3 and /api/v1/tts/inference, X-API-Key-ID authentication, explicit timbre-v2.5 and matching English/Hindi/Hinglish voices. WAV duration is checked against the 60-second REST limit. Multipart streams rewind on bounded 403/429/5xx retries, and returned audio must be a valid nonempty WAV.
+The independent fixture contains 64 single questions and 10 scenarios/27 turns: 91 judged responses. Full rubric SHA-256: 5f345355d495379623ecc7dfcecdbd7a78f56c3edab62fda5d6f6edfea9d03c7. It is evaluation data, never runtime knowledge. Preserve the first pass before observing failures; later runs after fixes are regressions on an exposed set, not a new independent holdout.
 
-The batch runner isolates malformed clips, records errors in manifest.json, and attempts a real Gnani spoken recovery. It never creates fake speech. Successful clips save redacted transcript/decision/tool JSON, text, source chunks and reply WAV. Session-named filenames preserve multi-turn calls; unrelated files remain independent.
+First-pass artifact: eval_holdout_first_pass.json. Current results: eval_holdout.json. Retain both; do not replace the initial failure record.
 
-Live speech status: tested. Six genuine Gnani TTS inputs passed STT, agent and spoken-reply checks: English UPI, Hindi damage, Hinglish net banking, spoken order ID, first wrong-proof clarification and second wrong-proof refusal. All six input-understanding, semantic, privacy and nonempty-speech checks passed. Live LLM composition is enabled for answer turns; verification gates remain deterministic.
+Failures that shaped the implementation
 
-The inputs are synthetic TTS, not human recordings. Human accent/noise robustness and subjective pronunciation are still unverified. The measured pipeline uses only Gnani speech services; 41 automated engineering tests also pass. generate_voice_samples.py reproduces the live checks; --reuse-inputs reuses the same genuine input clips without inventing speech.
+Early sentence ordering concealed the distinction between retrieval and rules. The revised path scopes planning to actual search results. Product variants, historical return windows, policy precedence, order switching and ticket reuse require independent checks. Development model experiments produced correct-looking prose with missing/invalid citations or unsupported constraints; their factual pass and accepted-generation counts are kept separate. The answer-only contract now attaches actual context provenance in code. New wording, multilingual conditions and multi-item decisions still require semantic review.
 
-Run and release
+Baseline model metadata: configured ollama/qwen3:1.7b; recorded calls ollama:qwen3:1.7b (51). Compare run configurations before attributing differences solely to retrieval.
 
-Repository: https://github.com/Pranay207/ESD. One-command Windows setup: powershell -File setup.ps1. Organizer CLI: python run.py --audio_dir <in> --out_dir <out>. Run eval_step1.py, eval_step2.py --live, eval_step3.py --live, eval_adversarial.py, and python -m pytest -q from the clean .venv. requirements-lock.txt captures the tested Windows dependency set; setup.py pins the model revision.
 
-Before submitting: keep GNANI_API_KEY only in the ignored local .env, record demo.mp4 within 120 seconds using DEMO_SCRIPT.md, and regenerate the package. Rerun generate_voice_samples.py after speech-related changes. package_submission.py excludes the dataset, secrets, environments and model caches and marks remaining blockers. The brief allows at most four report pages and two video minutes.
+---
 
-Limitations and useful next work
+Latency, voice and reproducibility
 
-Intent routing and sentence templates may miss unseen phrasing or nuanced multi-item cases. Numeric/fact checks do not replace semantic review. Improve unstructured-query fallback and native-language review; evaluate unseen audio, packet failures and latency; strengthen identity verification only for a separately scoped production system. No rank, prize or real customer outcome is claimed.
+Model and latency evidence
 
-Sources: official 14-page capstone brief; supplied dataset README, dictionary, KB and tools; official Gnani STT/TTS API docs; official multilingual MiniLM model card. Dataset and model are downloaded separately and are not redistributed in the submission.
+Grounded turn timing: uncached_llm_attempt: n=38, p50 15.58s, p95 20.16s; cache_hit: n=3, p50 0.17s, p95 0.17s; no_model_call: n=11, p50 0.06s, p95 0.11s.
+
+| Recorded model experiment | Accepted generation | Mean case wall | Warm-up wall |
+| selected-model check: qwen3:1.7b (uncached requests) | 15/38 | 14.78 s | not recorded |
+| selected-model check: qwen3:1.7b (output cache) | 2/3 | 0.23 s | not recorded |
+
+Benchmarks use a small development sample and do not estimate unseen quality. Warm-up wall includes its request and may include loading; it is not automatically a controlled cold start. Warm uncached inference performs a new request, whereas an output-cache hit reuses stored text. Agent turn latency excludes resource creation before respond; inspect cache status and provider load/prompt/decode timings. Full prompt/source/fact/model settings enter cache keys; private-order calls bypass persistent output caching.
+
+Real Gnani speech; separate time measures
+
+Status: tested. Audio batches: 6/6 succeeded; semantic/privacy checks passed: 6, failed: 0. Results describe the saved run, not a human listening study.
+
+Saved voice processing wall range: 1.17-22.29 s; generated reply audio duration: 4.16-11.36 s. Processing time and playback length are different quantities. Gnani TTS input clips are synthetic, not human recordings; accent/noise robustness and subjective listening remain unverified.
+
+Gnani is the only STT/TTS provider. Bounded retries rewind inputs; invalid transcripts, truncated PCM and empty speech are rejected. Stream-style WAV sizes are finalized without changing samples. Batch results retain redacted transcripts, sources, tool traces, timing and per-file errors. An offline-rules run disables answer generation but still requires Gnani speech.
+
+Reproduce and release
+
+Repository: https://github.com/Pranay207/ESD. Setup: powershell -File setup.ps1. Batch: python run.py --audio_dir <in> --out_dir <out>. Evaluate eval_step1.py, eval_step2.py --live, eval_step3.py --live, eval_adversarial.py, eval_holdout.py --check-only, eval_holdout.py, and python -m pytest -q. Reproduce voice with generate_voice_samples.py --reuse-inputs. Generated JSON retains the measured configuration and failures.
+
+After final checks, regenerate the report, visually inspect all pages, record demo.mp4 within 120 seconds, then build/verify the release ZIP. Packaging excludes .env, dataset copies, model weights, caches, environments and private audio. Educational proof checking is not production authentication. No rank, prize or real customer outcome is promised.
+
+Sources: capstone brief; supplied dataset README, dictionary, KB and tools; official Gnani STT/TTS docs; pinned multilingual MiniLM model card; sample_outputs JSON named above. Report measurements are loaded when this file is generated.

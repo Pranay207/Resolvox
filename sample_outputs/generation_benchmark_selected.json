@@ -1,0 +1,657 @@
+{
+  "scope": "Complete final 52-question practice run; development data, not unseen performance. Cached and uncached paths are separate. No controlled cold-start or idle-hardware claim.",
+  "configuration": {
+    "recorded_at": "2026-10-24T22:29:54",
+    "runtime_sha256": "76a44dc2840bc7c3332df7e074a01534d83f47a23dff59e739967106a7cdf4a3",
+    "llm_provider": "ollama",
+    "llm_model": "qwen3:1.7b",
+    "reference_date": "2026-10-20"
+  },
+  "models": [
+    {
+      "model": "qwen3:1.7b (uncached requests)",
+      "cases": [
+        {
+          "id": "PQ0002",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 20212.0,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "wall_ms": 20023.72,
+            "unavailable": true
+          }
+        },
+        {
+          "id": "PQ0005",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 20155.0,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "wall_ms": 20024.98,
+            "unavailable": true
+          }
+        },
+        {
+          "id": "PQ0008",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 9063.5,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 8896.81,
+            "load_ms": 99.73,
+            "prompt_eval_ms": 177.4,
+            "eval_ms": 8240.25,
+            "prompt_eval_count": 820,
+            "eval_count": 64,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0013",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 20117.4,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "wall_ms": 20022.59,
+            "unavailable": true
+          }
+        },
+        {
+          "id": "PQ0014",
+          "composition": "grounded_llm",
+          "latency_ms": 18285.2,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 18055.9,
+            "load_ms": 78.9,
+            "prompt_eval_ms": 10485.91,
+            "eval_ms": 7221.91,
+            "prompt_eval_count": 710,
+            "eval_count": 51,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0016",
+          "composition": "grounded_llm",
+          "latency_ms": 16710.8,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 16577.35,
+            "load_ms": 46.26,
+            "prompt_eval_ms": 7171.9,
+            "eval_ms": 9168.71,
+            "prompt_eval_count": 471,
+            "eval_count": 79,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0019",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 20107.0,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "wall_ms": 20018.82,
+            "unavailable": true
+          }
+        },
+        {
+          "id": "PQ0020",
+          "composition": "grounded_llm",
+          "latency_ms": 15292.2,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 15098.99,
+            "load_ms": 87.07,
+            "prompt_eval_ms": 8575.56,
+            "eval_ms": 6206.51,
+            "prompt_eval_count": 666,
+            "eval_count": 59,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0021",
+          "composition": "grounded_llm",
+          "latency_ms": 18049.9,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 17934.92,
+            "load_ms": 35.76,
+            "prompt_eval_ms": 9389.96,
+            "eval_ms": 8293.12,
+            "prompt_eval_count": 473,
+            "eval_count": 79,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0022",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 13121.6,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 12945.01,
+            "load_ms": 35.97,
+            "prompt_eval_ms": 2849.8,
+            "eval_ms": 9883.37,
+            "prompt_eval_count": 814,
+            "eval_count": 80,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0024",
+          "composition": "grounded_llm",
+          "latency_ms": 15775.9,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 15669.87,
+            "load_ms": 46.91,
+            "prompt_eval_ms": 7981.06,
+            "eval_ms": 7424.83,
+            "prompt_eval_count": 716,
+            "eval_count": 53,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0025",
+          "composition": "grounded_llm",
+          "latency_ms": 6793.7,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 6601.33,
+            "load_ms": 59.71,
+            "prompt_eval_ms": 1782.4,
+            "eval_ms": 4550.9,
+            "prompt_eval_count": 398,
+            "eval_count": 34,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0026",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 20179.3,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "wall_ms": 20013.02,
+            "unavailable": true
+          }
+        },
+        {
+          "id": "PQ0027",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 11839.4,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 11619.17,
+            "load_ms": 39.31,
+            "prompt_eval_ms": 4446.86,
+            "eval_ms": 6932.8,
+            "prompt_eval_count": 819,
+            "eval_count": 60,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0028",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 12507.2,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 12339.31,
+            "load_ms": 31.14,
+            "prompt_eval_ms": 4183.9,
+            "eval_ms": 8071.86,
+            "prompt_eval_count": 815,
+            "eval_count": 53,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0029",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 20147.7,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "wall_ms": 20013.82,
+            "unavailable": true
+          }
+        },
+        {
+          "id": "PQ0031",
+          "composition": "grounded_llm",
+          "latency_ms": 13761.7,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 13646.35,
+            "load_ms": 48.89,
+            "prompt_eval_ms": 6225.33,
+            "eval_ms": 7178.04,
+            "prompt_eval_count": 343,
+            "eval_count": 56,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0032",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 20144.1,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "wall_ms": 20030.62,
+            "unavailable": true
+          }
+        },
+        {
+          "id": "PQ0033",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 10903.5,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 10677.89,
+            "load_ms": 135.94,
+            "prompt_eval_ms": 4174.76,
+            "eval_ms": 6171.57,
+            "prompt_eval_count": 815,
+            "eval_count": 53,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0034",
+          "composition": "grounded_llm",
+          "latency_ms": 9903.5,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 9819.22,
+            "load_ms": 53.11,
+            "prompt_eval_ms": 6547.57,
+            "eval_ms": 3068.93,
+            "prompt_eval_count": 353,
+            "eval_count": 32,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0035",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 16423.6,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 16188.74,
+            "load_ms": 44.28,
+            "prompt_eval_ms": 4443.2,
+            "eval_ms": 11560.62,
+            "prompt_eval_count": 821,
+            "eval_count": 91,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0036",
+          "composition": "grounded_llm",
+          "latency_ms": 17561.1,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 17413.95,
+            "load_ms": 29.85,
+            "prompt_eval_ms": 8947.98,
+            "eval_ms": 8216.27,
+            "prompt_eval_count": 431,
+            "eval_count": 69,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0039",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 9779.9,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 9664.02,
+            "load_ms": 74.38,
+            "prompt_eval_ms": 1326.67,
+            "eval_ms": 8192.08,
+            "prompt_eval_count": 435,
+            "eval_count": 67,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0040",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 20119.6,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "wall_ms": 20013.81,
+            "unavailable": true
+          }
+        },
+        {
+          "id": "PQ0041",
+          "composition": "grounded_llm",
+          "latency_ms": 16831.8,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 16671.26,
+            "load_ms": 55.75,
+            "prompt_eval_ms": 3763.56,
+            "eval_ms": 12625.17,
+            "prompt_eval_count": 679,
+            "eval_count": 107,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0042",
+          "composition": "grounded_llm",
+          "latency_ms": 7453.2,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 7394.23,
+            "load_ms": 47.08,
+            "prompt_eval_ms": 2497.79,
+            "eval_ms": 4687.74,
+            "prompt_eval_count": 350,
+            "eval_count": 51,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0044",
+          "composition": "grounded_llm",
+          "latency_ms": 10578.9,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 10465.83,
+            "load_ms": 31.29,
+            "prompt_eval_ms": 5480.82,
+            "eval_ms": 4810.23,
+            "prompt_eval_count": 570,
+            "eval_count": 45,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0045",
+          "composition": "grounded_llm",
+          "latency_ms": 4410.2,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 4286.86,
+            "load_ms": 38.42,
+            "prompt_eval_ms": 1608.35,
+            "eval_ms": 2483.05,
+            "prompt_eval_count": 392,
+            "eval_count": 24,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0047",
+          "composition": "grounded_llm",
+          "latency_ms": 12697.7,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 12636.92,
+            "load_ms": 34.98,
+            "prompt_eval_ms": 6263.43,
+            "eval_ms": 6187.96,
+            "prompt_eval_count": 353,
+            "eval_count": 62,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0048",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 20091.8,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "wall_ms": 20024.6,
+            "unavailable": true
+          }
+        },
+        {
+          "id": "PQ0049",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 15748.8,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 15610.65,
+            "load_ms": 37.95,
+            "prompt_eval_ms": 4631.88,
+            "eval_ms": 10723.51,
+            "prompt_eval_count": 761,
+            "eval_count": 83,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0050",
+          "composition": "grounded_llm",
+          "latency_ms": 15581.1,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 15400.62,
+            "load_ms": 79.34,
+            "prompt_eval_ms": 5446.56,
+            "eval_ms": 9606.75,
+            "prompt_eval_count": 318,
+            "eval_count": 70,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0052",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 14357.7,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 14269.97,
+            "load_ms": 28.77,
+            "prompt_eval_ms": 4348.9,
+            "eval_ms": 9754.08,
+            "prompt_eval_count": 821,
+            "eval_count": 88,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0054",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 6849.3,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 6741.66,
+            "load_ms": 36.63,
+            "prompt_eval_ms": 4837.64,
+            "eval_ms": 1667.95,
+            "prompt_eval_count": 628,
+            "eval_count": 12,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0056",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 18745.9,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 18622.4,
+            "load_ms": 31.24,
+            "prompt_eval_ms": 4585.91,
+            "eval_ms": 13951.91,
+            "prompt_eval_count": 630,
+            "eval_count": 118,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0057",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 19826.8,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 19675.97,
+            "load_ms": 108.18,
+            "prompt_eval_ms": 10189.23,
+            "eval_ms": 9289.31,
+            "prompt_eval_count": 726,
+            "eval_count": 78,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0058",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 9040.9,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 8911.21,
+            "load_ms": 26.41,
+            "prompt_eval_ms": 3795.57,
+            "eval_ms": 5022.2,
+            "prompt_eval_count": 598,
+            "eval_count": 49,
+            "done_reason": "stop"
+          }
+        },
+        {
+          "id": "PQ0059",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 12354.4,
+          "llm": {
+            "cache_hit": false,
+            "attempts": 1,
+            "provider": "ollama:qwen3:1.7b",
+            "wall_ms": 12216.15,
+            "load_ms": 39.2,
+            "prompt_eval_ms": 3940.5,
+            "eval_ms": 8050.58,
+            "prompt_eval_count": 814,
+            "eval_count": 66,
+            "done_reason": "stop"
+          }
+        }
+      ],
+      "summary": {
+        "evaluated": 38,
+        "grounded_llm_count": 15,
+        "mean_latency_ms": 14776.92894736842
+      }
+    },
+    {
+      "model": "qwen3:1.7b (output cache)",
+      "cases": [
+        {
+          "id": "PQ0003",
+          "composition": "grounded_llm",
+          "latency_ms": 173.7,
+          "llm": {
+            "cache_hit": true,
+            "attempts": 0,
+            "wall_ms": 3.44,
+            "provider": "ollama:qwen3:1.7b"
+          }
+        },
+        {
+          "id": "PQ0006",
+          "composition": "grounded_llm",
+          "latency_ms": 444.2,
+          "llm": {
+            "cache_hit": true,
+            "attempts": 0,
+            "wall_ms": 0.97,
+            "provider": "ollama:qwen3:1.7b"
+          }
+        },
+        {
+          "id": "PQ0010",
+          "composition": "evidence_validated_fallback",
+          "latency_ms": 83.8,
+          "llm": {
+            "cache_hit": true,
+            "attempts": 0,
+            "wall_ms": 1.64,
+            "provider": "ollama:qwen3:1.7b"
+          }
+        }
+      ],
+      "summary": {
+        "evaluated": 3,
+        "grounded_llm_count": 2,
+        "mean_latency_ms": 233.89999999999998
+      }
+    }
+  ]
+}

@@ -1,15 +1,12 @@
 {
   "transcript": "how long does a upi refund take",
-  "answer": "I'm ZentroMart's AI support assistant. UPI refunds take 1 to 3 business days after initiation; Sundays and warehouse holidays do not count. For returns, initiation follows QC within 2 business days of pickup, or at pickup for Plus.",
+  "answer": "I'm ZentroMart's AI support assistant. UPI refunds take 1 to 3 business days after initiation.",
   "intent": "refund",
   "decision": "answer",
   "language": "en",
   "retrieved_chunk_ids": [
     "STY-1",
-    "REF-2",
-    "KB-00.1",
-    "RET-7",
-    "PLS-2"
+    "REF-2"
   ],
   "sources": [
     {
@@ -31,85 +28,100 @@
       "effective_from": "2026-06-15",
       "version": "2.1",
       "title": "How long refunds take after initiation"
-    },
-    {
-      "id": "KB-00.1",
-      "text": "## [KB-00.1] Which document wins\nWhen two documents disagree, follow this order of precedence:\n\n1. **Policy documents** (doc_type: policy) with status `current`.\n2. **Agent guides** (doc_type: agent_guide).\n3. **Help articles** (doc_type: help).\n4. **FAQs** (doc_type: faq).\n5. **Marketing pages** (doc_type: marketing). These describe benefits in general terms and never override a policy.\n\n\nDocuments marked `status: superseded` are kept for reference only. They apply only to the cases their successor document says they still cover.",
-      "file": "00_about_this_knowledge_base.md",
-      "doc_type": "meta",
-      "status": "current",
-      "effective_from": "2026-08-01",
-      "version": "1.2",
-      "title": "Which document wins"
-    },
-    {
-      "id": "RET-7",
-      "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy.",
-      "file": "pol_returns_v4.md",
-      "doc_type": "policy",
-      "status": "current",
-      "effective_from": "2026-08-01",
-      "version": "4.0",
-      "title": "After pickup"
-    },
-    {
-      "id": "PLS-2",
-      "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
-      "file": "pol_plus_membership.md",
-      "doc_type": "policy",
-      "status": "current",
-      "effective_from": "2026-01-01",
-      "version": "1.0",
-      "title": "Benefits"
     }
   ],
   "retrieval_candidates": [
     {
-      "id": "RET-7",
-      "score": 0.054762,
-      "dense_score": 0.5344
-    },
-    {
-      "id": "REF-1",
-      "score": 0.053218,
-      "dense_score": 0.5801
+      "id": "REF-2",
+      "score": 0.179418,
+      "dense_score": 0.5293
     },
     {
       "id": "REF-3",
-      "score": 0.053049,
-      "dense_score": 0.576
+      "score": 0.170103,
+      "dense_score": 0.5969
     },
     {
-      "id": "REF-2",
-      "score": 0.052708,
-      "dense_score": 0.428
+      "id": "REF-1",
+      "score": 0.167651,
+      "dense_score": 0.627
     },
     {
-      "id": "PAY-3",
-      "score": 0.050095,
-      "dense_score": 0.4796
+      "id": "RET-7",
+      "score": 0.164845,
+      "dense_score": 0.5621
     },
     {
-      "id": "PAY-1",
-      "score": 0.048584,
-      "dense_score": 0.3851
+      "id": "FAQ-1",
+      "score": 0.158432,
+      "dense_score": 0.7351
     },
     {
-      "id": "PAY-4",
-      "score": 0.043175,
-      "dense_score": 0.3807
+      "id": "REF-6",
+      "score": 0.154227,
+      "dense_score": 0.4927
     },
     {
-      "id": "CPN-3",
-      "score": 0.043085,
-      "dense_score": 0.4174
+      "id": "REF-5",
+      "score": 0.140205,
+      "dense_score": 0.5708
+    },
+    {
+      "id": "REF-4",
+      "score": 0.131456,
+      "dense_score": 0.4204
+    },
+    {
+      "id": "PLS-3",
+      "score": 0.126296,
+      "dense_score": 0.4545
+    },
+    {
+      "id": "KB-00.3",
+      "score": 0.07707,
+      "dense_score": 0.1364
+    },
+    {
+      "id": "KB-00.1",
+      "score": 0.073216,
+      "dense_score": 0.0433
+    },
+    {
+      "id": "PLS-2",
+      "score": 0.073215,
+      "dense_score": 0.4195
     }
   ],
   "tool_calls": [],
   "facts": {},
   "verified": false,
   "reference_date": "2026-10-20",
-  "composition": "llm_sentence_composition",
-  "retrieval_mode": "multilingual MiniLM ONNX int8",
-  "latency_ms": 17494.39
+  "composition": "grounded_llm",
+  "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+  "retrieval_k": 12,
+  "evidence_supported": true,
+  "validation_error": null,
+  "llm": {
+    "cache_hit": false,
+    "attempts": 1,
+    "provider": "ollama:qwen3:1.7b",
+    "wall_ms": 5731.12,
+    "load_ms": 127.42,
+    "prompt_eval_ms": 1738.66,
+    "eval_ms": 3635.22,
+    "prompt_eval_count": 390,
+    "eval_count": 21,
+    "done_reason": "stop"
+  },
+  "timings": {
+    "retrieval_ms": 196.87,
+    "llm_ms": 5756.29
+  },
+  "latency_ms": 5981.89,
+  "voice_timings": {
+    "stt_ms": 12379.31,
+    "agent_ms": 5981.93,
+    "tts_ms": 969.44,
+    "total_ms": 19331.14
+  }
 }
