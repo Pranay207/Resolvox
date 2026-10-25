@@ -123,3 +123,43 @@ def test_dense_channels_keep_raw_query_separate(monkeypatch, tmp_path):
 
 def test_no_documents():
     assert Retriever(make_kb(), dense=False).search('refund') == []
+
+
+@pytest.mark.parametrize('query,expected', [
+    ("Does the manufacturer's cover replace the shop's own extra cover?", {'WAR-1', 'WAR-2'}),
+    ('An expired grocery package arrived. Which evidence is needed and what remedy is allowed?', {'RET-5', 'DWM-1', 'DWM-2'}),
+    ('For a card return, explain collection until initiation and initiation until the bank receives it.', {'RET-7', 'REF-2'}),
+    ('An older returns page promises free collection; what pickup charge governs now?', {'RET-6', 'KB-00.1'}),
+    ('\u0938\u0940\u0930\u092e \u0915\u0940 \u0938\u0940\u0932 \u0916\u094b\u0932 \u0926\u0940, \u0930\u093f\u091f\u0930\u094d\u0928 \u0915\u0930\u0928\u0947 \u0915\u0940 \u0915\u094d\u092f\u093e \u0936\u0930\u094d\u0924 \u0939\u0948?', {'RET-2', 'RET-4'}),
+])
+def test_compound_policy_and_customer_vocabulary(retriever, query, expected):
+    ids = {row['chunk'].id for row in retriever.search(query, k=12)}
+    assert expected <= ids
+
+
+def test_related_policy_restriction_accompanies_general_entitlement():
+    warranty = make_chunk('NEW-3', 'Brand warranty',
+                          'A manufacturer warranty accompanies every covered item.', file='pol_manufacturer.md')
+    shop = make_chunk('NEW-4', 'Shop extra cover',
+                      'Shop extra cover provides an additional warranty on marked products.', file='pol_shop_cover.md')
+    exclusion = make_chunk('RESTRICT-8', 'Warranty',
+                           'The shop extra cover never applies to reseller items.', file='pol_resellers.md')
+    distractors = [make_chunk(f'ALT-{i}', f'Shop extra cover example {i}',
+                             'Marked products have shop extra cover and a manufacturer warranty.') for i in range(12)]
+    r = Retriever(make_kb(warranty, shop, exclusion, *distractors), dense=False)
+    ids = {row['chunk'].id for row in r.search('manufacturer warranty and shop extra cover', k=10)}
+    assert exclusion.id in ids
+
+
+def test_dependency_overlap_keeps_available_retrieval_budget(retriever):
+    rows = retriever.search('Refund timing after bank transfer initiation and wallet choice', k=12)
+    assert len(rows) == 12
+    assert len({row['chunk'].id for row in rows}) == 12
+
+
+@pytest.mark.parametrize('query,expected', [
+    ('Does membership change refund stages or make a bank refund instant? Explain the refund stage that changes.', {'RET-7', 'REF-2', 'PLS-2'}),
+    ('Has my UPI refund already reached me after initiation?', {'REF-2', 'KB-00.3'}),
+])
+def test_refund_stage_and_implicit_timing_dependencies(retriever, query, expected):
+    assert expected <= {row['chunk'].id for row in retriever.search(query, k=12)}

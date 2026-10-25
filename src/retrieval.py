@@ -51,7 +51,7 @@ GLOSSARY = (
     (r'\b(wrong|incorrect|galat)\b|गलत', 'wrong item'),
     (r'\b(missing|not\s+received|never\s+arrived)\b|नहीं\s*मिला', 'missing received'),
     (r'\b(swap\w*|exchange\w*|badal\w*)\b|बदल', 'exchange size colour'),
-    (r'\b(guarantee|warranty|assured)\b|वारंटी|वॉरंटी|अश्योर्ड', 'warranty assured'),
+    (r'\b(guarantee|warranty|assured|manufacturer.{0,4}\s+cover|brand\s+cover|extra\s+cover)\b|वारंटी|वॉरंटी|अश्योर्ड', 'warranty assured'),
     (r'\b(charg\w*|cost\w*|fee\w*|kitna|rupees|rs)\b|फ़ीस|फीस|शुल्क', 'fee cost charge'),
     (r'\b(deliver\w*|arriv\w*|pahunch\w*|aayega|aayegi|aana)\b|डिलीवरी|पहुँच|आएगा|आएगी', 'delivery'),
     (r'\b(ship\w*|dispatch\w*)\b|शिप', 'ship shipped'),
@@ -69,6 +69,47 @@ GLOSSARY = (
     (r'\b(shirt|dress|trouser\w*|jeans|shoe\w*|sandal\w*|bag\w*)\b', 'clothing footwear fashion'),
     (r'\b(phone|laptop|earbuds?|headphones?|speaker|watch|charger)\b', 'electronics'),
 )
+
+
+# These phrases name policy concepts across customer vocabulary. Keep them
+# independent of intent labels so retrieval remains useful after a router miss.
+GLOSSARY += (
+    (r"\b(manufacturer(?:'s)?|brand)\s+(?:cover|guarantee)\b", 'brand warranty manufacturer service centre'),
+    (r'\b(expired|out.of.date)\b', 'damaged expired wrong missing reporting'),
+    (r'\brefund\b.{0,30}\bstages?\b|\bstages?\b.{0,30}\brefund\b|\bpickup.to.initiation\b', 'refund initiation pickup quality check'),
+    (r'\b(remedy|remedies|resolution|replacement)\b', 'resolution refund replacement verification'),
+    (r'\b(evidence|photos?|photographs?|pictures?)\b', 'photos item packaging reporting'),
+    (r'\b(seller|marketplace|third.party)\b', 'marketplace seller'),
+    (r'\b(postage|courier charges|battery replacement|international)\b', 'warranty exclusions cover'),
+    (r'\b(trace|reference|rrn)\b.{0,35}\b(refund|bank)|\b(refund|bank)\b.{0,35}\b(trace|reference|rrn)\b', 'refund reference number bank trace'),
+    (r'\b(pincode|postal code|metro|serviceable|prepaid)\b', 'delivery serviceable pincode cash on delivery express availability'),
+    (r'\u0930\u093f\u091f\u0930\u094d\u0928|\u0932\u094c\u091f\u093e|\u0935\u093e\u092a\u0938', 'return'),
+    (r'\u0938\u0940\u0932|\u0916\u094b\u0932|\u0907\u0938\u094d\u0924\u0947\u092e\u093e\u0932|\u0905\u0928\u0909\u092a\u092f\u094b\u0917', 'condition returned items unopened seal intact unused'),
+    (r'\u0938\u0940\u0930\u092e|\u0938\u094c\u0902\u0926\u0930\u094d\u092f|\u0915\u0949\u0938\u094d\u092e\u0947\u091f\u093f\u0915', 'beauty personal care'),
+)
+
+
+def query_facets(query: str) -> list[str]:
+    """Independent clauses stop a long question from hiding a shorter request.
+
+    These are text-derived retrieval views, never a map from a question to IDs.
+    Only content-bearing clauses receive a view, and the original remains the
+    strongest channel. This is useful for both unfamiliar and compound wording.
+    """
+    pieces = re.split(r'[?;\n]|\b(?:and|but|versus|whereas|including)\b', query, flags=re.I)
+    facets = []
+    for piece in pieces:
+        piece = piece.strip(' ,.:')
+        if len(tokenize(piece)) >= 3 and piece.casefold() != query.strip(' ,.:?;').casefold():
+            facets.append(expand_query(piece))
+    # Unfamiliar phrases can have no lexical overlap with their policy term.
+    # Preserve that alias as its own view rather than letting generic words
+    # such as 'shop' or 'cover' dilute it in the full expanded query.
+    original_words = set(tokenize(query))
+    for pattern, alias in GLOSSARY:
+        if re.search(pattern, query, re.I) and not (set(tokenize(alias)) & original_words):
+            facets.append(alias)
+    return list(dict.fromkeys(facets))[:5]
 
 
 def tokenize(text: str) -> list[str]:
@@ -217,7 +258,7 @@ class Retriever:
         # A named policy concept in a source is a cross-document reference even
         # when the author wrote "Plus members" instead of a section identifier.
         linked_sources = ranked[:5]
-        source_words = set(tokenize(' '.join(self.chunks[i].text for i in linked_sources)))
+        source_words = set(tokenize(expand_query(query) + ' ' + ' '.join(self.chunks[i].text for i in linked_sources)))
         for file, positions in self.files.items():
             topic = re.sub(r'^(?:pol|agent|help|faq|mkt)_', '', Path(file).stem).replace('_', ' ')
             topic_words = set(tokenize(topic))
@@ -231,27 +272,38 @@ class Retriever:
             target = max(targets, key=lambda i: (related[i], -i))
             additions[target] = max(additions.get(target, 0), .88)
         text = ' '.join(self.chunks[i].text for i in primary).casefold()
-        temporal = re.search(r'\b(time|long|soon|fast|when|date|days?|hours?|start\w*|shuru|kab|kitne|business|\d{4})\b|दिन|कब|कितने', query, re.I)
+        temporal = re.search(r'\b(time|long|soon|fast|when|date|days?|hours?|start\w*|arriv\w*|reach\w*|credit\w*|pending|shuru|kab|kitne|business|\d{4})\b|दिन|कब|कितने', query, re.I)
         if temporal and 'business day' in text:
             for i in allowed:
                 c = self.chunks[i]
                 if c.doc_type == 'meta' and 'business day' in c.title.casefold():
-                    additions[i] = 1.0
+                    additions[i] = 1.20
         # Competing lower-authority copy needs the document precedence instruction.
-        relevant_lower = any(self.chunks[i].doc_type in {'faq', 'marketing'} and lexical[i] > 0 for i in ranked)
+        conflict_named = re.search(r'\b(faq|old(?:er)?\s+(?:(?:returns?\s+)?page|policy)|superseded|overrid\w*|precedence|disagree|contradict\w*|which.+govern\w*)\b', query, re.I)
+        relevant_lower = bool(conflict_named) or any(self.chunks[i].doc_type in {'faq', 'marketing'} and lexical[i] > 0 for i in ranked[:5])
         if relevant_lower and any(self.chunks[i].doc_type == 'policy' for i in primary):
             for i in allowed:
                 c = self.chunks[i]
                 if c.doc_type == 'meta' and re.search(r'precedence|document wins', c.title, re.I):
-                    additions[i] = .92
+                    additions[i] = 1.30 if conflict_named else .92
         # Retrieve a policy's explicit exceptions before applying its normal rule.
         # This also makes thresholds available when a product's value is supplied
         # later by a verified/catalog lookup rather than by the initial question.
-        primary_files = {self.chunks[i].file for i in primary[:1] if self.chunks[i].doc_type == 'policy'}
+        primary_files = {self.chunks[i].file for i in primary if self.chunks[i].doc_type == 'policy'}
         for i in allowed:
             c = self.chunks[i]
-            if c.file in primary_files and re.search(r'high.value|exceptions?|limitations?', c.title, re.I):
+            if c.file in primary_files and re.search(r'high.value|exceptions?|limitations?|not cover|exclusions?|reporting window', c.title, re.I):
                 additions[i] = .97
+        # Other current policies may narrow the same named entitlement. Their
+        # exclusion must accompany the general rule even when the customer does
+        # not know to ask about an exception (for example, a seller listing).
+        primary_titles = set(tokenize(expand_query(query) + ' ' + ' '.join(self.chunks[i].title for i in primary)))
+        for i in allowed:
+            c = self.chunks[i]
+            title_words = set(tokenize(c.title))
+            if (c.doc_type == 'policy' and title_words and title_words <= primary_titles
+                    and re.search(r"never applies|does not apply|do not apply|not eligible|only the", c.text, re.I)):
+                additions[i] = max(additions.get(i, 0), 1.08)
         action_text = ' '.join(self.chunks[i].text for i in ranked[:8]).casefold()
         if re.search(r'hand\s*over|create a ticket', action_text):
             procedure_bm = self._bm25('when hand over human')
@@ -268,6 +320,8 @@ class Retriever:
         if not allowed:
             return []
         expanded = expand_query(query)
+        facets = query_facets(query)
+        facet_scores = [self._bm25(facet) for facet in facets]
         raw_bm = self._bm25(query)
         expanded_bm = self._bm25(expanded)
         ranks = defaultdict(float)
@@ -279,6 +333,8 @@ class Retriever:
 
         fuse(raw_bm, 1.0)
         fuse(expanded_bm, .65)
+        for values in facet_scores:
+            fuse(values, .24 / max(1, len(facet_scores)))
         # Weak label hint, gated on actual query evidence.
         if intent and intent not in {'unknown', 'greeting'}:
             hint_bm = self._bm25(intent.replace('_', ' '))
@@ -307,12 +363,23 @@ class Retriever:
             ranked.insert(3, lexical_best)
         # Leave a majority of the budget for direct query evidence. Larger bundles
         # can carry three operational dependencies instead of evicting one.
-        limit = min(3, max(0, k - 6))
+        limit = min(4, max(0, k - 6))
         dependencies = self._dependencies(ranked, allowed, raw_bm, query)
+        # A short second clause may be absent from the aggregate ranking. Reserve
+        # a bounded slot for its best current-policy match when lexical evidence
+        # is meaningful, before using the remaining dependency budget.
+        for values in facet_scores:
+            relevant = [i for i in allowed if self.chunks[i].doc_type == 'policy' and values[i] > 0]
+            if relevant:
+                best = max(relevant, key=lambda i: (values[i], -i))
+                dependencies[best] = max(dependencies.get(best, 0), 1.15)
         missing = sorted((i for i in dependencies if i not in ranked[:max(3, k - limit)]),
                          key=lambda i: (-dependencies[i], -base.get(i, 0), i))[:limit]
         selected = list(ranked[:max(0, k - len(missing))])
         selected.extend(i for i in missing if i not in selected)
+        # A dependency may already fit the shortened direct list. Fill that
+        # shared slot with the next direct result instead of returning < k rows.
+        selected.extend(i for i in ranked if i not in selected)
         selected = selected[:k]
         result = []
         floor = min((base[i] for i in selected if i in base), default=base[ranked[0]] * .5)
