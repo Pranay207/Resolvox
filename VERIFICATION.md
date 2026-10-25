@@ -7,7 +7,7 @@ These are local measurements, not organizer scores. The source-only answer corre
 | Check | Current record |
 | --- | --- |
 | Current engineering suite, code `5c4df02` | **2069/2069 passed**; no failures, errors or skips; [receipt](sample_outputs/engineering_verification.json) |
-| Live grounded practice | **52 planned; hosted run not started**, transmission approval pending |
+| Live grounded practice | **52 planned; local laptop run in progress** |
 | Live conversations | **96 turns planned; rerun pending** |
 | Current-model prompt-only baseline | **52 planned; pending** |
 | Live adversarial/development checks | **77 planned; pending** |
@@ -18,9 +18,11 @@ These are local measurements, not organizer scores. The source-only answer corre
 
 The current [engineering receipt](sample_outputs/engineering_verification.json) records exit code 0 and **2069/2069 passed**, no failures/errors/skips, matching start/end runtime hashes and unchanged inputs at code `5c4df02`. The [JUnit XML](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/pytest.xml) records **51.561 seconds**; pytest process wall time was **56.357 seconds**. [Pytest](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/pytest.log) and [dataset](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/dataset_validation.log) logs retain actual measurements. The official validator passed 9 CSVs, 21 KB documents, 1,000 orders, 1,783 items, 244 support logs, 52 practice questions and 23 conversations. Earlier 1741/1016-test evidence belongs to earlier revisions. This engineering pass does not certify model answers or speech.
 
-The earlier public Hinglish warranty pilot and other local probes remain intermediate diagnostics. Their timing includes loading and varying CPU contention and is not a controlled cold/warm latency study. Complete current hosted practice, baseline, development/exposed regression and speech results remain pending; no full hosted evaluation has started.
+The 2069-case suite is offline and made no model inference. Its unchanged receipt retains the compatible/Groq settings selected when that engineering run started; those settings are not evidence of a hosted question evaluation and have not been rewritten for the current laptop configuration.
 
-The selected private configuration is **Groq through the compatible endpoint**, model `openai/gpt-oss-120b`, with `LLM_TIMEOUT=120` and `RAG_LLM_TIMEOUT=120`. The connection/JSON health probe succeeded, but **fresh hosted document-context verification has not started**. Approval to send questions, policy context and selected synthetic record fields to Groq is pending. The supported local `.env.example` defaults remain Ollama with `qwen3:4b-instruct` and 120-second request timeouts. Timeouts do not bound a complete turn, and model changes prevent a controlled comparison with earlier runs.
+The earlier public Hinglish warranty pilot and other local probes remain intermediate diagnostics. Their timing includes loading and varying CPU contention and is not a controlled cold/warm latency study. Complete current local practice, baseline, development/exposed regression and speech results remain pending.
+
+The selected verification runs on the laptop using **Ollama `qwen3:4b-instruct` at `http://127.0.0.1:11435`**, with `LLM_TIMEOUT=300` and `RAG_LLM_TIMEOUT=300`. The fresh 52-question laptop run is in progress; its completion, the current-model baseline and other batches remain pending. Hosted inference is not selected for these evaluations. The supported `.env.example` defaults remain local Ollama on port 11434 with 120-second request timeouts. Timeouts do not bound a complete turn.
 
 Ordinary domain answers come from `document_reply`, which receives actual retrieved text and safe verified/source-derived facts. It returns an answer and strict `covered`/`needs_clarification` booleans. Validated Boolean uncertainty keeps `covered=False`, `reply_kind=uncertainty`, `evidence_status=insufficient_evidence` and no domain-answer source IDs even when the host decision is answer. Legacy explicit and privacy refusals remain unchanged. Traces retain model flags, host decision origin and full actual generation context; normal `citations=[]` does not claim model-selected quotes or per-claim proof. One bounded repair precedes abstention. Prewritten policy fallback is removed from normal generation and from business handover explanations. Fixed security/workflow messages and actual tool-outcome wording remain deterministic.
 
@@ -36,7 +38,7 @@ Business escalation is derived from actual current sources before ticket creatio
 
 ## Stopped local partial run
 
-The stopped local `qwen3:4b-instruct` run checked **13 of 52 planned questions**, with **11/13 mechanical passes**. Separate assistant source-by-source review classified **5 supported with limits, 4 material errors and 4 uncertain**. These categories are not an adjusted score or certification. The unchanged [predictions](sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/raw/eval_step2_live_current.json) and [assistant review](sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/assistant_semantic_review.json) are archived; the run predates the latest guards and hosted selection.
+The stopped local `qwen3:4b-instruct` run checked **13 of 52 planned questions**, with **11/13 mechanical passes**. Separate assistant source-by-source review classified **5 supported with limits, 4 material errors and 4 uncertain**. These categories are not an adjusted score or certification. The unchanged [predictions](sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/raw/eval_step2_live_current.json) and [assistant review](sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/assistant_semantic_review.json) are archived; the run predates the latest guards and the new local rerun.
 
 ## Preserved earlier evidence
 
@@ -107,7 +109,7 @@ Recorded dataset validation passed **9 CSVs, 21 KB documents, 1,000 orders, 1,78
 
 ## Remaining validation and release
 
-- Current engineering at `5c4df02` passed 2069/2069; complete hosted practice and speech results are pending, and hosted transmission approval is outstanding.
+- Current offline engineering at `5c4df02` passed 2069/2069; complete local practice, same-model baseline and speech results remain pending.
 - Rebuild/render the report and verify revised archive hashes, configured-secret scan and extracted-package smoke test.
 - The current live exposed regression and same-model baseline are pending. No new blind holdout or controlled cold-start study is complete.
 - Human speech, noise robustness and subjective listening remain unverified.

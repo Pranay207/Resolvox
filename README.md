@@ -85,10 +85,10 @@ Edit your local `.env` before launching the app:
 ```dotenv
 GNANI_API_KEY=your_gnani_api_key
 LLM_PROVIDER=ollama
-LLM_BASE_URL=http://127.0.0.1:11434
+LLM_BASE_URL=http://127.0.0.1:11435
 LLM_MODEL=qwen3:4b-instruct
-LLM_TIMEOUT=120
-RAG_LLM_TIMEOUT=120
+LLM_TIMEOUT=300
+RAG_LLM_TIMEOUT=300
 COMPOSE_WITH_LLM=true
 ```
 
@@ -100,7 +100,16 @@ Install the model when using the default local Ollama configuration:
 ollama pull qwen3:4b-instruct
 ```
 
-The example above uses the supported local defaults. Ensure Ollama is running; if needed, start `ollama serve` in a separate terminal. The selected private configuration is **Groq through the compatible endpoint**, model `openai/gpt-oss-120b`, with `LLM_TIMEOUT=120` and `RAG_LLM_TIMEOUT=120`. The connection/JSON health probe succeeded, but **fresh hosted document-context verification has not started**. Approval to send questions, policy context and selected synthetic record fields to Groq is pending. The supported local `.env.example` defaults remain Ollama with `qwen3:4b-instruct` and 120-second request timeouts. Timeouts do not bound a complete turn, and model changes prevent a controlled comparison with earlier runs.
+The example above reproduces the selected laptop configuration. The selected verification runs on the laptop using **Ollama `qwen3:4b-instruct` at `http://127.0.0.1:11435`**, with `LLM_TIMEOUT=300` and `RAG_LLM_TIMEOUT=300`. The fresh 52-question laptop run is in progress; its completion, the current-model baseline and other batches remain pending. Hosted inference is not selected for these evaluations. The supported `.env.example` defaults remain local Ollama on port 11434 with 120-second request timeouts. Timeouts do not bound a complete turn. Ensure Ollama is serving on the configured port before launching the app.
+
+To start an Ollama server on the selected port, use a separate terminal:
+
+```powershell
+$env:OLLAMA_HOST='127.0.0.1:11435'
+ollama serve
+```
+
+For macOS/Linux, use `OLLAMA_HOST=127.0.0.1:11435 ollama serve`. Keep the default port 11434 when using the unchanged `.env.example` configuration.
 
 <details>
 <summary>Use a compatible hosted LLM instead</summary>
@@ -185,7 +194,7 @@ flowchart TD
 | Component | Implementation |
 | --- | --- |
 | Interface | Streamlit voice, text and evaluation console |
-| Answer model | Ollama or compatible endpoint; selected Groq GPT-OSS 120B verification has not started |
+| Answer model | Local Ollama `qwen3:4b-instruct`; selected laptop endpoint on port 11435 |
 | Retrieval | Lexical search + multilingual MiniLM embeddings using quantized ONNX |
 | Speech | Gnani STT and TTS only |
 | State and tools | Shared agent session with supplied dataset lookup/ticket tools |
@@ -195,25 +204,25 @@ See [DESIGN.md](DESIGN.md) for the state model, retrieval strategy and evidence 
 
 ## Evaluation
 
-The source-only answer path was corrected on **25 October 2026**. Code `5c4df02` has current engineering evidence; complete hosted model and speech verification remains pending:
+The source-only answer path was corrected on **25 October 2026**. Code `5c4df02` has current offline engineering evidence; complete local model and speech verification remains pending:
 
 | Check | Current record | Evidence |
 | --- | --- | --- |
-| Current engineering suite | **2069/2069 passed**; no failures, errors or skips | [Receipt](sample_outputs/engineering_verification.json); 51.561 s JUnit, 56.357 s pytest wall |
-| Current source-only policy questions | **52 planned; hosted run not started** | Transmission approval pending; no current 52-question pass claim |
+| Current offline engineering suite | **2069/2069 passed**; no failures, errors or skips | [Receipt](sample_outputs/engineering_verification.json); 51.561 s JUnit, 56.357 s pytest wall; no model inference |
+| Current source-only policy questions | **52 planned; laptop run in progress** | No current 52-question pass claim |
 | Current source-only conversation turns | **Rerun pending**; 96 planned | Completion and composition will be recorded in current JSON |
 | Current Gnani synthetic round trips | **Rerun pending** | Earlier speech evidence remains historical |
 | Current dataset validation | **Passed**; 9 CSVs, 21 KB documents, 1,000 orders and 1,783 items | [Dataset log](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/dataset_validation.log) |
 
-The planned verification order is 52 questions, 96 conversation turns, 77 development checks, 91 exposed regression responses, a 52-question same-model baseline, six Gnani round trips and silence recovery. Hosted verification has not started while transmission approval is pending; the plan is not a completed result.
+The planned verification order is 52 questions, 96 conversation turns, 77 development checks, 91 exposed regression responses, a 52-question same-model baseline, six Gnani round trips and silence recovery. The 52-question stage is running locally on the laptop; the remaining batches and all final completion results are pending.
 
-**Comparison boundary:** historical baseline `qwen3:1.7b`, stopped local `qwen3:4b-instruct` and selected hosted `openai/gpt-oss-120b` differ in model/configuration. Their scores are not a controlled same-model RAG ablation. A fresh 52-question baseline on the selected hosted model remains pending.
+**Comparison boundary:** historical baseline `qwen3:1.7b` and selected local `qwen3:4b-instruct` differ in model/configuration. Their scores are not a controlled same-model RAG ablation. A fresh 52-question baseline on the selected local model remains pending.
 
 **Trace contract:** normal generation records `model_flags` and `decision_origin=host_boolean_mapping`. Boolean uncertainty stays explicitly uncovered with `reply_kind=uncertainty` and insufficient-evidence status. Host table-input questions are separately labeled and make no LLM call. Evidence, numeric, privacy, action and language checks still apply.
 
 **How to read these results:** document answers are generated from supplied evidence; operational guards and abstentions are reported separately. A cache hit is not a fresh inference. Current live results must match the source-only runtime before they can be called verified. These are local mechanical checks, not organizer scores or proof of hidden-test performance.
 
-The stopped local `qwen3:4b-instruct` run checked **13 of 52 planned questions**, with **11/13 mechanical passes**. Separate assistant source-by-source review classified **5 supported with limits, 4 material errors and 4 uncertain**. These categories are not an adjusted score or certification. The unchanged [predictions](sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/raw/eval_step2_live_current.json) and [assistant review](sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/assistant_semantic_review.json) are archived; the run predates the latest guards and hosted selection.
+The stopped local `qwen3:4b-instruct` run checked **13 of 52 planned questions**, with **11/13 mechanical passes**. Separate assistant source-by-source review classified **5 supported with limits, 4 material errors and 4 uncertain**. These categories are not an adjusted score or certification. The unchanged [predictions](sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/raw/eval_step2_live_current.json) and [assistant review](sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/assistant_semantic_review.json) are archived; the run predates the latest guards and the new local rerun.
 
 <details>
 <summary>Historical results and validation limits</summary>
