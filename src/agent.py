@@ -11,7 +11,9 @@ from .retrieval import Retriever
 from .tools_wrapper import Tools
 from .normalize import order_id,proof_value,language,redact,number_words,public_acronyms
 from .llm import LLM,LLMUnavailable
-from .grounding import compatible,generate,abstention
+from .grounding import compatible,abstention
+from .document_answers import document_reply
+from .document_context import build_context
 
 class Resources:
     def __init__(self,dense:bool|None=None):
@@ -263,7 +265,9 @@ class Agent:
                 plan.en+=' The ticket could not be created. Please contact support directly.'
                 plan.hi+=' टिकट नहीं बन सका। कृपया सीधे सपोर्ट से संपर्क करें।'
                 plan.hinglish+=' Ticket create nahi hua. Support ko directly contact karein.'
-        guard=plan.intent in {'verification','privacy','safety','fraud','legal','human','repeat','unclear_audio','greeting','compensation'} or plan.decision=='escalate' or (plan.decision=='clarify' and 'IDV-1' in plan.ids)
+        catalog_clarification=bool(unknown_skus) and plan.decision=='clarify'
+        unlisted_pincode=plan.facts.get('pincode_listed') is False
+        guard=catalog_clarification or unlisted_pincode or plan.intent in {'verification','privacy','safety','fraud','legal','human','repeat','unclear_audio','greeting'} or plan.decision=='escalate' or (plan.decision=='clarify' and 'IDV-1' in plan.ids)
         if guard:
             pool=[r.kb.chunks[c].public() for c in plan.ids if c in r.kb.chunks]+pool
         # Conversation style and authentication instructions are explicit
@@ -275,31 +279,61 @@ class Agent:
                 plan.ids=list(dict.fromkeys(plan.ids+['IDV-2']))
                 pool += [r.kb.chunks['IDV-2'].public()]
         available={x['id']:x for x in pool}
-        supported=compatible(plan.ids,pool)
-        if not supported: plan.facts={}
-        source_ids=list(dict.fromkeys(plan.ids)) if supported else []
-        sources=[available[c] for c in source_ids]
-        answer=plan.text(s.language) if supported else abstention(s.language)
-        composition='deterministic_guardrail' if guard else ('evidence_validated_rules' if supported else 'abstained_missing_evidence')
-        validation_error=None; llm_ms=0.0
-        if self.compose and plan.decision=='answer' and not guard and plan.intent!='unsupported':
-            # Select only actual query results; never append a planner's source.
-            selected=sources if supported else ([x for x in pool if x.get('doc_type')=='catalog']+[x for x in pool if x.get('doc_type') in {'policy','help','agent_guide'}][:3])
-            if selected:
+        validation_error=None; llm_ms=0.0; citations=[]; generation={}
+        if guard:
+            # Fixed operational messages never assert a generated policy answer.
+            supported=compatible(plan.ids,pool)
+            source_ids=list(dict.fromkeys(plan.ids)) if supported else []
+            sources=[available[c] for c in source_ids]
+            answer=plan.text(s.language) if supported else abstention(s.language)
+            composition='deterministic_guardrail' if supported else 'abstained_missing_evidence'
+        else:
+            # Planner text, policy constants and authored summaries are never
+            # supplied to generation or used as a customer-facing fallback.
+            # IDs are routing hints only: every section must be in actual search.
+            preferred=[available[c] for c in plan.ids if c in available]
+            related=[x for x in pool if x.get('doc_type') in {'policy','help','agent_guide','catalog'}]
+            extra=[] if preferred else related[:4]
+            selected=list({x['id']:x for x in preferred+extra}.values())
+            selected=[x for x in selected if x.get('text')]
+            if not self.compose and (plan.intent=='unsupported' or not preferred):
+                selected=[]
+            context_query=answer_query+('\nPublic catalog pincode: '+public_pins[0] if len(public_pins)==1 else '')
+            plan.facts=build_context(context_query,selected,r.data,
+                verified_order=s.order,public_context=s.public_context)
+            supported=bool(selected)
+            source_ids=[]; sources=[]
+            answer=abstention(s.language)
+            composition='abstained_missing_evidence'
+            if selected and self.compose:
                 began=time.perf_counter()
                 try:
-                    answer,source_ids=generate(r.llm,answer_query,s.language,selected,plan if supported else None,private=bool(s.order_id))
-                    sources=[available[c] for c in source_ids]; composition='grounded_llm'
+                    generated=document_reply(r.llm,answer_query,s.language,selected,
+                        facts=plan.facts,private=bool(s.order_id))
+                    answer=generated['answer']; source_ids=generated['source_ids']
+                    citations=generated.get('citations',[])
+                    sources=[available[c] for c in source_ids]
+                    plan.decision=generated['decision']
+                    composition='grounded_llm' if source_ids else 'grounded_clarification'
+                    generation={k:v for k,v in generated.items() if k not in {'answer','source_ids','citations','decision'}}
                 except (LLMUnavailable,ValueError,TypeError) as exc:
                     validation_error=str(exc) if isinstance(exc,ValueError) else 'model_unavailable_or_invalid'
-                    composition='evidence_validated_fallback' if supported else 'abstained_model_or_evidence'
+                    composition='abstained_model_or_evidence'
+                    plan.decision='answer' if intent=='unknown' else 'refuse'
                 llm_ms=1000*(time.perf_counter()-began)
-        if not supported and composition!='grounded_llm' and not guard:
-            plan.facts={}; plan.intent='unsupported'
-            # An unknown general-information question receives an uncertainty
-            # answer. An unsupported claim within a recognized policy domain
-            # is refused; neither path asserts an invented company rule.
-            plan.decision='answer' if intent=='unknown' else 'refuse'
+            elif selected:
+                # Explicit offline mode is an inspectable source-excerpt view,
+                # not a substitute prewritten policy answer or a model result.
+                excerpt_sources=selected[:3]+[x for x in selected[3:] if x.get('doc_type')=='catalog']
+                excerpts=[x['text'][:1100] for x in excerpt_sources]
+                answer='Retrieved document excerpts (offline; no generated answer):\n'+'\n\n'.join(excerpts)
+                source_ids=[x['id'] for x in excerpt_sources]; sources=excerpt_sources
+                citations=[{'id':x['id'],'quote':quote} for x,quote in zip(excerpt_sources,excerpts)]
+                composition='document_excerpts'; plan.decision='answer'
+            else:
+                plan.facts={}; plan.decision='answer' if intent=='unknown' else 'refuse'
+            if composition.startswith('abstained'):
+                plan.intent='unsupported'
         for cid in auth_source_ids:
             if cid not in source_ids:
                 source_ids.append(cid); sources.append(r.kb.chunks[cid].public())
@@ -314,6 +348,7 @@ class Agent:
                 'retrieved_chunk_ids':source_ids,'sources':sources,'retrieval_candidates':[{'id':x['chunk'].id,'score':x['score'],'dense_score':x['dense_score']} for x in candidates],
                 'tool_calls':calls,'facts':plan.facts,'verified':bool(s.order),'reference_date':REFERENCE_DATE.isoformat(),'composition':composition,
                 'retrieval_mode':r.retriever.dense_status,'retrieval_k':12,'evidence_supported':supported,
-                'validation_error':validation_error,'llm':r.llm.last_metrics.copy() if llm_ms else {},
+                'validation_error':validation_error,'citations':citations,'generation':generation,
+                'llm':r.llm.last_metrics.copy() if llm_ms else {},
                 'timings':{'retrieval_ms':round(retrieval_ms,2),'llm_ms':round(llm_ms,2)},
                 'latency_ms':round(1000*(time.perf_counter()-start),2)}

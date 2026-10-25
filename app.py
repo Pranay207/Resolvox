@@ -92,7 +92,7 @@ with st.sidebar:
     st.caption('Voice and text share the same conversation.')
     with st.expander('Demo settings'):
         live = st.toggle('Generate from retrieved policies', value=True, key='compose_live',
-                         help='Generate from source text. Invalid or timed-out output uses a checked policy fallback. Turn off for offline rules.')
+                         help='Generate from retrieved source text. Invalid output is repaired once, then answered with uncertainty. Turn off to inspect document excerpts without generation.')
         st.caption('Synthetic order records · 20 October 2026')
         st.caption('Primary speech: English, Hindi and Hinglish')
         regional_preview = st.toggle('Preview additional languages', value=False, key='regional_preview', help='Experimental regional translation. Per-language results are shown in Evaluation details.')
@@ -257,7 +257,7 @@ def load_report(name):
 
 with eval_tab:
     st.subheader('Recorded evaluation')
-    st.caption('These are saved local checks, not organizer scores. Offline rules, model generation and speech are measured separately.')
+    st.caption('These are saved local checks, not organizer scores. Historical offline checks, model generation and speech are measured separately.')
     reports = [('Grounded questions · offline', 'eval_step2.json'),
                ('Conversation turns · offline', 'eval_step3.json'),
                ('Broader regression · offline', 'eval_holdout.json')]

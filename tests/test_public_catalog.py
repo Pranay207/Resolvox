@@ -24,4 +24,5 @@ def test_postal_verification_value_never_becomes_public_query_context():
 def test_postal_cod_flag_does_not_override_order_amount_limit():
     out=Agent(Resources(dense=False),compose=False).respond('Can I pay COD for 15000 rupees at pincode 560034?')
     assert out['facts']['cod_eligible'] is False
-    assert 'not eligible' in out['answer'] and 'PAY-2' in out['retrieved_chunk_ids']
+    assert out['composition']=='document_excerpts' and 'PAY-2' in out['retrieved_chunk_ids']
+    assert '10000' in out['answer'].replace(',','')

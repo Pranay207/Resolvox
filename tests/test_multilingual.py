@@ -11,8 +11,9 @@ from src.multilingual import (MultilingualAgent, _protect, _restore, _validate_r
 
 
 class ScriptedLLM:
-    def __init__(self, translations=()):
+    def __init__(self, translations=(), core_answer=None):
         self.translations = list(translations)
+        self.core_answer = core_answer
         self.calls = []
         self.last_metrics = {}
         self.last_provider = 'mock'
@@ -20,8 +21,10 @@ class ScriptedLLM:
     def complete(self, system, user, *args, **kwargs):
         self.calls.append((system, user, kwargs))
         if 'faithful translation engine' not in system:
-            # Exercise the actual source-bound core fallback without inference.
-            raise LLMUnavailable('offline core mock')
+            if self.core_answer is None:
+                raise LLMUnavailable('offline core mock')
+            value = self.core_answer(json.loads(user))
+            return json.dumps(value, ensure_ascii=False)
         if not self.translations:
             raise LLMUnavailable('offline translation mock')
         value = self.translations.pop(0)
@@ -40,11 +43,17 @@ def resources(monkeypatch):
 
 def refund_llm():
     # Native acronym normalization leaves UPI as natural public payment context.
+    def generated_from_sources(payload):
+        assert 'verified_rule_summary' not in payload
+        source = next(s for s in payload['source_text'] if s['id'] == 'REF-2')
+        span = re.search(r'\|\s*UPI\s*\|\s*([^|]+)\|', source['text'])[1].strip()
+        return {'decision': 'answer', 'answer': f'UPI refunds take {span} after initiation.',
+                'citations': [{'id': source['id'], 'quote': source['text']}]}
     return ScriptedLLM([
         'How long does a UPI refund take?',
         'ప్రారంభించిన తర్వాత UPI రీఫండ్‌కు [[VALUE_A]] నుండి [[VALUE_B]] పని దినాలు పడుతుంది.',
         'UPI refunds take [[VALUE_A]] to [[VALUE_B]] business days after initiation.',
-    ])
+    ], core_answer=generated_from_sources)
 
 
 def test_telugu_refund_uses_actual_sources_and_keeps_core_generation_route(resources):
@@ -53,7 +62,7 @@ def test_telugu_refund_uses_actual_sources_and_keeps_core_generation_route(resou
     agent = MultilingualAgent(resources, compose=True, translation_client=resources.llm)
     out = agent.respond('యూపీఐ రీఫండ్ ఎన్ని రోజుల్లో వస్తుంది?', language_hint='te')
     assert out['decision'] == 'answer' and out['evidence_supported']
-    assert out['composition'] == 'evidence_validated_fallback'
+    assert out['composition'] == 'grounded_llm'
     assert 'REF-2' in out['retrieved_chunk_ids']
     assert '1 to 3 business days' in out['source_answer']
     assert out['answer'].startswith('నేను ZentroMart AI')

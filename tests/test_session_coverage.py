@@ -56,8 +56,10 @@ def test_express_and_standard_are_both_answered(resource):
     out=Agent(resource,compose=False).respond('At pincode 411045, is Express possible and can Standard deliver?')
     assert out['facts']['serviceable'] is True
     assert out['facts']['express_available'] is False
-    assert 'Standard delivery is available' in out['answer']
-    assert 'Express delivery is not available' in out['answer']
+    assert out['composition']=='document_excerpts'
+    assert 'pincodes.csv:411045' in out['retrieved_chunk_ids']
+    assert out['facts']['public_serviceability']['record']['serviceable']=='True'
+    assert out['facts']['public_serviceability']['record']['express_available']=='False'
 
 def test_hindi_verification_prompt_is_hindi(resource):
     out=Agent(resource,compose=False).respond('मेरे ऑर्डर 11112222 की स्थिति बताइए।')
@@ -65,11 +67,23 @@ def test_hindi_verification_prompt_is_hindi(resource):
     assert '???' not in out['answer']
 
 def test_unknown_policy_returns_refusal_without_model_guessing(resource,monkeypatch):
-    def forbidden(*args,**kwargs): raise AssertionError('uncovered policy must not be generated')
-    monkeypatch.setattr(resource.llm,'complete',forbidden)
+    seen=[]
+    def uncertainty(system,user,*args,**kwargs):
+        payload=json.loads(user);seen.append(payload)
+        assert 'verified_rule_summary' not in payload
+        assert 'required_citations' not in payload
+        return json.dumps({'decision':'refuse',
+                           'answer':'I do not have enough supported information to answer that.',
+                           'citations':[]})
+    monkeypatch.setattr(resource.llm,'complete',uncertainty)
     out=Agent(resource,compose=True).respond('Can I get a student discount?')
-    assert out['intent']=='unsupported' and out['decision']=='answer'
-    assert out['facts']=={}
+    assert len(seen)==1 and seen[0]['source_text']
+    assert seen[0]['question']=='Can I get a student discount?'
+    assert out['decision']=='refuse'
+    assert 'enough supported information' in out['answer']
+    assert 'student discounts are unavailable' not in out['answer'].lower()
+    assert not out['citations'] and not out['tool_calls']
+    assert set(out['retrieved_chunk_ids']) <= {'STY-1'}
 
 @pytest.mark.parametrize('question,expected_intent', [
     ('My pincode is 248001. What is the return period for ELE-0002?', 'return'),

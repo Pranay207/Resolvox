@@ -121,7 +121,8 @@ def test_private_generation_disables_output_cache_and_revalidates_model_text():
         def complete(self, system, user, json_mode, **kwargs):
             self.kwargs = kwargs
             self.payload = json.loads(user)
-            return json.dumps(response('Your refund was issued.'))
+            value=response('Your refund was issued.');value.pop('covered');value['decision']='answer'
+            return json.dumps(value)
     client = FakeClient()
     with pytest.raises(ValueError, match='unsupported_action'):
         generate(client, 'A safe policy question', 'en', [REFUND_SOURCE], private=True)
@@ -194,11 +195,14 @@ def test_policy_aspect_synonyms_allow_ordinary_multilingual_paraphrases(answer):
     assert validate_generated(response(answer, required, 'RULE-1'), [source], ['RULE-1'], required_text=required)[0] == answer
 
 
-def test_long_reviewed_plan_skips_generation_instead_of_truncating():
+def test_legacy_adapter_never_sends_an_authored_plan_even_if_long():
     from src.answering import Plan
-    plan = Plan('return', 'answer', 'a' * 1801, 'a' * 1801, 'a' * 1801, ['REF-2'])
-    class NoCall:
-        def complete(self, *args, **kwargs):
-            raise AssertionError('An overlong plan must use its reviewed deterministic rendering.')
-    with pytest.raises(ValueError, match='plan_exceeds_generation_limit'):
-        generate(NoCall(), 'A multi-part question', 'en', [REFUND_SOURCE], plan)
+    plan = Plan('return', 'answer', 'AUTHORED POLICY ' * 200, 'a' * 1801, 'a' * 1801, ['REF-2'])
+    class Client:
+        def complete(self, system, user, *args, **kwargs):
+            payload=json.loads(user)
+            assert 'verified_rule_summary' not in payload
+            assert 'AUTHORED POLICY' not in user
+            return json.dumps({'answer':REFUND,'decision':'answer',
+                'citations':[{'id':'REF-2','quote':REFUND}]})
+    assert generate(Client(), 'A multi-part question', 'en', [REFUND_SOURCE], plan)[0]==REFUND
