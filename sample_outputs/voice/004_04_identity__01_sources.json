@@ -28,5 +28,15 @@
     "effective_from": "2026-07-01",
     "version": "1.2",
     "title": "How to verify"
+  },
+  {
+    "id": "STY-5",
+    "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+    "file": "agent_conversation_style.md",
+    "doc_type": "agent_guide",
+    "status": "current",
+    "effective_from": "2026-07-01",
+    "version": "1.1",
+    "title": "One question at a time"
   }
 ]

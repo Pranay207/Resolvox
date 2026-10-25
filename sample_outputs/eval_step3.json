@@ -1,10 +1,12 @@
 {
   "configuration": {
-    "recorded_at": "2026-10-24T22:29:54",
-    "runtime_sha256": "76a44dc2840bc7c3332df7e074a01534d83f47a23dff59e739967106a7cdf4a3",
+    "recorded_at": "2026-10-25T12:15:53",
+    "runtime_sha256": "caaa869588222aff1b7f4c8bf233ad51e143e6ddf0e64e05e89b0409d10b349c",
     "llm_provider": "ollama",
     "llm_model": "qwen3:1.7b",
-    "reference_date": "2026-10-20"
+    "reference_date": "2026-10-20",
+    "evaluation_mode": "offline_compose_false",
+    "compose_with_llm": false
   },
   "summary": {
     "search_k": [
@@ -20,23 +22,18 @@
     "errors": 0,
     "composition_counts": {
       "deterministic_guardrail": 77,
-      "evidence_validated_fallback": 12,
-      "grounded_llm": 5,
-      "evidence_validated_rules": 2
+      "evidence_validated_rules": 19
     },
     "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
     "latency_by_path": {
       "no_model_call": {
-        "count": 79,
-        "p50_ms": 5.7,
-        "p95_ms": 98.7
-      },
-      "uncached_llm_attempt": {
-        "count": 17,
-        "p50_ms": 14122.7,
-        "p95_ms": 20229.2
+        "count": 96,
+        "p50_ms": 18.6,
+        "p95_ms": 165.6
       }
-    }
+    },
+    "planned": 96,
+    "complete": true
   },
   "results": [
     {
@@ -147,10 +144,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 96.08,
+          "retrieval_ms": 34.12,
           "llm_ms": 0.0
         },
-        "latency_ms": 114.1
+        "latency_ms": 41.49
       },
       "checks": {
         "passed": true,
@@ -164,20 +161,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 115.1
+      "latency_ms": 41.9
     },
     {
       "id": "PC002.2",
       "question": "Order number hai 8978 2837.",
       "prediction": {
         "transcript": "Order number hai 8978 2837.",
-        "answer": "Registered phone ke last 4 digits batayein.",
+        "answer": "Ek verification detail dein: registered phone ke last 4 digits ya order ka delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi-en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -199,6 +197,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -227,7 +235,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 5.31
+        "latency_ms": 5.9
       },
       "checks": {
         "passed": true,
@@ -241,7 +249,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6.0
+      "latency_ms": 6.4
     },
     {
       "id": "PC002.3",
@@ -374,7 +382,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.19
+        "latency_ms": 3.71
       },
       "checks": {
         "passed": true,
@@ -388,7 +396,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 4.6
+      "latency_ms": 3.8
     },
     {
       "id": "PC002.4",
@@ -438,64 +446,64 @@
         ],
         "retrieval_candidates": [
           {
-            "id": "DWM-3",
-            "score": 0.163167,
-            "dense_score": 0.3754
-          },
-          {
             "id": "DWM-2",
-            "score": 0.16162,
-            "dense_score": 0.3705
+            "score": 0.175428,
+            "dense_score": 0.3633
           },
           {
-            "id": "DWM-1",
-            "score": 0.157933,
-            "dense_score": 0.3188
+            "id": "DWM-3",
+            "score": 0.165208,
+            "dense_score": 0.3619
           },
           {
             "id": "DWM-4",
-            "score": 0.148069,
-            "dense_score": 0.367
+            "score": 0.15716,
+            "dense_score": 0.3665
           },
           {
-            "id": "WAR-3",
-            "score": 0.136705,
-            "dense_score": 0.2272
-          },
-          {
-            "id": "DWM-5",
-            "score": 0.132688,
-            "dense_score": 0.2582
-          },
-          {
-            "id": "RET-5",
-            "score": 0.128584,
-            "dense_score": 0.2151
-          },
-          {
-            "id": "RET-4",
-            "score": 0.124018,
-            "dense_score": 0.251
+            "id": "DWM-1",
+            "score": 0.15431,
+            "dense_score": 0.3198
           },
           {
             "id": "RET-6",
-            "score": 0.095792,
-            "dense_score": 0.2065
+            "score": 0.134321,
+            "dense_score": 0.2012
+          },
+          {
+            "id": "RET-5",
+            "score": 0.125926,
+            "dense_score": 0.2195
+          },
+          {
+            "id": "RET-4",
+            "score": 0.124384,
+            "dense_score": 0.2466
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.124303,
+            "dense_score": 0.2224
           },
           {
             "id": "WAR-2",
-            "score": 0.086799,
-            "dense_score": 0.2022
+            "score": 0.075793,
+            "dense_score": 0.1928
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.04466,
+            "dense_score": 0.1621
           },
           {
             "id": "ESC-1",
-            "score": 0.059833,
-            "dense_score": 0.1866
+            "score": 0.044659,
+            "dense_score": 0.1847
           },
           {
             "id": "ESC-2",
-            "score": 0.056841,
-            "dense_score": 0.0321
+            "score": 0.042427,
+            "dense_score": 0.0066
           }
         ],
         "tool_calls": [
@@ -509,7 +517,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT0db820dc08114e7b9ee45a204f9f8af1"
+              "ticket_id": "TKTfb3ee65466bb4ba0ac78b2b31c2d48cf"
             }
           }
         ],
@@ -523,10 +531,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 84.75,
+          "retrieval_ms": 117.03,
           "llm_ms": 0.0
         },
-        "latency_ms": 88.15
+        "latency_ms": 123.03
       },
       "checks": {
         "passed": true,
@@ -540,7 +548,7 @@
         "evidence_total": 3,
         "evidence_recall": 1.0
       },
-      "latency_ms": 88.6
+      "latency_ms": 123.7
     },
     {
       "id": "PC003.1",
@@ -650,10 +658,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 29.88,
+          "retrieval_ms": 33.96,
           "llm_ms": 0.0
         },
-        "latency_ms": 32.12
+        "latency_ms": 39.1
       },
       "checks": {
         "passed": true,
@@ -667,20 +675,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 32.4
+      "latency_ms": 39.3
     },
     {
       "id": "PC003.2",
       "question": "Order number hai 1859 9253.",
       "prediction": {
         "transcript": "Order number hai 1859 9253.",
-        "answer": "Registered phone ke last 4 digits batayein.",
+        "answer": "Ek verification detail dein: registered phone ke last 4 digits ya order ka delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi-en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -702,6 +711,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -730,7 +749,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.7
+        "latency_ms": 3.84
       },
       "checks": {
         "passed": true,
@@ -744,7 +763,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 3.9
+      "latency_ms": 4.1
     },
     {
       "id": "PC003.3",
@@ -868,7 +887,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.95
+        "latency_ms": 2.8
       },
       "checks": {
         "passed": true,
@@ -882,7 +901,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.1
+      "latency_ms": 3.0
     },
     {
       "id": "PC003.4",
@@ -933,63 +952,63 @@
         "retrieval_candidates": [
           {
             "id": "RET-6",
-            "score": 0.18975,
+            "score": 0.198059,
             "dense_score": 0.4905
           },
           {
             "id": "PLS-2",
-            "score": 0.173485,
+            "score": 0.183654,
             "dense_score": 0.4095
           },
           {
             "id": "RET-7",
-            "score": 0.16423,
+            "score": 0.17235,
             "dense_score": 0.3625
           },
           {
             "id": "RET-8",
-            "score": 0.147986,
+            "score": 0.155843,
             "dense_score": 0.4068
           },
           {
-            "id": "DWM-2",
-            "score": 0.143695,
-            "dense_score": 0.3604
-          },
-          {
             "id": "MKS-2",
-            "score": 0.142683,
+            "score": 0.150808,
             "dense_score": 0.3398
           },
           {
             "id": "RET-2",
-            "score": 0.138205,
+            "score": 0.148782,
             "dense_score": 0.2833
           },
           {
+            "id": "DWM-2",
+            "score": 0.147467,
+            "dense_score": 0.3604
+          },
+          {
             "id": "PLS-3",
-            "score": 0.136921,
+            "score": 0.144049,
             "dense_score": 0.2974
           },
           {
             "id": "PLS-1",
-            "score": 0.136834,
+            "score": 0.141548,
             "dense_score": 0.3325
           },
           {
-            "id": "RVP-1",
-            "score": 0.13081,
-            "dense_score": 0.3382
-          },
-          {
             "id": "REF-1",
-            "score": 0.128014,
+            "score": 0.136672,
             "dense_score": 0.309
           },
           {
-            "id": "KB-00.1",
-            "score": 0.121613,
-            "dense_score": -0.0063
+            "id": "RVP-1",
+            "score": 0.136117,
+            "dense_score": 0.3382
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.125458,
+            "dense_score": 0.2858
           }
         ],
         "tool_calls": [],
@@ -1001,22 +1020,17 @@
         },
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20017.79,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 152.59,
-          "llm_ms": 20018.03
+          "retrieval_ms": 121.72,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20173.02
+        "latency_ms": 124.31
       },
       "checks": {
         "passed": true,
@@ -1030,14 +1044,14 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 20180.7
+      "latency_ms": 125.1
     },
     {
       "id": "PC003.5",
       "question": "Aur refund kitne din mein aayega?",
       "prediction": {
         "transcript": "Aur refund kitne din mein aayega?",
-        "answer": "Aur refund kitne din mein aayega? Refund ZentroMart Wallet ke baad 2 hours mein aayega.",
+        "answer": "ZentroMart Wallet refund initiation ke baad instant, 2 hours mein aata hai.",
         "intent": "refund",
         "decision": "answer",
         "language": "hi-en",
@@ -1059,91 +1073,80 @@
         "retrieval_candidates": [
           {
             "id": "REF-2",
-            "score": 0.179798,
+            "score": 0.18903,
             "dense_score": 0.472
           },
           {
             "id": "RET-7",
-            "score": 0.178397,
+            "score": 0.186317,
             "dense_score": 0.4905
           },
           {
             "id": "REF-1",
-            "score": 0.167376,
+            "score": 0.173875,
             "dense_score": 0.4817
           },
           {
             "id": "REF-6",
-            "score": 0.163453,
+            "score": 0.167538,
             "dense_score": 0.5422
           },
           {
             "id": "REF-3",
-            "score": 0.160403,
+            "score": 0.167142,
             "dense_score": 0.4532
           },
           {
             "id": "PAY-4",
-            "score": 0.141498,
+            "score": 0.146784,
             "dense_score": 0.4692
           },
           {
             "id": "REF-5",
-            "score": 0.141034,
+            "score": 0.146445,
             "dense_score": 0.5123
           },
           {
             "id": "CAN-2",
-            "score": 0.134729,
+            "score": 0.139934,
             "dense_score": 0.4591
           },
           {
-            "id": "REF-4",
-            "score": 0.131354,
-            "dense_score": 0.4509
-          },
-          {
             "id": "KB-00.3",
-            "score": 0.065281,
+            "score": 0.070259,
             "dense_score": 0.1966
           },
           {
-            "id": "KB-00.1",
-            "score": 0.062017,
-            "dense_score": 0.1588
+            "id": "DEL-2",
+            "score": 0.022405,
+            "dense_score": 0.1957
           },
           {
             "id": "PLS-2",
-            "score": 0.062016,
+            "score": 0.022404,
             "dense_score": 0.3893
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.022403,
+            "dense_score": 0.3142
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 13753.23,
-          "load_ms": 115.85,
-          "prompt_eval_ms": 7897.7,
-          "eval_ms": 5413.98,
-          "prompt_eval_count": 401,
-          "eval_count": 37,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 343.87,
-          "llm_ms": 13767.29
+          "retrieval_ms": 115.13,
+          "llm_ms": 0.0
         },
-        "latency_ms": 14122.39
+        "latency_ms": 117.33
       },
       "checks": {
         "passed": true,
@@ -1157,7 +1160,7 @@
         "evidence_total": 3,
         "evidence_recall": 0.3333333333333333
       },
-      "latency_ms": 14122.7
+      "latency_ms": 118.1
     },
     {
       "id": "PC004.1",
@@ -1249,6 +1252,11 @@
             "id": "ESC-1",
             "score": 0.025608,
             "dense_score": 0.2702
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.025607,
+            "dense_score": 0.3766
           }
         ],
         "tool_calls": [],
@@ -1262,10 +1270,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 38.97,
+          "retrieval_ms": 44.38,
           "llm_ms": 0.0
         },
-        "latency_ms": 44.14
+        "latency_ms": 49.72
       },
       "checks": {
         "passed": true,
@@ -1279,20 +1287,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 44.4
+      "latency_ms": 49.9
     },
     {
       "id": "PC004.2",
       "question": "ऑर्डर नंबर है 7936 3550।",
       "prediction": {
         "transcript": "ऑर्डर नंबर है 7936 3550।",
-        "answer": "कृपया अपने पंजीकृत फ़ोन के आख़िरी 4 अंक बताएँ।",
+        "answer": "कृपया एक सत्यापन जानकारी दें: पंजीकृत फ़ोन के अंतिम 4 अंक या ऑर्डर का डिलीवरी पिनकोड।",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -1314,6 +1323,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -1342,7 +1361,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 6.74
+        "latency_ms": 3.63
       },
       "checks": {
         "passed": true,
@@ -1356,7 +1375,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 7.0
+      "latency_ms": 4.6
     },
     {
       "id": "PC004.3",
@@ -1480,7 +1499,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.56
+        "latency_ms": 4.13
       },
       "checks": {
         "passed": true,
@@ -1494,14 +1513,14 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 4.7
+      "latency_ms": 4.4
     },
     {
       "id": "PC004.4",
       "question": "क्या मैं UrbanThread Slim Fit Jeans वापस कर सकती हूँ?",
       "prediction": {
         "transcript": "क्या मैं UrbanThread Slim Fit Jeans वापस कर सकती हूँ?",
-        "answer": "कैटलॉग श्रेणी clothing, footwear and bags है; डिलीवरी से 30 कैलेंडर दिन। रिटर्न की अंतिम तारीख 13 November 2026 है। पसंद बदलने के पिकअप की फ़ीस 49 रुपये; प्लस और खराब, दोषपूर्ण या गलत सामान पर छूट।",
+        "answer": "कैटलॉग श्रेणी clothing, footwear and bags है; डिलीवरी से 30 कैलेंडर दिन। रिटर्न की अंतिम तारीख 13 नवंबर 2026 है। हाँ, ऑर्डर की तारीख ऑफ़र के अंदर है; 1 और 15 अक्टूबर दोनों शामिल हैं। 30 दिन का ऑफ़र केवल 1 से 15 अक्टूबर 2026 के कपड़े, जूते और बैग के ऑर्डर पर है; अन्य श्रेणियों की अवधि नहीं बदलती। पसंद बदलने के पिकअप की फ़ीस 49 रुपये; प्लस और खराब, दोषपूर्ण या गलत सामान पर छूट।",
         "intent": "return",
         "decision": "answer",
         "language": "hi",
@@ -1545,62 +1564,62 @@
         "retrieval_candidates": [
           {
             "id": "RET-8",
-            "score": 0.158042,
+            "score": 0.168399,
             "dense_score": 0.3662
           },
           {
             "id": "RET-2",
-            "score": 0.153011,
+            "score": 0.163368,
             "dense_score": 0.36
           },
           {
             "id": "RET-3",
-            "score": 0.143129,
+            "score": 0.147681,
             "dense_score": 0.2588
           },
           {
             "id": "FAQH-1",
-            "score": 0.065312,
+            "score": 0.070062,
             "dense_score": 0.1038
           },
           {
             "id": "RET-6",
-            "score": 0.065311,
+            "score": 0.070061,
             "dense_score": 0.3566
           },
           {
-            "id": "RET-5",
-            "score": 0.06531,
-            "dense_score": 0.3589
-          },
-          {
             "id": "RET-9",
-            "score": 0.065309,
+            "score": 0.07006,
             "dense_score": 0.2187
           },
           {
+            "id": "RET-5",
+            "score": 0.070059,
+            "dense_score": 0.3589
+          },
+          {
             "id": "FAQ-2",
-            "score": 0.065308,
+            "score": 0.070058,
             "dense_score": 0.3857
           },
           {
             "id": "RET-4",
-            "score": 0.065307,
+            "score": 0.070057,
             "dense_score": 0.3344
           },
           {
             "id": "DWM-4",
-            "score": 0.065306,
+            "score": 0.070056,
             "dense_score": 0.2628
           },
           {
             "id": "KB-00.1",
-            "score": 0.062047,
+            "score": 0.066559,
             "dense_score": -0.0982
           },
           {
             "id": "PLS-2",
-            "score": 0.062046,
+            "score": 0.066558,
             "dense_score": 0.2382
           }
         ],
@@ -1613,22 +1632,17 @@
         },
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20027.13,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 112.32,
-          "llm_ms": 20027.31
+          "retrieval_ms": 99.46,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20145.45
+        "latency_ms": 102.86
       },
       "checks": {
         "passed": true,
@@ -1642,14 +1656,14 @@
         "evidence_total": 3,
         "evidence_recall": 1.0
       },
-      "latency_ms": 20146.5
+      "latency_ms": 104.0
     },
     {
       "id": "PC004.5",
       "question": "और रिफ़ंड कितने दिन में आएगा?",
       "prediction": {
         "transcript": "और रिफ़ंड कितने दिन में आएगा?",
-        "answer": "और रिफ़ंड 1 से 3 कार्यदिवस लगते हैं।",
+        "answer": "UPI रिफ़ंड शुरू होने के बाद 1 से 3 कार्यदिवस लगते हैं।",
         "intent": "refund",
         "decision": "answer",
         "language": "hi",
@@ -1671,62 +1685,62 @@
         "retrieval_candidates": [
           {
             "id": "REF-2",
-            "score": 0.180957,
+            "score": 0.190189,
             "dense_score": 0.6274
           },
           {
             "id": "RET-7",
-            "score": 0.178099,
+            "score": 0.186019,
             "dense_score": 0.6401
           },
           {
             "id": "REF-1",
-            "score": 0.169879,
+            "score": 0.176385,
             "dense_score": 0.6387
           },
           {
             "id": "REF-6",
-            "score": 0.157087,
+            "score": 0.161147,
             "dense_score": 0.6152
           },
           {
             "id": "REF-3",
-            "score": 0.153466,
+            "score": 0.159973,
             "dense_score": 0.5947
           },
           {
-            "id": "REF-5",
-            "score": 0.131364,
-            "dense_score": 0.5896
-          },
-          {
             "id": "PLS-2",
-            "score": 0.129634,
+            "score": 0.137389,
             "dense_score": 0.4557
           },
           {
-            "id": "FAQ-1",
-            "score": 0.129082,
-            "dense_score": 0.6403
+            "id": "REF-5",
+            "score": 0.136747,
+            "dense_score": 0.5896
           },
           {
             "id": "CAN-2",
-            "score": 0.128157,
+            "score": 0.133257,
             "dense_score": 0.4875
           },
           {
+            "id": "FAQ-1",
+            "score": 0.131948,
+            "dense_score": 0.6403
+          },
+          {
             "id": "KB-00.3",
-            "score": 0.061676,
+            "score": 0.066539,
             "dense_score": 0.1697
           },
           {
-            "id": "KB-00.1",
-            "score": 0.058592,
-            "dense_score": 0.0862
+            "id": "DEL-2",
+            "score": 0.051107,
+            "dense_score": 0.2089
           },
           {
             "id": "DEL-3",
-            "score": 0.058591,
+            "score": 0.051106,
             "dense_score": 0.3532
           }
         ],
@@ -1734,28 +1748,17 @@
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 9868.69,
-          "load_ms": 199.2,
-          "prompt_eval_ms": 3187.45,
-          "eval_ms": 6184.78,
-          "prompt_eval_count": 448,
-          "eval_count": 44,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 199.86,
-          "llm_ms": 9870.58
+          "retrieval_ms": 101.94,
+          "llm_ms": 0.0
         },
-        "latency_ms": 10073.23
+        "latency_ms": 106.7
       },
       "checks": {
         "passed": true,
@@ -1769,7 +1772,7 @@
         "evidence_total": 2,
         "evidence_recall": 0.5
       },
-      "latency_ms": 10073.8
+      "latency_ms": 107.2
     },
     {
       "id": "PC005.1",
@@ -1861,6 +1864,11 @@
             "id": "ESC-1",
             "score": 0.025608,
             "dense_score": 0.2702
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.025607,
+            "dense_score": 0.3766
           }
         ],
         "tool_calls": [],
@@ -1874,10 +1882,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 41.2,
+          "retrieval_ms": 37.12,
           "llm_ms": 0.0
         },
-        "latency_ms": 49.72
+        "latency_ms": 46.05
       },
       "checks": {
         "passed": true,
@@ -1891,20 +1899,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 49.9
+      "latency_ms": 46.3
     },
     {
       "id": "PC005.2",
       "question": "ऑर्डर नंबर है 3711 3676।",
       "prediction": {
         "transcript": "ऑर्डर नंबर है 3711 3676।",
-        "answer": "कृपया अपने पंजीकृत फ़ोन के आख़िरी 4 अंक बताएँ।",
+        "answer": "कृपया एक सत्यापन जानकारी दें: पंजीकृत फ़ोन के अंतिम 4 अंक या ऑर्डर का डिलीवरी पिनकोड।",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -1926,6 +1935,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -1954,7 +1973,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 6.11
+        "latency_ms": 4.07
       },
       "checks": {
         "passed": true,
@@ -1968,7 +1987,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6.4
+      "latency_ms": 4.8
     },
     {
       "id": "PC005.3",
@@ -2101,7 +2120,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.6
+        "latency_ms": 3.54
       },
       "checks": {
         "passed": true,
@@ -2115,7 +2134,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 1.9
+      "latency_ms": 3.8
     },
     {
       "id": "PC005.4",
@@ -2175,7 +2194,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTba91d46bca9c4cb8ac56f8c80195a002"
+              "ticket_id": "TKTdb03ac2ac82d4713ac505cb9d3424b79"
             }
           }
         ],
@@ -2192,7 +2211,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 5.56
+        "latency_ms": 5.5
       },
       "checks": {
         "passed": true,
@@ -2206,7 +2225,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6.4
+      "latency_ms": 5.8
     },
     {
       "id": "PC006.1",
@@ -2290,14 +2309,14 @@
             "dense_score": 0.3373
           },
           {
+            "id": "FAQ-3",
+            "score": 0.082828,
+            "dense_score": 0.3333
+          },
+          {
             "id": "REF-1",
             "score": 0.065132,
             "dense_score": 0.2647
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.061111,
-            "dense_score": 0.1906
           },
           {
             "id": "DEL-3",
@@ -2316,10 +2335,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 25.8,
+          "retrieval_ms": 27.82,
           "llm_ms": 0.0
         },
-        "latency_ms": 27.59
+        "latency_ms": 30.85
       },
       "checks": {
         "passed": true,
@@ -2333,20 +2352,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 27.7
+      "latency_ms": 31.0
     },
     {
       "id": "PC006.2",
       "question": "The order number is 6649 2475.",
       "prediction": {
         "transcript": "The order number is 6649 2475.",
-        "answer": "Please provide the last 4 digits of your registered phone.",
+        "answer": "Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -2368,6 +2388,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -2396,7 +2426,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 5.44
+        "latency_ms": 1.68
       },
       "checks": {
         "passed": true,
@@ -2410,7 +2440,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.7
+      "latency_ms": 1.9
     },
     {
       "id": "PC006.3",
@@ -2543,7 +2573,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 5.9
+        "latency_ms": 1.59
       },
       "checks": {
         "passed": true,
@@ -2557,7 +2587,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6.0
+      "latency_ms": 1.7
     },
     {
       "id": "PC006.4",
@@ -2617,7 +2647,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT53f1fac69f06417899a3f45c3fffeb6f"
+              "ticket_id": "TKT949c38f9616547c7a3232d69fbfbbcd0"
             }
           }
         ],
@@ -2634,7 +2664,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 11.17
+        "latency_ms": 3.62
       },
       "checks": {
         "passed": true,
@@ -2648,7 +2678,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 11.3
+      "latency_ms": 3.8
     },
     {
       "id": "PC007.1",
@@ -2758,10 +2788,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 32.02,
+          "retrieval_ms": 23.97,
           "llm_ms": 0.0
         },
-        "latency_ms": 34.42
+        "latency_ms": 26.49
       },
       "checks": {
         "passed": true,
@@ -2775,20 +2805,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 34.6
+      "latency_ms": 26.6
     },
     {
       "id": "PC007.2",
       "question": "Order number hai 4501 1817.",
       "prediction": {
         "transcript": "Order number hai 4501 1817.",
-        "answer": "Registered phone ke last 4 digits batayein.",
+        "answer": "Ek verification detail dein: registered phone ke last 4 digits ya order ka delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi-en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -2810,6 +2841,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -2838,7 +2879,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 5.79
+        "latency_ms": 2.83
       },
       "checks": {
         "passed": true,
@@ -2852,7 +2893,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6.0
+      "latency_ms": 3.0
     },
     {
       "id": "PC007.3",
@@ -2985,7 +3026,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.27
+        "latency_ms": 1.71
       },
       "checks": {
         "passed": true,
@@ -2999,14 +3040,14 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.4
+      "latency_ms": 1.9
     },
     {
       "id": "PC007.4",
       "question": "Main is hafte teesri baar call kar rahi hoon isi baare mein.",
       "prediction": {
         "transcript": "Main is hafte teesri baar call kar rahi hoon isi baare mein.",
-        "answer": "Iske liye human team ka ticket zaroori hai. Ticket create ho gaya; human colleague contact karenge.",
+        "answer": "Order record mein last 7 days ke 2 earlier contacts hain; same issue par yeh kam se kam third contact hai. Human colleague ke liye ticket request karungi. Ticket create ho gaya; human colleague contact karenge.",
         "intent": "repeat",
         "decision": "escalate",
         "language": "hi-en",
@@ -3049,14 +3090,14 @@
         ],
         "retrieval_candidates": [
           {
+            "id": "ESC-4",
+            "score": 0.083475,
+            "dense_score": 0.0104
+          },
+          {
             "id": "ESC-1",
             "score": 0.07526,
             "dense_score": 0.0891
-          },
-          {
-            "id": "ESC-4",
-            "score": 0.072875,
-            "dense_score": 0.0104
           },
           {
             "id": "STY-4",
@@ -3095,7 +3136,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTfe0853fc17374c9f879cd5c36387d9be"
+              "ticket_id": "TKT32c679284ad84e77800e6b2c68a451f1"
             }
           }
         ],
@@ -3109,10 +3150,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 28.37,
+          "retrieval_ms": 31.64,
           "llm_ms": 0.0
         },
-        "latency_ms": 33.46
+        "latency_ms": 35.86
       },
       "checks": {
         "passed": true,
@@ -3126,7 +3167,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 33.6
+      "latency_ms": 36.1
     },
     {
       "id": "PC008.1",
@@ -3210,14 +3251,14 @@
             "dense_score": 0.3373
           },
           {
+            "id": "FAQ-3",
+            "score": 0.082828,
+            "dense_score": 0.3333
+          },
+          {
             "id": "REF-1",
             "score": 0.065132,
             "dense_score": 0.2647
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.061111,
-            "dense_score": 0.1906
           },
           {
             "id": "DEL-3",
@@ -3236,10 +3277,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 22.83,
+          "retrieval_ms": 26.8,
           "llm_ms": 0.0
         },
-        "latency_ms": 27.9
+        "latency_ms": 29.91
       },
       "checks": {
         "passed": true,
@@ -3253,20 +3294,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 28.1
+      "latency_ms": 30.1
     },
     {
       "id": "PC008.2",
       "question": "The order number is 4819 6636.",
       "prediction": {
         "transcript": "The order number is 4819 6636.",
-        "answer": "Please provide the last 4 digits of your registered phone.",
+        "answer": "Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -3288,6 +3330,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -3316,7 +3368,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.79
+        "latency_ms": 2.12
       },
       "checks": {
         "passed": true,
@@ -3330,7 +3382,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.0
+      "latency_ms": 2.4
     },
     {
       "id": "PC008.3",
@@ -3463,7 +3515,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.4
+        "latency_ms": 4.0
       },
       "checks": {
         "passed": true,
@@ -3477,14 +3529,14 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.6
+      "latency_ms": 4.3
     },
     {
       "id": "PC008.4",
       "question": "This is the third time I'm calling about this in a week.",
       "prediction": {
         "transcript": "This is the third time I'm calling about this in a week.",
-        "answer": "This needs a human colleague; A ticket has been created; a human colleague will contact you.",
+        "answer": "The order record shows 2 earlier contacts in the last 7 days, so this is at least your third contact about the same issue. This needs a human colleague; A ticket has been created; a human colleague will contact you.",
         "intent": "repeat",
         "decision": "escalate",
         "language": "en",
@@ -3528,62 +3580,62 @@
         "retrieval_candidates": [
           {
             "id": "ESC-1",
-            "score": 0.101429,
+            "score": 0.110515,
             "dense_score": 0.323
           },
           {
             "id": "STY-5",
-            "score": 0.096136,
+            "score": 0.106736,
             "dense_score": 0.2526
           },
           {
             "id": "DEL-1",
-            "score": 0.090832,
+            "score": 0.101392,
             "dense_score": 0.2221
           },
           {
             "id": "CAN-3",
-            "score": 0.088947,
+            "score": 0.099101,
             "dense_score": 0.2239
           },
           {
             "id": "DEL-3",
-            "score": 0.088098,
+            "score": 0.097876,
             "dense_score": 0.2484
           },
           {
             "id": "KB-00.2",
-            "score": 0.072427,
+            "score": 0.080427,
             "dense_score": 0.2167
           },
           {
             "id": "IDV-1",
-            "score": 0.06031,
+            "score": 0.069083,
             "dense_score": 0.0277
           },
           {
             "id": "ESC-2",
-            "score": 0.056419,
+            "score": 0.064626,
             "dense_score": 0.1207
           },
           {
             "id": "RET-7",
-            "score": 0.055,
+            "score": 0.063,
             "dense_score": 0.1072
           },
           {
             "id": "REF-2",
-            "score": 0.051857,
+            "score": 0.0594,
             "dense_score": 0.0912
           },
           {
             "id": "KB-00.4",
-            "score": 0.051562,
+            "score": 0.059062,
             "dense_score": -0.0355
           },
           {
             "id": "KB-00.3",
-            "score": 0.048529,
+            "score": 0.055588,
             "dense_score": 0.1572
           }
         ],
@@ -3598,7 +3650,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT2bb53529d8c649d5acff1d18823d349a"
+              "ticket_id": "TKT1f91d9342b35448dace738a53a08bf3c"
             }
           }
         ],
@@ -3612,10 +3664,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 46.0,
+          "retrieval_ms": 31.56,
           "llm_ms": 0.0
         },
-        "latency_ms": 52.97
+        "latency_ms": 40.97
       },
       "checks": {
         "passed": true,
@@ -3629,7 +3681,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 53.4
+      "latency_ms": 41.4
     },
     {
       "id": "PC009.1",
@@ -3721,6 +3773,11 @@
             "id": "ESC-1",
             "score": 0.025608,
             "dense_score": 0.2702
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.025607,
+            "dense_score": 0.3766
           }
         ],
         "tool_calls": [],
@@ -3734,10 +3791,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 21.22,
+          "retrieval_ms": 19.27,
           "llm_ms": 0.0
         },
-        "latency_ms": 23.18
+        "latency_ms": 22.47
       },
       "checks": {
         "passed": true,
@@ -3751,20 +3808,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 23.3
+      "latency_ms": 22.6
     },
     {
       "id": "PC009.2",
       "question": "ऑर्डर नंबर है 6783 0826।",
       "prediction": {
         "transcript": "ऑर्डर नंबर है 6783 0826।",
-        "answer": "कृपया अपने पंजीकृत फ़ोन के आख़िरी 4 अंक बताएँ।",
+        "answer": "कृपया एक सत्यापन जानकारी दें: पंजीकृत फ़ोन के अंतिम 4 अंक या ऑर्डर का डिलीवरी पिनकोड।",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -3786,6 +3844,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -3814,7 +3882,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.53
+        "latency_ms": 1.46
       },
       "checks": {
         "passed": true,
@@ -3828,7 +3896,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.2
+      "latency_ms": 1.7
     },
     {
       "id": "PC009.3",
@@ -3943,7 +4011,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.93
+        "latency_ms": 3.7
       },
       "checks": {
         "passed": true,
@@ -3957,7 +4025,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.1
+      "latency_ms": 4.0
     },
     {
       "id": "PC009.4",
@@ -4008,85 +4076,80 @@
         "retrieval_candidates": [
           {
             "id": "RET-7",
-            "score": 0.189883,
+            "score": 0.199265,
             "dense_score": 0.7056
           },
           {
             "id": "REF-2",
-            "score": 0.169993,
+            "score": 0.178802,
             "dense_score": 0.6189
           },
           {
             "id": "REF-1",
-            "score": 0.162726,
+            "score": 0.171803,
             "dense_score": 0.5954
           },
           {
             "id": "REF-6",
-            "score": 0.162016,
+            "score": 0.170864,
             "dense_score": 0.6597
           },
           {
-            "id": "RET-6",
-            "score": 0.154748,
-            "dense_score": 0.5809
-          },
-          {
             "id": "PLS-2",
-            "score": 0.152899,
+            "score": 0.161653,
             "dense_score": 0.5316
           },
           {
             "id": "MKS-2",
-            "score": 0.150987,
+            "score": 0.159938,
             "dense_score": 0.5325
           },
           {
+            "id": "RET-6",
+            "score": 0.159637,
+            "dense_score": 0.5809
+          },
+          {
             "id": "DWM-2",
-            "score": 0.141319,
+            "score": 0.148619,
             "dense_score": 0.573
           },
           {
             "id": "RVP-1",
-            "score": 0.138179,
+            "score": 0.142049,
             "dense_score": 0.5503
           },
           {
             "id": "REF-5",
-            "score": 0.135148,
+            "score": 0.141748,
             "dense_score": 0.5897
           },
           {
-            "id": "KB-00.1",
-            "score": 0.087383,
-            "dense_score": 0.0949
+            "id": "REF-4",
+            "score": 0.134991,
+            "dense_score": 0.4527
           },
           {
-            "id": "DEL-3",
-            "score": 0.087382,
-            "dense_score": 0.3803
+            "id": "DEL-4",
+            "score": 0.046856,
+            "dense_score": 0.3188
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 153555.75,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 150.78,
-          "llm_ms": 153556.05
+          "retrieval_ms": 205.7,
+          "llm_ms": 0.0
         },
-        "latency_ms": 153709.72
+        "latency_ms": 207.51
       },
       "checks": {
         "passed": true,
@@ -4100,7 +4163,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 153852.4
+      "latency_ms": 208.3
     },
     {
       "id": "PC010.1",
@@ -4210,10 +4273,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 580.19,
+          "retrieval_ms": 51.23,
           "llm_ms": 0.0
         },
-        "latency_ms": 586.04
+        "latency_ms": 56.18
       },
       "checks": {
         "passed": true,
@@ -4227,20 +4290,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 586.4
+      "latency_ms": 56.4
     },
     {
       "id": "PC010.2",
       "question": "Order number hai 1664 0894.",
       "prediction": {
         "transcript": "Order number hai 1664 0894.",
-        "answer": "Registered phone ke last 4 digits batayein.",
+        "answer": "Ek verification detail dein: registered phone ke last 4 digits ya order ka delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi-en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -4262,6 +4326,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -4290,7 +4364,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.21
+        "latency_ms": 1.78
       },
       "checks": {
         "passed": true,
@@ -4304,7 +4378,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.4
+      "latency_ms": 2.0
     },
     {
       "id": "PC010.3",
@@ -4428,7 +4502,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.61
+        "latency_ms": 3.09
       },
       "checks": {
         "passed": true,
@@ -4442,23 +4516,23 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 1.7
+      "latency_ms": 3.3
     },
     {
       "id": "PC010.4",
       "question": "Mera refund kahan hai?",
       "prediction": {
         "transcript": "Mera refund kahan hai?",
-        "answer": "Refund maximum date 23 July 2026 se 3 business days se zyada overdue hai. Human team ticket chahiye; reference number (RRN) 315633825001 hai. Ticket create ho gaya; human colleague contact karenge.",
+        "answer": "Refund maximum date 23 July 2026 se 3 business days se zyada overdue hai. Human team ticket chahiye; reference number (RRN) 315633825001 hai. Order record mein refund of 2480 rupees 20 July 2026 ko initiated hai. Completion recorded nahi hai; bank credit confirm nahi kar sakti. Ticket create ho gaya; human colleague contact karenge.",
         "intent": "refund",
         "decision": "escalate",
         "language": "hi-en",
         "retrieved_chunk_ids": [
           "REF-2",
-          "KB-00.1",
           "KB-00.3",
           "ESC-1",
-          "REF-6"
+          "REF-6",
+          "ESC-2"
         ],
         "sources": [
           {
@@ -4470,16 +4544,6 @@
             "effective_from": "2026-06-15",
             "version": "2.1",
             "title": "How long refunds take after initiation"
-          },
-          {
-            "id": "KB-00.1",
-            "text": "## [KB-00.1] Which document wins\nWhen two documents disagree, follow this order of precedence:\n\n1. **Policy documents** (doc_type: policy) with status `current`.\n2. **Agent guides** (doc_type: agent_guide).\n3. **Help articles** (doc_type: help).\n4. **FAQs** (doc_type: faq).\n5. **Marketing pages** (doc_type: marketing). These describe benefits in general terms and never override a policy.\n\n\nDocuments marked `status: superseded` are kept for reference only. They apply only to the cases their successor document says they still cover.",
-            "file": "00_about_this_knowledge_base.md",
-            "doc_type": "meta",
-            "status": "current",
-            "effective_from": "2026-08-01",
-            "version": "1.2",
-            "title": "Which document wins"
           },
           {
             "id": "KB-00.3",
@@ -4510,67 +4574,77 @@
             "effective_from": "2026-06-15",
             "version": "2.1",
             "title": "Refund reference number"
+          },
+          {
+            "id": "ESC-2",
+            "text": "## [ESC-2] What to do first\nCreate a ticket with `create_ticket` before handing over. Tell the customer a human colleague will contact them, and never promise an outcome, amount or time beyond what a policy states.",
+            "file": "agent_escalation_handoff.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "2.0",
+            "title": "What to do first"
           }
         ],
         "retrieval_candidates": [
           {
-            "id": "REF-6",
-            "score": 0.179441,
-            "dense_score": 0.5186
-          },
-          {
             "id": "REF-2",
-            "score": 0.178396,
+            "score": 0.189396,
             "dense_score": 0.4594
           },
           {
+            "id": "REF-6",
+            "score": 0.188544,
+            "dense_score": 0.5186
+          },
+          {
             "id": "RET-7",
-            "score": 0.176438,
+            "score": 0.186998,
             "dense_score": 0.5047
           },
           {
             "id": "REF-1",
-            "score": 0.176036,
+            "score": 0.18619,
             "dense_score": 0.5092
           },
           {
             "id": "REF-3",
-            "score": 0.155971,
+            "score": 0.165749,
             "dense_score": 0.4389
           },
           {
-            "id": "REF-5",
-            "score": 0.147864,
-            "dense_score": 0.4892
-          },
-          {
             "id": "PLS-2",
-            "score": 0.145115,
+            "score": 0.154544,
             "dense_score": 0.4042
           },
           {
+            "id": "REF-5",
+            "score": 0.154004,
+            "dense_score": 0.4892
+          },
+          {
             "id": "REF-4",
-            "score": 0.14407,
+            "score": 0.15287,
             "dense_score": 0.4099
           },
           {
             "id": "CAN-2",
-            "score": 0.141222,
+            "score": 0.148987,
             "dense_score": 0.4344
           },
           {
             "id": "DWM-2",
-            "score": 0.131222,
+            "score": 0.138555,
             "dense_score": 0.408
           },
           {
-            "id": "KB-00.1",
-            "score": 0.086611,
-            "dense_score": 0.1275
+            "id": "MKS-2",
+            "score": 0.129541,
+            "dense_score": 0.3793
           },
           {
             "id": "DEL-3",
-            "score": 0.08661,
+            "score": 0.096669,
             "dense_score": 0.3283
           }
         ],
@@ -4578,20 +4652,23 @@
           {
             "name": "create_ticket",
             "arguments": {
-              "summary": "Issue: Mera refund kahan hai?. Intent: refund. Order: 16640894. Checked: REF-2, KB-00.1, KB-00.3, ESC-1, REF-6. Verified caller: True. Escalation reason: refund_overdue. No outcome promised.",
+              "summary": "Issue: Mera refund kahan hai?. Intent: refund. Order: 16640894. Checked: REF-2, KB-00.3, ESC-1, REF-6, ESC-2. Verified caller: True. Escalation reason: refund_overdue. No outcome promised.",
               "order_id": "16640894",
               "reason": "refund_overdue",
               "intent": "refund"
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT90e3674afe524f4b822f7500ca314e92"
+              "ticket_id": "TKT053dab9f2b804ba89389fc0a2cf3877b"
             }
           }
         ],
         "facts": {
           "refund_first": "2026-07-21",
-          "refund_last": "2026-07-23"
+          "refund_last": "2026-07-23",
+          "refund_initiated_on": "2026-07-20",
+          "refund_amount_inr": 2480,
+          "refund_completion_recorded": false
         },
         "verified": true,
         "reference_date": "2026-10-20",
@@ -4602,10 +4679,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 385.74,
+          "retrieval_ms": 210.32,
           "llm_ms": 0.0
         },
-        "latency_ms": 389.66
+        "latency_ms": 214.69
       },
       "checks": {
         "passed": true,
@@ -4619,7 +4696,7 @@
         "evidence_total": 3,
         "evidence_recall": 1.0
       },
-      "latency_ms": 390.4
+      "latency_ms": 216.1
     },
     {
       "id": "PC011.1",
@@ -4633,7 +4710,8 @@
         "retrieved_chunk_ids": [
           "STY-1",
           "IDV-1",
-          "STY-5"
+          "STY-5",
+          "IDV-2"
         ],
         "sources": [
           {
@@ -4665,67 +4743,77 @@
             "effective_from": "2026-07-01",
             "version": "1.1",
             "title": "One question at a time"
+          },
+          {
+            "id": "IDV-2",
+            "text": "## [IDV-2] How to verify\nAsk for the order ID, then ask for **one** of: the last 4 digits of the registered phone number, or the delivery pincode for that order. Compare with the `phone_last4` or `delivery_pincode` fields from order lookup.",
+            "file": "agent_identity_verification.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.2",
+            "title": "How to verify"
           }
         ],
         "retrieval_candidates": [
           {
             "id": "CAN-2",
-            "score": 0.153608,
+            "score": 0.160377,
             "dense_score": 0.3828
           },
           {
             "id": "CAN-3",
-            "score": 0.138018,
+            "score": 0.145782,
             "dense_score": 0.3523
           },
           {
             "id": "DEL-2",
-            "score": 0.132436,
+            "score": 0.143436,
             "dense_score": 0.2528
           },
           {
             "id": "DEL-5",
-            "score": 0.114005,
+            "score": 0.122805,
             "dense_score": 0.1955
           },
           {
             "id": "DEL-1",
-            "score": 0.114004,
+            "score": 0.122804,
             "dense_score": 0.3219
           },
           {
-            "id": "CAN-1",
-            "score": 0.114003,
-            "dense_score": 0.3535
-          },
-          {
             "id": "DEL-4",
-            "score": 0.114002,
+            "score": 0.122803,
             "dense_score": 0.3714
           },
           {
             "id": "TRK-1",
-            "score": 0.114001,
+            "score": 0.122802,
             "dense_score": 0.4261
           },
           {
             "id": "TRK-2",
-            "score": 0.114,
+            "score": 0.122801,
             "dense_score": 0.4018
           },
           {
+            "id": "DEL-6",
+            "score": 0.1228,
+            "dense_score": 0.3049
+          },
+          {
+            "id": "CAN-1",
+            "score": 0.122799,
+            "dense_score": 0.3535
+          },
+          {
             "id": "REF-1",
-            "score": 0.103141,
+            "score": 0.10958,
             "dense_score": 0.3378
           },
           {
-            "id": "KB-00.1",
-            "score": 0.02709,
-            "dense_score": 0.1374
-          },
-          {
             "id": "PLS-2",
-            "score": 0.027089,
+            "score": 0.107878,
             "dense_score": 0.2562
           }
         ],
@@ -4740,10 +4828,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 95.25,
+          "retrieval_ms": 82.67,
           "llm_ms": 0.0
         },
-        "latency_ms": 98.52
+        "latency_ms": 86.62
       },
       "checks": {
         "passed": true,
@@ -4757,20 +4845,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 98.7
+      "latency_ms": 86.8
     },
     {
       "id": "PC011.2",
       "question": "The order number is 2629 5015.",
       "prediction": {
         "transcript": "The order number is 2629 5015.",
-        "answer": "Please provide the last 4 digits of your registered phone.",
+        "answer": "Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -4792,6 +4881,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -4820,7 +4919,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.26
+        "latency_ms": 3.35
       },
       "checks": {
         "passed": true,
@@ -4834,7 +4933,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 4.4
+      "latency_ms": 3.8
     },
     {
       "id": "PC011.3",
@@ -4885,63 +4984,63 @@
         "retrieval_candidates": [
           {
             "id": "DEL-1",
-            "score": 0.187152,
+            "score": 0.196423,
             "dense_score": 0.7021
           },
           {
             "id": "DEL-4",
-            "score": 0.172225,
+            "score": 0.180687,
             "dense_score": 0.5776
           },
           {
             "id": "CAN-3",
-            "score": 0.15377,
+            "score": 0.16217,
             "dense_score": 0.5745
           },
           {
             "id": "DEL-5",
-            "score": 0.136052,
+            "score": 0.144361,
             "dense_score": 0.3494
           },
           {
             "id": "DEL-2",
-            "score": 0.136051,
+            "score": 0.14436,
             "dense_score": 0.5419
           },
           {
-            "id": "TRK-2",
-            "score": 0.13605,
-            "dense_score": 0.5401
-          },
-          {
             "id": "TRK-1",
-            "score": 0.136049,
+            "score": 0.144359,
             "dense_score": 0.492
           },
           {
+            "id": "TRK-2",
+            "score": 0.144358,
+            "dense_score": 0.5401
+          },
+          {
             "id": "CAN-2",
-            "score": 0.136048,
+            "score": 0.144119,
             "dense_score": 0.49
           },
           {
             "id": "DEL-6",
-            "score": 0.129979,
+            "score": 0.136672,
             "dense_score": 0.4584
           },
           {
             "id": "KB-00.3",
-            "score": 0.074938,
+            "score": 0.07712,
             "dense_score": 0.3165
           },
           {
-            "id": "KB-00.1",
-            "score": 0.043421,
-            "dense_score": 0.0828
+            "id": "PAY-2",
+            "score": 0.077119,
+            "dense_score": 0.3425
           },
           {
-            "id": "PAY-2",
-            "score": 0.04342,
-            "dense_score": 0.3425
+            "id": "PLS-2",
+            "score": 0.077118,
+            "dense_score": 0.3104
           }
         ],
         "tool_calls": [
@@ -5034,22 +5133,17 @@
         },
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20026.42,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 196.74,
-          "llm_ms": 20028.48
+          "retrieval_ms": 89.57,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20228.67
+        "latency_ms": 92.11
       },
       "checks": {
         "passed": true,
@@ -5063,14 +5157,14 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 20229.2
+      "latency_ms": 92.4
     },
     {
       "id": "PC011.4",
       "question": "And what if I'm not at home?",
       "prediction": {
         "transcript": "And what if I'm not at home?",
-        "answer": "If you're not at home, the courier will attempt to deliver the parcel up to three times. If the third attempt fails, the parcel is returned to the warehouse. A refund will only start once the parcel reaches the warehouse, typically 7 to 10 calendar days after the last delivery attempt.",
+        "answer": "The courier makes up to 3 delivery attempts; after a missed attempt, use the SMS to reschedule. After the third failed attempt the parcel returns to the warehouse; a prepaid refund starts only when it reaches the warehouse, usually 7 to 10 calendar days after the last attempt.",
         "intent": "attempts",
         "decision": "answer",
         "language": "en",
@@ -5103,62 +5197,62 @@
         "retrieval_candidates": [
           {
             "id": "DEL-3",
-            "score": 0.121183,
+            "score": 0.132183,
             "dense_score": 0.1602
           },
           {
             "id": "REF-1",
-            "score": 0.103902,
+            "score": 0.113005,
             "dense_score": 0.1285
           },
           {
-            "id": "DEL-1",
-            "score": 0.089747,
-            "dense_score": 0.1344
-          },
-          {
             "id": "TRK-1",
-            "score": 0.089202,
+            "score": 0.098433,
             "dense_score": 0.0498
           },
           {
+            "id": "DEL-1",
+            "score": 0.097997,
+            "dense_score": 0.1344
+          },
+          {
             "id": "TRK-2",
-            "score": 0.089157,
+            "score": 0.097729,
             "dense_score": 0.1673
           },
           {
             "id": "CAN-3",
-            "score": 0.088465,
+            "score": 0.096981,
             "dense_score": 0.085
           },
           {
             "id": "DEL-4",
-            "score": 0.08489,
+            "score": 0.09289,
             "dense_score": 0.0715
           },
           {
             "id": "RVP-3",
-            "score": 0.082961,
+            "score": 0.09185,
             "dense_score": 0.1711
           },
           {
             "id": "IDV-3",
-            "score": 0.082262,
+            "score": 0.089744,
             "dense_score": 0.0158
           },
           {
             "id": "TRB-4",
-            "score": 0.08017,
+            "score": 0.086836,
             "dense_score": 0.176
           },
           {
             "id": "DEL-5",
-            "score": 0.07766,
+            "score": 0.085202,
             "dense_score": 0.0501
           },
           {
             "id": "PLS-2",
-            "score": 0.053587,
+            "score": 0.059326,
             "dense_score": 0.0786
           }
         ],
@@ -5166,28 +5260,17 @@
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 13229.55,
-          "load_ms": 1661.65,
-          "prompt_eval_ms": 993.28,
-          "eval_ms": 9886.25,
-          "prompt_eval_count": 470,
-          "eval_count": 69,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 192.75,
-          "llm_ms": 13232.73
+          "retrieval_ms": 57.88,
+          "llm_ms": 0.0
         },
-        "latency_ms": 13427.96
+        "latency_ms": 59.45
       },
       "checks": {
         "passed": true,
@@ -5201,21 +5284,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 13428.2,
-      "checks_before_number_normalization": {
-        "passed": false,
-        "decision_ok": true,
-        "missing_facts": [
-          "3"
-        ],
-        "forbidden_claims": [],
-        "tools_ok": true,
-        "search_hits": 1,
-        "search_total": 1,
-        "evidence_hits": 1,
-        "evidence_total": 1,
-        "evidence_recall": 1.0
-      }
+      "latency_ms": 60.1
     },
     {
       "id": "PC012.1",
@@ -5229,7 +5298,8 @@
         "retrieved_chunk_ids": [
           "STY-1",
           "IDV-1",
-          "STY-5"
+          "STY-5",
+          "IDV-2"
         ],
         "sources": [
           {
@@ -5261,67 +5331,77 @@
             "effective_from": "2026-07-01",
             "version": "1.1",
             "title": "One question at a time"
+          },
+          {
+            "id": "IDV-2",
+            "text": "## [IDV-2] How to verify\nAsk for the order ID, then ask for **one** of: the last 4 digits of the registered phone number, or the delivery pincode for that order. Compare with the `phone_last4` or `delivery_pincode` fields from order lookup.",
+            "file": "agent_identity_verification.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.2",
+            "title": "How to verify"
           }
         ],
         "retrieval_candidates": [
           {
             "id": "CAN-2",
-            "score": 0.153608,
+            "score": 0.160377,
             "dense_score": 0.3828
           },
           {
             "id": "CAN-3",
-            "score": 0.138018,
+            "score": 0.145782,
             "dense_score": 0.3523
           },
           {
             "id": "DEL-2",
-            "score": 0.132436,
+            "score": 0.143436,
             "dense_score": 0.2528
           },
           {
             "id": "DEL-5",
-            "score": 0.114005,
+            "score": 0.122805,
             "dense_score": 0.1955
           },
           {
             "id": "DEL-1",
-            "score": 0.114004,
+            "score": 0.122804,
             "dense_score": 0.3219
           },
           {
-            "id": "CAN-1",
-            "score": 0.114003,
-            "dense_score": 0.3535
-          },
-          {
             "id": "DEL-4",
-            "score": 0.114002,
+            "score": 0.122803,
             "dense_score": 0.3714
           },
           {
             "id": "TRK-1",
-            "score": 0.114001,
+            "score": 0.122802,
             "dense_score": 0.4261
           },
           {
             "id": "TRK-2",
-            "score": 0.114,
+            "score": 0.122801,
             "dense_score": 0.4018
           },
           {
+            "id": "DEL-6",
+            "score": 0.1228,
+            "dense_score": 0.3049
+          },
+          {
+            "id": "CAN-1",
+            "score": 0.122799,
+            "dense_score": 0.3535
+          },
+          {
             "id": "REF-1",
-            "score": 0.103141,
+            "score": 0.10958,
             "dense_score": 0.3378
           },
           {
-            "id": "KB-00.1",
-            "score": 0.02709,
-            "dense_score": 0.1374
-          },
-          {
             "id": "PLS-2",
-            "score": 0.027089,
+            "score": 0.107878,
             "dense_score": 0.2562
           }
         ],
@@ -5336,10 +5416,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 132.29,
+          "retrieval_ms": 57.36,
           "llm_ms": 0.0
         },
-        "latency_ms": 134.28
+        "latency_ms": 63.64
       },
       "checks": {
         "passed": true,
@@ -5353,20 +5433,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 134.4
+      "latency_ms": 63.9
     },
     {
       "id": "PC012.2",
       "question": "The order number is 7544 7568.",
       "prediction": {
         "transcript": "The order number is 7544 7568.",
-        "answer": "Please provide the last 4 digits of your registered phone.",
+        "answer": "Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -5388,6 +5469,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -5416,7 +5507,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.91
+        "latency_ms": 1.97
       },
       "checks": {
         "passed": true,
@@ -5430,7 +5521,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.1
+      "latency_ms": 2.2
     },
     {
       "id": "PC012.3",
@@ -5481,63 +5572,63 @@
         "retrieval_candidates": [
           {
             "id": "DEL-1",
-            "score": 0.187152,
+            "score": 0.196423,
             "dense_score": 0.7021
           },
           {
             "id": "DEL-4",
-            "score": 0.172225,
+            "score": 0.180687,
             "dense_score": 0.5776
           },
           {
             "id": "CAN-3",
-            "score": 0.15377,
+            "score": 0.16217,
             "dense_score": 0.5745
           },
           {
             "id": "DEL-5",
-            "score": 0.136052,
+            "score": 0.144361,
             "dense_score": 0.3494
           },
           {
             "id": "DEL-2",
-            "score": 0.136051,
+            "score": 0.14436,
             "dense_score": 0.5419
           },
           {
-            "id": "TRK-2",
-            "score": 0.13605,
-            "dense_score": 0.5401
-          },
-          {
             "id": "TRK-1",
-            "score": 0.136049,
+            "score": 0.144359,
             "dense_score": 0.492
           },
           {
+            "id": "TRK-2",
+            "score": 0.144358,
+            "dense_score": 0.5401
+          },
+          {
             "id": "CAN-2",
-            "score": 0.136048,
+            "score": 0.144119,
             "dense_score": 0.49
           },
           {
             "id": "DEL-6",
-            "score": 0.129979,
+            "score": 0.136672,
             "dense_score": 0.4584
           },
           {
             "id": "KB-00.3",
-            "score": 0.074938,
+            "score": 0.07712,
             "dense_score": 0.3165
           },
           {
-            "id": "KB-00.1",
-            "score": 0.043421,
-            "dense_score": 0.0828
+            "id": "PAY-2",
+            "score": 0.077119,
+            "dense_score": 0.3425
           },
           {
-            "id": "PAY-2",
-            "score": 0.04342,
-            "dense_score": 0.3425
+            "id": "PLS-2",
+            "score": 0.077118,
+            "dense_score": 0.3104
           }
         ],
         "tool_calls": [
@@ -5630,28 +5721,17 @@
         },
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_action",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 12455.86,
-          "load_ms": 241.88,
-          "prompt_eval_ms": 2533.38,
-          "eval_ms": 9349.5,
-          "prompt_eval_count": 545,
-          "eval_count": 61,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 71.76,
-          "llm_ms": 12458.53
+          "retrieval_ms": 70.0,
+          "llm_ms": 0.0
         },
-        "latency_ms": 12536.17
+        "latency_ms": 71.88
       },
       "checks": {
         "passed": true,
@@ -5665,14 +5745,14 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 12536.4
+      "latency_ms": 72.2
     },
     {
       "id": "PC012.4",
       "question": "And what if I'm not at home?",
       "prediction": {
         "transcript": "And what if I'm not at home?",
-        "answer": "If you're not at home, the courier will attempt to deliver the parcel up to three times. If the third attempt fails, the parcel is returned to the warehouse. A refund will only start once the parcel reaches the warehouse, typically 7 to 10 calendar days after the last delivery attempt.",
+        "answer": "The courier makes up to 3 delivery attempts; after a missed attempt, use the SMS to reschedule. After the third failed attempt the parcel returns to the warehouse; a prepaid refund starts only when it reaches the warehouse, usually 7 to 10 calendar days after the last attempt.",
         "intent": "attempts",
         "decision": "answer",
         "language": "en",
@@ -5705,62 +5785,62 @@
         "retrieval_candidates": [
           {
             "id": "DEL-3",
-            "score": 0.121183,
+            "score": 0.132183,
             "dense_score": 0.1602
           },
           {
             "id": "REF-1",
-            "score": 0.103902,
+            "score": 0.113005,
             "dense_score": 0.1285
           },
           {
-            "id": "DEL-1",
-            "score": 0.089747,
-            "dense_score": 0.1344
-          },
-          {
             "id": "TRK-1",
-            "score": 0.089202,
+            "score": 0.098433,
             "dense_score": 0.0498
           },
           {
+            "id": "DEL-1",
+            "score": 0.097997,
+            "dense_score": 0.1344
+          },
+          {
             "id": "TRK-2",
-            "score": 0.089157,
+            "score": 0.097729,
             "dense_score": 0.1673
           },
           {
             "id": "CAN-3",
-            "score": 0.088465,
+            "score": 0.096981,
             "dense_score": 0.085
           },
           {
             "id": "DEL-4",
-            "score": 0.08489,
+            "score": 0.09289,
             "dense_score": 0.0715
           },
           {
             "id": "RVP-3",
-            "score": 0.082961,
+            "score": 0.09185,
             "dense_score": 0.1711
           },
           {
             "id": "IDV-3",
-            "score": 0.082262,
+            "score": 0.089744,
             "dense_score": 0.0158
           },
           {
             "id": "TRB-4",
-            "score": 0.08017,
+            "score": 0.086836,
             "dense_score": 0.176
           },
           {
             "id": "DEL-5",
-            "score": 0.07766,
+            "score": 0.085202,
             "dense_score": 0.0501
           },
           {
             "id": "PLS-2",
-            "score": 0.053587,
+            "score": 0.059326,
             "dense_score": 0.0786
           }
         ],
@@ -5768,28 +5848,17 @@
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 10596.63,
-          "load_ms": 230.63,
-          "prompt_eval_ms": 145.44,
-          "eval_ms": 9955.49,
-          "prompt_eval_count": 470,
-          "eval_count": 69,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 122.07,
-          "llm_ms": 10599.97
+          "retrieval_ms": 52.97,
+          "llm_ms": 0.0
         },
-        "latency_ms": 10724.02
+        "latency_ms": 54.44
       },
       "checks": {
         "passed": true,
@@ -5803,21 +5872,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 10724.3,
-      "checks_before_number_normalization": {
-        "passed": false,
-        "decision_ok": true,
-        "missing_facts": [
-          "3"
-        ],
-        "forbidden_claims": [],
-        "tools_ok": true,
-        "search_hits": 1,
-        "search_total": 1,
-        "evidence_hits": 1,
-        "evidence_total": 1,
-        "evidence_recall": 1.0
-      }
+      "latency_ms": 54.7
     },
     {
       "id": "PC013.1",
@@ -5927,10 +5982,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 42.73,
+          "retrieval_ms": 34.84,
           "llm_ms": 0.0
         },
-        "latency_ms": 48.14
+        "latency_ms": 40.27
       },
       "checks": {
         "passed": true,
@@ -5944,20 +5999,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 48.3
+      "latency_ms": 40.5
     },
     {
       "id": "PC013.2",
       "question": "Order number hai 8615 2121.",
       "prediction": {
         "transcript": "Order number hai 8615 2121.",
-        "answer": "Registered phone ke last 4 digits batayein.",
+        "answer": "Ek verification detail dein: registered phone ke last 4 digits ya order ka delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi-en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -5979,6 +6035,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -6007,7 +6073,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.37
+        "latency_ms": 3.59
       },
       "checks": {
         "passed": true,
@@ -6021,7 +6087,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.8
+      "latency_ms": 4.0
     },
     {
       "id": "PC013.3",
@@ -6136,7 +6202,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.35
+        "latency_ms": 2.88
       },
       "checks": {
         "passed": true,
@@ -6150,7 +6216,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.5
+      "latency_ms": 3.1
     },
     {
       "id": "PC013.4",
@@ -6179,85 +6245,80 @@
         "retrieval_candidates": [
           {
             "id": "CPN-1",
-            "score": 0.133833,
+            "score": 0.144833,
             "dense_score": 0.4716
           },
           {
             "id": "CPN-2",
-            "score": 0.125688,
+            "score": 0.135842,
             "dense_score": 0.4228
           },
           {
             "id": "REF-4",
-            "score": 0.122667,
+            "score": 0.133227,
             "dense_score": 0.3588
           },
           {
             "id": "CPN-3",
-            "score": 0.120953,
+            "score": 0.130731,
             "dense_score": 0.3881
           },
           {
             "id": "CAN-4",
-            "score": 0.109067,
+            "score": 0.118496,
             "dense_score": 0.2722
           },
           {
             "id": "CAN-2",
-            "score": 0.097706,
+            "score": 0.106506,
             "dense_score": 0.2699
           },
           {
             "id": "CAN-1",
-            "score": 0.092005,
+            "score": 0.101108,
             "dense_score": 0.2177
           },
           {
             "id": "TRK-1",
-            "score": 0.089896,
+            "score": 0.097396,
             "dense_score": 0.3075
           },
           {
             "id": "MKS-1",
-            "score": 0.086048,
+            "score": 0.094565,
             "dense_score": 0.2086
           },
           {
             "id": "IDV-2",
-            "score": 0.082732,
+            "score": 0.090441,
             "dense_score": 0.2371
           },
           {
             "id": "FAQ-3",
-            "score": 0.081214,
+            "score": 0.087547,
             "dense_score": 0.3432
           },
           {
-            "id": "KB-00.1",
-            "score": 0.064313,
-            "dense_score": 0.2709
+            "id": "ESC-3",
+            "score": 0.085913,
+            "dense_score": 0.2918
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20048.88,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 42.59,
-          "llm_ms": 20048.99
+          "retrieval_ms": 156.16,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20093.61
+        "latency_ms": 165.23
       },
       "checks": {
         "passed": true,
@@ -6271,7 +6332,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 20093.8
+      "latency_ms": 165.6
     },
     {
       "id": "PC013.5",
@@ -6300,62 +6361,62 @@
         "retrieval_candidates": [
           {
             "id": "DEL-1",
-            "score": 0.189072,
+            "score": 0.199361,
             "dense_score": 0.6823
           },
           {
             "id": "DEL-6",
-            "score": 0.166701,
+            "score": 0.172474,
             "dense_score": 0.5055
           },
           {
-            "id": "DEL-4",
-            "score": 0.161327,
-            "dense_score": 0.4378
-          },
-          {
             "id": "CAN-2",
-            "score": 0.16035,
+            "score": 0.166869,
             "dense_score": 0.4934
           },
           {
+            "id": "DEL-4",
+            "score": 0.166858,
+            "dense_score": 0.4378
+          },
+          {
             "id": "TRK-1",
-            "score": 0.151294,
+            "score": 0.157052,
             "dense_score": 0.4922
           },
           {
-            "id": "TRK-2",
-            "score": 0.14315,
-            "dense_score": 0.4683
-          },
-          {
             "id": "CAN-1",
-            "score": 0.141818,
+            "score": 0.148373,
             "dense_score": 0.4095
           },
           {
+            "id": "TRK-2",
+            "score": 0.147546,
+            "dense_score": 0.4683
+          },
+          {
             "id": "DEL-2",
-            "score": 0.140625,
+            "score": 0.145978,
             "dense_score": 0.4277
           },
           {
-            "id": "KB-00.2",
-            "score": 0.137023,
-            "dense_score": 0.3958
-          },
-          {
             "id": "KB-00.3",
-            "score": 0.092384,
+            "score": 0.098105,
             "dense_score": 0.3399
           },
           {
-            "id": "KB-00.1",
-            "score": 0.039163,
-            "dense_score": 0.1197
+            "id": "RET-7",
+            "score": 0.081286,
+            "dense_score": 0.3062
+          },
+          {
+            "id": "REF-1",
+            "score": 0.081285,
+            "dense_score": 0.386
           },
           {
             "id": "PLS-2",
-            "score": 0.030768,
+            "score": 0.037101,
             "dense_score": 0.1545
           }
         ],
@@ -6365,28 +6426,17 @@
         },
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "omitted_numeric_constraint",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 16570.54,
-          "load_ms": 82.79,
-          "prompt_eval_ms": 7720.88,
-          "eval_ms": 8554.36,
-          "prompt_eval_count": 403,
-          "eval_count": 58,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 197.4,
-          "llm_ms": 16572.49
+          "retrieval_ms": 133.27,
+          "llm_ms": 0.0
         },
-        "latency_ms": 16781.96
+        "latency_ms": 135.67
       },
       "checks": {
         "passed": true,
@@ -6400,7 +6450,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 16782.4
+      "latency_ms": 136.0
     },
     {
       "id": "PC014.1",
@@ -6484,14 +6534,14 @@
             "dense_score": 0.3373
           },
           {
+            "id": "FAQ-3",
+            "score": 0.082828,
+            "dense_score": 0.3333
+          },
+          {
             "id": "REF-1",
             "score": 0.065132,
             "dense_score": 0.2647
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.061111,
-            "dense_score": 0.1906
           },
           {
             "id": "DEL-3",
@@ -6510,10 +6560,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 39.03,
+          "retrieval_ms": 67.55,
           "llm_ms": 0.0
         },
-        "latency_ms": 41.21
+        "latency_ms": 138.62
       },
       "checks": {
         "passed": true,
@@ -6527,20 +6577,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 41.4
+      "latency_ms": 147.5
     },
     {
       "id": "PC014.2",
       "question": "The order number is 1004 8947.",
       "prediction": {
         "transcript": "The order number is 1004 8947.",
-        "answer": "Please provide the last 4 digits of your registered phone.",
+        "answer": "Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -6562,6 +6613,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -6590,7 +6651,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.86
+        "latency_ms": 6.58
       },
       "checks": {
         "passed": true,
@@ -6604,7 +6665,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 4.2
+      "latency_ms": 7.7
     },
     {
       "id": "PC014.3",
@@ -6719,7 +6780,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.12
+        "latency_ms": 2.84
       },
       "checks": {
         "passed": true,
@@ -6733,7 +6794,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.2
+      "latency_ms": 3.1
     },
     {
       "id": "PC014.4",
@@ -6762,91 +6823,80 @@
         "retrieval_candidates": [
           {
             "id": "CPN-1",
-            "score": 0.133833,
+            "score": 0.144833,
             "dense_score": 0.7436
           },
           {
             "id": "REF-4",
-            "score": 0.126143,
+            "score": 0.136703,
             "dense_score": 0.5127
           },
           {
             "id": "CPN-2",
-            "score": 0.125688,
+            "score": 0.135842,
             "dense_score": 0.5583
           },
           {
             "id": "CPN-3",
-            "score": 0.11675,
+            "score": 0.126179,
             "dense_score": 0.4155
           },
           {
             "id": "CAN-4",
-            "score": 0.095622,
+            "score": 0.103872,
             "dense_score": 0.3208
           },
           {
             "id": "RVP-2",
-            "score": 0.091374,
+            "score": 0.100263,
             "dense_score": 0.3189
           },
           {
             "id": "CAN-2",
-            "score": 0.088996,
+            "score": 0.095596,
             "dense_score": 0.3745
           },
           {
             "id": "STY-2",
-            "score": 0.085389,
+            "score": 0.093869,
             "dense_score": 0.2973
           },
           {
             "id": "STY-5",
-            "score": 0.084212,
+            "score": 0.092985,
             "dense_score": 0.2713
           },
           {
             "id": "CAN-3",
-            "score": 0.08114,
+            "score": 0.087006,
             "dense_score": 0.3636
           },
           {
             "id": "DEL-1",
-            "score": 0.078211,
+            "score": 0.085754,
             "dense_score": 0.2913
           },
           {
-            "id": "KB-00.1",
-            "score": 0.06,
-            "dense_score": 0.2263
+            "id": "RET-9",
+            "score": 0.084083,
+            "dense_score": 0.2383
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_number",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 7363.47,
-          "load_ms": 37.35,
-          "prompt_eval_ms": 1910.66,
-          "eval_ms": 5273.54,
-          "prompt_eval_count": 291,
-          "eval_count": 41,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 28.96,
-          "llm_ms": 7364.47
+          "retrieval_ms": 97.8,
+          "llm_ms": 0.0
         },
-        "latency_ms": 7395.48
+        "latency_ms": 99.69
       },
       "checks": {
         "passed": true,
@@ -6860,7 +6910,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 7395.7
+      "latency_ms": 100.0
     },
     {
       "id": "PC014.5",
@@ -6889,63 +6939,63 @@
         "retrieval_candidates": [
           {
             "id": "DEL-1",
-            "score": 0.18788,
+            "score": 0.197927,
             "dense_score": 0.7345
           },
           {
             "id": "DEL-4",
-            "score": 0.170167,
+            "score": 0.175647,
             "dense_score": 0.5178
           },
           {
             "id": "CAN-2",
-            "score": 0.164837,
+            "score": 0.171131,
             "dense_score": 0.5186
           },
           {
             "id": "TRK-1",
-            "score": 0.154235,
+            "score": 0.160901,
             "dense_score": 0.4988
           },
           {
             "id": "DEL-6",
-            "score": 0.154234,
+            "score": 0.1609,
             "dense_score": 0.4746
           },
           {
             "id": "TRK-2",
-            "score": 0.150312,
+            "score": 0.154678,
             "dense_score": 0.5408
           },
           {
-            "id": "KB-00.2",
-            "score": 0.137608,
-            "dense_score": 0.4353
-          },
-          {
             "id": "CAN-3",
-            "score": 0.137335,
+            "score": 0.145727,
             "dense_score": 0.4726
           },
           {
-            "id": "CAN-1",
-            "score": 0.137225,
-            "dense_score": 0.4218
-          },
-          {
-            "id": "REF-1",
-            "score": 0.128074,
-            "dense_score": 0.5138
+            "id": "KB-00.2",
+            "score": 0.144896,
+            "dense_score": 0.4353
           },
           {
             "id": "KB-00.3",
-            "score": 0.087561,
+            "score": 0.093242,
             "dense_score": 0.3288
           },
           {
-            "id": "KB-00.1",
-            "score": 0.0377,
-            "dense_score": 0.0476
+            "id": "CAN-1",
+            "score": 0.093241,
+            "dense_score": 0.4218
+          },
+          {
+            "id": "RET-7",
+            "score": 0.09324,
+            "dense_score": 0.4615
+          },
+          {
+            "id": "REF-1",
+            "score": 0.093239,
+            "dense_score": 0.5138
           }
         ],
         "tool_calls": [],
@@ -6954,28 +7004,17 @@
         },
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_number",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 5741.88,
-          "load_ms": 37.8,
-          "prompt_eval_ms": 2234.3,
-          "eval_ms": 3328.3,
-          "prompt_eval_count": 402,
-          "eval_count": 21,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 137.62,
-          "llm_ms": 5742.98
+          "retrieval_ms": 273.18,
+          "llm_ms": 0.0
         },
-        "latency_ms": 5882.74
+        "latency_ms": 275.34
       },
       "checks": {
         "passed": true,
@@ -6989,7 +7028,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5883.0
+      "latency_ms": 275.7
     },
     {
       "id": "PC015.1",
@@ -7099,10 +7138,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 51.49,
+          "retrieval_ms": 73.49,
           "llm_ms": 0.0
         },
-        "latency_ms": 54.36
+        "latency_ms": 77.06
       },
       "checks": {
         "passed": true,
@@ -7116,20 +7155,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 54.5
+      "latency_ms": 77.3
     },
     {
       "id": "PC015.2",
       "question": "Order number hai 8488 9113.",
       "prediction": {
         "transcript": "Order number hai 8488 9113.",
-        "answer": "Registered phone ke last 4 digits batayein.",
+        "answer": "Ek verification detail dein: registered phone ke last 4 digits ya order ka delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi-en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -7151,6 +7191,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -7179,7 +7229,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 7.47
+        "latency_ms": 3.24
       },
       "checks": {
         "passed": true,
@@ -7193,7 +7243,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 7.6
+      "latency_ms": 3.6
     },
     {
       "id": "PC015.3",
@@ -7326,7 +7376,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.88
+        "latency_ms": 3.19
       },
       "checks": {
         "passed": true,
@@ -7340,7 +7390,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.4
+      "latency_ms": 3.4
     },
     {
       "id": "PC015.4",
@@ -7380,62 +7430,62 @@
         "retrieval_candidates": [
           {
             "id": "DEL-4",
-            "score": 0.187071,
+            "score": 0.198071,
             "dense_score": 0.4504
           },
           {
             "id": "DEL-2",
-            "score": 0.149882,
+            "score": 0.160442,
             "dense_score": 0.4126
           },
           {
             "id": "DEL-1",
-            "score": 0.144006,
+            "score": 0.153784,
             "dense_score": 0.4156
           },
           {
             "id": "CAN-2",
-            "score": 0.137178,
+            "score": 0.145694,
             "dense_score": 0.4066
           },
           {
             "id": "REF-5",
-            "score": 0.134751,
+            "score": 0.143001,
             "dense_score": 0.4068
           },
           {
             "id": "PAY-3",
-            "score": 0.126583,
+            "score": 0.131057,
             "dense_score": 0.4175
           },
           {
             "id": "PAY-2",
-            "score": 0.120154,
+            "score": 0.127697,
             "dense_score": 0.36
           },
           {
             "id": "CAN-1",
-            "score": 0.116752,
+            "score": 0.123352,
             "dense_score": 0.3503
           },
           {
+            "id": "RET-8",
+            "score": 0.118639,
+            "dense_score": 0.4075
+          },
+          {
             "id": "REF-4",
-            "score": 0.113053,
+            "score": 0.118333,
             "dense_score": 0.4142
           },
           {
-            "id": "KB-00.1",
-            "score": 0.027706,
-            "dense_score": 0.1283
-          },
-          {
             "id": "PLS-2",
-            "score": 0.027705,
+            "score": 0.098697,
             "dense_score": 0.3104
           },
           {
             "id": "PAY-4",
-            "score": 0.027704,
+            "score": 0.066629,
             "dense_score": 0.2634
           }
         ],
@@ -7450,10 +7500,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 57.3,
+          "retrieval_ms": 81.01,
           "llm_ms": 0.0
         },
-        "latency_ms": 59.7
+        "latency_ms": 84.72
       },
       "checks": {
         "passed": true,
@@ -7467,7 +7517,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 60.5
+      "latency_ms": 87.1
     },
     {
       "id": "PC016.1",
@@ -7577,10 +7627,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 36.21,
+          "retrieval_ms": 40.4,
           "llm_ms": 0.0
         },
-        "latency_ms": 38.2
+        "latency_ms": 45.06
       },
       "checks": {
         "passed": true,
@@ -7594,20 +7644,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 38.3
+      "latency_ms": 45.4
     },
     {
       "id": "PC016.2",
       "question": "Order number hai 3117 1629.",
       "prediction": {
         "transcript": "Order number hai 3117 1629.",
-        "answer": "Registered phone ke last 4 digits batayein.",
+        "answer": "Ek verification detail dein: registered phone ke last 4 digits ya order ka delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi-en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -7629,6 +7680,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -7657,7 +7718,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.35
+        "latency_ms": 6.54
       },
       "checks": {
         "passed": true,
@@ -7671,7 +7732,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 3.5
+      "latency_ms": 7.0
     },
     {
       "id": "PC016.3",
@@ -7786,7 +7847,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.47
+        "latency_ms": 4.27
       },
       "checks": {
         "passed": true,
@@ -7800,7 +7861,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 3.6
+      "latency_ms": 4.7
     },
     {
       "id": "PC016.4",
@@ -7840,62 +7901,62 @@
         "retrieval_candidates": [
           {
             "id": "DEL-4",
-            "score": 0.187071,
+            "score": 0.198071,
             "dense_score": 0.4504
           },
           {
             "id": "DEL-2",
-            "score": 0.149882,
+            "score": 0.160442,
             "dense_score": 0.4126
           },
           {
             "id": "DEL-1",
-            "score": 0.144006,
+            "score": 0.153784,
             "dense_score": 0.4156
           },
           {
             "id": "CAN-2",
-            "score": 0.137178,
+            "score": 0.145694,
             "dense_score": 0.4066
           },
           {
             "id": "REF-5",
-            "score": 0.134751,
+            "score": 0.143001,
             "dense_score": 0.4068
           },
           {
             "id": "PAY-3",
-            "score": 0.126583,
+            "score": 0.131057,
             "dense_score": 0.4175
           },
           {
             "id": "PAY-2",
-            "score": 0.120154,
+            "score": 0.127697,
             "dense_score": 0.36
           },
           {
             "id": "CAN-1",
-            "score": 0.116752,
+            "score": 0.123352,
             "dense_score": 0.3503
           },
           {
+            "id": "RET-8",
+            "score": 0.118639,
+            "dense_score": 0.4075
+          },
+          {
             "id": "REF-4",
-            "score": 0.113053,
+            "score": 0.118333,
             "dense_score": 0.4142
           },
           {
-            "id": "KB-00.1",
-            "score": 0.027706,
-            "dense_score": 0.1283
-          },
-          {
             "id": "PLS-2",
-            "score": 0.027705,
+            "score": 0.098697,
             "dense_score": 0.3104
           },
           {
             "id": "PAY-4",
-            "score": 0.027704,
+            "score": 0.066629,
             "dense_score": 0.2634
           }
         ],
@@ -7910,10 +7971,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 68.69,
+          "retrieval_ms": 87.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 72.62
+        "latency_ms": 90.94
       },
       "checks": {
         "passed": true,
@@ -7927,7 +7988,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 73.4
+      "latency_ms": 92.3
     },
     {
       "id": "PC017.1",
@@ -8037,10 +8098,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 36.54,
+          "retrieval_ms": 70.75,
           "llm_ms": 0.0
         },
-        "latency_ms": 38.77
+        "latency_ms": 232.67
       },
       "checks": {
         "passed": true,
@@ -8054,20 +8115,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 38.9
+      "latency_ms": 233.0
     },
     {
       "id": "PC017.2",
       "question": "Order number hai 3506 1733.",
       "prediction": {
         "transcript": "Order number hai 3506 1733.",
-        "answer": "Registered phone ke last 4 digits batayein.",
+        "answer": "Ek verification detail dein: registered phone ke last 4 digits ya order ka delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi-en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -8089,6 +8151,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -8117,7 +8189,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.76
+        "latency_ms": 18.24
       },
       "checks": {
         "passed": true,
@@ -8131,7 +8203,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.0
+      "latency_ms": 18.6
     },
     {
       "id": "PC017.3",
@@ -8264,7 +8336,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.14
+        "latency_ms": 1.87
       },
       "checks": {
         "passed": true,
@@ -8278,7 +8350,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.7
+      "latency_ms": 2.0
     },
     {
       "id": "PC017.4",
@@ -8346,11 +8418,6 @@
             "dense_score": 0.3349
           },
           {
-            "id": "ESC-4",
-            "score": 0.077064,
-            "dense_score": 0.3194
-          },
-          {
             "id": "REF-4",
             "score": 0.008534,
             "dense_score": 0.1935
@@ -8364,28 +8431,28 @@
             "id": "ESC-1",
             "score": 0.008532,
             "dense_score": 0.2868
+          },
+          {
+            "id": "ESC-2",
+            "score": 0.008531,
+            "dense_score": 0.2513
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20015.81,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 46.91,
-          "llm_ms": 20015.91
+          "retrieval_ms": 47.87,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20064.65
+        "latency_ms": 49.64
       },
       "checks": {
         "passed": true,
@@ -8399,7 +8466,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 20065.1
+      "latency_ms": 50.3
     },
     {
       "id": "PC018.1",
@@ -8509,10 +8576,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 65.46,
+          "retrieval_ms": 95.2,
           "llm_ms": 0.0
         },
-        "latency_ms": 68.41
+        "latency_ms": 101.62
       },
       "checks": {
         "passed": true,
@@ -8526,20 +8593,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 68.6
+      "latency_ms": 101.9
     },
     {
       "id": "PC018.2",
       "question": "Order number hai 2640 3404.",
       "prediction": {
         "transcript": "Order number hai 2640 3404.",
-        "answer": "Registered phone ke last 4 digits batayein.",
+        "answer": "Ek verification detail dein: registered phone ke last 4 digits ya order ka delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi-en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -8561,6 +8629,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -8589,7 +8667,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.47
+        "latency_ms": 3.73
       },
       "checks": {
         "passed": true,
@@ -8603,7 +8681,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.7
+      "latency_ms": 4.2
     },
     {
       "id": "PC018.3",
@@ -8736,7 +8814,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.05
+        "latency_ms": 3.3
       },
       "checks": {
         "passed": true,
@@ -8750,7 +8828,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 4.3
+      "latency_ms": 3.5
     },
     {
       "id": "PC018.4",
@@ -8818,11 +8896,6 @@
             "dense_score": 0.3349
           },
           {
-            "id": "ESC-4",
-            "score": 0.077064,
-            "dense_score": 0.3194
-          },
-          {
             "id": "REF-4",
             "score": 0.008534,
             "dense_score": 0.1935
@@ -8836,28 +8909,28 @@
             "id": "ESC-1",
             "score": 0.008532,
             "dense_score": 0.2868
+          },
+          {
+            "id": "ESC-2",
+            "score": 0.008531,
+            "dense_score": 0.2513
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20009.76,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 51.0,
-          "llm_ms": 20009.92
+          "retrieval_ms": 136.39,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20063.4
+        "latency_ms": 141.92
       },
       "checks": {
         "passed": true,
@@ -8871,7 +8944,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 20064.0
+      "latency_ms": 143.3
     },
     {
       "id": "PC019.1",
@@ -8981,10 +9054,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 55.0,
+          "retrieval_ms": 98.43,
           "llm_ms": 0.0
         },
-        "latency_ms": 57.85
+        "latency_ms": 102.69
       },
       "checks": {
         "passed": true,
@@ -8998,20 +9071,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 58.1
+      "latency_ms": 102.9
     },
     {
       "id": "PC019.2",
       "question": "Order number hai 1591 1102.",
       "prediction": {
         "transcript": "Order number hai 1591 1102.",
-        "answer": "Registered phone ke last 4 digits batayein.",
+        "answer": "Ek verification detail dein: registered phone ke last 4 digits ya order ka delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi-en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -9033,6 +9107,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -9061,7 +9145,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.94
+        "latency_ms": 2.18
       },
       "checks": {
         "passed": true,
@@ -9075,7 +9159,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 4.1
+      "latency_ms": 2.5
     },
     {
       "id": "PC019.3",
@@ -9190,7 +9274,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.08
+        "latency_ms": 1.91
       },
       "checks": {
         "passed": true,
@@ -9204,7 +9288,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 4.3
+      "latency_ms": 2.1
     },
     {
       "id": "PC019.4",
@@ -9244,48 +9328,43 @@
         "retrieval_candidates": [
           {
             "id": "CAN-4",
-            "score": 0.187051,
+            "score": 0.198051,
             "dense_score": 0.4642
           },
           {
             "id": "CAN-1",
-            "score": 0.181951,
+            "score": 0.192105,
             "dense_score": 0.4568
           },
           {
             "id": "PLS-3",
-            "score": 0.178713,
+            "score": 0.189273,
             "dense_score": 0.4064
           },
           {
             "id": "CAN-3",
-            "score": 0.170168,
+            "score": 0.179946,
             "dense_score": 0.391
           },
           {
             "id": "CAN-2",
-            "score": 0.166855,
+            "score": 0.176283,
             "dense_score": 0.4032
           },
           {
             "id": "REF-5",
-            "score": 0.141619,
+            "score": 0.150419,
             "dense_score": 0.2892
           },
           {
             "id": "REF-1",
-            "score": 0.135465,
+            "score": 0.144569,
             "dense_score": 0.26
           },
           {
             "id": "ESC-3",
             "score": 0.085262,
             "dense_score": 0.373
-          },
-          {
-            "id": "ESC-4",
-            "score": 0.082989,
-            "dense_score": 0.3823
           },
           {
             "id": "REF-4",
@@ -9301,6 +9380,11 @@
             "id": "ESC-1",
             "score": 0.034137,
             "dense_score": 0.3099
+          },
+          {
+            "id": "ESC-2",
+            "score": 0.034136,
+            "dense_score": 0.2663
           }
         ],
         "tool_calls": [],
@@ -9314,10 +9398,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 41.19,
+          "retrieval_ms": 246.95,
           "llm_ms": 0.0
         },
-        "latency_ms": 42.92
+        "latency_ms": 252.56
       },
       "checks": {
         "passed": true,
@@ -9331,7 +9415,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 44.1
+      "latency_ms": 298.2
     },
     {
       "id": "PC020.1",
@@ -9415,14 +9499,14 @@
             "dense_score": 0.3373
           },
           {
+            "id": "FAQ-3",
+            "score": 0.082828,
+            "dense_score": 0.3333
+          },
+          {
             "id": "REF-1",
             "score": 0.065132,
             "dense_score": 0.2647
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.061111,
-            "dense_score": 0.1906
           },
           {
             "id": "DEL-3",
@@ -9441,10 +9525,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 51.77,
+          "retrieval_ms": 76.02,
           "llm_ms": 0.0
         },
-        "latency_ms": 54.86
+        "latency_ms": 89.59
       },
       "checks": {
         "passed": true,
@@ -9458,20 +9542,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 55.0
+      "latency_ms": 89.8
     },
     {
       "id": "PC020.2",
       "question": "The order number is 4316 5903.",
       "prediction": {
         "transcript": "The order number is 4316 5903.",
-        "answer": "Please provide the last 4 digits of your registered phone.",
+        "answer": "Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -9493,6 +9578,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -9521,7 +9616,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.41
+        "latency_ms": 7.39
       },
       "checks": {
         "passed": true,
@@ -9535,7 +9630,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 4.7
+      "latency_ms": 7.8
     },
     {
       "id": "PC020.3",
@@ -9668,7 +9763,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.04
+        "latency_ms": 2.0
       },
       "checks": {
         "passed": true,
@@ -9682,7 +9777,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 3.3
+      "latency_ms": 2.2
     },
     {
       "id": "PC020.4",
@@ -9761,11 +9856,6 @@
             "dense_score": 0.389
           },
           {
-            "id": "ESC-4",
-            "score": 0.081475,
-            "dense_score": 0.3032
-          },
-          {
             "id": "REF-4",
             "score": 0.031326,
             "dense_score": 0.1411
@@ -9779,6 +9869,11 @@
             "id": "ESC-1",
             "score": 0.031324,
             "dense_score": 0.2017
+          },
+          {
+            "id": "ESC-2",
+            "score": 0.031323,
+            "dense_score": 0.289
           }
         ],
         "tool_calls": [],
@@ -9792,10 +9887,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 74.11,
+          "retrieval_ms": 88.71,
           "llm_ms": 0.0
         },
-        "latency_ms": 76.62
+        "latency_ms": 96.9
       },
       "checks": {
         "passed": true,
@@ -9809,7 +9904,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 77.8
+      "latency_ms": 98.9
     },
     {
       "id": "PC021.1",
@@ -9901,6 +9996,11 @@
             "id": "ESC-1",
             "score": 0.025608,
             "dense_score": 0.2702
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.025607,
+            "dense_score": 0.3766
           }
         ],
         "tool_calls": [],
@@ -9914,10 +10014,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 38.89,
+          "retrieval_ms": 49.37,
           "llm_ms": 0.0
         },
-        "latency_ms": 42.02
+        "latency_ms": 113.63
       },
       "checks": {
         "passed": true,
@@ -9931,20 +10031,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 42.3
+      "latency_ms": 113.9
     },
     {
       "id": "PC021.2",
       "question": "ऑर्डर नंबर है 7746 1439।",
       "prediction": {
         "transcript": "ऑर्डर नंबर है 7746 1439।",
-        "answer": "कृपया अपने पंजीकृत फ़ोन के आख़िरी 4 अंक बताएँ।",
+        "answer": "कृपया एक सत्यापन जानकारी दें: पंजीकृत फ़ोन के अंतिम 4 अंक या ऑर्डर का डिलीवरी पिनकोड।",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -9966,6 +10067,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -9994,7 +10105,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.39
+        "latency_ms": 4.25
       },
       "checks": {
         "passed": true,
@@ -10008,19 +10119,20 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 3.8
+      "latency_ms": 5.0
     },
     {
       "id": "PC021.3",
       "question": "[verification value redacted]",
       "prediction": {
         "transcript": "[verification value redacted]",
-        "answer": "जानकारी मेल नहीं खाई। कृपया पंजीकृत फ़ोन के आख़िरी 4 अंक दोबारा बताएँ।",
+        "answer": "जानकारी मेल नहीं खाई। कृपया पंजीकृत फ़ोन के अंतिम 4 अंक दोबारा बताएँ।",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi",
         "retrieved_chunk_ids": [
-          "IDV-3"
+          "IDV-3",
+          "STY-5"
         ],
         "sources": [
           {
@@ -10032,6 +10144,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "If verification fails"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -10061,7 +10183,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.42
+        "latency_ms": 3.69
       },
       "checks": {
         "passed": true,
@@ -10075,7 +10197,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 3.0
+      "latency_ms": 4.2
     },
     {
       "id": "PC021.4",
@@ -10139,7 +10261,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.88
+        "latency_ms": 2.94
       },
       "checks": {
         "passed": true,
@@ -10153,7 +10275,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 4.2
+      "latency_ms": 4.5
     },
     {
       "id": "PC022.1",
@@ -10245,6 +10367,11 @@
             "id": "ESC-1",
             "score": 0.025608,
             "dense_score": 0.2702
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.025607,
+            "dense_score": 0.3766
           }
         ],
         "tool_calls": [],
@@ -10258,10 +10385,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 32.16,
+          "retrieval_ms": 82.62,
           "llm_ms": 0.0
         },
-        "latency_ms": 35.56
+        "latency_ms": 86.95
       },
       "checks": {
         "passed": true,
@@ -10275,20 +10402,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 35.9
+      "latency_ms": 87.4
     },
     {
       "id": "PC022.2",
       "question": "ऑर्डर नंबर है 5664 6891।",
       "prediction": {
         "transcript": "ऑर्डर नंबर है 5664 6891।",
-        "answer": "कृपया अपने पंजीकृत फ़ोन के आख़िरी 4 अंक बताएँ।",
+        "answer": "कृपया एक सत्यापन जानकारी दें: पंजीकृत फ़ोन के अंतिम 4 अंक या ऑर्डर का डिलीवरी पिनकोड।",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -10310,6 +10438,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -10338,7 +10476,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.82
+        "latency_ms": 2.01
       },
       "checks": {
         "passed": true,
@@ -10352,19 +10490,20 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 4.2
+      "latency_ms": 2.4
     },
     {
       "id": "PC022.3",
       "question": "[verification value redacted]",
       "prediction": {
         "transcript": "[verification value redacted]",
-        "answer": "जानकारी मेल नहीं खाई। कृपया पंजीकृत फ़ोन के आख़िरी 4 अंक दोबारा बताएँ।",
+        "answer": "जानकारी मेल नहीं खाई। कृपया पंजीकृत फ़ोन के अंतिम 4 अंक दोबारा बताएँ।",
         "intent": "verification",
         "decision": "clarify",
         "language": "hi",
         "retrieved_chunk_ids": [
-          "IDV-3"
+          "IDV-3",
+          "STY-5"
         ],
         "sources": [
           {
@@ -10376,6 +10515,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "If verification fails"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -10405,7 +10554,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.73
+        "latency_ms": 4.39
       },
       "checks": {
         "passed": true,
@@ -10419,7 +10568,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 3.2
+      "latency_ms": 5.2
     },
     {
       "id": "PC022.4",
@@ -10483,7 +10632,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.14
+        "latency_ms": 6.48
       },
       "checks": {
         "passed": true,
@@ -10497,7 +10646,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 5.2
+      "latency_ms": 8.3
     },
     {
       "id": "PC023.1",
@@ -10581,14 +10730,14 @@
             "dense_score": 0.3373
           },
           {
+            "id": "FAQ-3",
+            "score": 0.082828,
+            "dense_score": 0.3333
+          },
+          {
             "id": "REF-1",
             "score": 0.065132,
             "dense_score": 0.2647
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.061111,
-            "dense_score": 0.1906
           },
           {
             "id": "DEL-3",
@@ -10607,10 +10756,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 41.57,
+          "retrieval_ms": 33.14,
           "llm_ms": 0.0
         },
-        "latency_ms": 47.33
+        "latency_ms": 39.86
       },
       "checks": {
         "passed": true,
@@ -10624,20 +10773,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 47.6
+      "latency_ms": 40.1
     },
     {
       "id": "PC023.2",
       "question": "The order number is 2235 4022.",
       "prediction": {
         "transcript": "The order number is 2235 4022.",
-        "answer": "Please provide the last 4 digits of your registered phone.",
+        "answer": "Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -10659,6 +10809,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -10687,7 +10847,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.94
+        "latency_ms": 2.58
       },
       "checks": {
         "passed": true,
@@ -10701,7 +10861,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 3.4
+      "latency_ms": 2.9
     },
     {
       "id": "PC023.3",
@@ -10839,7 +10999,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 3.4
+      "latency_ms": 3.3
     },
     {
       "id": "PC023.4",
@@ -10868,91 +11028,80 @@
         "retrieval_candidates": [
           {
             "id": "DEL-4",
-            "score": 0.189658,
+            "score": 0.200658,
             "dense_score": 0.7086
           },
           {
             "id": "DEL-2",
-            "score": 0.184947,
+            "score": 0.195507,
             "dense_score": 0.6079
           },
           {
             "id": "PLS-2",
-            "score": 0.161613,
+            "score": 0.17139,
             "dense_score": 0.5045
           },
           {
             "id": "DEL-1",
-            "score": 0.160301,
+            "score": 0.168066,
             "dense_score": 0.5147
           },
           {
             "id": "REF-5",
-            "score": 0.155824,
+            "score": 0.165978,
             "dense_score": 0.4624
           },
           {
             "id": "DEL-5",
-            "score": 0.152688,
+            "score": 0.162116,
             "dense_score": 0.4493
           },
           {
             "id": "DEL-3",
-            "score": 0.143251,
+            "score": 0.149536,
             "dense_score": 0.4702
           },
           {
             "id": "CAN-3",
-            "score": 0.138624,
+            "score": 0.144491,
             "dense_score": 0.471
           },
           {
             "id": "PAY-2",
-            "score": 0.135317,
+            "score": 0.143567,
             "dense_score": 0.3889
           },
           {
             "id": "RET-6",
-            "score": 0.132494,
+            "score": 0.141597,
             "dense_score": 0.4064
           },
           {
             "id": "DWM-2",
-            "score": 0.126457,
+            "score": 0.134973,
             "dense_score": 0.396
           },
           {
-            "id": "KB-00.1",
-            "score": 0.120134,
-            "dense_score": 0.0479
+            "id": "CAN-2",
+            "score": 0.128657,
+            "dense_score": 0.4316
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_action",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 9116.66,
-          "load_ms": 65.84,
-          "prompt_eval_ms": 993.97,
-          "eval_ms": 7857.18,
-          "prompt_eval_count": 352,
-          "eval_count": 69,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 102.26,
-          "llm_ms": 9119.49
+          "retrieval_ms": 64.13,
+          "llm_ms": 0.0
         },
-        "latency_ms": 9225.39
+        "latency_ms": 66.31
       },
       "checks": {
         "passed": true,
@@ -10966,7 +11115,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 9225.9
+      "latency_ms": 66.7
     },
     {
       "id": "PC024.1",
@@ -11050,14 +11199,14 @@
             "dense_score": 0.3373
           },
           {
+            "id": "FAQ-3",
+            "score": 0.082828,
+            "dense_score": 0.3333
+          },
+          {
             "id": "REF-1",
             "score": 0.065132,
             "dense_score": 0.2647
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.061111,
-            "dense_score": 0.1906
           },
           {
             "id": "DEL-3",
@@ -11076,10 +11225,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 35.63,
+          "retrieval_ms": 127.76,
           "llm_ms": 0.0
         },
-        "latency_ms": 37.85
+        "latency_ms": 134.65
       },
       "checks": {
         "passed": true,
@@ -11093,20 +11242,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 38.0
+      "latency_ms": 134.9
     },
     {
       "id": "PC024.2",
       "question": "The order number is 5863 4590.",
       "prediction": {
         "transcript": "The order number is 5863 4590.",
-        "answer": "Please provide the last 4 digits of your registered phone.",
+        "answer": "Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -11128,6 +11278,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -11156,7 +11316,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.66
+        "latency_ms": 6.54
       },
       "checks": {
         "passed": true,
@@ -11170,7 +11330,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 2.9
+      "latency_ms": 7.0
     },
     {
       "id": "PC024.3",
@@ -11299,14 +11459,14 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 3.6
+      "latency_ms": 3.5
     },
     {
       "id": "PC024.4",
       "question": "My express delivery was late. Do I get the fee back?",
       "prediction": {
         "transcript": "My express delivery was late. Do I get the fee back?",
-        "answer": "If your express delivery was late, the ₹79 express fee you paid is automatically credited to your ZentroMart Wallet within 48 hours. However, ZentroMart Plus members who paid no express fee do not receive any credit for late deliveries. Standard deliveries do not get compensation for delays.",
+        "answer": "For a late Express order, the paid 79 rupee Express fee is automatically credited to ZentroMart Wallet within 48 hours. Plus members who paid no Express fee get no credit; Standard delays have no compensation.",
         "intent": "late_delivery",
         "decision": "answer",
         "language": "en",
@@ -11328,91 +11488,80 @@
         "retrieval_candidates": [
           {
             "id": "DEL-4",
-            "score": 0.189658,
+            "score": 0.200658,
             "dense_score": 0.7086
           },
           {
             "id": "DEL-2",
-            "score": 0.184947,
+            "score": 0.195507,
             "dense_score": 0.6079
           },
           {
             "id": "PLS-2",
-            "score": 0.161613,
+            "score": 0.17139,
             "dense_score": 0.5045
           },
           {
             "id": "DEL-1",
-            "score": 0.160301,
+            "score": 0.168066,
             "dense_score": 0.5147
           },
           {
             "id": "REF-5",
-            "score": 0.155824,
+            "score": 0.165978,
             "dense_score": 0.4624
           },
           {
             "id": "DEL-5",
-            "score": 0.152688,
+            "score": 0.162116,
             "dense_score": 0.4493
           },
           {
             "id": "DEL-3",
-            "score": 0.143251,
+            "score": 0.149536,
             "dense_score": 0.4702
           },
           {
             "id": "CAN-3",
-            "score": 0.138624,
+            "score": 0.144491,
             "dense_score": 0.471
           },
           {
             "id": "PAY-2",
-            "score": 0.135317,
+            "score": 0.143567,
             "dense_score": 0.3889
           },
           {
             "id": "RET-6",
-            "score": 0.132494,
+            "score": 0.141597,
             "dense_score": 0.4064
           },
           {
             "id": "DWM-2",
-            "score": 0.126457,
+            "score": 0.134973,
             "dense_score": 0.396
           },
           {
-            "id": "KB-00.1",
-            "score": 0.120134,
-            "dense_score": 0.0479
+            "id": "CAN-2",
+            "score": 0.128657,
+            "dense_score": 0.4316
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": true,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 8102.72,
-          "load_ms": 47.77,
-          "prompt_eval_ms": 139.68,
-          "eval_ms": 7834.98,
-          "prompt_eval_count": 352,
-          "eval_count": 70,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 107.35,
-          "llm_ms": 8108.67
+          "retrieval_ms": 68.9,
+          "llm_ms": 0.0
         },
-        "latency_ms": 8219.0
+        "latency_ms": 70.68
       },
       "checks": {
         "passed": true,
@@ -11426,22 +11575,8 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 8219.4
+      "latency_ms": 71.0
     }
   ],
-  "rescoring": {
-    "reason": "Equivalent number words and digits are canonicalized. Gold expectations and raw predictions are unchanged.",
-    "changed_check_ids": [
-      "PC011.4",
-      "PC012.4"
-    ],
-    "raw_scoring_file": "eval_step3_raw_scoring.json",
-    "original_configuration": {
-      "recorded_at": "2026-10-24T22:19:49",
-      "runtime_sha256": "eb6808d4db3c78ba3c3159543d504c21919d07dd2676fc934d157679a738b9fc",
-      "llm_provider": "ollama",
-      "llm_model": "qwen3:1.7b",
-      "reference_date": "2026-10-20"
-    }
-  }
+  "scope": "Complete current official practice regression with LLM composition disabled. Separate partial live model evidence is versioned in eval_step2_live_postfix_partial.json."
 }

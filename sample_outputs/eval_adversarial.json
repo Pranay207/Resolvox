@@ -51,8 +51,23 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.154913,
+            "score": 0.16013,
             "dense_score": 0.4972
+          },
+          {
+            "id": "RET-3",
+            "score": 0.157854,
+            "dense_score": 0.4603
+          },
+          {
+            "id": "RET-2",
+            "score": 0.15677,
+            "dense_score": 0.3323
+          },
+          {
+            "id": "RET-7",
+            "score": 0.154744,
+            "dense_score": 0.5099
           },
           {
             "id": "REF-3",
@@ -60,33 +75,18 @@
             "dense_score": 0.5639
           },
           {
-            "id": "RET-2",
-            "score": 0.147667,
-            "dense_score": 0.3323
-          },
-          {
-            "id": "RET-7",
-            "score": 0.147666,
-            "dense_score": 0.5099
-          },
-          {
-            "id": "FAQ-1",
-            "score": 0.147665,
-            "dense_score": 0.5545
-          },
-          {
-            "id": "RET-3",
-            "score": 0.147294,
-            "dense_score": 0.4603
-          },
-          {
             "id": "RET-8",
-            "score": 0.141789,
+            "score": 0.151567,
             "dense_score": 0.4508
           },
           {
+            "id": "FAQ-1",
+            "score": 0.147819,
+            "dense_score": 0.5545
+          },
+          {
             "id": "REF-1",
-            "score": 0.138297,
+            "score": 0.144164,
             "dense_score": 0.4898
           },
           {
@@ -95,13 +95,13 @@
             "dense_score": 0.39
           },
           {
-            "id": "KB-00.1",
-            "score": 0.078703,
-            "dense_score": 0.111
+            "id": "DEL-1",
+            "score": 0.128629,
+            "dense_score": 0.4368
           },
           {
             "id": "PLS-2",
-            "score": 0.078702,
+            "score": 0.09061,
             "dense_score": 0.3152
           }
         ],
@@ -116,10 +116,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 139.45,
+          "retrieval_ms": 107.21,
           "llm_ms": 0.0
         },
-        "latency_ms": 153.74
+        "latency_ms": 139.77
       },
       "passed": true,
       "expected": {
@@ -174,53 +174,53 @@
             "dense_score": 0.617
           },
           {
-            "id": "RET-7",
-            "score": 0.156445,
-            "dense_score": 0.5857
-          },
-          {
-            "id": "PAY-1",
-            "score": 0.085666,
-            "dense_score": 0.3451
-          },
-          {
             "id": "REF-2",
-            "score": 0.085665,
+            "score": 0.16561,
             "dense_score": 0.5093
           },
           {
+            "id": "PAY-1",
+            "score": 0.096666,
+            "dense_score": 0.3451
+          },
+          {
+            "id": "RET-7",
+            "score": 0.096665,
+            "dense_score": 0.5857
+          },
+          {
             "id": "REF-1",
-            "score": 0.085664,
+            "score": 0.096664,
             "dense_score": 0.5837
           },
           {
             "id": "REF-5",
-            "score": 0.085663,
+            "score": 0.096663,
             "dense_score": 0.522
           },
           {
             "id": "MKS-2",
-            "score": 0.085662,
+            "score": 0.096662,
             "dense_score": 0.4403
           },
           {
             "id": "FAQ-1",
-            "score": 0.085661,
+            "score": 0.096661,
             "dense_score": 0.589
           },
           {
             "id": "CPN-3",
-            "score": 0.08566,
+            "score": 0.09666,
             "dense_score": 0.4527
           },
           {
-            "id": "KB-00.1",
-            "score": 0.081383,
-            "dense_score": 0.0532
+            "id": "PAY-4",
+            "score": 0.096659,
+            "dense_score": 0.4597
           },
           {
             "id": "PLS-2",
-            "score": 0.081382,
+            "score": 0.096658,
             "dense_score": 0.3638
           }
         ],
@@ -235,10 +235,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 41.71,
+          "retrieval_ms": 67.19,
           "llm_ms": 0.0
         },
-        "latency_ms": 43.16
+        "latency_ms": 71.09
       },
       "passed": true,
       "expected": {
@@ -284,18 +284,18 @@
         "retrieval_candidates": [
           {
             "id": "REF-2",
-            "score": 0.175964,
+            "score": 0.185393,
             "dense_score": 0.5165
+          },
+          {
+            "id": "RET-7",
+            "score": 0.177899,
+            "dense_score": 0.578
           },
           {
             "id": "REF-1",
             "score": 0.170288,
             "dense_score": 0.6871
-          },
-          {
-            "id": "RET-7",
-            "score": 0.167339,
-            "dense_score": 0.578
           },
           {
             "id": "REF-3",
@@ -318,6 +318,11 @@
             "dense_score": 0.5828
           },
           {
+            "id": "PLS-2",
+            "score": 0.125457,
+            "dense_score": 0.4079
+          },
+          {
             "id": "CAN-2",
             "score": 0.122777,
             "dense_score": 0.5331
@@ -329,18 +334,13 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.094764,
+            "score": 0.102264,
             "dense_score": 0.2745
           },
           {
-            "id": "KB-00.1",
-            "score": 0.090026,
-            "dense_score": 0.134
-          },
-          {
-            "id": "PLS-2",
-            "score": 0.090025,
-            "dense_score": 0.4079
+            "id": "DEL-3",
+            "score": 0.058871,
+            "dense_score": 0.3741
           }
         ],
         "tool_calls": [],
@@ -354,10 +354,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 74.89,
+          "retrieval_ms": 88.83,
           "llm_ms": 0.0
         },
-        "latency_ms": 76.26
+        "latency_ms": 92.36
       },
       "passed": true,
       "expected": {
@@ -407,6 +407,16 @@
             "dense_score": 0.4557
           },
           {
+            "id": "RET-7",
+            "score": 0.169167,
+            "dense_score": 0.424
+          },
+          {
+            "id": "REF-2",
+            "score": 0.168652,
+            "dense_score": 0.3081
+          },
+          {
             "id": "PAY-4",
             "score": 0.165176,
             "dense_score": 0.5757
@@ -415,16 +425,6 @@
             "id": "REF-1",
             "score": 0.160197,
             "dense_score": 0.4464
-          },
-          {
-            "id": "REF-2",
-            "score": 0.159224,
-            "dense_score": 0.3081
-          },
-          {
-            "id": "RET-7",
-            "score": 0.158607,
-            "dense_score": 0.424
           },
           {
             "id": "REF-6",
@@ -448,18 +448,18 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.075865,
+            "score": 0.083365,
             "dense_score": 0.123
           },
           {
-            "id": "KB-00.1",
-            "score": 0.072072,
-            "dense_score": 0.096
+            "id": "PLS-2",
+            "score": 0.083364,
+            "dense_score": 0.3573
           },
           {
-            "id": "PLS-2",
-            "score": 0.072071,
-            "dense_score": 0.3573
+            "id": "DEL-3",
+            "score": 0.035624,
+            "dense_score": 0.1981
           }
         ],
         "tool_calls": [],
@@ -473,10 +473,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 60.49,
+          "retrieval_ms": 80.34,
           "llm_ms": 0.0
         },
-        "latency_ms": 62.78
+        "latency_ms": 82.95
       },
       "passed": true,
       "expected": {
@@ -496,7 +496,6 @@
         "retrieved_chunk_ids": [
           "STY-1",
           "REF-2",
-          "KB-00.1",
           "KB-00.3"
         ],
         "sources": [
@@ -519,16 +518,6 @@
             "effective_from": "2026-06-15",
             "version": "2.1",
             "title": "How long refunds take after initiation"
-          },
-          {
-            "id": "KB-00.1",
-            "text": "## [KB-00.1] Which document wins\nWhen two documents disagree, follow this order of precedence:\n\n1. **Policy documents** (doc_type: policy) with status `current`.\n2. **Agent guides** (doc_type: agent_guide).\n3. **Help articles** (doc_type: help).\n4. **FAQs** (doc_type: faq).\n5. **Marketing pages** (doc_type: marketing). These describe benefits in general terms and never override a policy.\n\n\nDocuments marked `status: superseded` are kept for reference only. They apply only to the cases their successor document says they still cover.",
-            "file": "00_about_this_knowledge_base.md",
-            "doc_type": "meta",
-            "status": "current",
-            "effective_from": "2026-08-01",
-            "version": "1.2",
-            "title": "Which document wins"
           },
           {
             "id": "KB-00.3",
@@ -593,14 +582,14 @@
             "dense_score": 0.2091
           },
           {
-            "id": "KB-00.1",
-            "score": 0.025385,
-            "dense_score": 0.0534
+            "id": "DEL-1",
+            "score": 0.087756,
+            "dense_score": 0.4339
           },
           {
-            "id": "DEL-1",
-            "score": 0.025384,
-            "dense_score": 0.4339
+            "id": "PLS-2",
+            "score": 0.087755,
+            "dense_score": 0.3668
           }
         ],
         "tool_calls": [],
@@ -617,10 +606,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 54.22,
+          "retrieval_ms": 68.97,
           "llm_ms": 0.0
         },
-        "latency_ms": 56.73
+        "latency_ms": 73.18
       },
       "passed": true,
       "expected": {
@@ -640,7 +629,6 @@
         "retrieved_chunk_ids": [
           "STY-1",
           "REF-2",
-          "KB-00.1",
           "KB-00.3"
         ],
         "sources": [
@@ -665,16 +653,6 @@
             "title": "How long refunds take after initiation"
           },
           {
-            "id": "KB-00.1",
-            "text": "## [KB-00.1] Which document wins\nWhen two documents disagree, follow this order of precedence:\n\n1. **Policy documents** (doc_type: policy) with status `current`.\n2. **Agent guides** (doc_type: agent_guide).\n3. **Help articles** (doc_type: help).\n4. **FAQs** (doc_type: faq).\n5. **Marketing pages** (doc_type: marketing). These describe benefits in general terms and never override a policy.\n\n\nDocuments marked `status: superseded` are kept for reference only. They apply only to the cases their successor document says they still cover.",
-            "file": "00_about_this_knowledge_base.md",
-            "doc_type": "meta",
-            "status": "current",
-            "effective_from": "2026-08-01",
-            "version": "1.2",
-            "title": "Which document wins"
-          },
-          {
             "id": "KB-00.3",
             "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
             "file": "00_about_this_knowledge_base.md",
@@ -688,63 +666,63 @@
         "retrieval_candidates": [
           {
             "id": "REF-6",
-            "score": 0.174553,
+            "score": 0.179267,
             "dense_score": 0.5542
           },
           {
             "id": "REF-1",
-            "score": 0.169456,
+            "score": 0.177076,
             "dense_score": 0.5746
           },
           {
             "id": "REF-3",
-            "score": 0.155964,
+            "score": 0.163964,
             "dense_score": 0.5278
           },
           {
             "id": "REF-2",
-            "score": 0.152306,
+            "score": 0.160556,
             "dense_score": 0.4088
           },
           {
             "id": "REF-5",
-            "score": 0.152305,
+            "score": 0.160555,
             "dense_score": 0.5714
           },
           {
             "id": "RET-8",
-            "score": 0.143456,
+            "score": 0.151154,
             "dense_score": 0.5206
           },
           {
             "id": "RET-7",
-            "score": 0.14144,
+            "score": 0.145992,
             "dense_score": 0.4736
           },
           {
             "id": "CAN-2",
-            "score": 0.132969,
+            "score": 0.138798,
             "dense_score": 0.5227
           },
           {
-            "id": "PLS-2",
-            "score": 0.12897,
-            "dense_score": 0.423
-          },
-          {
             "id": "KB-00.3",
-            "score": 0.075527,
+            "score": 0.079277,
             "dense_score": 0.2514
           },
           {
-            "id": "KB-00.1",
-            "score": 0.071751,
-            "dense_score": 0.1568
+            "id": "DEL-2",
+            "score": 0.071662,
+            "dense_score": 0.3361
           },
           {
             "id": "PAY-1",
-            "score": 0.07175,
+            "score": 0.071661,
             "dense_score": 0.4152
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.07166,
+            "dense_score": 0.423
           }
         ],
         "tool_calls": [],
@@ -761,10 +739,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 62.53,
+          "retrieval_ms": 75.62,
           "llm_ms": 0.0
         },
-        "latency_ms": 64.43
+        "latency_ms": 78.85
       },
       "passed": true,
       "expected": {
@@ -783,7 +761,8 @@
         "language": "en",
         "retrieved_chunk_ids": [
           "STY-1",
-          "REF-2"
+          "REF-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -805,23 +784,33 @@
             "effective_from": "2026-06-15",
             "version": "2.1",
             "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [
           {
-            "id": "REF-1",
-            "score": 0.173668,
-            "dense_score": 0.7125
-          },
-          {
             "id": "RET-7",
-            "score": 0.169432,
+            "score": 0.179992,
             "dense_score": 0.6396
           },
           {
             "id": "REF-2",
-            "score": 0.169417,
+            "score": 0.178845,
             "dense_score": 0.5428
+          },
+          {
+            "id": "REF-1",
+            "score": 0.173668,
+            "dense_score": 0.7125
           },
           {
             "id": "REF-6",
@@ -855,18 +844,18 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.095939,
+            "score": 0.103439,
             "dense_score": 0.2324
           },
           {
-            "id": "KB-00.1",
-            "score": 0.091142,
-            "dense_score": 0.0962
+            "id": "PLS-2",
+            "score": 0.103438,
+            "dense_score": 0.4365
           },
           {
-            "id": "PLS-2",
-            "score": 0.091141,
-            "dense_score": 0.4365
+            "id": "DEL-3",
+            "score": 0.058838,
+            "dense_score": 0.3631
           }
         ],
         "tool_calls": [],
@@ -880,10 +869,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 51.89,
+          "retrieval_ms": 55.52,
           "llm_ms": 0.0
         },
-        "latency_ms": 53.19
+        "latency_ms": 58.79
       },
       "passed": true,
       "expected": {
@@ -902,7 +891,8 @@
         "language": "hi-en",
         "retrieved_chunk_ids": [
           "STY-1",
-          "REF-3"
+          "REF-3",
+          "REF-2"
         ],
         "sources": [
           {
@@ -924,68 +914,78 @@
             "effective_from": "2026-06-15",
             "version": "2.1",
             "title": "Cash-on-delivery refunds"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
           }
         ],
         "retrieval_candidates": [
           {
+            "id": "REF-6",
+            "score": 0.179074,
+            "dense_score": 0.4148
+          },
+          {
             "id": "PAY-4",
-            "score": 0.174853,
+            "score": 0.17793,
             "dense_score": 0.5372
           },
           {
-            "id": "PAY-1",
-            "score": 0.170704,
-            "dense_score": 0.5107
-          },
-          {
             "id": "REF-5",
-            "score": 0.170308,
-            "dense_score": 0.4405
+            "score": 0.168842,
+            "dense_score": 0.4354
           },
           {
-            "id": "REF-6",
-            "score": 0.165917,
-            "dense_score": 0.4219
-          },
-          {
-            "id": "PAY-2",
-            "score": 0.15934,
-            "dense_score": 0.4521
+            "id": "REF-2",
+            "score": 0.156725,
+            "dense_score": 0.2309
           },
           {
             "id": "REF-3",
-            "score": 0.147403,
-            "dense_score": 0.3481
+            "score": 0.156724,
+            "dense_score": 0.3357
+          },
+          {
+            "id": "PAY-1",
+            "score": 0.156723,
+            "dense_score": 0.4925
+          },
+          {
+            "id": "RET-7",
+            "score": 0.151249,
+            "dense_score": 0.366
+          },
+          {
+            "id": "PAY-2",
+            "score": 0.142073,
+            "dense_score": 0.4396
+          },
+          {
+            "id": "REF-1",
+            "score": 0.139597,
+            "dense_score": 0.3135
           },
           {
             "id": "PAY-3",
-            "score": 0.143838,
-            "dense_score": 0.3997
+            "score": 0.135708,
+            "dense_score": 0.4008
           },
           {
             "id": "REF-4",
-            "score": 0.138018,
-            "dense_score": 0.3682
+            "score": 0.131498,
+            "dense_score": 0.3833
           },
           {
-            "id": "CPN-3",
-            "score": 0.135604,
-            "dense_score": 0.4494
-          },
-          {
-            "id": "MKS-2",
-            "score": 0.13098,
-            "dense_score": 0.3529
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.090998,
-            "dense_score": 0.082
-          },
-          {
-            "id": "DEL-5",
-            "score": 0.090997,
-            "dense_score": 0.2234
+            "id": "DEL-1",
+            "score": 0.079551,
+            "dense_score": 0.2359
           }
         ],
         "tool_calls": [],
@@ -999,10 +999,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 40.39,
+          "retrieval_ms": 69.27,
           "llm_ms": 0.0
         },
-        "latency_ms": 41.87
+        "latency_ms": 71.88
       },
       "passed": true,
       "expected": {
@@ -1108,13 +1108,13 @@
             "dense_score": 0.3884
           },
           {
-            "id": "KB-00.1",
-            "score": 0.081858,
-            "dense_score": -0.0221
+            "id": "RET-6",
+            "score": 0.083254,
+            "dense_score": 0.3585
           },
           {
             "id": "PLS-3",
-            "score": 0.081857,
+            "score": 0.079092,
             "dense_score": 0.1571
           }
         ],
@@ -1129,10 +1129,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 36.42,
+          "retrieval_ms": 40.36,
           "llm_ms": 0.0
         },
-        "latency_ms": 39.62
+        "latency_ms": 46.56
       },
       "passed": true,
       "expected": {
@@ -1259,10 +1259,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 31.57,
+          "retrieval_ms": 36.53,
           "llm_ms": 0.0
         },
-        "latency_ms": 32.9
+        "latency_ms": 39.43
       },
       "passed": true,
       "expected": {
@@ -1360,6 +1360,11 @@
             "id": "DEL-1",
             "score": 0.103572,
             "dense_score": 0.3044
+          },
+          {
+            "id": "CAN-2",
+            "score": 0.09567,
+            "dense_score": 0.237
           }
         ],
         "tool_calls": [],
@@ -1373,10 +1378,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 37.85,
+          "retrieval_ms": 52.62,
           "llm_ms": 0.0
         },
-        "latency_ms": 39.11
+        "latency_ms": 55.79
       },
       "passed": true,
       "expected": {
@@ -1471,13 +1476,13 @@
             "dense_score": 0.381
           },
           {
-            "id": "KB-00.1",
-            "score": 0.025284,
-            "dense_score": 0.1038
+            "id": "RET-8",
+            "score": 0.103029,
+            "dense_score": 0.3452
           },
           {
             "id": "PLS-2",
-            "score": 0.025283,
+            "score": 0.062887,
             "dense_score": 0.2051
           }
         ],
@@ -1492,10 +1497,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 48.91,
+          "retrieval_ms": 71.33,
           "llm_ms": 0.0
         },
-        "latency_ms": 51.27
+        "latency_ms": 74.51
       },
       "passed": true,
       "expected": {
@@ -1611,10 +1616,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 15.11,
+          "retrieval_ms": 23.54,
           "llm_ms": 0.0
         },
-        "latency_ms": 16.91
+        "latency_ms": 27.48
       },
       "passed": true,
       "expected": {
@@ -1660,63 +1665,63 @@
         "retrieval_candidates": [
           {
             "id": "CPN-2",
-            "score": 0.133613,
-            "dense_score": 0.7725
-          },
-          {
-            "id": "CPN-1",
-            "score": 0.126754,
-            "dense_score": 0.494
-          },
-          {
-            "id": "CPN-3",
-            "score": 0.125485,
-            "dense_score": 0.5632
-          },
-          {
-            "id": "REF-4",
-            "score": 0.118963,
-            "dense_score": 0.4812
-          },
-          {
-            "id": "PAY-3",
-            "score": 0.102027,
-            "dense_score": 0.4204
+            "score": 0.165238,
+            "dense_score": 0.7723
           },
           {
             "id": "RET-5",
-            "score": 0.100339,
-            "dense_score": 0.452
-          },
-          {
-            "id": "CAN-4",
-            "score": 0.089111,
-            "dense_score": 0.2888
+            "score": 0.164757,
+            "dense_score": 0.4252
           },
           {
             "id": "DWM-1",
-            "score": 0.079103,
-            "dense_score": 0.2575
+            "score": 0.149603,
+            "dense_score": 0.2502
           },
           {
-            "id": "DEL-3",
-            "score": 0.074766,
-            "dense_score": 0.2131
+            "id": "CPN-3",
+            "score": 0.148243,
+            "dense_score": 0.563
           },
           {
-            "id": "PAY-4",
-            "score": 0.045179,
-            "dense_score": 0.453
+            "id": "CPN-1",
+            "score": 0.144904,
+            "dense_score": 0.5075
           },
           {
-            "id": "RET-4",
-            "score": 0.042167,
-            "dense_score": 0.4463
+            "id": "PAY-3",
+            "score": 0.14248,
+            "dense_score": 0.4063
+          },
+          {
+            "id": "REF-4",
+            "score": 0.139674,
+            "dense_score": 0.4781
           },
           {
             "id": "DWM-2",
-            "score": 0.040806,
-            "dense_score": 0.4349
+            "score": 0.12797,
+            "dense_score": 0.4172
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.123,
+            "dense_score": 0.4164
+          },
+          {
+            "id": "RET-4",
+            "score": 0.110777,
+            "dense_score": 0.4228
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.10511,
+            "dense_score": 0.3229
+          },
+          {
+            "id": "REF-5",
+            "score": 0.103989,
+            "dense_score": 0.4055
           }
         ],
         "tool_calls": [],
@@ -1730,10 +1735,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 19.28,
+          "retrieval_ms": 61.16,
           "llm_ms": 0.0
         },
-        "latency_ms": 20.3
+        "latency_ms": 64.95
       },
       "passed": true,
       "expected": {
@@ -1821,7 +1826,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTc555a8e08a064a05add28b65105c34eb"
+              "ticket_id": "TKTe0c3a9ae23844371b86d161c56b30a4b"
             }
           }
         ],
@@ -1838,7 +1843,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 14.71
+        "latency_ms": 5.03
       },
       "passed": true,
       "expected": {
@@ -1926,7 +1931,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTfa29a5e1d0844bbc9b8940ab324386e0"
+              "ticket_id": "TKTc815ee4fbfca49cc9d1871f096d9af11"
             }
           }
         ],
@@ -1943,7 +1948,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.88
+        "latency_ms": 3.37
       },
       "passed": true,
       "expected": {
@@ -2020,7 +2025,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT377d40db6f534a379808add33675f6a5"
+              "ticket_id": "TKTaf4c569598fb48fc803a5900f8dd15a3"
             }
           }
         ],
@@ -2037,7 +2042,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.84
+        "latency_ms": 6.03
       },
       "passed": true,
       "expected": {
@@ -2114,7 +2119,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTab38db75cc0b41c99ca46a01ff1f49c9"
+              "ticket_id": "TKTaea434d15d884a9abba1cd16859ba141"
             }
           }
         ],
@@ -2131,7 +2136,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.42
+        "latency_ms": 4.4
       },
       "passed": true,
       "expected": {
@@ -2208,7 +2213,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT1a512773bd3040289c01d92d3bdc0051"
+              "ticket_id": "TKT0ade25726fc844de9f0f1563890d9f51"
             }
           }
         ],
@@ -2225,7 +2230,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.97
+        "latency_ms": 3.43
       },
       "passed": true,
       "expected": {
@@ -2302,7 +2307,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTb39eca5183454b4b97e5f8a1a5787dc6"
+              "ticket_id": "TKTa76fd520a0e24a92b88dac2025275359"
             }
           }
         ],
@@ -2319,7 +2324,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 3.65
+        "latency_ms": 3.17
       },
       "passed": true,
       "expected": {
@@ -2399,7 +2404,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.97
+        "latency_ms": 5.33
       },
       "passed": true,
       "expected": {
@@ -2479,7 +2484,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.05
+        "latency_ms": 2.89
       },
       "passed": true,
       "expected": {
@@ -2559,7 +2564,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.63
+        "latency_ms": 2.38
       },
       "passed": true,
       "expected": {
@@ -2639,7 +2644,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.72
+        "latency_ms": 1.93
       },
       "passed": true,
       "expected": {
@@ -2766,10 +2771,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 19.51,
+          "retrieval_ms": 28.74,
           "llm_ms": 0.0
         },
-        "latency_ms": 20.85
+        "latency_ms": 31.22
       },
       "passed": true,
       "expected": {
@@ -2875,14 +2880,14 @@
             "dense_score": 0.4687
           },
           {
-            "id": "KB-00.1",
-            "score": 0.048573,
-            "dense_score": 0.2746
+            "id": "PLS-2",
+            "score": 0.079422,
+            "dense_score": 0.2696
           },
           {
-            "id": "PLS-2",
-            "score": 0.048572,
-            "dense_score": 0.2696
+            "id": "PAY-4",
+            "score": 0.058504,
+            "dense_score": 0.2688
           }
         ],
         "tool_calls": [],
@@ -2896,10 +2901,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 48.75,
+          "retrieval_ms": 53.67,
           "llm_ms": 0.0
         },
-        "latency_ms": 50.25
+        "latency_ms": 56.64
       },
       "passed": true,
       "expected": {
@@ -2945,63 +2950,63 @@
         "retrieval_candidates": [
           {
             "id": "CAN-2",
-            "score": 0.188873,
-            "dense_score": 0.7161
+            "score": 0.19831,
+            "dense_score": 0.7023
           },
           {
             "id": "CAN-1",
-            "score": 0.184744,
-            "dense_score": 0.6534
-          },
-          {
-            "id": "CAN-3",
-            "score": 0.160533,
-            "dense_score": 0.6195
+            "score": 0.184095,
+            "dense_score": 0.644
           },
           {
             "id": "REF-5",
-            "score": 0.159285,
-            "dense_score": 0.556
+            "score": 0.167384,
+            "dense_score": 0.5422
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.13999,
+            "dense_score": 0.3541
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.139989,
+            "dense_score": 0.6147
           },
           {
             "id": "CAN-4",
-            "score": 0.159046,
-            "dense_score": 0.4555
-          },
-          {
-            "id": "REF-1",
-            "score": 0.150543,
-            "dense_score": 0.5534
-          },
-          {
-            "id": "PLS-3",
-            "score": 0.136603,
-            "dense_score": 0.4325
-          },
-          {
-            "id": "DEL-6",
-            "score": 0.135123,
-            "dense_score": 0.464
+            "score": 0.139988,
+            "dense_score": 0.4539
           },
           {
             "id": "DEL-1",
-            "score": 0.130007,
-            "dense_score": 0.5416
+            "score": 0.139987,
+            "dense_score": 0.5457
           },
           {
             "id": "DEL-4",
-            "score": 0.129259,
-            "dense_score": 0.5606
+            "score": 0.139986,
+            "dense_score": 0.5748
           },
           {
-            "id": "KB-00.1",
-            "score": 0.027966,
-            "dense_score": 0.0634
+            "id": "REF-1",
+            "score": 0.139985,
+            "dense_score": 0.5588
           },
           {
-            "id": "DEL-3",
-            "score": 0.027965,
-            "dense_score": 0.4719
+            "id": "DEL-2",
+            "score": 0.139984,
+            "dense_score": 0.4889
+          },
+          {
+            "id": "PAY-2",
+            "score": 0.139044,
+            "dense_score": 0.3844
+          },
+          {
+            "id": "DEL-6",
+            "score": 0.129799,
+            "dense_score": 0.4571
           }
         ],
         "tool_calls": [],
@@ -3015,10 +3020,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 45.56,
+          "retrieval_ms": 61.44,
           "llm_ms": 0.0
         },
-        "latency_ms": 47.1
+        "latency_ms": 65.14
       },
       "passed": true,
       "expected": {
@@ -3116,6 +3121,11 @@
             "id": "REF-4",
             "score": 0.026068,
             "dense_score": 0.2189
+          },
+          {
+            "id": "TRK-1",
+            "score": 0.026067,
+            "dense_score": 0.4072
           }
         ],
         "tool_calls": [],
@@ -3129,10 +3139,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 30.8,
+          "retrieval_ms": 40.77,
           "llm_ms": 0.0
         },
-        "latency_ms": 32.13
+        "latency_ms": 43.1
       },
       "passed": true,
       "expected": {
@@ -3189,63 +3199,63 @@
         "retrieval_candidates": [
           {
             "id": "DEL-3",
-            "score": 0.191125,
+            "score": 0.202125,
             "dense_score": 0.4704
           },
           {
             "id": "PAY-3",
-            "score": 0.148207,
+            "score": 0.157636,
             "dense_score": 0.3002
           },
           {
             "id": "DEL-4",
-            "score": 0.147265,
+            "score": 0.1544,
             "dense_score": 0.3144
           },
           {
             "id": "DEL-5",
-            "score": 0.146712,
+            "score": 0.154046,
             "dense_score": 0.2966
           },
           {
             "id": "CAN-3",
-            "score": 0.14423,
+            "score": 0.15083,
             "dense_score": 0.3034
           },
           {
             "id": "TRK-2",
-            "score": 0.143899,
+            "score": 0.150214,
             "dense_score": 0.3584
           },
           {
-            "id": "DEL-1",
-            "score": 0.141572,
-            "dense_score": 0.2603
-          },
-          {
             "id": "DEL-2",
-            "score": 0.141524,
+            "score": 0.15004,
             "dense_score": 0.3357
           },
           {
+            "id": "DEL-1",
+            "score": 0.149115,
+            "dense_score": 0.2603
+          },
+          {
             "id": "REF-1",
-            "score": 0.138979,
+            "score": 0.148083,
             "dense_score": 0.2213
           },
           {
             "id": "TRK-1",
-            "score": 0.123369,
+            "score": 0.1326,
             "dense_score": 0.2207
           },
           {
-            "id": "KB-00.1",
-            "score": 0.087596,
-            "dense_score": -0.1061
+            "id": "PLS-2",
+            "score": 0.096921,
+            "dense_score": 0.2094
           },
           {
-            "id": "PLS-2",
-            "score": 0.087595,
-            "dense_score": 0.2094
+            "id": "RVP-3",
+            "score": 0.09692,
+            "dense_score": 0.3252
           }
         ],
         "tool_calls": [],
@@ -3259,10 +3269,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 46.25,
+          "retrieval_ms": 48.64,
           "llm_ms": 0.0
         },
-        "latency_ms": 49.16
+        "latency_ms": 51.58
       },
       "passed": true,
       "expected": {
@@ -3328,9 +3338,19 @@
             "dense_score": 0.4389
           },
           {
+            "id": "DEL-1",
+            "score": 0.14639,
+            "dense_score": 0.3175
+          },
+          {
             "id": "TRK-2",
             "score": 0.141922,
             "dense_score": 0.3933
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.140446,
+            "dense_score": 0.2849
           },
           {
             "id": "TRK-1",
@@ -3343,16 +3363,6 @@
             "dense_score": 0.3552
           },
           {
-            "id": "DEL-1",
-            "score": 0.136237,
-            "dense_score": 0.3175
-          },
-          {
-            "id": "CAN-3",
-            "score": 0.130669,
-            "dense_score": 0.2849
-          },
-          {
             "id": "RVP-2",
             "score": 0.121998,
             "dense_score": 0.3549
@@ -3363,18 +3373,18 @@
             "dense_score": 0.3296
           },
           {
-            "id": "RVP-3",
-            "score": 0.118551,
-            "dense_score": 0.3887
+            "id": "KB-00.3",
+            "score": 0.044192,
+            "dense_score": 0.1859
           },
           {
-            "id": "DWM-1",
-            "score": 0.017466,
-            "dense_score": 0.1507
+            "id": "RET-7",
+            "score": 0.044191,
+            "dense_score": 0.3551
           },
           {
             "id": "PLS-2",
-            "score": 0.017465,
+            "score": 0.04419,
             "dense_score": 0.3011
           }
         ],
@@ -3389,10 +3399,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 60.75,
+          "retrieval_ms": 64.69,
           "llm_ms": 0.0
         },
-        "latency_ms": 63.04
+        "latency_ms": 67.03
       },
       "passed": true,
       "expected": {
@@ -3508,10 +3518,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 56.61,
+          "retrieval_ms": 46.85,
           "llm_ms": 0.0
         },
-        "latency_ms": 59.26
+        "latency_ms": 49.35
       },
       "passed": true,
       "expected": {
@@ -3633,9 +3643,9 @@
             "dense_score": 0.3065
           },
           {
-            "id": "KB-00.1",
-            "score": 0.118622,
-            "dense_score": 0.0268
+            "id": "DEL-4",
+            "score": 0.121088,
+            "dense_score": 0.3257
           }
         ],
         "tool_calls": [],
@@ -3649,10 +3659,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 51.68,
+          "retrieval_ms": 41.97,
           "llm_ms": 0.0
         },
-        "latency_ms": 53.63
+        "latency_ms": 44.52
       },
       "passed": true,
       "expected": {
@@ -3698,8 +3708,13 @@
         "retrieval_candidates": [
           {
             "id": "RET-6",
-            "score": 0.189438,
+            "score": 0.199216,
             "dense_score": 0.5723
+          },
+          {
+            "id": "RET-8",
+            "score": 0.168536,
+            "dense_score": 0.4003
           },
           {
             "id": "RET-7",
@@ -3707,19 +3722,24 @@
             "dense_score": 0.4342
           },
           {
-            "id": "RET-8",
-            "score": 0.157976,
-            "dense_score": 0.4003
-          },
-          {
             "id": "RET-5",
             "score": 0.15122,
             "dense_score": 0.3783
           },
           {
+            "id": "RET-9",
+            "score": 0.147976,
+            "dense_score": 0.3651
+          },
+          {
             "id": "RVP-1",
             "score": 0.147207,
             "dense_score": 0.5458
+          },
+          {
+            "id": "RET-2",
+            "score": 0.145788,
+            "dense_score": 0.23
           },
           {
             "id": "MKS-2",
@@ -3737,24 +3757,14 @@
             "dense_score": 0.3694
           },
           {
-            "id": "RET-9",
-            "score": 0.136976,
-            "dense_score": 0.3651
-          },
-          {
-            "id": "RET-2",
-            "score": 0.135634,
-            "dense_score": 0.23
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.128852,
-            "dense_score": 0.0126
-          },
-          {
             "id": "PLS-2",
-            "score": 0.128851,
+            "score": 0.136092,
             "dense_score": 0.3003
+          },
+          {
+            "id": "DWM-1",
+            "score": 0.075755,
+            "dense_score": 0.2235
           }
         ],
         "tool_calls": [],
@@ -3768,10 +3778,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 75.6,
+          "retrieval_ms": 58.91,
           "llm_ms": 0.0
         },
-        "latency_ms": 76.97
+        "latency_ms": 61.37
       },
       "passed": true,
       "expected": {
@@ -3816,64 +3826,64 @@
         ],
         "retrieval_candidates": [
           {
-            "id": "RET-4",
-            "score": 0.170444,
-            "dense_score": 0.3923
+            "id": "RET-2",
+            "score": 0.173499,
+            "dense_score": 0.3682
           },
           {
-            "id": "RET-2",
-            "score": 0.159921,
-            "dense_score": 0.2728
+            "id": "RET-4",
+            "score": 0.173172,
+            "dense_score": 0.3264
           },
           {
             "id": "RET-8",
-            "score": 0.148761,
-            "dense_score": 0.3025
+            "score": 0.131489,
+            "dense_score": 0.253
           },
           {
             "id": "RET-5",
-            "score": 0.141384,
-            "dense_score": 0.2722
-          },
-          {
-            "id": "RET-9",
-            "score": 0.131473,
-            "dense_score": 0.2844
-          },
-          {
-            "id": "FAQ-2",
-            "score": 0.129019,
-            "dense_score": 0.2747
+            "score": 0.126912,
+            "dense_score": 0.2141
           },
           {
             "id": "RET-1",
-            "score": 0.124201,
-            "dense_score": 0.2752
+            "score": 0.123554,
+            "dense_score": 0.3213
           },
           {
             "id": "MKS-2",
-            "score": 0.123364,
-            "dense_score": 0.2242
+            "score": 0.11491,
+            "dense_score": 0.2139
           },
           {
-            "id": "DWM-4",
-            "score": 0.114835,
-            "dense_score": 0.2082
-          },
-          {
-            "id": "RET-3",
-            "score": 0.110455,
-            "dense_score": 0.1887
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.019551,
-            "dense_score": 0.0547
+            "id": "MKS-1",
+            "score": 0.112376,
+            "dense_score": 0.3189
           },
           {
             "id": "DWM-1",
-            "score": 0.01955,
-            "dense_score": 0.1713
+            "score": 0.112248,
+            "dense_score": 0.1303
+          },
+          {
+            "id": "RET-9",
+            "score": 0.112079,
+            "dense_score": 0.2421
+          },
+          {
+            "id": "RET-3",
+            "score": 0.104503,
+            "dense_score": 0.1135
+          },
+          {
+            "id": "FAQ-2",
+            "score": 0.098238,
+            "dense_score": 0.1812
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.019245,
+            "dense_score": 0.1141
           }
         ],
         "tool_calls": [],
@@ -3889,10 +3899,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 76.96,
+          "retrieval_ms": 80.46,
           "llm_ms": 0.0
         },
-        "latency_ms": 78.65
+        "latency_ms": 82.68
       },
       "passed": true,
       "expected": {
@@ -3964,8 +3974,13 @@
           },
           {
             "id": "REF-2",
-            "score": 0.148009,
+            "score": 0.157437,
             "dense_score": 0.3925
+          },
+          {
+            "id": "RET-7",
+            "score": 0.144366,
+            "dense_score": 0.4427
           },
           {
             "id": "FAQ-1",
@@ -3978,9 +3993,9 @@
             "dense_score": 0.3592
           },
           {
-            "id": "RET-7",
-            "score": 0.133806,
-            "dense_score": 0.4427
+            "id": "KB-00.3",
+            "score": 0.131361,
+            "dense_score": 0.3261
           },
           {
             "id": "RET-4",
@@ -3998,14 +4013,9 @@
             "dense_score": 0.3841
           },
           {
-            "id": "MKS-2",
-            "score": 0.127086,
-            "dense_score": 0.3075
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.120732,
-            "dense_score": 0.0484
+            "id": "PLS-2",
+            "score": 0.085703,
+            "dense_score": 0.1069
           }
         ],
         "tool_calls": [],
@@ -4024,10 +4034,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 45.9,
+          "retrieval_ms": 51.71,
           "llm_ms": 0.0
         },
-        "latency_ms": 47.7
+        "latency_ms": 54.01
       },
       "passed": true,
       "expected": {
@@ -4040,7 +4050,7 @@
       "question": "Electronics delivered on 31 July 2026, return window?",
       "prediction": {
         "transcript": "Electronics delivered on 31 July 2026, return window?",
-        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is electronics and accessories; its window is 10 calendar days from delivery, subject to item condition.",
+        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is electronics and accessories; its window is 10 calendar days from delivery, subject to item condition. Delivery before 1 August 2026 keeps the earlier 10-day rule under the current policy historical exception.",
         "intent": "return",
         "decision": "answer",
         "language": "en",
@@ -4149,9 +4159,9 @@
             "dense_score": 0.3232
           },
           {
-            "id": "KB-00.1",
-            "score": 0.114808,
-            "dense_score": 0.069
+            "id": "RET-6",
+            "score": 0.117451,
+            "dense_score": 0.3515
           }
         ],
         "tool_calls": [],
@@ -4170,10 +4180,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 50.74,
+          "retrieval_ms": 43.86,
           "llm_ms": 0.0
         },
-        "latency_ms": 52.95
+        "latency_ms": 46.61
       },
       "passed": true,
       "expected": {
@@ -4186,7 +4196,7 @@
       "question": "Electronics delivered on 1 August 2026, return window?",
       "prediction": {
         "transcript": "Electronics delivered on 1 August 2026, return window?",
-        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is electronics and accessories; its window is 7 calendar days from delivery, subject to item condition.",
+        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is electronics and accessories; its window is 7 calendar days from delivery, subject to item condition. Delivery on or after 1 August 2026 uses the current 7-day electronics window.",
         "intent": "return",
         "decision": "answer",
         "language": "en",
@@ -4284,9 +4294,9 @@
             "dense_score": 0.3287
           },
           {
-            "id": "KB-00.1",
-            "score": 0.023069,
-            "dense_score": 0.0894
+            "id": "RET-9",
+            "score": 0.115375,
+            "dense_score": 0.2576
           }
         ],
         "tool_calls": [],
@@ -4305,10 +4315,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 46.57,
+          "retrieval_ms": 54.75,
           "llm_ms": 0.0
         },
-        "latency_ms": 50.58
+        "latency_ms": 57.61
       },
       "passed": true,
       "expected": {
@@ -4321,7 +4331,7 @@
       "question": "Fashion order placed on 15 October 2026, return window?",
       "prediction": {
         "transcript": "Fashion order placed on 15 October 2026, return window?",
-        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is clothing, footwear and bags; its window is 30 calendar days from delivery, subject to item condition. The 30-day festive extension is only for clothing, footwear and bags placed from 1 to 15 October 2026; other categories keep their ordinary window.",
+        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is clothing, footwear and bags; its window is 30 calendar days from delivery, subject to item condition. Yes, the order placement date of 15 October 2026 is inside the offer; both 1 and 15 October are included. The 30-day festive extension is only for clothing, footwear and bags placed from 1 to 15 October 2026; other categories keep their ordinary window.",
         "intent": "return",
         "decision": "answer",
         "language": "en",
@@ -4419,9 +4429,9 @@
             "dense_score": 0.3632
           },
           {
-            "id": "KB-00.1",
-            "score": 0.021386,
-            "dense_score": 0.1321
+            "id": "RET-5",
+            "score": 0.116401,
+            "dense_score": 0.3501
           }
         ],
         "tool_calls": [],
@@ -4440,10 +4450,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 43.0,
+          "retrieval_ms": 48.25,
           "llm_ms": 0.0
         },
-        "latency_ms": 44.68
+        "latency_ms": 52.55
       },
       "passed": true,
       "expected": {
@@ -4456,7 +4466,7 @@
       "question": "Fashion order placed on 16 October 2026, return window?",
       "prediction": {
         "transcript": "Fashion order placed on 16 October 2026, return window?",
-        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is clothing, footwear and bags; its window is 15 calendar days from delivery, subject to item condition. The 30-day festive extension is only for clothing, footwear and bags placed from 1 to 15 October 2026; other categories keep their ordinary window.",
+        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is clothing, footwear and bags; its window is 15 calendar days from delivery, subject to item condition. No, that order was placed outside the offer dates, so delivery during the festival does not extend its normal return period. The 30-day festive extension is only for clothing, footwear and bags placed from 1 to 15 October 2026; other categories keep their ordinary window.",
         "intent": "return",
         "decision": "answer",
         "language": "en",
@@ -4549,14 +4559,14 @@
             "dense_score": 0.448
           },
           {
-            "id": "KB-00.1",
-            "score": 0.021667,
-            "dense_score": 0.1527
+            "id": "DEL-1",
+            "score": 0.092131,
+            "dense_score": 0.3149
           },
           {
-            "id": "DEL-1",
-            "score": 0.021666,
-            "dense_score": 0.3149
+            "id": "CAN-2",
+            "score": 0.09213,
+            "dense_score": 0.3527
           }
         ],
         "tool_calls": [],
@@ -4575,10 +4585,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 58.71,
+          "retrieval_ms": 54.12,
           "llm_ms": 0.0
         },
-        "latency_ms": 60.58
+        "latency_ms": 57.33
       },
       "passed": true,
       "expected": {
@@ -4689,9 +4699,9 @@
             "dense_score": 0.4149
           },
           {
-            "id": "KB-00.1",
-            "score": 0.117944,
-            "dense_score": 0.0518
+            "id": "RET-7",
+            "score": 0.122196,
+            "dense_score": 0.3795
           }
         ],
         "tool_calls": [],
@@ -4710,10 +4720,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 40.5,
+          "retrieval_ms": 45.88,
           "llm_ms": 0.0
         },
-        "latency_ms": 42.05
+        "latency_ms": 49.01
       },
       "passed": true,
       "expected": {
@@ -4840,10 +4850,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 24.71,
+          "retrieval_ms": 26.3,
           "llm_ms": 0.0
         },
-        "latency_ms": 27.39
+        "latency_ms": 29.23
       },
       "passed": true,
       "expected": {
@@ -4889,22 +4899,22 @@
         "retrieval_candidates": [
           {
             "id": "TRB-4",
-            "score": 0.162083,
+            "score": 0.170655,
             "dense_score": 0.5127
           },
           {
-            "id": "TRB-1",
-            "score": 0.150956,
-            "dense_score": 0.3317
-          },
-          {
             "id": "TRB-2",
-            "score": 0.149868,
+            "score": 0.159468,
             "dense_score": 0.2873
           },
           {
+            "id": "TRB-1",
+            "score": 0.158698,
+            "dense_score": 0.3317
+          },
+          {
             "id": "TRB-3",
-            "score": 0.11703,
+            "score": 0.125919,
             "dense_score": 0.3496
           },
           {
@@ -4914,13 +4924,18 @@
           },
           {
             "id": "RET-4",
-            "score": 0.083205,
+            "score": 0.092309,
             "dense_score": 0.0573
           },
           {
             "id": "RET-3",
-            "score": 0.080869,
+            "score": 0.091869,
             "dense_score": 0.1102
+          },
+          {
+            "id": "RET-2",
+            "score": 0.071002,
+            "dense_score": 0.0259
           },
           {
             "id": "WAR-3",
@@ -4928,19 +4943,14 @@
             "dense_score": 0.118
           },
           {
-            "id": "RET-2",
-            "score": 0.062202,
-            "dense_score": 0.0259
+            "id": "WAR-1",
+            "score": 0.066344,
+            "dense_score": 0.0859
           },
           {
             "id": "TRK-2",
             "score": 0.059429,
             "dense_score": 0.1376
-          },
-          {
-            "id": "WAR-1",
-            "score": 0.05619,
-            "dense_score": 0.0859
           },
           {
             "id": "REF-6",
@@ -4959,10 +4969,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 29.42,
+          "retrieval_ms": 29.46,
           "llm_ms": 0.0
         },
-        "latency_ms": 30.74
+        "latency_ms": 31.66
       },
       "passed": true,
       "expected": {
@@ -5089,10 +5099,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 28.29,
+          "retrieval_ms": 36.32,
           "llm_ms": 0.0
         },
-        "latency_ms": 29.88
+        "latency_ms": 38.82
       },
       "passed": true,
       "expected": {
@@ -5197,10 +5207,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 41.6,
+          "retrieval_ms": 36.32,
           "llm_ms": 0.0
         },
-        "latency_ms": 44.0
+        "latency_ms": 38.83
       },
       "passed": true,
       "expected": {
@@ -5235,13 +5245,18 @@
         "retrieval_candidates": [
           {
             "id": "TRB-3",
-            "score": 0.135084,
+            "score": 0.143973,
             "dense_score": 0.2429
           },
           {
             "id": "IDV-2",
             "score": 0.10212,
             "dense_score": 0.2954
+          },
+          {
+            "id": "TRB-1",
+            "score": 0.100183,
+            "dense_score": 0.1297
           },
           {
             "id": "PLS-1",
@@ -5254,13 +5269,8 @@
             "dense_score": 0.3467
           },
           {
-            "id": "TRB-1",
-            "score": 0.092441,
-            "dense_score": 0.1297
-          },
-          {
             "id": "TRB-2",
-            "score": 0.087128,
+            "score": 0.096728,
             "dense_score": 0.0779
           },
           {
@@ -5269,29 +5279,29 @@
             "dense_score": 0.2412
           },
           {
+            "id": "RET-3",
+            "score": 0.084582,
+            "dense_score": 0.161
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.075523,
+            "dense_score": 0.1648
+          },
+          {
             "id": "PLS-3",
             "score": 0.074433,
             "dense_score": 0.145
           },
           {
-            "id": "RET-3",
-            "score": 0.073582,
-            "dense_score": 0.161
-          },
-          {
-            "id": "WAR-1",
-            "score": 0.065369,
-            "dense_score": 0.1648
+            "id": "RET-4",
+            "score": 0.066685,
+            "dense_score": 0.1427
           },
           {
             "id": "IDV-4",
             "score": 0.060083,
             "dense_score": 0.1421
-          },
-          {
-            "id": "RET-4",
-            "score": 0.057582,
-            "dense_score": 0.1427
           }
         ],
         "tool_calls": [],
@@ -5305,10 +5315,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 26.78,
+          "retrieval_ms": 29.28,
           "llm_ms": 0.0
         },
-        "latency_ms": 28.01
+        "latency_ms": 31.34
       },
       "passed": true,
       "expected": {
@@ -5413,10 +5423,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 13.61,
+          "retrieval_ms": 16.16,
           "llm_ms": 0.0
         },
-        "latency_ms": 14.72
+        "latency_ms": 19.31
       },
       "passed": true,
       "expected": {
@@ -5521,10 +5531,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 14.98,
+          "retrieval_ms": 22.03,
           "llm_ms": 0.0
         },
-        "latency_ms": 16.57
+        "latency_ms": 27.59
       },
       "passed": true,
       "expected": {
@@ -5629,10 +5639,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 16.56,
+          "retrieval_ms": 29.2,
           "llm_ms": 0.0
         },
-        "latency_ms": 17.72
+        "latency_ms": 33.48
       },
       "passed": true,
       "expected": {
@@ -5709,7 +5719,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT71a99969a2e94bb4b6c4accb0ad97c5c"
+              "ticket_id": "TKT947911ca108442b3955d8efc201465a4"
             }
           }
         ],
@@ -5726,7 +5736,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 4.2
+        "latency_ms": 10.34
       },
       "passed": true,
       "expected": {
@@ -5771,19 +5781,19 @@
         ],
         "retrieval_candidates": [
           {
-            "id": "REF-6",
-            "score": 0.16625,
-            "dense_score": 0.483
-          },
-          {
             "id": "RET-7",
-            "score": 0.165854,
+            "score": 0.176414,
             "dense_score": 0.4397
           },
           {
             "id": "REF-2",
-            "score": 0.165742,
+            "score": 0.175171,
             "dense_score": 0.3426
+          },
+          {
+            "id": "REF-6",
+            "score": 0.16625,
+            "dense_score": 0.483
           },
           {
             "id": "REF-1",
@@ -5817,18 +5827,18 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.078999,
+            "score": 0.086499,
             "dense_score": 0.0967
           },
           {
-            "id": "KB-00.1",
-            "score": 0.075049,
-            "dense_score": 0.1022
+            "id": "PLS-2",
+            "score": 0.086498,
+            "dense_score": 0.3905
           },
           {
-            "id": "PLS-2",
-            "score": 0.075048,
-            "dense_score": 0.3905
+            "id": "DEL-3",
+            "score": 0.062902,
+            "dense_score": 0.3007
           }
         ],
         "tool_calls": [],
@@ -5842,10 +5852,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 52.41,
+          "retrieval_ms": 65.71,
           "llm_ms": 0.0
         },
-        "latency_ms": 55.22
+        "latency_ms": 68.82
       },
       "passed": true,
       "expected": {
@@ -5922,7 +5932,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKT90aa69d9482d4e57b366245f01649d73"
+              "ticket_id": "TKT148832a0e12f4b9eae3e63343907e5cf"
             }
           }
         ],
@@ -5939,7 +5949,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 5.01
+        "latency_ms": 7.81
       },
       "passed": true,
       "expected": {
@@ -5958,7 +5968,8 @@
         "language": "hi",
         "retrieved_chunk_ids": [
           "STY-1",
-          "REF-2"
+          "REF-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -5980,28 +5991,38 @@
             "effective_from": "2026-06-15",
             "version": "2.1",
             "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [
           {
             "id": "RET-7",
-            "score": 0.133037,
+            "score": 0.142575,
             "dense_score": 0.5833
           },
           {
+            "id": "REF-2",
+            "score": 0.136365,
+            "dense_score": 0.4714
+          },
+          {
             "id": "REF-3",
-            "score": 0.129703,
+            "score": 0.134255,
             "dense_score": 0.6398
           },
           {
             "id": "REF-1",
-            "score": 0.128642,
+            "score": 0.133042,
             "dense_score": 0.6367
-          },
-          {
-            "id": "REF-2",
-            "score": 0.126937,
-            "dense_score": 0.4714
           },
           {
             "id": "FAQH-2",
@@ -6010,38 +6031,38 @@
           },
           {
             "id": "DEL-1",
-            "score": 0.113287,
+            "score": 0.118364,
             "dense_score": 0.5613
           },
           {
             "id": "FAQ-1",
-            "score": 0.10972,
+            "score": 0.114105,
             "dense_score": 0.691
           },
           {
             "id": "REF-6",
-            "score": 0.106064,
+            "score": 0.111564,
             "dense_score": 0.4548
           },
           {
-            "id": "PAY-3",
-            "score": 0.102702,
-            "dense_score": 0.5504
-          },
-          {
             "id": "KB-00.3",
-            "score": 0.080585,
+            "score": 0.087062,
             "dense_score": 0.4051
           },
           {
             "id": "KB-00.1",
-            "score": 0.06887,
+            "score": 0.057232,
             "dense_score": 0.162
           },
           {
             "id": "PLS-2",
-            "score": 0.068869,
+            "score": 0.057231,
             "dense_score": 0.3284
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.05723,
+            "dense_score": 0.3665
           }
         ],
         "tool_calls": [],
@@ -6055,10 +6076,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 68.52,
+          "retrieval_ms": 97.4,
           "llm_ms": 0.0
         },
-        "latency_ms": 70.01
+        "latency_ms": 100.53
       },
       "passed": true,
       "expected": {
@@ -6115,13 +6136,18 @@
         "retrieval_candidates": [
           {
             "id": "DWM-1",
-            "score": 0.12738,
+            "score": 0.13838,
             "dense_score": 0.3612
           },
           {
             "id": "RET-5",
-            "score": 0.119889,
+            "score": 0.129318,
             "dense_score": 0.4115
+          },
+          {
+            "id": "DWM-2",
+            "score": 0.121061,
+            "dense_score": 0.283
           },
           {
             "id": "FAQH-3",
@@ -6129,48 +6155,43 @@
             "dense_score": 0.363
           },
           {
-            "id": "DWM-2",
-            "score": 0.112261,
-            "dense_score": 0.283
-          },
-          {
             "id": "DWM-3",
-            "score": 0.107748,
+            "score": 0.113387,
             "dense_score": 0.2489
           },
           {
             "id": "DWM-4",
-            "score": 0.107376,
+            "score": 0.113386,
             "dense_score": 0.2967
           },
           {
             "id": "RET-4",
-            "score": 0.105359,
+            "score": 0.113124,
             "dense_score": 0.3054
           },
           {
             "id": "DWM-5",
-            "score": 0.102933,
+            "score": 0.111183,
             "dense_score": 0.2276
           },
           {
             "id": "RET-6",
-            "score": 0.074893,
+            "score": 0.085047,
             "dense_score": 0.258
           },
           {
             "id": "KB-00.1",
-            "score": 0.034641,
+            "score": 0.042975,
             "dense_score": 0.006
           },
           {
             "id": "ESC-1",
-            "score": 0.03464,
+            "score": 0.042974,
             "dense_score": 0.1926
           },
           {
             "id": "ESC-2",
-            "score": 0.034639,
+            "score": 0.042973,
             "dense_score": -0.0086
           }
         ],
@@ -6185,10 +6206,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 31.63,
+          "retrieval_ms": 44.2,
           "llm_ms": 0.0
         },
-        "latency_ms": 32.98
+        "latency_ms": 48.38
       },
       "passed": true,
       "expected": {
@@ -6234,8 +6255,13 @@
         "retrieval_candidates": [
           {
             "id": "DEL-4",
-            "score": 0.145292,
+            "score": 0.156292,
             "dense_score": 0.5322
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.141772,
+            "dense_score": 0.4235
           },
           {
             "id": "FAQH-3",
@@ -6243,9 +6269,9 @@
             "dense_score": 0.3727
           },
           {
-            "id": "DEL-1",
-            "score": 0.132344,
-            "dense_score": 0.4235
+            "id": "DEL-5",
+            "score": 0.136551,
+            "dense_score": 0.3485
           },
           {
             "id": "FAQH-4",
@@ -6253,44 +6279,39 @@
             "dense_score": 0.3454
           },
           {
+            "id": "PLS-2",
+            "score": 0.129213,
+            "dense_score": 0.4071
+          },
+          {
             "id": "FAQH-2",
             "score": 0.127638,
             "dense_score": 0.3443
           },
           {
-            "id": "DEL-5",
-            "score": 0.125991,
-            "dense_score": 0.3485
-          },
-          {
-            "id": "PLS-2",
-            "score": 0.119435,
-            "dense_score": 0.4071
-          },
-          {
             "id": "DEL-2",
-            "score": 0.112968,
+            "score": 0.123122,
             "dense_score": 0.311
           },
           {
             "id": "CAN-3",
-            "score": 0.110216,
+            "score": 0.117759,
             "dense_score": 0.3483
           },
           {
             "id": "DEL-3",
-            "score": 0.104245,
+            "score": 0.112495,
             "dense_score": 0.3154
           },
           {
-            "id": "REF-3",
-            "score": 0.096113,
-            "dense_score": 0.3311
+            "id": "KB-00.1",
+            "score": 0.078047,
+            "dense_score": 0.1416
           },
           {
-            "id": "KB-00.1",
-            "score": 0.091307,
-            "dense_score": 0.1416
+            "id": "PAY-2",
+            "score": 0.078046,
+            "dense_score": 0.2144
           }
         ],
         "tool_calls": [],
@@ -6304,10 +6325,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 86.93,
+          "retrieval_ms": 88.72,
           "llm_ms": 0.0
         },
-        "latency_ms": 89.26
+        "latency_ms": 92.81
       },
       "passed": true,
       "expected": {
@@ -6326,7 +6347,8 @@
         "language": "en",
         "retrieved_chunk_ids": [
           "STY-1",
-          "PLS-2"
+          "PLS-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -6348,6 +6370,16 @@
             "effective_from": "2026-01-01",
             "version": "1.0",
             "title": "Benefits"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [
@@ -6402,13 +6434,13 @@
             "dense_score": 0.5845
           },
           {
-            "id": "KB-00.1",
-            "score": 0.071468,
-            "dense_score": 0.1378
+            "id": "REF-2",
+            "score": 0.128084,
+            "dense_score": 0.5565
           },
           {
             "id": "DEL-3",
-            "score": 0.071467,
+            "score": 0.075229,
             "dense_score": 0.3181
           }
         ],
@@ -6423,10 +6455,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 65.21,
+          "retrieval_ms": 52.04,
           "llm_ms": 0.0
         },
-        "latency_ms": 67.6
+        "latency_ms": 55.84
       },
       "passed": true,
       "expected": {
@@ -6527,18 +6559,18 @@
             "dense_score": 0.2513
           },
           {
-            "id": "KB-00.1",
-            "score": 0.08844,
-            "dense_score": 0.0121
+            "id": "DWM-4",
+            "score": 0.123056,
+            "dense_score": 0.2872
           },
           {
             "id": "PLS-2",
-            "score": 0.088439,
+            "score": 0.109385,
             "dense_score": 0.2119
           },
           {
             "id": "DWM-1",
-            "score": 0.088438,
+            "score": 0.093095,
             "dense_score": 0.2674
           }
         ],
@@ -6553,10 +6585,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 76.17,
+          "retrieval_ms": 94.27,
           "llm_ms": 0.0
         },
-        "latency_ms": 77.94
+        "latency_ms": 98.49
       },
       "passed": true,
       "expected": {
@@ -6656,9 +6688,9 @@
             "dense_score": 0.3094
           },
           {
-            "id": "KB-00.1",
-            "score": 0.104022,
-            "dense_score": 0.0353
+            "id": "RET-4",
+            "score": 0.109413,
+            "dense_score": 0.3192
           }
         ],
         "tool_calls": [],
@@ -6677,10 +6709,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 58.11,
+          "retrieval_ms": 82.31,
           "llm_ms": 0.0
         },
-        "latency_ms": 60.61
+        "latency_ms": 88.92
       },
       "passed": true,
       "expected": {
@@ -6775,14 +6807,14 @@
             "dense_score": 0.2163
           },
           {
-            "id": "KB-00.1",
-            "score": 0.0075,
-            "dense_score": 0.1511
+            "id": "DWM-1",
+            "score": 0.114331,
+            "dense_score": 0.3484
           },
           {
-            "id": "DWM-1",
-            "score": 0.007499,
-            "dense_score": 0.3484
+            "id": "RET-6",
+            "score": 0.110853,
+            "dense_score": 0.2805
           }
         ],
         "tool_calls": [],
@@ -6801,10 +6833,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 87.54,
+          "retrieval_ms": 189.38,
           "llm_ms": 0.0
         },
-        "latency_ms": 89.4
+        "latency_ms": 196.17
       },
       "passed": true,
       "expected": {
@@ -6850,17 +6882,17 @@
         "retrieval_candidates": [
           {
             "id": "RET-9",
-            "score": 0.187072,
+            "score": 0.198072,
             "dense_score": 0.4393
           },
           {
             "id": "RET-8",
-            "score": 0.136395,
+            "score": 0.146955,
             "dense_score": 0.3344
           },
           {
             "id": "RET-6",
-            "score": 0.096073,
+            "score": 0.105851,
             "dense_score": 0.3005
           },
           {
@@ -6899,14 +6931,14 @@
             "dense_score": 0.2219
           },
           {
-            "id": "FAQ-2",
-            "score": 0.047054,
-            "dense_score": 0.2369
+            "id": "RET-2",
+            "score": 0.042934,
+            "dense_score": 0.1147
           },
           {
-            "id": "RET-2",
-            "score": 0.03278,
-            "dense_score": 0.1147
+            "id": "FAQ-2",
+            "score": 0.042933,
+            "dense_score": 0.2369
           }
         ],
         "tool_calls": [],
@@ -6920,10 +6952,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 38.95,
+          "retrieval_ms": 56.45,
           "llm_ms": 0.0
         },
-        "latency_ms": 40.46
+        "latency_ms": 60.12
       },
       "passed": true,
       "expected": {
@@ -7029,13 +7061,13 @@
             "dense_score": 0.4039
           },
           {
-            "id": "KB-00.1",
-            "score": 0.099935,
-            "dense_score": 0.0495
+            "id": "FAQ-3",
+            "score": 0.134801,
+            "dense_score": 0.5058
           },
           {
             "id": "PLS-2",
-            "score": 0.099934,
+            "score": 0.105194,
             "dense_score": 0.241
           }
         ],
@@ -7050,10 +7082,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 39.49,
+          "retrieval_ms": 48.56,
           "llm_ms": 0.0
         },
-        "latency_ms": 40.83
+        "latency_ms": 51.97
       },
       "passed": true,
       "expected": {
@@ -7121,63 +7153,63 @@
         "retrieval_candidates": [
           {
             "id": "DEL-1",
-            "score": 0.188681,
-            "dense_score": 0.6169
-          },
-          {
-            "id": "DEL-4",
-            "score": 0.15596,
-            "dense_score": 0.3782
-          },
-          {
-            "id": "DEL-6",
-            "score": 0.146601,
-            "dense_score": 0.3261
-          },
-          {
-            "id": "DEL-3",
-            "score": 0.144097,
-            "dense_score": 0.4374
-          },
-          {
-            "id": "REF-2",
-            "score": 0.137391,
-            "dense_score": 0.211
+            "score": 0.195839,
+            "dense_score": 0.6118
           },
           {
             "id": "DEL-2",
-            "score": 0.136556,
-            "dense_score": 0.4052
-          },
-          {
-            "id": "REF-1",
-            "score": 0.133387,
-            "dense_score": 0.3473
-          },
-          {
-            "id": "CAN-2",
-            "score": 0.128206,
-            "dense_score": 0.2701
+            "score": 0.17704,
+            "dense_score": 0.3987
           },
           {
             "id": "DEL-5",
-            "score": 0.121229,
-            "dense_score": 0.3402
+            "score": 0.176245,
+            "dense_score": 0.334
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.169758,
+            "dense_score": 0.3641
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.152449,
+            "dense_score": 0.4347
+          },
+          {
+            "id": "DEL-6",
+            "score": 0.143145,
+            "dense_score": 0.3292
+          },
+          {
+            "id": "CAN-2",
+            "score": 0.137859,
+            "dense_score": 0.2619
+          },
+          {
+            "id": "REF-5",
+            "score": 0.124939,
+            "dense_score": 0.2026
           },
           {
             "id": "KB-00.3",
-            "score": 0.08878,
-            "dense_score": 0.314
+            "score": 0.074256,
+            "dense_score": 0.3041
           },
           {
-            "id": "KB-00.1",
-            "score": 0.0209,
-            "dense_score": 0.106
+            "id": "RET-7",
+            "score": 0.074255,
+            "dense_score": 0.2216
+          },
+          {
+            "id": "PAY-2",
+            "score": 0.074254,
+            "dense_score": 0.2159
           },
           {
             "id": "PLS-2",
-            "score": 0.020899,
-            "dense_score": 0.109
+            "score": 0.033986,
+            "dense_score": 0.0961
           }
         ],
         "tool_calls": [],
@@ -7191,10 +7223,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 45.38,
+          "retrieval_ms": 86.15,
           "llm_ms": 0.0
         },
-        "latency_ms": 47.02
+        "latency_ms": 90.05
       },
       "passed": true,
       "expected": {
@@ -7289,14 +7321,14 @@
             "dense_score": 0.4486
           },
           {
+            "id": "RET-6",
+            "score": 0.111096,
+            "dense_score": 0.4093
+          },
+          {
             "id": "REF-1",
             "score": 0.108827,
             "dense_score": 0.4466
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.022917,
-            "dense_score": -0.0078
           }
         ],
         "tool_calls": [],
@@ -7310,10 +7342,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 40.13,
+          "retrieval_ms": 47.64,
           "llm_ms": 0.0
         },
-        "latency_ms": 42.81
+        "latency_ms": 51.99
       },
       "passed": true,
       "expected": {
@@ -7413,9 +7445,9 @@
             "dense_score": 0.1392
           },
           {
-            "id": "KB-00.1",
-            "score": 0.012058,
-            "dense_score": -0.0359
+            "id": "FAQH-4",
+            "score": 0.012691,
+            "dense_score": 0.2279
           }
         ],
         "tool_calls": [],
@@ -7429,10 +7461,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 83.28,
+          "retrieval_ms": 51.41,
           "llm_ms": 0.0
         },
-        "latency_ms": 92.42
+        "latency_ms": 56.25
       },
       "passed": true,
       "expected": {
@@ -7522,9 +7554,9 @@
             "dense_score": 0.3568
           },
           {
-            "id": "RET-4",
-            "score": 0.134312,
-            "dense_score": 0.373
+            "id": "DWM-1",
+            "score": 0.120225,
+            "dense_score": 0.2363
           },
           {
             "id": "ESC-1",
@@ -7548,10 +7580,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 61.57,
+          "retrieval_ms": 61.1,
           "llm_ms": 0.0
         },
-        "latency_ms": 63.66
+        "latency_ms": 64.15
       },
       "passed": true,
       "expected": {
@@ -7597,28 +7629,33 @@
         "retrieval_candidates": [
           {
             "id": "PAY-3",
-            "score": 0.133833,
+            "score": 0.144393,
             "dense_score": 0.7069
           },
           {
             "id": "REF-4",
-            "score": 0.111414,
+            "score": 0.11728,
             "dense_score": 0.4277
           },
           {
             "id": "TRK-2",
-            "score": 0.107071,
+            "score": 0.11596,
             "dense_score": 0.5043
           },
           {
             "id": "DEL-4",
-            "score": 0.105792,
+            "score": 0.112392,
             "dense_score": 0.4808
           },
           {
             "id": "PAY-2",
-            "score": 0.102414,
+            "score": 0.107914,
             "dense_score": 0.4513
+          },
+          {
+            "id": "TRK-1",
+            "score": 0.1037,
+            "dense_score": 0.4111
           },
           {
             "id": "PAY-1",
@@ -7626,19 +7663,19 @@
             "dense_score": 0.4207
           },
           {
-            "id": "TRK-1",
-            "score": 0.094469,
-            "dense_score": 0.4111
-          },
-          {
             "id": "CAN-2",
-            "score": 0.092809,
+            "score": 0.100352,
             "dense_score": 0.5812
           },
           {
             "id": "CAN-1",
-            "score": 0.088996,
+            "score": 0.097246,
             "dense_score": 0.4855
+          },
+          {
+            "id": "CPN-1",
+            "score": 0.093048,
+            "dense_score": 0.2743
           },
           {
             "id": "DWM-1",
@@ -7646,14 +7683,9 @@
             "dense_score": 0.2662
           },
           {
-            "id": "KB-00.1",
+            "id": "PLS-2",
             "score": 0.018332,
-            "dense_score": 0.0347
-          },
-          {
-            "id": "CPN-1",
-            "score": 0.018331,
-            "dense_score": 0.2743
+            "dense_score": 0.3589
           }
         ],
         "tool_calls": [],
@@ -7667,10 +7699,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 40.94,
+          "retrieval_ms": 56.33,
           "llm_ms": 0.0
         },
-        "latency_ms": 43.39
+        "latency_ms": 61.0
       },
       "passed": true,
       "expected": {
@@ -7728,7 +7760,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 0.89
+        "latency_ms": 6.43
       }
     },
     {
@@ -7736,13 +7768,14 @@
       "passed": true,
       "prediction": {
         "transcript": "Order 99999999",
-        "answer": "Please provide the last 4 digits of your registered phone.",
+        "answer": "Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -7764,6 +7797,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -7792,7 +7835,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.11
+        "latency_ms": 4.99
       }
     },
     {
@@ -7845,7 +7888,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 0.95
+        "latency_ms": 2.05
       }
     },
     {
@@ -7853,13 +7896,14 @@
       "passed": true,
       "prediction": {
         "transcript": "Order 99999999",
-        "answer": "Please provide the last 4 digits of your registered phone.",
+        "answer": "Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -7881,6 +7925,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -7909,7 +7963,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.52
+        "latency_ms": 2.94
       }
     },
     {
@@ -7962,7 +8016,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 0.94
+        "latency_ms": 2.43
       }
     },
     {
@@ -7970,13 +8024,14 @@
       "passed": true,
       "prediction": {
         "transcript": "Order 99999999",
-        "answer": "Please provide the last 4 digits of your registered phone.",
+        "answer": "Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -7998,6 +8053,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -8026,7 +8091,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 0.79
+        "latency_ms": 2.1
       }
     },
     {
@@ -8079,7 +8144,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 0.74
+        "latency_ms": 2.83
       }
     },
     {
@@ -8087,13 +8152,14 @@
       "passed": true,
       "prediction": {
         "transcript": "Order 99999999",
-        "answer": "Please provide the last 4 digits of your registered phone.",
+        "answer": "Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -8115,6 +8181,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -8143,7 +8219,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.25
+        "latency_ms": 1.46
       }
     },
     {
@@ -8196,7 +8272,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.29
+        "latency_ms": 2.93
       }
     },
     {
@@ -8204,13 +8280,14 @@
       "passed": true,
       "prediction": {
         "transcript": "Order 99999999",
-        "answer": "Please provide the last 4 digits of your registered phone.",
+        "answer": "Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -8232,6 +8309,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -8260,7 +8347,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 1.08
+        "latency_ms": 2.01
       }
     },
     {
@@ -8313,7 +8400,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 0.95
+        "latency_ms": 1.23
       }
     },
     {
@@ -8321,13 +8408,14 @@
       "passed": true,
       "prediction": {
         "transcript": "Order 99999999",
-        "answer": "Please provide the last 4 digits of your registered phone.",
+        "answer": "Please provide one verification detail: the last 4 digits of your registered phone or the order delivery pincode.",
         "intent": "verification",
         "decision": "clarify",
         "language": "en",
         "retrieved_chunk_ids": [
           "IDV-1",
-          "IDV-2"
+          "IDV-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -8349,6 +8437,16 @@
             "effective_from": "2026-07-01",
             "version": "1.2",
             "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [],
@@ -8377,7 +8475,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 2.07
+        "latency_ms": 1.2
       }
     }
   ]

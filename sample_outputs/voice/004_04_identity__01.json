@@ -7,7 +7,8 @@
   "retrieved_chunk_ids": [
     "STY-1",
     "IDV-1",
-    "IDV-2"
+    "IDV-2",
+    "STY-5"
   ],
   "sources": [
     {
@@ -39,6 +40,16 @@
       "effective_from": "2026-07-01",
       "version": "1.2",
       "title": "How to verify"
+    },
+    {
+      "id": "STY-5",
+      "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+      "file": "agent_conversation_style.md",
+      "doc_type": "agent_guide",
+      "status": "current",
+      "effective_from": "2026-07-01",
+      "version": "1.1",
+      "title": "One question at a time"
     }
   ],
   "retrieval_candidates": [],
@@ -67,11 +78,11 @@
     "retrieval_ms": 0.0,
     "llm_ms": 0.0
   },
-  "latency_ms": 9.73,
+  "latency_ms": 8.35,
   "voice_timings": {
-    "stt_ms": 323.76,
-    "agent_ms": 9.75,
-    "tts_ms": 833.25,
-    "total_ms": 1166.99
+    "stt_ms": 314.74,
+    "agent_ms": 8.36,
+    "tts_ms": 849.25,
+    "total_ms": 1172.5
   }
 }

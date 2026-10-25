@@ -31,39 +31,29 @@
     "search_k": [
       12
     ],
-    "search_recall": 0.961038961038961,
+    "search_recall": 0.935064935064935,
     "step": "2",
     "total": 52,
     "passed": 52,
     "pass_rate": 1.0,
     "decision_accuracy": 1.0,
-    "evidence_recall": 0.8555555555555555,
+    "evidence_recall": 0.8666666666666667,
     "errors": 0,
     "composition_counts": {
-      "evidence_validated_fallback": 24,
-      "grounded_llm": 17,
+      "evidence_validated_rules": 43,
       "abstained_missing_evidence": 5,
-      "evidence_validated_rules": 2,
       "deterministic_guardrail": 4
     },
     "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
     "latency_by_path": {
-      "uncached_llm_attempt": {
-        "count": 38,
-        "p50_ms": 15581.1,
-        "p95_ms": 20155.0
-      },
-      "cache_hit": {
-        "count": 3,
-        "p50_ms": 173.7,
-        "p95_ms": 173.7
-      },
       "no_model_call": {
-        "count": 11,
-        "p50_ms": 62.4,
-        "p95_ms": 108.4
+        "count": 52,
+        "p50_ms": 159.8,
+        "p95_ms": 504.4
       }
-    }
+    },
+    "planned": 52,
+    "complete": true
   },
   "step3": {
     "search_k": [
@@ -79,30 +69,25 @@
     "errors": 0,
     "composition_counts": {
       "deterministic_guardrail": 77,
-      "evidence_validated_fallback": 12,
-      "grounded_llm": 5,
-      "evidence_validated_rules": 2
+      "evidence_validated_rules": 19
     },
     "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
     "latency_by_path": {
       "no_model_call": {
-        "count": 79,
-        "p50_ms": 5.7,
-        "p95_ms": 98.7
-      },
-      "uncached_llm_attempt": {
-        "count": 17,
-        "p50_ms": 14122.7,
-        "p95_ms": 20229.2
+        "count": 96,
+        "p50_ms": 18.6,
+        "p95_ms": 165.6
       }
-    }
+    },
+    "planned": 96,
+    "complete": true
   },
   "engineering": {
-    "generated_at": "2026-10-25T05:35:43.841108+00:00",
-    "runtime_commit": "529a740efab8bad488ab28ff40fa40884b0d9c77",
+    "generated_at": "2026-10-25T06:49:17.597953+00:00",
+    "runtime_commit": "837639097babce56623d1a2ce33b007c635518c0",
     "pytest": {
-      "passed": 145,
-      "total": 145,
+      "passed": 223,
+      "total": 223,
       "exit_code": 0,
       "command": "python -m pytest -q -p no:cacheprovider"
     },
@@ -280,36 +265,32 @@
     "elapsed_seconds": 12.12
   },
   "holdout_regression": {
-    "passed": 49,
-    "failed": 42,
+    "passed": 91,
+    "failed": 0,
     "evaluated": 91,
     "planned": 91,
     "complete": true,
-    "pass_rate": 0.5384615384615384,
-    "failed_check_counts": {
-      "required": 52,
-      "gold_evidence_coverage": 29,
-      "decision": 5
-    },
+    "pass_rate": 1.0,
+    "failed_check_counts": {},
     "by_category": {
       "catalog_multihop": {
-        "passed": 7,
+        "passed": 12,
         "total": 12
       },
       "historical_current": {
-        "passed": 1,
+        "passed": 3,
         "total": 3
       },
       "sale_boundary": {
-        "passed": 4,
+        "passed": 6,
         "total": 6
       },
       "damage_exception": {
-        "passed": 1,
+        "passed": 2,
         "total": 2
       },
       "threshold_boundary": {
-        "passed": 1,
+        "passed": 3,
         "total": 3
       },
       "immediate_escalation": {
@@ -317,15 +298,15 @@
         "total": 5
       },
       "delivery_compensation": {
-        "passed": 2,
+        "passed": 3,
         "total": 3
       },
       "clarification": {
-        "passed": 0,
+        "passed": 4,
         "total": 4
       },
       "unsupported_nearmiss": {
-        "passed": 1,
+        "passed": 4,
         "total": 4
       },
       "wallet_boundary": {
@@ -333,19 +314,19 @@
         "total": 1
       },
       "refund_timing": {
-        "passed": 0,
+        "passed": 2,
         "total": 2
       },
       "precedence": {
-        "passed": 0,
+        "passed": 1,
         "total": 1
       },
       "plus_limits": {
-        "passed": 0,
+        "passed": 1,
         "total": 1
       },
       "fees_exception": {
-        "passed": 0,
+        "passed": 1,
         "total": 1
       },
       "coupon_math": {
@@ -361,11 +342,11 @@
         "total": 2
       },
       "pincode_multihop": {
-        "passed": 0,
+        "passed": 3,
         "total": 3
       },
       "hindi": {
-        "passed": 1,
+        "passed": 2,
         "total": 2
       },
       "hinglish": {
@@ -385,11 +366,11 @@
         "total": 1
       },
       "refund_reference": {
-        "passed": 0,
+        "passed": 1,
         "total": 1
       },
       "verified_tracking_then_cancellation": {
-        "passed": 1,
+        "passed": 3,
         "total": 3
       },
       "verification_retry_privacy": {
@@ -397,19 +378,19 @@
         "total": 4
       },
       "language_switch_and_privacy": {
-        "passed": 1,
+        "passed": 4,
         "total": 4
       },
       "overdue_refund_handoff": {
-        "passed": 1,
+        "passed": 2,
         "total": 2
       },
       "fresh_refund_blank_completion": {
-        "passed": 1,
+        "passed": 2,
         "total": 2
       },
       "repeat_contact_from_lookup": {
-        "passed": 1,
+        "passed": 2,
         "total": 2
       },
       "safety_before_identity": {
@@ -417,11 +398,11 @@
         "total": 2
       },
       "contextual_sale_catalog": {
-        "passed": 1,
+        "passed": 3,
         "total": 3
       },
       "historical_date_correction": {
-        "passed": 1,
+        "passed": 3,
         "total": 3
       },
       "unshipped_cancel_action_boundary": {
@@ -429,10 +410,686 @@
         "total": 2
       }
     },
-    "elapsed_seconds": 417.845
+    "elapsed_seconds": 16.913
   },
   "holdout_mode": "offline_compose_false",
   "privacy_check_failures": 0,
+  "privacy_check_count": 191,
+  "privacy_check_status": "recorded",
+  "holdout_scorer_comparison": {
+    "original_product_score": {
+      "passed": 49,
+      "failed": 42,
+      "evaluated": 91,
+      "planned": 91,
+      "complete": true,
+      "pass_rate": 0.5384615384615384,
+      "failed_check_counts": {
+        "required": 52,
+        "gold_evidence_coverage": 29,
+        "decision": 5
+      },
+      "by_category": {
+        "catalog_multihop": {
+          "passed": 7,
+          "total": 12
+        },
+        "historical_current": {
+          "passed": 1,
+          "total": 3
+        },
+        "sale_boundary": {
+          "passed": 4,
+          "total": 6
+        },
+        "damage_exception": {
+          "passed": 1,
+          "total": 2
+        },
+        "threshold_boundary": {
+          "passed": 1,
+          "total": 3
+        },
+        "immediate_escalation": {
+          "passed": 5,
+          "total": 5
+        },
+        "delivery_compensation": {
+          "passed": 2,
+          "total": 3
+        },
+        "clarification": {
+          "passed": 0,
+          "total": 4
+        },
+        "unsupported_nearmiss": {
+          "passed": 1,
+          "total": 4
+        },
+        "wallet_boundary": {
+          "passed": 1,
+          "total": 1
+        },
+        "refund_timing": {
+          "passed": 0,
+          "total": 2
+        },
+        "precedence": {
+          "passed": 0,
+          "total": 1
+        },
+        "plus_limits": {
+          "passed": 0,
+          "total": 1
+        },
+        "fees_exception": {
+          "passed": 0,
+          "total": 1
+        },
+        "coupon_math": {
+          "passed": 1,
+          "total": 1
+        },
+        "coupon_boundary": {
+          "passed": 2,
+          "total": 2
+        },
+        "cancellation": {
+          "passed": 2,
+          "total": 2
+        },
+        "pincode_multihop": {
+          "passed": 0,
+          "total": 3
+        },
+        "hindi": {
+          "passed": 1,
+          "total": 2
+        },
+        "hinglish": {
+          "passed": 2,
+          "total": 2
+        },
+        "troubleshooting": {
+          "passed": 1,
+          "total": 1
+        },
+        "rto_timing": {
+          "passed": 1,
+          "total": 1
+        },
+        "warranty_exclusion": {
+          "passed": 1,
+          "total": 1
+        },
+        "refund_reference": {
+          "passed": 0,
+          "total": 1
+        },
+        "verified_tracking_then_cancellation": {
+          "passed": 1,
+          "total": 3
+        },
+        "verification_retry_privacy": {
+          "passed": 4,
+          "total": 4
+        },
+        "language_switch_and_privacy": {
+          "passed": 1,
+          "total": 4
+        },
+        "overdue_refund_handoff": {
+          "passed": 1,
+          "total": 2
+        },
+        "fresh_refund_blank_completion": {
+          "passed": 1,
+          "total": 2
+        },
+        "repeat_contact_from_lookup": {
+          "passed": 1,
+          "total": 2
+        },
+        "safety_before_identity": {
+          "passed": 2,
+          "total": 2
+        },
+        "contextual_sale_catalog": {
+          "passed": 1,
+          "total": 3
+        },
+        "historical_date_correction": {
+          "passed": 1,
+          "total": 3
+        },
+        "unshipped_cancel_action_boundary": {
+          "passed": 2,
+          "total": 2
+        }
+      },
+      "elapsed_seconds": 417.845
+    },
+    "same_predictions_rescored": {
+      "passed": 51,
+      "failed": 40,
+      "evaluated": 91,
+      "planned": 91,
+      "complete": true,
+      "pass_rate": 0.5604395604395604,
+      "failed_check_counts": {
+        "required": 50,
+        "gold_evidence_coverage": 29,
+        "decision": 5
+      },
+      "by_category": {
+        "catalog_multihop": {
+          "passed": 8,
+          "total": 12
+        },
+        "historical_current": {
+          "passed": 1,
+          "total": 3
+        },
+        "sale_boundary": {
+          "passed": 4,
+          "total": 6
+        },
+        "damage_exception": {
+          "passed": 1,
+          "total": 2
+        },
+        "threshold_boundary": {
+          "passed": 1,
+          "total": 3
+        },
+        "immediate_escalation": {
+          "passed": 5,
+          "total": 5
+        },
+        "delivery_compensation": {
+          "passed": 2,
+          "total": 3
+        },
+        "clarification": {
+          "passed": 0,
+          "total": 4
+        },
+        "unsupported_nearmiss": {
+          "passed": 1,
+          "total": 4
+        },
+        "wallet_boundary": {
+          "passed": 1,
+          "total": 1
+        },
+        "refund_timing": {
+          "passed": 0,
+          "total": 2
+        },
+        "precedence": {
+          "passed": 0,
+          "total": 1
+        },
+        "plus_limits": {
+          "passed": 0,
+          "total": 1
+        },
+        "fees_exception": {
+          "passed": 1,
+          "total": 1
+        },
+        "coupon_math": {
+          "passed": 1,
+          "total": 1
+        },
+        "coupon_boundary": {
+          "passed": 2,
+          "total": 2
+        },
+        "cancellation": {
+          "passed": 2,
+          "total": 2
+        },
+        "pincode_multihop": {
+          "passed": 0,
+          "total": 3
+        },
+        "hindi": {
+          "passed": 1,
+          "total": 2
+        },
+        "hinglish": {
+          "passed": 2,
+          "total": 2
+        },
+        "troubleshooting": {
+          "passed": 1,
+          "total": 1
+        },
+        "rto_timing": {
+          "passed": 1,
+          "total": 1
+        },
+        "warranty_exclusion": {
+          "passed": 1,
+          "total": 1
+        },
+        "refund_reference": {
+          "passed": 0,
+          "total": 1
+        },
+        "verified_tracking_then_cancellation": {
+          "passed": 1,
+          "total": 3
+        },
+        "verification_retry_privacy": {
+          "passed": 4,
+          "total": 4
+        },
+        "language_switch_and_privacy": {
+          "passed": 1,
+          "total": 4
+        },
+        "overdue_refund_handoff": {
+          "passed": 1,
+          "total": 2
+        },
+        "fresh_refund_blank_completion": {
+          "passed": 1,
+          "total": 2
+        },
+        "repeat_contact_from_lookup": {
+          "passed": 1,
+          "total": 2
+        },
+        "safety_before_identity": {
+          "passed": 2,
+          "total": 2
+        },
+        "contextual_sale_catalog": {
+          "passed": 1,
+          "total": 3
+        },
+        "historical_date_correction": {
+          "passed": 1,
+          "total": 3
+        },
+        "unshipped_cancel_action_boundary": {
+          "passed": 2,
+          "total": 2
+        }
+      },
+      "elapsed_seconds": 417.845
+    },
+    "current_product_score": {
+      "passed": 91,
+      "failed": 0,
+      "evaluated": 91,
+      "planned": 91,
+      "complete": true,
+      "pass_rate": 1.0,
+      "failed_check_counts": {},
+      "by_category": {
+        "catalog_multihop": {
+          "passed": 12,
+          "total": 12
+        },
+        "historical_current": {
+          "passed": 3,
+          "total": 3
+        },
+        "sale_boundary": {
+          "passed": 6,
+          "total": 6
+        },
+        "damage_exception": {
+          "passed": 2,
+          "total": 2
+        },
+        "threshold_boundary": {
+          "passed": 3,
+          "total": 3
+        },
+        "immediate_escalation": {
+          "passed": 5,
+          "total": 5
+        },
+        "delivery_compensation": {
+          "passed": 3,
+          "total": 3
+        },
+        "clarification": {
+          "passed": 4,
+          "total": 4
+        },
+        "unsupported_nearmiss": {
+          "passed": 4,
+          "total": 4
+        },
+        "wallet_boundary": {
+          "passed": 1,
+          "total": 1
+        },
+        "refund_timing": {
+          "passed": 2,
+          "total": 2
+        },
+        "precedence": {
+          "passed": 1,
+          "total": 1
+        },
+        "plus_limits": {
+          "passed": 1,
+          "total": 1
+        },
+        "fees_exception": {
+          "passed": 1,
+          "total": 1
+        },
+        "coupon_math": {
+          "passed": 1,
+          "total": 1
+        },
+        "coupon_boundary": {
+          "passed": 2,
+          "total": 2
+        },
+        "cancellation": {
+          "passed": 2,
+          "total": 2
+        },
+        "pincode_multihop": {
+          "passed": 3,
+          "total": 3
+        },
+        "hindi": {
+          "passed": 2,
+          "total": 2
+        },
+        "hinglish": {
+          "passed": 2,
+          "total": 2
+        },
+        "troubleshooting": {
+          "passed": 1,
+          "total": 1
+        },
+        "rto_timing": {
+          "passed": 1,
+          "total": 1
+        },
+        "warranty_exclusion": {
+          "passed": 1,
+          "total": 1
+        },
+        "refund_reference": {
+          "passed": 1,
+          "total": 1
+        },
+        "verified_tracking_then_cancellation": {
+          "passed": 3,
+          "total": 3
+        },
+        "verification_retry_privacy": {
+          "passed": 4,
+          "total": 4
+        },
+        "language_switch_and_privacy": {
+          "passed": 4,
+          "total": 4
+        },
+        "overdue_refund_handoff": {
+          "passed": 2,
+          "total": 2
+        },
+        "fresh_refund_blank_completion": {
+          "passed": 2,
+          "total": 2
+        },
+        "repeat_contact_from_lookup": {
+          "passed": 2,
+          "total": 2
+        },
+        "safety_before_identity": {
+          "passed": 2,
+          "total": 2
+        },
+        "contextual_sale_catalog": {
+          "passed": 3,
+          "total": 3
+        },
+        "historical_date_correction": {
+          "passed": 3,
+          "total": 3
+        },
+        "unshipped_cancel_action_boundary": {
+          "passed": 2,
+          "total": 2
+        }
+      },
+      "elapsed_seconds": 16.913
+    },
+    "original_scorer": {
+      "version": "legacy_v1_unversioned"
+    },
+    "rescored_scorer": {
+      "version": "2.0.0",
+      "source_sha256": "ec90400716a926f7725990698e3a356d68579941196cf6037dd982b0825760f7",
+      "normalizations": [
+        "unicode_nfkc_and_digits",
+        "lowercase_and_whitespace",
+        "english_and_hindi_number_words",
+        "english_ordinal_suffixes",
+        "hyphenated_duration_units",
+        "hyphens_between_english_words"
+      ],
+      "frozen_rubric_unchanged": true,
+      "limitation": "Regex checks approximate meaning; equivalent spellings do not prove semantic correctness."
+    },
+    "current_scorer": {
+      "version": "2.0.0",
+      "source_sha256": "ec90400716a926f7725990698e3a356d68579941196cf6037dd982b0825760f7",
+      "normalizations": [
+        "unicode_nfkc_and_digits",
+        "lowercase_and_whitespace",
+        "english_and_hindi_number_words",
+        "english_ordinal_suffixes",
+        "hyphenated_duration_units",
+        "hyphens_between_english_words"
+      ],
+      "frozen_rubric_unchanged": true,
+      "limitation": "Regex checks approximate meaning; equivalent spellings do not prove semantic correctness."
+    },
+    "rescoring_provenance": {
+      "created_at_utc": "2026-10-25T05:53:53.046230+00:00",
+      "source_file": "eval_holdout_before_normalization_v2.json",
+      "source_file_sha256": "91713b141defba2a7e971461d224bbbff1fb8d61682dea2901c2e82aa0eff5cc",
+      "source_scorer": {
+        "version": "legacy_v1_unversioned"
+      },
+      "predictions_sha256": "dc817d8a04439a407258cfd53d2e54ee82750415c5b0c44344292b3f92028521",
+      "predictions_unchanged": true,
+      "product_rerun": false,
+      "previous_summary": {
+        "passed": 49,
+        "failed": 42,
+        "evaluated": 91,
+        "planned": 91,
+        "complete": true,
+        "pass_rate": 0.5384615384615384,
+        "failed_check_counts": {
+          "required": 52,
+          "gold_evidence_coverage": 29,
+          "decision": 5
+        },
+        "by_category": {
+          "catalog_multihop": {
+            "passed": 7,
+            "total": 12
+          },
+          "historical_current": {
+            "passed": 1,
+            "total": 3
+          },
+          "sale_boundary": {
+            "passed": 4,
+            "total": 6
+          },
+          "damage_exception": {
+            "passed": 1,
+            "total": 2
+          },
+          "threshold_boundary": {
+            "passed": 1,
+            "total": 3
+          },
+          "immediate_escalation": {
+            "passed": 5,
+            "total": 5
+          },
+          "delivery_compensation": {
+            "passed": 2,
+            "total": 3
+          },
+          "clarification": {
+            "passed": 0,
+            "total": 4
+          },
+          "unsupported_nearmiss": {
+            "passed": 1,
+            "total": 4
+          },
+          "wallet_boundary": {
+            "passed": 1,
+            "total": 1
+          },
+          "refund_timing": {
+            "passed": 0,
+            "total": 2
+          },
+          "precedence": {
+            "passed": 0,
+            "total": 1
+          },
+          "plus_limits": {
+            "passed": 0,
+            "total": 1
+          },
+          "fees_exception": {
+            "passed": 0,
+            "total": 1
+          },
+          "coupon_math": {
+            "passed": 1,
+            "total": 1
+          },
+          "coupon_boundary": {
+            "passed": 2,
+            "total": 2
+          },
+          "cancellation": {
+            "passed": 2,
+            "total": 2
+          },
+          "pincode_multihop": {
+            "passed": 0,
+            "total": 3
+          },
+          "hindi": {
+            "passed": 1,
+            "total": 2
+          },
+          "hinglish": {
+            "passed": 2,
+            "total": 2
+          },
+          "troubleshooting": {
+            "passed": 1,
+            "total": 1
+          },
+          "rto_timing": {
+            "passed": 1,
+            "total": 1
+          },
+          "warranty_exclusion": {
+            "passed": 1,
+            "total": 1
+          },
+          "refund_reference": {
+            "passed": 0,
+            "total": 1
+          },
+          "verified_tracking_then_cancellation": {
+            "passed": 1,
+            "total": 3
+          },
+          "verification_retry_privacy": {
+            "passed": 4,
+            "total": 4
+          },
+          "language_switch_and_privacy": {
+            "passed": 1,
+            "total": 4
+          },
+          "overdue_refund_handoff": {
+            "passed": 1,
+            "total": 2
+          },
+          "fresh_refund_blank_completion": {
+            "passed": 1,
+            "total": 2
+          },
+          "repeat_contact_from_lookup": {
+            "passed": 1,
+            "total": 2
+          },
+          "safety_before_identity": {
+            "passed": 2,
+            "total": 2
+          },
+          "contextual_sale_catalog": {
+            "passed": 1,
+            "total": 3
+          },
+          "historical_date_correction": {
+            "passed": 1,
+            "total": 3
+          },
+          "unshipped_cancel_action_boundary": {
+            "passed": 2,
+            "total": 2
+          }
+        },
+        "elapsed_seconds": 417.845
+      },
+      "passed_delta": 2,
+      "changed_cases": [
+        {
+          "id": "H004",
+          "previous_passed": false,
+          "rescored_passed": true,
+          "changed_checks": [
+            "required:claim_1"
+          ]
+        },
+        {
+          "id": "H046",
+          "previous_passed": false,
+          "rescored_passed": true,
+          "changed_checks": [
+            "required:claim_2"
+          ]
+        }
+      ]
+    },
+    "scorer_only_pass_delta": 2,
+    "runtime_pass_delta_same_scorer": 40
+  },
+  "development_probe": {
+    "passed": 24,
+    "failed": 0,
+    "evaluated": 24
+  },
   "voice": {
     "status": "tested",
     "audio_passed": 6,

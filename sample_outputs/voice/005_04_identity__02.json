@@ -5,7 +5,8 @@
   "decision": "clarify",
   "language": "en",
   "retrieved_chunk_ids": [
-    "IDV-3"
+    "IDV-3",
+    "STY-5"
   ],
   "sources": [
     {
@@ -17,6 +18,16 @@
       "effective_from": "2026-07-01",
       "version": "1.2",
       "title": "If verification fails"
+    },
+    {
+      "id": "STY-5",
+      "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+      "file": "agent_conversation_style.md",
+      "doc_type": "agent_guide",
+      "status": "current",
+      "effective_from": "2026-07-01",
+      "version": "1.1",
+      "title": "One question at a time"
     }
   ],
   "retrieval_candidates": [],
@@ -46,11 +57,11 @@
     "retrieval_ms": 0.0,
     "llm_ms": 0.0
   },
-  "latency_ms": 3.55,
+  "latency_ms": 2.32,
   "voice_timings": {
-    "stt_ms": 457.57,
-    "agent_ms": 3.58,
-    "tts_ms": 914.06,
-    "total_ms": 1375.38
+    "stt_ms": 300.74,
+    "agent_ms": 2.34,
+    "tts_ms": 730.91,
+    "total_ms": 1034.13
   }
 }

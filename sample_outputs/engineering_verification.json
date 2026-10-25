@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-25T05:35:43.841108+00:00",
-  "runtime_commit": "529a740efab8bad488ab28ff40fa40884b0d9c77",
+  "generated_at": "2026-10-25T06:49:17.597953+00:00",
+  "runtime_commit": "837639097babce56623d1a2ce33b007c635518c0",
   "pytest": {
-    "passed": 145,
-    "total": 145,
+    "passed": 223,
+    "total": 223,
     "exit_code": 0,
     "command": "python -m pytest -q -p no:cacheprovider"
   },

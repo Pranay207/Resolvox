@@ -1,6 +1,6 @@
 {
   "transcript": "how long does a upi refund take",
-  "answer": "I'm ZentroMart's AI support assistant. UPI refunds take 1 to 3 business days after initiation.",
+  "answer": "I'm ZentroMart's AI support assistant. A UPI refund takes 1 to 3 business days after initiation.",
   "intent": "refund",
   "decision": "answer",
   "language": "en",
@@ -33,8 +33,13 @@
   "retrieval_candidates": [
     {
       "id": "REF-2",
-      "score": 0.179418,
+      "score": 0.188847,
       "dense_score": 0.5293
+    },
+    {
+      "id": "RET-7",
+      "score": 0.175405,
+      "dense_score": 0.5621
     },
     {
       "id": "REF-3",
@@ -45,11 +50,6 @@
       "id": "REF-1",
       "score": 0.167651,
       "dense_score": 0.627
-    },
-    {
-      "id": "RET-7",
-      "score": 0.164845,
-      "dense_score": 0.5621
     },
     {
       "id": "FAQ-1",
@@ -72,24 +72,24 @@
       "dense_score": 0.4204
     },
     {
-      "id": "PLS-3",
-      "score": 0.126296,
-      "dense_score": 0.4545
-    },
-    {
       "id": "KB-00.3",
-      "score": 0.07707,
+      "score": 0.08457,
       "dense_score": 0.1364
     },
     {
       "id": "KB-00.1",
-      "score": 0.073216,
+      "score": 0.060312,
       "dense_score": 0.0433
     },
     {
       "id": "PLS-2",
-      "score": 0.073215,
+      "score": 0.060311,
       "dense_score": 0.4195
+    },
+    {
+      "id": "DEL-3",
+      "score": 0.06031,
+      "dense_score": 0.3347
     }
   ],
   "tool_calls": [],
@@ -105,23 +105,23 @@
     "cache_hit": false,
     "attempts": 1,
     "provider": "ollama:qwen3:1.7b",
-    "wall_ms": 5731.12,
-    "load_ms": 127.42,
-    "prompt_eval_ms": 1738.66,
-    "eval_ms": 3635.22,
-    "prompt_eval_count": 390,
-    "eval_count": 21,
+    "wall_ms": 5078.97,
+    "load_ms": 60.55,
+    "prompt_eval_ms": 1598.36,
+    "eval_ms": 3273.11,
+    "prompt_eval_count": 399,
+    "eval_count": 23,
     "done_reason": "stop"
   },
   "timings": {
-    "retrieval_ms": 196.87,
-    "llm_ms": 5756.29
+    "retrieval_ms": 140.9,
+    "llm_ms": 5102.44
   },
-  "latency_ms": 5981.89,
+  "latency_ms": 5282.23,
   "voice_timings": {
-    "stt_ms": 12379.31,
-    "agent_ms": 5981.93,
-    "tts_ms": 969.44,
-    "total_ms": 19331.14
+    "stt_ms": 3187.93,
+    "agent_ms": 5282.26,
+    "tts_ms": 1110.56,
+    "total_ms": 9581.07
   }
 }

@@ -1,0 +1,3700 @@
+{
+  "evaluation": "Development coverage probe; exposed engineering check, not independent blind benchmark",
+  "created_at_utc": "2026-10-25T06:04:27.919718+00:00",
+  "mode": "offline_compose_false_dense_true",
+  "expectation_sources": [
+    "WAR-1",
+    "WAR-2",
+    "WAR-3",
+    "MKS-3",
+    "RET-2",
+    "RET-3",
+    "RET-8",
+    "RETv3-2",
+    "PAY-2",
+    "DEL-5",
+    "REF-2"
+  ],
+  "summary": {
+    "passed": 20,
+    "failed": 4,
+    "evaluated": 24
+  },
+  "results": [
+    {
+      "id": "unknown_pincode",
+      "question": "Can you deliver to postal code 999999 and let me pay COD?",
+      "expected": {
+        "no_order_id": true
+      },
+      "checks": [
+        {
+          "check": "no_order_id",
+          "expected": true,
+          "actual": false,
+          "passed": false
+        }
+      ],
+      "passed": false,
+      "actual_output": {
+        "transcript": "Can you deliver to postal code [REDACTED PIN] and let me pay COD?",
+        "answer": "I'm ZentroMart's AI support assistant. What is your order ID?",
+        "intent": "delivery",
+        "decision": "clarify",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "IDV-1",
+          "STY-5",
+          "IDV-2"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "IDV-1",
+            "text": "## [IDV-1] When verification is needed\nBefore sharing anything about a specific order (status, items, address, amounts, refund details), verify the customer. General policy questions need no verification.",
+            "file": "agent_identity_verification.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.2",
+            "title": "When verification is needed"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
+          },
+          {
+            "id": "IDV-2",
+            "text": "## [IDV-2] How to verify\nAsk for the order ID, then ask for **one** of: the last 4 digits of the registered phone number, or the delivery pincode for that order. Compare with the `phone_last4` or `delivery_pincode` fields from order lookup.",
+            "file": "agent_identity_verification.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.2",
+            "title": "How to verify"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "PAY-2",
+            "score": 0.196931,
+            "dense_score": 0.6488
+          },
+          {
+            "id": "PAY-1",
+            "score": 0.190379,
+            "dense_score": 0.5718
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.183651,
+            "dense_score": 0.426
+          },
+          {
+            "id": "REF-5",
+            "score": 0.162508,
+            "dense_score": 0.3203
+          },
+          {
+            "id": "PAY-3",
+            "score": 0.162171,
+            "dense_score": 0.395
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.158484,
+            "dense_score": 0.3655
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.156587,
+            "dense_score": 0.3306
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.153746,
+            "dense_score": 0.3007
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.145451,
+            "dense_score": 0.3396
+          },
+          {
+            "id": "PAY-4",
+            "score": 0.139233,
+            "dense_score": 0.2709
+          },
+          {
+            "id": "DEL-6",
+            "score": 0.130618,
+            "dense_score": 0.3207
+          },
+          {
+            "id": "CAN-2",
+            "score": 0.130531,
+            "dense_score": 0.3196
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "deterministic_guardrail",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 174.11,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 221.1
+      },
+      "public_context": {}
+    },
+    {
+      "id": "cod_false_above_limit",
+      "question": "At pincode 248001, may I pay COD for a ₹12,000 basket?",
+      "expected": {
+        "cod_available": false,
+        "cod_eligible": false
+      },
+      "checks": [
+        {
+          "check": "cod_available",
+          "expected": false,
+          "actual": false,
+          "passed": true
+        },
+        {
+          "check": "cod_eligible",
+          "expected": false,
+          "actual": false,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "At pincode [REDACTED PIN], may I pay COD for a ₹12,000 basket?",
+        "answer": "I'm ZentroMart's AI support assistant. Standard delivery is available at that postal code. Delivery within India also requires a serviceable pincode. COD is not available. COD is limited to 10,000 rupees and has a 25 rupee fee per order. An amount above that limit is not eligible for COD.",
+        "intent": "payment",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "pincodes.csv:248001",
+          "DEL-5",
+          "PAY-2"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "pincodes.csv:248001",
+            "file": "data/pincodes.csv",
+            "text": "{\"city\": \"Dehradun\", \"state\": \"Uttarakhand\", \"pincode\": \"248001\", \"metro\": \"False\", \"serviceable\": \"True\", \"cod_available\": \"False\", \"express_available\": \"False\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "DEL-5",
+            "text": "## [DEL-5] Where we deliver\nZentroMart delivers only within India, to pincodes listed as serviceable in the pincode table. Cash on delivery and Express are available only where the pincode table says so (`cod_available`, `express_available`). Not every metro pincode has Express.",
+            "file": "pol_delivery_shipping.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-04-01",
+            "version": "2.0",
+            "title": "Where we deliver"
+          },
+          {
+            "id": "PAY-2",
+            "text": "## [PAY-2] Cash on delivery\nCOD is available on orders up to ₹10,000, only on pincodes where COD is enabled. A COD fee of ₹25 applies per order.",
+            "file": "pol_payments_cod.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-04-01",
+            "version": "1.6",
+            "title": "Cash on delivery"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "PAY-2",
+            "score": 0.190514,
+            "dense_score": 0.6065
+          },
+          {
+            "id": "PAY-1",
+            "score": 0.180265,
+            "dense_score": 0.5092
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.172995,
+            "dense_score": 0.3774
+          },
+          {
+            "id": "PAY-3",
+            "score": 0.165717,
+            "dense_score": 0.3144
+          },
+          {
+            "id": "PAY-4",
+            "score": 0.151196,
+            "dense_score": 0.2948
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.14593,
+            "dense_score": 0.2364
+          },
+          {
+            "id": "REF-5",
+            "score": 0.142524,
+            "dense_score": 0.231
+          },
+          {
+            "id": "IDV-2",
+            "score": 0.133901,
+            "dense_score": 0.2606
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.133019,
+            "dense_score": 0.2182
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.106145,
+            "dense_score": 0.2321
+          },
+          {
+            "id": "DWM-2",
+            "score": 0.084014,
+            "dense_score": 0.249
+          },
+          {
+            "id": "REF-4",
+            "score": 0.07594,
+            "dense_score": 0.2113
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "serviceable": true,
+          "cod_available": false,
+          "cod_eligible": false
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 88.4,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 94.96
+      },
+      "public_context": {}
+    },
+    {
+      "id": "cod_amount_suffix",
+      "question": "Can I use COD for 12000 rupees at postal code 248001?",
+      "expected": {
+        "cod_available": false,
+        "cod_eligible": false
+      },
+      "checks": [
+        {
+          "check": "cod_available",
+          "expected": false,
+          "actual": false,
+          "passed": true
+        },
+        {
+          "check": "cod_eligible",
+          "expected": false,
+          "actual": false,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "Can I use COD for 12000 rupees at postal code [REDACTED PIN]?",
+        "answer": "I'm ZentroMart's AI support assistant. Standard delivery is available at that postal code. Delivery within India also requires a serviceable pincode. COD is not available. COD is limited to 10,000 rupees and has a 25 rupee fee per order. An amount above that limit is not eligible for COD.",
+        "intent": "payment",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "pincodes.csv:248001",
+          "DEL-5",
+          "PAY-2"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "pincodes.csv:248001",
+            "file": "data/pincodes.csv",
+            "text": "{\"city\": \"Dehradun\", \"state\": \"Uttarakhand\", \"pincode\": \"248001\", \"metro\": \"False\", \"serviceable\": \"True\", \"cod_available\": \"False\", \"express_available\": \"False\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "DEL-5",
+            "text": "## [DEL-5] Where we deliver\nZentroMart delivers only within India, to pincodes listed as serviceable in the pincode table. Cash on delivery and Express are available only where the pincode table says so (`cod_available`, `express_available`). Not every metro pincode has Express.",
+            "file": "pol_delivery_shipping.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-04-01",
+            "version": "2.0",
+            "title": "Where we deliver"
+          },
+          {
+            "id": "PAY-2",
+            "text": "## [PAY-2] Cash on delivery\nCOD is available on orders up to ₹10,000, only on pincodes where COD is enabled. A COD fee of ₹25 applies per order.",
+            "file": "pol_payments_cod.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-04-01",
+            "version": "1.6",
+            "title": "Cash on delivery"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "PAY-2",
+            "score": 0.196769,
+            "dense_score": 0.6063
+          },
+          {
+            "id": "PAY-1",
+            "score": 0.178922,
+            "dense_score": 0.4735
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.164454,
+            "dense_score": 0.3287
+          },
+          {
+            "id": "REF-5",
+            "score": 0.163232,
+            "dense_score": 0.2657
+          },
+          {
+            "id": "PAY-3",
+            "score": 0.150144,
+            "dense_score": 0.3607
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.126058,
+            "dense_score": 0.2523
+          },
+          {
+            "id": "STY-3",
+            "score": 0.120684,
+            "dense_score": 0.3601
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.120554,
+            "dense_score": 0.2756
+          },
+          {
+            "id": "PAY-4",
+            "score": 0.112933,
+            "dense_score": 0.2697
+          },
+          {
+            "id": "DWM-2",
+            "score": 0.098938,
+            "dense_score": 0.2485
+          },
+          {
+            "id": "CAN-2",
+            "score": 0.097369,
+            "dense_score": 0.2334
+          },
+          {
+            "id": "RET-5",
+            "score": 0.089161,
+            "dense_score": 0.2419
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "serviceable": true,
+          "cod_available": false,
+          "cod_eligible": false
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 82.72,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 85.73
+      },
+      "public_context": {}
+    },
+    {
+      "id": "unserviceable_standard",
+      "question": "Can you send a prepaid parcel to 194101?",
+      "expected": {
+        "serviceable": false
+      },
+      "checks": [
+        {
+          "check": "serviceable",
+          "expected": false,
+          "actual": false,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "Can you send a prepaid parcel to [REDACTED PIN]?",
+        "answer": "I'm ZentroMart's AI support assistant. Standard delivery is not available at that postal code. Delivery within India also requires a serviceable pincode.",
+        "intent": "unknown",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "pincodes.csv:194101",
+          "DEL-5"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "pincodes.csv:194101",
+            "file": "data/pincodes.csv",
+            "text": "{\"city\": \"Leh\", \"state\": \"Ladakh\", \"pincode\": \"194101\", \"metro\": \"False\", \"serviceable\": \"False\", \"cod_available\": \"False\", \"express_available\": \"False\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "DEL-5",
+            "text": "## [DEL-5] Where we deliver\nZentroMart delivers only within India, to pincodes listed as serviceable in the pincode table. Cash on delivery and Express are available only where the pincode table says so (`cod_available`, `express_available`). Not every metro pincode has Express.",
+            "file": "pol_delivery_shipping.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-04-01",
+            "version": "2.0",
+            "title": "Where we deliver"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "CAN-2",
+            "score": 0.177289,
+            "dense_score": 0.523
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.163829,
+            "dense_score": 0.4657
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.143262,
+            "dense_score": 0.463
+          },
+          {
+            "id": "PAY-2",
+            "score": 0.142898,
+            "dense_score": 0.4926
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.135051,
+            "dense_score": 0.4731
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.125596,
+            "dense_score": 0.4441
+          },
+          {
+            "id": "PAY-1",
+            "score": 0.120299,
+            "dense_score": 0.4483
+          },
+          {
+            "id": "REF-5",
+            "score": 0.116553,
+            "dense_score": 0.4572
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.114713,
+            "dense_score": 0.3904
+          },
+          {
+            "id": "REF-1",
+            "score": 0.11278,
+            "dense_score": 0.3606
+          },
+          {
+            "id": "TRK-1",
+            "score": 0.105852,
+            "dense_score": 0.4122
+          },
+          {
+            "id": "REF-3",
+            "score": 0.10546,
+            "dense_score": 0.3776
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "serviceable": false
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 80.53,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 84.77
+      },
+      "public_context": {}
+    },
+    {
+      "id": "warranty_pincode",
+      "question": "I live at 248001. What warranty applies to the green charger ELE-0010?",
+      "expected": {
+        "brand_warranty_months": 12,
+        "assured_eligible": false
+      },
+      "checks": [
+        {
+          "check": "brand_warranty_months",
+          "expected": 12,
+          "actual": null,
+          "passed": false
+        },
+        {
+          "check": "assured_eligible",
+          "expected": false,
+          "actual": null,
+          "passed": false
+        }
+      ],
+      "passed": false,
+      "actual_output": {
+        "transcript": "I live at [REDACTED PIN]. What warranty applies to the green charger ELE-0010?",
+        "answer": "I'm ZentroMart's AI support assistant. I don't have enough supported information in the retrieved documents. I can help you reach a human colleague.",
+        "intent": "unsupported",
+        "decision": "refuse",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "WAR-1",
+            "score": 0.190949,
+            "dense_score": 0.4994
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.163241,
+            "dense_score": 0.2991
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.161182,
+            "dense_score": 0.4044
+          },
+          {
+            "id": "RET-1",
+            "score": 0.159522,
+            "dense_score": 0.3421
+          },
+          {
+            "id": "RET-3",
+            "score": 0.153492,
+            "dense_score": 0.2868
+          },
+          {
+            "id": "RET-2",
+            "score": 0.1453,
+            "dense_score": 0.2167
+          },
+          {
+            "id": "RET-4",
+            "score": 0.1401,
+            "dense_score": 0.326
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.135113,
+            "dense_score": 0.2811
+          },
+          {
+            "id": "CPN-3",
+            "score": 0.131942,
+            "dense_score": 0.3561
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.070647,
+            "dense_score": 0.1182
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.070481,
+            "dense_score": 0.156
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.061839,
+            "dense_score": 0.2247
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "abstained_missing_evidence",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": false,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 170.51,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 174.93
+      },
+      "public_context": {
+        "sku": "ELE-0010"
+      }
+    },
+    {
+      "id": "return_pincode",
+      "question": "My pincode is 248001. What is the return period for ELE-0002?",
+      "expected": {
+        "return_days": 7
+      },
+      "checks": [
+        {
+          "check": "return_days",
+          "expected": 7,
+          "actual": null,
+          "passed": false
+        }
+      ],
+      "passed": false,
+      "actual_output": {
+        "transcript": "My pincode is [REDACTED PIN]. What is the return period for ELE-0002?",
+        "answer": "I'm ZentroMart's AI support assistant. Standard delivery is available at that postal code. Delivery within India also requires a serviceable pincode.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "pincodes.csv:248001",
+          "DEL-5"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "pincodes.csv:248001",
+            "file": "data/pincodes.csv",
+            "text": "{\"city\": \"Dehradun\", \"state\": \"Uttarakhand\", \"pincode\": \"248001\", \"metro\": \"False\", \"serviceable\": \"True\", \"cod_available\": \"False\", \"express_available\": \"False\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "DEL-5",
+            "text": "## [DEL-5] Where we deliver\nZentroMart delivers only within India, to pincodes listed as serviceable in the pincode table. Cash on delivery and Express are available only where the pincode table says so (`cod_available`, `express_available`). Not every metro pincode has Express.",
+            "file": "pol_delivery_shipping.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-04-01",
+            "version": "2.0",
+            "title": "Where we deliver"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.190378,
+            "dense_score": 0.3969
+          },
+          {
+            "id": "RET-3",
+            "score": 0.168505,
+            "dense_score": 0.4582
+          },
+          {
+            "id": "RET-8",
+            "score": 0.157038,
+            "dense_score": 0.4198
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.100918,
+            "dense_score": 0.1261
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.100917,
+            "dense_score": 0.2741
+          },
+          {
+            "id": "RET-4",
+            "score": 0.100916,
+            "dense_score": 0.3387
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.100915,
+            "dense_score": 0.3255
+          },
+          {
+            "id": "CPN-3",
+            "score": 0.100914,
+            "dense_score": 0.355
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.100913,
+            "dense_score": 0.2673
+          },
+          {
+            "id": "RET-5",
+            "score": 0.100912,
+            "dense_score": 0.2977
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.081328,
+            "dense_score": -0.0007
+          },
+          {
+            "id": "PAY-2",
+            "score": 0.081327,
+            "dense_score": 0.2529
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "serviceable": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 160.01,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 163.04
+      },
+      "public_context": {
+        "sku": "ELE-0002"
+      }
+    },
+    {
+      "id": "warranty_claim_only",
+      "question": "How do I start an Assured claim for the maroon power bank ELE-0006?",
+      "expected": {
+        "brand_warranty_months": 6,
+        "assured_eligible": true
+      },
+      "checks": [
+        {
+          "check": "brand_warranty_months",
+          "expected": 6,
+          "actual": 6,
+          "passed": true
+        },
+        {
+          "check": "assured_eligible",
+          "expected": true,
+          "actual": true,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "How do I start an Assured claim for the maroon power bank ELE-0006?",
+        "answer": "I'm ZentroMart's AI support assistant. This has 12 months of ZentroMart Assured coverage from delivery, in addition to the 6-month brand warranty. Start an Assured claim in My Orders; claim the brand warranty through the manufacturer service centre. Physical/liquid damage, normal wear and unauthorized repairs are excluded.",
+        "intent": "warranty",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "WAR-1",
+          "WAR-2",
+          "WAR-3",
+          "products.csv:ELE-0006"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "WAR-1",
+            "text": "## [WAR-1] Brand warranty\nMost electronics come with the manufacturer's warranty. The warranty period is listed in the `warranty_months` column of the product catalog. Brand warranty claims are made with the manufacturer's service centre.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "Brand warranty"
+          },
+          {
+            "id": "WAR-2",
+            "text": "## [WAR-2] ZentroMart Assured\nProducts marked `assured = true` in the catalog carry a 12-month ZentroMart Assured warranty from the delivery date, in addition to any brand warranty. Claims are raised in the app under My Orders, and ZentroMart arranges pickup and repair or replacement.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "ZentroMart Assured"
+          },
+          {
+            "id": "WAR-3",
+            "text": "## [WAR-3] What warranty does not cover\nPhysical damage, liquid damage, normal wear and unauthorised repairs are not covered.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "What warranty does not cover"
+          },
+          {
+            "id": "products.csv:ELE-0006",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0006\", \"title\": \"Voltra PowerCell 20000 mAh Power Bank, Maroon\", \"brand\": \"Voltra\", \"return_category\": \"electronics\", \"price_inr\": \"1679\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"True\", \"warranty_months\": \"6\", \"description\": \"Voltra PowerCell 20000 mAh Power Bank, Maroon. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "WAR-1",
+            "score": 0.15735,
+            "dense_score": 0.2586
+          },
+          {
+            "id": "RET-2",
+            "score": 0.147014,
+            "dense_score": 0.232
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.146941,
+            "dense_score": 0.2433
+          },
+          {
+            "id": "RET-1",
+            "score": 0.132585,
+            "dense_score": 0.2287
+          },
+          {
+            "id": "RET-3",
+            "score": 0.123266,
+            "dense_score": 0.2405
+          },
+          {
+            "id": "REF-6",
+            "score": 0.123093,
+            "dense_score": 0.3739
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.112916,
+            "dense_score": 0.3363
+          },
+          {
+            "id": "CPN-3",
+            "score": 0.104425,
+            "dense_score": 0.3227
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.103714,
+            "dense_score": 0.1923
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.094467,
+            "dense_score": 0.1434
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.089366,
+            "dense_score": 0.1755
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.081529,
+            "dense_score": 0.216
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "brand_warranty_months": 6,
+          "assured_warranty_months": 12,
+          "assured_eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 141.99,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 144.31
+      },
+      "public_context": {
+        "sku": "ELE-0006"
+      }
+    },
+    {
+      "id": "new_product_warranty",
+      "question": "Who handles warranty on the marketplace green charger ELE-0010?",
+      "expected": {
+        "brand_warranty_months": 12,
+        "assured_eligible": false
+      },
+      "checks": [
+        {
+          "check": "brand_warranty_months",
+          "expected": 12,
+          "actual": 12,
+          "passed": true
+        },
+        {
+          "check": "assured_eligible",
+          "expected": false,
+          "actual": false,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "Who handles warranty on the marketplace green charger ELE-0010?",
+        "answer": "I'm ZentroMart's AI support assistant. The brand warranty is 12 months, claimed through the manufacturer service centre. Marketplace seller items carry only the brand warranty, not ZentroMart Assured coverage, even if the listing badge says assured.",
+        "intent": "warranty",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "WAR-1",
+          "MKS-3",
+          "products.csv:ELE-0010"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "WAR-1",
+            "text": "## [WAR-1] Brand warranty\nMost electronics come with the manufacturer's warranty. The warranty period is listed in the `warranty_months` column of the product catalog. Brand warranty claims are made with the manufacturer's service centre.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "Brand warranty"
+          },
+          {
+            "id": "MKS-3",
+            "text": "## [MKS-3] Warranty\nZentroMart Assured never applies to marketplace seller items, even if the listing says assured. Seller items carry only the brand warranty.",
+            "file": "pol_marketplace_sellers.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-03-01",
+            "version": "1.0",
+            "title": "Warranty"
+          },
+          {
+            "id": "products.csv:ELE-0010",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0010\", \"title\": \"Voltra 65W GaN Fast Charger, Green\", \"brand\": \"Voltra\", \"return_category\": \"electronics\", \"price_inr\": \"2189\", \"fulfilled_by\": \"Sunrise Electronics\", \"assured\": \"True\", \"warranty_months\": \"12\", \"description\": \"Voltra 65W GaN Fast Charger, Green. Sold on ZentroMart. Ships from a marketplace seller.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "WAR-1",
+            "score": 0.18764,
+            "dense_score": 0.5043
+          },
+          {
+            "id": "RET-1",
+            "score": 0.176233,
+            "dense_score": 0.3853
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.166977,
+            "dense_score": 0.3369
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.157459,
+            "dense_score": 0.3386
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.157458,
+            "dense_score": 0.3611
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.151366,
+            "dense_score": 0.3597
+          },
+          {
+            "id": "RET-2",
+            "score": 0.143757,
+            "dense_score": 0.2151
+          },
+          {
+            "id": "RET-3",
+            "score": 0.133209,
+            "dense_score": 0.2252
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.1313,
+            "dense_score": 0.2549
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.120587,
+            "dense_score": 0.2351
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.04982,
+            "dense_score": 0.1531
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.047329,
+            "dense_score": 0.1583
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "brand_warranty_months": 12,
+          "assured_warranty_months": 0,
+          "assured_eligible": false
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 244.37,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 247.53
+      },
+      "public_context": {
+        "sku": "ELE-0010"
+      }
+    },
+    {
+      "id": "compound",
+      "question": "For ELE-0008, tell me the return period as well as the maker and retailer warranty cover.",
+      "expected": {
+        "brand_warranty_months": 6,
+        "return_days": 7
+      },
+      "checks": [
+        {
+          "check": "brand_warranty_months",
+          "expected": 6,
+          "actual": 6,
+          "passed": true
+        },
+        {
+          "check": "return_days",
+          "expected": 7,
+          "actual": 7,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "For ELE-0008, tell me the return period as well as the maker and retailer warranty cover.",
+        "answer": "I'm ZentroMart's AI support assistant. This has 12 months of ZentroMart Assured coverage from delivery, in addition to the 6-month brand warranty. Start an Assured claim in My Orders; claim the brand warranty through the manufacturer service centre. Physical/liquid damage, normal wear and unauthorized repairs are excluded. The catalog return category is electronics and accessories; its window is 7 calendar days from delivery, subject to item condition.",
+        "intent": "warranty",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "WAR-1",
+          "WAR-2",
+          "WAR-3",
+          "products.csv:ELE-0008",
+          "RET-2",
+          "RET-3"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "WAR-1",
+            "text": "## [WAR-1] Brand warranty\nMost electronics come with the manufacturer's warranty. The warranty period is listed in the `warranty_months` column of the product catalog. Brand warranty claims are made with the manufacturer's service centre.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "Brand warranty"
+          },
+          {
+            "id": "WAR-2",
+            "text": "## [WAR-2] ZentroMart Assured\nProducts marked `assured = true` in the catalog carry a 12-month ZentroMart Assured warranty from the delivery date, in addition to any brand warranty. Claims are raised in the app under My Orders, and ZentroMart arranges pickup and repair or replacement.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "ZentroMart Assured"
+          },
+          {
+            "id": "WAR-3",
+            "text": "## [WAR-3] What warranty does not cover\nPhysical damage, liquid damage, normal wear and unauthorised repairs are not covered.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "What warranty does not cover"
+          },
+          {
+            "id": "products.csv:ELE-0008",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0008\", \"title\": \"Voltra PowerCell 10000 mAh Power Bank, Green\", \"brand\": \"Voltra\", \"return_category\": \"electronics\", \"price_inr\": \"1059\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"True\", \"warranty_months\": \"6\", \"description\": \"Voltra PowerCell 10000 mAh Power Bank, Green. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "RET-3",
+            "text": "## [RET-3] Change to electronics returns\nFrom **1 August 2026**, the return window for electronics and accessories is 7 days. Electronics **delivered before 1 August 2026** keep the earlier 10-day window from version 3 of this policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Change to electronics returns"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "WAR-1",
+            "score": 0.190404,
+            "dense_score": 0.5375
+          },
+          {
+            "id": "RET-2",
+            "score": 0.180423,
+            "dense_score": 0.5174
+          },
+          {
+            "id": "RET-1",
+            "score": 0.166986,
+            "dense_score": 0.4189
+          },
+          {
+            "id": "RET-3",
+            "score": 0.166456,
+            "dense_score": 0.557
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.161132,
+            "dense_score": 0.3935
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.154831,
+            "dense_score": 0.4295
+          },
+          {
+            "id": "RET-8",
+            "score": 0.145312,
+            "dense_score": 0.5206
+          },
+          {
+            "id": "RET-4",
+            "score": 0.132563,
+            "dense_score": 0.4176
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.123217,
+            "dense_score": 0.2143
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.113297,
+            "dense_score": 0.2199
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.102013,
+            "dense_score": 0.2431
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.101967,
+            "dense_score": 0.3618
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "brand_warranty_months": 6,
+          "assured_warranty_months": 12,
+          "assured_eligible": true,
+          "return_category": "electronics",
+          "return_days": 7,
+          "deadline": null,
+          "eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 272.6,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 276.5
+      },
+      "public_context": {
+        "sku": "ELE-0008"
+      }
+    },
+    {
+      "id": "sku_crowding",
+      "question": "For the blue earbuds ELE-0003, how long do I have to return it, and how long are its two warranty covers?",
+      "expected": {
+        "brand_warranty_months": 12,
+        "assured_warranty_months": 12,
+        "return_days": 7
+      },
+      "checks": [
+        {
+          "check": "brand_warranty_months",
+          "expected": 12,
+          "actual": 12,
+          "passed": true
+        },
+        {
+          "check": "assured_warranty_months",
+          "expected": 12,
+          "actual": 12,
+          "passed": true
+        },
+        {
+          "check": "return_days",
+          "expected": 7,
+          "actual": 7,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "For the blue earbuds ELE-0003, how long do I have to return it, and how long are its two warranty covers?",
+        "answer": "I'm ZentroMart's AI support assistant. This has 12 months of ZentroMart Assured coverage from delivery, in addition to the 12-month brand warranty. Start an Assured claim in My Orders; claim the brand warranty through the manufacturer service centre. Physical/liquid damage, normal wear and unauthorized repairs are excluded. The catalog return category is electronics and accessories; its window is 7 calendar days from delivery, subject to item condition.",
+        "intent": "warranty",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "WAR-1",
+          "WAR-2",
+          "WAR-3",
+          "products.csv:ELE-0003",
+          "RET-2",
+          "RET-3"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "WAR-1",
+            "text": "## [WAR-1] Brand warranty\nMost electronics come with the manufacturer's warranty. The warranty period is listed in the `warranty_months` column of the product catalog. Brand warranty claims are made with the manufacturer's service centre.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "Brand warranty"
+          },
+          {
+            "id": "WAR-2",
+            "text": "## [WAR-2] ZentroMart Assured\nProducts marked `assured = true` in the catalog carry a 12-month ZentroMart Assured warranty from the delivery date, in addition to any brand warranty. Claims are raised in the app under My Orders, and ZentroMart arranges pickup and repair or replacement.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "ZentroMart Assured"
+          },
+          {
+            "id": "WAR-3",
+            "text": "## [WAR-3] What warranty does not cover\nPhysical damage, liquid damage, normal wear and unauthorised repairs are not covered.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "What warranty does not cover"
+          },
+          {
+            "id": "products.csv:ELE-0003",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0003\", \"title\": \"Nimbus X2 Pro Wireless Earbuds, Blue\", \"brand\": \"Nimbus\", \"return_category\": \"electronics\", \"price_inr\": \"4229\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"True\", \"warranty_months\": \"12\", \"description\": \"Nimbus X2 Pro Wireless Earbuds, Blue. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "RET-3",
+            "text": "## [RET-3] Change to electronics returns\nFrom **1 August 2026**, the return window for electronics and accessories is 7 days. Electronics **delivered before 1 August 2026** keep the earlier 10-day window from version 3 of this policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Change to electronics returns"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "WAR-1",
+            "score": 0.193397,
+            "dense_score": 0.4701
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.172045,
+            "dense_score": 0.3936
+          },
+          {
+            "id": "RET-3",
+            "score": 0.166236,
+            "dense_score": 0.4603
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.158576,
+            "dense_score": 0.4222
+          },
+          {
+            "id": "RET-1",
+            "score": 0.151657,
+            "dense_score": 0.3556
+          },
+          {
+            "id": "RET-2",
+            "score": 0.14972,
+            "dense_score": 0.295
+          },
+          {
+            "id": "RET-4",
+            "score": 0.144891,
+            "dense_score": 0.4194
+          },
+          {
+            "id": "RET-8",
+            "score": 0.130626,
+            "dense_score": 0.3823
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.122531,
+            "dense_score": 0.2752
+          },
+          {
+            "id": "RET-7",
+            "score": 0.111463,
+            "dense_score": 0.3579
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.087138,
+            "dense_score": 0.1326
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.087137,
+            "dense_score": 0.228
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "brand_warranty_months": 12,
+          "assured_warranty_months": 12,
+          "assured_eligible": true,
+          "return_category": "electronics",
+          "return_days": 7,
+          "deadline": null,
+          "eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 307.92,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 311.15
+      },
+      "public_context": {
+        "sku": "ELE-0003"
+      }
+    },
+    {
+      "id": "other_year",
+      "question": "My electronics were delivered on 31 July 2025; what return period applied?",
+      "expected": {
+        "return_days": 10,
+        "deadline": "2025-08-10"
+      },
+      "checks": [
+        {
+          "check": "return_days",
+          "expected": 10,
+          "actual": 10,
+          "passed": true
+        },
+        {
+          "check": "deadline",
+          "expected": "2025-08-10",
+          "actual": "2025-08-10",
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "My electronics were delivered on 31 July 2025; what return period applied?",
+        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is electronics and accessories; its window is 10 calendar days from delivery, subject to item condition. Delivery before 1 August 2026 keeps the earlier 10-day rule under the current policy historical exception.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-2",
+          "RET-3",
+          "RETv3-2"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "RET-3",
+            "text": "## [RET-3] Change to electronics returns\nFrom **1 August 2026**, the return window for electronics and accessories is 7 days. Electronics **delivered before 1 August 2026** keep the earlier 10-day window from version 3 of this policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Change to electronics returns"
+          },
+          {
+            "id": "RETv3-2",
+            "text": "## [RETv3-2] Return windows by category\n| Category | Return window |\n| --- | --- |\n| Electronics and accessories | 10 days |\n| Clothing, footwear and bags | 15 days |\n| Home, kitchen and furniture | 10 days |\n| Beauty and personal care (unopened) | 7 days |\n| Books and stationery | 10 days |\n| Grocery, innerwear, gift cards | Not returnable |",
+            "file": "pol_returns_v3_superseded.md",
+            "doc_type": "policy",
+            "status": "superseded",
+            "effective_from": "2026-03-01",
+            "version": "3.0",
+            "title": "Return windows by category"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-3",
+            "score": 0.194928,
+            "dense_score": 0.7339
+          },
+          {
+            "id": "RETv3-2",
+            "score": 0.182974,
+            "dense_score": 0.4711
+          },
+          {
+            "id": "RET-2",
+            "score": 0.182712,
+            "dense_score": 0.4091
+          },
+          {
+            "id": "RET-8",
+            "score": 0.174355,
+            "dense_score": 0.5
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.14706,
+            "dense_score": 0.4576
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.135463,
+            "dense_score": 0.449
+          },
+          {
+            "id": "REF-1",
+            "score": 0.133271,
+            "dense_score": 0.4308
+          },
+          {
+            "id": "REF-5",
+            "score": 0.132898,
+            "dense_score": 0.3825
+          },
+          {
+            "id": "RET-4",
+            "score": 0.130121,
+            "dense_score": 0.3918
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.127372,
+            "dense_score": 0.3479
+          },
+          {
+            "id": "RET-7",
+            "score": 0.12675,
+            "dense_score": 0.4311
+          },
+          {
+            "id": "RET-6",
+            "score": 0.123608,
+            "dense_score": 0.4003
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "electronics",
+          "return_days": 10,
+          "deadline": "2025-08-10",
+          "eligible": false
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 75.47,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 79.6
+      },
+      "public_context": {
+        "category": "electronics",
+        "delivered_on": "2025-07-31"
+      }
+    },
+    {
+      "id": "unknownsku",
+      "question": "What warranty applies to SKU ELE-9999?",
+      "expected": {
+        "decision": "clarify"
+      },
+      "checks": [
+        {
+          "check": "decision",
+          "expected": "clarify",
+          "actual": "clarify",
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "What warranty applies to SKU ELE-9999?",
+        "answer": "I'm ZentroMart's AI support assistant. Which product or SKU is this about?",
+        "intent": "warranty",
+        "decision": "clarify",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "WAR-1",
+          "WAR-2",
+          "MKS-3",
+          "STY-5"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "WAR-1",
+            "text": "## [WAR-1] Brand warranty\nMost electronics come with the manufacturer's warranty. The warranty period is listed in the `warranty_months` column of the product catalog. Brand warranty claims are made with the manufacturer's service centre.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "Brand warranty"
+          },
+          {
+            "id": "WAR-2",
+            "text": "## [WAR-2] ZentroMart Assured\nProducts marked `assured = true` in the catalog carry a 12-month ZentroMart Assured warranty from the delivery date, in addition to any brand warranty. Claims are raised in the app under My Orders, and ZentroMart arranges pickup and repair or replacement.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "ZentroMart Assured"
+          },
+          {
+            "id": "MKS-3",
+            "text": "## [MKS-3] Warranty\nZentroMart Assured never applies to marketplace seller items, even if the listing says assured. Seller items carry only the brand warranty.",
+            "file": "pol_marketplace_sellers.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-03-01",
+            "version": "1.0",
+            "title": "Warranty"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "WAR-1",
+            "score": 0.184179,
+            "dense_score": 0.4968
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.181136,
+            "dense_score": 0.471
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.177122,
+            "dense_score": 0.3995
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.160053,
+            "dense_score": 0.2789
+          },
+          {
+            "id": "RET-1",
+            "score": 0.155744,
+            "dense_score": 0.3661
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.143397,
+            "dense_score": 0.3101
+          },
+          {
+            "id": "PAY-2",
+            "score": 0.11849,
+            "dense_score": 0.3386
+          },
+          {
+            "id": "DWM-2",
+            "score": 0.100195,
+            "dense_score": 0.2405
+          },
+          {
+            "id": "RET-6",
+            "score": 0.095907,
+            "dense_score": 0.2893
+          },
+          {
+            "id": "IDV-3",
+            "score": 0.094222,
+            "dense_score": 0.3799
+          },
+          {
+            "id": "CPN-2",
+            "score": 0.076325,
+            "dense_score": 0.2901
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.072508,
+            "dense_score": 0.1401
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 87.62,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 91.0
+      },
+      "public_context": {}
+    },
+    {
+      "id": "sku_switch/1",
+      "question": "What is the return period for ELE-0002?",
+      "expected": {
+        "return_days": 7
+      },
+      "checks": [
+        {
+          "check": "return_days",
+          "expected": 7,
+          "actual": 7,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "What is the return period for ELE-0002?",
+        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is electronics and accessories; its window is 7 calendar days from delivery, subject to item condition.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-2",
+          "products.csv:ELE-0002",
+          "RET-3"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "products.csv:ELE-0002",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0002\", \"title\": \"Nimbus X2 Wireless Earbuds, Black\", \"brand\": \"Nimbus\", \"return_category\": \"electronics\", \"price_inr\": \"1899\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"True\", \"warranty_months\": \"12\", \"description\": \"Nimbus X2 Wireless Earbuds, Black. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "RET-3",
+            "text": "## [RET-3] Change to electronics returns\nFrom **1 August 2026**, the return window for electronics and accessories is 7 days. Electronics **delivered before 1 August 2026** keep the earlier 10-day window from version 3 of this policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Change to electronics returns"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.193306,
+            "dense_score": 0.4761
+          },
+          {
+            "id": "RET-3",
+            "score": 0.180853,
+            "dense_score": 0.5781
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.166835,
+            "dense_score": 0.3408
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.111515,
+            "dense_score": 0.1749
+          },
+          {
+            "id": "RET-8",
+            "score": 0.111514,
+            "dense_score": 0.4602
+          },
+          {
+            "id": "RET-4",
+            "score": 0.111513,
+            "dense_score": 0.3584
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.111512,
+            "dense_score": 0.3008
+          },
+          {
+            "id": "RET-1",
+            "score": 0.111511,
+            "dense_score": 0.2078
+          },
+          {
+            "id": "CPN-3",
+            "score": 0.11151,
+            "dense_score": 0.3506
+          },
+          {
+            "id": "RET-7",
+            "score": 0.111509,
+            "dense_score": 0.3433
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.087216,
+            "dense_score": 0.0289
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.083955,
+            "dense_score": 0.0537
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "electronics",
+          "return_days": 7,
+          "deadline": null,
+          "eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 212.88,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 216.04
+      },
+      "public_context": {
+        "sku": "ELE-0002"
+      }
+    },
+    {
+      "id": "sku_switch/2",
+      "question": "What about the home mixer HOM-0045 instead?",
+      "expected": {
+        "return_days": 10
+      },
+      "checks": [
+        {
+          "check": "return_days",
+          "expected": 10,
+          "actual": 10,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "What about the home mixer HOM-0045 instead?",
+        "answer": "The catalog return category is home, kitchen and furniture; its window is 10 calendar days from delivery, subject to item condition.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "RET-2",
+          "products.csv:HOM-0045"
+        ],
+        "sources": [
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "products.csv:HOM-0045",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"HOM-0045\", \"title\": \"Aangan Cotton Double Bedsheet Set, White\", \"brand\": \"Aangan\", \"return_category\": \"home_kitchen\", \"price_inr\": \"1759\", \"fulfilled_by\": \"Deccan Home Store\", \"assured\": \"False\", \"warranty_months\": \"0\", \"description\": \"Aangan Cotton Double Bedsheet Set, White. Sold on ZentroMart. Ships from a marketplace seller.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.162546,
+            "dense_score": 0.295
+          },
+          {
+            "id": "RET-1",
+            "score": 0.142049,
+            "dense_score": 0.3345
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.138008,
+            "dense_score": 0.2826
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.129748,
+            "dense_score": 0.2395
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.119028,
+            "dense_score": 0.2875
+          },
+          {
+            "id": "RET-4",
+            "score": 0.116129,
+            "dense_score": 0.2737
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.113888,
+            "dense_score": 0.2446
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.112397,
+            "dense_score": 0.2205
+          },
+          {
+            "id": "RET-3",
+            "score": 0.11221,
+            "dense_score": 0.2691
+          },
+          {
+            "id": "RET-9",
+            "score": 0.094426,
+            "dense_score": 0.1942
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.081722,
+            "dense_score": 0.1024
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.034313,
+            "dense_score": 0.151
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "home_kitchen",
+          "return_days": 10,
+          "deadline": null,
+          "eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 420.52,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 423.14
+      },
+      "public_context": {
+        "sku": "HOM-0045"
+      }
+    },
+    {
+      "id": "sku_switch/3",
+      "question": "Now switch it to the saree FSH-0028.",
+      "expected": {
+        "return_days": 15
+      },
+      "checks": [
+        {
+          "check": "return_days",
+          "expected": 15,
+          "actual": 15,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "Now switch it to the saree FSH-0028.",
+        "answer": "The catalog return category is clothing, footwear and bags; its window is 15 calendar days from delivery, subject to item condition.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "RET-2",
+          "products.csv:FSH-0028",
+          "RET-8"
+        ],
+        "sources": [
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "products.csv:FSH-0028",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"FSH-0028\", \"title\": \"Rangoli Silk Blend Saree, Green\", \"brand\": \"Rangoli\", \"return_category\": \"fashion\", \"price_inr\": \"4239\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"False\", \"warranty_months\": \"0\", \"description\": \"Rangoli Silk Blend Saree, Green. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "RET-8",
+            "text": "## [RET-8] Festive sale returns\nClothing, footwear and bags from orders **placed between 01 October and 15 October 2026** can be returned within 30 days of delivery. All other categories follow the normal windows in RET-2.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Festive sale returns"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.1824,
+            "dense_score": 0.381
+          },
+          {
+            "id": "RET-1",
+            "score": 0.173625,
+            "dense_score": 0.4409
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.161296,
+            "dense_score": 0.3248
+          },
+          {
+            "id": "RET-4",
+            "score": 0.155484,
+            "dense_score": 0.4009
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.148089,
+            "dense_score": 0.2868
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.138327,
+            "dense_score": 0.3186
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.136968,
+            "dense_score": 0.2979
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.133515,
+            "dense_score": 0.3142
+          },
+          {
+            "id": "RET-8",
+            "score": 0.131519,
+            "dense_score": 0.3106
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.129736,
+            "dense_score": 0.2903
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.0883,
+            "dense_score": 0.1351
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.026826,
+            "dense_score": 0.1194
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "fashion",
+          "return_days": 15,
+          "deadline": null,
+          "eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 283.22,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 287.1
+      },
+      "public_context": {
+        "sku": "FSH-0028"
+      }
+    },
+    {
+      "id": "date_correction/1",
+      "question": "For ELE-0002 delivered on 31 July 2026, which return period applies?",
+      "expected": {
+        "return_days": 10,
+        "deadline": "2026-08-10"
+      },
+      "checks": [
+        {
+          "check": "return_days",
+          "expected": 10,
+          "actual": 10,
+          "passed": true
+        },
+        {
+          "check": "deadline",
+          "expected": "2026-08-10",
+          "actual": "2026-08-10",
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "For ELE-0002 delivered on 31 July 2026, which return period applies?",
+        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is electronics and accessories; its window is 10 calendar days from delivery, subject to item condition. Delivery before 1 August 2026 keeps the earlier 10-day rule under the current policy historical exception.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-2",
+          "products.csv:ELE-0002",
+          "RET-3",
+          "RETv3-2"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "products.csv:ELE-0002",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0002\", \"title\": \"Nimbus X2 Wireless Earbuds, Black\", \"brand\": \"Nimbus\", \"return_category\": \"electronics\", \"price_inr\": \"1899\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"True\", \"warranty_months\": \"12\", \"description\": \"Nimbus X2 Wireless Earbuds, Black. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "RET-3",
+            "text": "## [RET-3] Change to electronics returns\nFrom **1 August 2026**, the return window for electronics and accessories is 7 days. Electronics **delivered before 1 August 2026** keep the earlier 10-day window from version 3 of this policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Change to electronics returns"
+          },
+          {
+            "id": "RETv3-2",
+            "text": "## [RETv3-2] Return windows by category\n| Category | Return window |\n| --- | --- |\n| Electronics and accessories | 10 days |\n| Clothing, footwear and bags | 15 days |\n| Home, kitchen and furniture | 10 days |\n| Beauty and personal care (unopened) | 7 days |\n| Books and stationery | 10 days |\n| Grocery, innerwear, gift cards | Not returnable |",
+            "file": "pol_returns_v3_superseded.md",
+            "doc_type": "policy",
+            "status": "superseded",
+            "effective_from": "2026-03-01",
+            "version": "3.0",
+            "title": "Return windows by category"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.190447,
+            "dense_score": 0.5283
+          },
+          {
+            "id": "RETv3-2",
+            "score": 0.179706,
+            "dense_score": 0.4849
+          },
+          {
+            "id": "RET-3",
+            "score": 0.177756,
+            "dense_score": 0.621
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.134578,
+            "dense_score": 0.2738
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.134577,
+            "dense_score": 0.4115
+          },
+          {
+            "id": "RET-8",
+            "score": 0.134576,
+            "dense_score": 0.5411
+          },
+          {
+            "id": "RET-1",
+            "score": 0.134575,
+            "dense_score": 0.319
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.131908,
+            "dense_score": 0.3564
+          },
+          {
+            "id": "RET-4",
+            "score": 0.128506,
+            "dense_score": 0.3806
+          },
+          {
+            "id": "CPN-3",
+            "score": 0.126405,
+            "dense_score": 0.4664
+          },
+          {
+            "id": "REF-1",
+            "score": 0.1238,
+            "dense_score": 0.3924
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.090159,
+            "dense_score": 0.1063
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "electronics",
+          "return_days": 10,
+          "deadline": "2026-08-10",
+          "eligible": false
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 173.54,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 176.72
+      },
+      "public_context": {
+        "sku": "ELE-0002",
+        "delivered_on": "2026-07-31"
+      }
+    },
+    {
+      "id": "date_correction/2",
+      "question": "Correction: it was delivered on 1 August.",
+      "expected": {
+        "return_days": 7,
+        "deadline": "2026-08-08"
+      },
+      "checks": [
+        {
+          "check": "return_days",
+          "expected": 7,
+          "actual": 7,
+          "passed": true
+        },
+        {
+          "check": "deadline",
+          "expected": "2026-08-08",
+          "actual": "2026-08-08",
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "Correction: it was delivered on 1 August.",
+        "answer": "The catalog return category is electronics and accessories; its window is 7 calendar days from delivery, subject to item condition. Delivery on or after 1 August 2026 uses the current 7-day electronics window.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "RET-2",
+          "products.csv:ELE-0002",
+          "RET-3"
+        ],
+        "sources": [
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "products.csv:ELE-0002",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0002\", \"title\": \"Nimbus X2 Wireless Earbuds, Black\", \"brand\": \"Nimbus\", \"return_category\": \"electronics\", \"price_inr\": \"1899\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"True\", \"warranty_months\": \"12\", \"description\": \"Nimbus X2 Wireless Earbuds, Black. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "RET-3",
+            "text": "## [RET-3] Change to electronics returns\nFrom **1 August 2026**, the return window for electronics and accessories is 7 days. Electronics **delivered before 1 August 2026** keep the earlier 10-day window from version 3 of this policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Change to electronics returns"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-3",
+            "score": 0.193667,
+            "dense_score": 0.4603
+          },
+          {
+            "id": "RET-2",
+            "score": 0.187779,
+            "dense_score": 0.4387
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.176949,
+            "dense_score": 0.4094
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.165092,
+            "dense_score": 0.3259
+          },
+          {
+            "id": "RET-8",
+            "score": 0.165091,
+            "dense_score": 0.407
+          },
+          {
+            "id": "RET-1",
+            "score": 0.150759,
+            "dense_score": 0.3299
+          },
+          {
+            "id": "RET-4",
+            "score": 0.1415,
+            "dense_score": 0.3442
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.133806,
+            "dense_score": 0.3004
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.124391,
+            "dense_score": 0.2956
+          },
+          {
+            "id": "CPN-3",
+            "score": 0.116083,
+            "dense_score": 0.3354
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.105262,
+            "dense_score": 0.2034
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.065176,
+            "dense_score": 0.1061
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "electronics",
+          "return_days": 7,
+          "deadline": "2026-08-08",
+          "eligible": false
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 214.84,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 218.17
+      },
+      "public_context": {
+        "sku": "ELE-0002",
+        "delivered_on": "2026-08-01"
+      }
+    },
+    {
+      "id": "topic_reset/1",
+      "question": "I ordered clothing on 10 October 2026. What return period applies?",
+      "expected": {
+        "return_days": 30
+      },
+      "checks": [
+        {
+          "check": "return_days",
+          "expected": 30,
+          "actual": 30,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "I ordered clothing on 10 October 2026. What return period applies?",
+        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is clothing, footwear and bags; its window is 30 calendar days from delivery, subject to item condition. Yes, the order placement date of 10 October 2026 is inside the offer; both 1 and 15 October are included. The 30-day festive extension is only for clothing, footwear and bags placed from 1 to 15 October 2026; other categories keep their ordinary window.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-2",
+          "RET-8"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "RET-8",
+            "text": "## [RET-8] Festive sale returns\nClothing, footwear and bags from orders **placed between 01 October and 15 October 2026** can be returned within 30 days of delivery. All other categories follow the normal windows in RET-2.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Festive sale returns"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-8",
+            "score": 0.187856,
+            "dense_score": 0.7072
+          },
+          {
+            "id": "RET-3",
+            "score": 0.179246,
+            "dense_score": 0.5086
+          },
+          {
+            "id": "RET-2",
+            "score": 0.169548,
+            "dense_score": 0.4211
+          },
+          {
+            "id": "RET-9",
+            "score": 0.149516,
+            "dense_score": 0.4122
+          },
+          {
+            "id": "RET-6",
+            "score": 0.147221,
+            "dense_score": 0.4567
+          },
+          {
+            "id": "REF-1",
+            "score": 0.13723,
+            "dense_score": 0.4779
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.131878,
+            "dense_score": 0.3335
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.129393,
+            "dense_score": 0.4235
+          },
+          {
+            "id": "RET-7",
+            "score": 0.127463,
+            "dense_score": 0.4363
+          },
+          {
+            "id": "KB-00.2",
+            "score": 0.121955,
+            "dense_score": 0.3827
+          },
+          {
+            "id": "RET-5",
+            "score": 0.119299,
+            "dense_score": 0.4147
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.096711,
+            "dense_score": 0.2573
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "fashion",
+          "return_days": 30,
+          "deadline": null,
+          "eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 94.66,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 98.99
+      },
+      "public_context": {
+        "category": "fashion",
+        "placed_on": "2026-10-10"
+      }
+    },
+    {
+      "id": "topic_reset/2",
+      "question": "What are the Wallet refund rules?",
+      "expected": {
+        "context": {}
+      },
+      "checks": [
+        {
+          "check": "context",
+          "expected": {},
+          "actual": {},
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "What are the Wallet refund rules?",
+        "answer": "ZentroMart Wallet refunds are instant, within 2 hours after initiation.",
+        "intent": "refund",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "REF-2"
+        ],
+        "sources": [
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "PAY-4",
+            "score": 0.18975,
+            "dense_score": 0.6546
+          },
+          {
+            "id": "REF-3",
+            "score": 0.168625,
+            "dense_score": 0.5941
+          },
+          {
+            "id": "REF-6",
+            "score": 0.166798,
+            "dense_score": 0.5842
+          },
+          {
+            "id": "REF-4",
+            "score": 0.153515,
+            "dense_score": 0.5714
+          },
+          {
+            "id": "REF-5",
+            "score": 0.15277,
+            "dense_score": 0.6498
+          },
+          {
+            "id": "CPN-3",
+            "score": 0.14914,
+            "dense_score": 0.6259
+          },
+          {
+            "id": "REF-2",
+            "score": 0.138193,
+            "dense_score": 0.4617
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.13741,
+            "dense_score": 0.5206
+          },
+          {
+            "id": "REF-1",
+            "score": 0.137015,
+            "dense_score": 0.5519
+          },
+          {
+            "id": "RET-7",
+            "score": 0.134131,
+            "dense_score": 0.5432
+          },
+          {
+            "id": "RET-9",
+            "score": 0.130224,
+            "dense_score": 0.5644
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.099042,
+            "dense_score": 0.4128
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 62.01,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 68.56
+      },
+      "public_context": {}
+    },
+    {
+      "id": "topic_reset/3",
+      "question": "Can I return that laptop ELE-0011?",
+      "expected": {
+        "return_days": 7
+      },
+      "checks": [
+        {
+          "check": "return_days",
+          "expected": 7,
+          "actual": 7,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "Can I return that laptop ELE-0011?",
+        "answer": "The catalog return category is electronics and accessories; its window is 7 calendar days from delivery, subject to item condition.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "RET-2",
+          "products.csv:ELE-0011",
+          "RET-3"
+        ],
+        "sources": [
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "products.csv:ELE-0011",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0011\", \"title\": \"Kestrel K7 Smartphone 128 GB, White\", \"brand\": \"Kestrel\", \"return_category\": \"electronics\", \"price_inr\": \"17139\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"False\", \"warranty_months\": \"12\", \"description\": \"Kestrel K7 Smartphone 128 GB, White. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "RET-3",
+            "text": "## [RET-3] Change to electronics returns\nFrom **1 August 2026**, the return window for electronics and accessories is 7 days. Electronics **delivered before 1 August 2026** keep the earlier 10-day window from version 3 of this policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Change to electronics returns"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.188473,
+            "dense_score": 0.4158
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.182212,
+            "dense_score": 0.4115
+          },
+          {
+            "id": "RET-3",
+            "score": 0.180142,
+            "dense_score": 0.5077
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.153179,
+            "dense_score": 0.2898
+          },
+          {
+            "id": "RET-4",
+            "score": 0.153178,
+            "dense_score": 0.4507
+          },
+          {
+            "id": "RET-1",
+            "score": 0.153177,
+            "dense_score": 0.3378
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.147722,
+            "dense_score": 0.314
+          },
+          {
+            "id": "RET-8",
+            "score": 0.142508,
+            "dense_score": 0.3296
+          },
+          {
+            "id": "RET-5",
+            "score": 0.135826,
+            "dense_score": 0.3636
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.09063,
+            "dense_score": 0.1875
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.084935,
+            "dense_score": 0.1729
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.084934,
+            "dense_score": 0.1323
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "electronics",
+          "return_days": 7,
+          "deadline": null,
+          "eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 216.14,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 218.29
+      },
+      "public_context": {
+        "sku": "ELE-0011"
+      }
+    },
+    {
+      "id": "claim_to_return/1",
+      "question": "How do I start an Assured claim for ELE-0006?",
+      "expected": {
+        "assured_eligible": true
+      },
+      "checks": [
+        {
+          "check": "assured_eligible",
+          "expected": true,
+          "actual": true,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "How do I start an Assured claim for ELE-0006?",
+        "answer": "I'm ZentroMart's AI support assistant. This has 12 months of ZentroMart Assured coverage from delivery, in addition to the 6-month brand warranty. Start an Assured claim in My Orders; claim the brand warranty through the manufacturer service centre. Physical/liquid damage, normal wear and unauthorized repairs are excluded.",
+        "intent": "warranty",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "WAR-1",
+          "WAR-2",
+          "WAR-3",
+          "products.csv:ELE-0006"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "WAR-1",
+            "text": "## [WAR-1] Brand warranty\nMost electronics come with the manufacturer's warranty. The warranty period is listed in the `warranty_months` column of the product catalog. Brand warranty claims are made with the manufacturer's service centre.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "Brand warranty"
+          },
+          {
+            "id": "WAR-2",
+            "text": "## [WAR-2] ZentroMart Assured\nProducts marked `assured = true` in the catalog carry a 12-month ZentroMart Assured warranty from the delivery date, in addition to any brand warranty. Claims are raised in the app under My Orders, and ZentroMart arranges pickup and repair or replacement.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "ZentroMart Assured"
+          },
+          {
+            "id": "WAR-3",
+            "text": "## [WAR-3] What warranty does not cover\nPhysical damage, liquid damage, normal wear and unauthorised repairs are not covered.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "What warranty does not cover"
+          },
+          {
+            "id": "products.csv:ELE-0006",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0006\", \"title\": \"Voltra PowerCell 20000 mAh Power Bank, Maroon\", \"brand\": \"Voltra\", \"return_category\": \"electronics\", \"price_inr\": \"1679\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"True\", \"warranty_months\": \"6\", \"description\": \"Voltra PowerCell 20000 mAh Power Bank, Maroon. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "WAR-1",
+            "score": 0.179096,
+            "dense_score": 0.3218
+          },
+          {
+            "id": "RET-2",
+            "score": 0.165863,
+            "dense_score": 0.2981
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.152635,
+            "dense_score": 0.2564
+          },
+          {
+            "id": "RET-1",
+            "score": 0.141896,
+            "dense_score": 0.237
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.132908,
+            "dense_score": 0.2509
+          },
+          {
+            "id": "RET-3",
+            "score": 0.131495,
+            "dense_score": 0.2417
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.128523,
+            "dense_score": 0.3729
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.124393,
+            "dense_score": 0.2621
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.098352,
+            "dense_score": 0.1495
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.06831,
+            "dense_score": 0.1957
+          },
+          {
+            "id": "ESC-1",
+            "score": 0.068309,
+            "dense_score": 0.2781
+          },
+          {
+            "id": "ESC-2",
+            "score": 0.029443,
+            "dense_score": 0.214
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "brand_warranty_months": 6,
+          "assured_warranty_months": 12,
+          "assured_eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 262.2,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 264.61
+      },
+      "public_context": {
+        "sku": "ELE-0006"
+      }
+    },
+    {
+      "id": "claim_to_return/2",
+      "question": "And what is its normal return period?",
+      "expected": {
+        "return_days": 7
+      },
+      "checks": [
+        {
+          "check": "return_days",
+          "expected": 7,
+          "actual": 7,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "And what is its normal return period?",
+        "answer": "The catalog return category is electronics and accessories; its window is 7 calendar days from delivery, subject to item condition.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "RET-2",
+          "products.csv:ELE-0006",
+          "RET-3"
+        ],
+        "sources": [
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "products.csv:ELE-0006",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0006\", \"title\": \"Voltra PowerCell 20000 mAh Power Bank, Maroon\", \"brand\": \"Voltra\", \"return_category\": \"electronics\", \"price_inr\": \"1679\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"True\", \"warranty_months\": \"6\", \"description\": \"Voltra PowerCell 20000 mAh Power Bank, Maroon. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "RET-3",
+            "text": "## [RET-3] Change to electronics returns\nFrom **1 August 2026**, the return window for electronics and accessories is 7 days. Electronics **delivered before 1 August 2026** keep the earlier 10-day window from version 3 of this policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Change to electronics returns"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.19426,
+            "dense_score": 0.6048
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.179561,
+            "dense_score": 0.4296
+          },
+          {
+            "id": "RET-3",
+            "score": 0.171494,
+            "dense_score": 0.5681
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.145974,
+            "dense_score": 0.3149
+          },
+          {
+            "id": "RET-8",
+            "score": 0.145973,
+            "dense_score": 0.5221
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.145972,
+            "dense_score": 0.4014
+          },
+          {
+            "id": "RET-4",
+            "score": 0.145971,
+            "dense_score": 0.4437
+          },
+          {
+            "id": "RET-1",
+            "score": 0.14597,
+            "dense_score": 0.3999
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.133111,
+            "dense_score": 0.3807
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.119622,
+            "dense_score": 0.2901
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.087286,
+            "dense_score": 0.1861
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.087285,
+            "dense_score": 0.1001
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "electronics",
+          "return_days": 7,
+          "deadline": null,
+          "eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 171.16,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 177.67
+      },
+      "public_context": {
+        "sku": "ELE-0006"
+      }
+    },
+    {
+      "id": "unknown_sku_switch/1",
+      "question": "What is the return period for ELE-0002?",
+      "expected": {
+        "return_days": 7
+      },
+      "checks": [
+        {
+          "check": "return_days",
+          "expected": 7,
+          "actual": 7,
+          "passed": true
+        }
+      ],
+      "passed": true,
+      "actual_output": {
+        "transcript": "What is the return period for ELE-0002?",
+        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is electronics and accessories; its window is 7 calendar days from delivery, subject to item condition.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-2",
+          "products.csv:ELE-0002",
+          "RET-3"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "products.csv:ELE-0002",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0002\", \"title\": \"Nimbus X2 Wireless Earbuds, Black\", \"brand\": \"Nimbus\", \"return_category\": \"electronics\", \"price_inr\": \"1899\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"True\", \"warranty_months\": \"12\", \"description\": \"Nimbus X2 Wireless Earbuds, Black. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "RET-3",
+            "text": "## [RET-3] Change to electronics returns\nFrom **1 August 2026**, the return window for electronics and accessories is 7 days. Electronics **delivered before 1 August 2026** keep the earlier 10-day window from version 3 of this policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Change to electronics returns"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.193306,
+            "dense_score": 0.4761
+          },
+          {
+            "id": "RET-3",
+            "score": 0.180853,
+            "dense_score": 0.5781
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.166835,
+            "dense_score": 0.3408
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.111515,
+            "dense_score": 0.1749
+          },
+          {
+            "id": "RET-8",
+            "score": 0.111514,
+            "dense_score": 0.4602
+          },
+          {
+            "id": "RET-4",
+            "score": 0.111513,
+            "dense_score": 0.3584
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.111512,
+            "dense_score": 0.3008
+          },
+          {
+            "id": "RET-1",
+            "score": 0.111511,
+            "dense_score": 0.2078
+          },
+          {
+            "id": "CPN-3",
+            "score": 0.11151,
+            "dense_score": 0.3506
+          },
+          {
+            "id": "RET-7",
+            "score": 0.111509,
+            "dense_score": 0.3433
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.087216,
+            "dense_score": 0.0289
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.083955,
+            "dense_score": 0.0537
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "electronics",
+          "return_days": 7,
+          "deadline": null,
+          "eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 388.27,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 411.45
+      },
+      "public_context": {
+        "sku": "ELE-0002"
+      }
+    },
+    {
+      "id": "unknown_sku_switch/2",
+      "question": "What about ELE-9999 instead?",
+      "expected": {
+        "decision": "clarify",
+        "no_stale_product": true
+      },
+      "checks": [
+        {
+          "check": "decision",
+          "expected": "clarify",
+          "actual": "answer",
+          "passed": false
+        },
+        {
+          "check": "no_stale_product",
+          "expected": true,
+          "actual": false,
+          "passed": false
+        }
+      ],
+      "passed": false,
+      "actual_output": {
+        "transcript": "What about ELE-9999 instead?",
+        "answer": "The catalog return category is electronics and accessories; its window is 7 calendar days from delivery, subject to item condition.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "RET-2",
+          "products.csv:ELE-0002",
+          "RET-3"
+        ],
+        "sources": [
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "products.csv:ELE-0002",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0002\", \"title\": \"Nimbus X2 Wireless Earbuds, Black\", \"brand\": \"Nimbus\", \"return_category\": \"electronics\", \"price_inr\": \"1899\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"True\", \"warranty_months\": \"12\", \"description\": \"Nimbus X2 Wireless Earbuds, Black. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "RET-3",
+            "text": "## [RET-3] Change to electronics returns\nFrom **1 August 2026**, the return window for electronics and accessories is 7 days. Electronics **delivered before 1 August 2026** keep the earlier 10-day window from version 3 of this policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Change to electronics returns"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.167196,
+            "dense_score": 0.3618
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.164412,
+            "dense_score": 0.3747
+          },
+          {
+            "id": "RET-3",
+            "score": 0.148534,
+            "dense_score": 0.3497
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.139341,
+            "dense_score": 0.2369
+          },
+          {
+            "id": "RET-4",
+            "score": 0.13934,
+            "dense_score": 0.3877
+          },
+          {
+            "id": "RET-1",
+            "score": 0.139339,
+            "dense_score": 0.3042
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.130176,
+            "dense_score": 0.3224
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.124912,
+            "dense_score": 0.2853
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.119487,
+            "dense_score": 0.2186
+          },
+          {
+            "id": "RET-8",
+            "score": 0.112289,
+            "dense_score": 0.2333
+          },
+          {
+            "id": "RET-9",
+            "score": 0.111093,
+            "dense_score": 0.231
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.085413,
+            "dense_score": 0.1674
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "electronics",
+          "return_days": 7,
+          "deadline": null,
+          "eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 130.77,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 141.01
+      },
+      "public_context": {
+        "sku": "ELE-0002"
+      }
+    }
+  ]
+}

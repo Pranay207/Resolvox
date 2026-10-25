@@ -45,7 +45,7 @@
         "semantic_ok": true,
         "privacy_ok": true,
         "speech_nonempty": true,
-        "reply_seconds": 5.44,
+        "reply_seconds": 5.6,
         "decision": "answer",
         "passed": true
       },
@@ -55,7 +55,7 @@
         "semantic_ok": true,
         "privacy_ok": true,
         "speech_nonempty": true,
-        "reply_seconds": 11.36,
+        "reply_seconds": 12.0,
         "decision": "answer",
         "passed": true
       },
@@ -65,7 +65,7 @@
         "semantic_ok": true,
         "privacy_ok": true,
         "speech_nonempty": true,
-        "reply_seconds": 6.4,
+        "reply_seconds": 6.56,
         "decision": "answer",
         "passed": true
       },
@@ -75,7 +75,7 @@
         "semantic_ok": true,
         "privacy_ok": true,
         "speech_nonempty": true,
-        "reply_seconds": 4.8,
+        "reply_seconds": 4.96,
         "decision": "clarify",
         "passed": true
       },
@@ -85,7 +85,7 @@
         "semantic_ok": true,
         "privacy_ok": true,
         "speech_nonempty": true,
-        "reply_seconds": 4.16,
+        "reply_seconds": 4.0,
         "decision": "clarify",
         "passed": true
       },
@@ -95,7 +95,7 @@
         "semantic_ok": true,
         "privacy_ok": true,
         "speech_nonempty": true,
-        "reply_seconds": 7.04,
+        "reply_seconds": 6.88,
         "decision": "refuse",
         "passed": true
       }
@@ -106,8 +106,8 @@
     "succeeded": 6,
     "failed": 0,
     "speech_provider": "Gnani only",
-    "startup_ms": 4155.58,
-    "batch_wall_ms": 56481.22,
+    "startup_ms": 3677.15,
+    "batch_wall_ms": 46136.82,
     "entries": [
       {
         "input": "01_en.wav",
@@ -117,11 +117,11 @@
         "agent_succeeded": true,
         "decision": "answer",
         "audio": "001_01_en_reply.wav",
-        "stt_ms": 12379.31,
-        "agent_ms": 5981.93,
-        "tts_ms": 969.44,
-        "total_ms": 19331.14,
-        "latency_ms": 19331.14
+        "stt_ms": 3187.93,
+        "agent_ms": 5282.26,
+        "tts_ms": 1110.56,
+        "total_ms": 9581.07,
+        "latency_ms": 9581.07
       },
       {
         "input": "02_hi.wav",
@@ -131,11 +131,11 @@
         "agent_succeeded": true,
         "decision": "answer",
         "audio": "002_02_hi_reply.wav",
-        "stt_ms": 265.83,
-        "agent_ms": 20101.62,
-        "tts_ms": 1919.52,
-        "total_ms": 22287.12,
-        "latency_ms": 22287.12
+        "stt_ms": 188.68,
+        "agent_ms": 20100.6,
+        "tts_ms": 1970.28,
+        "total_ms": 22259.72,
+        "latency_ms": 22259.72
       },
       {
         "input": "03_hinglish.wav",
@@ -145,11 +145,11 @@
         "agent_succeeded": true,
         "decision": "answer",
         "audio": "003_03_hinglish_reply.wav",
-        "stt_ms": 260.11,
-        "agent_ms": 5331.18,
-        "tts_ms": 996.93,
-        "total_ms": 6588.38,
-        "latency_ms": 6588.38
+        "stt_ms": 230.98,
+        "agent_ms": 5449.9,
+        "tts_ms": 1133.26,
+        "total_ms": 6814.25,
+        "latency_ms": 6814.25
       },
       {
         "input": "04_identity__01.wav",
@@ -159,11 +159,11 @@
         "agent_succeeded": true,
         "decision": "clarify",
         "audio": "004_04_identity__01_reply.wav",
-        "stt_ms": 323.76,
-        "agent_ms": 9.75,
-        "tts_ms": 833.25,
-        "total_ms": 1166.99,
-        "latency_ms": 1166.99
+        "stt_ms": 314.74,
+        "agent_ms": 8.36,
+        "tts_ms": 849.25,
+        "total_ms": 1172.5,
+        "latency_ms": 1172.5
       },
       {
         "input": "04_identity__02.wav",
@@ -173,11 +173,11 @@
         "agent_succeeded": true,
         "decision": "clarify",
         "audio": "005_04_identity__02_reply.wav",
-        "stt_ms": 457.57,
-        "agent_ms": 3.58,
-        "tts_ms": 914.06,
-        "total_ms": 1375.38,
-        "latency_ms": 1375.38
+        "stt_ms": 300.74,
+        "agent_ms": 2.34,
+        "tts_ms": 730.91,
+        "total_ms": 1034.13,
+        "latency_ms": 1034.13
       },
       {
         "input": "04_identity__03.wav",
@@ -187,11 +187,11 @@
         "agent_succeeded": true,
         "decision": "refuse",
         "audio": "006_04_identity__03_reply.wav",
-        "stt_ms": 251.17,
-        "agent_ms": 2.14,
-        "tts_ms": 1270.16,
-        "total_ms": 1523.65,
-        "latency_ms": 1523.65
+        "stt_ms": 326.45,
+        "agent_ms": 2.4,
+        "tts_ms": 1232.78,
+        "total_ms": 1561.77,
+        "latency_ms": 1561.77
       }
     ]
   }

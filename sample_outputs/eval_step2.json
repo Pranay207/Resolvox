@@ -1,48 +1,40 @@
 {
   "configuration": {
-    "recorded_at": "2026-10-24T22:29:54",
-    "runtime_sha256": "76a44dc2840bc7c3332df7e074a01534d83f47a23dff59e739967106a7cdf4a3",
+    "recorded_at": "2026-10-25T12:15:34",
+    "runtime_sha256": "caaa869588222aff1b7f4c8bf233ad51e143e6ddf0e64e05e89b0409d10b349c",
     "llm_provider": "ollama",
     "llm_model": "qwen3:1.7b",
-    "reference_date": "2026-10-20"
+    "reference_date": "2026-10-20",
+    "evaluation_mode": "offline_compose_false",
+    "compose_with_llm": false
   },
   "summary": {
     "search_k": [
       12
     ],
-    "search_recall": 0.961038961038961,
+    "search_recall": 0.935064935064935,
     "step": "2",
     "total": 52,
     "passed": 52,
     "pass_rate": 1.0,
     "decision_accuracy": 1.0,
-    "evidence_recall": 0.8555555555555555,
+    "evidence_recall": 0.8666666666666667,
     "errors": 0,
     "composition_counts": {
-      "evidence_validated_fallback": 24,
-      "grounded_llm": 17,
+      "evidence_validated_rules": 43,
       "abstained_missing_evidence": 5,
-      "evidence_validated_rules": 2,
       "deterministic_guardrail": 4
     },
     "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
     "latency_by_path": {
-      "uncached_llm_attempt": {
-        "count": 38,
-        "p50_ms": 15581.1,
-        "p95_ms": 20155.0
-      },
-      "cache_hit": {
-        "count": 3,
-        "p50_ms": 173.7,
-        "p95_ms": 173.7
-      },
       "no_model_call": {
-        "count": 11,
-        "p50_ms": 62.4,
-        "p95_ms": 108.4
+        "count": 52,
+        "p50_ms": 159.8,
+        "p95_ms": 504.4
       }
-    }
+    },
+    "planned": 52,
+    "complete": true
   },
   "results": [
     {
@@ -113,63 +105,63 @@
         "retrieval_candidates": [
           {
             "id": "WAR-2",
-            "score": 0.189047,
-            "dense_score": 0.4682
+            "score": 0.186565,
+            "dense_score": 0.5064
           },
           {
             "id": "RET-1",
-            "score": 0.15751,
-            "dense_score": 0.3504
-          },
-          {
-            "id": "DWM-4",
-            "score": 0.154525,
-            "dense_score": 0.2702
-          },
-          {
-            "id": "MKS-3",
-            "score": 0.150063,
-            "dense_score": 0.2216
+            "score": 0.175428,
+            "dense_score": 0.4939
           },
           {
             "id": "WAR-1",
-            "score": 0.126089,
-            "dense_score": 0.1607
+            "score": 0.160494,
+            "dense_score": 0.3119
           },
           {
-            "id": "PLS-1",
-            "score": 0.118284,
-            "dense_score": 0.3563
+            "id": "RET-2",
+            "score": 0.160376,
+            "dense_score": 0.3565
           },
           {
-            "id": "FAQH-4",
-            "score": 0.110084,
-            "dense_score": 0.4383
+            "id": "MKS-3",
+            "score": 0.152313,
+            "dense_score": 0.3809
           },
           {
-            "id": "PAY-4",
-            "score": 0.109963,
-            "dense_score": 0.254
+            "id": "DWM-4",
+            "score": 0.150326,
+            "dense_score": 0.3735
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.149055,
+            "dense_score": 0.4407
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.146579,
+            "dense_score": 0.4122
+          },
+          {
+            "id": "RET-3",
+            "score": 0.134692,
+            "dense_score": 0.31
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.109579,
+            "dense_score": 0.3058
           },
           {
             "id": "WAR-3",
-            "score": 0.106359,
-            "dense_score": 0.0089
-          },
-          {
-            "id": "DEL-4",
-            "score": 0.099247,
-            "dense_score": 0.2522
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.08086,
-            "dense_score": 0.1798
+            "score": 0.096634,
+            "dense_score": 0.0831
           },
           {
             "id": "DEL-5",
-            "score": 0.080859,
-            "dense_score": 0.2382
+            "score": 0.056849,
+            "dense_score": 0.246
           }
         ],
         "tool_calls": [],
@@ -180,22 +172,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20023.72,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 162.83,
-          "llm_ms": 20024.18
+          "retrieval_ms": 385.28,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20210.34
+        "latency_ms": 439.4
       },
       "checks": {
         "passed": true,
@@ -209,7 +196,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 20212.0
+      "latency_ms": 442.4
     },
     {
       "id": "PQ0003",
@@ -249,7 +236,7 @@
         "retrieval_candidates": [
           {
             "id": "REF-2",
-            "score": 0.180976,
+            "score": 0.190405,
             "dense_score": 0.6488
           },
           {
@@ -259,7 +246,7 @@
           },
           {
             "id": "RET-7",
-            "score": 0.168066,
+            "score": 0.178626,
             "dense_score": 0.689
           },
           {
@@ -294,40 +281,35 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.086499,
+            "score": 0.093999,
             "dense_score": 0.2693
           },
           {
-            "id": "KB-00.1",
-            "score": 0.082174,
-            "dense_score": 0.1034
+            "id": "PLS-2",
+            "score": 0.093998,
+            "dense_score": 0.4891
           },
           {
-            "id": "PLS-2",
-            "score": 0.082173,
-            "dense_score": 0.4891
+            "id": "DEL-3",
+            "score": 0.052865,
+            "dense_score": 0.2819
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": true,
-          "attempts": 0,
-          "wall_ms": 3.44,
-          "provider": "ollama:qwen3:1.7b"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 145.06,
-          "llm_ms": 23.74
+          "retrieval_ms": 152.81,
+          "llm_ms": 0.0
         },
-        "latency_ms": 172.52
+        "latency_ms": 168.04
       },
       "checks": {
         "passed": true,
@@ -335,13 +317,13 @@
         "missing_facts": [],
         "forbidden_claims": [],
         "tools_ok": true,
-        "search_hits": 2,
+        "search_hits": 1,
         "search_total": 2,
         "evidence_hits": 1,
         "evidence_total": 2,
         "evidence_recall": 0.5
       },
-      "latency_ms": 173.7
+      "latency_ms": 169.5
     },
     {
       "id": "PQ0004",
@@ -419,13 +401,13 @@
             "dense_score": 0.2107
           },
           {
-            "id": "KB-00.1",
-            "score": 0.061365,
-            "dense_score": -0.0327
+            "id": "TRK-2",
+            "score": 0.11626,
+            "dense_score": 0.3589
           },
           {
             "id": "PLS-2",
-            "score": 0.061364,
+            "score": 0.064595,
             "dense_score": 0.2124
           }
         ],
@@ -440,10 +422,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 69.44,
+          "retrieval_ms": 82.76,
           "llm_ms": 0.0
         },
-        "latency_ms": 72.48
+        "latency_ms": 92.08
       },
       "checks": {
         "passed": true,
@@ -457,7 +439,7 @@
         "evidence_total": 0,
         "evidence_recall": null
       },
-      "latency_ms": 72.7
+      "latency_ms": 93.4
     },
     {
       "id": "PQ0005",
@@ -527,63 +509,63 @@
         "retrieval_candidates": [
           {
             "id": "WAR-2",
-            "score": 0.189047,
-            "dense_score": 0.4596
+            "score": 0.186565,
+            "dense_score": 0.5106
           },
           {
             "id": "RET-1",
-            "score": 0.162543,
-            "dense_score": 0.3641
-          },
-          {
-            "id": "MKS-3",
-            "score": 0.159685,
-            "dense_score": 0.2592
-          },
-          {
-            "id": "DWM-4",
-            "score": 0.146729,
-            "dense_score": 0.2535
+            "score": 0.175428,
+            "dense_score": 0.4911
           },
           {
             "id": "WAR-1",
-            "score": 0.124972,
-            "dense_score": 0.1974
+            "score": 0.164486,
+            "dense_score": 0.323
           },
           {
-            "id": "PLS-1",
-            "score": 0.11722,
-            "dense_score": 0.3444
+            "id": "RET-2",
+            "score": 0.15926,
+            "dense_score": 0.3431
           },
           {
-            "id": "PAY-4",
-            "score": 0.110687,
-            "dense_score": 0.2631
+            "id": "MKS-3",
+            "score": 0.151847,
+            "dense_score": 0.3899
           },
           {
-            "id": "FAQH-4",
-            "score": 0.110084,
-            "dense_score": 0.4273
+            "id": "DWM-4",
+            "score": 0.149789,
+            "dense_score": 0.3683
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.148697,
+            "dense_score": 0.4401
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.146257,
+            "dense_score": 0.4211
+          },
+          {
+            "id": "RET-4",
+            "score": 0.136811,
+            "dense_score": 0.3708
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.110954,
+            "dense_score": 0.3031
           },
           {
             "id": "WAR-3",
-            "score": 0.106359,
-            "dense_score": 0.013
-          },
-          {
-            "id": "DEL-4",
-            "score": 0.102847,
-            "dense_score": 0.2651
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.087013,
-            "dense_score": 0.1904
+            "score": 0.099101,
+            "dense_score": 0.0897
           },
           {
             "id": "DEL-5",
-            "score": 0.087012,
-            "dense_score": 0.2677
+            "score": 0.057801,
+            "dense_score": 0.2626
           }
         ],
         "tool_calls": [],
@@ -594,22 +576,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20024.98,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 125.87,
-          "llm_ms": 20025.22
+          "retrieval_ms": 297.33,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20154.46
+        "latency_ms": 300.67
       },
       "checks": {
         "passed": true,
@@ -623,14 +600,14 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 20155.0
+      "latency_ms": 301.4
     },
     {
       "id": "PQ0006",
       "question": "As a ZentroMart Plus member, will I be charged the pickup fee for returning shoes I just don't like?",
       "prediction": {
         "transcript": "As a ZentroMart Plus member, will I be charged the pickup fee for returning shoes I just don't like?",
-        "answer": "I'm ZentroMart's AI support assistant. As a ZentroMart Plus member, you will not be charged the pickup fee for returning shoes. The fee is waived for ZentroMart Plus members and for any item returned due to damage, defect, or wrongness.",
+        "answer": "I'm ZentroMart's AI support assistant. No pickup fee; it is waived for Plus members and damaged, defective or wrong items.",
         "intent": "pickup",
         "decision": "answer",
         "language": "en",
@@ -685,7 +662,7 @@
         "retrieval_candidates": [
           {
             "id": "RET-6",
-            "score": 0.190905,
+            "score": 0.200683,
             "dense_score": 0.6314
           },
           {
@@ -714,6 +691,11 @@
             "dense_score": 0.4292
           },
           {
+            "id": "RET-8",
+            "score": 0.138076,
+            "dense_score": 0.3779
+          },
+          {
             "id": "DEL-2",
             "score": 0.137678,
             "dense_score": 0.4386
@@ -729,41 +711,31 @@
             "dense_score": 0.5169
           },
           {
-            "id": "RET-8",
-            "score": 0.127516,
-            "dense_score": 0.3779
-          },
-          {
             "id": "RET-1",
             "score": 0.125187,
             "dense_score": 0.5107
           },
           {
-            "id": "KB-00.1",
-            "score": 0.118927,
-            "dense_score": 0.049
+            "id": "RET-9",
+            "score": 0.117471,
+            "dense_score": 0.3308
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": true,
-          "attempts": 0,
-          "wall_ms": 0.97,
-          "provider": "ollama:qwen3:1.7b"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 437.0,
-          "llm_ms": 4.13
+          "retrieval_ms": 235.33,
+          "llm_ms": 0.0
         },
-        "latency_ms": 443.9
+        "latency_ms": 248.81
       },
       "checks": {
         "passed": true,
@@ -777,7 +749,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 444.2
+      "latency_ms": 250.0
     },
     {
       "id": "PQ0008",
@@ -791,7 +763,6 @@
         "retrieved_chunk_ids": [
           "STY-1",
           "REF-2",
-          "KB-00.1",
           "KB-00.3"
         ],
         "sources": [
@@ -816,16 +787,6 @@
             "title": "How long refunds take after initiation"
           },
           {
-            "id": "KB-00.1",
-            "text": "## [KB-00.1] Which document wins\nWhen two documents disagree, follow this order of precedence:\n\n1. **Policy documents** (doc_type: policy) with status `current`.\n2. **Agent guides** (doc_type: agent_guide).\n3. **Help articles** (doc_type: help).\n4. **FAQs** (doc_type: faq).\n5. **Marketing pages** (doc_type: marketing). These describe benefits in general terms and never override a policy.\n\n\nDocuments marked `status: superseded` are kept for reference only. They apply only to the cases their successor document says they still cover.",
-            "file": "00_about_this_knowledge_base.md",
-            "doc_type": "meta",
-            "status": "current",
-            "effective_from": "2026-08-01",
-            "version": "1.2",
-            "title": "Which document wins"
-          },
-          {
             "id": "KB-00.3",
             "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
             "file": "00_about_this_knowledge_base.md",
@@ -838,23 +799,23 @@
         ],
         "retrieval_candidates": [
           {
-            "id": "REF-6",
-            "score": 0.159073,
-            "dense_score": 0.4335
-          },
-          {
             "id": "REF-2",
-            "score": 0.158893,
+            "score": 0.169107,
             "dense_score": 0.31
           },
           {
+            "id": "REF-6",
+            "score": 0.163625,
+            "dense_score": 0.4335
+          },
+          {
             "id": "REF-3",
-            "score": 0.157561,
+            "score": 0.161561,
             "dense_score": 0.4167
           },
           {
             "id": "REF-1",
-            "score": 0.148105,
+            "score": 0.153182,
             "dense_score": 0.3969
           },
           {
@@ -863,14 +824,14 @@
             "dense_score": 0.3995
           },
           {
+            "id": "RET-7",
+            "score": 0.141947,
+            "dense_score": 0.3052
+          },
+          {
             "id": "PAY-1",
             "score": 0.133495,
             "dense_score": 0.3682
-          },
-          {
-            "id": "RET-7",
-            "score": 0.131387,
-            "dense_score": 0.3052
           },
           {
             "id": "REF-5",
@@ -884,18 +845,18 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.112397,
+            "score": 0.116147,
             "dense_score": 0.2396
           },
           {
-            "id": "KB-00.1",
-            "score": 0.098606,
-            "dense_score": 0.1027
+            "id": "PLS-2",
+            "score": 0.112768,
+            "dense_score": 0.3121
           },
           {
-            "id": "PLS-2",
-            "score": 0.098605,
-            "dense_score": 0.3121
+            "id": "DEL-1",
+            "score": 0.105494,
+            "dense_score": 0.3252
           }
         ],
         "tool_calls": [],
@@ -905,28 +866,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_number",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 8896.81,
-          "load_ms": 99.73,
-          "prompt_eval_ms": 177.4,
-          "eval_ms": 8240.25,
-          "prompt_eval_count": 820,
-          "eval_count": 64,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 144.24,
-          "llm_ms": 8900.68
+          "retrieval_ms": 270.04,
+          "llm_ms": 0.0
         },
-        "latency_ms": 9047.12
+        "latency_ms": 276.48
       },
       "checks": {
         "passed": true,
@@ -940,7 +890,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 9063.5
+      "latency_ms": 284.6
     },
     {
       "id": "PQ0009",
@@ -1039,10 +989,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 37.64,
+          "retrieval_ms": 161.44,
           "llm_ms": 0.0
         },
-        "latency_ms": 38.99
+        "latency_ms": 176.37
       },
       "checks": {
         "passed": true,
@@ -1056,7 +1006,7 @@
         "evidence_total": 0,
         "evidence_recall": null
       },
-      "latency_ms": 39.1
+      "latency_ms": 176.9
     },
     {
       "id": "PQ0010",
@@ -1118,33 +1068,38 @@
         "retrieval_candidates": [
           {
             "id": "RET-4",
-            "score": 0.124206,
+            "score": 0.128088,
             "dense_score": 0.3116
           },
           {
             "id": "DWM-2",
-            "score": 0.114864,
+            "score": 0.119264,
             "dense_score": 0.1824
           },
           {
             "id": "RET-5",
-            "score": 0.111778,
+            "score": 0.116492,
             "dense_score": 0.304
           },
           {
             "id": "RET-6",
-            "score": 0.098097,
+            "score": 0.108063,
             "dense_score": 0.2326
           },
           {
             "id": "DWM-4",
-            "score": 0.098096,
+            "score": 0.108062,
             "dense_score": 0.2403
           },
           {
             "id": "DWM-1",
-            "score": 0.090175,
+            "score": 0.095675,
             "dense_score": 0.2515
+          },
+          {
+            "id": "RET-9",
+            "score": 0.091914,
+            "dense_score": 0.1532
           },
           {
             "id": "RVP-3",
@@ -1152,28 +1107,23 @@
             "dense_score": 0.1803
           },
           {
-            "id": "RET-9",
-            "score": 0.086414,
-            "dense_score": 0.1532
+            "id": "RET-8",
+            "score": 0.08496,
+            "dense_score": 0.2855
           },
           {
-            "id": "RVP-2",
-            "score": 0.081621,
-            "dense_score": 0.1247
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.040548,
-            "dense_score": 0.0601
+            "id": "DWM-3",
+            "score": 0.028769,
+            "dense_score": 0.1125
           },
           {
             "id": "PLS-2",
-            "score": 0.040547,
+            "score": 0.028768,
             "dense_score": 0.1853
           },
           {
             "id": "WAR-2",
-            "score": 0.040546,
+            "score": 0.028767,
             "dense_score": 0.2924
           }
         ],
@@ -1181,22 +1131,17 @@
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "omitted_negative_condition",
-        "llm": {
-          "cache_hit": true,
-          "attempts": 0,
-          "wall_ms": 1.64,
-          "provider": "ollama:qwen3:1.7b"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 77.79,
-          "llm_ms": 3.57
+          "retrieval_ms": 274.05,
+          "llm_ms": 0.0
         },
-        "latency_ms": 83.53
+        "latency_ms": 289.98
       },
       "checks": {
         "passed": true,
@@ -1210,7 +1155,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 83.8
+      "latency_ms": 290.9
     },
     {
       "id": "PQ0013",
@@ -1257,64 +1202,64 @@
         ],
         "retrieval_candidates": [
           {
-            "id": "RET-4",
-            "score": 0.09251,
-            "dense_score": 0.2453
-          },
-          {
-            "id": "FAQH-4",
-            "score": 0.073483,
-            "dense_score": 0.2059
-          },
-          {
             "id": "RET-2",
-            "score": 0.072446,
-            "dense_score": 0.1719
+            "score": 0.19542,
+            "dense_score": 0.4775
           },
           {
-            "id": "FAQH-3",
-            "score": 0.068314,
-            "dense_score": 0.2429
+            "id": "RET-4",
+            "score": 0.18437,
+            "dense_score": 0.4146
+          },
+          {
+            "id": "RET-1",
+            "score": 0.154821,
+            "dense_score": 0.3082
           },
           {
             "id": "RET-5",
-            "score": 0.064388,
-            "dense_score": 0.1698
-          },
-          {
-            "id": "FAQH-1",
-            "score": 0.063333,
-            "dense_score": 0.079
+            "score": 0.146227,
+            "dense_score": 0.3185
           },
           {
             "id": "RET-8",
-            "score": 0.06269,
-            "dense_score": 0.18
+            "score": 0.139283,
+            "dense_score": 0.2874
           },
           {
-            "id": "RET-3",
-            "score": 0.061867,
-            "dense_score": 0.1684
+            "id": "MKS-3",
+            "score": 0.137844,
+            "dense_score": 0.2735
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.132147,
+            "dense_score": 0.238
           },
           {
             "id": "DWM-1",
-            "score": 0.06171,
-            "dense_score": 0.024
+            "score": 0.131244,
+            "dense_score": 0.2356
           },
           {
-            "id": "FAQ-2",
-            "score": 0.054384,
-            "dense_score": 0.1508
+            "id": "WAR-2",
+            "score": 0.13124,
+            "dense_score": 0.2251
           },
           {
-            "id": "DWM-4",
-            "score": 0.053108,
-            "dense_score": 0.1071
+            "id": "MKS-2",
+            "score": 0.129679,
+            "dense_score": 0.2749
           },
           {
-            "id": "KB-00.1",
-            "score": 0.015381,
-            "dense_score": 0.0115
+            "id": "MKS-1",
+            "score": 0.121805,
+            "dense_score": 0.324
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.016771,
+            "dense_score": 0.105
           }
         ],
         "tool_calls": [],
@@ -1323,22 +1268,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20022.59,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 90.88,
-          "llm_ms": 20022.76
+          "retrieval_ms": 632.37,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20116.9
+        "latency_ms": 636.06
       },
       "checks": {
         "passed": true,
@@ -1352,14 +1292,14 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 20117.4
+      "latency_ms": 636.4
     },
     {
       "id": "PQ0014",
       "question": "मुझे Pagecraft A5 Ruled Notebook (Pack of 4) लौटाने के लिए कितने दिन मिलेंगे?",
       "prediction": {
         "transcript": "मुझे Pagecraft A5 Ruled Notebook (Pack of 4) लौटाने के लिए कितने दिन मिलेंगे?",
-        "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। Pagecraft A5 Ruled Notebook (Pack of 4) के लिए 10 कैलेंडर दिन मिलेंगे।",
+        "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। कैटलॉग की रिटर्न श्रेणी books and stationery है; डिलीवरी से 10 कैलेंडर दिन, सामान की शर्तों के अनुसार।",
         "intent": "return",
         "decision": "answer",
         "language": "hi",
@@ -1399,64 +1339,64 @@
         ],
         "retrieval_candidates": [
           {
-            "id": "CPN-3",
-            "score": 0.14922,
-            "dense_score": 0.2839
-          },
-          {
-            "id": "RET-3",
-            "score": 0.138373,
-            "dense_score": 0.4868
-          },
-          {
-            "id": "RET-8",
-            "score": 0.134078,
-            "dense_score": 0.4157
-          },
-          {
             "id": "RET-2",
-            "score": 0.127778,
-            "dense_score": 0.3328
+            "score": 0.193568,
+            "dense_score": 0.4749
           },
           {
-            "id": "KB-00.3",
-            "score": 0.110842,
-            "dense_score": 0.3451
+            "id": "RET-1",
+            "score": 0.164754,
+            "dense_score": 0.3484
           },
           {
-            "id": "FAQH-2",
-            "score": 0.106293,
-            "dense_score": 0.4087
+            "id": "MKS-1",
+            "score": 0.145186,
+            "dense_score": 0.3935
           },
           {
-            "id": "RET-7",
-            "score": 0.103909,
-            "dense_score": 0.3617
+            "id": "WAR-1",
+            "score": 0.145111,
+            "dense_score": 0.2787
+          },
+          {
+            "id": "CPN-3",
+            "score": 0.144542,
+            "dense_score": 0.316
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.137432,
+            "dense_score": 0.3009
           },
           {
             "id": "DWM-4",
-            "score": 0.10337,
-            "dense_score": 0.3804
+            "score": 0.137275,
+            "dense_score": 0.272
           },
           {
-            "id": "REF-1",
-            "score": 0.101548,
-            "dense_score": 0.396
+            "id": "WAR-2",
+            "score": 0.136072,
+            "dense_score": 0.2127
           },
           {
-            "id": "REF-3",
-            "score": 0.093951,
-            "dense_score": 0.4155
+            "id": "RET-4",
+            "score": 0.135357,
+            "dense_score": 0.3905
           },
           {
-            "id": "REF-4",
-            "score": 0.014602,
-            "dense_score": 0.0915
+            "id": "RET-7",
+            "score": 0.075904,
+            "dense_score": 0.1583
           },
           {
-            "id": "KB-00.1",
-            "score": 0.014601,
-            "dense_score": 0.1483
+            "id": "MKS-3",
+            "score": 0.075903,
+            "dense_score": 0.2904
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.026484,
+            "dense_score": 0.1563
           }
         ],
         "tool_calls": [],
@@ -1468,28 +1408,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 18055.9,
-          "load_ms": 78.9,
-          "prompt_eval_ms": 10485.91,
-          "eval_ms": 7221.91,
-          "prompt_eval_count": 710,
-          "eval_count": 51,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 217.44,
-          "llm_ms": 18060.47
+          "retrieval_ms": 467.09,
+          "llm_ms": 0.0
         },
-        "latency_ms": 18284.6
+        "latency_ms": 472.54
       },
       "checks": {
         "passed": true,
@@ -1503,7 +1432,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 18285.2
+      "latency_ms": 473.5
     },
     {
       "id": "PQ0015",
@@ -1576,6 +1505,11 @@
             "dense_score": 0.3867
           },
           {
+            "id": "ESC-3",
+            "score": 0.075161,
+            "dense_score": 0.3354
+          },
+          {
             "id": "REF-1",
             "score": 0.070954,
             "dense_score": 0.3393
@@ -1584,11 +1518,6 @@
             "id": "DEL-3",
             "score": 0.013758,
             "dense_score": 0.2003
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.013757,
-            "dense_score": 0.1622
           }
         ],
         "tool_calls": [],
@@ -1602,10 +1531,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 57.24,
+          "retrieval_ms": 153.92,
           "llm_ms": 0.0
         },
-        "latency_ms": 59.71
+        "latency_ms": 172.39
       },
       "checks": {
         "passed": true,
@@ -1619,14 +1548,14 @@
         "evidence_total": 0,
         "evidence_recall": null
       },
-      "latency_ms": 60.1
+      "latency_ms": 173.9
     },
     {
       "id": "PQ0016",
       "question": "I opened the Neelam Eau de Parfum 50 ml and tried it once. Can I still return it?",
       "prediction": {
         "transcript": "I opened the Neelam Eau de Parfum 50 ml and tried it once. Can I still return it?",
-        "answer": "I'm ZentroMart's AI support assistant. No, you cannot return the Neelam Eau de Parfum 50 ml as it has been opened and tried. According to the policy, beauty products must be unopened with the seal intact to be returned. The item is in the return category of 'beauty_sealed' and is not eligible for return under the current conditions.",
+        "answer": "I'm ZentroMart's AI support assistant. Opened beauty products cannot be returned for change of mind; they must be unopened with the seal intact.",
         "intent": "return",
         "decision": "answer",
         "language": "en",
@@ -1666,64 +1595,64 @@
         ],
         "retrieval_candidates": [
           {
-            "id": "RET-4",
-            "score": 0.138168,
-            "dense_score": 0.3192
-          },
-          {
-            "id": "RET-3",
-            "score": 0.129962,
-            "dense_score": 0.2864
-          },
-          {
-            "id": "DWM-4",
-            "score": 0.128942,
-            "dense_score": 0.2136
-          },
-          {
-            "id": "RET-8",
-            "score": 0.122141,
-            "dense_score": 0.2243
-          },
-          {
-            "id": "RET-5",
-            "score": 0.121861,
-            "dense_score": 0.2335
-          },
-          {
-            "id": "FAQ-2",
-            "score": 0.110931,
-            "dense_score": 0.2415
-          },
-          {
             "id": "RET-2",
-            "score": 0.110909,
-            "dense_score": 0.1665
+            "score": 0.177863,
+            "dense_score": 0.3508
           },
           {
-            "id": "RET-7",
-            "score": 0.09426,
-            "dense_score": 0.1742
+            "id": "RET-4",
+            "score": 0.174603,
+            "dense_score": 0.4126
           },
           {
-            "id": "CAN-2",
-            "score": 0.093214,
-            "dense_score": 0.1179
-          },
-          {
-            "id": "REF-1",
-            "score": 0.091667,
-            "dense_score": 0.1674
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.04056,
-            "dense_score": 0.0181
+            "id": "RET-1",
+            "score": 0.155991,
+            "dense_score": 0.3271
           },
           {
             "id": "WAR-2",
-            "score": 0.004369,
-            "dense_score": 0.1945
+            "score": 0.149232,
+            "dense_score": 0.2732
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.141789,
+            "dense_score": 0.2507
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.133876,
+            "dense_score": 0.237
+          },
+          {
+            "id": "RET-5",
+            "score": 0.133008,
+            "dense_score": 0.3285
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.130591,
+            "dense_score": 0.2529
+          },
+          {
+            "id": "RET-3",
+            "score": 0.128833,
+            "dense_score": 0.3023
+          },
+          {
+            "id": "RET-8",
+            "score": 0.128221,
+            "dense_score": 0.2996
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.124938,
+            "dense_score": 0.2563
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.027898,
+            "dense_score": 0.1051
           }
         ],
         "tool_calls": [],
@@ -1732,28 +1661,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 16577.35,
-          "load_ms": 46.26,
-          "prompt_eval_ms": 7171.9,
-          "eval_ms": 9168.71,
-          "prompt_eval_count": 471,
-          "eval_count": 79,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 125.48,
-          "llm_ms": 16582.29
+          "retrieval_ms": 734.13,
+          "llm_ms": 0.0
         },
-        "latency_ms": 16710.46
+        "latency_ms": 737.91
       },
       "checks": {
         "passed": true,
@@ -1767,7 +1685,7 @@
         "evidence_total": 2,
         "evidence_recall": 0.5
       },
-      "latency_ms": 16710.8
+      "latency_ms": 738.2
     },
     {
       "id": "PQ0018",
@@ -1780,7 +1698,8 @@
         "language": "hi",
         "retrieved_chunk_ids": [
           "STY-1",
-          "RET-2"
+          "RET-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -1802,23 +1721,53 @@
             "effective_from": "2026-08-01",
             "version": "4.0",
             "title": "Return windows by category"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [
           {
             "id": "RET-3",
-            "score": 0.136265,
+            "score": 0.141545,
             "dense_score": 0.5004
           },
           {
             "id": "RET-8",
-            "score": 0.133198,
+            "score": 0.138087,
             "dense_score": 0.4864
           },
           {
             "id": "RET-2",
-            "score": 0.124071,
+            "score": 0.128623,
             "dense_score": 0.31
+          },
+          {
+            "id": "RET-7",
+            "score": 0.116645,
+            "dense_score": 0.3932
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.114492,
+            "dense_score": 0.3647
+          },
+          {
+            "id": "REF-2",
+            "score": 0.11015,
+            "dense_score": 0.4331
+          },
+          {
+            "id": "REF-1",
+            "score": 0.109409,
+            "dense_score": 0.4493
           },
           {
             "id": "FAQH-2",
@@ -1826,28 +1775,8 @@
             "dense_score": 0.4266
           },
           {
-            "id": "KB-00.3",
-            "score": 0.108133,
-            "dense_score": 0.3647
-          },
-          {
-            "id": "RET-7",
-            "score": 0.10798,
-            "dense_score": 0.3932
-          },
-          {
-            "id": "REF-1",
-            "score": 0.106476,
-            "dense_score": 0.4493
-          },
-          {
-            "id": "REF-2",
-            "score": 0.105436,
-            "dense_score": 0.4331
-          },
-          {
             "id": "DWM-4",
-            "score": 0.104549,
+            "score": 0.108117,
             "dense_score": 0.3781
           },
           {
@@ -1861,9 +1790,9 @@
             "dense_score": 0.3273
           },
           {
-            "id": "KB-00.1",
-            "score": 0.088459,
-            "dense_score": -0.0167
+            "id": "PLS-2",
+            "score": 0.062855,
+            "dense_score": 0.1473
           }
         ],
         "tool_calls": [],
@@ -1877,10 +1806,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 55.49,
+          "retrieval_ms": 106.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 57.2
+        "latency_ms": 110.0
       },
       "checks": {
         "passed": true,
@@ -1894,14 +1823,14 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 57.3
+      "latency_ms": 110.2
     },
     {
       "id": "PQ0019",
       "question": "My Orbix Fit 3 Pro Smartwatch was delivered on 20 July. What was the return window for it?",
       "prediction": {
         "transcript": "My Orbix Fit 3 Pro Smartwatch was delivered on 20 July. What was the return window for it?",
-        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is electronics and accessories; its window is 10 calendar days from delivery, subject to item condition.",
+        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is electronics and accessories; its window is 10 calendar days from delivery, subject to item condition. Delivery before 1 August 2026 keeps the earlier 10-day rule under the current policy historical exception.",
         "intent": "return",
         "decision": "answer",
         "language": "en",
@@ -1963,64 +1892,64 @@
         ],
         "retrieval_candidates": [
           {
+            "id": "RET-2",
+            "score": 0.188004,
+            "dense_score": 0.2885
+          },
+          {
             "id": "RET-3",
-            "score": 0.181542,
-            "dense_score": 0.4536
+            "score": 0.184162,
+            "dense_score": 0.4818
           },
           {
             "id": "RETv3-2",
-            "score": 0.17608,
-            "dense_score": 0.3115
+            "score": 0.177572,
+            "dense_score": 0.3469
           },
           {
-            "id": "RET-2",
-            "score": 0.169109,
-            "dense_score": 0.2643
+            "id": "WAR-2",
+            "score": 0.164747,
+            "dense_score": 0.2807
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.149611,
+            "dense_score": 0.227
           },
           {
             "id": "RET-8",
-            "score": 0.150089,
-            "dense_score": 0.2522
+            "score": 0.148915,
+            "dense_score": 0.2517
           },
           {
-            "id": "PLS-2",
-            "score": 0.14154,
-            "dense_score": 0.2944
+            "id": "RET-4",
+            "score": 0.144241,
+            "dense_score": 0.3283
           },
           {
-            "id": "TRB-2",
-            "score": 0.129048,
-            "dense_score": 0.4433
-          },
-          {
-            "id": "RET-7",
-            "score": 0.12667,
-            "dense_score": 0.2967
-          },
-          {
-            "id": "DEL-1",
-            "score": 0.126648,
-            "dense_score": 0.2291
+            "id": "RET-1",
+            "score": 0.143566,
+            "dense_score": 0.2763
           },
           {
             "id": "DWM-4",
-            "score": 0.121073,
-            "dense_score": 0.2765
+            "score": 0.128928,
+            "dense_score": 0.2623
           },
           {
-            "id": "REF-1",
-            "score": 0.118865,
-            "dense_score": 0.2283
+            "id": "TRB-2",
+            "score": 0.118628,
+            "dense_score": 0.4241
           },
           {
-            "id": "REF-3",
-            "score": 0.116757,
-            "dense_score": 0.2909
+            "id": "DEL-5",
+            "score": 0.1185,
+            "dense_score": 0.2074
           },
           {
-            "id": "KB-00.1",
-            "score": 0.023069,
-            "dense_score": 0.0191
+            "id": "MKS-3",
+            "score": 0.070066,
+            "dense_score": 0.085
           }
         ],
         "tool_calls": [],
@@ -2032,22 +1961,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20018.82,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 85.5,
-          "llm_ms": 20018.96
+          "retrieval_ms": 570.95,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20106.74
+        "latency_ms": 578.38
       },
       "checks": {
         "passed": true,
@@ -2061,14 +1985,14 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 20107.0
+      "latency_ms": 579.7
     },
     {
       "id": "PQ0020",
       "question": "मुझे Sootra Canvas Tote Bag लौटाने के लिए कितने दिन मिलेंगे?",
       "prediction": {
         "transcript": "मुझे Sootra Canvas Tote Bag लौटाने के लिए कितने दिन मिलेंगे?",
-        "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। Sootra Canvas Tote Bag के लिए रिटर्न दिन शुल्क 15 कैलेंडर दिन हैं।",
+        "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। कैटलॉग की रिटर्न श्रेणी clothing, footwear and bags है; डिलीवरी से 15 कैलेंडर दिन, सामान की शर्तों के अनुसार।",
         "intent": "return",
         "decision": "answer",
         "language": "hi",
@@ -2112,23 +2036,33 @@
         "retrieval_candidates": [
           {
             "id": "RET-8",
-            "score": 0.141381,
+            "score": 0.14816,
             "dense_score": 0.4826
           },
           {
             "id": "RET-3",
-            "score": 0.126067,
+            "score": 0.129587,
             "dense_score": 0.3684
           },
           {
             "id": "RET-2",
-            "score": 0.119462,
+            "score": 0.125882,
             "dense_score": 0.2569
           },
           {
             "id": "RET-6",
-            "score": 0.111844,
+            "score": 0.117854,
             "dense_score": 0.3212
+          },
+          {
+            "id": "RET-7",
+            "score": 0.110573,
+            "dense_score": 0.3334
+          },
+          {
+            "id": "REF-1",
+            "score": 0.109255,
+            "dense_score": 0.3783
           },
           {
             "id": "FAQH-3",
@@ -2141,33 +2075,23 @@
             "dense_score": 0.465
           },
           {
-            "id": "REF-1",
-            "score": 0.107299,
-            "dense_score": 0.3783
-          },
-          {
-            "id": "RET-7",
-            "score": 0.104797,
-            "dense_score": 0.3334
-          },
-          {
             "id": "KB-00.3",
-            "score": 0.099828,
+            "score": 0.104067,
             "dense_score": 0.2798
           },
           {
             "id": "RET-5",
-            "score": 0.099289,
+            "score": 0.102432,
             "dense_score": 0.2838
           },
           {
-            "id": "KB-00.1",
-            "score": 0.055507,
-            "dense_score": 0.0472
+            "id": "RET-9",
+            "score": 0.090013,
+            "dense_score": 0.1807
           },
           {
             "id": "PLS-2",
-            "score": 0.055506,
+            "score": 0.063856,
             "dense_score": 0.1857
           }
         ],
@@ -2180,28 +2104,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 15098.99,
-          "load_ms": 87.07,
-          "prompt_eval_ms": 8575.56,
-          "eval_ms": 6206.51,
-          "prompt_eval_count": 666,
-          "eval_count": 59,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 184.78,
-          "llm_ms": 15104.33
+          "retrieval_ms": 125.3,
+          "llm_ms": 0.0
         },
-        "latency_ms": 15291.79
+        "latency_ms": 134.12
       },
       "checks": {
         "passed": true,
@@ -2215,14 +2128,14 @@
         "evidence_total": 3,
         "evidence_recall": 0.6666666666666666
       },
-      "latency_ms": 15292.2
+      "latency_ms": 134.7
     },
     {
       "id": "PQ0021",
       "question": "What happens if I'm not home when the courier comes?",
       "prediction": {
         "transcript": "What happens if I'm not home when the courier comes?",
-        "answer": "I'm ZentroMart's AI support assistant. If you're not home when the courier comes, the parcel will be delivered to the nearest available address or left at the doorstep. If the parcel is not delivered within 3 attempts, it will be returned to the warehouse, and a refund will start once it reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+        "answer": "I'm ZentroMart's AI support assistant. The courier makes up to 3 delivery attempts; after a missed attempt, use the SMS to reschedule. After the third failed attempt the parcel returns to the warehouse; a prepaid refund starts only when it reaches the warehouse, usually 7 to 10 calendar days after the last attempt.",
         "intent": "attempts",
         "decision": "answer",
         "language": "en",
@@ -2270,14 +2183,14 @@
             "dense_score": 0.4678
           },
           {
+            "id": "DEL-1",
+            "score": 0.156504,
+            "dense_score": 0.3567
+          },
+          {
             "id": "DEL-4",
             "score": 0.149605,
             "dense_score": 0.4381
-          },
-          {
-            "id": "DEL-1",
-            "score": 0.14635,
-            "dense_score": 0.3567
           },
           {
             "id": "TRK-1",
@@ -2290,14 +2203,14 @@
             "dense_score": 0.4337
           },
           {
+            "id": "CAN-3",
+            "score": 0.144338,
+            "dense_score": 0.3131
+          },
+          {
             "id": "REF-1",
             "score": 0.137899,
             "dense_score": 0.4036
-          },
-          {
-            "id": "CAN-3",
-            "score": 0.13456,
-            "dense_score": 0.3131
           },
           {
             "id": "RVP-2",
@@ -2310,18 +2223,18 @@
             "dense_score": 0.4035
           },
           {
-            "id": "CAN-2",
-            "score": 0.118868,
-            "dense_score": 0.4493
-          },
-          {
             "id": "KB-00.3",
-            "score": 0.055256,
+            "score": 0.062756,
             "dense_score": 0.2182
           },
           {
+            "id": "RET-7",
+            "score": 0.062755,
+            "dense_score": 0.3697
+          },
+          {
             "id": "PLS-2",
-            "score": 0.055255,
+            "score": 0.062754,
             "dense_score": 0.2921
           }
         ],
@@ -2329,28 +2242,17 @@
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 17934.92,
-          "load_ms": 35.76,
-          "prompt_eval_ms": 9389.96,
-          "eval_ms": 8293.12,
-          "prompt_eval_count": 473,
-          "eval_count": 79,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 107.55,
-          "llm_ms": 17939.64
+          "retrieval_ms": 117.21,
+          "llm_ms": 0.0
         },
-        "latency_ms": 18049.26
+        "latency_ms": 126.71
       },
       "checks": {
         "passed": true,
@@ -2364,7 +2266,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 18049.9
+      "latency_ms": 128.2
     },
     {
       "id": "PQ0022",
@@ -2378,7 +2280,6 @@
         "retrieved_chunk_ids": [
           "STY-1",
           "REF-2",
-          "KB-00.1",
           "KB-00.3"
         ],
         "sources": [
@@ -2403,16 +2304,6 @@
             "title": "How long refunds take after initiation"
           },
           {
-            "id": "KB-00.1",
-            "text": "## [KB-00.1] Which document wins\nWhen two documents disagree, follow this order of precedence:\n\n1. **Policy documents** (doc_type: policy) with status `current`.\n2. **Agent guides** (doc_type: agent_guide).\n3. **Help articles** (doc_type: help).\n4. **FAQs** (doc_type: faq).\n5. **Marketing pages** (doc_type: marketing). These describe benefits in general terms and never override a policy.\n\n\nDocuments marked `status: superseded` are kept for reference only. They apply only to the cases their successor document says they still cover.",
-            "file": "00_about_this_knowledge_base.md",
-            "doc_type": "meta",
-            "status": "current",
-            "effective_from": "2026-08-01",
-            "version": "1.2",
-            "title": "Which document wins"
-          },
-          {
             "id": "KB-00.3",
             "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
             "file": "00_about_this_knowledge_base.md",
@@ -2425,14 +2316,14 @@
         ],
         "retrieval_candidates": [
           {
+            "id": "REF-2",
+            "score": 0.17,
+            "dense_score": 0.4057
+          },
+          {
             "id": "REF-3",
             "score": 0.167937,
             "dense_score": 0.5578
-          },
-          {
-            "id": "REF-2",
-            "score": 0.160571,
-            "dense_score": 0.4057
           },
           {
             "id": "REF-1",
@@ -2440,9 +2331,24 @@
             "dense_score": 0.5229
           },
           {
+            "id": "RET-7",
+            "score": 0.148818,
+            "dense_score": 0.4342
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.146449,
+            "dense_score": 0.4721
+          },
+          {
             "id": "REF-6",
             "score": 0.144491,
             "dense_score": 0.493
+          },
+          {
+            "id": "KB-00.2",
+            "score": 0.143989,
+            "dense_score": 0.4663
           },
           {
             "id": "RET-8",
@@ -2455,33 +2361,18 @@
             "dense_score": 0.5283
           },
           {
-            "id": "RET-7",
-            "score": 0.138258,
-            "dense_score": 0.4342
-          },
-          {
-            "id": "DEL-1",
-            "score": 0.136295,
-            "dense_score": 0.4721
-          },
-          {
-            "id": "KB-00.2",
-            "score": 0.135714,
-            "dense_score": 0.4663
+            "id": "CAN-3",
+            "score": 0.135181,
+            "dense_score": 0.3796
           },
           {
             "id": "KB-00.3",
-            "score": 0.119677,
+            "score": 0.127177,
             "dense_score": 0.2908
           },
           {
-            "id": "KB-00.1",
-            "score": 0.089456,
-            "dense_score": 0.073
-          },
-          {
             "id": "PLS-2",
-            "score": 0.089455,
+            "score": 0.10268,
             "dense_score": 0.2764
           }
         ],
@@ -2492,28 +2383,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_number",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 12945.01,
-          "load_ms": 35.97,
-          "prompt_eval_ms": 2849.8,
-          "eval_ms": 9883.37,
-          "prompt_eval_count": 814,
-          "eval_count": 80,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 171.03,
-          "llm_ms": 12948.11
+          "retrieval_ms": 319.48,
+          "llm_ms": 0.0
         },
-        "latency_ms": 13121.23
+        "latency_ms": 335.44
       },
       "checks": {
         "passed": true,
@@ -2527,7 +2407,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 13121.6
+      "latency_ms": 336.9
     },
     {
       "id": "PQ0023",
@@ -2598,7 +2478,7 @@
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTdf6b290735794263aa1cb70ddd4d972c"
+              "ticket_id": "TKTeeb2112d6f934bd6bb9933698592d3b9"
             }
           }
         ],
@@ -2615,7 +2495,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 6.47
+        "latency_ms": 14.88
       },
       "checks": {
         "passed": true,
@@ -2629,14 +2509,14 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6.7
+      "latency_ms": 15.3
     },
     {
       "id": "PQ0024",
       "question": "How long do I get to send back the Rangoli Cotton Straight Kurta?",
       "prediction": {
         "transcript": "How long do I get to send back the Rangoli Cotton Straight Kurta?",
-        "answer": "I'm ZentroMart's AI support assistant. You have 15 calendar days to return the Rangoli Cotton Straight Kurta, as per the return policy for clothing, footwear and bags. The return window starts on the delivery date and is subject to item condition.",
+        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is clothing, footwear and bags; its window is 15 calendar days from delivery, subject to item condition.",
         "intent": "return",
         "decision": "answer",
         "language": "en",
@@ -2687,64 +2567,64 @@
         ],
         "retrieval_candidates": [
           {
-            "id": "FAQ-1",
-            "score": 0.125449,
-            "dense_score": 0.2729
+            "id": "RET-2",
+            "score": 0.182331,
+            "dense_score": 0.3322
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.162212,
+            "dense_score": 0.3249
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.155911,
+            "dense_score": 0.3003
           },
           {
             "id": "RET-8",
-            "score": 0.12287,
-            "dense_score": 0.3673
+            "score": 0.155289,
+            "dense_score": 0.4408
           },
           {
             "id": "RET-3",
-            "score": 0.119825,
-            "dense_score": 0.331
-          },
-          {
-            "id": "RET-2",
-            "score": 0.086767,
-            "dense_score": 0.1152
-          },
-          {
-            "id": "REF-2",
-            "score": 0.086766,
-            "dense_score": 0.1793
-          },
-          {
-            "id": "REF-1",
-            "score": 0.086765,
-            "dense_score": 0.2914
-          },
-          {
-            "id": "RET-7",
-            "score": 0.086764,
-            "dense_score": 0.2535
+            "score": 0.145765,
+            "dense_score": 0.3812
           },
           {
             "id": "DWM-4",
-            "score": 0.086699,
-            "dense_score": 0.2541
+            "score": 0.142051,
+            "dense_score": 0.294
           },
           {
-            "id": "RET-6",
-            "score": 0.085994,
-            "dense_score": 0.2785
+            "id": "RET-1",
+            "score": 0.140096,
+            "dense_score": 0.2365
           },
           {
-            "id": "DEL-1",
-            "score": 0.081694,
-            "dense_score": 0.271
+            "id": "RET-5",
+            "score": 0.129603,
+            "dense_score": 0.3206
           },
           {
-            "id": "REF-5",
-            "score": 0.077976,
-            "dense_score": 0.2742
+            "id": "REF-1",
+            "score": 0.126906,
+            "dense_score": 0.343
           },
           {
-            "id": "KB-00.1",
-            "score": 0.074077,
-            "dense_score": -0.0329
+            "id": "RET-7",
+            "score": 0.113217,
+            "dense_score": 0.2807
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.093847,
+            "dense_score": 0.1827
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.084436,
+            "dense_score": 0.1207
           }
         ],
         "tool_calls": [],
@@ -2756,28 +2636,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 15669.87,
-          "load_ms": 46.91,
-          "prompt_eval_ms": 7981.06,
-          "eval_ms": 7424.83,
-          "prompt_eval_count": 716,
-          "eval_count": 53,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 97.86,
-          "llm_ms": 15675.47
+          "retrieval_ms": 227.01,
+          "llm_ms": 0.0
         },
-        "latency_ms": 15775.54
+        "latency_ms": 232.66
       },
       "checks": {
         "passed": true,
@@ -2791,14 +2660,14 @@
         "evidence_total": 3,
         "evidence_recall": 1.0
       },
-      "latency_ms": 15775.9
+      "latency_ms": 233.0
     },
     {
       "id": "PQ0025",
       "question": "If I paid with net banking, how soon will the refund show up?",
       "prediction": {
         "transcript": "If I paid with net banking, how soon will the refund show up?",
-        "answer": "I'm ZentroMart's AI support assistant. If you paid with net banking, the refund will show up within 3 to 5 business days after the refund is initiated.",
+        "answer": "I'm ZentroMart's AI support assistant. net banking refunds take 3 to 5 business days after initiation.",
         "intent": "refund",
         "decision": "answer",
         "language": "en",
@@ -2831,8 +2700,13 @@
         "retrieval_candidates": [
           {
             "id": "REF-2",
-            "score": 0.175329,
+            "score": 0.184757,
             "dense_score": 0.5072
+          },
+          {
+            "id": "RET-7",
+            "score": 0.161172,
+            "dense_score": 0.6083
           },
           {
             "id": "REF-3",
@@ -2845,11 +2719,6 @@
             "dense_score": 0.6369
           },
           {
-            "id": "RET-7",
-            "score": 0.150612,
-            "dense_score": 0.6083
-          },
-          {
             "id": "REF-1",
             "score": 0.149201,
             "dense_score": 0.622
@@ -2858,6 +2727,11 @@
             "id": "PAY-3",
             "score": 0.145525,
             "dense_score": 0.5111
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.141552,
+            "dense_score": 0.4368
           },
           {
             "id": "REF-4",
@@ -2870,52 +2744,36 @@
             "dense_score": 0.665
           },
           {
-            "id": "DEL-1",
-            "score": 0.131398,
-            "dense_score": 0.4368
-          },
-          {
             "id": "KB-00.3",
-            "score": 0.082962,
+            "score": 0.090462,
             "dense_score": 0.2395
           },
           {
-            "id": "KB-00.1",
-            "score": 0.078814,
-            "dense_score": 0.0262
+            "id": "PLS-2",
+            "score": 0.090461,
+            "dense_score": 0.3956
           },
           {
-            "id": "PLS-2",
-            "score": 0.078813,
-            "dense_score": 0.3956
+            "id": "DEL-3",
+            "score": 0.09046,
+            "dense_score": 0.2773
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 6601.33,
-          "load_ms": 59.71,
-          "prompt_eval_ms": 1782.4,
-          "eval_ms": 4550.9,
-          "prompt_eval_count": 398,
-          "eval_count": 34,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 183.99,
-          "llm_ms": 6605.3
+          "retrieval_ms": 124.52,
+          "llm_ms": 0.0
         },
-        "latency_ms": 6792.88
+        "latency_ms": 130.85
       },
       "checks": {
         "passed": true,
@@ -2923,13 +2781,13 @@
         "missing_facts": [],
         "forbidden_claims": [],
         "tools_ok": true,
-        "search_hits": 2,
+        "search_hits": 1,
         "search_total": 2,
         "evidence_hits": 1,
         "evidence_total": 2,
         "evidence_recall": 0.5
       },
-      "latency_ms": 6793.7
+      "latency_ms": 132.0
     },
     {
       "id": "PQ0026",
@@ -2999,63 +2857,63 @@
         "retrieval_candidates": [
           {
             "id": "WAR-1",
-            "score": 0.164457,
-            "dense_score": 0.3781
-          },
-          {
-            "id": "WAR-3",
-            "score": 0.157796,
-            "dense_score": 0.2837
+            "score": 0.19154,
+            "dense_score": 0.4488
           },
           {
             "id": "WAR-2",
-            "score": 0.155606,
-            "dense_score": 0.3182
+            "score": 0.182141,
+            "dense_score": 0.3664
           },
           {
             "id": "RET-1",
-            "score": 0.130218,
-            "dense_score": 0.2407
+            "score": 0.173665,
+            "dense_score": 0.3439
+          },
+          {
+            "id": "RET-2",
+            "score": 0.124526,
+            "dense_score": 0.1819
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.124525,
+            "dense_score": 0.3389
+          },
+          {
+            "id": "RET-3",
+            "score": 0.124524,
+            "dense_score": 0.2768
           },
           {
             "id": "MKS-3",
-            "score": 0.115292,
-            "dense_score": 0.1305
-          },
-          {
-            "id": "REF-6",
-            "score": 0.097879,
-            "dense_score": 0.2507
-          },
-          {
-            "id": "DWM-4",
-            "score": 0.089207,
-            "dense_score": 0.1617
-          },
-          {
-            "id": "TRB-4",
-            "score": 0.075157,
-            "dense_score": 0.1972
-          },
-          {
-            "id": "CPN-2",
-            "score": 0.070781,
-            "dense_score": 0.2576
+            "score": 0.124523,
+            "dense_score": 0.263
           },
           {
             "id": "CPN-3",
-            "score": 0.069431,
-            "dense_score": 0.269
+            "score": 0.124522,
+            "dense_score": 0.3477
           },
           {
-            "id": "IDV-3",
-            "score": 0.067586,
-            "dense_score": 0.2363
+            "id": "DWM-4",
+            "score": 0.124521,
+            "dense_score": 0.2124
           },
           {
-            "id": "DEL-5",
-            "score": 0.064206,
-            "dense_score": 0.1694
+            "id": "REF-6",
+            "score": 0.123206,
+            "dense_score": 0.2911
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.088715,
+            "dense_score": 0.1369
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.066452,
+            "dense_score": 0.1971
           }
         ],
         "tool_calls": [],
@@ -3066,22 +2924,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20013.02,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 163.08,
-          "llm_ms": 20013.24
+          "retrieval_ms": 162.05,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20178.88
+        "latency_ms": 165.36
       },
       "checks": {
         "passed": true,
@@ -3095,7 +2948,7 @@
         "evidence_total": 3,
         "evidence_recall": 1.0
       },
-      "latency_ms": 20179.3
+      "latency_ms": 165.7
     },
     {
       "id": "PQ0027",
@@ -3109,7 +2962,6 @@
         "retrieved_chunk_ids": [
           "STY-1",
           "REF-2",
-          "KB-00.1",
           "KB-00.3"
         ],
         "sources": [
@@ -3134,16 +2986,6 @@
             "title": "How long refunds take after initiation"
           },
           {
-            "id": "KB-00.1",
-            "text": "## [KB-00.1] Which document wins\nWhen two documents disagree, follow this order of precedence:\n\n1. **Policy documents** (doc_type: policy) with status `current`.\n2. **Agent guides** (doc_type: agent_guide).\n3. **Help articles** (doc_type: help).\n4. **FAQs** (doc_type: faq).\n5. **Marketing pages** (doc_type: marketing). These describe benefits in general terms and never override a policy.\n\n\nDocuments marked `status: superseded` are kept for reference only. They apply only to the cases their successor document says they still cover.",
-            "file": "00_about_this_knowledge_base.md",
-            "doc_type": "meta",
-            "status": "current",
-            "effective_from": "2026-08-01",
-            "version": "1.2",
-            "title": "Which document wins"
-          },
-          {
             "id": "KB-00.3",
             "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
             "file": "00_about_this_knowledge_base.md",
@@ -3157,33 +2999,33 @@
         "retrieval_candidates": [
           {
             "id": "REF-2",
-            "score": 0.156865,
+            "score": 0.16708,
             "dense_score": 0.2705
           },
           {
             "id": "REF-1",
-            "score": 0.156454,
+            "score": 0.161531,
             "dense_score": 0.3837
           },
           {
             "id": "REF-6",
-            "score": 0.1527,
+            "score": 0.157252,
             "dense_score": 0.3772
+          },
+          {
+            "id": "RET-7",
+            "score": 0.151898,
+            "dense_score": 0.3072
+          },
+          {
+            "id": "REF-3",
+            "score": 0.147978,
+            "dense_score": 0.3175
           },
           {
             "id": "RET-8",
             "score": 0.145213,
             "dense_score": 0.3692
-          },
-          {
-            "id": "REF-3",
-            "score": 0.143978,
-            "dense_score": 0.3175
-          },
-          {
-            "id": "RET-7",
-            "score": 0.141338,
-            "dense_score": 0.3072
           },
           {
             "id": "REF-5",
@@ -3202,18 +3044,18 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.099096,
+            "score": 0.102846,
             "dense_score": 0.177
           },
           {
-            "id": "KB-00.1",
-            "score": 0.094141,
-            "dense_score": 0.0873
+            "id": "PLS-2",
+            "score": 0.102845,
+            "dense_score": 0.3137
           },
           {
-            "id": "PLS-2",
-            "score": 0.09414,
-            "dense_score": 0.3137
+            "id": "DEL-3",
+            "score": 0.059807,
+            "dense_score": 0.2631
           }
         ],
         "tool_calls": [],
@@ -3223,28 +3065,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_number",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 11619.17,
-          "load_ms": 39.31,
-          "prompt_eval_ms": 4446.86,
-          "eval_ms": 6932.8,
-          "prompt_eval_count": 819,
-          "eval_count": 60,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 213.43,
-          "llm_ms": 11622.73
+          "retrieval_ms": 96.88,
+          "llm_ms": 0.0
         },
-        "latency_ms": 11838.99
+        "latency_ms": 100.54
       },
       "checks": {
         "passed": true,
@@ -3258,7 +3089,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 11839.4
+      "latency_ms": 100.9
     },
     {
       "id": "PQ0028",
@@ -3272,7 +3103,6 @@
         "retrieved_chunk_ids": [
           "STY-1",
           "REF-2",
-          "KB-00.1",
           "KB-00.3"
         ],
         "sources": [
@@ -3297,16 +3127,6 @@
             "title": "How long refunds take after initiation"
           },
           {
-            "id": "KB-00.1",
-            "text": "## [KB-00.1] Which document wins\nWhen two documents disagree, follow this order of precedence:\n\n1. **Policy documents** (doc_type: policy) with status `current`.\n2. **Agent guides** (doc_type: agent_guide).\n3. **Help articles** (doc_type: help).\n4. **FAQs** (doc_type: faq).\n5. **Marketing pages** (doc_type: marketing). These describe benefits in general terms and never override a policy.\n\n\nDocuments marked `status: superseded` are kept for reference only. They apply only to the cases their successor document says they still cover.",
-            "file": "00_about_this_knowledge_base.md",
-            "doc_type": "meta",
-            "status": "current",
-            "effective_from": "2026-08-01",
-            "version": "1.2",
-            "title": "Which document wins"
-          },
-          {
             "id": "KB-00.3",
             "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
             "file": "00_about_this_knowledge_base.md",
@@ -3319,24 +3139,24 @@
         ],
         "retrieval_candidates": [
           {
+            "id": "REF-2",
+            "score": 0.174296,
+            "dense_score": 0.4418
+          },
+          {
             "id": "REF-3",
             "score": 0.167937,
             "dense_score": 0.606
           },
           {
-            "id": "REF-2",
-            "score": 0.164868,
-            "dense_score": 0.4418
+            "id": "RET-7",
+            "score": 0.160154,
+            "dense_score": 0.5094
           },
           {
             "id": "REF-1",
             "score": 0.150715,
             "dense_score": 0.5515
-          },
-          {
-            "id": "RET-7",
-            "score": 0.149594,
-            "dense_score": 0.5094
           },
           {
             "id": "REF-6",
@@ -3345,8 +3165,13 @@
           },
           {
             "id": "KB-00.2",
-            "score": 0.135916,
+            "score": 0.144192,
             "dense_score": 0.4583
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.140839,
+            "dense_score": 0.4441
           },
           {
             "id": "RET-8",
@@ -3354,9 +3179,9 @@
             "dense_score": 0.4642
           },
           {
-            "id": "DEL-1",
-            "score": 0.130685,
-            "dense_score": 0.4441
+            "id": "CAN-3",
+            "score": 0.132035,
+            "dense_score": 0.3667
           },
           {
             "id": "RET-3",
@@ -3365,17 +3190,12 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.12114,
+            "score": 0.12864,
             "dense_score": 0.2984
           },
           {
-            "id": "KB-00.1",
-            "score": 0.093054,
-            "dense_score": 0.0499
-          },
-          {
             "id": "PLS-2",
-            "score": 0.093053,
+            "score": 0.106468,
             "dense_score": 0.3056
           }
         ],
@@ -3386,28 +3206,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_number",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 12339.31,
-          "load_ms": 31.14,
-          "prompt_eval_ms": 4183.9,
-          "eval_ms": 8071.86,
-          "prompt_eval_count": 815,
-          "eval_count": 53,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 161.74,
-          "llm_ms": 12342.7
+          "retrieval_ms": 133.67,
+          "llm_ms": 0.0
         },
-        "latency_ms": 12506.85
+        "latency_ms": 139.53
       },
       "checks": {
         "passed": true,
@@ -3421,7 +3230,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 12507.2
+      "latency_ms": 140.5
     },
     {
       "id": "PQ0029",
@@ -3435,7 +3244,6 @@
         "retrieved_chunk_ids": [
           "STY-1",
           "REF-2",
-          "KB-00.1",
           "KB-00.3"
         ],
         "sources": [
@@ -3460,16 +3268,6 @@
             "title": "How long refunds take after initiation"
           },
           {
-            "id": "KB-00.1",
-            "text": "## [KB-00.1] Which document wins\nWhen two documents disagree, follow this order of precedence:\n\n1. **Policy documents** (doc_type: policy) with status `current`.\n2. **Agent guides** (doc_type: agent_guide).\n3. **Help articles** (doc_type: help).\n4. **FAQs** (doc_type: faq).\n5. **Marketing pages** (doc_type: marketing). These describe benefits in general terms and never override a policy.\n\n\nDocuments marked `status: superseded` are kept for reference only. They apply only to the cases their successor document says they still cover.",
-            "file": "00_about_this_knowledge_base.md",
-            "doc_type": "meta",
-            "status": "current",
-            "effective_from": "2026-08-01",
-            "version": "1.2",
-            "title": "Which document wins"
-          },
-          {
             "id": "KB-00.3",
             "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
             "file": "00_about_this_knowledge_base.md",
@@ -3482,24 +3280,29 @@
         ],
         "retrieval_candidates": [
           {
-            "id": "REF-6",
-            "score": 0.163747,
-            "dense_score": 0.4606
-          },
-          {
             "id": "REF-2",
-            "score": 0.160649,
+            "score": 0.170864,
             "dense_score": 0.3298
           },
           {
+            "id": "REF-6",
+            "score": 0.168298,
+            "dense_score": 0.4606
+          },
+          {
             "id": "REF-3",
-            "score": 0.158293,
+            "score": 0.162293,
             "dense_score": 0.4319
           },
           {
             "id": "REF-1",
-            "score": 0.151233,
+            "score": 0.15631,
             "dense_score": 0.4168
+          },
+          {
+            "id": "RET-7",
+            "score": 0.142346,
+            "dense_score": 0.3202
           },
           {
             "id": "RET-8",
@@ -3517,29 +3320,24 @@
             "dense_score": 0.4603
           },
           {
-            "id": "RET-7",
-            "score": 0.131786,
-            "dense_score": 0.3202
-          },
-          {
             "id": "PAY-4",
             "score": 0.125309,
             "dense_score": 0.4599
           },
           {
             "id": "KB-00.3",
-            "score": 0.110255,
+            "score": 0.114005,
             "dense_score": 0.2275
           },
           {
-            "id": "KB-00.1",
-            "score": 0.101161,
-            "dense_score": 0.0978
+            "id": "PLS-2",
+            "score": 0.114004,
+            "dense_score": 0.3344
           },
           {
-            "id": "PLS-2",
-            "score": 0.10116,
-            "dense_score": 0.3344
+            "id": "DEL-3",
+            "score": 0.054538,
+            "dense_score": 0.2603
           }
         ],
         "tool_calls": [],
@@ -3549,22 +3347,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20013.82,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 130.43,
-          "llm_ms": 20014.02
+          "retrieval_ms": 341.77,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20147.1
+        "latency_ms": 352.05
       },
       "checks": {
         "passed": true,
@@ -3578,7 +3371,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 20147.7
+      "latency_ms": 352.6
     },
     {
       "id": "PQ0030",
@@ -3647,78 +3440,78 @@
         ],
         "retrieval_candidates": [
           {
-            "id": "DWM-1",
-            "score": 0.075414,
-            "dense_score": 0.1945
-          },
-          {
-            "id": "TRB-2",
-            "score": 0.072896,
-            "dense_score": 0.2292
-          },
-          {
-            "id": "PLS-3",
-            "score": 0.071369,
-            "dense_score": 0.0366
+            "id": "WAR-1",
+            "score": 0.155881,
+            "dense_score": 0.3478
           },
           {
             "id": "RET-2",
-            "score": 0.070481,
-            "dense_score": 0.0295
-          },
-          {
-            "id": "WAR-1",
-            "score": 0.069829,
-            "dense_score": 0.2387
+            "score": 0.144668,
+            "dense_score": 0.2124
           },
           {
             "id": "RET-4",
-            "score": 0.066084,
-            "dense_score": 0.129
+            "score": 0.139195,
+            "dense_score": 0.2619
+          },
+          {
+            "id": "RET-3",
+            "score": 0.135512,
+            "dense_score": 0.2531
+          },
+          {
+            "id": "DWM-1",
+            "score": 0.121708,
+            "dense_score": 0.2335
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.109305,
+            "dense_score": 0.185
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.108342,
+            "dense_score": 0.1751
           },
           {
             "id": "DWM-3",
-            "score": 0.059495,
-            "dense_score": 0.194
+            "score": 0.103924,
+            "dense_score": 0.2563
           },
           {
-            "id": "DWM-2",
-            "score": 0.058299,
-            "dense_score": 0.1691
+            "id": "MKS-1",
+            "score": 0.072417,
+            "dense_score": 0.1438
           },
           {
-            "id": "TRB-3",
-            "score": 0.057034,
-            "dense_score": 0.1973
+            "id": "MKS-3",
+            "score": 0.072416,
+            "dense_score": 0.081
           },
           {
-            "id": "RET-5",
-            "score": 0.056754,
-            "dense_score": 0.0502
+            "id": "WAR-3",
+            "score": 0.072415,
+            "dense_score": 0.0141
           },
           {
             "id": "ESC-1",
-            "score": 0.024006,
-            "dense_score": 0.1049
-          },
-          {
-            "id": "ESC-2",
-            "score": 0.022806,
-            "dense_score": 0.0141
+            "score": 0.072414,
+            "dense_score": 0.2095
           }
         ],
         "tool_calls": [
           {
             "name": "create_ticket",
             "arguments": {
-              "summary": "Issue: The Kestrel Book 14 Laptop (SKU ELE-0023) I received yesterday has a crack. I want it sorted.. Intent: damage. Order: not provided. Checked: DWM-3, ESC-1, ESC-4, products.csv:ELE-0023. Verified caller: False. Escalation reason: high_value_damage. No outcome promised.",
+              "summary": "Issue: The Kestrel Book 14 Laptop (SKU ELE-0023) I received yesterday has a crack. I want it sorted.\nPublic context: Product ELE-0023.. Intent: damage. Order: not provided. Checked: DWM-3, ESC-1, ESC-4, products.csv:ELE-0023. Verified caller: False. Escalation reason: high_value_damage. No outcome promised.",
               "order_id": null,
               "reason": "high_value_damage",
               "intent": "damage"
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTd5800876217143d2bf89db3517bf39d8"
+              "ticket_id": "TKT95c8272357f643d2b544d1748b6b920c"
             }
           }
         ],
@@ -3732,10 +3525,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 171.3,
+          "retrieval_ms": 347.53,
           "llm_ms": 0.0
         },
-        "latency_ms": 178.05
+        "latency_ms": 353.95
       },
       "checks": {
         "passed": true,
@@ -3749,14 +3542,14 @@
         "evidence_total": 3,
         "evidence_recall": 1.0
       },
-      "latency_ms": 179.0
+      "latency_ms": 355.2
     },
     {
       "id": "PQ0031",
       "question": "My Bluetooth speaker won't turn on at all.",
       "prediction": {
         "transcript": "My Bluetooth speaker won't turn on at all.",
-        "answer": "I'm ZentroMart's AI support assistant. Charge the Bluetooth speaker for at least 30 minutes using the original cable. Hold the power button for 10 seconds to force a restart. If the problem persists, the item can be returned within its window or claimed under warranty.",
+        "answer": "I'm ZentroMart's AI support assistant. Charge it for at least 30 minutes with the original cable. Hold the power button for 10 seconds to force a restart.  If the problem continues after these steps, the item can be returned within its window or claimed under warranty.",
         "intent": "troubleshoot",
         "decision": "answer",
         "language": "en",
@@ -3789,23 +3582,33 @@
         "retrieval_candidates": [
           {
             "id": "TRB-4",
-            "score": 0.162083,
+            "score": 0.170655,
             "dense_score": 0.6325
           },
           {
             "id": "TRB-3",
-            "score": 0.158593,
+            "score": 0.167481,
             "dense_score": 0.2934
           },
           {
             "id": "TRB-2",
-            "score": 0.152147,
+            "score": 0.161747,
             "dense_score": 0.4186
           },
           {
             "id": "TRB-1",
-            "score": 0.151327,
+            "score": 0.159069,
             "dense_score": 0.4476
+          },
+          {
+            "id": "RET-3",
+            "score": 0.072681,
+            "dense_score": 0.042
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.067065,
+            "dense_score": -0.0104
           },
           {
             "id": "RET-8",
@@ -3813,9 +3616,9 @@
             "dense_score": -0.0922
           },
           {
-            "id": "RET-3",
-            "score": 0.061681,
-            "dense_score": 0.042
+            "id": "RET-4",
+            "score": 0.061792,
+            "dense_score": 0.0447
           },
           {
             "id": "KB-00.2",
@@ -3823,18 +3626,8 @@
             "dense_score": -0.0889
           },
           {
-            "id": "WAR-1",
-            "score": 0.056911,
-            "dense_score": -0.0104
-          },
-          {
-            "id": "RET-4",
-            "score": 0.052689,
-            "dense_score": 0.0447
-          },
-          {
             "id": "RET-2",
-            "score": 0.021667,
+            "score": 0.030467,
             "dense_score": 0.0268
           }
         ],
@@ -3842,28 +3635,17 @@
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 13646.35,
-          "load_ms": 48.89,
-          "prompt_eval_ms": 6225.33,
-          "eval_ms": 7178.04,
-          "prompt_eval_count": 343,
-          "eval_count": 56,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 109.37,
-          "llm_ms": 13649.98
+          "retrieval_ms": 42.81,
+          "llm_ms": 0.0
         },
-        "latency_ms": 13761.16
+        "latency_ms": 49.18
       },
       "checks": {
         "passed": true,
@@ -3877,7 +3659,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 13761.7
+      "latency_ms": 50.2
     },
     {
       "id": "PQ0032",
@@ -3947,63 +3729,63 @@
         "retrieval_candidates": [
           {
             "id": "WAR-2",
-            "score": 0.189047,
-            "dense_score": 0.4604
+            "score": 0.186898,
+            "dense_score": 0.5131
           },
           {
             "id": "RET-1",
-            "score": 0.162543,
-            "dense_score": 0.3661
-          },
-          {
-            "id": "DWM-4",
-            "score": 0.152885,
-            "dense_score": 0.2611
-          },
-          {
-            "id": "MKS-3",
-            "score": 0.150392,
-            "dense_score": 0.2284
+            "score": 0.175,
+            "dense_score": 0.4728
           },
           {
             "id": "WAR-1",
-            "score": 0.128446,
-            "dense_score": 0.1587
+            "score": 0.159922,
+            "dense_score": 0.3102
           },
           {
-            "id": "PLS-1",
-            "score": 0.116215,
-            "dense_score": 0.3584
+            "id": "RET-2",
+            "score": 0.159384,
+            "dense_score": 0.3256
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.151882,
+            "dense_score": 0.3747
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.150487,
+            "dense_score": 0.3522
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.148508,
+            "dense_score": 0.4286
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.146579,
+            "dense_score": 0.4029
+          },
+          {
+            "id": "RET-4",
+            "score": 0.133076,
+            "dense_score": 0.3362
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.11043,
+            "dense_score": 0.2943
           },
           {
             "id": "WAR-3",
-            "score": 0.114609,
-            "dense_score": -0.0123
-          },
-          {
-            "id": "PAY-4",
-            "score": 0.113916,
-            "dense_score": 0.2721
-          },
-          {
-            "id": "FAQH-4",
-            "score": 0.110084,
-            "dense_score": 0.4463
-          },
-          {
-            "id": "DEL-4",
-            "score": 0.102636,
-            "dense_score": 0.2637
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.007627,
-            "dense_score": 0.183
+            "score": 0.09814,
+            "dense_score": 0.0681
           },
           {
             "id": "DEL-5",
-            "score": 0.007626,
-            "dense_score": 0.25
+            "score": 0.056637,
+            "dense_score": 0.2493
           }
         ],
         "tool_calls": [],
@@ -4014,22 +3796,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20030.62,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 110.26,
-          "llm_ms": 20031.2
+          "retrieval_ms": 241.54,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20143.82
+        "latency_ms": 245.08
       },
       "checks": {
         "passed": true,
@@ -4043,7 +3820,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 20144.1
+      "latency_ms": 245.7
     },
     {
       "id": "PQ0033",
@@ -4057,7 +3834,6 @@
         "retrieved_chunk_ids": [
           "STY-1",
           "REF-2",
-          "KB-00.1",
           "KB-00.3"
         ],
         "sources": [
@@ -4082,16 +3858,6 @@
             "title": "How long refunds take after initiation"
           },
           {
-            "id": "KB-00.1",
-            "text": "## [KB-00.1] Which document wins\nWhen two documents disagree, follow this order of precedence:\n\n1. **Policy documents** (doc_type: policy) with status `current`.\n2. **Agent guides** (doc_type: agent_guide).\n3. **Help articles** (doc_type: help).\n4. **FAQs** (doc_type: faq).\n5. **Marketing pages** (doc_type: marketing). These describe benefits in general terms and never override a policy.\n\n\nDocuments marked `status: superseded` are kept for reference only. They apply only to the cases their successor document says they still cover.",
-            "file": "00_about_this_knowledge_base.md",
-            "doc_type": "meta",
-            "status": "current",
-            "effective_from": "2026-08-01",
-            "version": "1.2",
-            "title": "Which document wins"
-          },
-          {
             "id": "KB-00.3",
             "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
             "file": "00_about_this_knowledge_base.md",
@@ -4104,14 +3870,19 @@
         ],
         "retrieval_candidates": [
           {
+            "id": "REF-2",
+            "score": 0.174296,
+            "dense_score": 0.4261
+          },
+          {
             "id": "REF-3",
             "score": 0.168979,
             "dense_score": 0.6057
           },
           {
-            "id": "REF-2",
-            "score": 0.164868,
-            "dense_score": 0.4261
+            "id": "RET-7",
+            "score": 0.15765,
+            "dense_score": 0.4984
           },
           {
             "id": "REF-1",
@@ -4124,14 +3895,14 @@
             "dense_score": 0.5007
           },
           {
-            "id": "RET-7",
-            "score": 0.14709,
-            "dense_score": 0.4984
+            "id": "KB-00.2",
+            "score": 0.144465,
+            "dense_score": 0.4795
           },
           {
-            "id": "KB-00.2",
-            "score": 0.136189,
-            "dense_score": 0.4795
+            "id": "DEL-1",
+            "score": 0.142483,
+            "dense_score": 0.4576
           },
           {
             "id": "RET-8",
@@ -4139,9 +3910,9 @@
             "dense_score": 0.468
           },
           {
-            "id": "DEL-1",
-            "score": 0.13233,
-            "dense_score": 0.4576
+            "id": "CAN-3",
+            "score": 0.133618,
+            "dense_score": 0.3737
           },
           {
             "id": "PAY-3",
@@ -4150,17 +3921,12 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.122487,
+            "score": 0.129987,
             "dense_score": 0.3222
           },
           {
-            "id": "KB-00.1",
-            "score": 0.091357,
-            "dense_score": 0.068
-          },
-          {
             "id": "PLS-2",
-            "score": 0.091356,
+            "score": 0.104682,
             "dense_score": 0.3043
           }
         ],
@@ -4171,28 +3937,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_number",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 10677.89,
-          "load_ms": 135.94,
-          "prompt_eval_ms": 4174.76,
-          "eval_ms": 6171.57,
-          "prompt_eval_count": 815,
-          "eval_count": 53,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 216.12,
-          "llm_ms": 10682.02
+          "retrieval_ms": 127.84,
+          "llm_ms": 0.0
         },
-        "latency_ms": 10903.11
+        "latency_ms": 134.44
       },
       "checks": {
         "passed": true,
@@ -4206,14 +3961,14 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 10903.5
+      "latency_ms": 134.9
     },
     {
       "id": "PQ0034",
       "question": "Can you deliver to Dubai?",
       "prediction": {
         "transcript": "Can you deliver to Dubai?",
-        "answer": "I'm ZentroMart's AI support assistant. No, ZentroMart does not deliver to Dubai as delivery is only within India to serviceable pincodes.",
+        "answer": "I'm ZentroMart's AI support assistant. Delivery is only within India, to serviceable pincodes.",
         "intent": "delivery",
         "decision": "answer",
         "language": "en",
@@ -4306,42 +4061,31 @@
             "dense_score": 0.1886
           },
           {
-            "id": "KB-00.1",
-            "score": 0.03557,
-            "dense_score": 0.045
+            "id": "PLS-2",
+            "score": 0.037442,
+            "dense_score": 0.1196
           },
           {
-            "id": "PLS-2",
-            "score": 0.035569,
-            "dense_score": 0.1196
+            "id": "FAQ-3",
+            "score": 0.037441,
+            "dense_score": 0.1647
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 9819.22,
-          "load_ms": 53.11,
-          "prompt_eval_ms": 6547.57,
-          "eval_ms": 3068.93,
-          "prompt_eval_count": 353,
-          "eval_count": 32,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 75.78,
-          "llm_ms": 9822.31
+          "retrieval_ms": 55.2,
+          "llm_ms": 0.0
         },
-        "latency_ms": 9903.3
+        "latency_ms": 61.45
       },
       "checks": {
         "passed": true,
@@ -4355,7 +4099,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 9903.5
+      "latency_ms": 61.8
     },
     {
       "id": "PQ0035",
@@ -4369,7 +4113,6 @@
         "retrieved_chunk_ids": [
           "STY-1",
           "REF-2",
-          "KB-00.1",
           "KB-00.3"
         ],
         "sources": [
@@ -4394,16 +4137,6 @@
             "title": "How long refunds take after initiation"
           },
           {
-            "id": "KB-00.1",
-            "text": "## [KB-00.1] Which document wins\nWhen two documents disagree, follow this order of precedence:\n\n1. **Policy documents** (doc_type: policy) with status `current`.\n2. **Agent guides** (doc_type: agent_guide).\n3. **Help articles** (doc_type: help).\n4. **FAQs** (doc_type: faq).\n5. **Marketing pages** (doc_type: marketing). These describe benefits in general terms and never override a policy.\n\n\nDocuments marked `status: superseded` are kept for reference only. They apply only to the cases their successor document says they still cover.",
-            "file": "00_about_this_knowledge_base.md",
-            "doc_type": "meta",
-            "status": "current",
-            "effective_from": "2026-08-01",
-            "version": "1.2",
-            "title": "Which document wins"
-          },
-          {
             "id": "KB-00.3",
             "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
             "file": "00_about_this_knowledge_base.md",
@@ -4417,27 +4150,27 @@
         "retrieval_candidates": [
           {
             "id": "REF-6",
-            "score": 0.16491,
+            "score": 0.169462,
             "dense_score": 0.4619
           },
           {
             "id": "REF-2",
-            "score": 0.157342,
+            "score": 0.167557,
             "dense_score": 0.3121
           },
           {
             "id": "REF-3",
-            "score": 0.156735,
+            "score": 0.160735,
             "dense_score": 0.43
           },
           {
             "id": "REF-1",
-            "score": 0.148368,
+            "score": 0.153445,
             "dense_score": 0.3993
           },
           {
             "id": "RET-7",
-            "score": 0.141859,
+            "score": 0.152419,
             "dense_score": 0.3621
           },
           {
@@ -4462,18 +4195,18 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.113715,
+            "score": 0.117465,
             "dense_score": 0.2378
           },
           {
-            "id": "KB-00.1",
-            "score": 0.098096,
-            "dense_score": 0.1145
+            "id": "PLS-2",
+            "score": 0.112231,
+            "dense_score": 0.3179
           },
           {
-            "id": "PLS-2",
-            "score": 0.098095,
-            "dense_score": 0.3179
+            "id": "DEL-3",
+            "score": 0.056618,
+            "dense_score": 0.2711
           }
         ],
         "tool_calls": [],
@@ -4483,28 +4216,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_number",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 16188.74,
-          "load_ms": 44.28,
-          "prompt_eval_ms": 4443.2,
-          "eval_ms": 11560.62,
-          "prompt_eval_count": 821,
-          "eval_count": 91,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 227.57,
-          "llm_ms": 16193.21
+          "retrieval_ms": 131.62,
+          "llm_ms": 0.0
         },
-        "latency_ms": 16423.15
+        "latency_ms": 137.76
       },
       "checks": {
         "passed": true,
@@ -4518,14 +4240,14 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 16423.6
+      "latency_ms": 138.1
     },
     {
       "id": "PQ0036",
       "question": "The Comfi One-piece Swimsuit doesn't fit. Can I send it back?",
       "prediction": {
         "transcript": "The Comfi One-piece Swimsuit doesn't fit. Can I send it back?",
-        "answer": "I'm ZentroMart's AI support assistant. The Comfi One-piece Swimsuit cannot be returned for fit or change of mind. If it does not fit, it cannot be sent back. However, if it is damaged, expired, wrong, or missing, it can be reported within 48 hours with photos of the item and packaging.",
+        "answer": "I'm ZentroMart's AI support assistant. This category cannot be returned for fit or change of mind, even if unopened or unused. Damage, expired, wrong or missing items can be reported within 48 hours with photos of the item and packaging.",
         "intent": "return",
         "decision": "answer",
         "language": "en",
@@ -4568,92 +4290,81 @@
         ],
         "retrieval_candidates": [
           {
-            "id": "IDV-3",
-            "score": 0.119325,
-            "dense_score": 0.2488
-          },
-          {
-            "id": "RET-8",
-            "score": 0.105902,
-            "dense_score": 0.2004
+            "id": "RET-2",
+            "score": 0.185857,
+            "dense_score": 0.3364
           },
           {
             "id": "RET-5",
-            "score": 0.100356,
-            "dense_score": 0.4056
-          },
-          {
-            "id": "RET-2",
-            "score": 0.084879,
-            "dense_score": 0.1685
+            "score": 0.169078,
+            "dense_score": 0.4211
           },
           {
             "id": "RET-4",
-            "score": 0.084878,
-            "dense_score": 0.3795
-          },
-          {
-            "id": "REF-2",
-            "score": 0.084877,
-            "dense_score": 0.0757
-          },
-          {
-            "id": "DWM-4",
-            "score": 0.084876,
-            "dense_score": 0.2321
-          },
-          {
-            "id": "RET-3",
-            "score": 0.080991,
-            "dense_score": 0.1686
-          },
-          {
-            "id": "RET-6",
-            "score": 0.075033,
-            "dense_score": 0.2248
-          },
-          {
-            "id": "REF-5",
-            "score": 0.071825,
-            "dense_score": 0.2345
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.049725,
-            "dense_score": 0.0267
+            "score": 0.152427,
+            "dense_score": 0.4173
           },
           {
             "id": "DWM-1",
-            "score": 0.049724,
-            "dense_score": 0.1862
+            "score": 0.131021,
+            "dense_score": 0.2039
+          },
+          {
+            "id": "RET-8",
+            "score": 0.122315,
+            "dense_score": 0.2416
+          },
+          {
+            "id": "IDV-3",
+            "score": 0.117729,
+            "dense_score": 0.2433
+          },
+          {
+            "id": "DWM-5",
+            "score": 0.11058,
+            "dense_score": 0.2775
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.110351,
+            "dense_score": 0.2077
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.107778,
+            "dense_score": 0.2289
+          },
+          {
+            "id": "RET-3",
+            "score": 0.082997,
+            "dense_score": 0.1334
+          },
+          {
+            "id": "ESC-1",
+            "score": 0.082996,
+            "dense_score": 0.2197
+          },
+          {
+            "id": "ESC-2",
+            "score": 0.078848,
+            "dense_score": 0.0862
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 17413.95,
-          "load_ms": 29.85,
-          "prompt_eval_ms": 8947.98,
-          "eval_ms": 8216.27,
-          "prompt_eval_count": 431,
-          "eval_count": 69,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 139.7,
-          "llm_ms": 17418.67
+          "retrieval_ms": 112.01,
+          "llm_ms": 0.0
         },
-        "latency_ms": 17560.8
+        "latency_ms": 120.28
       },
       "checks": {
         "passed": true,
@@ -4667,7 +4378,7 @@
         "evidence_total": 3,
         "evidence_recall": 0.3333333333333333
       },
-      "latency_ms": 17561.1
+      "latency_ms": 121.0
     },
     {
       "id": "PQ0037",
@@ -4766,10 +4477,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 49.98,
+          "retrieval_ms": 87.95,
           "llm_ms": 0.0
         },
-        "latency_ms": 60.6
+        "latency_ms": 92.01
       },
       "checks": {
         "passed": true,
@@ -4783,14 +4494,14 @@
         "evidence_total": 0,
         "evidence_recall": null
       },
-      "latency_ms": 62.4
+      "latency_ms": 92.6
     },
     {
       "id": "PQ0039",
       "question": "The Comfi Cotton Briefs (Pack of 3) doesn't fit. Can I send it back?",
       "prediction": {
         "transcript": "The Comfi Cotton Briefs (Pack of 3) doesn't fit. Can I send it back?",
-        "answer": "I'm ZentroMart's AI support assistant. This category is not returnable for fit or change of mind, even if unopened or unused. Damage, expired, wrong or missing items can be reported within 48 hours with photos of the item and packaging.",
+        "answer": "I'm ZentroMart's AI support assistant. This category cannot be returned for fit or change of mind, even if unopened or unused. Damage, expired, wrong or missing items can be reported within 48 hours with photos of the item and packaging.",
         "intent": "return",
         "decision": "answer",
         "language": "en",
@@ -4833,92 +4544,81 @@
         ],
         "retrieval_candidates": [
           {
-            "id": "RET-3",
-            "score": 0.151425,
-            "dense_score": 0.2272
-          },
-          {
-            "id": "RET-8",
-            "score": 0.124887,
-            "dense_score": 0.3679
-          },
-          {
             "id": "RET-2",
-            "score": 0.119322,
-            "dense_score": 0.261
-          },
-          {
-            "id": "DEL-3",
-            "score": 0.107601,
-            "dense_score": 0.2895
+            "score": 0.191428,
+            "dense_score": 0.3931
           },
           {
             "id": "RET-5",
-            "score": 0.105669,
-            "dense_score": 0.4277
-          },
-          {
-            "id": "REF-2",
-            "score": 0.104287,
-            "dense_score": 0.0843
-          },
-          {
-            "id": "RET-9",
-            "score": 0.096547,
-            "dense_score": 0.2402
+            "score": 0.177138,
+            "dense_score": 0.4565
           },
           {
             "id": "RET-4",
-            "score": 0.094633,
-            "dense_score": 0.3706
-          },
-          {
-            "id": "PAY-4",
-            "score": 0.093282,
-            "dense_score": 0.2753
-          },
-          {
-            "id": "TRK-1",
-            "score": 0.092301,
-            "dense_score": 0.2259
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.044181,
-            "dense_score": 0.1348
+            "score": 0.161962,
+            "dense_score": 0.4007
           },
           {
             "id": "DWM-1",
-            "score": 0.04418,
-            "dense_score": 0.2729
+            "score": 0.147976,
+            "dense_score": 0.2847
+          },
+          {
+            "id": "RET-8",
+            "score": 0.139394,
+            "dense_score": 0.3955
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.131147,
+            "dense_score": 0.2905
+          },
+          {
+            "id": "RET-3",
+            "score": 0.115701,
+            "dense_score": 0.1973
+          },
+          {
+            "id": "TRK-1",
+            "score": 0.113641,
+            "dense_score": 0.2149
+          },
+          {
+            "id": "RET-9",
+            "score": 0.110425,
+            "dense_score": 0.2629
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.110353,
+            "dense_score": 0.2232
+          },
+          {
+            "id": "RET-1",
+            "score": 0.106902,
+            "dense_score": 0.2638
+          },
+          {
+            "id": "FAQ-2",
+            "score": 0.105311,
+            "dense_score": 0.3315
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_number",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 9664.02,
-          "load_ms": 74.38,
-          "prompt_eval_ms": 1326.67,
-          "eval_ms": 8192.08,
-          "prompt_eval_count": 435,
-          "eval_count": 67,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 108.14,
-          "llm_ms": 9666.52
+          "retrieval_ms": 154.79,
+          "llm_ms": 0.0
         },
-        "latency_ms": 9779.65
+        "latency_ms": 161.79
       },
       "checks": {
         "passed": true,
@@ -4932,7 +4632,7 @@
         "evidence_total": 3,
         "evidence_recall": 0.3333333333333333
       },
-      "latency_ms": 9779.9
+      "latency_ms": 162.4
     },
     {
       "id": "PQ0040",
@@ -4972,7 +4672,7 @@
         "retrieval_candidates": [
           {
             "id": "CAN-2",
-            "score": 0.14025,
+            "score": 0.150244,
             "dense_score": 0.5751
           },
           {
@@ -4982,13 +4682,23 @@
           },
           {
             "id": "CAN-1",
-            "score": 0.127365,
+            "score": 0.137942,
             "dense_score": 0.486
           },
           {
             "id": "CAN-4",
-            "score": 0.122027,
+            "score": 0.132242,
             "dense_score": 0.4392
+          },
+          {
+            "id": "REF-1",
+            "score": 0.115508,
+            "dense_score": 0.4897
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.115342,
+            "dense_score": 0.4444
           },
           {
             "id": "FAQH-3",
@@ -4996,56 +4706,46 @@
             "dense_score": 0.4195
           },
           {
-            "id": "CAN-3",
-            "score": 0.110453,
-            "dense_score": 0.4444
-          },
-          {
-            "id": "DEL-1",
-            "score": 0.108651,
-            "dense_score": 0.5303
-          },
-          {
-            "id": "REF-1",
-            "score": 0.107388,
-            "dense_score": 0.4897
-          },
-          {
             "id": "REF-5",
-            "score": 0.104631,
+            "score": 0.113431,
             "dense_score": 0.4182
           },
           {
-            "id": "DEL-3",
-            "score": 0.101252,
-            "dense_score": 0.4499
+            "id": "DEL-1",
+            "score": 0.112422,
+            "dense_score": 0.5303
           },
           {
             "id": "KB-00.1",
             "score": 0.013529,
             "dense_score": 0.2258
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.013528,
+            "dense_score": 0.4499
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.013527,
+            "dense_score": 0.2387
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20013.81,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 102.9,
-          "llm_ms": 20013.98
+          "retrieval_ms": 123.4,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20119.3
+        "latency_ms": 127.06
       },
       "checks": {
         "passed": true,
@@ -5059,14 +4759,14 @@
         "evidence_total": 2,
         "evidence_recall": 0.5
       },
-      "latency_ms": 20119.6
+      "latency_ms": 128.0
     },
     {
       "id": "PQ0041",
       "question": "What warranty comes with the Nimbus X2 Pro Wireless Earbuds, Blue (SKU ELE-0003)?",
       "prediction": {
         "transcript": "What warranty comes with the Nimbus X2 Pro Wireless Earbuds, Blue (SKU ELE-0003)?",
-        "answer": "I'm ZentroMart's AI support assistant. The Nimbus X2 Pro Wireless Earbuds, Blue (SKU ELE-0003) comes with a 12-month ZentroMart Assured warranty from the delivery date, in addition to a 12-month brand warranty. The ZentroMart Assured warranty can be claimed in the app under My Orders, and the brand warranty should be claimed through the manufacturer's service centre. Physical/liquid damage, normal wear, and unauthorized repairs are excluded from coverage.",
+        "answer": "I'm ZentroMart's AI support assistant. This has 12 months of ZentroMart Assured coverage from delivery, in addition to the 12-month brand warranty. Start an Assured claim in My Orders; claim the brand warranty through the manufacturer service centre. Physical/liquid damage, normal wear and unauthorized repairs are excluded.",
         "intent": "warranty",
         "decision": "answer",
         "language": "en",
@@ -5129,63 +4829,63 @@
         "retrieval_candidates": [
           {
             "id": "WAR-1",
-            "score": 0.184046,
-            "dense_score": 0.3574
-          },
-          {
-            "id": "WAR-3",
-            "score": 0.167463,
-            "dense_score": 0.2483
+            "score": 0.193556,
+            "dense_score": 0.4298
           },
           {
             "id": "WAR-2",
-            "score": 0.165641,
-            "dense_score": 0.2645
-          },
-          {
-            "id": "TRB-1",
-            "score": 0.134667,
-            "dense_score": 0.4973
-          },
-          {
-            "id": "TRB-4",
-            "score": 0.120533,
-            "dense_score": 0.4582
-          },
-          {
-            "id": "MKS-3",
-            "score": 0.114717,
-            "dense_score": 0.1103
+            "score": 0.177668,
+            "dense_score": 0.3229
           },
           {
             "id": "RET-1",
-            "score": 0.104348,
-            "dense_score": 0.1781
+            "score": 0.158553,
+            "dense_score": 0.2884
           },
           {
-            "id": "TRB-3",
-            "score": 0.102927,
-            "dense_score": 0.3057
+            "id": "RET-3",
+            "score": 0.156802,
+            "dense_score": 0.288
           },
           {
-            "id": "IDV-3",
-            "score": 0.082131,
-            "dense_score": 0.2272
+            "id": "WAR-3",
+            "score": 0.146312,
+            "dense_score": 0.2798
           },
           {
-            "id": "TRB-2",
-            "score": 0.077807,
-            "dense_score": 0.3445
+            "id": "RET-4",
+            "score": 0.137988,
+            "dense_score": 0.2872
           },
           {
-            "id": "RVP-3",
-            "score": 0.075707,
-            "dense_score": 0.2592
+            "id": "DWM-4",
+            "score": 0.135216,
+            "dense_score": 0.2394
           },
           {
-            "id": "IDV-2",
-            "score": 0.0723,
-            "dense_score": 0.2054
+            "id": "TRB-1",
+            "score": 0.135089,
+            "dense_score": 0.4493
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.130864,
+            "dense_score": 0.2107
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.08571,
+            "dense_score": 0.1297
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.040722,
+            "dense_score": 0.1815
+          },
+          {
+            "id": "TRB-4",
+            "score": 0.040721,
+            "dense_score": 0.3899
           }
         ],
         "tool_calls": [],
@@ -5196,28 +4896,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 16671.26,
-          "load_ms": 55.75,
-          "prompt_eval_ms": 3763.56,
-          "eval_ms": 12625.17,
-          "prompt_eval_count": 679,
-          "eval_count": 107,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 149.7,
-          "llm_ms": 16677.76
+          "retrieval_ms": 498.94,
+          "llm_ms": 0.0
         },
-        "latency_ms": 16831.4
+        "latency_ms": 503.96
       },
       "checks": {
         "passed": true,
@@ -5231,14 +4920,14 @@
         "evidence_total": 3,
         "evidence_recall": 1.0
       },
-      "latency_ms": 16831.8
+      "latency_ms": 504.4
     },
     {
       "id": "PQ0042",
       "question": "My order is already on its way. Can I still stop it?",
       "prediction": {
         "transcript": "My order is already on its way. Can I still stop it?",
-        "answer": "I'm ZentroMart's AI support assistant. No, you cannot cancel a shipped order. You can refuse the parcel at the door or return an eligible item after delivery. For prepaid orders, the refund follows the refund policy once the parcel returns to the warehouse.",
+        "answer": "I'm ZentroMart's AI support assistant. A shipped order cannot be cancelled; you can refuse the parcel at the door or return an eligible item after delivery. For prepaid refusals, refund processing follows the refund policy once the parcel returns to the warehouse.",
         "intent": "cancel",
         "decision": "answer",
         "language": "en",
@@ -5310,52 +4999,41 @@
             "dense_score": 0.4756
           },
           {
-            "id": "REF-4",
-            "score": 0.088611,
-            "dense_score": 0.3403
-          },
-          {
             "id": "REF-1",
             "score": 0.076814,
             "dense_score": 0.4547
           },
           {
-            "id": "KB-00.1",
-            "score": 0.051562,
-            "dense_score": 0.1127
-          },
-          {
             "id": "DEL-3",
             "score": 0.024327,
             "dense_score": 0.3108
+          },
+          {
+            "id": "ESC-1",
+            "score": 0.024326,
+            "dense_score": 0.3278
+          },
+          {
+            "id": "ESC-2",
+            "score": 0.024325,
+            "dense_score": 0.4138
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 7394.23,
-          "load_ms": 47.08,
-          "prompt_eval_ms": 2497.79,
-          "eval_ms": 4687.74,
-          "prompt_eval_count": 350,
-          "eval_count": 51,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 49.59,
-          "llm_ms": 7400.35
+          "retrieval_ms": 79.76,
+          "llm_ms": 0.0
         },
-        "latency_ms": 7452.9
+        "latency_ms": 85.81
       },
       "checks": {
         "passed": true,
@@ -5369,14 +5047,14 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 7453.2
+      "latency_ms": 86.4
     },
     {
       "id": "PQ0044",
       "question": "मुझे Aangan Cotton Double Bedsheet Set लौटाने के लिए कितने दिन मिलेंगे?",
       "prediction": {
         "transcript": "मुझे Aangan Cotton Double Bedsheet Set लौटाने के लिए कितने दिन मिलेंगे?",
-        "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। Aangan Cotton Double Bedsheet Set के लिए 10 कैलेंडर दिन मिलेंगे।",
+        "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। कैटलॉग की रिटर्न श्रेणी home, kitchen and furniture है; डिलीवरी से 10 कैलेंडर दिन, सामान की शर्तों के अनुसार।",
         "intent": "return",
         "decision": "answer",
         "language": "hi",
@@ -5409,18 +5087,28 @@
         "retrieval_candidates": [
           {
             "id": "RET-3",
-            "score": 0.138373,
+            "score": 0.143653,
             "dense_score": 0.4735
           },
           {
             "id": "RET-8",
-            "score": 0.136025,
+            "score": 0.140913,
             "dense_score": 0.4114
           },
           {
             "id": "RET-2",
-            "score": 0.121754,
+            "score": 0.126306,
             "dense_score": 0.2047
+          },
+          {
+            "id": "RET-7",
+            "score": 0.11466,
+            "dense_score": 0.2799
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.113208,
+            "dense_score": 0.2582
           },
           {
             "id": "FAQH-2",
@@ -5433,14 +5121,19 @@
             "dense_score": 0.3765
           },
           {
-            "id": "KB-00.3",
-            "score": 0.106849,
-            "dense_score": 0.2582
+            "id": "DEL-1",
+            "score": 0.103259,
+            "dense_score": 0.3221
           },
           {
-            "id": "RET-7",
-            "score": 0.105995,
-            "dense_score": 0.2799
+            "id": "REF-1",
+            "score": 0.100676,
+            "dense_score": 0.2826
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.09891,
+            "dense_score": 0.25
           },
           {
             "id": "DWM-1",
@@ -5448,24 +5141,9 @@
             "dense_score": 0.2592
           },
           {
-            "id": "DEL-1",
-            "score": 0.098182,
-            "dense_score": 0.3221
-          },
-          {
-            "id": "REF-1",
-            "score": 0.097742,
-            "dense_score": 0.2826
-          },
-          {
-            "id": "DWM-4",
-            "score": 0.095343,
-            "dense_score": 0.25
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.008036,
-            "dense_score": 0.1209
+            "id": "PLS-2",
+            "score": 0.06414,
+            "dense_score": 0.0674
           }
         ],
         "tool_calls": [],
@@ -5477,28 +5155,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 10465.83,
-          "load_ms": 31.29,
-          "prompt_eval_ms": 5480.82,
-          "eval_ms": 4810.23,
-          "prompt_eval_count": 570,
-          "eval_count": 45,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 103.91,
-          "llm_ms": 10472.03
+          "retrieval_ms": 121.5,
+          "llm_ms": 0.0
         },
-        "latency_ms": 10578.44
+        "latency_ms": 131.41
       },
       "checks": {
         "passed": true,
@@ -5512,14 +5179,14 @@
         "evidence_total": 2,
         "evidence_recall": 0.5
       },
-      "latency_ms": 10578.9
+      "latency_ms": 132.3
     },
     {
       "id": "PQ0045",
       "question": "How long does a refund to UPI take?",
       "prediction": {
         "transcript": "How long does a refund to UPI take?",
-        "answer": "I'm ZentroMart's AI support assistant. A refund to UPI takes 1 to 3 business days after initiation.",
+        "answer": "I'm ZentroMart's AI support assistant. UPI refunds take 1 to 3 business days after initiation.",
         "intent": "refund",
         "decision": "answer",
         "language": "en",
@@ -5552,8 +5219,13 @@
         "retrieval_candidates": [
           {
             "id": "REF-2",
-            "score": 0.179418,
+            "score": 0.188847,
             "dense_score": 0.5292
+          },
+          {
+            "id": "RET-7",
+            "score": 0.175724,
+            "dense_score": 0.575
           },
           {
             "id": "REF-3",
@@ -5564,11 +5236,6 @@
             "id": "REF-1",
             "score": 0.167651,
             "dense_score": 0.6227
-          },
-          {
-            "id": "RET-7",
-            "score": 0.165164,
-            "dense_score": 0.575
           },
           {
             "id": "FAQ-1",
@@ -5591,52 +5258,41 @@
             "dense_score": 0.4148
           },
           {
-            "id": "PLS-3",
-            "score": 0.120929,
-            "dense_score": 0.4375
-          },
-          {
             "id": "KB-00.3",
-            "score": 0.074622,
+            "score": 0.082122,
             "dense_score": 0.1631
           },
           {
             "id": "KB-00.1",
-            "score": 0.070891,
+            "score": 0.062328,
             "dense_score": 0.0468
           },
           {
             "id": "PLS-2",
-            "score": 0.07089,
+            "score": 0.062327,
             "dense_score": 0.3969
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.062326,
+            "dense_score": 0.3656
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 4286.86,
-          "load_ms": 38.42,
-          "prompt_eval_ms": 1608.35,
-          "eval_ms": 2483.05,
-          "prompt_eval_count": 392,
-          "eval_count": 24,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 116.51,
-          "llm_ms": 4290.2
+          "retrieval_ms": 106.48,
+          "llm_ms": 0.0
         },
-        "latency_ms": 4409.65
+        "latency_ms": 111.32
       },
       "checks": {
         "passed": true,
@@ -5650,7 +5306,7 @@
         "evidence_total": 2,
         "evidence_recall": 0.5
       },
-      "latency_ms": 4410.2
+      "latency_ms": 111.9
     },
     {
       "id": "PQ0046",
@@ -5719,78 +5375,78 @@
         ],
         "retrieval_candidates": [
           {
-            "id": "DWM-1",
-            "score": 0.073776,
-            "dense_score": 0.1964
-          },
-          {
-            "id": "TRB-2",
-            "score": 0.072904,
-            "dense_score": 0.2373
-          },
-          {
-            "id": "PLS-3",
-            "score": 0.071369,
-            "dense_score": 0.0361
-          },
-          {
-            "id": "TRB-3",
-            "score": 0.070594,
-            "dense_score": 0.205
+            "id": "WAR-1",
+            "score": 0.154889,
+            "dense_score": 0.3392
           },
           {
             "id": "RET-2",
-            "score": 0.070481,
-            "dense_score": 0.0346
-          },
-          {
-            "id": "WAR-1",
-            "score": 0.069237,
-            "dense_score": 0.2396
+            "score": 0.144708,
+            "dense_score": 0.2233
           },
           {
             "id": "RET-4",
-            "score": 0.0672,
-            "dense_score": 0.1296
+            "score": 0.136634,
+            "dense_score": 0.2719
+          },
+          {
+            "id": "RET-3",
+            "score": 0.135294,
+            "dense_score": 0.257
+          },
+          {
+            "id": "DWM-1",
+            "score": 0.121607,
+            "dense_score": 0.2441
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.10919,
+            "dense_score": 0.1772
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.108045,
+            "dense_score": 0.187
           },
           {
             "id": "DWM-3",
-            "score": 0.059568,
-            "dense_score": 0.1849
+            "score": 0.105104,
+            "dense_score": 0.2674
           },
           {
-            "id": "DWM-2",
-            "score": 0.056533,
-            "dense_score": 0.1853
+            "id": "MKS-1",
+            "score": 0.085955,
+            "dense_score": 0.1399
           },
           {
-            "id": "RET-5",
-            "score": 0.055808,
-            "dense_score": 0.0509
+            "id": "MKS-3",
+            "score": 0.081505,
+            "dense_score": 0.0786
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.081504,
+            "dense_score": 0.0147
           },
           {
             "id": "ESC-1",
-            "score": 0.024006,
-            "dense_score": 0.0991
-          },
-          {
-            "id": "ESC-2",
-            "score": 0.022806,
-            "dense_score": 0.0103
+            "score": 0.081503,
+            "dense_score": 0.2154
           }
         ],
         "tool_calls": [
           {
             "name": "create_ticket",
             "arguments": {
-              "summary": "Issue: The Kestrel Book 14 Laptop (SKU ELE-0022) I received yesterday has a crack. I want it sorted.. Intent: damage. Order: not provided. Checked: DWM-3, ESC-1, ESC-4, products.csv:ELE-0022. Verified caller: False. Escalation reason: high_value_damage. No outcome promised.",
+              "summary": "Issue: The Kestrel Book 14 Laptop (SKU ELE-0022) I received yesterday has a crack. I want it sorted.\nPublic context: Product ELE-0022.. Intent: damage. Order: not provided. Checked: DWM-3, ESC-1, ESC-4, products.csv:ELE-0022. Verified caller: False. Escalation reason: high_value_damage. No outcome promised.",
               "order_id": null,
               "reason": "high_value_damage",
               "intent": "damage"
             },
             "result": {
               "created": true,
-              "ticket_id": "TKTe58bf468359344ef81cc8daf9c7eb37d"
+              "ticket_id": "TKTa05cc194ffc94539a2f3ac4d1e33fd04"
             }
           }
         ],
@@ -5804,10 +5460,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 97.34,
+          "retrieval_ms": 321.08,
           "llm_ms": 0.0
         },
-        "latency_ms": 102.03
+        "latency_ms": 326.11
       },
       "checks": {
         "passed": true,
@@ -5821,14 +5477,14 @@
         "evidence_total": 3,
         "evidence_recall": 1.0
       },
-      "latency_ms": 102.6
+      "latency_ms": 328.3
     },
     {
       "id": "PQ0047",
       "question": "My express order arrived a day late. Do I get anything back?",
       "prediction": {
         "transcript": "My express order arrived a day late. Do I get anything back?",
-        "answer": "I'm ZentroMart's AI support assistant. If your express order arrived a day late, you will receive the ₹79 express fee credited to your ZentroMart Wallet within 48 hours. Plus members who paid no express fee will not receive any credit. Standard deliveries do not provide compensation for delays.",
+        "answer": "I'm ZentroMart's AI support assistant. For a late Express order, the paid 79 rupee Express fee is automatically credited to ZentroMart Wallet within 48 hours. Plus members who paid no Express fee get no credit; Standard delays have no compensation.",
         "intent": "late_delivery",
         "decision": "answer",
         "language": "en",
@@ -5861,91 +5517,80 @@
         "retrieval_candidates": [
           {
             "id": "DEL-4",
-            "score": 0.191125,
+            "score": 0.199641,
             "dense_score": 0.6342
           },
           {
             "id": "DEL-1",
-            "score": 0.172474,
+            "score": 0.181578,
             "dense_score": 0.4399
           },
           {
             "id": "DEL-2",
-            "score": 0.16091,
+            "score": 0.17191,
             "dense_score": 0.4252
           },
           {
             "id": "REF-1",
-            "score": 0.146572,
+            "score": 0.153011,
             "dense_score": 0.4827
           },
           {
-            "id": "PLS-2",
-            "score": 0.14375,
-            "dense_score": 0.4573
-          },
-          {
             "id": "REF-3",
-            "score": 0.141577,
+            "score": 0.149577,
             "dense_score": 0.4606
           },
           {
+            "id": "PLS-2",
+            "score": 0.148827,
+            "dense_score": 0.4573
+          },
+          {
             "id": "DEL-5",
-            "score": 0.138619,
+            "score": 0.147419,
             "dense_score": 0.3504
           },
           {
             "id": "CAN-3",
-            "score": 0.136224,
+            "score": 0.143989,
             "dense_score": 0.4376
           },
           {
             "id": "CAN-2",
-            "score": 0.128361,
+            "score": 0.13513,
             "dense_score": 0.418
           },
           {
             "id": "TRK-2",
-            "score": 0.12086,
+            "score": 0.12836,
             "dense_score": 0.4475
+          },
+          {
+            "id": "RET-8",
+            "score": 0.126188,
+            "dense_score": 0.4067
           },
           {
             "id": "KB-00.3",
             "score": 0.092389,
             "dense_score": 0.3022
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.024179,
-            "dense_score": 0.05
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 12636.92,
-          "load_ms": 34.98,
-          "prompt_eval_ms": 6263.43,
-          "eval_ms": 6187.96,
-          "prompt_eval_count": 353,
-          "eval_count": 62,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 53.36,
-          "llm_ms": 12641.09
+          "retrieval_ms": 95.96,
+          "llm_ms": 0.0
         },
-        "latency_ms": 12697.13
+        "latency_ms": 101.89
       },
       "checks": {
         "passed": true,
@@ -5959,7 +5604,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 12697.7
+      "latency_ms": 102.6
     },
     {
       "id": "PQ0048",
@@ -6010,17 +5655,17 @@
         "retrieval_candidates": [
           {
             "id": "DWM-1",
-            "score": 0.116691,
+            "score": 0.127691,
             "dense_score": 0.3473
           },
           {
             "id": "RET-5",
-            "score": 0.108075,
+            "score": 0.117504,
             "dense_score": 0.3721
           },
           {
             "id": "DWM-3",
-            "score": 0.102759,
+            "score": 0.111276,
             "dense_score": 0.2385
           },
           {
@@ -6035,37 +5680,37 @@
           },
           {
             "id": "DWM-4",
-            "score": 0.098536,
+            "score": 0.100212,
             "dense_score": 0.265
           },
           {
             "id": "RET-4",
-            "score": 0.098007,
+            "score": 0.100211,
             "dense_score": 0.3211
           },
           {
             "id": "DWM-5",
-            "score": 0.068706,
+            "score": 0.076956,
             "dense_score": 0.1727
           },
           {
-            "id": "FAQH-4",
-            "score": 0.0627,
-            "dense_score": 0.0684
+            "id": "WAR-3",
+            "score": 0.068444,
+            "dense_score": 0.0843
           },
           {
             "id": "KB-00.1",
-            "score": 0.024009,
+            "score": 0.032343,
             "dense_score": -0.0542
           },
           {
             "id": "ESC-1",
-            "score": 0.024008,
+            "score": 0.032342,
             "dense_score": 0.1047
           },
           {
             "id": "ESC-2",
-            "score": 0.024007,
+            "score": 0.032341,
             "dense_score": -0.0457
           }
         ],
@@ -6073,22 +5718,17 @@
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "model_unavailable_or_invalid",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "wall_ms": 20024.6,
-          "unavailable": true
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 64.56,
-          "llm_ms": 20024.73
+          "retrieval_ms": 72.28,
+          "llm_ms": 0.0
         },
-        "latency_ms": 20091.27
+        "latency_ms": 78.62
       },
       "checks": {
         "passed": true,
@@ -6102,14 +5742,14 @@
         "evidence_total": 2,
         "evidence_recall": 0.5
       },
-      "latency_ms": 20091.8
+      "latency_ms": 79.3
     },
     {
       "id": "PQ0049",
       "question": "I bought the Rangoli Cotton Straight Kurta in the sale on 5 October. How long can I return it?",
       "prediction": {
         "transcript": "I bought the Rangoli Cotton Straight Kurta in the sale on 5 October. How long can I return it?",
-        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is clothing, footwear and bags; its window is 30 calendar days from delivery, subject to item condition. The 30-day festive extension is only for clothing, footwear and bags placed from 1 to 15 October 2026; other categories keep their ordinary window.",
+        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is clothing, footwear and bags; its window is 30 calendar days from delivery, subject to item condition. Yes, the order placement date of 5 October 2026 is inside the offer; both 1 and 15 October are included. The 30-day festive extension is only for clothing, footwear and bags placed from 1 to 15 October 2026; other categories keep their ordinary window.",
         "intent": "return",
         "decision": "answer",
         "language": "en",
@@ -6161,63 +5801,63 @@
         "retrieval_candidates": [
           {
             "id": "RET-8",
-            "score": 0.189047,
-            "dense_score": 0.503
-          },
-          {
-            "id": "RET-3",
-            "score": 0.167719,
-            "dense_score": 0.3772
+            "score": 0.191842,
+            "dense_score": 0.5107
           },
           {
             "id": "RET-2",
-            "score": 0.149321,
-            "dense_score": 0.2384
+            "score": 0.172409,
+            "dense_score": 0.3101
           },
           {
-            "id": "REF-2",
-            "score": 0.131585,
-            "dense_score": 0.2229
+            "id": "WAR-2",
+            "score": 0.167438,
+            "dense_score": 0.3597
           },
           {
-            "id": "RET-6",
-            "score": 0.127271,
-            "dense_score": 0.3446
+            "id": "WAR-1",
+            "score": 0.166921,
+            "dense_score": 0.3634
           },
           {
-            "id": "RET-7",
-            "score": 0.126746,
-            "dense_score": 0.3155
-          },
-          {
-            "id": "RET-5",
-            "score": 0.126618,
-            "dense_score": 0.3093
-          },
-          {
-            "id": "DWM-4",
-            "score": 0.126446,
-            "dense_score": 0.3253
-          },
-          {
-            "id": "FAQ-1",
-            "score": 0.122353,
-            "dense_score": 0.2741
+            "id": "RET-3",
+            "score": 0.165192,
+            "dense_score": 0.4118
           },
           {
             "id": "RET-1",
-            "score": 0.122318,
-            "dense_score": 0.2953
+            "score": 0.154121,
+            "dense_score": 0.3271
           },
           {
-            "id": "KB-00.1",
-            "score": 0.031607,
-            "dense_score": -0.0025
+            "id": "DWM-4",
+            "score": 0.140954,
+            "dense_score": 0.3283
           },
           {
-            "id": "PLS-2",
-            "score": 0.031606,
-            "dense_score": 0.1624
+            "id": "REF-1",
+            "score": 0.134151,
+            "dense_score": 0.3469
+          },
+          {
+            "id": "RET-4",
+            "score": 0.123853,
+            "dense_score": 0.2899
+          },
+          {
+            "id": "RET-7",
+            "score": 0.113304,
+            "dense_score": 0.305
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.113303,
+            "dense_score": 0.222
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.070495,
+            "dense_score": 0.1269
           }
         ],
         "tool_calls": [],
@@ -6229,28 +5869,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_number",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 15610.65,
-          "load_ms": 37.95,
-          "prompt_eval_ms": 4631.88,
-          "eval_ms": 10723.51,
-          "prompt_eval_count": 761,
-          "eval_count": 83,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 131.67,
-          "llm_ms": 15613.68
+          "retrieval_ms": 260.4,
+          "llm_ms": 0.0
         },
-        "latency_ms": 15748.44
+        "latency_ms": 267.02
       },
       "checks": {
         "passed": true,
@@ -6264,20 +5893,21 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 15748.8
+      "latency_ms": 268.2
     },
     {
       "id": "PQ0050",
       "question": "I paid cash on delivery and returned the item. How do I get my money back?",
       "prediction": {
         "transcript": "I paid cash on delivery and returned the item. How do I get my money back?",
-        "answer": "I'm ZentroMart's AI support assistant. If you paid cash on delivery and returned the item, you can choose to get your money back via ZentroMart Wallet (instant) or a bank transfer. Bank transfers will start after your bank account details are verified, and it will take 5 to 7 business days for the transfer to complete.",
+        "answer": "I'm ZentroMart's AI support assistant. For COD refunds, choose ZentroMart Wallet, instant within 2 hours after initiation, or bank transfer, 5 to 7 business days after verified bank details.",
         "intent": "refund",
         "decision": "answer",
         "language": "en",
         "retrieved_chunk_ids": [
           "STY-1",
-          "REF-3"
+          "REF-3",
+          "REF-2"
         ],
         "sources": [
           {
@@ -6299,96 +5929,95 @@
             "effective_from": "2026-06-15",
             "version": "2.1",
             "title": "Cash-on-delivery refunds"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
           }
         ],
         "retrieval_candidates": [
           {
             "id": "REF-5",
-            "score": 0.171911,
+            "score": 0.179962,
             "dense_score": 0.5207
           },
           {
             "id": "PAY-3",
-            "score": 0.155973,
+            "score": 0.162617,
             "dense_score": 0.5011
           },
           {
             "id": "PAY-1",
-            "score": 0.151457,
+            "score": 0.158644,
             "dense_score": 0.4238
           },
           {
             "id": "RET-6",
-            "score": 0.147814,
+            "score": 0.15146,
             "dense_score": 0.5974
           },
           {
             "id": "CAN-2",
-            "score": 0.144186,
+            "score": 0.151021,
             "dense_score": 0.4617
           },
           {
-            "id": "REF-3",
-            "score": 0.140372,
-            "dense_score": 0.4673
-          },
-          {
             "id": "REF-2",
-            "score": 0.139266,
+            "score": 0.148915,
             "dense_score": 0.3816
           },
           {
+            "id": "REF-3",
+            "score": 0.14807,
+            "dense_score": 0.4673
+          },
+          {
             "id": "RET-7",
-            "score": 0.135691,
+            "score": 0.141196,
             "dense_score": 0.5466
           },
           {
             "id": "REF-6",
-            "score": 0.133632,
+            "score": 0.140232,
             "dense_score": 0.4075
           },
           {
-            "id": "KB-00.1",
-            "score": 0.085597,
-            "dense_score": -0.0297
-          },
-          {
             "id": "DEL-4",
-            "score": 0.085596,
+            "score": 0.10053,
             "dense_score": 0.3648
           },
           {
             "id": "PLS-2",
-            "score": 0.085595,
+            "score": 0.096334,
             "dense_score": 0.3287
+          },
+          {
+            "id": "REF-4",
+            "score": 0.096333,
+            "dense_score": 0.4138
           }
         ],
         "tool_calls": [],
         "facts": {},
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "grounded_llm",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
         "validation_error": null,
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 15400.62,
-          "load_ms": 79.34,
-          "prompt_eval_ms": 5446.56,
-          "eval_ms": 9606.75,
-          "prompt_eval_count": 318,
-          "eval_count": 70,
-          "done_reason": "stop"
-        },
+        "llm": {},
         "timings": {
-          "retrieval_ms": 169.52,
-          "llm_ms": 15406.45
+          "retrieval_ms": 129.45,
+          "llm_ms": 0.0
         },
-        "latency_ms": 15579.7
+        "latency_ms": 136.87
       },
       "checks": {
         "passed": true,
@@ -6398,11 +6027,11 @@
         "tools_ok": true,
         "search_hits": 2,
         "search_total": 2,
-        "evidence_hits": 1,
+        "evidence_hits": 2,
         "evidence_total": 2,
-        "evidence_recall": 0.5
+        "evidence_recall": 1.0
       },
-      "latency_ms": 15581.1
+      "latency_ms": 137.8
     },
     {
       "id": "PQ0051",
@@ -6415,7 +6044,8 @@
         "language": "en",
         "retrieved_chunk_ids": [
           "STY-1",
-          "REF-2"
+          "REF-2",
+          "STY-5"
         ],
         "sources": [
           {
@@ -6437,23 +6067,33 @@
             "effective_from": "2026-06-15",
             "version": "2.1",
             "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
           }
         ],
         "retrieval_candidates": [
           {
+            "id": "RET-7",
+            "score": 0.181794,
+            "dense_score": 0.663
+          },
+          {
             "id": "REF-2",
-            "score": 0.17189,
+            "score": 0.181318,
             "dense_score": 0.5584
           },
           {
             "id": "REF-1",
             "score": 0.171559,
             "dense_score": 0.7233
-          },
-          {
-            "id": "RET-7",
-            "score": 0.171234,
-            "dense_score": 0.663
           },
           {
             "id": "REF-6",
@@ -6487,18 +6127,18 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.09493,
+            "score": 0.10243,
             "dense_score": 0.2697
           },
           {
-            "id": "KB-00.1",
-            "score": 0.090184,
-            "dense_score": 0.1151
+            "id": "PLS-2",
+            "score": 0.102429,
+            "dense_score": 0.4388
           },
           {
-            "id": "PLS-2",
-            "score": 0.090183,
-            "dense_score": 0.4388
+            "id": "DEL-3",
+            "score": 0.057181,
+            "dense_score": 0.3332
           }
         ],
         "tool_calls": [],
@@ -6512,10 +6152,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 104.68,
+          "retrieval_ms": 82.59,
           "llm_ms": 0.0
         },
-        "latency_ms": 108.26
+        "latency_ms": 86.59
       },
       "checks": {
         "passed": true,
@@ -6529,7 +6169,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 108.4
+      "latency_ms": 86.8
     },
     {
       "id": "PQ0052",
@@ -6543,7 +6183,6 @@
         "retrieved_chunk_ids": [
           "STY-1",
           "REF-2",
-          "KB-00.1",
           "KB-00.3"
         ],
         "sources": [
@@ -6568,16 +6207,6 @@
             "title": "How long refunds take after initiation"
           },
           {
-            "id": "KB-00.1",
-            "text": "## [KB-00.1] Which document wins\nWhen two documents disagree, follow this order of precedence:\n\n1. **Policy documents** (doc_type: policy) with status `current`.\n2. **Agent guides** (doc_type: agent_guide).\n3. **Help articles** (doc_type: help).\n4. **FAQs** (doc_type: faq).\n5. **Marketing pages** (doc_type: marketing). These describe benefits in general terms and never override a policy.\n\n\nDocuments marked `status: superseded` are kept for reference only. They apply only to the cases their successor document says they still cover.",
-            "file": "00_about_this_knowledge_base.md",
-            "doc_type": "meta",
-            "status": "current",
-            "effective_from": "2026-08-01",
-            "version": "1.2",
-            "title": "Which document wins"
-          },
-          {
             "id": "KB-00.3",
             "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
             "file": "00_about_this_knowledge_base.md",
@@ -6590,28 +6219,28 @@
         ],
         "retrieval_candidates": [
           {
+            "id": "REF-2",
+            "score": 0.167289,
+            "dense_score": 0.2908
+          },
+          {
             "id": "REF-6",
-            "score": 0.159848,
+            "score": 0.1644,
             "dense_score": 0.4278
           },
           {
             "id": "REF-3",
-            "score": 0.158736,
+            "score": 0.162736,
             "dense_score": 0.4089
           },
           {
-            "id": "REF-2",
-            "score": 0.157074,
-            "dense_score": 0.2908
-          },
-          {
             "id": "REF-1",
-            "score": 0.148801,
+            "score": 0.153878,
             "dense_score": 0.3747
           },
           {
             "id": "RET-7",
-            "score": 0.140118,
+            "score": 0.150678,
             "dense_score": 0.3294
           },
           {
@@ -6636,18 +6265,18 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.115638,
+            "score": 0.119388,
             "dense_score": 0.2392
           },
           {
-            "id": "KB-00.1",
-            "score": 0.098317,
-            "dense_score": 0.1167
+            "id": "PLS-2",
+            "score": 0.112464,
+            "dense_score": 0.2915
           },
           {
-            "id": "PLS-2",
-            "score": 0.098316,
-            "dense_score": 0.2915
+            "id": "DEL-3",
+            "score": 0.054658,
+            "dense_score": 0.2496
           }
         ],
         "tool_calls": [],
@@ -6657,28 +6286,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_number",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 14269.97,
-          "load_ms": 28.77,
-          "prompt_eval_ms": 4348.9,
-          "eval_ms": 9754.08,
-          "prompt_eval_count": 821,
-          "eval_count": 88,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 80.1,
-          "llm_ms": 14274.95
+          "retrieval_ms": 226.53,
+          "llm_ms": 0.0
         },
-        "latency_ms": 14357.02
+        "latency_ms": 233.59
       },
       "checks": {
         "passed": true,
@@ -6692,7 +6310,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 14357.7
+      "latency_ms": 234.3
     },
     {
       "id": "PQ0053",
@@ -6721,7 +6339,7 @@
         "retrieval_candidates": [
           {
             "id": "RVP-1",
-            "score": 0.149057,
+            "score": 0.157945,
             "dense_score": 0.4948
           },
           {
@@ -6730,38 +6348,43 @@
             "dense_score": 0.4783
           },
           {
-            "id": "MKS-1",
-            "score": 0.129971,
-            "dense_score": 0.4514
-          },
-          {
-            "id": "RET-6",
-            "score": 0.106662,
-            "dense_score": 0.3227
-          },
-          {
             "id": "REF-1",
-            "score": 0.106661,
+            "score": 0.132385,
             "dense_score": 0.4484
           },
           {
+            "id": "RET-6",
+            "score": 0.117662,
+            "dense_score": 0.3227
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.117661,
+            "dense_score": 0.4514
+          },
+          {
             "id": "CAN-3",
-            "score": 0.10666,
+            "score": 0.11766,
             "dense_score": 0.4641
           },
           {
             "id": "CAN-1",
-            "score": 0.106659,
+            "score": 0.117659,
             "dense_score": 0.4664
           },
           {
             "id": "DEL-3",
-            "score": 0.106658,
+            "score": 0.113782,
             "dense_score": 0.3086
           },
           {
+            "id": "RVP-3",
+            "score": 0.112977,
+            "dense_score": 0.3886
+          },
+          {
             "id": "TRK-2",
-            "score": 0.106657,
+            "score": 0.112102,
             "dense_score": 0.4387
           },
           {
@@ -6770,13 +6393,8 @@
             "dense_score": 0.1713
           },
           {
-            "id": "KB-00.1",
-            "score": 0.006187,
-            "dense_score": 0.0368
-          },
-          {
             "id": "PLS-2",
-            "score": 0.006186,
+            "score": 0.006187,
             "dense_score": 0.3255
           }
         ],
@@ -6791,10 +6409,10 @@
         "validation_error": null,
         "llm": {},
         "timings": {
-          "retrieval_ms": 105.91,
+          "retrieval_ms": 147.23,
           "llm_ms": 0.0
         },
-        "latency_ms": 108.09
+        "latency_ms": 153.74
       },
       "checks": {
         "passed": true,
@@ -6808,7 +6426,7 @@
         "evidence_total": 0,
         "evidence_recall": null
       },
-      "latency_ms": 108.4
+      "latency_ms": 154.2
     },
     {
       "id": "PQ0054",
@@ -6859,12 +6477,12 @@
         "retrieval_candidates": [
           {
             "id": "RET-8",
-            "score": 0.190514,
+            "score": 0.195794,
             "dense_score": 0.4837
           },
           {
             "id": "RET-2",
-            "score": 0.177311,
+            "score": 0.182388,
             "dense_score": 0.4005
           },
           {
@@ -6874,8 +6492,13 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.136308,
+            "score": 0.140058,
             "dense_score": 0.2819
+          },
+          {
+            "id": "RET-6",
+            "score": 0.139883,
+            "dense_score": 0.3374
           },
           {
             "id": "REF-1",
@@ -6883,9 +6506,9 @@
             "dense_score": 0.2878
           },
           {
-            "id": "RET-6",
-            "score": 0.134994,
-            "dense_score": 0.3374
+            "id": "RET-9",
+            "score": 0.130834,
+            "dense_score": 0.2272
           },
           {
             "id": "RET-1",
@@ -6893,29 +6516,24 @@
             "dense_score": 0.3227
           },
           {
-            "id": "RET-9",
-            "score": 0.125334,
-            "dense_score": 0.2272
-          },
-          {
             "id": "MKS-2",
             "score": 0.125183,
             "dense_score": 0.2636
           },
           {
-            "id": "KB-00.1",
-            "score": 0.021283,
-            "dense_score": 0.0968
+            "id": "RET-5",
+            "score": 0.124391,
+            "dense_score": 0.3098
+          },
+          {
+            "id": "RET-7",
+            "score": 0.108206,
+            "dense_score": 0.2419
           },
           {
             "id": "PLS-2",
-            "score": 0.021282,
+            "score": 0.107972,
             "dense_score": 0.2491
-          },
-          {
-            "id": "DEL-3",
-            "score": 0.021281,
-            "dense_score": 0.1628
           }
         ],
         "tool_calls": [],
@@ -6927,28 +6545,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "omitted_numeric_constraint",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 6741.66,
-          "load_ms": 36.63,
-          "prompt_eval_ms": 4837.64,
-          "eval_ms": 1667.95,
-          "prompt_eval_count": 628,
-          "eval_count": 12,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 100.15,
-          "llm_ms": 6746.07
+          "retrieval_ms": 150.71,
+          "llm_ms": 0.0
         },
-        "latency_ms": 6848.85
+        "latency_ms": 157.89
       },
       "checks": {
         "passed": true,
@@ -6962,14 +6569,14 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 6849.3
+      "latency_ms": 159.8
     },
     {
       "id": "PQ0056",
       "question": "I bought the Sootra Canvas Tote Bag in the sale on 5 October. How long can I return it?",
       "prediction": {
         "transcript": "I bought the Sootra Canvas Tote Bag in the sale on 5 October. How long can I return it?",
-        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is clothing, footwear and bags; its window is 30 calendar days from delivery, subject to item condition. The 30-day festive extension is only for clothing, footwear and bags placed from 1 to 15 October 2026; other categories keep their ordinary window.",
+        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is clothing, footwear and bags; its window is 30 calendar days from delivery, subject to item condition. Yes, the order placement date of 5 October 2026 is inside the offer; both 1 and 15 October are included. The 30-day festive extension is only for clothing, footwear and bags placed from 1 to 15 October 2026; other categories keep their ordinary window.",
         "intent": "return",
         "decision": "answer",
         "language": "en",
@@ -7013,63 +6620,63 @@
         "retrieval_candidates": [
           {
             "id": "RET-8",
-            "score": 0.190514,
-            "dense_score": 0.5085
-          },
-          {
-            "id": "RET-3",
-            "score": 0.158288,
-            "dense_score": 0.3446
+            "score": 0.197565,
+            "dense_score": 0.5143
           },
           {
             "id": "RET-2",
-            "score": 0.150624,
-            "dense_score": 0.261
+            "score": 0.187992,
+            "dense_score": 0.4102
           },
           {
-            "id": "RET-6",
-            "score": 0.147266,
-            "dense_score": 0.3561
+            "id": "RET-3",
+            "score": 0.171777,
+            "dense_score": 0.3534
           },
           {
             "id": "REF-2",
-            "score": 0.141765,
-            "dense_score": 0.3018
-          },
-          {
-            "id": "RET-5",
-            "score": 0.134805,
-            "dense_score": 0.3433
+            "score": 0.15749,
+            "dense_score": 0.3772
           },
           {
             "id": "REF-1",
-            "score": 0.133782,
-            "dense_score": 0.3725
+            "score": 0.145813,
+            "dense_score": 0.3848
           },
           {
-            "id": "FAQ-1",
-            "score": 0.128158,
-            "dense_score": 0.3539
+            "id": "RET-4",
+            "score": 0.137033,
+            "dense_score": 0.3332
           },
           {
-            "id": "RET-9",
-            "score": 0.12782,
-            "dense_score": 0.2257
+            "id": "KB-00.3",
+            "score": 0.13645,
+            "dense_score": 0.2495
           },
           {
-            "id": "REF-3",
-            "score": 0.125989,
-            "dense_score": 0.352
+            "id": "RET-5",
+            "score": 0.127835,
+            "dense_score": 0.3367
           },
           {
-            "id": "KB-00.1",
-            "score": 0.031607,
-            "dense_score": 0.0779
+            "id": "RET-1",
+            "score": 0.122267,
+            "dense_score": 0.3321
+          },
+          {
+            "id": "RET-7",
+            "score": 0.103409,
+            "dense_score": 0.2941
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.103408,
+            "dense_score": 0.2855
           },
           {
             "id": "PLS-2",
-            "score": 0.031606,
-            "dense_score": 0.2026
+            "score": 0.084392,
+            "dense_score": 0.229
           }
         ],
         "tool_calls": [],
@@ -7081,28 +6688,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_number",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 18622.4,
-          "load_ms": 31.24,
-          "prompt_eval_ms": 4585.91,
-          "eval_ms": 13951.91,
-          "prompt_eval_count": 630,
-          "eval_count": 118,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 117.75,
-          "llm_ms": 18625.36
+          "retrieval_ms": 239.76,
+          "llm_ms": 0.0
         },
-        "latency_ms": 18745.43
+        "latency_ms": 248.62
       },
       "checks": {
         "passed": true,
@@ -7116,7 +6712,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 18745.9
+      "latency_ms": 249.5
     },
     {
       "id": "PQ0057",
@@ -7174,64 +6770,64 @@
         ],
         "retrieval_candidates": [
           {
-            "id": "RET-3",
-            "score": 0.186893,
-            "dense_score": 0.6707
-          },
-          {
             "id": "RET-2",
-            "score": 0.160969,
-            "dense_score": 0.2619
-          },
-          {
-            "id": "DWM-4",
-            "score": 0.153213,
-            "dense_score": 0.3823
-          },
-          {
-            "id": "RET-8",
-            "score": 0.150985,
-            "dense_score": 0.3243
-          },
-          {
-            "id": "RET-4",
-            "score": 0.14034,
-            "dense_score": 0.4042
-          },
-          {
-            "id": "REF-1",
-            "score": 0.135584,
-            "dense_score": 0.338
-          },
-          {
-            "id": "RET-7",
-            "score": 0.132635,
-            "dense_score": 0.3644
-          },
-          {
-            "id": "REF-2",
-            "score": 0.131494,
-            "dense_score": 0.3083
-          },
-          {
-            "id": "TRB-2",
-            "score": 0.124235,
-            "dense_score": 0.4176
-          },
-          {
-            "id": "KB-00.3",
-            "score": 0.123732,
-            "dense_score": 0.224
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.039771,
-            "dense_score": 0.024
+            "score": 0.179681,
+            "dense_score": 0.3705
           },
           {
             "id": "WAR-1",
-            "score": 0.03977,
-            "dense_score": 0.3653
+            "score": 0.177787,
+            "dense_score": 0.4142
+          },
+          {
+            "id": "RET-3",
+            "score": 0.172682,
+            "dense_score": 0.7018
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.145732,
+            "dense_score": 0.3303
+          },
+          {
+            "id": "RET-4",
+            "score": 0.145731,
+            "dense_score": 0.4285
+          },
+          {
+            "id": "RET-8",
+            "score": 0.14573,
+            "dense_score": 0.383
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.144689,
+            "dense_score": 0.3767
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.139669,
+            "dense_score": 0.3027
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.090558,
+            "dense_score": 0.1482
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.087599,
+            "dense_score": 0.0427
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.071725,
+            "dense_score": 0.1002
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.056236,
+            "dense_score": 0.0815
           }
         ],
         "tool_calls": [],
@@ -7243,28 +6839,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "omitted_quantity_constraint",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 19675.97,
-          "load_ms": 108.18,
-          "prompt_eval_ms": 10189.23,
-          "eval_ms": 9289.31,
-          "prompt_eval_count": 726,
-          "eval_count": 78,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 141.05,
-          "llm_ms": 19681.83
+          "retrieval_ms": 284.84,
+          "llm_ms": 0.0
         },
-        "latency_ms": 19826.56
+        "latency_ms": 293.51
       },
       "checks": {
         "passed": true,
@@ -7278,7 +6863,7 @@
         "evidence_total": 1,
         "evidence_recall": 1.0
       },
-      "latency_ms": 19826.8
+      "latency_ms": 294.0
     },
     {
       "id": "PQ0058",
@@ -7338,9 +6923,9 @@
             "dense_score": 0.3055
           },
           {
-            "id": "DEL-3",
-            "score": 0.147845,
-            "dense_score": 0.3407
+            "id": "DEL-1",
+            "score": 0.157506,
+            "dense_score": 0.3383
           },
           {
             "id": "RET-2",
@@ -7348,9 +6933,9 @@
             "dense_score": 0.1468
           },
           {
-            "id": "DEL-1",
+            "id": "DEL-3",
             "score": 0.115578,
-            "dense_score": 0.3383
+            "dense_score": 0.3407
           },
           {
             "id": "RET-3",
@@ -7373,19 +6958,19 @@
             "dense_score": 0.2787
           },
           {
+            "id": "KB-00.3",
+            "score": 0.086377,
+            "dense_score": 0.1388
+          },
+          {
+            "id": "RET-7",
+            "score": 0.081829,
+            "dense_score": 0.1802
+          },
+          {
             "id": "TRK-2",
-            "score": 0.107903,
+            "score": 0.081828,
             "dense_score": 0.3127
-          },
-          {
-            "id": "TRK-1",
-            "score": 0.107274,
-            "dense_score": 0.2983
-          },
-          {
-            "id": "KB-00.1",
-            "score": 0.021112,
-            "dense_score": 0.0602
           }
         ],
         "tool_calls": [],
@@ -7397,28 +6982,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_number",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 8911.21,
-          "load_ms": 26.41,
-          "prompt_eval_ms": 3795.57,
-          "eval_ms": 5022.2,
-          "prompt_eval_count": 598,
-          "eval_count": 49,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 120.9,
-          "llm_ms": 8915.51
+          "retrieval_ms": 115.57,
+          "llm_ms": 0.0
         },
-        "latency_ms": 9040.22
+        "latency_ms": 123.3
       },
       "checks": {
         "passed": true,
@@ -7432,7 +7006,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 9040.9
+      "latency_ms": 124.1
     },
     {
       "id": "PQ0059",
@@ -7446,7 +7020,6 @@
         "retrieved_chunk_ids": [
           "STY-1",
           "REF-2",
-          "KB-00.1",
           "KB-00.3"
         ],
         "sources": [
@@ -7471,16 +7044,6 @@
             "title": "How long refunds take after initiation"
           },
           {
-            "id": "KB-00.1",
-            "text": "## [KB-00.1] Which document wins\nWhen two documents disagree, follow this order of precedence:\n\n1. **Policy documents** (doc_type: policy) with status `current`.\n2. **Agent guides** (doc_type: agent_guide).\n3. **Help articles** (doc_type: help).\n4. **FAQs** (doc_type: faq).\n5. **Marketing pages** (doc_type: marketing). These describe benefits in general terms and never override a policy.\n\n\nDocuments marked `status: superseded` are kept for reference only. They apply only to the cases their successor document says they still cover.",
-            "file": "00_about_this_knowledge_base.md",
-            "doc_type": "meta",
-            "status": "current",
-            "effective_from": "2026-08-01",
-            "version": "1.2",
-            "title": "Which document wins"
-          },
-          {
             "id": "KB-00.3",
             "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
             "file": "00_about_this_knowledge_base.md",
@@ -7493,14 +7056,14 @@
         ],
         "retrieval_candidates": [
           {
+            "id": "REF-2",
+            "score": 0.17074,
+            "dense_score": 0.4017
+          },
+          {
             "id": "REF-3",
             "score": 0.164652,
             "dense_score": 0.5034
-          },
-          {
-            "id": "REF-2",
-            "score": 0.161312,
-            "dense_score": 0.4017
           },
           {
             "id": "REF-1",
@@ -7509,8 +7072,13 @@
           },
           {
             "id": "RET-7",
-            "score": 0.146727,
+            "score": 0.157287,
             "dense_score": 0.4654
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.151971,
+            "dense_score": 0.4778
           },
           {
             "id": "RET-8",
@@ -7518,19 +7086,19 @@
             "dense_score": 0.4769
           },
           {
-            "id": "DEL-1",
-            "score": 0.141817,
-            "dense_score": 0.4778
+            "id": "KB-00.2",
+            "score": 0.142922,
+            "dense_score": 0.4338
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.136434,
+            "dense_score": 0.3899
           },
           {
             "id": "REF-6",
             "score": 0.13621,
             "dense_score": 0.4255
-          },
-          {
-            "id": "KB-00.2",
-            "score": 0.134646,
-            "dense_score": 0.4338
           },
           {
             "id": "REF-5",
@@ -7539,17 +7107,12 @@
           },
           {
             "id": "KB-00.3",
-            "score": 0.117845,
+            "score": 0.125345,
             "dense_score": 0.2474
           },
           {
-            "id": "KB-00.1",
-            "score": 0.0989,
-            "dense_score": 0.0671
-          },
-          {
             "id": "PLS-2",
-            "score": 0.098899,
+            "score": 0.112621,
             "dense_score": 0.3404
           }
         ],
@@ -7560,28 +7123,17 @@
         },
         "verified": false,
         "reference_date": "2026-10-20",
-        "composition": "evidence_validated_fallback",
+        "composition": "evidence_validated_rules",
         "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
         "retrieval_k": 12,
         "evidence_supported": true,
-        "validation_error": "unsupported_number",
-        "llm": {
-          "cache_hit": false,
-          "attempts": 1,
-          "provider": "ollama:qwen3:1.7b",
-          "wall_ms": 12216.15,
-          "load_ms": 39.2,
-          "prompt_eval_ms": 3940.5,
-          "eval_ms": 8050.58,
-          "prompt_eval_count": 814,
-          "eval_count": 66,
-          "done_reason": "stop"
-        },
+        "validation_error": null,
+        "llm": {},
         "timings": {
-          "retrieval_ms": 129.75,
-          "llm_ms": 12221.6
+          "retrieval_ms": 164.03,
+          "llm_ms": 0.0
         },
-        "latency_ms": 12353.82
+        "latency_ms": 170.43
       },
       "checks": {
         "passed": true,
@@ -7595,7 +7147,7 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 12354.4
+      "latency_ms": 171.0
     },
     {
       "id": "PQ0060",
@@ -7669,7 +7221,7 @@
           "retrieval_ms": 0.0,
           "llm_ms": 0.0
         },
-        "latency_ms": 6.76
+        "latency_ms": 5.94
       },
       "checks": {
         "passed": true,
@@ -7683,19 +7235,8 @@
         "evidence_total": 2,
         "evidence_recall": 1.0
       },
-      "latency_ms": 7.2
+      "latency_ms": 6.3
     }
   ],
-  "rescoring": {
-    "reason": "Equivalent number words and digits are canonicalized. Gold expectations and raw predictions are unchanged.",
-    "changed_check_ids": [],
-    "raw_scoring_file": "eval_step2_raw_scoring.json",
-    "original_configuration": {
-      "recorded_at": "2026-10-24T22:13:10",
-      "runtime_sha256": "26a3ef3d82ed0e4800002da8c7bca618d6e03d165385b4488b377d23c047dcf4",
-      "llm_provider": "ollama",
-      "llm_model": "qwen3:1.7b",
-      "reference_date": "2026-10-20"
-    }
-  }
+  "scope": "Complete current official practice regression with LLM composition disabled. Separate partial live model evidence is versioned in eval_step2_live_postfix_partial.json."
 }

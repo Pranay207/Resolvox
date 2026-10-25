@@ -44,13 +44,18 @@
   "retrieval_candidates": [
     {
       "id": "DWM-1",
-      "score": 0.119749,
+      "score": 0.130749,
       "dense_score": 0.2922
     },
     {
       "id": "RET-5",
-      "score": 0.115258,
+      "score": 0.124687,
       "dense_score": 0.3982
+    },
+    {
+      "id": "DWM-2",
+      "score": 0.111621,
+      "dense_score": 0.2409
     },
     {
       "id": "FAQH-3",
@@ -58,48 +63,43 @@
       "dense_score": 0.3812
     },
     {
-      "id": "DWM-2",
-      "score": 0.102821,
-      "dense_score": 0.2409
-    },
-    {
       "id": "RET-4",
-      "score": 0.102386,
+      "score": 0.109987,
       "dense_score": 0.299
     },
     {
       "id": "DWM-3",
-      "score": 0.098781,
+      "score": 0.107297,
       "dense_score": 0.2111
     },
     {
       "id": "DWM-4",
-      "score": 0.097211,
+      "score": 0.105211,
       "dense_score": 0.2488
     },
     {
       "id": "RET-6",
-      "score": 0.070498,
+      "score": 0.080652,
       "dense_score": 0.2687
     },
     {
       "id": "DWM-5",
-      "score": 0.07034,
+      "score": 0.07859,
       "dense_score": 0.1952
     },
     {
       "id": "KB-00.1",
-      "score": 0.034444,
+      "score": 0.042778,
       "dense_score": -0.0049
     },
     {
       "id": "ESC-1",
-      "score": 0.034443,
+      "score": 0.042777,
       "dense_score": 0.1663
     },
     {
       "id": "ESC-2",
-      "score": 0.034442,
+      "score": 0.042776,
       "dense_score": 0.0855
     }
   ],
@@ -115,18 +115,18 @@
   "llm": {
     "cache_hit": false,
     "attempts": 1,
-    "wall_ms": 20026.92,
+    "wall_ms": 20034.09,
     "unavailable": true
   },
   "timings": {
-    "retrieval_ms": 71.86,
-    "llm_ms": 20027.08
+    "retrieval_ms": 60.69,
+    "llm_ms": 20034.87
   },
-  "latency_ms": 20101.61,
+  "latency_ms": 20100.59,
   "voice_timings": {
-    "stt_ms": 265.83,
-    "agent_ms": 20101.62,
-    "tts_ms": 1919.52,
-    "total_ms": 22287.12
+    "stt_ms": 188.68,
+    "agent_ms": 20100.6,
+    "tts_ms": 1970.28,
+    "total_ms": 22259.72
   }
 }

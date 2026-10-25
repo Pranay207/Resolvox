@@ -1,0 +1,17 @@
+{
+  "executed_at_utc": "2026-10-25T06:45:53.334743+00:00",
+  "mode": "offline_compose_false",
+  "seconds": 39.544,
+  "results": {
+    "eval_step2.json": {
+      "total": 52,
+      "passed": 52,
+      "errors": 0
+    },
+    "eval_step3.json": {
+      "total": 96,
+      "passed": 96,
+      "errors": 0
+    }
+  }
+}

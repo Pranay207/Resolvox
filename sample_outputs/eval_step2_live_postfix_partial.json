@@ -1,0 +1,4697 @@
+{
+  "configuration": {
+    "recorded_at": "2026-10-25T12:10:33",
+    "runtime_sha256": "31cc94706ac19b43cb1c8d38b3511124317f452f4565d32645015261c899271d",
+    "llm_provider": "ollama",
+    "llm_model": "qwen3:1.7b",
+    "reference_date": "2026-10-20",
+    "evaluation_mode": "partial_live_compose_true"
+  },
+  "summary": {
+    "search_k": [
+      12
+    ],
+    "search_recall": 0.9361702127659575,
+    "step": "grounded_single_turn",
+    "total": 32,
+    "passed": 32,
+    "pass_rate": 1.0,
+    "decision_accuracy": 1.0,
+    "evidence_recall": 0.8928571428571429,
+    "errors": 0,
+    "composition_counts": {
+      "evidence_validated_fallback": 19,
+      "grounded_llm": 6,
+      "abstained_missing_evidence": 4,
+      "evidence_validated_rules": 1,
+      "deterministic_guardrail": 2
+    },
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates at the reported k; guardrail lookups are separate.",
+    "latency_by_path": {
+      "uncached_llm_attempt": {
+        "count": 23,
+        "p50_ms": 20259.1,
+        "p95_ms": 24122.1
+      },
+      "cache_hit": {
+        "count": 2,
+        "p50_ms": 86.0,
+        "p95_ms": 86.0
+      },
+      "no_model_call": {
+        "count": 7,
+        "p50_ms": 104.5,
+        "p95_ms": 132.7
+      }
+    },
+    "complete": false,
+    "planned": 52,
+    "scope": "Partial live model evaluation after coverage fixes; stopped at a saved response boundary to prioritize user-requested fast delivery. Not a complete live practice rerun."
+  },
+  "results": [
+    {
+      "id": "PQ0002",
+      "question": "SKU ELE-0012 pe ZentroMart Assured hai kya? Claim kaise karein?",
+      "prediction": {
+        "transcript": "SKU ELE-0012 pe ZentroMart Assured hai kya? Claim kaise karein?",
+        "answer": "Main ZentroMart ki AI support assistant hoon. Delivery se 12 months ZentroMart Assured, 12 months brand warranty ke alawa hai. Assured claim My Orders se, brand claim manufacturer service centre par karein. Physical/liquid damage, normal wear aur unauthorized repairs cover nahi.",
+        "intent": "warranty",
+        "decision": "answer",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "WAR-1",
+          "WAR-2",
+          "WAR-3",
+          "products.csv:ELE-0012"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "WAR-1",
+            "text": "## [WAR-1] Brand warranty\nMost electronics come with the manufacturer's warranty. The warranty period is listed in the `warranty_months` column of the product catalog. Brand warranty claims are made with the manufacturer's service centre.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "Brand warranty"
+          },
+          {
+            "id": "WAR-2",
+            "text": "## [WAR-2] ZentroMart Assured\nProducts marked `assured = true` in the catalog carry a 12-month ZentroMart Assured warranty from the delivery date, in addition to any brand warranty. Claims are raised in the app under My Orders, and ZentroMart arranges pickup and repair or replacement.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "ZentroMart Assured"
+          },
+          {
+            "id": "WAR-3",
+            "text": "## [WAR-3] What warranty does not cover\nPhysical damage, liquid damage, normal wear and unauthorised repairs are not covered.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "What warranty does not cover"
+          },
+          {
+            "id": "products.csv:ELE-0012",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0012\", \"title\": \"Kestrel K7 Smartphone 128 GB, Beige\", \"brand\": \"Kestrel\", \"return_category\": \"electronics\", \"price_inr\": \"17549\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"True\", \"warranty_months\": \"12\", \"description\": \"Kestrel K7 Smartphone 128 GB, Beige. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "WAR-2",
+            "score": 0.186565,
+            "dense_score": 0.5064
+          },
+          {
+            "id": "RET-1",
+            "score": 0.175428,
+            "dense_score": 0.4939
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.160494,
+            "dense_score": 0.3119
+          },
+          {
+            "id": "RET-2",
+            "score": 0.160376,
+            "dense_score": 0.3565
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.152313,
+            "dense_score": 0.3809
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.150326,
+            "dense_score": 0.3735
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.149055,
+            "dense_score": 0.4407
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.146579,
+            "dense_score": 0.4122
+          },
+          {
+            "id": "RET-3",
+            "score": 0.134692,
+            "dense_score": 0.31
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.109579,
+            "dense_score": 0.3058
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.096634,
+            "dense_score": 0.0831
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.056849,
+            "dense_score": 0.246
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "brand_warranty_months": 12,
+          "assured_warranty_months": 12,
+          "assured_eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "model_unavailable_or_invalid",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "wall_ms": 359507.42,
+          "unavailable": true
+        },
+        "timings": {
+          "retrieval_ms": 290.94,
+          "llm_ms": 359507.77
+        },
+        "latency_ms": 359859.18
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 1,
+        "search_total": 1,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 359865.0
+    },
+    {
+      "id": "PQ0003",
+      "question": "How fast are refunds to the ZentroMart Wallet?",
+      "prediction": {
+        "transcript": "How fast are refunds to the ZentroMart Wallet?",
+        "answer": "I'm ZentroMart's AI support assistant. ZentroMart Wallet refunds are instant, within 2 hours after initiation.",
+        "intent": "refund",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "REF-2"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-2",
+            "score": 0.190405,
+            "dense_score": 0.6488
+          },
+          {
+            "id": "REF-3",
+            "score": 0.179223,
+            "dense_score": 0.7801
+          },
+          {
+            "id": "RET-7",
+            "score": 0.178626,
+            "dense_score": 0.689
+          },
+          {
+            "id": "REF-1",
+            "score": 0.167432,
+            "dense_score": 0.7458
+          },
+          {
+            "id": "PAY-4",
+            "score": 0.158866,
+            "dense_score": 0.6454
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.144962,
+            "dense_score": 0.6376
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.13456,
+            "dense_score": 0.5785
+          },
+          {
+            "id": "REF-6",
+            "score": 0.131002,
+            "dense_score": 0.4648
+          },
+          {
+            "id": "FAQ-1",
+            "score": 0.129713,
+            "dense_score": 0.6538
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.093999,
+            "dense_score": 0.2693
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.093998,
+            "dense_score": 0.4891
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.052865,
+            "dense_score": 0.2819
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "grounded_llm",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {
+          "cache_hit": true,
+          "attempts": 0,
+          "wall_ms": 0.73,
+          "provider": "ollama:qwen3:1.7b"
+        },
+        "timings": {
+          "retrieval_ms": 253.71,
+          "llm_ms": 7.24
+        },
+        "latency_ms": 269.02
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 1,
+        "search_total": 2,
+        "evidence_hits": 1,
+        "evidence_total": 2,
+        "evidence_recall": 0.5
+      },
+      "latency_ms": 269.2
+    },
+    {
+      "id": "PQ0004",
+      "question": "Can I schedule a delivery at midnight?",
+      "prediction": {
+        "transcript": "Can I schedule a delivery at midnight?",
+        "answer": "I'm ZentroMart's AI support assistant. I don't have enough supported information in the retrieved documents. I can help you reach a human colleague.",
+        "intent": "unsupported",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "DEL-1",
+            "score": 0.172586,
+            "dense_score": 0.5725
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.167492,
+            "dense_score": 0.3665
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.156448,
+            "dense_score": 0.5357
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.145519,
+            "dense_score": 0.5228
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.143993,
+            "dense_score": 0.3206
+          },
+          {
+            "id": "CAN-2",
+            "score": 0.130642,
+            "dense_score": 0.3598
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.129194,
+            "dense_score": 0.3151
+          },
+          {
+            "id": "PAY-2",
+            "score": 0.12484,
+            "dense_score": 0.3441
+          },
+          {
+            "id": "FAQ-3",
+            "score": 0.122646,
+            "dense_score": 0.2631
+          },
+          {
+            "id": "REF-5",
+            "score": 0.120803,
+            "dense_score": 0.2107
+          },
+          {
+            "id": "TRK-2",
+            "score": 0.11626,
+            "dense_score": 0.3589
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.064595,
+            "dense_score": 0.2124
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "abstained_missing_evidence",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": false,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 21.7,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 23.01
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 0,
+        "search_total": 0,
+        "evidence_hits": 0,
+        "evidence_total": 0,
+        "evidence_recall": null
+      },
+      "latency_ms": 23.1
+    },
+    {
+      "id": "PQ0005",
+      "question": "SKU ELE-0002 pe ZentroMart Assured hai kya? Claim kaise karein?",
+      "prediction": {
+        "transcript": "SKU ELE-0002 pe ZentroMart Assured hai kya? Claim kaise karein?",
+        "answer": "Main ZentroMart ki AI support assistant hoon. Delivery se 12 months ZentroMart Assured, 12 months brand warranty ke alawa hai. Assured claim My Orders se, brand claim manufacturer service centre par karein. Physical/liquid damage, normal wear aur unauthorized repairs cover nahi.",
+        "intent": "warranty",
+        "decision": "answer",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "WAR-1",
+          "WAR-2",
+          "WAR-3",
+          "products.csv:ELE-0002"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "WAR-1",
+            "text": "## [WAR-1] Brand warranty\nMost electronics come with the manufacturer's warranty. The warranty period is listed in the `warranty_months` column of the product catalog. Brand warranty claims are made with the manufacturer's service centre.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "Brand warranty"
+          },
+          {
+            "id": "WAR-2",
+            "text": "## [WAR-2] ZentroMart Assured\nProducts marked `assured = true` in the catalog carry a 12-month ZentroMart Assured warranty from the delivery date, in addition to any brand warranty. Claims are raised in the app under My Orders, and ZentroMart arranges pickup and repair or replacement.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "ZentroMart Assured"
+          },
+          {
+            "id": "WAR-3",
+            "text": "## [WAR-3] What warranty does not cover\nPhysical damage, liquid damage, normal wear and unauthorised repairs are not covered.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "What warranty does not cover"
+          },
+          {
+            "id": "products.csv:ELE-0002",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0002\", \"title\": \"Nimbus X2 Wireless Earbuds, Black\", \"brand\": \"Nimbus\", \"return_category\": \"electronics\", \"price_inr\": \"1899\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"True\", \"warranty_months\": \"12\", \"description\": \"Nimbus X2 Wireless Earbuds, Black. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "WAR-2",
+            "score": 0.186565,
+            "dense_score": 0.5106
+          },
+          {
+            "id": "RET-1",
+            "score": 0.175428,
+            "dense_score": 0.4911
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.164486,
+            "dense_score": 0.323
+          },
+          {
+            "id": "RET-2",
+            "score": 0.15926,
+            "dense_score": 0.3431
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.151847,
+            "dense_score": 0.3899
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.149789,
+            "dense_score": 0.3683
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.148697,
+            "dense_score": 0.4401
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.146257,
+            "dense_score": 0.4211
+          },
+          {
+            "id": "RET-4",
+            "score": 0.136811,
+            "dense_score": 0.3708
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.110954,
+            "dense_score": 0.3031
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.099101,
+            "dense_score": 0.0897
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.057801,
+            "dense_score": 0.2626
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "brand_warranty_months": 12,
+          "assured_warranty_months": 12,
+          "assured_eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "omitted_numeric_constraint",
+        "llm": {
+          "cache_hit": true,
+          "attempts": 0,
+          "wall_ms": 0.42,
+          "provider": "ollama:qwen3:1.7b"
+        },
+        "timings": {
+          "retrieval_ms": 83.23,
+          "llm_ms": 1.12
+        },
+        "latency_ms": 85.82
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 1,
+        "search_total": 1,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 86.0
+    },
+    {
+      "id": "PQ0006",
+      "question": "As a ZentroMart Plus member, will I be charged the pickup fee for returning shoes I just don't like?",
+      "prediction": {
+        "transcript": "As a ZentroMart Plus member, will I be charged the pickup fee for returning shoes I just don't like?",
+        "answer": "I'm ZentroMart's AI support assistant. No, as a ZentroMart Plus member, you will not be charged the pickup fee for returning shoes you just don't like. The fee is waived for ZentroMart Plus members and for any item returned due to damage, defect, or wrongness.",
+        "intent": "pickup",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-6",
+          "PLS-2",
+          "DWM-2"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-6",
+            "text": "## [RET-6] Reverse pickup and fees\nReturns are collected from the delivery address through reverse pickup. A reverse pickup fee of ₹49 applies to change-of-mind returns of clothing, footwear and bags. The fee is waived for ZentroMart Plus members and for any item returned because it was damaged, defective or wrong.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Reverse pickup and fees"
+          },
+          {
+            "id": "PLS-2",
+            "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+            "file": "pol_plus_membership.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-01-01",
+            "version": "1.0",
+            "title": "Benefits"
+          },
+          {
+            "id": "DWM-2",
+            "text": "## [DWM-2] Resolution\nAfter verification the customer gets a free replacement or a full refund, including delivery fees. No reverse pickup fee applies.",
+            "file": "pol_damaged_wrong_missing.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-05-01",
+            "version": "1.3",
+            "title": "Resolution"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-6",
+            "score": 0.200683,
+            "dense_score": 0.6314
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.172199,
+            "dense_score": 0.5199
+          },
+          {
+            "id": "PLS-1",
+            "score": 0.16196,
+            "dense_score": 0.5491
+          },
+          {
+            "id": "RET-7",
+            "score": 0.159766,
+            "dense_score": 0.4587
+          },
+          {
+            "id": "REF-1",
+            "score": 0.147015,
+            "dense_score": 0.4831
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.139848,
+            "dense_score": 0.4292
+          },
+          {
+            "id": "RET-8",
+            "score": 0.138076,
+            "dense_score": 0.3779
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.137678,
+            "dense_score": 0.4386
+          },
+          {
+            "id": "DWM-2",
+            "score": 0.130696,
+            "dense_score": 0.4085
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.128775,
+            "dense_score": 0.5169
+          },
+          {
+            "id": "RET-1",
+            "score": 0.125187,
+            "dense_score": 0.5107
+          },
+          {
+            "id": "RET-9",
+            "score": 0.117471,
+            "dense_score": 0.3308
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "grounded_llm",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 12019.08,
+          "load_ms": 1282.05,
+          "prompt_eval_ms": 179.44,
+          "eval_ms": 9350.1,
+          "prompt_eval_count": 510,
+          "eval_count": 62,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 48.25,
+          "llm_ms": 12025.63
+        },
+        "latency_ms": 12077.83
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 12078.6
+    },
+    {
+      "id": "PQ0008",
+      "question": "credit card wala refund 17 October 2026 ko shuru hua, kab tak aa jaana chahiye?",
+      "prediction": {
+        "transcript": "credit card wala refund 17 October 2026 ko shuru hua, kab tak aa jaana chahiye?",
+        "answer": "Main ZentroMart ki AI support assistant hoon. card mein 5 to 7 business days: 24 October 2026 se 27 October 2026, Sundays aur warehouse holidays exclude karke.",
+        "intent": "refund",
+        "decision": "answer",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "REF-2",
+          "KB-00.3"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "KB-00.3",
+            "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+            "file": "00_about_this_knowledge_base.md",
+            "doc_type": "meta",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Business days"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-2",
+            "score": 0.169107,
+            "dense_score": 0.31
+          },
+          {
+            "id": "REF-6",
+            "score": 0.163625,
+            "dense_score": 0.4335
+          },
+          {
+            "id": "REF-3",
+            "score": 0.161561,
+            "dense_score": 0.4167
+          },
+          {
+            "id": "REF-1",
+            "score": 0.153182,
+            "dense_score": 0.3969
+          },
+          {
+            "id": "RET-8",
+            "score": 0.142121,
+            "dense_score": 0.3995
+          },
+          {
+            "id": "RET-7",
+            "score": 0.141947,
+            "dense_score": 0.3052
+          },
+          {
+            "id": "PAY-1",
+            "score": 0.133495,
+            "dense_score": 0.3682
+          },
+          {
+            "id": "REF-5",
+            "score": 0.131178,
+            "dense_score": 0.4352
+          },
+          {
+            "id": "PAY-4",
+            "score": 0.128951,
+            "dense_score": 0.4514
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.116147,
+            "dense_score": 0.2396
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.112768,
+            "dense_score": 0.3121
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.105494,
+            "dense_score": 0.3252
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "refund_first": "2026-10-24",
+          "refund_last": "2026-10-27"
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "model_unavailable_or_invalid",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "wall_ms": 20033.75,
+          "unavailable": true
+        },
+        "timings": {
+          "retrieval_ms": 203.53,
+          "llm_ms": 20033.92
+        },
+        "latency_ms": 20242.63
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 20259.1
+    },
+    {
+      "id": "PQ0009",
+      "question": "Is there a student discount?",
+      "prediction": {
+        "transcript": "Is there a student discount?",
+        "answer": "I'm ZentroMart's AI support assistant. I don't have enough supported information in the retrieved documents. I can help you reach a human colleague.",
+        "intent": "unsupported",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-4",
+            "score": 0.098608,
+            "dense_score": 0.2463
+          },
+          {
+            "id": "PAY-4",
+            "score": 0.091856,
+            "dense_score": 0.2021
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.069808,
+            "dense_score": 0.1765
+          },
+          {
+            "id": "PLS-1",
+            "score": 0.029687,
+            "dense_score": 0.3377
+          },
+          {
+            "id": "RET-6",
+            "score": 0.028499,
+            "dense_score": 0.2871
+          },
+          {
+            "id": "PAY-2",
+            "score": 0.027403,
+            "dense_score": 0.2781
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.026388,
+            "dense_score": 0.2737
+          },
+          {
+            "id": "PAY-1",
+            "score": 0.024568,
+            "dense_score": 0.2522
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.022265,
+            "dense_score": 0.2403
+          },
+          {
+            "id": "FAQ-3",
+            "score": 0.021976,
+            "dense_score": 0.2617
+          },
+          {
+            "id": "REF-3",
+            "score": 0.020877,
+            "dense_score": 0.1924
+          },
+          {
+            "id": "CPN-2",
+            "score": 0.020876,
+            "dense_score": 0.1449
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "abstained_missing_evidence",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": false,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 127.85,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 131.79
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 0,
+        "search_total": 0,
+        "evidence_hits": 0,
+        "evidence_total": 0,
+        "evidence_recall": null
+      },
+      "latency_ms": 132.7
+    },
+    {
+      "id": "PQ0010",
+      "question": "Is the collection free if the UrbanThread Slim Fit Jeans came torn?",
+      "prediction": {
+        "transcript": "Is the collection free if the UrbanThread Slim Fit Jeans came torn?",
+        "answer": "I'm ZentroMart's AI support assistant. No pickup fee; it is waived for Plus members and damaged, defective or wrong items.",
+        "intent": "pickup",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-6",
+          "PLS-2",
+          "DWM-2"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-6",
+            "text": "## [RET-6] Reverse pickup and fees\nReturns are collected from the delivery address through reverse pickup. A reverse pickup fee of ₹49 applies to change-of-mind returns of clothing, footwear and bags. The fee is waived for ZentroMart Plus members and for any item returned because it was damaged, defective or wrong.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Reverse pickup and fees"
+          },
+          {
+            "id": "PLS-2",
+            "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+            "file": "pol_plus_membership.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-01-01",
+            "version": "1.0",
+            "title": "Benefits"
+          },
+          {
+            "id": "DWM-2",
+            "text": "## [DWM-2] Resolution\nAfter verification the customer gets a free replacement or a full refund, including delivery fees. No reverse pickup fee applies.",
+            "file": "pol_damaged_wrong_missing.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-05-01",
+            "version": "1.3",
+            "title": "Resolution"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-4",
+            "score": 0.128088,
+            "dense_score": 0.3116
+          },
+          {
+            "id": "DWM-2",
+            "score": 0.119264,
+            "dense_score": 0.1824
+          },
+          {
+            "id": "RET-5",
+            "score": 0.116492,
+            "dense_score": 0.304
+          },
+          {
+            "id": "RET-6",
+            "score": 0.108063,
+            "dense_score": 0.2326
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.108062,
+            "dense_score": 0.2403
+          },
+          {
+            "id": "DWM-1",
+            "score": 0.095675,
+            "dense_score": 0.2515
+          },
+          {
+            "id": "RET-9",
+            "score": 0.091914,
+            "dense_score": 0.1532
+          },
+          {
+            "id": "RVP-3",
+            "score": 0.089008,
+            "dense_score": 0.1803
+          },
+          {
+            "id": "RET-8",
+            "score": 0.08496,
+            "dense_score": 0.2855
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.028769,
+            "dense_score": 0.1125
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.028768,
+            "dense_score": 0.1853
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.028767,
+            "dense_score": 0.2924
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "omitted_negative_condition",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 8545.45,
+          "load_ms": 277.61,
+          "prompt_eval_ms": 1149.01,
+          "eval_ms": 6562.09,
+          "prompt_eval_count": 499,
+          "eval_count": 43,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 298.4,
+          "llm_ms": 8549.17
+        },
+        "latency_ms": 8854.63
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 8854.9
+    },
+    {
+      "id": "PQ0013",
+      "question": "मैंने Gulmohar Matte Lipstick खोल लिया है, क्या अब भी वापस कर सकती हूँ?",
+      "prediction": {
+        "transcript": "मैंने Gulmohar Matte Lipstick खोल लिया है, क्या अब भी वापस कर सकती हूँ?",
+        "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। खुला ब्यूटी उत्पाद पसंद बदलने पर नहीं लौट सकता; सामान बंद और सील सही होनी चाहिए।",
+        "intent": "return",
+        "decision": "answer",
+        "language": "hi",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-4",
+          "products.csv:BTY-0052"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-4",
+            "text": "## [RET-4] Condition of returned items\nItems must be unused, with original tags, packaging, accessories and free gifts. Beauty and personal care products are returnable only if unopened with the seal intact. Electronics must not be physically damaged, and any screen lock or account lock must be removed.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Condition of returned items"
+          },
+          {
+            "id": "products.csv:BTY-0052",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"BTY-0052\", \"title\": \"Gulmohar Matte Lipstick\", \"brand\": \"Gulmohar\", \"return_category\": \"beauty_sealed\", \"price_inr\": \"559\", \"fulfilled_by\": \"Urban Basket Retail\", \"assured\": \"False\", \"warranty_months\": \"0\", \"description\": \"Gulmohar Matte Lipstick. Sold on ZentroMart. Ships from a marketplace seller.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.19542,
+            "dense_score": 0.4775
+          },
+          {
+            "id": "RET-4",
+            "score": 0.18437,
+            "dense_score": 0.4146
+          },
+          {
+            "id": "RET-1",
+            "score": 0.154821,
+            "dense_score": 0.3082
+          },
+          {
+            "id": "RET-5",
+            "score": 0.146227,
+            "dense_score": 0.3185
+          },
+          {
+            "id": "RET-8",
+            "score": 0.139283,
+            "dense_score": 0.2874
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.137844,
+            "dense_score": 0.2735
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.132147,
+            "dense_score": 0.238
+          },
+          {
+            "id": "DWM-1",
+            "score": 0.131244,
+            "dense_score": 0.2356
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.13124,
+            "dense_score": 0.2251
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.129679,
+            "dense_score": 0.2749
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.121805,
+            "dense_score": 0.324
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.016771,
+            "dense_score": 0.105
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_condition_eligible": false
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "model_unavailable_or_invalid",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "wall_ms": 20014.93,
+          "unavailable": true
+        },
+        "timings": {
+          "retrieval_ms": 511.58,
+          "llm_ms": 20015.5
+        },
+        "latency_ms": 20531.84
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 1,
+        "search_total": 1,
+        "evidence_hits": 1,
+        "evidence_total": 1,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 20532.2
+    },
+    {
+      "id": "PQ0014",
+      "question": "मुझे Pagecraft A5 Ruled Notebook (Pack of 4) लौटाने के लिए कितने दिन मिलेंगे?",
+      "prediction": {
+        "transcript": "मुझे Pagecraft A5 Ruled Notebook (Pack of 4) लौटाने के लिए कितने दिन मिलेंगे?",
+        "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। कैटलॉग की रिटर्न श्रेणी books and stationery है; डिलीवरी से 10 कैलेंडर दिन, सामान की शर्तों के अनुसार।",
+        "intent": "return",
+        "decision": "answer",
+        "language": "hi",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-2",
+          "products.csv:BKS-0056"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "products.csv:BKS-0056",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"BKS-0056\", \"title\": \"Pagecraft A5 Ruled Notebook (Pack of 4)\", \"brand\": \"Pagecraft\", \"return_category\": \"books_media\", \"price_inr\": \"319\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"False\", \"warranty_months\": \"0\", \"description\": \"Pagecraft A5 Ruled Notebook (Pack of 4). Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.193568,
+            "dense_score": 0.4749
+          },
+          {
+            "id": "RET-1",
+            "score": 0.164754,
+            "dense_score": 0.3484
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.145186,
+            "dense_score": 0.3935
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.145111,
+            "dense_score": 0.2787
+          },
+          {
+            "id": "CPN-3",
+            "score": 0.144542,
+            "dense_score": 0.316
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.137432,
+            "dense_score": 0.3009
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.137275,
+            "dense_score": 0.272
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.136072,
+            "dense_score": 0.2127
+          },
+          {
+            "id": "RET-4",
+            "score": 0.135357,
+            "dense_score": 0.3905
+          },
+          {
+            "id": "RET-7",
+            "score": 0.075904,
+            "dense_score": 0.1583
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.075903,
+            "dense_score": 0.2904
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.026484,
+            "dense_score": 0.1563
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "books_media",
+          "return_days": 10,
+          "deadline": null,
+          "eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "model_unavailable_or_invalid",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "wall_ms": 20046.46,
+          "unavailable": true
+        },
+        "timings": {
+          "retrieval_ms": 424.32,
+          "llm_ms": 20047.28
+        },
+        "latency_ms": 20475.5
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 1,
+        "search_total": 1,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 20476.2
+    },
+    {
+      "id": "PQ0015",
+      "question": "Bulk order pe GST invoice milega kya?",
+      "prediction": {
+        "transcript": "Bulk order pe GST invoice milega kya?",
+        "answer": "Main ZentroMart ki AI support assistant hoon. Documents mein is bare mein jaankari nahi hai. Human colleague se connect karne mein help kar sakti hoon.",
+        "intent": "unsupported",
+        "decision": "answer",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "STY-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "CAN-1",
+            "score": 0.095733,
+            "dense_score": 0.2729
+          },
+          {
+            "id": "TRK-1",
+            "score": 0.094134,
+            "dense_score": 0.3866
+          },
+          {
+            "id": "IDV-2",
+            "score": 0.093897,
+            "dense_score": 0.337
+          },
+          {
+            "id": "CAN-2",
+            "score": 0.093572,
+            "dense_score": 0.3005
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.093362,
+            "dense_score": 0.3026
+          },
+          {
+            "id": "CPN-1",
+            "score": 0.090628,
+            "dense_score": 0.2576
+          },
+          {
+            "id": "REF-4",
+            "score": 0.084051,
+            "dense_score": 0.3022
+          },
+          {
+            "id": "FAQ-3",
+            "score": 0.083621,
+            "dense_score": 0.3893
+          },
+          {
+            "id": "RVP-1",
+            "score": 0.081154,
+            "dense_score": 0.3867
+          },
+          {
+            "id": "ESC-3",
+            "score": 0.075161,
+            "dense_score": 0.3354
+          },
+          {
+            "id": "REF-1",
+            "score": 0.070954,
+            "dense_score": 0.3393
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.013758,
+            "dense_score": 0.2003
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "abstained_missing_evidence",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": false,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 89.21,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 98.09
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 0,
+        "search_total": 0,
+        "evidence_hits": 0,
+        "evidence_total": 0,
+        "evidence_recall": null
+      },
+      "latency_ms": 104.5
+    },
+    {
+      "id": "PQ0016",
+      "question": "I opened the Neelam Eau de Parfum 50 ml and tried it once. Can I still return it?",
+      "prediction": {
+        "transcript": "I opened the Neelam Eau de Parfum 50 ml and tried it once. Can I still return it?",
+        "answer": "I'm ZentroMart's AI support assistant. No, you cannot return the Neelam Eau de Parfum 50 ml as it has been opened and tried. According to the policy, beauty products must be unopened with the seal intact to be eligible for return. Since the product is already opened, it does not meet the return condition.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-4",
+          "products.csv:BTY-0055"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-4",
+            "text": "## [RET-4] Condition of returned items\nItems must be unused, with original tags, packaging, accessories and free gifts. Beauty and personal care products are returnable only if unopened with the seal intact. Electronics must not be physically damaged, and any screen lock or account lock must be removed.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Condition of returned items"
+          },
+          {
+            "id": "products.csv:BTY-0055",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"BTY-0055\", \"title\": \"Neelam Eau de Parfum 50 ml\", \"brand\": \"Neelam\", \"return_category\": \"beauty_sealed\", \"price_inr\": \"2099\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"False\", \"warranty_months\": \"0\", \"description\": \"Neelam Eau de Parfum 50 ml. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.177863,
+            "dense_score": 0.3508
+          },
+          {
+            "id": "RET-4",
+            "score": 0.174603,
+            "dense_score": 0.4126
+          },
+          {
+            "id": "RET-1",
+            "score": 0.155991,
+            "dense_score": 0.3271
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.149232,
+            "dense_score": 0.2732
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.141789,
+            "dense_score": 0.2507
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.133876,
+            "dense_score": 0.237
+          },
+          {
+            "id": "RET-5",
+            "score": 0.133008,
+            "dense_score": 0.3285
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.130591,
+            "dense_score": 0.2529
+          },
+          {
+            "id": "RET-3",
+            "score": 0.128833,
+            "dense_score": 0.3023
+          },
+          {
+            "id": "RET-8",
+            "score": 0.128221,
+            "dense_score": 0.2996
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.124938,
+            "dense_score": 0.2563
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.027898,
+            "dense_score": 0.1051
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_condition_eligible": false
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "grounded_llm",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 18776.87,
+          "load_ms": 95.97,
+          "prompt_eval_ms": 7369.38,
+          "eval_ms": 10884.98,
+          "prompt_eval_count": 493,
+          "eval_count": 71,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 318.36,
+          "llm_ms": 18782.46
+        },
+        "latency_ms": 19104.19
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 1,
+        "evidence_total": 2,
+        "evidence_recall": 0.5
+      },
+      "latency_ms": 19104.7
+    },
+    {
+      "id": "PQ0018",
+      "question": "कितने दिन में वापस करना होगा?",
+      "prediction": {
+        "transcript": "कितने दिन में वापस करना होगा?",
+        "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। आप कौन सा उत्पाद या श्रेणी लौटाना चाहती हैं?",
+        "intent": "return",
+        "decision": "clarify",
+        "language": "hi",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-2",
+          "STY-5"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-3",
+            "score": 0.141545,
+            "dense_score": 0.5004
+          },
+          {
+            "id": "RET-8",
+            "score": 0.138087,
+            "dense_score": 0.4864
+          },
+          {
+            "id": "RET-2",
+            "score": 0.128623,
+            "dense_score": 0.31
+          },
+          {
+            "id": "RET-7",
+            "score": 0.116645,
+            "dense_score": 0.3932
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.114492,
+            "dense_score": 0.3647
+          },
+          {
+            "id": "REF-2",
+            "score": 0.11015,
+            "dense_score": 0.4331
+          },
+          {
+            "id": "REF-1",
+            "score": 0.109409,
+            "dense_score": 0.4493
+          },
+          {
+            "id": "FAQH-2",
+            "score": 0.108851,
+            "dense_score": 0.4266
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.108117,
+            "dense_score": 0.3781
+          },
+          {
+            "id": "FAQ-1",
+            "score": 0.096207,
+            "dense_score": 0.5267
+          },
+          {
+            "id": "PLS-3",
+            "score": 0.093114,
+            "dense_score": 0.3273
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.062855,
+            "dense_score": 0.1473
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_rules",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 116.42,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 120.83
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 1,
+        "search_total": 1,
+        "evidence_hits": 1,
+        "evidence_total": 1,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 123.6
+    },
+    {
+      "id": "PQ0019",
+      "question": "My Orbix Fit 3 Pro Smartwatch was delivered on 20 July. What was the return window for it?",
+      "prediction": {
+        "transcript": "My Orbix Fit 3 Pro Smartwatch was delivered on 20 July. What was the return window for it?",
+        "answer": "I'm ZentroMart's AI support assistant. The catalog return category is electronics and accessories; its window is 10 calendar days from delivery, subject to item condition. Delivery before 1 August 2026 keeps the earlier 10-day rule under the current policy historical exception.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-2",
+          "products.csv:ELE-0017",
+          "RET-3",
+          "RETv3-2"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "products.csv:ELE-0017",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0017\", \"title\": \"Orbix Fit 3 Pro Smartwatch, Blue\", \"brand\": \"Orbix\", \"return_category\": \"electronics\", \"price_inr\": \"7219\", \"fulfilled_by\": \"Metro Gadget Hub\", \"assured\": \"True\", \"warranty_months\": \"12\", \"description\": \"Orbix Fit 3 Pro Smartwatch, Blue. Sold on ZentroMart. Ships from a marketplace seller.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "RET-3",
+            "text": "## [RET-3] Change to electronics returns\nFrom **1 August 2026**, the return window for electronics and accessories is 7 days. Electronics **delivered before 1 August 2026** keep the earlier 10-day window from version 3 of this policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Change to electronics returns"
+          },
+          {
+            "id": "RETv3-2",
+            "text": "## [RETv3-2] Return windows by category\n| Category | Return window |\n| --- | --- |\n| Electronics and accessories | 10 days |\n| Clothing, footwear and bags | 15 days |\n| Home, kitchen and furniture | 10 days |\n| Beauty and personal care (unopened) | 7 days |\n| Books and stationery | 10 days |\n| Grocery, innerwear, gift cards | Not returnable |",
+            "file": "pol_returns_v3_superseded.md",
+            "doc_type": "policy",
+            "status": "superseded",
+            "effective_from": "2026-03-01",
+            "version": "3.0",
+            "title": "Return windows by category"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.188004,
+            "dense_score": 0.2885
+          },
+          {
+            "id": "RET-3",
+            "score": 0.184162,
+            "dense_score": 0.4818
+          },
+          {
+            "id": "RETv3-2",
+            "score": 0.177572,
+            "dense_score": 0.3469
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.164747,
+            "dense_score": 0.2807
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.149611,
+            "dense_score": 0.227
+          },
+          {
+            "id": "RET-8",
+            "score": 0.148915,
+            "dense_score": 0.2517
+          },
+          {
+            "id": "RET-4",
+            "score": 0.144241,
+            "dense_score": 0.3283
+          },
+          {
+            "id": "RET-1",
+            "score": 0.143566,
+            "dense_score": 0.2763
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.128928,
+            "dense_score": 0.2623
+          },
+          {
+            "id": "TRB-2",
+            "score": 0.118628,
+            "dense_score": 0.4241
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.1185,
+            "dense_score": 0.2074
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.070066,
+            "dense_score": 0.085
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "electronics",
+          "return_days": 10,
+          "deadline": "2026-07-30",
+          "eligible": false
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "model_unavailable_or_invalid",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "wall_ms": 20015.4,
+          "unavailable": true
+        },
+        "timings": {
+          "retrieval_ms": 237.97,
+          "llm_ms": 20015.57
+        },
+        "latency_ms": 20258.44
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 20259.3
+    },
+    {
+      "id": "PQ0020",
+      "question": "मुझे Sootra Canvas Tote Bag लौटाने के लिए कितने दिन मिलेंगे?",
+      "prediction": {
+        "transcript": "मुझे Sootra Canvas Tote Bag लौटाने के लिए कितने दिन मिलेंगे?",
+        "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। कैटलॉग की रिटर्न श्रेणी clothing, footwear and bags है; डिलीवरी से 15 कैलेंडर दिन, सामान की शर्तों के अनुसार।",
+        "intent": "return",
+        "decision": "answer",
+        "language": "hi",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-2",
+          "RET-8"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "RET-8",
+            "text": "## [RET-8] Festive sale returns\nClothing, footwear and bags from orders **placed between 01 October and 15 October 2026** can be returned within 30 days of delivery. All other categories follow the normal windows in RET-2.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Festive sale returns"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-8",
+            "score": 0.14816,
+            "dense_score": 0.4826
+          },
+          {
+            "id": "RET-3",
+            "score": 0.129587,
+            "dense_score": 0.3684
+          },
+          {
+            "id": "RET-2",
+            "score": 0.125882,
+            "dense_score": 0.2569
+          },
+          {
+            "id": "RET-6",
+            "score": 0.117854,
+            "dense_score": 0.3212
+          },
+          {
+            "id": "RET-7",
+            "score": 0.110573,
+            "dense_score": 0.3334
+          },
+          {
+            "id": "REF-1",
+            "score": 0.109255,
+            "dense_score": 0.3783
+          },
+          {
+            "id": "FAQH-3",
+            "score": 0.108174,
+            "dense_score": 0.4902
+          },
+          {
+            "id": "FAQH-2",
+            "score": 0.107579,
+            "dense_score": 0.465
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.104067,
+            "dense_score": 0.2798
+          },
+          {
+            "id": "RET-5",
+            "score": 0.102432,
+            "dense_score": 0.2838
+          },
+          {
+            "id": "RET-9",
+            "score": 0.090013,
+            "dense_score": 0.1807
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.063856,
+            "dense_score": 0.1857
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "fashion",
+          "return_days": 15,
+          "deadline": null,
+          "eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "model_unavailable_or_invalid",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "wall_ms": 20018.33,
+          "unavailable": true
+        },
+        "timings": {
+          "retrieval_ms": 176.26,
+          "llm_ms": 20018.8
+        },
+        "latency_ms": 20206.74
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 2,
+        "evidence_total": 3,
+        "evidence_recall": 0.6666666666666666
+      },
+      "latency_ms": 20207.3
+    },
+    {
+      "id": "PQ0021",
+      "question": "What happens if I'm not home when the courier comes?",
+      "prediction": {
+        "transcript": "What happens if I'm not home when the courier comes?",
+        "answer": "I'm ZentroMart's AI support assistant. The courier makes up to 3 delivery attempts; after a missed attempt, use the SMS to reschedule. After the third failed attempt the parcel returns to the warehouse; a prepaid refund starts only when it reaches the warehouse, usually 7 to 10 calendar days after the last attempt.",
+        "intent": "attempts",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "DEL-3",
+          "REF-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "DEL-3",
+            "text": "## [DEL-3] Delivery attempts\nThe courier makes up to 3 delivery attempts. After a failed attempt the customer gets an SMS to reschedule. If the third attempt fails, the parcel is returned to the warehouse (return to origin, RTO) and REF-1 applies.",
+            "file": "pol_delivery_shipping.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-04-01",
+            "version": "2.0",
+            "title": "Delivery attempts"
+          },
+          {
+            "id": "REF-1",
+            "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "When a refund is initiated"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "DEL-3",
+            "score": 0.189292,
+            "dense_score": 0.4678
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.156504,
+            "dense_score": 0.3567
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.149605,
+            "dense_score": 0.4381
+          },
+          {
+            "id": "TRK-1",
+            "score": 0.144636,
+            "dense_score": 0.4117
+          },
+          {
+            "id": "TRK-2",
+            "score": 0.144513,
+            "dense_score": 0.4337
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.144338,
+            "dense_score": 0.3131
+          },
+          {
+            "id": "REF-1",
+            "score": 0.137899,
+            "dense_score": 0.4036
+          },
+          {
+            "id": "RVP-2",
+            "score": 0.122241,
+            "dense_score": 0.3543
+          },
+          {
+            "id": "RVP-3",
+            "score": 0.121609,
+            "dense_score": 0.4035
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.062756,
+            "dense_score": 0.2182
+          },
+          {
+            "id": "RET-7",
+            "score": 0.062755,
+            "dense_score": 0.3697
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.062754,
+            "dense_score": 0.2921
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "omitted_numeric_constraint",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 18719.19,
+          "load_ms": 52.9,
+          "prompt_eval_ms": 10067.22,
+          "eval_ms": 8415.27,
+          "prompt_eval_count": 482,
+          "eval_count": 75,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 118.16,
+          "llm_ms": 18723.88
+        },
+        "latency_ms": 18846.26
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 1,
+        "search_total": 1,
+        "evidence_hits": 1,
+        "evidence_total": 1,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 18847.0
+    },
+    {
+      "id": "PQ0022",
+      "question": "My refund to credit card was started on 17 October 2026. By which date should I have it?",
+      "prediction": {
+        "transcript": "My refund to credit card was started on 17 October 2026. By which date should I have it?",
+        "answer": "I'm ZentroMart's AI support assistant. card takes 5 to 7 business days: 24 October 2026 to 27 October 2026, excluding Sundays and warehouse holidays.",
+        "intent": "refund",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "REF-2",
+          "KB-00.3"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "KB-00.3",
+            "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+            "file": "00_about_this_knowledge_base.md",
+            "doc_type": "meta",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Business days"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-2",
+            "score": 0.17,
+            "dense_score": 0.4057
+          },
+          {
+            "id": "REF-3",
+            "score": 0.167937,
+            "dense_score": 0.5578
+          },
+          {
+            "id": "REF-1",
+            "score": 0.148956,
+            "dense_score": 0.5229
+          },
+          {
+            "id": "RET-7",
+            "score": 0.148818,
+            "dense_score": 0.4342
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.146449,
+            "dense_score": 0.4721
+          },
+          {
+            "id": "REF-6",
+            "score": 0.144491,
+            "dense_score": 0.493
+          },
+          {
+            "id": "KB-00.2",
+            "score": 0.143989,
+            "dense_score": 0.4663
+          },
+          {
+            "id": "RET-8",
+            "score": 0.140774,
+            "dense_score": 0.4921
+          },
+          {
+            "id": "PAY-3",
+            "score": 0.139969,
+            "dense_score": 0.5283
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.135181,
+            "dense_score": 0.3796
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.127177,
+            "dense_score": 0.2908
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.10268,
+            "dense_score": 0.2764
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "refund_first": "2026-10-24",
+          "refund_last": "2026-10-27"
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "omitted_numeric_constraint",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 8108.3,
+          "load_ms": 44.21,
+          "prompt_eval_ms": 2702.47,
+          "eval_ms": 5162.15,
+          "prompt_eval_count": 642,
+          "eval_count": 49,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 163.52,
+          "llm_ms": 8112.79
+        },
+        "latency_ms": 8282.37
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 8282.9
+    },
+    {
+      "id": "PQ0023",
+      "question": "There's an order on my account that I never placed.",
+      "prediction": {
+        "transcript": "There's an order on my account that I never placed.",
+        "answer": "I'm ZentroMart's AI support assistant. This needs a human colleague; A ticket has been created; a human colleague will contact you.",
+        "intent": "fraud",
+        "decision": "escalate",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "ESC-1",
+          "ESC-2",
+          "ESC-3"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "ESC-1",
+            "text": "## [ESC-1] When to hand over to a human\nHand over at once when any of these is true:\n\n1. **Damaged, defective or wrong item worth more than ₹10,000.**\n2. **Customer reports an order, payment or account activity they did not make.**\n3. **Customer mentions legal action, a consumer court or a police complaint.**\n4. **Third or later contact about the same issue within 7 days.**\n5. **Refund more than 3 business days past its maximum timeline.**\n6. **Customer asks for a human agent.**\n7. **Product safety risk such as a swelling battery, burning smell, sparks or injury.**\n\nFor the repeat-contact rule, use the `contacts_last_7_days` field returned by order lookup. It counts earlier contacts only, not the current one. Escalate when it is 2 or more.",
+            "file": "agent_escalation_handoff.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "2.0",
+            "title": "When to hand over to a human"
+          },
+          {
+            "id": "ESC-2",
+            "text": "## [ESC-2] What to do first\nCreate a ticket with `create_ticket` before handing over. Tell the customer a human colleague will contact them, and never promise an outcome, amount or time beyond what a policy states.",
+            "file": "agent_escalation_handoff.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "2.0",
+            "title": "What to do first"
+          },
+          {
+            "id": "ESC-3",
+            "text": "## [ESC-3] Handover summary\nThe ticket summary must contain: the customer's issue, the detected intent, the order ID if any, what the customer has already told you, what you already checked, and the reason for escalation.",
+            "file": "agent_escalation_handoff.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "2.0",
+            "title": "Handover summary"
+          }
+        ],
+        "retrieval_candidates": [],
+        "tool_calls": [
+          {
+            "name": "create_ticket",
+            "arguments": {
+              "summary": "Issue: There's an order on my account that I never placed.. Intent: fraud. Order: not provided. Checked: ESC-1, ESC-2, ESC-3. Verified caller: False. Escalation reason: fraud. No outcome promised.",
+              "order_id": null,
+              "reason": "fraud",
+              "intent": "fraud"
+            },
+            "result": {
+              "created": true,
+              "ticket_id": "TKT0dedb3d4479a421c860c250eb0357034"
+            }
+          }
+        ],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "deterministic_guardrail",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 0.0,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 7.11
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 0,
+        "search_total": 1,
+        "evidence_hits": 1,
+        "evidence_total": 1,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 7.4
+    },
+    {
+      "id": "PQ0024",
+      "question": "How long do I get to send back the Rangoli Cotton Straight Kurta?",
+      "prediction": {
+        "transcript": "How long do I get to send back the Rangoli Cotton Straight Kurta?",
+        "answer": "I'm ZentroMart's AI support assistant. You have 15 calendar days from the date of delivery to return the Rangoli Cotton Straight Kurta. The return window is subject to item condition and applies to clothing, footwear and bags category as specified in the catalog.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-2",
+          "products.csv:FSH-0026",
+          "RET-8"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "products.csv:FSH-0026",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"FSH-0026\", \"title\": \"Rangoli Cotton Straight Kurta, White\", \"brand\": \"Rangoli\", \"return_category\": \"fashion\", \"price_inr\": \"699\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"False\", \"warranty_months\": \"0\", \"description\": \"Rangoli Cotton Straight Kurta, White. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "RET-8",
+            "text": "## [RET-8] Festive sale returns\nClothing, footwear and bags from orders **placed between 01 October and 15 October 2026** can be returned within 30 days of delivery. All other categories follow the normal windows in RET-2.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Festive sale returns"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.182331,
+            "dense_score": 0.3322
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.162212,
+            "dense_score": 0.3249
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.155911,
+            "dense_score": 0.3003
+          },
+          {
+            "id": "RET-8",
+            "score": 0.155289,
+            "dense_score": 0.4408
+          },
+          {
+            "id": "RET-3",
+            "score": 0.145765,
+            "dense_score": 0.3812
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.142051,
+            "dense_score": 0.294
+          },
+          {
+            "id": "RET-1",
+            "score": 0.140096,
+            "dense_score": 0.2365
+          },
+          {
+            "id": "RET-5",
+            "score": 0.129603,
+            "dense_score": 0.3206
+          },
+          {
+            "id": "REF-1",
+            "score": 0.126906,
+            "dense_score": 0.343
+          },
+          {
+            "id": "RET-7",
+            "score": 0.113217,
+            "dense_score": 0.2807
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.093847,
+            "dense_score": 0.1827
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.084436,
+            "dense_score": 0.1207
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "return_category": "fashion",
+          "return_days": 15,
+          "deadline": null,
+          "eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "grounded_llm",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 15889.35,
+          "load_ms": 54.03,
+          "prompt_eval_ms": 7634.66,
+          "eval_ms": 7892.15,
+          "prompt_eval_count": 725,
+          "eval_count": 54,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 183.1,
+          "llm_ms": 15895.7
+        },
+        "latency_ms": 16083.48
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 3,
+        "evidence_total": 3,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 16083.9
+    },
+    {
+      "id": "PQ0025",
+      "question": "If I paid with net banking, how soon will the refund show up?",
+      "prediction": {
+        "transcript": "If I paid with net banking, how soon will the refund show up?",
+        "answer": "I'm ZentroMart's AI support assistant. If you paid with net banking, the refund will show up within 3 to 5 business days after the refund is initiated.",
+        "intent": "refund",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "REF-2"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-2",
+            "score": 0.184757,
+            "dense_score": 0.5072
+          },
+          {
+            "id": "RET-7",
+            "score": 0.161172,
+            "dense_score": 0.6083
+          },
+          {
+            "id": "REF-3",
+            "score": 0.159356,
+            "dense_score": 0.6764
+          },
+          {
+            "id": "REF-6",
+            "score": 0.155558,
+            "dense_score": 0.6369
+          },
+          {
+            "id": "REF-1",
+            "score": 0.149201,
+            "dense_score": 0.622
+          },
+          {
+            "id": "PAY-3",
+            "score": 0.145525,
+            "dense_score": 0.5111
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.141552,
+            "dense_score": 0.4368
+          },
+          {
+            "id": "REF-4",
+            "score": 0.140828,
+            "dense_score": 0.4578
+          },
+          {
+            "id": "FAQ-1",
+            "score": 0.133035,
+            "dense_score": 0.665
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.090462,
+            "dense_score": 0.2395
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.090461,
+            "dense_score": 0.3956
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.09046,
+            "dense_score": 0.2773
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "grounded_llm",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 7424.15,
+          "load_ms": 491.15,
+          "prompt_eval_ms": 1735.53,
+          "eval_ms": 4769.46,
+          "prompt_eval_count": 407,
+          "eval_count": 34,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 467.47,
+          "llm_ms": 7428.01
+        },
+        "latency_ms": 7899.68
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 1,
+        "search_total": 2,
+        "evidence_hits": 1,
+        "evidence_total": 2,
+        "evidence_recall": 0.5
+      },
+      "latency_ms": 7900.7
+    },
+    {
+      "id": "PQ0026",
+      "question": "What warranty comes with the Voltra PowerCell 10000 mAh Power Bank, Green (SKU ELE-0008)?",
+      "prediction": {
+        "transcript": "What warranty comes with the Voltra PowerCell 10000 mAh Power Bank, Green (SKU ELE-0008)?",
+        "answer": "I'm ZentroMart's AI support assistant. This has 12 months of ZentroMart Assured coverage from delivery, in addition to the 6-month brand warranty. Start an Assured claim in My Orders; claim the brand warranty through the manufacturer service centre. Physical/liquid damage, normal wear and unauthorized repairs are excluded.",
+        "intent": "warranty",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "WAR-1",
+          "WAR-2",
+          "WAR-3",
+          "products.csv:ELE-0008"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "WAR-1",
+            "text": "## [WAR-1] Brand warranty\nMost electronics come with the manufacturer's warranty. The warranty period is listed in the `warranty_months` column of the product catalog. Brand warranty claims are made with the manufacturer's service centre.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "Brand warranty"
+          },
+          {
+            "id": "WAR-2",
+            "text": "## [WAR-2] ZentroMart Assured\nProducts marked `assured = true` in the catalog carry a 12-month ZentroMart Assured warranty from the delivery date, in addition to any brand warranty. Claims are raised in the app under My Orders, and ZentroMart arranges pickup and repair or replacement.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "ZentroMart Assured"
+          },
+          {
+            "id": "WAR-3",
+            "text": "## [WAR-3] What warranty does not cover\nPhysical damage, liquid damage, normal wear and unauthorised repairs are not covered.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "What warranty does not cover"
+          },
+          {
+            "id": "products.csv:ELE-0008",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0008\", \"title\": \"Voltra PowerCell 10000 mAh Power Bank, Green\", \"brand\": \"Voltra\", \"return_category\": \"electronics\", \"price_inr\": \"1059\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"True\", \"warranty_months\": \"6\", \"description\": \"Voltra PowerCell 10000 mAh Power Bank, Green. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "WAR-1",
+            "score": 0.19154,
+            "dense_score": 0.4488
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.182141,
+            "dense_score": 0.3664
+          },
+          {
+            "id": "RET-1",
+            "score": 0.173665,
+            "dense_score": 0.3439
+          },
+          {
+            "id": "RET-2",
+            "score": 0.124526,
+            "dense_score": 0.1819
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.124525,
+            "dense_score": 0.3389
+          },
+          {
+            "id": "RET-3",
+            "score": 0.124524,
+            "dense_score": 0.2768
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.124523,
+            "dense_score": 0.263
+          },
+          {
+            "id": "CPN-3",
+            "score": 0.124522,
+            "dense_score": 0.3477
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.124521,
+            "dense_score": 0.2124
+          },
+          {
+            "id": "REF-6",
+            "score": 0.123206,
+            "dense_score": 0.2911
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.088715,
+            "dense_score": 0.1369
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.066452,
+            "dense_score": 0.1971
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "brand_warranty_months": 6,
+          "assured_warranty_months": 12,
+          "assured_eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "model_unavailable_or_invalid",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "wall_ms": 987741.84,
+          "unavailable": true
+        },
+        "timings": {
+          "retrieval_ms": 271.97,
+          "llm_ms": 987742.09
+        },
+        "latency_ms": 988023.57
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 3,
+        "evidence_total": 3,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 988024.5
+    },
+    {
+      "id": "PQ0027",
+      "question": "UPI wala refund 12 October 2026 ko shuru hua, kab tak aa jaana chahiye?",
+      "prediction": {
+        "transcript": "UPI wala refund 12 October 2026 ko shuru hua, kab tak aa jaana chahiye?",
+        "answer": "Main ZentroMart ki AI support assistant hoon. UPI mein 1 to 3 business days: 13 October 2026 se 15 October 2026, Sundays aur warehouse holidays exclude karke.",
+        "intent": "refund",
+        "decision": "answer",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "REF-2",
+          "KB-00.3"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "KB-00.3",
+            "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+            "file": "00_about_this_knowledge_base.md",
+            "doc_type": "meta",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Business days"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-2",
+            "score": 0.16708,
+            "dense_score": 0.2705
+          },
+          {
+            "id": "REF-1",
+            "score": 0.161531,
+            "dense_score": 0.3837
+          },
+          {
+            "id": "REF-6",
+            "score": 0.157252,
+            "dense_score": 0.3772
+          },
+          {
+            "id": "RET-7",
+            "score": 0.151898,
+            "dense_score": 0.3072
+          },
+          {
+            "id": "REF-3",
+            "score": 0.147978,
+            "dense_score": 0.3175
+          },
+          {
+            "id": "RET-8",
+            "score": 0.145213,
+            "dense_score": 0.3692
+          },
+          {
+            "id": "REF-5",
+            "score": 0.133535,
+            "dense_score": 0.4303
+          },
+          {
+            "id": "RET-3",
+            "score": 0.126787,
+            "dense_score": 0.33
+          },
+          {
+            "id": "REF-4",
+            "score": 0.126273,
+            "dense_score": 0.3691
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.102846,
+            "dense_score": 0.177
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.102845,
+            "dense_score": 0.3137
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.059807,
+            "dense_score": 0.2631
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "refund_first": "2026-10-13",
+          "refund_last": "2026-10-15"
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "model_unavailable_or_invalid",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "wall_ms": 23763.74,
+          "unavailable": true
+        },
+        "timings": {
+          "retrieval_ms": 354.93,
+          "llm_ms": 23763.84
+        },
+        "latency_ms": 24120.97
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 24122.1
+    },
+    {
+      "id": "PQ0028",
+      "question": "My refund to net banking was started on 14 October 2026. By which date should I have it?",
+      "prediction": {
+        "transcript": "My refund to net banking was started on 14 October 2026. By which date should I have it?",
+        "answer": "I'm ZentroMart's AI support assistant. net banking takes 3 to 5 business days: 17 October 2026 to 21 October 2026, excluding Sundays and warehouse holidays.",
+        "intent": "refund",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "REF-2",
+          "KB-00.3"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "KB-00.3",
+            "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+            "file": "00_about_this_knowledge_base.md",
+            "doc_type": "meta",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Business days"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-2",
+            "score": 0.174296,
+            "dense_score": 0.4418
+          },
+          {
+            "id": "REF-3",
+            "score": 0.167937,
+            "dense_score": 0.606
+          },
+          {
+            "id": "RET-7",
+            "score": 0.160154,
+            "dense_score": 0.5094
+          },
+          {
+            "id": "REF-1",
+            "score": 0.150715,
+            "dense_score": 0.5515
+          },
+          {
+            "id": "REF-6",
+            "score": 0.147722,
+            "dense_score": 0.5126
+          },
+          {
+            "id": "KB-00.2",
+            "score": 0.144192,
+            "dense_score": 0.4583
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.140839,
+            "dense_score": 0.4441
+          },
+          {
+            "id": "RET-8",
+            "score": 0.135722,
+            "dense_score": 0.4642
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.132035,
+            "dense_score": 0.3667
+          },
+          {
+            "id": "RET-3",
+            "score": 0.129812,
+            "dense_score": 0.479
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.12864,
+            "dense_score": 0.2984
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.106468,
+            "dense_score": 0.3056
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "refund_first": "2026-10-17",
+          "refund_last": "2026-10-21"
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "unsupported_number",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 14328.48,
+          "load_ms": 704.73,
+          "prompt_eval_ms": 2329.99,
+          "eval_ms": 10677.31,
+          "prompt_eval_count": 643,
+          "eval_count": 59,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 265.7,
+          "llm_ms": 14333.48
+        },
+        "latency_ms": 14614.3
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 14615.0
+    },
+    {
+      "id": "PQ0029",
+      "question": "credit card wala refund 12 October 2026 ko shuru hua, kab tak aa jaana chahiye?",
+      "prediction": {
+        "transcript": "credit card wala refund 12 October 2026 ko shuru hua, kab tak aa jaana chahiye?",
+        "answer": "Main ZentroMart ki AI support assistant hoon. card mein 5 to 7 business days: 17 October 2026 se 21 October 2026, Sundays aur warehouse holidays exclude karke.",
+        "intent": "refund",
+        "decision": "answer",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "REF-2",
+          "KB-00.3"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "KB-00.3",
+            "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+            "file": "00_about_this_knowledge_base.md",
+            "doc_type": "meta",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Business days"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-2",
+            "score": 0.170864,
+            "dense_score": 0.3298
+          },
+          {
+            "id": "REF-6",
+            "score": 0.168298,
+            "dense_score": 0.4606
+          },
+          {
+            "id": "REF-3",
+            "score": 0.162293,
+            "dense_score": 0.4319
+          },
+          {
+            "id": "REF-1",
+            "score": 0.15631,
+            "dense_score": 0.4168
+          },
+          {
+            "id": "RET-7",
+            "score": 0.142346,
+            "dense_score": 0.3202
+          },
+          {
+            "id": "RET-8",
+            "score": 0.140686,
+            "dense_score": 0.4037
+          },
+          {
+            "id": "PAY-1",
+            "score": 0.135096,
+            "dense_score": 0.3803
+          },
+          {
+            "id": "REF-5",
+            "score": 0.132712,
+            "dense_score": 0.4603
+          },
+          {
+            "id": "PAY-4",
+            "score": 0.125309,
+            "dense_score": 0.4599
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.114005,
+            "dense_score": 0.2275
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.114004,
+            "dense_score": 0.3344
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.054538,
+            "dense_score": 0.2603
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "refund_first": "2026-10-17",
+          "refund_last": "2026-10-21"
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "unsupported_number",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 17177.24,
+          "load_ms": 745.73,
+          "prompt_eval_ms": 3665.56,
+          "eval_ms": 11607.21,
+          "prompt_eval_count": 648,
+          "eval_count": 65,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 255.88,
+          "llm_ms": 17189.13
+        },
+        "latency_ms": 17462.08
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 17463.4
+    },
+    {
+      "id": "PQ0030",
+      "question": "The Kestrel Book 14 Laptop (SKU ELE-0023) I received yesterday has a crack. I want it sorted.",
+      "prediction": {
+        "transcript": "The Kestrel Book 14 Laptop (SKU ELE-0023) I received yesterday has a crack. I want it sorted.",
+        "answer": "I'm ZentroMart's AI support assistant. Damage claims above 10,000 rupees need the Priority Resolution team; I cannot approve a replacement. A ticket has been created; a human colleague will contact you.",
+        "intent": "damage",
+        "decision": "escalate",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "DWM-3",
+          "ESC-1",
+          "ESC-4",
+          "products.csv:ELE-0023"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "DWM-3",
+            "text": "## [DWM-3] High-value items\nClaims for items worth more than ₹10,000 are handled by the Priority Resolution team. The support agent must create a ticket and hand over; the agent cannot approve these claims.",
+            "file": "pol_damaged_wrong_missing.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-05-01",
+            "version": "1.3",
+            "title": "High-value items"
+          },
+          {
+            "id": "ESC-1",
+            "text": "## [ESC-1] When to hand over to a human\nHand over at once when any of these is true:\n\n1. **Damaged, defective or wrong item worth more than ₹10,000.**\n2. **Customer reports an order, payment or account activity they did not make.**\n3. **Customer mentions legal action, a consumer court or a police complaint.**\n4. **Third or later contact about the same issue within 7 days.**\n5. **Refund more than 3 business days past its maximum timeline.**\n6. **Customer asks for a human agent.**\n7. **Product safety risk such as a swelling battery, burning smell, sparks or injury.**\n\nFor the repeat-contact rule, use the `contacts_last_7_days` field returned by order lookup. It counts earlier contacts only, not the current one. Escalate when it is 2 or more.",
+            "file": "agent_escalation_handoff.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "2.0",
+            "title": "When to hand over to a human"
+          },
+          {
+            "id": "ESC-4",
+            "text": "## [ESC-4] Things you must never do\n- Promise compensation, refunds or exceptions that a policy does not allow.\n- Say an action is done unless the tool call succeeded.\n- Share another customer's details.",
+            "file": "agent_escalation_handoff.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "2.0",
+            "title": "Things you must never do"
+          },
+          {
+            "id": "products.csv:ELE-0023",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0023\", \"title\": \"Kestrel Book 14 Laptop, Grey\", \"brand\": \"Kestrel\", \"return_category\": \"electronics\", \"price_inr\": \"45999\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"False\", \"warranty_months\": \"12\", \"description\": \"Kestrel Book 14 Laptop, Grey. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "WAR-1",
+            "score": 0.155881,
+            "dense_score": 0.3478
+          },
+          {
+            "id": "RET-2",
+            "score": 0.144668,
+            "dense_score": 0.2124
+          },
+          {
+            "id": "RET-4",
+            "score": 0.139195,
+            "dense_score": 0.2619
+          },
+          {
+            "id": "RET-3",
+            "score": 0.135512,
+            "dense_score": 0.2531
+          },
+          {
+            "id": "DWM-1",
+            "score": 0.121708,
+            "dense_score": 0.2335
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.109305,
+            "dense_score": 0.185
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.108342,
+            "dense_score": 0.1751
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.103924,
+            "dense_score": 0.2563
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.072417,
+            "dense_score": 0.1438
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.072416,
+            "dense_score": 0.081
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.072415,
+            "dense_score": 0.0141
+          },
+          {
+            "id": "ESC-1",
+            "score": 0.072414,
+            "dense_score": 0.2095
+          }
+        ],
+        "tool_calls": [
+          {
+            "name": "create_ticket",
+            "arguments": {
+              "summary": "Issue: The Kestrel Book 14 Laptop (SKU ELE-0023) I received yesterday has a crack. I want it sorted.\nPublic context: Product ELE-0023.. Intent: damage. Order: not provided. Checked: DWM-3, ESC-1, ESC-4, products.csv:ELE-0023. Verified caller: False. Escalation reason: high_value_damage. No outcome promised.",
+              "order_id": null,
+              "reason": "high_value_damage",
+              "intent": "damage"
+            },
+            "result": {
+              "created": true,
+              "ticket_id": "TKTb3582a24ec454dfc99b88709c08eb647"
+            }
+          }
+        ],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "deterministic_guardrail",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 4240.06,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 4312.23
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 3,
+        "evidence_total": 3,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 4327.7
+    },
+    {
+      "id": "PQ0031",
+      "question": "My Bluetooth speaker won't turn on at all.",
+      "prediction": {
+        "transcript": "My Bluetooth speaker won't turn on at all.",
+        "answer": "I'm ZentroMart's AI support assistant. Charge the Bluetooth speaker for at least 30 minutes using the original cable. Hold the power button for 10 seconds to force a restart. If the issue persists, the item can be returned within its warranty window or claimed under warranty.",
+        "intent": "troubleshoot",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "TRB-4"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "TRB-4",
+            "text": "## [TRB-4] Bluetooth speaker not powering on\n1. Charge it for at least 30 minutes with the original cable.\n2. Hold the power button for 10 seconds to force a restart.\n\nIf the problem continues after these steps, the item can be returned within its window or claimed under warranty.",
+            "file": "help_troubleshooting_electronics.md",
+            "doc_type": "help",
+            "status": "current",
+            "effective_from": "2026-05-01",
+            "version": "1.0",
+            "title": "Bluetooth speaker not powering on"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "TRB-4",
+            "score": 0.170655,
+            "dense_score": 0.6325
+          },
+          {
+            "id": "TRB-3",
+            "score": 0.167481,
+            "dense_score": 0.2934
+          },
+          {
+            "id": "TRB-2",
+            "score": 0.161747,
+            "dense_score": 0.4186
+          },
+          {
+            "id": "TRB-1",
+            "score": 0.159069,
+            "dense_score": 0.4476
+          },
+          {
+            "id": "RET-3",
+            "score": 0.072681,
+            "dense_score": 0.042
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.067065,
+            "dense_score": -0.0104
+          },
+          {
+            "id": "RET-8",
+            "score": 0.063119,
+            "dense_score": -0.0922
+          },
+          {
+            "id": "RET-4",
+            "score": 0.061792,
+            "dense_score": 0.0447
+          },
+          {
+            "id": "KB-00.2",
+            "score": 0.060875,
+            "dense_score": -0.0889
+          },
+          {
+            "id": "RET-2",
+            "score": 0.030467,
+            "dense_score": 0.0268
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "grounded_llm",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": null,
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "provider": "ollama:qwen3:1.7b",
+          "wall_ms": 16907.14,
+          "load_ms": 954.31,
+          "prompt_eval_ms": 6478.17,
+          "eval_ms": 8975.36,
+          "prompt_eval_count": 352,
+          "eval_count": 57,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 637.74,
+          "llm_ms": 16911.87
+        },
+        "latency_ms": 17565.79
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 1,
+        "search_total": 1,
+        "evidence_hits": 1,
+        "evidence_total": 1,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 17566.5
+    },
+    {
+      "id": "PQ0032",
+      "question": "SKU ELE-0003 pe ZentroMart Assured hai kya? Claim kaise karein?",
+      "prediction": {
+        "transcript": "SKU ELE-0003 pe ZentroMart Assured hai kya? Claim kaise karein?",
+        "answer": "Main ZentroMart ki AI support assistant hoon. Delivery se 12 months ZentroMart Assured, 12 months brand warranty ke alawa hai. Assured claim My Orders se, brand claim manufacturer service centre par karein. Physical/liquid damage, normal wear aur unauthorized repairs cover nahi.",
+        "intent": "warranty",
+        "decision": "answer",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "WAR-1",
+          "WAR-2",
+          "WAR-3",
+          "products.csv:ELE-0003"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "WAR-1",
+            "text": "## [WAR-1] Brand warranty\nMost electronics come with the manufacturer's warranty. The warranty period is listed in the `warranty_months` column of the product catalog. Brand warranty claims are made with the manufacturer's service centre.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "Brand warranty"
+          },
+          {
+            "id": "WAR-2",
+            "text": "## [WAR-2] ZentroMart Assured\nProducts marked `assured = true` in the catalog carry a 12-month ZentroMart Assured warranty from the delivery date, in addition to any brand warranty. Claims are raised in the app under My Orders, and ZentroMart arranges pickup and repair or replacement.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "ZentroMart Assured"
+          },
+          {
+            "id": "WAR-3",
+            "text": "## [WAR-3] What warranty does not cover\nPhysical damage, liquid damage, normal wear and unauthorised repairs are not covered.",
+            "file": "pol_warranty_assured.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-02-01",
+            "version": "1.1",
+            "title": "What warranty does not cover"
+          },
+          {
+            "id": "products.csv:ELE-0003",
+            "file": "data/products.csv",
+            "text": "{\"sku\": \"ELE-0003\", \"title\": \"Nimbus X2 Pro Wireless Earbuds, Blue\", \"brand\": \"Nimbus\", \"return_category\": \"electronics\", \"price_inr\": \"4229\", \"fulfilled_by\": \"ZentroMart\", \"assured\": \"True\", \"warranty_months\": \"12\", \"description\": \"Nimbus X2 Pro Wireless Earbuds, Blue. Sold on ZentroMart.\"}",
+            "doc_type": "catalog",
+            "status": "current"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "WAR-2",
+            "score": 0.186898,
+            "dense_score": 0.5131
+          },
+          {
+            "id": "RET-1",
+            "score": 0.175,
+            "dense_score": 0.4728
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.159922,
+            "dense_score": 0.3102
+          },
+          {
+            "id": "RET-2",
+            "score": 0.159384,
+            "dense_score": 0.3256
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.151882,
+            "dense_score": 0.3747
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.150487,
+            "dense_score": 0.3522
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.148508,
+            "dense_score": 0.4286
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.146579,
+            "dense_score": 0.4029
+          },
+          {
+            "id": "RET-4",
+            "score": 0.133076,
+            "dense_score": 0.3362
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.11043,
+            "dense_score": 0.2943
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.09814,
+            "dense_score": 0.0681
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.056637,
+            "dense_score": 0.2493
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "brand_warranty_months": 12,
+          "assured_warranty_months": 12,
+          "assured_eligible": true
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "model_unavailable_or_invalid",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "wall_ms": 20013.67,
+          "unavailable": true
+        },
+        "timings": {
+          "retrieval_ms": 310.0,
+          "llm_ms": 20013.98
+        },
+        "latency_ms": 20328.46
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 1,
+        "search_total": 1,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 20329.8
+    },
+    {
+      "id": "PQ0033",
+      "question": "My refund to net banking was started on 17 October 2026. By which date should I have it?",
+      "prediction": {
+        "transcript": "My refund to net banking was started on 17 October 2026. By which date should I have it?",
+        "answer": "I'm ZentroMart's AI support assistant. net banking takes 3 to 5 business days: 22 October 2026 to 24 October 2026, excluding Sundays and warehouse holidays.",
+        "intent": "refund",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "REF-2",
+          "KB-00.3"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "KB-00.3",
+            "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+            "file": "00_about_this_knowledge_base.md",
+            "doc_type": "meta",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Business days"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-2",
+            "score": 0.174296,
+            "dense_score": 0.4261
+          },
+          {
+            "id": "REF-3",
+            "score": 0.168979,
+            "dense_score": 0.6057
+          },
+          {
+            "id": "RET-7",
+            "score": 0.15765,
+            "dense_score": 0.4984
+          },
+          {
+            "id": "REF-1",
+            "score": 0.15127,
+            "dense_score": 0.5498
+          },
+          {
+            "id": "REF-6",
+            "score": 0.147169,
+            "dense_score": 0.5007
+          },
+          {
+            "id": "KB-00.2",
+            "score": 0.144465,
+            "dense_score": 0.4795
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.142483,
+            "dense_score": 0.4576
+          },
+          {
+            "id": "RET-8",
+            "score": 0.134499,
+            "dense_score": 0.468
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.133618,
+            "dense_score": 0.3737
+          },
+          {
+            "id": "PAY-3",
+            "score": 0.130232,
+            "dense_score": 0.4986
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.129987,
+            "dense_score": 0.3222
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.104682,
+            "dense_score": 0.3043
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "refund_first": "2026-10-22",
+          "refund_last": "2026-10-24"
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "model_unavailable_or_invalid",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "wall_ms": 20120.82,
+          "unavailable": true
+        },
+        "timings": {
+          "retrieval_ms": 1066.28,
+          "llm_ms": 20121.2
+        },
+        "latency_ms": 21235.33
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 21301.0
+    },
+    {
+      "id": "PQ0034",
+      "question": "Can you deliver to Dubai?",
+      "prediction": {
+        "transcript": "Can you deliver to Dubai?",
+        "answer": "I'm ZentroMart's AI support assistant. Delivery is only within India, to serviceable pincodes.",
+        "intent": "delivery",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "DEL-5",
+          "FAQ-5"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "DEL-5",
+            "text": "## [DEL-5] Where we deliver\nZentroMart delivers only within India, to pincodes listed as serviceable in the pincode table. Cash on delivery and Express are available only where the pincode table says so (`cod_available`, `express_available`). Not every metro pincode has Express.",
+            "file": "pol_delivery_shipping.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-04-01",
+            "version": "2.0",
+            "title": "Where we deliver"
+          },
+          {
+            "id": "FAQ-5",
+            "text": "## [FAQ-5] Do you deliver outside India?\nWe currently deliver only within India.",
+            "file": "faq_general.md",
+            "doc_type": "faq",
+            "status": "current",
+            "effective_from": "2025-11-01",
+            "version": "1.0",
+            "title": "Do you deliver outside India?"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "DEL-2",
+            "score": 0.147667,
+            "dense_score": 0.2366
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.144005,
+            "dense_score": 0.3401
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.140021,
+            "dense_score": 0.3025
+          },
+          {
+            "id": "DEL-5",
+            "score": 0.118888,
+            "dense_score": 0.2453
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.118449,
+            "dense_score": 0.2278
+          },
+          {
+            "id": "FAQ-5",
+            "score": 0.118438,
+            "dense_score": 0.3146
+          },
+          {
+            "id": "DEL-6",
+            "score": 0.11451,
+            "dense_score": 0.2876
+          },
+          {
+            "id": "CAN-2",
+            "score": 0.114401,
+            "dense_score": 0.2842
+          },
+          {
+            "id": "PAY-2",
+            "score": 0.112651,
+            "dense_score": 0.2562
+          },
+          {
+            "id": "REF-1",
+            "score": 0.053769,
+            "dense_score": 0.1886
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.037442,
+            "dense_score": 0.1196
+          },
+          {
+            "id": "FAQ-3",
+            "score": 0.037441,
+            "dense_score": 0.1647
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "model_unavailable_or_invalid",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "wall_ms": 20235.33,
+          "unavailable": true
+        },
+        "timings": {
+          "retrieval_ms": 2954.48,
+          "llm_ms": 20235.63
+        },
+        "latency_ms": 23437.61
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 23438.0
+    },
+    {
+      "id": "PQ0035",
+      "question": "net banking wala refund 12 October 2026 ko shuru hua, kab tak aa jaana chahiye?",
+      "prediction": {
+        "transcript": "net banking wala refund 12 October 2026 ko shuru hua, kab tak aa jaana chahiye?",
+        "answer": "Main ZentroMart ki AI support assistant hoon. net banking mein 3 to 5 business days: 15 October 2026 se 17 October 2026, Sundays aur warehouse holidays exclude karke.",
+        "intent": "refund",
+        "decision": "answer",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "REF-2",
+          "KB-00.3"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "KB-00.3",
+            "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+            "file": "00_about_this_knowledge_base.md",
+            "doc_type": "meta",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Business days"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-6",
+            "score": 0.169462,
+            "dense_score": 0.4619
+          },
+          {
+            "id": "REF-2",
+            "score": 0.167557,
+            "dense_score": 0.3121
+          },
+          {
+            "id": "REF-3",
+            "score": 0.160735,
+            "dense_score": 0.43
+          },
+          {
+            "id": "REF-1",
+            "score": 0.153445,
+            "dense_score": 0.3993
+          },
+          {
+            "id": "RET-7",
+            "score": 0.152419,
+            "dense_score": 0.3621
+          },
+          {
+            "id": "PAY-1",
+            "score": 0.135743,
+            "dense_score": 0.3736
+          },
+          {
+            "id": "RET-8",
+            "score": 0.12977,
+            "dense_score": 0.3602
+          },
+          {
+            "id": "CPN-3",
+            "score": 0.128553,
+            "dense_score": 0.4607
+          },
+          {
+            "id": "REF-5",
+            "score": 0.127617,
+            "dense_score": 0.4322
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.117465,
+            "dense_score": 0.2378
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.112231,
+            "dense_score": 0.3179
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.056618,
+            "dense_score": 0.2711
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "refund_first": "2026-10-15",
+          "refund_last": "2026-10-17"
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "model_unavailable_or_invalid",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "wall_ms": 20036.42,
+          "unavailable": true
+        },
+        "timings": {
+          "retrieval_ms": 819.23,
+          "llm_ms": 20036.66
+        },
+        "latency_ms": 20874.51
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 2,
+        "evidence_total": 2,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 20875.1
+    },
+    {
+      "id": "PQ0036",
+      "question": "The Comfi One-piece Swimsuit doesn't fit. Can I send it back?",
+      "prediction": {
+        "transcript": "The Comfi One-piece Swimsuit doesn't fit. Can I send it back?",
+        "answer": "I'm ZentroMart's AI support assistant. This category cannot be returned for fit or change of mind, even if unopened or unused. Damage, expired, wrong or missing items can be reported within 48 hours with photos of the item and packaging.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "RET-5",
+          "DWM-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "RET-5",
+            "text": "## [RET-5] Items that cannot be returned\nGrocery and fresh produce, innerwear, lingerie and swimwear, and gift cards or digital codes cannot be returned for change of mind. If such an item arrives damaged, expired, wrong or missing, follow the Damaged, wrong or missing items policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Items that cannot be returned"
+          },
+          {
+            "id": "DWM-1",
+            "text": "## [DWM-1] Reporting window\nReport a damaged, defective, expired, wrong or missing item within **48 hours of delivery**, with photos of the item and the packaging. This applies to every category, including grocery and other non-returnable items.",
+            "file": "pol_damaged_wrong_missing.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-05-01",
+            "version": "1.3",
+            "title": "Reporting window"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.185857,
+            "dense_score": 0.3364
+          },
+          {
+            "id": "RET-5",
+            "score": 0.169078,
+            "dense_score": 0.4211
+          },
+          {
+            "id": "RET-4",
+            "score": 0.152427,
+            "dense_score": 0.4173
+          },
+          {
+            "id": "DWM-1",
+            "score": 0.131021,
+            "dense_score": 0.2039
+          },
+          {
+            "id": "RET-8",
+            "score": 0.122315,
+            "dense_score": 0.2416
+          },
+          {
+            "id": "IDV-3",
+            "score": 0.117729,
+            "dense_score": 0.2433
+          },
+          {
+            "id": "DWM-5",
+            "score": 0.11058,
+            "dense_score": 0.2775
+          },
+          {
+            "id": "WAR-1",
+            "score": 0.110351,
+            "dense_score": 0.2077
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.107778,
+            "dense_score": 0.2289
+          },
+          {
+            "id": "RET-3",
+            "score": 0.082997,
+            "dense_score": 0.1334
+          },
+          {
+            "id": "ESC-1",
+            "score": 0.082996,
+            "dense_score": 0.2197
+          },
+          {
+            "id": "ESC-2",
+            "score": 0.078848,
+            "dense_score": 0.0862
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "evidence_validated_fallback",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": true,
+        "validation_error": "model_unavailable_or_invalid",
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "wall_ms": 20018.11,
+          "unavailable": true
+        },
+        "timings": {
+          "retrieval_ms": 513.79,
+          "llm_ms": 20018.26
+        },
+        "latency_ms": 20550.9
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 2,
+        "evidence_hits": 1,
+        "evidence_total": 3,
+        "evidence_recall": 0.3333333333333333
+      },
+      "latency_ms": 20551.3
+    },
+    {
+      "id": "PQ0037",
+      "question": "क्या आपकी कोई दुकान कोच्चि में है?",
+      "prediction": {
+        "transcript": "क्या आपकी कोई दुकान कोच्चि में है?",
+        "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। मिले हुए दस्तावेज़ों में पर्याप्त जानकारी नहीं है। मैं मानव सहयोगी से संपर्क करने में मदद कर सकती हूँ।",
+        "intent": "unsupported",
+        "decision": "answer",
+        "language": "hi",
+        "retrieved_chunk_ids": [
+          "STY-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "FAQH-4",
+            "score": 0.092759,
+            "dense_score": 0.2647
+          },
+          {
+            "id": "FAQH-3",
+            "score": 0.079382,
+            "dense_score": 0.2129
+          },
+          {
+            "id": "FAQH-2",
+            "score": 0.076743,
+            "dense_score": 0.2097
+          },
+          {
+            "id": "FAQH-1",
+            "score": 0.0627,
+            "dense_score": 0.1658
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.040679,
+            "dense_score": 0.3674
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.039114,
+            "dense_score": 0.3266
+          },
+          {
+            "id": "MKS-3",
+            "score": 0.03632,
+            "dense_score": 0.309
+          },
+          {
+            "id": "PLS-1",
+            "score": 0.035068,
+            "dense_score": 0.2868
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.034242,
+            "dense_score": 0.3148
+          },
+          {
+            "id": "WAR-2",
+            "score": 0.033899,
+            "dense_score": 0.2834
+          },
+          {
+            "id": "RET-8",
+            "score": 0.032806,
+            "dense_score": 0.2806
+          },
+          {
+            "id": "RET-1",
+            "score": 0.030817,
+            "dense_score": 0.2629
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "abstained_missing_evidence",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "evidence_supported": false,
+        "validation_error": null,
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 77.95,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 82.05
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 0,
+        "search_total": 0,
+        "evidence_hits": 0,
+        "evidence_total": 0,
+        "evidence_recall": null
+      },
+      "latency_ms": 82.7
+    }
+  ]
+}
