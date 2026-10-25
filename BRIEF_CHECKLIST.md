@@ -6,11 +6,12 @@ Source: `voiceops_2026_capstone_brief.pdf`. These checks describe inspectable be
 
 - [x] Prompt-only LLM baseline without company documents, catalog or private order access; preserve real outputs and errors.
 - [x] KB section chunks retain IDs and authority/version/effective-date/status metadata.
-- [x] Query-first lexical/multilingual hybrid retrieval at actual k=12; generation receives actual source sections and sanitized verified/source-derived facts.
-- [x] LLM JSON with answer and strict covered/needs_clarification booleans; host derives the decision and records model_flags/decision_origin; save full actual generation chunks and IDs as host context provenance, not model-selected citations. Conservative quantity/privacy/action checks allow one repair, then abstention. Prewritten policy fallback is removed from normal answer generation. No per-claim semantic proof is claimed.
+- [x] Query-first lexical/multilingual hybrid retrieval preserves 12 direct candidates plus up to 4 distinct source dependencies (maximum 16 KB candidates), with separate actual counts in traces. Generation receives actual source sections and sanitized verified/source-derived facts.
+- [x] LLM JSON with answer and strict covered/needs_clarification booleans; host derives operational decisions and records model_flags/decision_origin; validated Boolean uncertainty stays covered=False with reply_kind=uncertainty and evidence_status=insufficient_evidence; save full actual generation chunks and IDs as host context provenance, not model-selected citations. Conservative quantity/privacy/action checks allow one repair, then abstention. Prewritten policy fallback is removed from normal answer generation. No per-claim semantic proof is claimed.
 - [x] Source-derived finite checks for missing table inputs, unopened/seal conditions, unknown date premises, conditional exceptions, permission direction, warranty scope and paid-fee/Plus credit conditions. Language-only repair preserves the JSON field/flag contract. These checks do not certify full semantic correctness.
-- [x] Explicit deterministic operational guards for authentication, privacy, urgent escalation and confirmed tool outcomes. Their evidence-bound policy explanations remain distinct from normal model-generated domain answers and query-search success.
-- [x] Recognized unsupported topics return generic uncertainty before normal generation. The guard does not establish complete routing: the saved “2 am” delivery case still asks for an order ID and remains a failed expected-uncertainty probe.
+- [x] Deterministic authentication/privacy/safety workflows and actual tool outcomes. Source-derived high-value-damage, overdue-refund and same-issue repeat-contact conditions are checked before business tickets; policy explanations are generated from actual sources, separately from confirmed ticket results.
+- [x] Source-first selection retains actual policy/help context for unfamiliar public routes; no planner answer enters generation. Uncovered model output must pass strict non-substantive checks. Legacy explicit and deterministic privacy refusals retain their decisions.
+- [x] Required source-table category/payment-method inputs use a neutral zero-LLM question; choices rebind current rows, hashes and order scope. Ambiguous “Bank” replies remain unresolved. Prospective public delivery capability reaches source-first generation, while compound private requests retain verification.
 - [x] Session state, one clarification at a time, supplied lookup/ticket tools, per-order authentication failure counts and order/reason ticket deduplication.
 - [x] Verify before private order disclosure; one retry; redact proof values and private contact fields from traces/model input.
 - [x] Reference date 20 October 2026, Mon-Sat business days excluding holidays, calendar-day returns and successor-authorized historical scope.
@@ -20,7 +21,7 @@ Source: `voiceops_2026_capstone_brief.pdf`. These checks describe inspectable be
 
 ## Current verification
 
-- [x] Code `5d08ca6`: **1016/1016 tests passed; 32.429 s JUnit duration**, recorded in the [engineering receipt](sample_outputs/engineering_verification.json) and [JUnit XML](sample_outputs/engineering_artifacts/20261025T124401715563Z_8aea71eb/pytest.xml). Earlier 678/678, 626-test and 590/590 revisions remain historical. Official dataset validation passed 9 CSVs and 21 KB documents.
+- [x] Current code `3b1c8dd` passed **1741/1741 engineering cases**, no failures/errors/skips; **40.905 s JUnit**, **45.061 s pytest wall**. [Current receipt](sample_outputs/engineering_verification.json) and [JUnit](sample_outputs/engineering_artifacts/20261025T144952060290Z_a76b357f/pytest.xml) bind actual bytes. Current dataset validation passed 9 CSVs and 21 KB documents.
 - [ ] Source-only live questions: **52 planned; rerun pending**. Current output will be `sample_outputs/eval_step2_live_current.json`.
 - [ ] Source-only live conversations: **96 turns planned; rerun pending**. Current output will be `sample_outputs/eval_step3_live_current.json`.
 - [ ] Current same-model prompt-only baseline: **52 planned**, to run with `python scripts/resume_live_practice.py --step 1`.
@@ -29,7 +30,7 @@ Source: `voiceops_2026_capstone_brief.pdf`. These checks describe inspectable be
 - [ ] Current Gnani end-to-end synthetic speech rerun pending.
 - [ ] Current report rendering and package checks pending after revised measurements are saved.
 
-The recorded local model is `qwen3:4b-instruct`, with both `LLM_TIMEOUT` and `RAG_LLM_TIMEOUT` selected at **180 seconds**. Code and `.env.example` defaults remain **120 seconds**; request timeouts do not bound a complete voice turn. The historical baseline used `qwen3:1.7b`, so that comparison is not controlled. A new current-model baseline is planned; its result remains pending.
+The recorded local model is `qwen3:4b-instruct`, with both `LLM_TIMEOUT` and `RAG_LLM_TIMEOUT` selected at **300 seconds**. Code and `.env.example` defaults remain **120 seconds**; request timeouts do not bound a complete voice turn. The historical baseline used `qwen3:1.7b`, so that comparison is not controlled. A new current-model baseline is planned; its result remains pending.
 
 Final runtime sources use LF under `.gitattributes`; current receipts bind actual Git HEAD and matching source/input hashes. CRLF conversion can change byte hashes even when Git reports no content change. Generated `tools/tickets_created.csv` is excluded from input fingerprints.
 
@@ -39,6 +40,7 @@ Generated document answers, uncached inference, cache hits, operational guards a
 
 These runs predate the final source-only revision and **do not establish its performance**. Legacy fallback runs and intermediate source-only pilots are distinguished below:
 
+- Historical code `5d08ca6` engineering: **1016/1016**, with [archived receipt](sample_outputs/history/source_context_guarded_full_second_pass/engineering_verification.json) and [JUnit XML](sample_outputs/engineering_artifacts/20261025T124401715563Z_8aea71eb/pytest.xml).
 - Historical prompt-only baseline (`qwen3:1.7b`) **1/52**, one error; this baseline had no document-policy fallback. Actual output remains `sample_outputs/eval_step1.json`.
 - Legacy offline practice **52/52 questions** and **96/96 turns**; original `eval_step2.json` and `eval_step3.json` retained. Current `compose=False` is an excerpt diagnostic, not that old answer path.
 - Legacy live **52/52 questions**: 16 generated, 25 checked static fallbacks, 4 guards, 2 rules and 5 abstentions. Legacy live **96/96 turns**: 8 generated, 9 checked static fallbacks, 77 guards and 2 rules. Archived under `sample_outputs/history/pre_document_answers/`.
@@ -46,6 +48,7 @@ These runs predate the final source-only revision and **do not establish its per
 - Incomplete strict quote-generation pilot: **1/8 checked questions passed**; preserved in `sample_outputs/history/pre_document_answers/strict_quote_pilot.json`.
 - Initial context-mode diagnostic: **10/30 checked questions passed out of 52 planned**, stopped and preserved in `sample_outputs/history/source_context_first_pass/eval_step2_live_current.json`. This predates the final language, source-derived numeric and quality fixes; no templates were restored.
 - Complete pre-repair boolean-context diagnostic: **36/52 mechanical passes**, retained in the [diagnostic receipt](sample_outputs/history/source_context_boolean_full_first_pass/diagnostic_receipt.json). A separate [semantic review](sample_outputs/history/source_context_boolean_full_first_pass/semantic_review.md) found six material issues among mechanically passing answers (exception eligibility, elapsed interval, refusal permission, warranty scope, Express conditions and historical delivery applicability). No adjusted score or human certification is claimed.
+- Second complete pre-repair diagnostic: **38/52 mechanical passes**. Its [receipt](sample_outputs/history/source_context_guarded_full_second_pass/diagnostic_receipt.json) and [assistant review](sample_outputs/history/source_context_guarded_full_second_pass/semantic_review.md) retain seven passing-row semantic issues across five patterns. No predictions, gold answers or score were changed; it is not a current-runtime pass claim.
 - Legacy development adversarial/stateful **77/77**; development data, not a blind test.
 - Legacy exposed offline regression **91/91**, with 191 privacy assertions and no failures. First independent offline result **23/91**. Old 49/91 predictions rescore unchanged to 51/91; only two points came from scoring normalization. Later 91/91 was an exposed development regression, not a new blind result.
 - Earlier real Gnani synthetic speech **6/6**, Hindi UPI **1/1**, silence recovery **1/1**. These real calls do not validate the revised end-to-end runtime.
@@ -56,7 +59,7 @@ Raw failures/provenance remain retained. Human accents/noise and subjective list
 
 ## Final submission and additional validation
 
-Current boolean-contract engineering checks passed; formal live and speech checks remain pending. The existing report PDF and ZIP are stale drafts requiring regeneration and verification. The user-recorded demo remains the required uncreated artifact and will be done last. Live holdout, controlled cold-start and noisy-speech studies are additional validation.
+Current full engineering is complete. Formal live and speech checks remain pending. The report PDF and ZIP remain drafts until regenerated and verified against current measurements. The user-recorded demo remains required and will be done last. Live exposed regression remains exposed development data; cold-start and noisy-speech studies are additional validation.
 
 - [ ] Current live exposed-regression evaluation is pending. Historical holdout results are offline; a new live run still does not make the exposed set independent.
 - [ ] Controlled cold-start latency has **not** been measured. Per-turn uncached and cache measurements exclude prior resource startup and are not cold-start measurements.

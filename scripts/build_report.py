@@ -8,6 +8,7 @@ from pathlib import Path
 from statistics import mean
 from xml.sax.saxutils import escape
 import json
+import os
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -135,6 +136,17 @@ def seconds_range(values, milliseconds=False):
         return 'not recorded'
     divisor = 1000 if milliseconds else 1
     return f'{min(values) / divisor:.2f}-{max(values) / divisor:.2f} s'
+
+
+def configured_llm_text():
+    """Public selected settings after application config loads; not measurements."""
+    values = {key: os.getenv(key, default) for key, default in {
+        'LLM_PROVIDER': 'ollama', 'LLM_MODEL': 'qwen3:4b-instruct',
+        'LLM_TIMEOUT': '120', 'RAG_LLM_TIMEOUT': '120',
+    }.items()}
+    return (f"Configured LLM: {values['LLM_PROVIDER']}/{values['LLM_MODEL']}; "
+            f"LLM_TIMEOUT={values['LLM_TIMEOUT']} s, RAG_LLM_TIMEOUT={values['RAG_LLM_TIMEOUT']} s. "
+            'These are settings, not measured latency; code/example defaults are 120 seconds.')
 
 
 def voice_text(data):
@@ -423,6 +435,7 @@ def document_composition(data):
     abstentions = sum(value for key, value in counts.items() if key.startswith('abstained'))
     legacy = sum(value for key, value in counts.items() if 'fallback' in key or key == 'evidence_validated_rules')
     return (f"generated {counts.get('grounded_llm', 0)}; model clarifications {counts.get('grounded_clarification', 0)}; "
+            f"host table-input clarifications {counts.get('source_input_clarification', 0)}; "
             f"guards {counts.get('deterministic_guardrail', 0)}; abstentions {abstentions}; "
             f"offline excerpts {counts.get('document_excerpts', 0)}; legacy policy fallbacks/rules {legacy}")
 
@@ -507,15 +520,15 @@ def main():
     page()
     p('Architecture and evidence boundaries', 'TitleV')
     h('Retrieve actual documents before generation')
-    p('KB sections retain IDs, file, authority, status, version and effective date. BM25 and multilingual MiniLM retrieval fuse raw and narrowly expanded query channels at k=12. Complete tables and heading/prose embeddings supply complementary views. Routing hints may prefer governing sections only when those sections are present in actual retrieval; they cannot invent evidence or add policy answers to the prompt.')
+    p('KB sections retain IDs, file, authority, status, version and effective date. BM25 and multilingual MiniLM fusion preserves 12 direct candidates plus up to 4 distinct source dependencies (16 maximum); traces report actual direct/dependency counts. Tables and heading/prose embeddings supply complementary views. Source-first selection retains actual policy/help context for unfamiliar routes. Planner IDs only order retrieved sections; no authored policy answer enters generation.')
     p('The model receives the customer question, retrieved section text and authority metadata, plus safe public/verified records and calculated facts. It receives no authored answer summary, required answer text or expected practice response. Current policy outranks agent guides, help, FAQs and marketing; superseded policy is permitted only within successor-authorized historical scope.')
     h('Generation-context provenance; one repair')
-    p('Normal JSON returns answer text plus covered and needs_clarification booleans. The host derives clarify when clarification is needed, otherwise answer if covered or refuse if uncovered; model_flags retain the original flags. Content checks still apply. Exact full source sections and IDs are recorded as generation_context, with empty citations. This identifies supplied context, not model-selected quotes, per-claim support or semantic proof.')
+    p('Normal JSON returns answer text plus covered and needs_clarification booleans. The host derives operational labels. Validated Boolean uncertainty is answer with covered=False, reply_kind=uncertainty and evidence_status=insufficient_evidence, without domain-answer source IDs. Legacy explicit and privacy refusals are unchanged; model_flags retain the original flags. Content checks still apply. Exact full source sections and IDs are recorded as generation_context, with empty citations. This identifies supplied context, not model-selected quotes, per-claim support or semantic proof.')
     p('Numeric values/units are checked against supplied context and safe facts. Question-relevant constraints also check source-derived return windows, calculated refund dates and delivery-attempt limits. Language, privacy and common invented actions are checked separately. Invalid output gets one repair, then uncertainty; no prewritten policy answer is substituted. These finite checks and full-section provenance do not prove every applicable condition or question part is covered.')
     h('Verified records and source-derived arithmetic')
     p('Only supplied tool output after verification can provide private order facts. Model context allowlists fields and nested items, excluding contact details, proof, customer IDs, order IDs and internal notes. Existing status/refund references are record readings, not claims that the agent performed an action. Refund bounds, weekday rules and return boundaries come from retrieved text. An explicit customer-stated initiation date may support a clearly labeled unverified projection; it never verifies transaction status. Ambiguous or absent inputs produce no calculation. Calculations retain inputs, source IDs and source hashes.')
     h('Operational exceptions and session safety')
-    p('Authentication, privacy, safety, escalation, greetings and catalog-miss messages remain reviewed deterministic guards. Escalation may retain a policy-bearing explanation; this report does not claim all deterministic text was removed. A ticket is claimed only after created=True and is deduplicated by order/reason. Order switches clear verified context; proof is discarded at lookup. Offline mode shows explicitly labeled source excerpts, never generated or canned policy answers.')
+    p('Required table inputs use neutral zero-LLM questions; choices rebind current rows, hashes and order scope, while ambiguous Bank replies remain unresolved. Public prospective delivery capability reaches source-first generation; compound private details require verification. Current sources and verified facts determine business escalation before ticket creation. Its policy explanation is generated separately from the actual tool outcome; failed generation retains that outcome with uncertainty. Authentication, privacy, safety and requested-human workflows remain deterministic. Ticket success requires created=True; deduplication is by order/reason. Proof is discarded, order switches clear verification, and offline domain output is labeled excerpts.')
 
     page()
     p('Evaluation and observed limitations', 'TitleV')
@@ -548,7 +561,7 @@ def main():
     page()
     p('Voice, latency and reproduction', 'TitleV')
     h('Recorded current timing')
-    p('Source-only question run: ' + latency_text(live2) + '. Conversation timing: ' + latency_text(live3) + '. Selected local defaults are qwen3:4b-instruct and a 120-second model-request timeout. These are agent-turn timings; resource creation before respond is excluded. Cached, uncached and no-model paths differ. Outliers remain recorded; request timeouts do not establish a hard end-to-end bound.', 'SmallV')
+    p('Source-only question run: ' + latency_text(live2) + '. Conversation timing: ' + latency_text(live3) + '. ' + configured_llm_text() + ' Measured agent-turn times exclude resource creation before respond. Cached, uncached and no-model paths differ. Request timeouts do not establish a hard end-to-end bound.', 'SmallV')
     h('Gnani speech evidence and its scope')
     p(voice_text(voice))
     wall = [row.get('latency_ms') for row in voice.get('batch', {}).get('entries', [])]
