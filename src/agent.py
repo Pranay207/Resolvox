@@ -9,7 +9,7 @@ from .data import Data
 from .kb import KnowledgeBase
 from .retrieval import Retriever
 from .tools_wrapper import Tools
-from .normalize import order_id,proof_value,language,redact
+from .normalize import order_id,proof_value,language,redact,number_words
 from .llm import LLM,LLMUnavailable
 from .grounding import compatible,generate,abstention
 
@@ -30,6 +30,7 @@ class State:
     last_intent:str=''
     tickets:dict[str,dict]=field(default_factory=dict)
     safe_history:list[dict]=field(default_factory=list)
+    public_context:dict[str,str]=field(default_factory=dict)
 
 class Agent:
     def __init__(self,resources:Resources|None=None,compose:bool|None=None):
@@ -37,8 +38,8 @@ class Agent:
         self.compose=(os.getenv('COMPOSE_WITH_LLM','true').lower()=='true') if compose is None else compose
     def _verification_plan(self,kind:str) -> Plan:
         if kind=='locked': return Plan('verification','refuse',"I cannot share order details because verification failed twice. Please contact support from your registered phone; I can still help with general policies.",'दो बार सत्यापन असफल हुआ, इसलिए ऑर्डर की जानकारी साझा नहीं कर सकती। पंजीकृत फ़ोन से सपोर्ट से संपर्क करें; सामान्य पॉलिसी में मदद कर सकती हूँ।','Verification do baar fail hua, order details share nahi kar sakti. Registered phone se support contact karein; general policy mein help kar sakti hoon.',['IDV-1','IDV-3'])
-        if kind=='retry': return Plan('verification','clarify',"That did not match. Please try the last 4 digits of your registered phone again.",'जानकारी मेल नहीं खाई। कृपया पंजीकृत फ़ोन के आख़िरी 4 अंक दोबारा बताएँ।','Match nahi hua. Registered phone ke last 4 digits ek baar phir batayein.',['IDV-3'])
-        return Plan('verification','clarify','Please provide the last 4 digits of your registered phone.','कृपया अपने पंजीकृत फ़ोन के आख़िरी 4 अंक बताएँ।','Registered phone ke last 4 digits batayein.',['IDV-1','IDV-2'])
+        if kind=='retry': return Plan('verification','clarify',"That did not match. Please try the last 4 digits of your registered phone again.",'जानकारी मेल नहीं खाई। कृपया पंजीकृत फ़ोन के अंतिम 4 अंक दोबारा बताएँ।','Match nahi hua. Registered phone ke last 4 digits ek baar phir batayein.',['IDV-3'])
+        return Plan('verification','clarify','Please provide the last 4 digits of your registered phone.','कृपया अपने पंजीकृत फ़ोन के अंतिम 4 अंक बताएँ।','Registered phone ke last 4 digits batayein.',['IDV-1','IDV-2'])
     def respond(self,text:str) -> dict:
         start=time.perf_counter(); s=self.state; r=self.resources; s.turn+=1; s.language=language(text,s.language)
         intent=classify(text); oid=order_id(text); calls=[]; candidates=[]; pool=[]; auth_source_ids=[]; retrieval_ms=0.0
@@ -56,19 +57,64 @@ class Agent:
         public_pins=re.findall(r'(?<!\d)\d{6}(?!\d)',text) if not credential and not proof and not (s.order_id and not s.order) else []
         answer_query=safe_text
         contextual_text=safe_text
-        if not s.order_id and not credential and re.search(r'\b(it|this|that|instead|actually|correction|its|ise|isko|uska)\b|असल|यह|तारीख',safe_text,re.I):
-            previous=[h['user'] for h in reversed(s.safe_history) if h['intent'] not in {'verification','privacy','safety','fraud','legal','human'} and not h['user'].startswith('[verification')][:2]
-            if previous:
-                contextual_text+='\nPrevious customer context: '+' '.join(previous)
-                if intent=='unknown' and s.last_intent in {'return','refund','warranty','delivery'}: intent=s.last_intent
+        explicit_skus=[prefix.upper()+'-'+digits for prefix,digits in
+                       re.findall(r'\b(ELE|FSH|HOM|BKS|INR|BEA|GRO|DIG)[-\s]*(\d{4})\b',number_words(safe_text),re.I)]
+        unknown_skus=[value for value in explicit_skus if value not in r.data.products]
+        # Carry explicit public slots, never concatenate old utterances: that
+        # can introduce competing SKUs and superseded dates into a follow-up.
+        if not s.order_id and not credential and intent not in {'privacy','safety','fraud','legal','human'}:
+            followup=bool(re.search(r'\b(it|this|that|instead|actually|correction|corrected|its|same|what about|then|now|ise|isko|uska)\b|असल|यह|तारीख',safe_text,re.I))
+            prior_intent=s.last_intent
+            if explicit_skus and s.safe_history and s.safe_history[-1]['decision']=='clarify': followup=True
+            date_revision=followup and prior_intent=='return' and bool(re.search(r'correction|corrected|revise|actually',safe_text,re.I))
+            if (intent=='unknown' and followup and prior_intent in {'return','refund','warranty','delivery'}) or date_revision:
+                intent=prior_intent
+            context=dict(s.public_context) if followup else {}
+            product=r.policy.product(safe_text)
+            if explicit_skus:
+                context.pop('sku',None)
+                context.pop('category',None)
+            if product:
+                context['sku']=product['sku']
+                context.pop('category',None)
+            else:
+                category=r.policy._category(safe_text)
+                if category:
+                    context['category']=category
+                    context.pop('sku',None)
+            for event,key in [('placement','placed_on'),('delivery','delivered_on')]:
+                date=r.policy._event_date(safe_text,event)
+                if date: context[key]=date.isoformat()
+            if followup and context:
+                details=[]
+                if context.get('sku'): details.append('Product '+context['sku'])
+                elif context.get('category'): details.append('Product category '+context['category'])
+                if context.get('placed_on'): details.append('Order placed on '+context['placed_on'])
+                if context.get('delivered_on'): details.append('Delivered on '+context['delivered_on'])
+                contextual_text+='\nPublic context: '+'. '.join(details)+'.'
+            s.public_context=context
         def grounded_plan(query,kind,order=None):
             nonlocal candidates,pool,retrieval_ms,answer_query
             answer_query=query
             began=time.perf_counter()
+            if unknown_skus:
+                # An explicit unknown replacement must not inherit the previous
+                # catalog item or guess its category from an older utterance.
+                return Plan(kind,'clarify',
+                    'I could not find that SKU in the supplied product catalog. What is the correct product SKU?',
+                    'वह SKU दिए गए उत्पाद कैटलॉग में नहीं मिला। सही उत्पाद SKU क्या है?',
+                    'Woh SKU supplied product catalog mein nahi mila. Correct product SKU kya hai?',
+                    ['STY-5'],facts={'catalog_match':False})
             delivered=(order or {}).get('delivered_on') or ''
             date=r.policy._date_in(query)
             historical=bool((delivered and delivered<'2026-08-01') or (date and date.isoformat()<'2026-08-01'))
+            product=r.policy.product(query,order)
             retrieval_query=query
+            if product and kind in {'return','warranty','damage','pickup','troubleshoot'}:
+                # Catalog metadata gives semantic context, not expected KB IDs.
+                fields={key:value for key,value in product.items() if key in
+                        {'return_category','seller_type','seller_name','zentromart_assured','is_assured','assured','warranty_months','fulfilled_by'}}
+                retrieval_query+='\nPublic catalog attributes: '+json.dumps(fields,ensure_ascii=False)
             if order:
                 # Retrieval can use minimal verified context to resolve short
                 # follow-ups. No identity proof or customer identifiers enter it.
@@ -98,17 +144,42 @@ class Agent:
             scoped=Policy(view,r.data)
             # Public serviceability is catalog information, never evidence of a
             # caller's identity. Verification turns cannot enter this branch.
-            if len(public_pins)==1 and public_pins[0] in r.data.pincodes and re.search(r'cod|deliver|express|service|पहुंच|डिलीवरी',query,re.I):
-                pin=public_pins[0]; row=r.data.pincodes[pin]
-                field='cod_available' if re.search(r'cod|cash.on.delivery',query,re.I) else 'express_available' if re.search(r'express',query,re.I) else 'serviceable'
-                enabled=row[field]=='True'; label={'cod_available':'COD','express_available':'Express delivery','serviceable':'Delivery'}[field]
-                result=Plan(kind,'answer',f'{label} is '+('available' if enabled else 'not available')+' at that postal code.',f'उस पिनकोड पर {label} '+('उपलब्ध है।' if enabled else 'उपलब्ध नहीं है।'),f'Us pincode par {label} '+('available hai.' if enabled else 'available nahi hai.'),['pincodes.csv:'+pin],facts={field:enabled})
-                if field=='cod_available':
-                    result.en+=' COD is limited to 10,000 rupees and has a 25 rupee fee per order.'
-                    result.hi+=' COD की सीमा 10,000 रुपये और प्रति ऑर्डर फ़ीस 25 रुपये है।'
-                    result.hinglish+=' COD limit 10,000 rupees aur per-order fee 25 rupees hai.'
-                    result.ids.append('PAY-2')
-                    if any(int(v)>10000 for v in re.findall(r'(?<!\d)\d{1,5}(?!\d)',query.replace(',',''))):
+            want_cod=bool(re.search(r'\bcod\b|cash[ -]on[ -]delivery|cash.{0,15}(?:door|deliver)|कैश|नकद',query,re.I))
+            want_express=bool(re.search(r'\bexpress\b|एक्सप्रेस',query,re.I))
+            service_request=kind in {'delivery','payment','unknown'} and bool(
+                want_cod or want_express or re.search(r'\b(?:deliver(?:y)?|serviceable|serviceability|prepaid)\b|डिलीवरी|पहुँच',query,re.I))
+            # A location mentioned alongside a return or warranty question must
+            # not replace the requested policy answer with serviceability.
+            if len(public_pins)==1 and service_request:
+                pin=public_pins[0]
+                if pin not in r.data.pincodes:
+                    retrieval_ms+=1000*(time.perf_counter()-began)
+                    return Plan(kind,'refuse',
+                        'That postal code is not listed in the supplied pincode table, so I cannot confirm delivery, COD or Express availability. Delivery requires a listed serviceable pincode.',
+                        'वह पिनकोड दी गई तालिका में नहीं है, इसलिए डिलीवरी, COD या एक्सप्रेस की उपलब्धता की पुष्टि नहीं कर सकती। डिलीवरी के लिए सूची में सेवा योग्य पिनकोड होना चाहिए।',
+                        'Woh pincode supplied table mein listed nahi hai; delivery, COD ya Express availability confirm nahi kar sakti. Listed serviceable pincode zaroori hai.',
+                        ['DEL-5'],facts={'pincode_listed':False})
+                row=r.data.pincodes[pin]
+                serviceable=row['serviceable']=='True'
+                result=Plan(kind,'answer',
+                    'Standard delivery is '+('available' if serviceable else 'not available')+' at that postal code. Delivery within India also requires a serviceable pincode.',
+                    'उस पिनकोड पर सामान्य डिलीवरी '+('उपलब्ध है।' if serviceable else 'उपलब्ध नहीं है।')+' भारत में भी पिनकोड का सेवा योग्य होना ज़रूरी है।',
+                    'Us pincode par Standard delivery '+('available hai.' if serviceable else 'available nahi hai.')+' India mein bhi serviceable pincode zaroori hai.',
+                    ['pincodes.csv:'+pin,'DEL-5'],facts={'serviceable':serviceable})
+                if want_express:
+                    enabled=serviceable and row['express_available']=='True'
+                    result.en+=' Express delivery is '+('available' if enabled else 'not available')+'; being in a metro does not by itself establish Express eligibility.'
+                    result.hi+=' एक्सप्रेस डिलीवरी '+('उपलब्ध है।' if enabled else 'उपलब्ध नहीं है।')+' मेट्रो शहर में होने से ही एक्सप्रेस उपलब्ध नहीं होती।'
+                    result.hinglish+=' Express delivery '+('available hai.' if enabled else 'available nahi hai.')+' Metro hone se Express eligibility confirm nahi hoti.'
+                    result.facts['express_available']=enabled
+                if want_cod:
+                    enabled=serviceable and row['cod_available']=='True'
+                    result.en+=' COD is '+('available' if enabled else 'not available')+'. COD is limited to 10,000 rupees and has a 25 rupee fee per order.'
+                    result.hi+=' COD '+('उपलब्ध है।' if enabled else 'उपलब्ध नहीं है।')+' COD की सीमा 10,000 रुपये और प्रति ऑर्डर फ़ीस 25 रुपये है।'
+                    result.hinglish+=' COD '+('available hai.' if enabled else 'available nahi hai.')+' COD limit 10,000 rupees aur per-order fee 25 rupees hai.'
+                    result.ids.append('PAY-2'); result.facts['cod_available']=enabled
+                    amounts=[int(v) for v in re.findall(r'(?<!\d)\d{1,5}(?!\d)',query.replace(',',''))]
+                    if any(v>10000 for v in amounts):
                         result.en+=' An amount above that limit is not eligible for COD.'
                         result.hi+=' इससे अधिक राशि पर COD उपलब्ध नहीं है।'
                         result.hinglish+=' Isse zyada amount par COD eligible nahi hai.'
@@ -129,7 +200,7 @@ class Agent:
             else:
                 _,trace=r.tools.lookup(oid); calls.append(trace)
                 if intent not in {'greeting','unknown'}: s.pending_intent=intent; s.pending_issue=safe_text
-                elif intent=='unknown' and re.search(r'status|track|shipment|parcel|arriv|where|when|कहाँ|कब',safe_text,re.I): s.pending_intent='delivery'; s.pending_issue=safe_text
+                elif intent=='unknown' and re.search(r'status|stage|reached|track|shipment|parcel|arriv|where|when|कहाँ|कब',safe_text,re.I): s.pending_intent='delivery'; s.pending_issue=safe_text
                 elif re.search(r'issue|problem|concern|unresolved|समस्या',safe_text,re.I): s.pending_issue=safe_text
                 plan=self._verification_plan('ask')
                 # If caller supplies both ID and proof in one turn, accept the provided value, never disclose expected proof.
@@ -193,6 +264,14 @@ class Agent:
         guard=plan.intent in {'verification','privacy','safety','fraud','legal','human','repeat','unclear_audio','greeting','compensation'} or plan.decision=='escalate' or (plan.decision=='clarify' and 'IDV-1' in plan.ids)
         if guard:
             pool=[r.kb.chunks[c].public() for c in plan.ids if c in r.kb.chunks]+pool
+        # Conversation style and authentication instructions are explicit
+        # guard-policy lookups; answer-policy evidence still comes from search.
+        if plan.decision=='clarify':
+            plan.ids=list(dict.fromkeys(plan.ids+['STY-5']))
+            pool += [r.kb.chunks['STY-5'].public()]
+            if 'IDV-1' in plan.ids and 'order ID' in plan.en:
+                plan.ids=list(dict.fromkeys(plan.ids+['IDV-2']))
+                pool += [r.kb.chunks['IDV-2'].public()]
         available={x['id']:x for x in pool}
         supported=compatible(plan.ids,pool)
         if not supported: plan.facts={}
@@ -214,7 +293,11 @@ class Agent:
                     composition='evidence_validated_fallback' if supported else 'abstained_model_or_evidence'
                 llm_ms=1000*(time.perf_counter()-began)
         if not supported and composition!='grounded_llm' and not guard:
-            plan.facts={}; plan.intent='unsupported'; plan.decision='answer'
+            plan.facts={}; plan.intent='unsupported'
+            # An unknown general-information question receives an uncertainty
+            # answer. An unsupported claim within a recognized policy domain
+            # is refused; neither path asserts an invented company rule.
+            plan.decision='answer' if intent=='unknown' else 'refuse'
         for cid in auth_source_ids:
             if cid not in source_ids:
                 source_ids.append(cid); sources.append(r.kb.chunks[cid].public())
