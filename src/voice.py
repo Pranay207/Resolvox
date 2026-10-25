@@ -2,7 +2,7 @@
 from pathlib import Path
 import io,os,re,struct,time,wave
 import requests
-from .config import ROOT
+from .languages import STT_CODES, TTS_CODES, TTS_VOICES, normalize_language
 
 class VoiceUnavailable(RuntimeError): pass
 class VoiceError(RuntimeError): pass
@@ -17,11 +17,32 @@ def spoken_number(n:int) -> str:
         if n>=scale:return spoken_number(n//scale)+' '+name+(' '+spoken_number(n%scale) if n%scale else '')
     return str(n)
 
+# Order identifiers are read digit by digit with a pause between two groups.
+# Ordinary native-language numbers stay in their original script; applying the
+# English cardinal/date rewriter to them would change the requested language.
+DIGIT_WORDS = {
+    'en': UNITS[:10],
+    'hi': 'शून्य एक दो तीन चार पाँच छह सात आठ नौ'.split(),
+    'hi-en': 'शून्य एक दो तीन चार पाँच छह सात आठ नौ'.split(),
+    'ta': 'பூஜ்ஜியம் ஒன்று இரண்டு மூன்று நான்கு ஐந்து ஆறு ஏழு எட்டு ஒன்பது'.split(),
+    'te': 'సున్నా ఒకటి రెండు మూడు నాలుగు ఐదు ఆరు ఏడు ఎనిమిది తొమ్మిది'.split(),
+    'kn': 'ಸೊನ್ನೆ ಒಂದು ಎರಡು ಮೂರು ನಾಲ್ಕು ಐದು ಆರು ಏಳು ಎಂಟು ಒಂಬತ್ತು'.split(),
+    'ml': 'പൂജ്യം ഒന്ന് രണ്ട് മൂന്ന് നാല് അഞ്ച് ആറ് ഏഴ് എട്ട് ഒമ്പത്'.split(),
+    'mr': 'शून्य एक दोन तीन चार पाच सहा सात आठ नऊ'.split(),
+    'bn': 'শূন্য এক দুই তিন চার পাঁচ ছয় সাত আট নয়'.split(),
+    'gu': 'શૂન્ય એક બે ત્રણ ચાર પાંચ છ સાત આઠ નવ'.split(),
+    'pa': 'ਸਿਫ਼ਰ ਇੱਕ ਦੋ ਤਿੰਨ ਚਾਰ ਪੰਜ ਛੇ ਸੱਤ ਅੱਠ ਨੌਂ'.split(),
+}
+
 def for_ear(text:str,language:str='en') -> str:
+    language=normalize_language(language)
     text=re.sub(r'[*_`#]','',text)
-    text=re.sub(r'\b(\d{4})(\d{4})\b',lambda m:' '.join(UNITS[int(c)] for c in m[1])+', '+' '.join(UNITS[int(c)] for c in m[2]),text)
-    text=re.sub(r'\b(\d{1,2}) ([A-Z][a-z]+) (2026)\b',lambda m:spoken_number(int(m[1]))+' '+m[2]+' two thousand twenty six',text)
+    digits=DIGIT_WORDS[language]
+    def grouped_id(match):
+        return ' '.join(digits[int(c)] for c in match[1])+', '+' '.join(digits[int(c)] for c in match[2])
+    text=re.sub(r'(?<!\d)(\d{4})[ -]?(\d{4})(?!\d)',grouped_id,text)
     if language=='en':
+        text=re.sub(r'\b(\d{1,2}) ([A-Z][a-z]+) (\d{4})\b',lambda m:spoken_number(int(m[1]))+' '+m[2]+' '+spoken_number(int(m[3])),text)
         text=re.sub(r'(?:₹\s*)?(\d[\d,]*)\s*(rupees?|INR)',lambda m:spoken_number(int(m[1].replace(',','')))+' rupees',text,flags=re.I)
         text=re.sub(r'\b\d{1,5}\b',lambda m:spoken_number(int(m[0])),text)
     return re.sub(r'\s+',' ',text).strip()
@@ -73,6 +94,8 @@ class GnaniVoice:
                 self.sleep(2**attempt)
         raise VoiceError(f'Gnani retry limit reached (HTTP {last})')
     def transcribe(self,path:Path,language:str='en-IN') -> str:
+        try:language=STT_CODES[normalize_language(language)]
+        except ValueError as error:raise VoiceError(str(error)) from None
         if not path.exists() or path.stat().st_size==0:raise VoiceError('Empty or missing audio file')
         if path.suffix.lower()=='.wav':
             normalized=canonical_wav(path.read_bytes())
@@ -90,9 +113,15 @@ class GnaniVoice:
             return heard.strip()
         except (ValueError,KeyError):raise VoiceError('Gnani returned an invalid transcription response') from None
     def synthesize(self,text:str,path:Path,language:str='en') -> None:
-        lang={'en':'en-IN','hi':'hi-IN','hi-en':'hi-en'}.get(language,language)
-        voice={'en-IN':'Kaveri','hi-IN':'Nalini','hi-en':'Poorvi'}.get(lang,'Kaveri')
-        payload={'text':for_ear(text,language),'voice':voice,'language':lang,'model':os.getenv('GNANI_TTS_MODEL','timbre-v2.5'),'speed':1.0,'audio_config':{'encoding':'linear_pcm','container':'wav','sample_rate':48000,'sample_width':2,'num_channels':1}}
+        try:language=normalize_language(language)
+        except ValueError as error:raise VoiceError(str(error)) from None
+        if not isinstance(text,str) or not text.strip():raise VoiceError('Reply text is empty or invalid')
+        model=os.getenv('GNANI_TTS_MODEL','timbre-v2.5')
+        if model!='timbre-v2.5':raise VoiceError('Configured speech voices require GNANI_TTS_MODEL=timbre-v2.5')
+        lang=TTS_CODES[language];voice=TTS_VOICES[language]
+        spoken=for_ear(text,language)
+        if not spoken:raise VoiceError('Reply text is empty after speech formatting')
+        payload={'text':spoken,'voice':voice,'language':lang,'model':model,'speed':1.0,'audio_config':{'encoding':'linear_pcm','container':'wav','sample_rate':48000,'sample_width':2,'num_channels':1}}
         response=self._request('/api/v1/tts/inference',json=payload)
         content=canonical_wav(response.content)
         path.parent.mkdir(parents=True,exist_ok=True);temporary=path.with_suffix('.part')

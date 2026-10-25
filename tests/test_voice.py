@@ -88,3 +88,88 @@ def test_partial_pcm_frame_rejected():
     from src.voice import canonical_wav
     blob=bytearray(wav_bytes()+b'1');struct.pack_into('<I',blob,4,len(blob)-8);struct.pack_into('<I',blob,40,3201)
     with pytest.raises(VoiceError):canonical_wav(bytes(blob))
+
+
+# Explicit expected provider contracts, independent of the registry under test.
+SPEECH_ROUTES = [
+    ('en', 'en-IN', 'en-IN', 'Kaveri'),
+    ('hi', 'hi-IN', 'hi-IN', 'Nalini'),
+    ('ta', 'ta-IN', 'ta-IN', 'Asmita'),
+    ('te', 'te-IN', 'te-IN', 'Suhana'),
+    ('kn', 'kn-IN', 'kn-IN', 'Saanvi'),
+    ('ml', 'ml-IN', 'ml-IN', 'Reshma'),
+    ('mr', 'mr-IN', 'mr-IN', 'Zahira'),
+    ('bn', 'bn-IN', 'bn-IN', 'Kirra'),
+    ('gu', 'gu-IN', 'gu-IN', 'Falak'),
+    ('pa', 'pa-IN', 'pa-IN', 'Mehuli'),
+    ('hi-en', 'en-IN', 'hi-en', 'Poorvi'),
+]
+
+@pytest.mark.parametrize('code,stt_locale,tts_locale,preferred_voice', SPEECH_ROUTES)
+def test_all_language_speech_requests_use_documented_routes(tmp_path,monkeypatch,code,stt_locale,tts_locale,preferred_voice):
+    voice=GnaniVoice('unit-test-placeholder');clip=tmp_path/'input.wav';clip.write_bytes(wav_bytes());seen=[]
+    monkeypatch.setenv('GNANI_TTS_MODEL','timbre-v2.5')
+    def post(url,**kwargs):
+        seen.append((url,kwargs))
+        if url.endswith('/stt/v3'):
+            return Response(200,data={'success':True,'transcript':'A spoken question'})
+        return Response(200,wav_bytes())
+    monkeypatch.setattr(voice.session,'post',post)
+    assert voice.transcribe(clip,code)=='A spoken question'
+    voice.synthesize('A reply',tmp_path/'reply.wav',code)
+    assert seen[0][1]['data']['language_code']==stt_locale
+    payload=seen[1][1]['json']
+    assert payload['language']==tts_locale
+    assert payload['voice']==preferred_voice
+    assert payload['model']=='timbre-v2.5'
+    assert (tmp_path/'reply.wav').read_bytes()==wav_bytes()
+
+@pytest.mark.parametrize('unsupported',['fr','fr-FR','en-US','auto',''])
+def test_unsupported_language_fails_before_network_or_output(tmp_path,monkeypatch,unsupported):
+    voice=GnaniVoice('unit-test-placeholder');clip=tmp_path/'input.wav';clip.write_bytes(wav_bytes());calls=[]
+    monkeypatch.setattr(voice.session,'post',lambda *a,**k:calls.append(1))
+    with pytest.raises(VoiceError,match='Unsupported language'):
+        voice.transcribe(clip,unsupported)
+    with pytest.raises(VoiceError,match='Unsupported language'):
+        voice.synthesize('A reply',tmp_path/'reply.wav',unsupported)
+    assert calls==[] and not (tmp_path/'reply.wav').exists()
+
+
+NATIVE_CASES = [
+    ('hi','आपके ऑर्डर','एक दो तीन चार, पाँच छह सात आठ'),
+    ('hi-en','Aapka order','एक दो तीन चार, पाँच छह सात आठ'),
+    ('ta','உங்கள் ஆர்டர்','ஒன்று இரண்டு மூன்று நான்கு, ஐந்து ஆறு ஏழு எட்டு'),
+    ('te','మీ ఆర్డర్','ఒకటి రెండు మూడు నాలుగు, ఐదు ఆరు ఏడు ఎనిమిది'),
+    ('kn','ನಿಮ್ಮ ಆರ್ಡರ್','ಒಂದು ಎರಡು ಮೂರು ನಾಲ್ಕು, ಐದು ಆರು ಏಳು ಎಂಟು'),
+    ('ml','നിങ്ങളുടെ ഓർഡർ','ഒന്ന് രണ്ട് മൂന്ന് നാല്, അഞ്ച് ആറ് ഏഴ് എട്ട്'),
+    ('mr','तुमची ऑर्डर','एक दोन तीन चार, पाच सहा सात आठ'),
+    ('bn','আপনার অর্ডার','এক দুই তিন চার, পাঁচ ছয় সাত আট'),
+    ('gu','તમારો ઓર્ડર','એક બે ત્રણ ચાર, પાંચ છ સાત આઠ'),
+    ('pa','ਤੁਹਾਡਾ ਆਰਡਰ','ਇੱਕ ਦੋ ਤਿੰਨ ਚਾਰ, ਪੰਜ ਛੇ ਸੱਤ ਅੱਠ'),
+]
+
+@pytest.mark.parametrize('language,prefix,spoken_id',NATIVE_CASES)
+def test_native_speech_preserves_language_and_groups_identifiers(language,prefix,spoken_id):
+    actual=for_ear(f'**{prefix}** 1234-5678; ₹49; 24 October 2026.',language)
+    assert actual==f'{prefix} {spoken_id}; ₹49; 24 October 2026.'
+    assert 'one two' not in actual and 'two thousand' not in actual
+
+
+def test_native_script_order_digits_are_spoken_in_selected_language():
+    assert for_ear('ऑर्डर १२३४५६७८','hi-IN')=='ऑर्डर एक दो तीन चार, पाँच छह सात आठ'
+
+
+def test_english_locale_keeps_clear_numbers_and_full_year():
+    actual=for_ear('Order 1234 5678 costs 49 rupees on 24 October 2027.','en-IN')
+    assert 'one two three four, five six seven eight' in actual
+    assert 'forty nine rupees' in actual
+    assert 'twenty four October two thousand twenty seven' in actual
+
+
+def test_mismatched_model_catalog_is_rejected_before_network(tmp_path,monkeypatch):
+    voice=GnaniVoice('unit-test-placeholder');calls=[]
+    monkeypatch.setenv('GNANI_TTS_MODEL','timbre-v3.0')
+    monkeypatch.setattr(voice.session,'post',lambda *a,**k:calls.append(1))
+    with pytest.raises(VoiceError,match='require GNANI_TTS_MODEL=timbre-v2.5'):
+        voice.synthesize('Hello',tmp_path/'reply.wav','te')
+    assert calls==[]
