@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from src.config import dataset_dir
 from src.evals import rows, save, score
+from src.normalize import redact
 
 
 def _sha(path):
@@ -40,7 +41,7 @@ def provenance(step):
     # Endpoint identity matters, but URLs can contain credentials. Hash them.
     for key in ('LLM_BASE_URL','LLM_FALLBACK_BASE_URL'):
         inference[key+'_sha256'] = hashlib.sha256(os.getenv(key,'').encode()).hexdigest()
-    return {'step':step, 'evaluation_mode':'live_compose_true',
+    return {'step':step, 'evaluation_mode':'live_prompt_only' if step==1 else 'live_compose_true',
         'runtime_source_sha256':{str(p.relative_to(ROOT)).replace('\\','/'):_sha(p) for p in source_files if p.is_file()},
         'dataset_sha256':{str(p.relative_to(dataset)).replace('\\','/'):_sha(p) for p in inputs if p.is_file()},
         'inference':inference}
@@ -51,7 +52,7 @@ def fingerprint(value):
 
 
 def _units(dataset,step):
-    if step==2:
+    if step in (1,2):
         return [[row] for row in dataset]
     units=[list(group) for _,group in groupby(dataset,key=lambda row:row['conversation_id'])]
     if len({unit[0]['conversation_id'] for unit in units})!=len(units):
@@ -60,7 +61,7 @@ def _units(dataset,step):
 
 
 def _id(row,step):
-    return row['id'] if step==2 else row['conversation_id']+'.'+row['turn']
+    return row['id'] if step in (1,2) else row['conversation_id']+'.'+row['turn']
 
 
 
@@ -86,10 +87,11 @@ def _write(output,results,step,configuration,planned,segments):
     save(temporary,results,str(step))
     data=json.loads(temporary.read_text(encoding='utf-8'))
     complete=len(results)==planned
-    data['configuration'].update(evaluation_mode='live_compose_true',
+    data['configuration'].update(evaluation_mode='live_prompt_only' if step==1 else 'live_compose_true',
         inference_fingerprint=fingerprint(configuration), provenance=configuration)
-    data['summary'].update(planned=planned,complete=complete,
-        scope='Current source-driven live practice; generation, guards, clarifications and abstentions are reported separately. No authored policy fallback. Mechanical checks are not organizer scoring.')
+    scope = ('Current prompt-only LLM baseline; no company documents, retrieval, agent or order/ticket tools enter model context. Mechanical checks are not organizer scoring.' if step==1 else
+        'Current source-driven live practice; generation, guards, clarifications and abstentions are reported separately. No authored policy fallback. Mechanical checks are not organizer scoring.')
+    data['summary'].update(planned=planned,complete=complete,scope=scope)
     data['segments']=segments
     data['complete']=complete
     temporary.write_text(json.dumps(data,ensure_ascii=False,indent=2),encoding='utf-8')
@@ -98,9 +100,9 @@ def _write(output,results,step,configuration,planned,segments):
 
 
 def run_evaluation(step,output,*,max_new_units=None,resources_factory=None,agent_factory=None,
-                   dataset=None,provenance_factory=provenance):
-    if step not in (2,3):
-        raise ValueError('Only grounded live steps 2 and 3 are supported')
+                   dataset=None,provenance_factory=provenance,baseline_fn=None,llm_factory=None):
+    if step not in (1,2,3):
+        raise ValueError('Only live steps 1, 2 and 3 are supported')
     output=Path(output)
     protected={'eval_step1.json','eval_step2.json','eval_step3.json',
                'eval_step2_live_postfix_partial.json','final_evaluation.json'}
@@ -108,7 +110,7 @@ def run_evaluation(step,output,*,max_new_units=None,resources_factory=None,agent
         raise ValueError('Choose a separate live artifact; historical/standard evidence is protected')
     if max_new_units is not None and max_new_units<1:
         raise ValueError('max_new_units must be positive')
-    dataset=dataset if dataset is not None else rows('questions.csv' if step==2 else 'conversations.csv')
+    dataset=dataset if dataset is not None else rows('questions.csv' if step in (1,2) else 'conversations.csv')
     units=_units(dataset,step)
     expected_ids=[_id(row,step) for row in dataset]
     configuration=provenance_factory(step)
@@ -128,11 +130,20 @@ def run_evaluation(step,output,*,max_new_units=None,resources_factory=None,agent
         raise ValueError('Resume requires a complete conversation checkpoint')
     if len(results)==len(dataset):
         return saved['summary']
-    if resources_factory is None or agent_factory is None:
-        from src.agent import Agent,Resources
-        resources_factory=resources_factory or Resources
-        agent_factory=agent_factory or Agent
-    resources=resources_factory()
+    if step==1:
+        # Prompt-only baseline never constructs Agent/Resources or reads a KB
+        # for generation. Only the public question is sent to src.llm.baseline.
+        if baseline_fn is None or llm_factory is None:
+            from src.llm import baseline,LLM
+            baseline_fn=baseline_fn or baseline
+            llm_factory=llm_factory or LLM
+        baseline_client=llm_factory()
+    else:
+        if resources_factory is None or agent_factory is None:
+            from src.agent import Agent,Resources
+            resources_factory=resources_factory or Resources
+            agent_factory=agent_factory or Agent
+        resources=resources_factory()
     try:
         git_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     except (OSError,subprocess.SubprocessError):
@@ -147,14 +158,17 @@ def run_evaluation(step,output,*,max_new_units=None,resources_factory=None,agent
             continue
         if fingerprint(provenance_factory(step))!=digest:
             raise ValueError('Runtime inputs changed during evaluation; checkpoint remains preserved')
-        agent=agent_factory(resources=resources,compose=True)
+        if step!=1:
+            agent=agent_factory(resources=resources,compose=True)
         pending=[]
         for row in unit:
-            text=row['question'] if step==2 else row['customer_message']
-            began=time.perf_counter();prediction=agent.respond(text)
-            pending.append({'id':_id(row,step),'question':prediction['transcript'],'prediction':prediction,
+            text=row['question'] if step in (1,2) else row['customer_message']
+            began=time.perf_counter()
+            prediction=baseline_fn(text,baseline_client) if step==1 else agent.respond(text)
+            transcript=redact(text) if step==1 else prediction['transcript']
+            pending.append({'id':_id(row,step),'question':transcript,'prediction':prediction,
                 'checks':score(row,prediction,step==3),'latency_ms':round(1000*(time.perf_counter()-began),1)})
-            print(pending[-1]['id'],pending[-1]['checks']['passed'],prediction.get('composition'),flush=True)
+            print(pending[-1]['id'],pending[-1]['checks']['passed'],prediction.get('composition',prediction.get('mode')),flush=True)
         if fingerprint(provenance_factory(step))!=digest:
             raise ValueError('Runtime inputs changed before checkpoint; earlier checkpoints remain preserved')
         results.extend(pending);new_units+=1;segment['new_responses']+=len(pending)
@@ -168,9 +182,9 @@ def run_evaluation(step,output,*,max_new_units=None,resources_factory=None,agent
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--step',type=int,choices=(2,3),required=True)
+    parser.add_argument('--step',type=int,choices=(1,2,3),required=True)
     parser.add_argument('--output',type=Path)
-    parser.add_argument('--max-new-units',type=int,help='Stop after this many new questions (step2) or whole conversations (step3)')
+    parser.add_argument('--max-new-units',type=int,help='Stop after this many new questions (steps1/2) or whole conversations (step3)')
     args=parser.parse_args()
     output=args.output or ROOT/'sample_outputs'/f'eval_step{args.step}_live_current.json'
     try:
