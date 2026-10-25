@@ -160,48 +160,197 @@ def _refund_calculations(order, sources, data, today):
     return results
 
 
-def _return_calculation(order, public, catalog, sources):
-    policy = sources.get('RET-2')
-    delivered = _date(order.get('delivered_on') or public.get('delivered_on'))
-    if not policy or not delivered:
-        return []
+def _public_refund_claim(query):
+    """Extract a minimal customer claim, never a verified transaction record."""
+    # Require one explicit dated initiation claim. Do not infer a missing year,
+    # choose between competing dates/methods, or retain the customer's raw text.
+    refund = r'\brefund\b|\u0930\u093f\u092b\u093c?\u0902\u0921'
+    initiated = r'\b(?:initiated|started|began|begun)\b|\bshuru\s+(?:hua|hui|ho\s+gaya|ho\s+gayi)\b|\u0936\u0941\u0930\u0942\s+(?:\u0939\u0941\u0906|\u0939\u0941\u0908|\u0939\u094b\s+\u0917\u092f\u093e|\u0939\u094b\s+\u0917\u0908)'
+    negated = r"\b(?:not|never|hasn['\u2019]?t|wasn['\u2019]?t|nahi|nahin)\b|\u0928\u0939\u0940\u0902?"
+    dates = set()
+    for match in re.finditer(r'(?<!\d)\d{4}-\d{2}-\d{2}(?!\d)', query):
+        value = _date(match[0])
+        if value:
+            dates.add(value)
+    months = {
+        'january': 1, 'february': 2, 'march': 3, 'april': 4,
+        'may': 5, 'june': 6, 'july': 7, 'august': 8,
+        'september': 9, 'october': 10, 'november': 11, 'december': 12,
+        '\u091c\u0928\u0935\u0930\u0940': 1,
+        '\u092b\u093c\u0930\u0935\u0930\u0940': 2,
+        '\u092b\u0930\u0935\u0930\u0940': 2,
+        '\u092e\u093e\u0930\u094d\u091a': 3,
+        '\u0905\u092a\u094d\u0930\u0948\u0932': 4,
+        '\u092e\u0908': 5, '\u091c\u0942\u0928': 6,
+        '\u091c\u0941\u0932\u093e\u0908': 7,
+        '\u0905\u0917\u0938\u094d\u0924': 8,
+        '\u0938\u093f\u0924\u0902\u092c\u0930': 9,
+        '\u0905\u0915\u094d\u091f\u0942\u092c\u0930': 10,
+        '\u0928\u0935\u0902\u092c\u0930': 11,
+        '\u0926\u093f\u0938\u0902\u092c\u0930': 12,
+    }
+    named_date = r'(?<!\d)(\d{1,2})(?:st|nd|rd|th)?\s+(' + '|'.join(map(re.escape, months)) + r')\s+(\d{4})(?!\d)'
+    for match in re.finditer(named_date, query, re.I):
+        try:
+            dates.add(date(int(match[3]), months[match[2].casefold()], int(match[1])))
+        except ValueError:
+            pass
+    if len(dates) != 1:
+        return None
+    # The dated clause must itself discuss refund initiation, rather than a
+    # delivery date in one sentence and an undated refund in another sentence.
+    dated_claim = False
+    for clause in re.split(r'[.!?;\n]+', query):
+        if not re.search(refund, clause, re.I):
+            continue
+        date_in_clause = re.search(named_date, clause, re.I) or re.search(r'\d{4}-\d{2}-\d{2}', clause)
+        if not date_in_clause:
+            continue
+        for match in re.finditer(initiated, clause, re.I):
+            if not re.search(negated, clause[max(0, match.start()-35):match.end()+20], re.I):
+                dated_claim = True
+    if not dated_claim:
+        return None
+    patterns = {
+        'upi': r'\bupi\b|\u092f\u0942\u092a\u0940\u0906\u0908',
+        'card': r'\bcards?\b|\u0915\u093e\u0930\u094d\u0921',
+        'netbanking': r'\bnet\s*bank(?:ing)?\b|\u0928\u0947\u091f\s*\u092c\u0948\u0902\u0915(?:\u093f\u0902\u0917)?',
+        'wallet': r'\bwallet\b|\u0935\u0949\u0932\u0947\u091f',
+        'cod_bank': r'\bneft\b|\bbank\s+transfer\b',
+    }
+    methods = {method for method, pattern in patterns.items() if re.search(pattern, query, re.I)}
+    if len(methods) != 1:
+        return None
+    method = methods.pop()
+    if method == 'wallet' and re.search(r'\bcod\b|cash[ -]on[ -]delivery', query, re.I):
+        method = 'cod_wallet'
+    return {'initiated_on': dates.pop().isoformat(), 'payment_method': method,
+            'verified': False, 'origin': 'customer_provided',
+            'transaction_status_confirmed': False}
+
+
+def _public_refund_calculations(query, sources, data, today):
+    claim = _public_refund_claim(query)
+    if not claim:
+        return None, []
+    # Reuse the same generic source-parsed arithmetic as verified records,
+    # while retaining the distinct unverified origin in every derived result.
+    inputs = {'return_refund_initiated_on': claim['initiated_on'],
+              'return_refund_method': claim['payment_method']}
+    calculations = _refund_calculations(inputs, sources, data, today)
+    for calculation in calculations:
+        calculation['record_field'] = 'customer_provided_refund_claim.initiated_on'
+        calculation['input_status'] = 'customer_provided_unverified'
+        calculation['inputs']['customer_statement_verified'] = False
+    return claim, calculations
+
+
+def _selected_return_policy(order, public, catalog, sources):
+    """Select a numeric source row, preserving unresolved date exceptions."""
     categories = {row.get('return_category') for row in catalog if row.get('return_category')}
     if public.get('category'):
         categories.add(public['category'])
     categories.update(item.get('return_category') for item in order.get('items', []) if item.get('return_category'))
     if len(categories) != 1:
-        return []
+        return None
     category = next(iter(categories))
-    matching = [(cells[0], int(span[1])) for cells in _rows(policy) if len(cells) == 3
-                and cells[2] == category and (span := re.fullmatch(r'(\d+) days', cells[1], re.I))]
-    if len(matching) != 1:
-        return []
-    label, days = matching[0]
-    ids = ['RET-2']
+    matching = [(cells[0], int(span[1])) for cells in _rows(sources.get('RET-2', {}))
+                if len(cells) == 3 and cells[2] == category
+                and (span := re.fullmatch(r'(\d+) days', cells[1], re.I))]
+    selected = None
+    if len(matching) == 1:
+        label, days = matching[0]
+        selected = {'category': category, 'category_label': label,
+                    'window_calendar_days': days, 'source_ids': ['RET-2'],
+                    'selection': 'standard_window'}
+    delivered = _date(order.get('delivered_on') or public.get('delivered_on'))
     placed = _date(order.get('placed_at') or public.get('placed_on'))
     if category == 'electronics' and 'RET-3' in sources:
         historical = re.search(r'delivered before\s+(\d{1,2} \w+ \d{4}).*?earlier\s+(\d+)[- ]day', _text(sources['RET-3']), re.I | re.S)
         if historical and (boundary := _word_date(historical[1])):
-            ids.append('RET-3')
-            if delivered < boundary:
-                days = int(historical[2])
-    if category == 'fashion' and 'RET-8' in sources:
+            if delivered and delivered < boundary:
+                selected = {'category': category,
+                            'window_calendar_days': int(historical[2]),
+                            'source_ids': ['RET-3'], 'selection': 'historical_window',
+                            'delivery_before': boundary.isoformat()}
+            elif selected:
+                selected['historical_exception'] = {
+                    'delivery_before': boundary.isoformat(),
+                    'window_calendar_days': int(historical[2]), 'source_ids': ['RET-3']}
+    if selected and category == 'fashion' and 'RET-8' in sources:
         festive = re.search(r'placed between\s+(\d{1,2} \w+)\s+and\s+(\d{1,2} \w+ \d{4}).*?within\s+(\d+)\s+days', _text(sources['RET-8']), re.I | re.S)
         if festive:
             end = _word_date(festive[2])
             begin = _word_date(festive[1] + ' ' + festive[2][-4:])
-            # Without the placement date, which window applies is unresolved.
-            if not placed or not begin or not end:
-                return []
-            ids.append('RET-8')
-            if begin <= placed <= end:
-                days = int(festive[3])
-    return [{'operation': 'return_calendar_deadline', 'source_ids': ids,
-             'inputs': {'category': category, 'category_label': label,
+            if begin and end:
+                selected['placement_exception'] = {
+                    'placed_from': begin.isoformat(), 'placed_through': end.isoformat(),
+                    'window_calendar_days': int(festive[3]), 'source_ids': ['RET-8']}
+                if placed and begin <= placed <= end:
+                    selected['window_calendar_days'] = int(festive[3])
+                    selected['source_ids'] = ['RET-8']
+                    selected['selection'] = 'placement_exception_window'
+                elif not placed:
+                    selected['placement_date_unavailable'] = True
+    return selected
+
+
+def _return_calculation(order, public, catalog, sources):
+    selected = _selected_return_policy(order, public, catalog, sources)
+    delivered = _date(order.get('delivered_on') or public.get('delivered_on'))
+    if not selected or not delivered or selected.get('placement_date_unavailable'):
+        return []
+    placed = _date(order.get('placed_at') or public.get('placed_on'))
+    days = selected['window_calendar_days']
+    return [{'operation': 'return_calendar_deadline', 'source_ids': selected['source_ids'],
+             'inputs': {'category': selected['category'],
+                        'category_label': selected.get('category_label', selected['category']),
                         'delivery_date': delivered.isoformat(),
                         'placement_date': placed.isoformat() if placed else None,
                         'calendar_days': days},
              'result': {'deadline': (delivered + timedelta(days=days)).isoformat()}}]
+
+
+def _source_delivery_policy(sources):
+    source = sources.get('DEL-3')
+    if not source:
+        return None
+    values = {int(match[1]) for match in re.finditer(r'\bup\s+to\s+(\d+)\s+(?:delivery\s+)?attempts?\b', _text(source), re.I)}
+    if len(values) != 1:
+        return None
+    return {'delivery_attempt_limit': values.pop(), 'source_ids': ['DEL-3']}
+
+
+def _answer_constraints(query, context, sources):
+    """Require only question-relevant, host-derived numeric facts, never prose."""
+    constraints = []
+    return_topic = bool(re.search(r'\breturn\w*\b|\bsend.{0,15}back\b|\b(?:wapas|vaapas|lauta\w*)\b|\u0930\u093f\u091f\u0930\u094d\u0928|\u0932\u094c\u091f\u093e|\u0935\u093e\u092a\u0938', query, re.I))
+    duration = bool(re.search(r'\b(?:window|period|days?|deadline|duration)\b|\bhow\s+long\b|\bhow\s+much\s+time\b|\bkitn[aei]\w*.{0,12}\bdin\b|\u0926\u093f\u0928|\u0905\u0935\u0927\u093f', query, re.I))
+    refund_topic = bool(re.search(r'\brefund\b|\u0930\u093f\u092b\u093c?\u0902\u0921', query, re.I))
+    explicit_return_window = bool(re.search(r'\breturn\s+(?:window|period|deadline|duration)\b', query, re.I))
+    selected = context.get('return_policy')
+    if selected and return_topic and duration and (not refund_topic or explicit_return_window):
+        constraints.append({'kind': 'quantity', 'value': selected['window_calendar_days'],
+                            'unit': 'calendar_day', 'key': 'return_policy.window_calendar_days',
+                            'source_ids': selected['source_ids']})
+    by_when = bool(re.search(r'\bby\s+(?:(?:which|what)\s+(?:date|day)|when)\b|\blatest(?:\s+(?:refund|arrival|expected))?\s+date\b|\bwhen\b.{0,50}\b(?:arriv\w*|reach\w*|receiv\w*|get|have|expect\w*|show|credit\w*)\b|\bkab\s+tak\b|\u0915\u092c\s*\u0924\u0915|\u0915\u093f\u0938\s+\u0924\u093e\u0930\u0940\u0916', query, re.I))
+    calculations = [(index, row) for index, row in enumerate(context.get('calculations', []))
+                    if row.get('operation') == 'refund_business_date_range'
+                    and row.get('result', {}).get('latest_date')]
+    if refund_topic and by_when and len(calculations) == 1:
+        index, calculation = calculations[0]
+        ids = [sid for sid in calculation['source_ids'] if sid in sources]
+        if ids:
+            constraints.append({'kind': 'date', 'value': calculation['result']['latest_date'],
+                                'key': 'refund.latest_date', 'source_ids': ids,
+                                'calculation_index': index})
+    attempts_topic = bool(re.search(r'\battempts?\b|\b(?:not\s+(?:at\s+)?home|courier\s+comes|miss(?:ed)?\s+(?:the\s+)?delivery)\b|\bghar.{0,15}nahi\b|\u0918\u0930.{0,15}\u0928\u0939\u0940|\u0921\u093f\u0932\u0940\u0935\u0930\u0940.{0,15}\u092a\u094d\u0930\u092f\u093e\u0938', query, re.I))
+    delivery = context.get('delivery_policy')
+    if delivery and attempts_topic:
+        constraints.append({'kind': 'number', 'value': delivery['delivery_attempt_limit'],
+                            'key': 'delivery_policy.delivery_attempt_limit',
+                            'source_ids': delivery['source_ids']})
+    return constraints
 
 
 def _boolean(value):
@@ -350,12 +499,26 @@ def build_context(query, sources, data, verified_order=None, public_context=None
     if catalog:
         context['catalog'] = catalog
     context['calculations'].extend(_refund_calculations(order, source_map, data, REFERENCE_DATE))
+    if not verified_order:
+        claim, claim_calculations = _public_refund_calculations(query, source_map, data, REFERENCE_DATE)
+        if claim:
+            context['customer_provided_refund_claim'] = claim
+            context['calculations'].extend(claim_calculations)
+    selected_return = _selected_return_policy(order, public, catalog, source_map)
+    if selected_return:
+        context['return_policy'] = selected_return
+    delivery_policy = _source_delivery_policy(source_map)
+    if delivery_policy:
+        context['delivery_policy'] = delivery_policy
     context['calculations'].extend(_return_calculation(order, public, catalog, source_map))
     service_facts, service_calculations = _public_serviceability(query, source_map, data)
     context.update(service_facts)
     context['calculations'].extend(service_calculations)
+    context['answer_constraints'] = _answer_constraints(query, context, source_map)
     # Hashes make the parsed numeric inputs auditable against retrieved bytes.
     used = {sid for calculation in context['calculations'] for sid in calculation['source_ids'] if sid in source_map}
+    for fact in (context.get('return_policy', {}), context.get('delivery_policy', {})):
+        used.update(sid for sid in fact.get('source_ids', []) if sid in source_map)
     if used:
         context['calculation_source_sha256'] = {
             sid: hashlib.sha256(source_map[sid]['text'].encode('utf-8')).hexdigest()
