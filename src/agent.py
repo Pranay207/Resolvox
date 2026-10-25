@@ -296,7 +296,7 @@ class Agent:
             extra=[] if preferred else related[:4]
             selected=list({x['id']:x for x in preferred+extra}.values())
             selected=[x for x in selected if x.get('text')]
-            if not self.compose and (plan.intent=='unsupported' or not preferred):
+            if plan.intent=='unsupported' or (not self.compose and not preferred):
                 selected=[]
             context_query=answer_query+('\nPublic catalog pincode: '+public_pins[0] if len(public_pins)==1 else '')
             plan.facts=build_context(context_query,selected,r.data,

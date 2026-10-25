@@ -67,25 +67,18 @@ def test_hindi_verification_prompt_is_hindi(resource):
     assert '???' not in out['answer']
 
 def test_unknown_policy_returns_refusal_without_model_guessing(resource,monkeypatch):
-    seen=[]
-    def uncertainty(system,user,*args,**kwargs):
-        payload=json.loads(user);seen.append(payload)
-        assert 'verified_rule_summary' not in payload
-        assert 'required_citations' not in payload
-        return json.dumps({'decision':'refuse',
-                           'answer':'I do not have enough supported information to answer that.',
-                           'covered':False})
-    monkeypatch.setattr(resource.llm,'complete',uncertainty)
+    def forbidden(*args,**kwargs):
+        pytest.fail('Unsupported policy routing must abstain without inviting model guesses')
+    monkeypatch.setattr(resource.llm,'complete',forbidden)
     out=Agent(resource,compose=True).respond('Can I get a student discount?')
-    assert len(seen)==1 and seen[0]['source_text']
-    assert seen[0]['question']=='Can I get a student discount?'
-    assert out['decision']=='refuse'
+    assert out['decision']=='answer' and out['intent']=='unsupported'
     assert 'enough supported information' in out['answer']
     assert 'student discounts are unavailable' not in out['answer'].lower()
     assert not out['citations'] and not out['tool_calls']
     assert set(out['retrieved_chunk_ids']) <= {'STY-1'}
-    assert out['generation']['provenance_kind']=='generation_context'
-    assert {s['id'] for s in out['generation_context_sources']}=={s['id'] for s in seen[0]['source_text']}
+    assert out['retrieval_candidates']
+    assert out['facts']=={} and out['evidence_supported'] is False
+    assert out['generation']=={} and out['generation_context_sources']==[]
 
 @pytest.mark.parametrize('question,expected_intent', [
     ('My pincode is 248001. What is the return period for ELE-0002?', 'return'),

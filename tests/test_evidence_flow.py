@@ -87,23 +87,21 @@ def test_uncovered_policy_uses_source_only_uncertainty_without_invented_restrict
     r = Resources(dense=False)
     seen = []
 
-    def complete(system, user, *args, **kwargs):
-        payload = json.loads(user)
-        seen.append(payload)
-        assert 'verified_rule_summary' not in payload
-        return json.dumps({'decision': 'refuse',
-                           'answer': 'I do not have enough supported information to answer that.',
-                           'covered': False})
+    def forbidden(system, user, *args, **kwargs):
+        seen.append(user)
+        pytest.fail('Unsupported routing must not send merely related sources for generation')
 
-    monkeypatch.setattr(r.llm, 'complete', complete)
+    monkeypatch.setattr(r.llm, 'complete', forbidden)
     out = Agent(r, compose=True).respond('Can I schedule a delivery at midnight?')
-    assert len(seen) == 1 and seen[0]['source_text']
-    assert out['decision'] == 'refuse' and 'enough supported information' in out['answer']
+    assert not seen
+    assert out['decision'] == 'answer' and 'enough supported information' in out['answer']
     assert 'cannot schedule' not in out['answer']
     assert out['composition'] == 'abstained_missing_evidence'
-    assert not out['citations']
-    assert out['generation']['provenance_kind'] == 'generation_context'
-    assert {s['id'] for s in out['generation_context_sources']} == {s['id'] for s in seen[0]['source_text']}
+    assert out['retrieval_candidates']
+    assert out['facts'] == {} and out['evidence_supported'] is False
+    assert out['citations'] == [] and out['generation'] == {}
+    assert out['generation_context_sources'] == []
+    assert set(out['retrieved_chunk_ids']) <= {'STY-1'}
 
 
 def _fixed_retrieval(resources, monkeypatch, ids):
