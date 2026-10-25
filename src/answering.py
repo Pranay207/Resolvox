@@ -3,6 +3,7 @@ from dataclasses import dataclass,field
 from datetime import date,timedelta
 import re
 from .config import REFERENCE_DATE
+from .event_dates import event_date
 from .dates import parse_date,business_add,business_elapsed,return_deadline,return_window,fmt,partial_refund
 from .normalize import number_words
 
@@ -184,11 +185,7 @@ class Policy:
         return next((category for category,pattern in patterns if has(text,pattern)),None)
 
     def _event_date(self,text,event):
-        pattern=r'\b(?:delivered|delivery|reached|arrived)\b|डिलीवर' if event=='delivery' else r'\b(?:placed|ordered|bought|purchased)\b|खरीद'
-        for match in re.finditer(pattern,text,re.I):
-            after=self._date_in(text[match.end():match.end()+65])
-            if after: return after
-        return None
+        return event_date(text,event,REFERENCE_DATE)
 
     def _return_window(self,text,order=None,product=None,category=None,product_ids=None):
         t=text.lower(); cat=category or self._category(text,product)

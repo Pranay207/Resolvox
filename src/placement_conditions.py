@@ -254,6 +254,56 @@ def _mentions_days(clause, days, normalizer):
     return bool(re.search(r'(?<!\d)' + re.escape(str(days)) + r'\s*(?:calendar\s*)?(?:days?|din|\u0926\u093f\u0928)(?![A-Za-z])', normalized, re.I))
 
 
+def _check_deictic_delivery_membership(answer, status, normalizer):
+    """Reject asserted personal membership in a source-dated delivery class.
+
+    The caller has independently rebound status to actual selected source text.
+    Generic rules are fine. A named product model is not a dated individual unit.
+    """
+    if not status or status.get('input_origin') != 'missing':
+        return
+    boundary = _date(status.get('delivery_before'))
+    if boundary is None:
+        raise ValueError('unbound_delivery_exception')
+    actual_dates = [boundary.isoformat(), f'{boundary.day} {boundary:%B %Y}',
+                    f'{boundary.day:02d} {boundary:%B %Y}', f'{boundary.day} {boundary:%b %Y}']
+    date_reference = (r'(?:' + '|'.join(re.escape(x) for x in actual_dates) +
+                      r'|(?:this|that|the)\s+(?:date|cut[ -]?off)|(?:the\s+)?cut[ -]?off)')
+    dated_class = re.compile(
+        r'\b(?:delivered|received|deliveries)\b.{0,45}'
+        r'\b(?:on\s+or\s+after|on\s+or\s+before|before|after|since|from|prior\s+to|earlier\s+than|later\s+than)\s+'
+        + date_reference + r'\b', re.I)
+    personal = r'(?:this\s+(?:one|1|item|unit|order|purchase)|your\s+(?:item|product|unit|order|purchase)|yours)'
+    member = re.compile(
+        r'\b(?:including|excluding|such\s+as|like)\s+' + personal + r'\b|'
+        r'\b' + personal + r'\s+(?:belongs?|falls?|is\s+(?:included|among|one|1))\b.{0,35}'
+        r'\b(?:this|that|these|those|same)\s+(?:group|class|category|batch|set|items?|products?)\b', re.I)
+    conditional_personal_date = re.compile(
+        r'\b(?:if|provided|assuming|when|whether)\b[^,;]{0,35}'
+        r'\b(?:' + personal + r'|it)\b[^,;]{0,30}\b(?:delivered|received)\s+'
+        r'(?:on\s+or\s+after|on\s+or\s+before|on|before|after|since|from|prior\s+to|earlier\s+than|later\s+than)\s+'
+        + date_reference + r'\b', re.I)
+    previous_dated_class = False
+    for original in re.split(r'[.!?;\u0964\n]+', answer):
+        # Numeric normalization removes commas; preserve their clause scope.
+        clause = normalizer(original.casefold().replace(',', ';'))
+        current_dated_class = bool(dated_class.search(clause))
+        for match in member.finditer(clause):
+            if not (current_dated_class or previous_dated_class):
+                continue
+            if _uncertain_predicate(clause, match.start()):
+                continue
+            # An explicit condition must govern this personal date/membership,
+            # not merely an unrelated condition about the item's condition.
+            prefix = re.split(r'[,;]', clause[:match.start()])[-1]
+            conditional_membership = bool(re.search(
+                r'\b(?:if|provided|assuming|when|whether)\s*(?:that\s+)?$', prefix, re.I))
+            if (conditional_membership or conditional_personal_date.search(clause)) and not _CAUSAL.search(clause):
+                continue
+            raise ValueError('invented_delivery_class_membership')
+        previous_dated_class = current_dated_class
+
+
 def check_placement_exception_answer(answer, facts, sources, *, normalizer=_numeric_text):
     """Check unsupported personal date premises and definite exception entitlement."""
     policy = facts.get('return_policy', {})
@@ -265,6 +315,7 @@ def check_placement_exception_answer(answer, facts, sources, *, normalizer=_nume
         return
     inputs = {'placement': _inputs(facts, 'placed_at', 'placed_on')[0],
               'delivery': _inputs(facts, 'delivered_on', 'delivered_on')[0]}
+    _check_deictic_delivery_membership(answer, delivery, normalizer)
     for clause in re.split(r'[.!?;\u0964\n]+', answer):
         conditional_dates = {}
         for kind, pattern in (('placement', _PLACED_ASSERTION), ('delivery', _DELIVERED_ASSERTION)):

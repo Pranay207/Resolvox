@@ -14,6 +14,8 @@ from .llm import LLM,LLMUnavailable
 from .grounding import compatible,abstention
 from .document_answers import document_reply
 from .document_context import build_context
+from .source_inputs import source_input_clarification, make_source_input_workflow, resume_source_input, workflow_binding_sources, ModelCallProbe
+from .source_selection import select_policy_context
 
 class Resources:
     def __init__(self,dense:bool|None=None):
@@ -33,6 +35,7 @@ class State:
     tickets:dict[str,dict]=field(default_factory=dict)
     safe_history:list[dict]=field(default_factory=list)
     public_context:dict[str,str]=field(default_factory=dict)
+    source_input_workflow:dict=field(default_factory=dict)
 
 class Agent:
     def __init__(self,resources:Resources|None=None,compose:bool|None=None):
@@ -61,13 +64,26 @@ class Agent:
         public_pins=re.findall(r'(?<!\d)\d{6}(?!\d)',text) if not credential and not proof and not (s.order_id and not s.order) else []
         answer_query=safe_text
         contextual_text=safe_text
+        source_input_resumed=None
+        workflow=s.source_input_workflow
+        s.source_input_workflow={}
+        if workflow and not (oid or credential or proof) and (intent in {'unknown',workflow.get('intent')} or (intent=='payment' and workflow.get('requirement',{}).get('key')=='payment_method')):
+            bound_sources=workflow_binding_sources(workflow,r.kb.chunks,r.data.products,r.data.pincodes)
+            source_input_resumed=resume_source_input(workflow,safe_text,bound_sources,order_id=s.order_id,
+                candidate_product=r.policy.product(safe_text),candidate_category=r.policy._category(safe_text))
+            if source_input_resumed:
+                intent=source_input_resumed['intent']
+                s.public_context=dict(source_input_resumed['public_context'])
+                s.source_input_workflow=source_input_resumed['workflow']
+                answer_query=source_input_resumed['question']
+                contextual_text=source_input_resumed['question']
         explicit_skus=[prefix.upper()+'-'+digits for prefix,digits in
                        re.findall(r'\b(ELE|FSH|HOM|BKS|INR|BEA|GRO|DIG)[-\s]*(\d{4})\b',number_words(safe_text),re.I)]
         unknown_skus=[value for value in explicit_skus if value not in r.data.products]
         # Carry explicit public slots, never concatenate old utterances: that
         # can introduce competing SKUs and superseded dates into a follow-up.
         if not s.order_id and not credential and intent not in {'privacy','safety','fraud','legal','human'}:
-            followup=bool(re.search(r'\b(it|this|that|instead|actually|correction|corrected|its|same|what about|then|now|ise|isko|uska)\b|असल|यह|तारीख',safe_text,re.I))
+            followup=bool(re.search(r'\b(it|this|that|instead|actually|correction|corrected|its|same|what about|then|now|ise|isko|uska)\b|असल|यह|तारीख',safe_text,re.I)) or bool(source_input_resumed)
             prior_intent=s.last_intent
             if explicit_skus and s.safe_history and s.safe_history[-1]['decision']=='clarify': followup=True
             date_revision=followup and prior_intent=='return' and bool(re.search(r'correction|corrected|revise|actually',safe_text,re.I))
@@ -97,6 +113,8 @@ class Agent:
                 if context.get('delivered_on'): details.append('Delivered on '+context['delivered_on'])
                 contextual_text+='\nPublic context: '+'. '.join(details)+'.'
             s.public_context=context
+        if source_input_resumed and source_input_resumed['key']=='payment_method':
+            contextual_text+='\nPublic payment method: '+source_input_resumed['source_label']+'.'
         def grounded_plan(query,kind,order=None):
             nonlocal candidates,pool,retrieval_ms,answer_query
             answer_query=query
@@ -291,17 +309,11 @@ class Agent:
             # Planner text, policy constants and authored summaries are never
             # supplied to generation or used as a customer-facing fallback.
             # IDs are routing hints only: every section must be in actual search.
-            preferred=[available[c] for c in plan.ids if c in available]
-            related=[x for x in pool if x.get('doc_type') in {'policy','help','agent_guide','catalog'}]
-            extra=[] if preferred else related[:4]
-            # Catalog rows are public lookups already matched to this query.
-            # Retain shared-title variants without choosing an arbitrary SKU;
-            # their actual attributes remain available alongside policy text.
-            catalog=[x for x in pool if x.get('doc_type')=='catalog']
-            selected=list({x['id']:x for x in preferred+extra+catalog}.values())
-            selected=[x for x in selected if x.get('text')]
-            if plan.intent=='unsupported' or (not self.compose and not preferred):
-                selected=[]
+            # Actual retrieved policy rows survive an unfamiliar legacy route.
+            # Planner IDs are ordering hints; style alone is not evidence.
+            selected=select_policy_context(pool,plan.ids)
+            if selected and plan.intent=='unsupported':
+                plan.intent=intent if intent!='unknown' else 'policy'
             context_query=answer_query+('\nPublic catalog pincode: '+public_pins[0] if len(public_pins)==1 else '')
             plan.facts=build_context(context_query,selected,r.data,
                 verified_order=s.order,public_context=s.public_context)
@@ -312,25 +324,38 @@ class Agent:
             if selected and self.compose:
                 began=time.perf_counter()
                 generation_context_sources=selected
+                model_probe=ModelCallProbe(r.llm)
                 try:
-                    generated=document_reply(r.llm,answer_query,s.language,selected,
-                        facts=plan.facts,private=bool(s.order_id),context_provenance=True)
+                    generated=source_input_clarification(plan.facts,selected,s.language)
+                    if generated is None:
+                        s.source_input_workflow={}
+                        generated=document_reply(model_probe,answer_query,s.language,selected,
+                            facts=plan.facts,private=bool(s.order_id),context_provenance=True)
+                    else:
+                        generation_context_sources=[]
+                        s.source_input_workflow=make_source_input_workflow(plan.facts,selected,answer_query,
+                            plan.intent,s.public_context,s.order_id)
                     answer=generated['answer']; source_ids=generated['source_ids']
                     citations=generated.get('citations',[])
                     sources=[available[c] for c in source_ids]
                     plan.decision=generated['decision']
                     composition='grounded_llm' if source_ids else ('grounded_clarification' if plan.decision=='clarify' else 'abstained_missing_evidence')
                     supported=bool(source_ids)
+                    if generated.get('decision_origin')=='host_source_table_input':
+                        composition='source_input_clarification'
                     generation={k:v for k,v in generated.items() if k not in {'answer','source_ids','citations','decision'}}
+                    if source_input_resumed:
+                        generation['workflow_input_resolution']={key:source_input_resumed[key] for key in ('key','value','source_ids')}
+                        generation['workflow_input_resolution']['input_status']='customer_provided_unverified'
                 except (LLMUnavailable,ValueError,TypeError) as exc:
                     validation_error=str(exc) if isinstance(exc,ValueError) else 'model_unavailable_or_invalid'
                     composition='abstained_model_or_evidence'
                     plan.decision='answer' if intent=='unknown' else 'refuse'
-                llm_ms=1000*(time.perf_counter()-began)
+                llm_ms=1000*(time.perf_counter()-began) if model_probe.calls else 0.0
             elif selected:
                 # Explicit offline mode is an inspectable source-excerpt view,
                 # not a substitute prewritten policy answer or a model result.
-                excerpt_sources=selected[:3]+[x for x in selected[3:] if x.get('doc_type')=='catalog']
+                excerpt_sources=selected
                 excerpts=[x['text'][:1100] for x in excerpt_sources]
                 answer='Retrieved document excerpts (offline; no generated answer):\n'+'\n\n'.join(excerpts)
                 source_ids=[x['id'] for x in excerpt_sources]; sources=excerpt_sources
@@ -352,9 +377,9 @@ class Agent:
         s.last_intent=plan.intent if plan.intent!='verification' else s.last_intent
         s.safe_history.append({'user':safe_text,'intent':plan.intent,'decision':plan.decision}); s.safe_history=s.safe_history[-12:]
         return {'transcript':safe_text,'answer':answer,'intent':plan.intent,'decision':plan.decision,'language':s.language,
-                'retrieved_chunk_ids':source_ids,'sources':sources,'retrieval_candidates':[{'id':x['chunk'].id,'score':x['score'],'dense_score':x['dense_score']} for x in candidates],
+                'retrieved_chunk_ids':source_ids,'sources':sources,'retrieval_candidates':[{'id':x['chunk'].id,'score':x['score'],'dense_score':x['dense_score'],**{key:x[key] for key in ('retrieval_role','direct_rank','dependency_weight') if key in x}} for x in candidates],
                 'tool_calls':calls,'facts':plan.facts,'verified':bool(s.order),'reference_date':REFERENCE_DATE.isoformat(),'composition':composition,
-                'retrieval_mode':r.retriever.dense_status,'retrieval_k':12,'evidence_supported':supported,
+                'retrieval_mode':r.retriever.dense_status,'retrieval_k':12,'retrieval_direct_k':12,'retrieval_dependency_limit':4,'retrieval_candidate_limit':16,'retrieval_returned_count':len(candidates),'retrieval_direct_count':sum(x.get('retrieval_role')=='direct' for x in candidates),'retrieval_dependency_count':sum(x.get('retrieval_role')=='dependency' for x in candidates),'evidence_supported':supported,
                 'validation_error':validation_error,'citations':citations,'generation':generation,
                 'generation_context_sources':generation_context_sources,
                 'llm':r.llm.last_metrics.copy() if llm_ms else {},

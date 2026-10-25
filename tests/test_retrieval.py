@@ -56,11 +56,13 @@ def test_empty_search(retriever, query, k):
 
 def test_results_keep_source_metadata_and_score_contract(retriever):
     rows = retriever.search('When does an initiated card refund arrive?', k=8)
-    assert 1 <= len(rows) <= 8
+    assert 1 <= len(rows) <= 10
     assert len({row['chunk'].id for row in rows}) == len(rows)
     assert [row['score'] for row in rows] == sorted((row['score'] for row in rows), reverse=True)
     for row in rows:
-        assert set(row) == {'chunk', 'score', 'dense_score'}
+        assert {'chunk', 'score', 'dense_score', 'retrieval_role', 'direct_rank', 'returned_count'} <= set(row)
+        assert row['returned_count'] == len(rows)
+        assert row['requested_direct_k'] == 8 and row['candidate_limit'] == 10
         assert row['chunk'] is retriever.kb.chunks[row['chunk'].id]
         assert row['chunk'].text.startswith('## [')
 
@@ -153,8 +155,10 @@ def test_related_policy_restriction_accompanies_general_entitlement():
 
 def test_dependency_overlap_keeps_available_retrieval_budget(retriever):
     rows = retriever.search('Refund timing after bank transfer initiation and wallet choice', k=12)
-    assert len(rows) == 12
-    assert len({row['chunk'].id for row in rows}) == 12
+    assert 12 <= len(rows) <= 16
+    assert len({row['chunk'].id for row in rows}) == len(rows)
+    assert sum(row['retrieval_role'] == 'direct' for row in rows) == 12
+    assert sum(row['retrieval_role'] == 'dependency' for row in rows) <= 4
 
 
 @pytest.mark.parametrize('query,expected', [

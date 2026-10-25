@@ -7,6 +7,7 @@ import hashlib
 import json
 import os
 import re
+from decimal import Decimal
 from pathlib import Path
 
 from .llm import LLMUnavailable
@@ -57,14 +58,14 @@ def numbers(text):
 
 
 _UNITS = {
-    'business_day': r'business\s+days?|working\s+days?|कार्य\s*दिवस(?:ों)?|कारोबारी\s+दिन',
+    'business_day': r'business\s+(?:days?|din)|working\s+(?:days?|din)|कार्य\s*दिवस(?:ों)?|कारोबारी\s+दिन',
     'calendar_day': r'calendar\s+days?|कैलेंडर\s+(?:दिन|दिवस)|calendar\s+din',
     'day': r'days?|दिन|din',
     'hour': r'hours?|hrs?|घंटे?|घण्टे?|ghante?',
     'minute': r'minutes?|mins?|मिनट',
     'money': r'rupees?|inr|रुपये|रुपए|रुपया',
     'year': r'years?|साल|वर्ष',
-    'month': r'months?|महीने?|माह',
+    'month': r'months?|महीने?|माह|mahina|mahine|mahino(?:n)?',
     'week': r'weeks?|हफ्ते?|सप्ताह',
     'percent': r'percent|per\s+cent|प्रतिशत|%',
 }
@@ -73,10 +74,19 @@ _QUANTITIES = re.compile(r'(?P<first>\d+(?:\.\d+)?)(?:\s*(?:to|and|or|[-–]|स
 
 
 def _quantities(text):
-    normalized = _numeric_text(text)
+    normalized = _numeric_text(re.sub(r'(?<!\d),|,(?!\d)', ';', text))
     values = set()
     for match in _QUANTITIES.finditer(normalized):
         unit = next(name for name in _UNITS if match.group(name) is not None)
+        if unit == 'day':
+            # A tightly bound explicit unit can precede a range in ordinary
+            # Hinglish. Never promote an explicit calendar-day quantity or
+            # carry a unit across punctuation/an unrelated clause.
+            prefix = normalized[max(0, match.start()-70):match.start()]
+            bound_unit = re.search(r'(?<![\w-])(?:business\s+(?:days?|din)|working\s+(?:days?|din))'
+                         r'\s+(?:(?:ko|mein|me|ke|ki|ka|are|is)\s+){0,2}$', prefix, re.I)
+            if bound_unit and not re.search(r'\b(?:not|non|nahi|nahin)\s*[- ]*$', prefix[:bound_unit.start()], re.I):
+                unit = 'business_day'
         values.add((match.group('first'), unit))
         if match.group('last'):
             values.add((match.group('last'), unit))
@@ -112,9 +122,41 @@ def _fact_quantities(facts):
             values.add((str(value), unit))
     return values
 
+def _duration_months(quantity):
+    number, unit = quantity
+    return Decimal(number) * (12 if unit == 'year' else 1) if unit in {'month', 'year'} else None
+
+
 def _quantity_supported(quantity, support):
     number, unit = quantity
-    return quantity in support or (unit == 'day' and (number, 'calendar_day') in support)
+    if quantity in support or (unit == 'day' and (number, 'calendar_day') in support):
+        return True
+    duration = _duration_months(quantity)
+    return duration is not None and any(_duration_months(candidate) == duration for candidate in support)
+
+
+def _duration_numeric_validation_text(answer, support):
+    # Exact year/month conversion changes only numeric validation text.
+    # Each replacement uses an actual supported quantity, never a new allowance.
+    def replace(match):
+        unit = 'year' if match.group('year') is not None else 'month' if match.group('month') is not None else None
+        if unit is None:
+            return match[0]
+        terms = [match['first']] + ([match['last']] if match['last'] else [])
+        replaced = []
+        for number in terms:
+            quantity = (number, unit)
+            if quantity in support:
+                candidate = quantity
+            else:
+                duration = _duration_months(quantity)
+                candidates = sorted(candidate for candidate in support if _duration_months(candidate) == duration)
+                if not candidates:
+                    return match[0]
+                candidate = candidates[0]
+            replaced.append(candidate[0] + ' ' + candidate[1])
+        return ' and '.join(replaced)
+    return _QUANTITIES.sub(replace, _numeric_text(answer))
 
 
 _COMPLETED = r'(?:cancelled|canceled|approved|issued|processed|booked|created|raised|refunded|initiated|scheduled|credited|transferred|completed)'
@@ -256,9 +298,9 @@ def validate_generated(value, sources, required_ids=(), facts=None, required_tex
     evidence = '\n'.join(quotes)
     # Unquoted numbers elsewhere in a cited section cannot authorize a claim.
     allowed = numbers(evidence + '\n' + json.dumps(facts or {}, ensure_ascii=False))
-    if not numbers(answer).issubset(allowed):
-        raise ValueError('unsupported_number')
     quantity_support = _quantities(evidence) | _fact_quantities(facts)
+    if not numbers(_duration_numeric_validation_text(answer, quantity_support)).issubset(allowed):
+        raise ValueError('unsupported_number')
     if any(not _quantity_supported(quantity, quantity_support) for quantity in _quantities(answer)):
         raise ValueError('unsupported_quantity_unit')
     if required_text and not numbers(required_text).issubset(numbers(answer)):

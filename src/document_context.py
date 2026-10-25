@@ -13,6 +13,7 @@ import json
 import re
 
 from .config import REFERENCE_DATE
+from .warranty_durations import warranty_duration_context, warranty_duration_constraints
 from .source_semantics import derive_source_constraints
 from .return_conditions import return_condition_context
 
@@ -37,7 +38,7 @@ ORDER_FIELDS = frozenset({
 })
 ITEM_FIELDS = frozenset({'line_no', 'sku', 'title', 'return_category', 'qty', 'unit_price_inr'})
 CATALOG_FIELDS = frozenset({'sku', 'title', 'brand', 'return_category', 'price_inr', 'fulfilled_by', 'assured', 'warranty_months', 'description'})
-PUBLIC_FIELDS = frozenset({'sku', 'category', 'placed_on', 'delivered_on'})
+PUBLIC_FIELDS = frozenset({'sku', 'category', 'placed_on', 'delivered_on', 'payment_method'})
 DAY_NAMES = ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday')
 
 
@@ -461,6 +462,50 @@ def _date_labels(value):
     return labels
 
 
+def _return_application_facet(query):
+    """Recognize a requested return boundary/application, not generic time.
+
+    This finite language check does not infer an answer or pick a category.
+    A nearby returned item does not make money-processing time a return window.
+    """
+    # An overview of categories/conditions needs no individual table row.
+    if re.search(
+            r'\b(?:which|what)\s+(?:product\s+)?(?:categor\w*|items?|kinds?|types?)\b|'
+            r'\b(?:kaun\s*si|kaunsi|kaunse)\b.{0,24}\b(?:categor\w*|items?|products?)\b|'
+            r'\u0915\u094c\u0928.{0,16}(?:\u0936\u094d\u0930\u0947\u0923|\u0909\u0924\u094d\u092a\u093e\u0926|\u0935\u0938\u094d\u0924\u0941)', query, re.I):
+        return False
+    action = (r'(?:\breturn\w*\b|\bsend\w*\b.{0,20}\bback\b|\b(?:wapas|vaapas|lauta\w*)\b|'
+              r'\u0930\u093f\u091f\u0930\u094d\u0928|\u0935\u093e\u092a\u0938|\u0932\u094c\u091f\u093e)')
+    boundary = (r'(?:\b(?:window|deadline|cutoff|eligib\w*|returnability)\b|'
+                r'\b(?:allowed|eligible|returnable)\b|\b(?:aakhri|akhri|antim)\s+(?:din|date|tareekh)\b|'
+                r'\u0938\u092e\u092f\u0938\u0940\u092e\u093e|\u0905\u0902\u0924\u093f\u092e\s*(?:\u0926\u093f\u0928|\u0924\u093e\u0930\u0940\u0916)|'
+                r'\u092a\u093e\u0924\u094d\u0930|\u092f\u094b\u0917\u094d\u092f)')
+    explicit = (r'\b(?:return\s+(?:period|duration)|(?:period|duration)\s+(?:for|of)\s+(?:a\s+)?return)\b|'
+                r'\u0930\u093f\u091f\u0930\u094d\u0928\s*(?:\u0905\u0935\u0927\u093f|\u0915\u093e\s*\u0938\u092e\u092f)|'
+                r'\u0932\u094c\u091f\u093e\u0928\u0947\s*\u0915\u0940\s*\u0905\u0935\u0927\u093f')
+    question_time = (r'(?:\b(?:how\s+long|how\s+many\s+days|by\s+when|until\s+when|kab\s+tak|kitn\w*\s+din)\b|'
+                     r'\u0915\u092c\s*\u0924\u0915|\u0915\u093f\u0924\u0928\u0947\s*\u0926\u093f\u0928|\u0915\u093f\u0924\u0928\u093e\s*\u0938\u092e\u092f)')
+    permission = (r'\b(?:can|may|could)\s+(?:i|we)\b|\b(?:am\s+i|are\s+we)\s+(?:still\s+)?allowed\b|'
+                  r'\b(?:do\s+i|do\s+we)\s+have\b|\b(?:kar|bhej|lauta)\w*\s+(?:sakt\w*|sakte|sakti)\b|'
+                  r'\u0915\u0930\s*\u0938\u0915|\u092d\u0947\u091c\s*\u0938\u0915|\u0932\u094c\u091f\u093e\s*\u0938\u0915')
+    # Clause boundaries keep a refund deadline in another sentence from
+    # becoming an obligation to apply the return-category table.
+    for clause in re.split(r'[.!?;\u0964\n]|\b(?:and|but|aur)\b|\u0914\u0930', query, flags=re.I):
+        if not re.search(action, clause, re.I):
+            continue
+        if re.search(explicit, clause, re.I) or re.search(boundary, clause, re.I):
+            return True
+        if re.search(permission, clause, re.I):
+            return True
+        # A personal return action with an explicit time boundary is an
+        # application request. Generic 'when money is sent' is not this facet.
+        if re.search(question_time, clause, re.I) and re.search(
+                r'\b(?:to|for)\s+(?:a\s+)?(?:return|send\w*)\b|\b(?:karn[ae]|bhejn[ae]|lautane)\b|'
+                r'\u0915\u0930\u0928[\u093e\u0947]|\u092d\u0947\u091c\u0928[\u093e\u0947]|\u0932\u094c\u091f\u093e\u0928[\u093e\u0947]', clause, re.I):
+            return True
+    return False
+
+
 def _missing_application_inputs(query, sources, facts):
     by_id = {row['id']: row for row in sources if row.get('status', 'current') == 'current'
              and row.get('doc_type', 'policy') == 'policy' and row.get('id')}
@@ -476,7 +521,7 @@ def _missing_application_inputs(query, sources, facts):
     refund_topic = bool(re.search(r'\brefund\b|\u0930\u093f\u092b\u093c?\u0902\u0921', query, re.I))
     duration = bool(re.search(r'\b(?:window|period|days?|duration|when|soon)\b|\bhow\s+long\b|\bkab\b|\bkitn\w*.{0,12}\bdin\b|\u0926\u093f\u0928|\u0915\u092c|\u0905\u0935\u0927\u093f', query, re.I))
     required = []
-    if return_topic and duration and not refund_topic and 'RET-2' in by_id:
+    if return_topic and _return_application_facet(query) and 'RET-2' in by_id:
         options = [{'return_category': cells[2], 'return_window': cells[1]}
                    for cells in _rows(by_id['RET-2']) if len(cells) == 3
                    and re.fullmatch(r'[a-z]+(?:_[a-z]+)*', cells[2])
@@ -509,7 +554,8 @@ def _missing_application_inputs(query, sources, facts):
         if cod:
             options = [row for row in options if row['payment_method'].startswith('cod_')]
         order = facts.get('verified_order', {})
-        known = {_payment(facts.get('customer_provided_refund_claim', {}).get('payment_method'))}
+        known = {_payment(facts.get('customer_provided_refund_claim', {}).get('payment_method')),
+                 _payment(facts.get('public_context', {}).get('payment_method'))}
         recorded = [order.get(prefix + '_refund_method') for prefix in ('return', 'cancellation', 'rto')]
         known.update(_payment(value) for value in recorded if value)
         if not any(recorded):
@@ -547,6 +593,12 @@ def build_context(query, sources, data, verified_order=None, public_context=None
                   and isinstance(source.get('text'), str)
                   and source.get('status', 'current') == 'current'}
     public = _record(public_context or {}, PUBLIC_FIELDS)
+    if 'payment_method' in public:
+        normalized_method = _payment(public['payment_method'])
+        if normalized_method:
+            public['payment_method'] = normalized_method
+        else:
+            public.pop('payment_method')
     order = _record(verified_order or {}, ORDER_FIELDS)
     if verified_order:
         order['items'] = [_record(item, ITEM_FIELDS)
@@ -594,7 +646,9 @@ def build_context(query, sources, data, verified_order=None, public_context=None
     context.update(service_facts)
     context['calculations'].extend(service_calculations)
     context.update(return_condition_context(query, source_map, reference_date=REFERENCE_DATE.isoformat()))
+    context.update(warranty_duration_context(query, source_map, reference_date=REFERENCE_DATE.isoformat(), sku=public.get('sku')))
     context['answer_constraints'] = _answer_constraints(query, context, source_map)
+    context['answer_constraints'].extend(warranty_duration_constraints(context))
     source_semantic_constraints = derive_source_constraints(list(source_map.values()))
     if source_semantic_constraints:
         context['source_semantic_constraints'] = source_semantic_constraints

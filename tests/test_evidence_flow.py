@@ -12,10 +12,12 @@ def test_missing_governing_chunk_cannot_restore_old_policy_answer_offline():
     r = Resources(dense=False)
     del r.kb.chunks['REF-2']
     out = Agent(r, compose=False).respond('How long do UPI refunds take?')
-    assert out['composition'] == 'abstained_missing_evidence'
-    assert '1 to 3' not in out['answer']
+    assert out['composition'] == 'document_excerpts'
+    assert 'offline; no generated answer' in out['answer']
     assert 'REF-2' not in out['retrieved_chunk_ids']
-    assert out['facts'] == {}
+    assert all(s['id'] != 'REF-2' for s in out['sources'])
+    assert all(s['text'] == r.kb.chunks[s['id']].text for s in out['sources'])
+    assert out['generation'] == {} and out['generation_context_sources'] == []
     assert all(c['quote'] in next(s['text'] for s in out['sources'] if s['id'] == c['id'])
                for c in out['citations'])
 
@@ -27,9 +29,13 @@ def test_changed_policy_offline_displays_fresh_source_without_static_wording():
     out = Agent(r, compose=False).respond('My item arrived damaged. What is the reporting deadline?')
     assert out['composition'] == 'document_excerpts'
     assert out['evidence_supported']
-    assert '72 hours' in out['answer'] and '48 hours' not in out['answer']
-    assert any(c['id'] == 'DWM-1' and c['quote'] in r.kb.chunks['DWM-1'].text
-               for c in out['citations'])
+    assert 'offline; no generated answer' in out['answer']
+    governing = [c['quote'] for c in out['citations'] if c['id'] == 'DWM-1']
+    assert len(governing) == 1 and '72 hours' in governing[0]
+    assert '48 hours' not in governing[0]
+    assert governing[0] == r.kb.chunks['DWM-1'].text[:1100]
+    assert all(c['quote'] == r.kb.chunks[c['id']].text[:1100] for c in out['citations'])
+    assert out['generation'] == {} and out['generation_context_sources'] == []
 
 
 def test_empty_search_cannot_be_filled_with_planner_citations(monkeypatch):
@@ -86,21 +92,29 @@ def test_repeated_bare_proof_is_redacted_after_verification():
 def test_uncovered_policy_uses_source_only_uncertainty_without_invented_restriction(monkeypatch):
     r = Resources(dense=False)
     seen = []
+    uncertainty = 'I do not have enough supported information to answer that question.'
 
-    def forbidden(system, user, *args, **kwargs):
-        seen.append(user)
-        pytest.fail('Unsupported routing must not send merely related sources for generation')
+    def complete(system, user, *args, **kwargs):
+        seen.append(json.loads(user))
+        return json.dumps({'answer': uncertainty, 'covered': False, 'needs_clarification': False})
 
-    monkeypatch.setattr(r.llm, 'complete', forbidden)
+    monkeypatch.setattr(r.llm, 'complete', complete)
     out = Agent(r, compose=True).respond('Can I schedule a delivery at midnight?')
-    assert not seen
-    assert out['decision'] == 'answer' and 'enough supported information' in out['answer']
-    assert 'cannot schedule' not in out['answer']
+    assert len(seen) == 1 and seen[0]['source_text']
+    assert out['answer'].endswith(uncertainty)
+    assert 'cannot schedule' not in out['answer'] and 'business hours' not in out['answer']
     assert out['composition'] == 'abstained_missing_evidence'
-    assert out['retrieval_candidates']
-    assert out['facts'] == {} and out['evidence_supported'] is False
-    assert out['citations'] == [] and out['generation'] == {}
-    assert out['generation_context_sources'] == []
+    assert out['retrieval_candidates'] and out['evidence_supported'] is False
+    assert out['citations'] == []
+    assert out['generation']['model_flags'] == {'covered': False, 'needs_clarification': False}
+    assert out['generation']['provenance_kind'] == 'generation_context'
+    supplied = seen[0]['source_text']
+    recorded = {s['id']: s for s in out['generation_context_sources']}
+    assert set(recorded) == {s['id'] for s in supplied}
+    assert all({key: recorded[s['id']][key] for key in s} == s for s in supplied)
+    assert out['generation']['context_source_ids'] == [s['id'] for s in supplied]
+    assert all(s['text'] == r.kb.chunks[s['id']].text for s in supplied)
+    assert 'verified_rule_summary' not in seen[0] and 'sentences' not in seen[0]
     assert set(out['retrieved_chunk_ids']) <= {'STY-1'}
 
 

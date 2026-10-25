@@ -50,7 +50,11 @@ def test_pincode_word_does_not_request_cod(resource):
     out=Agent(resource,compose=False).respond('Is delivery available at pincode 411045?')
     assert 'serviceable' in out['facts']
     assert 'cod_available' not in out['facts']
-    assert 'PAY-2' not in out['retrieved_chunk_ids']
+    assert 'cod_eligible' not in out['facts']
+    row = resource.data.pincodes['411045']
+    assert out['facts']['serviceable'] is (row['serviceable'] == 'True')
+    assert out['facts']['public_serviceability']['record']['serviceable'] == row['serviceable']
+    assert not out['tool_calls']
 
 def test_express_and_standard_are_both_answered(resource):
     out=Agent(resource,compose=False).respond('At pincode 411045, is Express possible and can Standard deliver?')
@@ -66,19 +70,27 @@ def test_hindi_verification_prompt_is_hindi(resource):
     assert 'अंतिम 4 अंक' in out['answer']
     assert '???' not in out['answer']
 
-def test_unknown_policy_returns_refusal_without_model_guessing(resource,monkeypatch):
-    def forbidden(*args,**kwargs):
-        pytest.fail('Unsupported policy routing must abstain without inviting model guesses')
-    monkeypatch.setattr(resource.llm,'complete',forbidden)
+def test_unknown_policy_retains_source_context_and_fake_uncertainty(resource,monkeypatch):
+    seen=[]
+    uncertainty='I do not have enough supported information to answer that question.'
+    def complete(system,user,*args,**kwargs):
+        seen.append(json.loads(user))
+        return json.dumps({'answer':uncertainty,'covered':False,'needs_clarification':False})
+    monkeypatch.setattr(resource.llm,'complete',complete)
     out=Agent(resource,compose=True).respond('Can I get a student discount?')
-    assert out['decision']=='answer' and out['intent']=='unsupported'
-    assert 'enough supported information' in out['answer']
+    assert len(seen)==1 and seen[0]['source_text']
+    assert out['answer'].endswith(uncertainty)
     assert 'student discounts are unavailable' not in out['answer'].lower()
+    assert out['composition']=='abstained_missing_evidence'
     assert not out['citations'] and not out['tool_calls']
     assert set(out['retrieved_chunk_ids']) <= {'STY-1'}
-    assert out['retrieval_candidates']
-    assert out['facts']=={} and out['evidence_supported'] is False
-    assert out['generation']=={} and out['generation_context_sources']==[]
+    assert out['retrieval_candidates'] and out['evidence_supported'] is False
+    assert out['generation']['model_flags']=={'covered':False,'needs_clarification':False}
+    recorded={s['id']:s for s in out['generation_context_sources']}
+    assert set(recorded)=={s['id'] for s in seen[0]['source_text']}
+    assert all({key:recorded[s['id']][key] for key in s}==s for s in seen[0]['source_text'])
+    assert all(s['text']==resource.kb.chunks[s['id']].text for s in seen[0]['source_text'])
+    assert 'verified_rule_summary' not in seen[0]
 
 @pytest.mark.parametrize('question,expected_intent', [
     ('My pincode is 248001. What is the return period for ELE-0002?', 'return'),
@@ -110,10 +122,16 @@ def test_unknown_replacement_sku_cannot_reuse_previous_product(resource):
     'Can I schedule a delivery at midnight?',
     'Is there a student discount?',
 ])
-def test_uncovered_general_information_is_an_uncertainty_answer(resource,question):
+def test_uncovered_offline_route_is_explicit_source_inspection(resource,question,monkeypatch):
+    monkeypatch.setattr(resource.llm,'complete',lambda *args,**kwargs:pytest.fail('Offline source inspection cannot call the model'))
     out=Agent(resource,compose=False).respond(question)
-    assert out['intent']=='unsupported' and out['decision']=='answer'
-    assert 'enough supported information' in out['answer']
+    assert out['composition']=='document_excerpts'
+    assert 'offline; no generated answer' in out['answer']
+    assert out['citations'] and out['retrieval_candidates']
+    assert all(c['quote']==resource.kb.chunks[c['id']].text[:1100] for c in out['citations'])
+    assert out['generation']=={} and out['generation_context_sources']==[]
+    assert not out['tool_calls']
+
 
 def test_corrected_catalog_identifier_resumes_original_policy(resource):
     agent=Agent(resource,compose=False)

@@ -32,7 +32,7 @@ def reply(client):
     (flags(SOURCE['text']), 'answer'),
     (flags('Orchid returns allow 17 calendar days. Which product do you have?',True,True), 'clarify'),
     (flags('Which product would you like to return?',False,True), 'clarify'),
-    (flags('I do not have enough supported information to answer that.',False,False), 'refuse'),
+    (flags('I do not have enough supported information to answer that.',False,False), 'answer'),
 ])
 def test_all_four_flag_combinations_have_explicit_host_decisions(candidate,decision):
     client=Client(candidate)

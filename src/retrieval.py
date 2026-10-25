@@ -363,8 +363,7 @@ class Retriever:
         if expanded != query and expanded_bm[lexical_best] > 0 and lexical_best not in ranked[:4]:
             ranked.remove(lexical_best)
             ranked.insert(3, lexical_best)
-        # Leave a majority of the budget for direct query evidence. Larger bundles
-        # can carry three operational dependencies instead of evicting one.
+        # Keep the direct query budget intact and bound extra rule lookups.
         limit = min(4, max(0, k - 6))
         dependencies = self._dependencies(ranked, allowed, raw_bm, query)
         # A short second clause may be absent from the aggregate ranking. Reserve
@@ -375,14 +374,14 @@ class Retriever:
             if relevant:
                 best = max(relevant, key=lambda i: (values[i], -i))
                 dependencies[best] = max(dependencies.get(best, 0), 1.15)
-        missing = sorted((i for i in dependencies if i not in ranked[:max(3, k - limit)]),
+        # Query evidence must survive source-dependency expansion. The caller's
+        # k is the direct-evidence budget; append at most four distinct rules.
+        # This is a candidate bound, not a token-budget or semantic-coverage proof.
+        direct = ranked[:k]
+        direct_ranks = {i: rank + 1 for rank, i in enumerate(direct)}
+        missing = sorted((i for i in dependencies if i not in direct_ranks),
                          key=lambda i: (-dependencies[i], -base.get(i, 0), i))[:limit]
-        selected = list(ranked[:max(0, k - len(missing))])
-        selected.extend(i for i in missing if i not in selected)
-        # A dependency may already fit the shortened direct list. Fill that
-        # shared slot with the next direct result instead of returning < k rows.
-        selected.extend(i for i in ranked if i not in selected)
-        selected = selected[:k]
+        selected = direct + missing
         result = []
         floor = min((base[i] for i in selected if i in base), default=base[ranked[0]] * .5)
         for i in selected:
@@ -390,5 +389,10 @@ class Retriever:
             if result:
                 score = min(score, result[-1]['score'] - .000001)
             result.append({'chunk': self.chunks[i], 'score': round(max(0, score), 6),
-                           'dense_score': round(float(similarities[i]), 4)})
+                           'dense_score': round(float(similarities[i]), 4),
+                           'retrieval_role': 'direct' if i in direct_ranks else 'dependency',
+                           'direct_rank': direct_ranks.get(i),
+                           'dependency_weight': round(float(dependencies.get(i, 0)), 4),
+                           'requested_direct_k': k, 'dependency_limit': limit,
+                           'candidate_limit': k + limit, 'returned_count': len(selected)})
         return result
