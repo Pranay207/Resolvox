@@ -174,6 +174,14 @@ def resume_source_input(workflow,text,sources,*,order_id=None,candidate_product=
         elif short:partial.append(row)
     matches=exact or partial
     public=_safe_public_context(workflow.get('public_context',{}),sources,required[0])
+    if key=='payment_method' and not exact and partial:
+        # A partial label such as Bank cannot distinguish a refund route.
+        # Retain the original question and ask the same neutral input question.
+        public.pop('payment_method',None)
+        return {'question':workflow['question'],'intent':workflow['intent'],'public_context':public,
+                'key':key,'value':None,'source_label':'','source_ids':required[0]['source_ids'],
+                'workflow':{**workflow,'public_context':public,'awaiting_reply':True},
+                'resolution':'unresolved'}
     product_match=False
     if key=='return_category' and isinstance(candidate_product,dict):
         names={_norm(str(candidate_product.get('sku',''))),_norm(str(candidate_product.get('title','')))}

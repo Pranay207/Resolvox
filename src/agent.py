@@ -16,6 +16,54 @@ from .document_answers import document_reply
 from .document_context import build_context
 from .source_inputs import source_input_clarification, make_source_input_workflow, resume_source_input, workflow_binding_sources, ModelCallProbe
 from .source_selection import select_policy_context
+from .operational_explanations import resolve_business_escalation, business_explanation, ticket_outcome, unresolved_business
+
+def _private_delivery_facet_request(query):
+    pattern = (
+        r'\b(?:tell|show|read|give|share|list|confirm|check|look\s+up)\b.{0,65}'
+        r'\b(?:items?|contents?|amount|total|address|payment\s+details?|refund\s+details?|RRN|'
+        r'contact\s+details?|delivery\s+pincode|bank\s+details?)\b|'
+        r'\b(?:what\s+(?:is|are|was|were))\b.{0,40}\b(?:items?|amount|total|address|refund|payment)\b|'
+        r'\b(?:its|my|our|this\s+order[\x27\u2019]s)\s+(?:items?|contents?|amount|total|address|'
+        r'refund\s+details?|payment\s+details?|RRN|contact\s+details?)\b|'
+        r'(?:आइटम|सामान|राशि|पता|रिफंड\s*विवरण|भुगतान\s*विवरण).{0,25}(?:बताइए|बताओ|दिखाइए)|'
+        r'\b(?:items?|amount|address|refund\s+details?)\b.{0,25}\b(?:batao|batayein|dikhao)\b')
+    return bool(re.search(pattern,query,re.I))
+
+
+def _delivery_capability_request(query):
+    delivery = r'\b(?:deliver\w*|arriv\w*|courier|carrier|shipment|parcel)\b|डिलीवर|डिलीवरी|डिलिवरी|पहुँचा'
+    capability = (
+        r'\b(?:can|could|would|will)\s+(?:you|the\s+(?:courier|carrier))\b.{0,70}'
+        r'\b(?:promise|guarantee|commit|offer|schedule|arrange)\b|'
+        r'\b(?:can|could|may)\s+(?:i|we)\b.{0,55}\b(?:choose|schedule|book|select|request)\b|'
+        r'\b(?:do|does)\s+(?:you|the\s+(?:courier|carrier))\b.{0,45}\b(?:offer|guarantee|promise)\b|'
+        r'\bkya\b.{0,50}\b(?:guarantee|promise|vaada|vada|schedule|arrange)\b|'
+        r'क्या.{0,50}(?:गारंटी|वादा|तय|समय\s*चुन)')
+    return bool(re.search(delivery,query,re.I) and re.search(capability,query,re.I))
+
+
+def _public_delivery_capability(query):
+    """Distinguish a proposed service capability from a private record lookup.
+
+    Finite request-language routing only: this never establishes availability,
+    a promised time, or a company restriction. Compound record requests retain
+    authentication. No clock values, source IDs, or policy answers are encoded.
+    """
+    private = (
+        r'\b(?:track\w*|where\s+(?:is|are)|(?:order|shipment|parcel)(?:[\x27\u2019]s)?\s+status|'
+        r'status\s+(?:of|for)|(?:recorded|promised|expected)\s+(?:delivery\s+)?date|'
+        r'ETA|estimated\s+arrival|delivery\s+date\s+(?:for|of)|when\s+will\s+(?:it|this|that)|'
+        r'out\s+for\s+delivery|already\s+(?:shipped|delivered|dispatched)|arrived\s+yet)\b|'
+        r'\b(?:has|have|did)\s+(?:my|our|the|this)\s+(?:order|parcel|shipment)\b|'
+        r'\b(?:where|when)\b.{0,35}\b(?:my|our|this)\s+(?:order|parcel|shipment)\b|'
+        r'स्थिति|ट्रैक|कहाँ|कहां|रिकॉर्ड|\b(?:kahan|kahaan|status|record)\b')
+    if _private_delivery_facet_request(query):
+        return False
+    if re.search(private,query,re.I):
+        return False
+    return _delivery_capability_request(query)
+
 
 class Resources:
     def __init__(self,dense:bool|None=None):
@@ -113,7 +161,7 @@ class Agent:
                 if context.get('delivered_on'): details.append('Delivered on '+context['delivered_on'])
                 contextual_text+='\nPublic context: '+'. '.join(details)+'.'
             s.public_context=context
-        if source_input_resumed and source_input_resumed['key']=='payment_method':
+        if source_input_resumed and source_input_resumed['key']=='payment_method' and source_input_resumed.get('source_label'):
             contextual_text+='\nPublic payment method: '+source_input_resumed['source_label']+'.'
         def grounded_plan(query,kind,order=None):
             nonlocal candidates,pool,retrieval_ms,answer_query
@@ -177,9 +225,9 @@ class Agent:
                 if pin not in r.data.pincodes:
                     retrieval_ms+=1000*(time.perf_counter()-began)
                     return Plan(kind,'refuse',
-                        'That postal code is not listed in the supplied pincode table, so I cannot confirm delivery, COD or Express availability. Delivery requires a listed serviceable pincode.',
-                        'वह पिनकोड दी गई तालिका में नहीं है, इसलिए डिलीवरी, COD या एक्सप्रेस की उपलब्धता की पुष्टि नहीं कर सकती। डिलीवरी के लिए सूची में सेवा योग्य पिनकोड होना चाहिए।',
-                        'Woh pincode supplied table mein listed nahi hai; delivery, COD ya Express availability confirm nahi kar sakti. Listed serviceable pincode zaroori hai.',
+                        'That postal code is not listed in the supplied pincode table, so I cannot confirm its availability.',
+                        'वह पिनकोड दी गई तालिका में नहीं है; उसकी उपलब्धता की पुष्टि नहीं कर सकती।',
+                        'Woh pincode supplied table mein listed nahi hai; uski availability confirm nahi kar sakti.',
                         ['DEL-5'],facts={'pincode_listed':False})
                 row=r.data.pincodes[pin]
                 serviceable=row['serviceable']=='True'
@@ -210,6 +258,20 @@ class Agent:
                 return result
             try: result=scoped.plan(query,kind,order)
             except (KeyError,ValueError): result=scoped.unknown()
+            if not order and _delivery_capability_request(query) and _private_delivery_facet_request(query):
+                # Compound private-record requests still require the existing
+                # identity workflow even if refund wording changed the intent.
+                s.pending_intent=kind; s.pending_issue=query
+                result=self._verification_plan('ask') if s.order_id else Plan(
+                    'delivery','clarify','What is your order ID?','आपका ऑर्डर नंबर क्या है?',
+                    'Aapka order ID kya hai?',['IDV-1','STY-5'])
+            elif (kind=='delivery' and result.decision=='clarify' and 'IDV-1' in result.ids
+                    and _public_delivery_capability(query)):
+                # A proposed service capability needs document evidence, not
+                # private order access. Keep the actual search context only.
+                if s.pending_issue in {query,safe_text}:
+                    s.pending_issue=''; s.pending_intent=''
+                result=Plan(kind,'answer','','','',[])
             retrieval_ms+=1000*(time.perf_counter()-began)
             return result
         # Authentication bypass, third-party disclosure and internal-note requests never reach the LLM/tools.
@@ -265,6 +327,26 @@ class Agent:
                     plan=self._verification_plan('locked' if s.attempts[s.order_id]>=2 else 'retry')
             safe_text=redact(text,credential_turn=True)
         proof=None  # Never place proof in state, model inputs, traces or output.
+        business_route=None
+        business_ticket=None
+        original_plan_escalates=plan.decision=='escalate'
+        try:
+            if not (unknown_skus and plan.decision=='clarify'):
+                business_route=resolve_business_escalation(answer_query,intent,plan.intent,original_plan_escalates,
+                    r.kb,pool,r.data,verified_order=s.order,public_context=s.public_context)
+        except (ValueError,TypeError) as exc:
+            business_route={'state':'unresolved','validation_error':str(exc)}
+        if business_route:
+            original_kind=intent if intent not in {'unknown','verification'} else 'policy'
+            if business_route['state']=='escalate':
+                business_kind={'repeat_contact':'repeat','high_value_damage':'damage','refund_overdue':'refund'}[business_route['reason']]
+                plan=Plan(business_kind,'escalate','','','',
+                    business_route['decision']['source_ids'],business_route['reason'])
+                pool=business_route['sources']+pool
+            elif original_plan_escalates or plan.intent=='repeat' or business_route['state']=='unresolved':
+                # A compiled old comparison cannot authorize a business action
+                # when the actual rule is changed, missing or not met.
+                plan=Plan(original_kind,'answer','','','',[])
         if plan.decision=='escalate':
             reason=plan.reason or plan.intent
             ticket_key=(s.order_id,reason)
@@ -274,6 +356,7 @@ class Agent:
                 try: ticket,trace=r.tools.ticket(summary,s.order_id,reason,plan.intent); calls.append(trace)
                 except (OSError,ValueError): ticket={'created':False}
                 if ticket.get('created'): s.tickets[ticket_key]=ticket
+            business_ticket=ticket if business_route and business_route['state']=='escalate' else None
             if ticket.get('created'):
                 plan.en=plan.en.replace(' I will request a ticket.','').replace(' I will request a support ticket.','').replace('; I will request a support ticket.','.')
                 plan.en+=' A ticket has been created; a human colleague will contact you.'
@@ -298,8 +381,48 @@ class Agent:
                 pool += [r.kb.chunks['IDV-2'].public()]
         available={x['id']:x for x in pool}
         validation_error=None; llm_ms=0.0; citations=[]; generation={}; generation_context_sources=[]
-        if guard:
-            # Fixed operational messages never assert a generated policy answer.
+        if business_route and business_route['state']=='unresolved':
+            source_ids=[];sources=[];supported=False
+            answer=unresolved_business(s.language);plan.decision='answer'
+            composition='abstained_unbound_business_rule'
+            validation_error=business_route.get('validation_error','unbound_business_rule')
+            generation={'reply_kind':'uncertainty','covered':False,'evidence_status':'insufficient_evidence',
+                        'decision_origin':'host_unbound_business_rule','generation_attempts':0,
+                        'operational_rule_decisions':business_route.get('decisions',[])}
+        elif business_route and business_route['state']=='escalate':
+            source_ids=[];sources=[];supported=False
+            outcome=ticket_outcome(business_ticket,s.language)
+            answer=outcome;composition='operational_handover'
+            generation={'decision_origin':'host_source_bound_handover','generation_attempts':0,
+                        'operational_rule_decisions':business_route['decisions'],
+                        'tool_outcome_origin':'actual_create_ticket_result'}
+            if self.compose:
+                began=time.perf_counter();model_probe=ModelCallProbe(r.llm)
+                generation_context_sources=business_route['sources']
+                try:
+                    generated,plan.facts=business_explanation(model_probe,answer_query,s.language,business_route,
+                        r.data,verified_order=s.order,public_context=s.public_context)
+                    answer=generated['answer']+' '+outcome
+                    source_ids=generated['source_ids'];sources=[available[sid] for sid in source_ids]
+                    citations=generated.get('citations',[]);supported=bool(source_ids)
+                    generation.update({key:value for key,value in generated.items() if key not in {'answer','source_ids','citations','decision'}})
+                    generation['explanation_decision']=generated['decision']
+                    composition='source_generated_handover' if source_ids else 'uncertain_handover'
+                except (LLMUnavailable,ValueError,TypeError) as exc:
+                    validation_error=str(exc) if isinstance(exc,ValueError) else 'model_unavailable_or_invalid'
+                    answer=abstention(s.language)+' '+outcome
+                    composition='operational_handover_generation_failed'
+                    generation['generation_attempts']=model_probe.calls
+                    generation['repair_attempted']=model_probe.calls>1
+                llm_ms=1000*(time.perf_counter()-began) if model_probe.calls else 0.0
+            else:
+                excerpt_sources=business_route['sources']
+                answer='Retrieved document excerpts (offline; no generated answer):\n'+'\n\n'.join(row['text'][:1100] for row in excerpt_sources)+'\n'+outcome
+                source_ids=[row['id'] for row in excerpt_sources];sources=excerpt_sources
+                composition='document_excerpts_handover';supported=bool(source_ids)
+            plan.decision='escalate'
+        elif guard:
+            # Fixed security and workflow messages carry no business answer.
             supported=compatible(plan.ids,pool)
             source_ids=list(dict.fromkeys(plan.ids)) if supported else []
             sources=[available[c] for c in source_ids]
@@ -346,7 +469,7 @@ class Agent:
                     generation={k:v for k,v in generated.items() if k not in {'answer','source_ids','citations','decision'}}
                     if source_input_resumed:
                         generation['workflow_input_resolution']={key:source_input_resumed[key] for key in ('key','value','source_ids')}
-                        generation['workflow_input_resolution']['input_status']='customer_provided_unverified'
+                        generation['workflow_input_resolution']['input_status']='customer_provided_unverified' if source_input_resumed.get('value') is not None else 'unresolved'
                 except (LLMUnavailable,ValueError,TypeError) as exc:
                     validation_error=str(exc) if isinstance(exc,ValueError) else 'model_unavailable_or_invalid'
                     composition='abstained_model_or_evidence'
