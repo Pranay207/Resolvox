@@ -1,0 +1,152 @@
+{
+  "checked_at_utc": "2026-10-25T07:42:31.361298+00:00",
+  "source": "voiceops_2026_capstone_brief.pdf",
+  "source_sha256": "8a5136192666a204f2fd7dfdb9cbb87d0f4ffdaf8db98fb0ac491139c057b629",
+  "all_requirements_fully_fulfilled": false,
+  "mandatory_missing_artifacts": [
+    "demo.mp4"
+  ],
+  "requirements": [
+    {
+      "requirement": "Language choice",
+      "pages": [
+        11
+      ],
+      "status": "implemented",
+      "finding": "Any supported language may be used; all ten are not mandatory. App scope is English, Hindi and Hinglish."
+    },
+    {
+      "requirement": "Step 1 prompt-only LLM and AI disclosure",
+      "pages": [
+        8
+      ],
+      "status": "implemented_and_measured",
+      "evidence": "eval_step1.json: 1/52, one error; real configured LLM. First reply disclosure in Agent."
+    },
+    {
+      "requirement": "Step 2 embeddings, retrieval and saved sources",
+      "pages": [
+        6,
+        9
+      ],
+      "status": "implemented",
+      "evidence": "src/kb.py, src/retrieval.py and recorded per-answer sources."
+    },
+    {
+      "requirement": "Grounded replies, abstention and unseen questions",
+      "pages": [
+        3,
+        9,
+        12
+      ],
+      "status": "partial_assurance",
+      "finding": "Actual source-text LLM generation and evidence checks exist, but static policy fallbacks remain. Current live subset: 19 evidence_validated_fallback, 6 grounded_llm, 4 abstentions, 1 rules answer, 2 guards. Fingerprint-bound fallback is not proof of broad unseen-question compliance."
+    },
+    {
+      "requirement": "Step 1 versus Step 2 comparison",
+      "pages": [
+        9,
+        13,
+        14
+      ],
+      "status": "partial_current_validation",
+      "finding": "Report distinguishes real baseline 1/52 from current offline 52/52. Current LLM-enabled comparison is incomplete: 32 evaluated of 52 planned; not all answers were generated."
+    },
+    {
+      "requirement": "Step 3 context, follow-ups, clarification, policy refusal, tools and handover",
+      "pages": [
+        9
+      ],
+      "status": "implemented_partial_live_validation",
+      "evidence": "96/96 offline conversation turns; no current complete live conversation rerun."
+    },
+    {
+      "requirement": "Caller verification and confirmed ticket creation",
+      "pages": [
+        6
+      ],
+      "status": "implemented_and_regression_checked",
+      "evidence": "Supplied tool wrapper and ticket created=True gating; 191 recorded privacy assertions, zero failures."
+    },
+    {
+      "requirement": "Official dataset, IDs, authority, fixed date and date arithmetic",
+      "pages": [
+        5,
+        6,
+        7
+      ],
+      "status": "implemented_and_regression_checked",
+      "evidence": "Validator passes nine CSVs/21 documents; string IDs; reference date 2026-10-20; Mon-Sat minus supplied holidays."
+    },
+    {
+      "requirement": "Gnani-only speech through same agent",
+      "pages": [
+        8,
+        10,
+        12
+      ],
+      "status": "demonstrated_limited_scope",
+      "evidence": "Six real synthetic-input Gnani STT/agent/TTS round trips and six semantic/privacy checks. No other speech provider."
+    },
+    {
+      "requirement": "Speech clarity and own recorded voice testing",
+      "pages": [
+        6,
+        11,
+        13
+      ],
+      "status": "partial",
+      "finding": "Number/date formatting and unclear-audio recovery implemented. Human voice, accent/noise and subjective listening not completed."
+    },
+    {
+      "requirement": "Interface records and plays audio",
+      "pages": [
+        12
+      ],
+      "status": "implemented_and_integration_checked",
+      "evidence": "Streamlit record/upload/playback; six integration checks. Browser visual review unavailable."
+    },
+    {
+      "requirement": "README, dependencies, keyless env example and public code repo",
+      "pages": [
+        14
+      ],
+      "status": "files_present",
+      "evidence": "https://github.com/Pranay207/ESD; install/run instructions and empty credentials in .env.example. Final push verified separately."
+    },
+    {
+      "requirement": "One folder batch command saves text, audio and document chunks",
+      "pages": [
+        14
+      ],
+      "status": "implemented_and_limited_live_checked",
+      "evidence": "python run.py --audio_dir <in> --out_dir <out>; six synthetic clips; per-file failures retained."
+    },
+    {
+      "requirement": "Report at most four pages",
+      "pages": [
+        14
+      ],
+      "status": "complete",
+      "evidence": "Current four-page report rendered and visually reviewed; pdf_qa.json records SHA and 229 tests."
+    },
+    {
+      "requirement": "Demo at most two minutes, grounded answer plus follow-up and handover or abstention",
+      "pages": [
+        11,
+        14
+      ],
+      "status": "missing",
+      "finding": "User-recorded demo.mp4 remains pending."
+    },
+    {
+      "requirement": "Final ZIP includes required files and excludes secrets/dataset/venv",
+      "pages": [
+        14
+      ],
+      "status": "draft",
+      "finding": "Missing required demo; package smoke and configured-secret audit recorded separately."
+    }
+  ],
+  "scope": "Implementation, artifact presence and observed validation are separated. This is not organizer scoring or proof of unseen-audio correctness."
+}

@@ -939,8 +939,8 @@
       "note": "Authored regression tests, not organizer held-out tests."
     },
     "pytest": {
-      "passed": 223,
-      "total": 223,
+      "passed": 229,
+      "total": 229,
       "exit_code": 0,
       "command": "python -m pytest -q -p no:cacheprovider"
     },

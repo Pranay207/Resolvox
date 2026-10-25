@@ -4,7 +4,7 @@ These are local measurements, not organizer scores. All raw failures and the fir
 
 | Check | Recorded result |
 |---|---|
-| Engineering tests | 223/223 passed |
+| Engineering tests | 229/229 passed |
 | Official dataset validator | Passed: 9 CSVs, 21 KB documents |
 | Holdout privacy assertions | 191 checked; 0 failures |
 | Prompt-only, selected model (mode not recorded) | 1/52; errors 1 |
@@ -30,4 +30,4 @@ Reproduce: python scripts/final_evaluate.py; python scripts/rescore_practice.py;
 
 Fresh development coverage probe: 24/24. Earlier failures remain in coverage_probe_first_pass.json; these are exposed engineering checks, not an independent blind evaluation.
 
-Live subset and voice artifacts retain their measured source hashes. The final verification-prompt wording and COD retrieval adjustments were checked in the subsequent full offline regressions; a complete live rerun of the final revision has not been performed.
+UI verification: six offline Streamlit integration checks and one packaging check passed within the 229-test suite. Source selection, conversation reset, redaction, saved playback, speech-only retry and incomplete-live labels are covered. The local server health endpoint returned HTTP 200. Browser visual review could not run because the Computer Use helper was unavailable; no screenshot review or new real speech validation is claimed. Details: sample_outputs/ui_verification.json.

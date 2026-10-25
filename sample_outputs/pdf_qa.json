@@ -8,14 +8,14 @@
   ],
   "layout_issues_found": false,
   "final_metrics_verified": {
-    "pytest": "223/223",
+    "pytest": "229/229",
     "practice_offline": "52/52",
     "conversations_offline": "96/96",
     "offline_regression": "91/91",
     "partial_live_model": "32passed of52planned, incomplete",
     "real_gnani": "6/6"
   },
-  "pdf_sha256": "4bef3efd7ec5b74476927c301d96c471f71555d684da5183f25574fc16714885",
-  "reviewed_at_utc": "2026-10-25T06:49:16.796976+00:00",
+  "pdf_sha256": "ee54b3c517e47711f7d3da41d82d00a6c93a58eb6c299cae97c9cb27181e52cf",
+  "reviewed_at_utc": "2026-10-25T07:40:47.405513+00:00",
   "product_title": "Resolvox"
 }

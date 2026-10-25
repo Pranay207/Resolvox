@@ -18,7 +18,7 @@ Source: `voiceops_2026_capstone_brief.pdf`. Work lives in `ESD`. Implementation 
 
 ## Recorded verification
 
-- [x] Engineering: **223/223 pytest tests**; official dataset validator passed.
+- [x] Engineering: **229/229 pytest tests**; official dataset validator passed.
 - [x] Prompt-only selected-model baseline: **1/52**, errors 1; see `sample_outputs/eval_step1.json` for actual composition, configuration and timings.
 - [x] Grounded practice questions (offline_compose_false): **52/52**, errors 0; see `sample_outputs/eval_step2.json` for actual composition, configuration and timings.
 - [x] Conversation practice turns (offline_compose_false): **96/96**, errors 0; see `sample_outputs/eval_step3.json` for actual composition, configuration and timings.
@@ -30,6 +30,12 @@ Source: `voiceops_2026_capstone_brief.pdf`. Work lives in `ESD`. Implementation 
 
 Measured JSON and `VERIFICATION.md` preserve provenance, failures, timing and composition. A live run includes checked fallbacks and guards; it does not mean every reply was freshly generated.
 
+## Official brief compliance review
+
+The brief permits any of Gnani's ten languages; it does not require all ten. The app supports English, Hindi and Hinglish. Page 12 allows any framework and an interface that records/plays audio, so Streamlit meets the interface choice.
+
+Full compliance is not claimed. The required demo is missing; current complete practice results are offline, the live question rerun is 32 of 52 planned, and own recorded voice/listening tests remain pending. The source-text generation path is real, but the current live subset contains 19 evidence-bound static fallbacks and six generated answers. Fingerprint validation does not prove that finite fallback plans satisfy unseen questions. See `sample_outputs/brief_compliance_audit.json` for the page-by-page requirement review.
+
 ## Still incomplete
 
 - [ ] Live LLM holdout evaluation has **not** been performed. All recorded holdout results above are offline; do not present them as live-generation results or treat the later exposed regression as independent.
@@ -37,7 +43,7 @@ Measured JSON and `VERIFICATION.md` preserve provenance, failures, timing and co
 - [ ] Human speech testing and subjective listening have **not** been completed. Synthetic TTS-input round trips do not establish human accent/noise robustness.
 - [x] Final `report.pdf` QA: four pages rendered and visually inspected against current results; see `sample_outputs/pdf_qa.json`.
 - [x] Final ZIP extraction, import/answer smoke test and package allowlist checks passed; retain `sample_outputs/package_smoke.json`.
-- [ ] Push the latest verified revision and final evidence to the public repository; earlier public commits do not establish that the final revision was pushed.
+- [ ] Push the final submission revision containing demo.mp4 and final-ready package evidence; verify local and remote commit IDs after the demo is included.
 - [ ] User records `demo.mp4` (maximum 120 seconds) after final validation; show actual generation mode, sources, verification/handover and live Gnani speech.
 - [ ] Build final-ready `team_name_voiceops.zip` with the required report, demo and generated sample outputs. Keep draft status until required artifacts exist and verification passes.
 

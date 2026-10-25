@@ -24,7 +24,7 @@ Baseline 1/52; current offline grounded questions 52/52; offline conversation tu
 
 Grounded run model metadata: configured ollama/qwen3:1.7b.
 
-Engineering pytest result: 223/223 passed; exit code 0. Required report limit: four pages. The user records the final demo within 120 seconds after validation.
+Engineering pytest result: 229/229 passed; exit code 0. Required report limit: four pages. The user records the final demo within 120 seconds after validation.
 
 
 ---

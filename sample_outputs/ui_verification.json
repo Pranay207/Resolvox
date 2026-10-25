@@ -1,0 +1,46 @@
+{
+  "checked_at_utc": "2026-10-25T07:40:47.405513+00:00",
+  "app_source_sha256": "214f79737983363daf5926f01b86f2bd3d97a1322dd2f5eabbfebb125293da4b",
+  "theme_sha256": "68115b33253f9793b8d645685cf1e9d1b172bbba88023ea6027f72a59a56ef1a",
+  "engineering_suite": {
+    "passed": 229,
+    "total": 229,
+    "exit_code": 0,
+    "elapsed_seconds": 23.44
+  },
+  "streamlit_integration_tests": {
+    "passed": 6,
+    "total": 6,
+    "speech_provider": "mocked; no new real speech test claimed",
+    "covered": [
+      "grounded text answer and source panel",
+      "new conversation clears authentication and history",
+      "redacted voice output and audio persist across reruns",
+      "TTS retry preserves answer without repeating STT or agent",
+      "only selected Record or Upload control is rendered",
+      "partial live evidence explicitly labeled incomplete"
+    ]
+  },
+  "packaging_test": {
+    "passed": 1,
+    "total": 1,
+    "covered": "native theme bytes and manifest hash preserved; .env and .streamlit/secrets.toml excluded"
+  },
+  "server_health": {
+    "healthy": true,
+    "status_code": 200,
+    "url": "http://localhost:8501",
+    "product": "Resolvox",
+    "checked_at_utc": "2026-10-25T07:40:47.405513+00:00"
+  },
+  "browser_visual_review": {
+    "completed": false,
+    "reason": "Computer Use browser and native helper unavailable; no revised browser screenshot obtained."
+  },
+  "language_support": [
+    "English",
+    "Hindi",
+    "Hinglish"
+  ],
+  "scope": "UI integration and packaging checks. Does not establish visual browser quality, human speech robustness or new live-model coverage."
+}

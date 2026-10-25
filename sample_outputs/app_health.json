@@ -1,6 +1,7 @@
 {
   "healthy": true,
+  "status_code": 200,
   "url": "http://localhost:8501",
   "product": "Resolvox",
-  "checked_at_utc": "2026-10-25T06:49:54.573047+00:00"
+  "checked_at_utc": "2026-10-25T07:40:47.405513+00:00"
 }
