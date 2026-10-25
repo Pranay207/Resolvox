@@ -64,7 +64,7 @@ def save(path:Path,results:list[dict],step:str) -> dict:
     files=sorted((ROOT/'src').glob('*.py'))+[ROOT/'src/rule_bindings.json']
     digest=hashlib.sha256(b''.join(p.name.encode()+p.read_bytes() for p in files if p.exists())).hexdigest()
     configuration={'recorded_at':datetime.now().isoformat(timespec='seconds'),'runtime_sha256':digest,
-                   'llm_provider':os.getenv('LLM_PROVIDER','ollama'),'llm_model':os.getenv('LLM_MODEL','qwen3:1.7b'),
+                   'llm_provider':os.getenv('LLM_PROVIDER','ollama'),'llm_model':os.getenv('LLM_MODEL','qwen3:4b-instruct'),
                    'reference_date':os.getenv('REFERENCE_DATE','2026-10-20')}
     path.parent.mkdir(parents=True,exist_ok=True); path.write_text(json.dumps({'configuration':configuration,'summary':summary,'results':results},ensure_ascii=False,indent=2),encoding='utf-8'); return summary
 

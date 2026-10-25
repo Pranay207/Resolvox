@@ -12,7 +12,7 @@ class LLMUnavailable(RuntimeError):
 class LLM:
     def __init__(self, provider=None, model=None):
         self.provider = provider or os.getenv('LLM_PROVIDER', 'ollama')
-        self.model = model or os.getenv('LLM_MODEL', 'qwen3:1.7b')
+        self.model = model or os.getenv('LLM_MODEL', 'qwen3:4b-instruct')
         self.last_provider = ''
         self.last_metrics = {}
         self.cache = CACHE / 'llm'
@@ -21,7 +21,7 @@ class LLM:
     def complete(self, system, user, json_mode=False, cache=True, *, max_tokens=240,
                  timeout=None, attempts=1, schema=None):
         started = time.perf_counter()
-        read_timeout = float(timeout or os.getenv('LLM_TIMEOUT', '30'))
+        read_timeout = float(timeout or os.getenv('LLM_TIMEOUT', '120'))
         choices = [(self.provider, self.model, os.getenv('LLM_BASE_URL', 'http://127.0.0.1:11434'), os.getenv('LLM_API_KEY', ''))]
         if os.getenv('LLM_FALLBACK_PROVIDER'):
             choices.append((os.environ['LLM_FALLBACK_PROVIDER'], os.getenv('LLM_FALLBACK_MODEL', ''), os.getenv('LLM_FALLBACK_BASE_URL', ''), os.getenv('LLM_FALLBACK_API_KEY', '')))

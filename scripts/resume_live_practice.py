@@ -33,8 +33,8 @@ def provenance(step):
     # The organizer's append-only tools/tickets_created.csv is an output,
     # never a model/rubric input and intentionally not part of this fingerprint.
     inference = {key:os.getenv(key,default) for key,default in {
-        'LLM_PROVIDER':'ollama', 'LLM_MODEL':'qwen3:1.7b', 'RAG_LLM_TIMEOUT':'45',
-        'LLM_TIMEOUT':'30', 'DENSE_ENABLED':'true', 'REFERENCE_DATE':'2026-10-20',
+        'LLM_PROVIDER':'ollama', 'LLM_MODEL':'qwen3:4b-instruct', 'RAG_LLM_TIMEOUT':'120',
+        'LLM_TIMEOUT':'120', 'DENSE_ENABLED':'true', 'REFERENCE_DATE':'2026-10-20',
         'LLM_FALLBACK_PROVIDER':'', 'LLM_FALLBACK_MODEL':'',
     }.items()}
     # Endpoint identity matters, but URLs can contain credentials. Hash them.
