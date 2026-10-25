@@ -1,6 +1,7 @@
 """Six real Gnani round trips with semantic checks; synthetic audio, not human recordings."""
 import argparse,hashlib,io,json,re,sys,wave
 from pathlib import Path
+from datetime import datetime, timezone
 from src.config import ROOT
 from src.voice import GnaniVoice,VoiceError,VoiceUnavailable,canonical_wav
 from src.normalize import order_id,proof_value
@@ -43,26 +44,92 @@ def validate(result,folder,observed):
         check['passed']=entry['status']=='ok' and all(check[k] for k in ['input_understood','semantic_ok','privacy_ok','speech_nonempty']);checks.append(check)
     return {'passed':sum(c['passed'] for c in checks),'failed':sum(not c['passed'] for c in checks),'checks':checks}
 
+def runtime_source_hashes(root=ROOT):
+    """Snapshot actual public runtime code, never environment or secret values."""
+    root = Path(root)
+    files = sorted((root / 'src').glob('*.py')) + [root / 'src/rule_bindings.json']
+    return {str(path.relative_to(root)).replace('\\', '/'): hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in files if path.is_file()}
+
+
+def finish_runtime_provenance(initial, started_at, compose, root=ROOT):
+    final = runtime_source_hashes(root)
+    return {'started_at_utc': started_at,
+            'finished_at_utc': datetime.now(timezone.utc).isoformat(),
+            'runtime_source_sha256': initial,
+            'runtime_source_sha256_finished': final,
+            'source_runtime_unchanged': initial == final,
+            'live_llm_composition_enabled': bool(compose)}
+
+
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--reuse-inputs',action='store_true',help='Reuse the six previously generated Gnani test files; only repair container lengths, never speech.');parser.add_argument('--offline-rules',action='store_true',help='Disable live LLM composition, matching the batch CLI opt-out.');args=parser.parse_args()
-    folder=ROOT/'sample_outputs/voice_inputs';folder.mkdir(parents=True,exist_ok=True);voice=GnaniVoice();status=ROOT/'sample_outputs/voice_validation.json';output=ROOT/'sample_outputs/voice'
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--reuse-inputs', action='store_true', help='Reuse the six previously generated Gnani test files; only repair container lengths, never speech.')
+    parser.add_argument('--offline-rules', action='store_true', help='Disable live LLM composition, matching the batch CLI opt-out.')
+    args = parser.parse_args()
+    compose = not args.offline_rules
+    started_at = datetime.now(timezone.utc).isoformat()
+    initial_runtime = runtime_source_hashes(ROOT)
+    folder = ROOT / 'sample_outputs/voice_inputs'
+    folder.mkdir(parents=True, exist_ok=True)
+    status = ROOT / 'sample_outputs/voice_validation.json'
+    output = ROOT / 'sample_outputs/voice'
     try:
-        names={name for name,_,_ in SAMPLES};mapping={};provenance=[]
-        extras=[p.name for p in folder.iterdir() if p.is_file() and p.suffix.lower() in {'.wav','.mp3','.m4a','.ogg','.flac','.aac'} and p.name not in names]
-        if extras:raise VoiceError('Unexpected audio in test-input folder; use exactly the generated six files')
-        for name,text,lang in SAMPLES:
-            path=folder/name
-            if args.reuse_inputs and path.exists():path.write_bytes(canonical_wav(path.read_bytes()))
-            else:voice.synthesize(text,path,lang)
-            mapping[name]={'language':'hi-IN' if lang=='hi' else 'en-IN'}
-            provenance.append({'file':name,'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'origin':'Gnani TTS'})
-        (folder/'sessions.json').write_text(json.dumps(mapping,indent=2))
-        observer=ObservedVoice(voice);result=run_batch(folder,output,compose=not args.offline_rules,voice=observer)
-        semantic=validate(result,output,observer.observed)
-        passed=result['failed']==0 and semantic['failed']==0
-        record={'status':'tested' if passed else 'failed','synthetic_input':'Gnani TTS-generated; not human recordings','scope':'Synthetic Gnani TTS -> Gnani STT -> same support agent -> Gnani TTS; human speech robustness and subjective listening remain unverified','live_llm_composition_enabled':not args.offline_rules,'input_provenance':provenance,'semantic_validation':semantic,'batch':result}
-        status.write_text(json.dumps(record,ensure_ascii=False,indent=2),encoding='utf-8')
-        print(json.dumps({'status':record['status'],'audio_succeeded':result['succeeded'],'audio_failed':result['failed'],'semantic_passed':semantic['passed'],'semantic_failed':semantic['failed']},indent=2));return 0 if passed else 1
-    except (VoiceUnavailable,VoiceError) as error:
-        status.write_text(json.dumps({'status':'blocked','reason':str(error),'clips_generated':len(list(folder.glob('*.wav'))),'required':'Participant-owned GNANI_API_KEY in .env','no_substitute_speech':True},indent=2),encoding='utf-8');print(str(error));return 2
-if __name__=='__main__':sys.exit(main())
+        voice = GnaniVoice()
+        names = {name for name, _, _ in SAMPLES}
+        mapping, input_provenance = {}, []
+        extras = [path.name for path in folder.iterdir() if path.is_file()
+                  and path.suffix.lower() in {'.wav', '.mp3', '.m4a', '.ogg', '.flac', '.aac'}
+                  and path.name not in names]
+        if extras:
+            raise VoiceError('Unexpected audio in test-input folder; use exactly the generated six files')
+        for name, text, lang in SAMPLES:
+            path = folder / name
+            if args.reuse_inputs and path.exists():
+                path.write_bytes(canonical_wav(path.read_bytes()))
+            else:
+                voice.synthesize(text, path, lang)
+            mapping[name] = {'language': 'hi-IN' if lang == 'hi' else 'en-IN'}
+            input_provenance.append({'file': name, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'origin': 'Gnani TTS'})
+        (folder / 'sessions.json').write_text(json.dumps(mapping, indent=2), encoding='utf-8')
+        observer = ObservedVoice(voice)
+        result = run_batch(folder, output, compose=compose, voice=observer)
+        semantic = validate(result, output, observer.observed)
+        provenance = finish_runtime_provenance(initial_runtime, started_at, compose, ROOT)
+        passed = result['failed'] == 0 and semantic['failed'] == 0 and provenance['source_runtime_unchanged']
+        run_status = 'tested' if passed else ('failed' if provenance['source_runtime_unchanged'] else 'invalid_runtime_changed')
+        # This is the actual just-returned batch, never a previously saved run.
+        # Stamp the same start/end snapshot into the fresh manifest and record.
+        result.update(provenance)
+        output.mkdir(parents=True, exist_ok=True)
+        (output / 'manifest.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
+        record = {'status': run_status,
+                  'synthetic_input': 'Gnani TTS-generated; not human recordings',
+                  'scope': 'Synthetic Gnani TTS -> Gnani STT -> same support agent -> Gnani TTS; human speech robustness and subjective listening remain unverified',
+                  'input_provenance': input_provenance, 'semantic_validation': semantic,
+                  'batch': result, **provenance}
+        status.write_text(json.dumps(record, ensure_ascii=False, indent=2), encoding='utf-8')
+        print(json.dumps({'status': record['status'], 'audio_succeeded': result['succeeded'],
+                          'audio_failed': result['failed'], 'semantic_passed': semantic['passed'],
+                          'semantic_failed': semantic['failed'],
+                          'source_runtime_unchanged': provenance['source_runtime_unchanged']}, indent=2))
+        return 0 if passed else 1
+    except (VoiceUnavailable, VoiceError) as error:
+        provenance = finish_runtime_provenance(initial_runtime, started_at, compose, ROOT)
+        record = {'status': 'blocked', 'reason': str(error),
+                  'clips_generated': len(list(folder.glob('*.wav'))),
+                  'required': 'Participant-owned GNANI_API_KEY in .env',
+                  'no_substitute_speech': True, **provenance}
+        status.write_text(json.dumps(record, ensure_ascii=False, indent=2), encoding='utf-8')
+        # Record the blocked attempt without copying/relabeling old manifest
+        # entries. No batch completion or successful transcription is inferred.
+        output.mkdir(parents=True, exist_ok=True)
+        (output / 'manifest.json').write_text(json.dumps(
+            {'status': 'blocked', 'reason': str(error), 'entries': [], **provenance},
+            ensure_ascii=False, indent=2), encoding='utf-8')
+        print(str(error))
+        return 2
+
+
+if __name__ == '__main__':
+    sys.exit(main())

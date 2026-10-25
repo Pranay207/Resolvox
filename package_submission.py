@@ -22,16 +22,99 @@ def mp4_duration(path:Path):
         with path.open('rb') as f:return boxes(f,path.stat().st_size)
     except (OSError,ValueError,struct.error,IndexError):return None
 
+def _json_record(name):
+    try:
+        value=json.loads((ROOT/'sample_outputs'/name).read_text(encoding='utf-8'))
+        return value if isinstance(value,dict) else {}
+    except (OSError,ValueError):
+        return {}
+
+
+def runtime_source_hashes():
+    """The actual answer/speech implementation, never a saved score's label."""
+    return {path.relative_to(ROOT).as_posix():hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in sorted((ROOT/'src').glob('*.py')) if path.is_file()}
+
+
+def _current_runtime(record,expected):
+    """Require every current source file, including the document-only modules."""
+    if not {'src/agent.py','src/document_answers.py','src/document_context.py'} <= set(expected):
+        return False
+    candidates=[record.get('runtime_source_sha256',{})]
+    provenance=record.get('provenance',{})
+    if isinstance(provenance,dict):candidates.append(provenance.get('runtime_source_sha256',{}))
+    config=record.get('configuration',{})
+    if isinstance(config,dict):
+        provenance=config.get('provenance',{})
+        if isinstance(provenance,dict):candidates.append(provenance.get('runtime_source_sha256',{}))
+    return any(isinstance(hashes,dict) and all(hashes.get(name)==digest for name,digest in expected.items())
+               for hashes in candidates)
+
+
+def _complete_live(record,planned):
+    values=record.get('summary',{})
+    config=record.get('configuration',{})
+    return (isinstance(values,dict) and isinstance(config,dict)
+            and config.get('evaluation_mode')=='live_compose_true'
+            and values.get('complete') is True and record.get('complete') is not False
+            and values.get('planned')==planned and values.get('total')==planned
+            and isinstance(record.get('results'),list) and len(record['results'])==planned)
+
+
 def status():
-    blockers=[];voice_path=ROOT/'sample_outputs/voice_validation.json'
-    voice=json.loads(voice_path.read_text(encoding='utf-8')) if voice_path.exists() else {}
-    if voice.get('status')!='tested' or voice.get('semantic_validation',{}).get('failed',1) or voice.get('batch',{}).get('failed',1) or voice.get('batch',{}).get('total',0)<5:blockers.append('Live Gnani validation incomplete: configure GNANI_API_KEY locally and run generate_voice_samples.py with semantic checks')
+    # Recompute every readiness condition from actual current evidence. An old
+    # perfect score must not clear unresolved verification/report blockers.
+    blockers=[];expected=runtime_source_hashes()
+    for step,planned,label in ((2,52,'questions'),(3,96,'conversation turns')):
+        live=_json_record(f'eval_step{step}_live_current.json')
+        if not _current_runtime(live,expected):
+            blockers.append(f'Current source-only {label} verification missing or stale')
+        elif not _complete_live(live,planned):
+            blockers.append(f'Current source-only {label} verification incomplete: {planned} responses required')
+        else:
+            summary=live['summary']
+            if summary.get('passed')!=planned or summary.get('failed',0)!=0 or summary.get('errors')!=0:
+                blockers.append(f'Current source-only {label} verification has failed or erroneous responses')
+    engineering=_json_record('engineering_verification.json')
+    pytest=engineering.get('pytest',{})
+    if (not _current_runtime(engineering,expected) or not isinstance(pytest,dict)
+            or type(pytest.get('total')) is not int or pytest['total']<=0
+            or pytest.get('passed')!=pytest['total'] or pytest.get('exit_code')!=0):
+        blockers.append('Current engineering test verification missing, stale or failing')
+    voice=_json_record('voice_validation.json')
+    batch=voice.get('batch',{});semantic=voice.get('semantic_validation',{})
+    checks=semantic.get('checks',[]) if isinstance(semantic,dict) else []
+    total=batch.get('total',0) if isinstance(batch,dict) else 0
+    voice_passed=(voice.get('status')=='tested' and voice.get('live_llm_composition_enabled') is True
+        and isinstance(batch,dict) and isinstance(semantic,dict)
+        and type(total) is int and total>=5
+        and batch.get('succeeded')==total and batch.get('failed')==0
+        and semantic.get('passed')==total and semantic.get('failed')==0
+        and isinstance(checks,list) and len(checks)==total
+        and all(isinstance(check,dict) and check.get('passed') is True for check in checks))
+    finished={'runtime_source_sha256':voice.get('runtime_source_sha256_finished',{})}
+    if (not _current_runtime(voice,expected) or not _current_runtime(finished,expected)
+            or voice.get('source_runtime_unchanged') is not True or not voice_passed):
+        blockers.append('Current Gnani speech semantic validation missing, stale or failing')
     duration=mp4_duration(ROOT/'demo.mp4')
     if duration is None:blockers.append('User-recorded demo.mp4 missing or duration unverified')
-    elif duration>120:blockers.append('demo.mp4 exceeds the 120-second brief limit')
-    report=ROOT/'report.pdf';pages=len(re.findall(rb'/Type\s*/Page\b',report.read_bytes())) if report.exists() else 0
+    elif duration<=0 or duration>120:blockers.append('demo.mp4 must contain at most 120 seconds of valid video')
+    report=ROOT/'report.pdf'
+    try:report_bytes=report.read_bytes()
+    except OSError:report_bytes=b''
+    pages=len(re.findall(rb'/Type\s*/Page\b',report_bytes))
     if pages!=4:blockers.append(f'Report expected 4 verified pages; found {pages}')
-    return {'ready_to_submit':not blockers,'blockers':blockers,'report_pages':pages,'demo_seconds':duration,'public_repository':'https://github.com/Pranay207/Resolvox','team_name_assumption':'pranay','speech_provider':'Gnani only','warning':'Mechanical test passes are not organizer scores.'}
+    qa=_json_record('pdf_qa.json')
+    if (not _current_runtime(qa,expected) or not report_bytes
+            or qa.get('pdf_sha256')!=hashlib.sha256(report_bytes).hexdigest()
+            or qa.get('pages')!=4 or qa.get('visually_reviewed_pages')!=[1,2,3,4]
+            or qa.get('layout_issues_found') is not False):
+        blockers.append('Current four-page report visual QA missing or stale')
+    return {'ready_to_submit':not blockers,'blockers':blockers,'report_pages':pages,
+        'demo_seconds':duration,'public_repository':'https://github.com/Pranay207/Resolvox',
+        'team_name_assumption':'pranay','speech_provider':'Gnani only',
+        'answer_path':'document_context_generation','runtime_source_sha256':expected,
+        'warning':'Mechanical test passes are not organizer scores.'}
 
 def main():
     release=status();(ROOT/'SUBMISSION_STATUS.json').write_text(json.dumps(release,indent=2),encoding='utf-8')
