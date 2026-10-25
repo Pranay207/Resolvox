@@ -38,13 +38,16 @@ def composition_text(data):
     if not counts:
         counts=Counter(row.get('prediction',{}).get('composition','unrecorded') for row in data.get('results',[]))
     generated=counts.get('grounded_llm',0)
+    clarifications=counts.get('grounded_clarification',0)
+    excerpts=counts.get('document_excerpts',0)
     fallback=sum(value for key,value in counts.items() if 'fallback' in key)
     guards=counts.get('deterministic_guardrail',0)
     rules=counts.get('evidence_validated_rules',0)
     abstentions=sum(value for key,value in counts.items() if key.startswith('abstained'))
-    known=generated+fallback+guards+rules+abstentions
+    known=generated+clarifications+excerpts+fallback+guards+rules+abstentions
     remaining=sum(counts.values())-known
-    text=f'generated {generated}; checked fallbacks {fallback}; guards {guards}; rules {rules}; abstentions {abstentions}'
+    text=(f'generated {generated}; clarifications {clarifications}; document excerpts {excerpts}; '
+          f'checked fallbacks {fallback}; guards {guards}; rules {rules}; abstentions {abstentions}')
     return text+(f'; other/unrecorded {remaining}' if remaining else '')
 
 
@@ -57,9 +60,13 @@ def live_result_text(data):
 
 
 def live_narrative(live2,live3):
+    source_only=any('src/document_answers.py' in data.get('configuration',{}).get('provenance',{}).get('runtime_source_sha256',{})
+        for data in (live2,live3) if data)
+    paths=('A source-driven run includes generated answers, clarifications, guards and abstentions; no authored policy answer fallback is used. '
+        if source_only else 'A historical live run includes generated answers, checked fallbacks, guards and abstentions. ')
     return ('Current LLM-enabled grounded questions: '+live_result_text(live2)+'. '
         +'Current LLM-enabled conversation turns: '+live_result_text(live3)+'. '
-        +'A live run includes generated answers, checked fallbacks, guards and abstentions; it does not mean every reply was freshly generated. '
+        +paths+'A live result does not mean every reply was freshly generated. '
         +'Offline results remain separate. Earlier live runs are historical evidence, not substitutes for current completed runs.')
 
 

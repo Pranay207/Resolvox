@@ -33,7 +33,7 @@ def provenance(step):
     # The organizer's append-only tools/tickets_created.csv is an output,
     # never a model/rubric input and intentionally not part of this fingerprint.
     inference = {key:os.getenv(key,default) for key,default in {
-        'LLM_PROVIDER':'ollama', 'LLM_MODEL':'qwen3:1.7b', 'RAG_LLM_TIMEOUT':'20',
+        'LLM_PROVIDER':'ollama', 'LLM_MODEL':'qwen3:1.7b', 'RAG_LLM_TIMEOUT':'45',
         'LLM_TIMEOUT':'30', 'DENSE_ENABLED':'true', 'REFERENCE_DATE':'2026-10-20',
         'LLM_FALLBACK_PROVIDER':'', 'LLM_FALLBACK_MODEL':'',
     }.items()}
@@ -89,7 +89,7 @@ def _write(output,results,step,configuration,planned,segments):
     data['configuration'].update(evaluation_mode='live_compose_true',
         inference_fingerprint=fingerprint(configuration), provenance=configuration)
     data['summary'].update(planned=planned,complete=complete,
-        scope='Current runtime live practice; cached generation, checked fallbacks and guards are reported separately. Mechanical checks are not organizer scoring.')
+        scope='Current source-driven live practice; generation, guards, clarifications and abstentions are reported separately. No authored policy fallback. Mechanical checks are not organizer scoring.')
     data['segments']=segments
     data['complete']=complete
     temporary.write_text(json.dumps(data,ensure_ascii=False,indent=2),encoding='utf-8')

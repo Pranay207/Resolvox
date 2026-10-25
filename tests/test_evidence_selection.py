@@ -85,3 +85,15 @@ def test_report_import_helpers_do_not_author_pdf_and_keep_partial_marker():
     assert build_report.pass_text(live(2,3,False))=='2/2 (partial)'
     assert build_report.select_current_live is select_current_live
     assert build_report.live_complete(live())
+
+
+def test_document_only_composition_counts_clarifications_and_excerpts_explicitly():
+    data=live()
+    data['summary']['composition_counts']={'grounded_llm':4,'grounded_clarification':2,
+        'document_excerpts':3,'deterministic_guardrail':1,'abstained_model_or_evidence':5}
+    text=composition_text(data)
+    assert 'generated 4' in text
+    assert 'clarifications 2' in text and 'document excerpts 3' in text
+    assert 'guards 1' in text and 'abstentions 5' in text
+    assert 'other/unrecorded' not in text
+    assert 'checked fallbacks 0' in text

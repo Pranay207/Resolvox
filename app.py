@@ -1,4 +1,5 @@
 """Resolvox support console. Voice and text share one verified conversation."""
+import hashlib
 import json
 import tempfile
 from pathlib import Path
@@ -9,6 +10,7 @@ from src.multilingual import MultilingualAgent as Agent
 from src.languages import LANGUAGE_NAMES, STT_CODES, normalize_language
 from src.config import ROOT
 from src.voice import GnaniVoice, VoiceError, VoiceUnavailable
+from scripts.finalize_evidence import live_complete
 
 st.set_page_config(page_title='Resolvox | ZentroMart', page_icon='🎧', layout='wide')
 st.markdown("""<style>
@@ -255,28 +257,55 @@ def load_report(name):
     except (OSError, ValueError):
         return {}
 
+def current_live_report(name):
+    """Show only results recorded with this document-only answer runtime."""
+    data = load_report(name)
+    config = data.get('configuration', {})
+    if not isinstance(config, dict) or config.get('evaluation_mode') != 'live_compose_true':
+        return {}
+    provenance = config.get('provenance', {})
+    recorded = provenance.get('runtime_source_sha256', {}) if isinstance(provenance, dict) else {}
+    if not isinstance(recorded, dict) or not isinstance(data.get('summary'), dict):
+        return {}
+    # These files establish the answer-generation boundary. Legacy runs do not
+    # contain the document modules and cannot become current through a filename.
+    for relative in ('src/agent.py', 'src/document_answers.py', 'src/document_context.py'):
+        try:
+            actual = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
+        except OSError:
+            return {}
+        if recorded.get(relative) != actual:
+            return {}
+    return data
+
+
 with eval_tab:
     st.subheader('Recorded evaluation')
-    st.caption('These are saved local checks, not organizer scores. Historical offline checks, model generation and speech are measured separately.')
-    reports = [('Grounded questions · offline', 'eval_step2.json'),
-               ('Conversation turns · offline', 'eval_step3.json'),
-               ('Broader regression · offline', 'eval_holdout.json')]
+    st.caption('These are saved local checks, not organizer scores. Current document-only generation is reported separately from historical tests and speech checks.')
+    reports = [('Historical questions \u00b7 offline', 'eval_step2.json'),
+               ('Historical conversation turns \u00b7 offline', 'eval_step3.json'),
+               ('Historical broader regression \u00b7 offline', 'eval_holdout.json')]
     for col, (label, filename) in zip(st.columns(3), reports):
         summary = load_report(filename).get('summary', {})
         total = summary.get('total', summary.get('evaluated'))
         col.metric(label, f"{summary['passed']} / {total}" if 'passed' in summary and total else 'Not recorded')
-    live_report = load_report('eval_step2_live_current.json') or load_report('eval_step2_live_postfix_partial.json')
+    st.caption('Historical scores were recorded before the document-only answer path. They do not measure the current runtime.')
+    live_report = current_live_report('eval_step2_live_current.json')
     if live_report:
-        summary = live_report.get('summary', {})
+        summary = live_report['summary']
         evaluated = summary.get('total', summary.get('evaluated', 0))
         planned = summary.get('planned', 52)
-        st.info(f"Live model subset: {summary.get('passed', 0)} passed, {evaluated} checked of {planned} planned. "
-                + ('Complete recorded run.' if summary.get('complete') else 'The full live rerun is incomplete.'))
-    live_conversations = load_report('eval_step3_live_current.json')
+        st.info(f"Current LLM-enabled questions: {summary.get('passed', 0)} passed, {evaluated} checked of {planned} planned. "
+                + ('Complete recorded run.' if live_complete(live_report) else 'The current live rerun is incomplete.'))
+    else:
+        st.info('Current LLM-enabled questions: pending. No matching document-only runtime results have been recorded.')
+    live_conversations = current_live_report('eval_step3_live_current.json')
     if live_conversations:
-        summary = live_conversations.get('summary', {})
-        st.info(f"Live conversations: {summary.get('passed', 0)} passed, {summary.get('total', 0)} checked of {summary.get('planned', 96)} planned. "
-                + ('Complete recorded run.' if summary.get('complete') else 'The live conversation rerun is incomplete.'))
+        summary = live_conversations['summary']
+        st.info(f"Current LLM-enabled conversation turns: {summary.get('passed', 0)} passed, {summary.get('total', 0)} checked of {summary.get('planned', 96)} planned. "
+                + ('Complete recorded run.' if live_complete(live_conversations) else 'The current live conversation rerun is incomplete.'))
+    else:
+        st.info('Current LLM-enabled conversation turns: pending. No matching document-only runtime results have been recorded.')
     voice_report = load_report('voice_validation.json')
     if voice_report:
         semantic = voice_report.get('semantic_validation', {})
@@ -288,8 +317,8 @@ with eval_tab:
             st.write(f"Optional regional-language preview: {language_check.get('voice_passed', 0)}/{language_check.get('planned', 0)} synthetic voice checks passed; {language_check.get('failed', 0)} failed.")
             st.caption('Experimental language routing is separate from primary English/Hindi/Hinglish support. Failed checks remain visible.')
         baseline = load_report('eval_step1.json').get('summary', {})
-        st.write(f"Prompt-only baseline: {baseline.get('passed', '?')} / {baseline.get('total', '?')}")
+        st.write(f"Historical prompt-only baseline: {baseline.get('passed', '?')} / {baseline.get('total', '?')}")
         adversarial = load_report('eval_adversarial.json').get('summary', {})
-        st.write(f"Development adversarial checks: {adversarial.get('passed', '?')} / {adversarial.get('total', '?')}")
-        st.caption('The supplied practice and exposed regression sets were used during development. Read the repository evidence for source hashes, failed earlier runs, composition and timings.')
+        st.write(f"Historical development adversarial checks: {adversarial.get('passed', '?')} / {adversarial.get('total', '?')}")
+        st.caption('The supplied practice and exposed regression sets were used during development. Historical scores remain preserved as earlier evidence. Read the repository evidence for source hashes, failed earlier runs, composition and timings.')
         st.caption('Dense retrieval: ' + r.retriever.dense_status)

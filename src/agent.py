@@ -279,7 +279,7 @@ class Agent:
                 plan.ids=list(dict.fromkeys(plan.ids+['IDV-2']))
                 pool += [r.kb.chunks['IDV-2'].public()]
         available={x['id']:x for x in pool}
-        validation_error=None; llm_ms=0.0; citations=[]; generation={}
+        validation_error=None; llm_ms=0.0; citations=[]; generation={}; generation_context_sources=[]
         if guard:
             # Fixed operational messages never assert a generated policy answer.
             supported=compatible(plan.ids,pool)
@@ -307,14 +307,16 @@ class Agent:
             composition='abstained_missing_evidence'
             if selected and self.compose:
                 began=time.perf_counter()
+                generation_context_sources=selected
                 try:
                     generated=document_reply(r.llm,answer_query,s.language,selected,
-                        facts=plan.facts,private=bool(s.order_id))
+                        facts=plan.facts,private=bool(s.order_id),context_provenance=True)
                     answer=generated['answer']; source_ids=generated['source_ids']
                     citations=generated.get('citations',[])
                     sources=[available[c] for c in source_ids]
                     plan.decision=generated['decision']
-                    composition='grounded_llm' if source_ids else 'grounded_clarification'
+                    composition='grounded_llm' if source_ids else ('grounded_clarification' if plan.decision=='clarify' else 'abstained_missing_evidence')
+                    supported=bool(source_ids)
                     generation={k:v for k,v in generated.items() if k not in {'answer','source_ids','citations','decision'}}
                 except (LLMUnavailable,ValueError,TypeError) as exc:
                     validation_error=str(exc) if isinstance(exc,ValueError) else 'model_unavailable_or_invalid'
@@ -333,6 +335,7 @@ class Agent:
             else:
                 plan.facts={}; plan.decision='answer' if intent=='unknown' else 'refuse'
             if composition.startswith('abstained'):
+                supported=False
                 plan.intent='unsupported'
         for cid in auth_source_ids:
             if cid not in source_ids:
@@ -349,6 +352,7 @@ class Agent:
                 'tool_calls':calls,'facts':plan.facts,'verified':bool(s.order),'reference_date':REFERENCE_DATE.isoformat(),'composition':composition,
                 'retrieval_mode':r.retriever.dense_status,'retrieval_k':12,'evidence_supported':supported,
                 'validation_error':validation_error,'citations':citations,'generation':generation,
+                'generation_context_sources':generation_context_sources,
                 'llm':r.llm.last_metrics.copy() if llm_ms else {},
                 'timings':{'retrieval_ms':round(retrieval_ms,2),'llm_ms':round(llm_ms,2)},
                 'latency_ms':round(1000*(time.perf_counter()-start),2)}

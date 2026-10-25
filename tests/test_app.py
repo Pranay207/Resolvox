@@ -1,7 +1,11 @@
 """Offline UI checks for shared conversations, voice recovery and honest evidence."""
+import hashlib
 import io
 import json
 import wave
+from pathlib import Path
+
+import pytest
 
 from streamlit.testing.v1 import AppTest
 
@@ -177,13 +181,27 @@ def test_record_and_upload_show_only_selected_input():
     assert not app.get('file_uploader')
 
 
-def test_partial_live_evaluation_is_clearly_incomplete(monkeypatch):
-    from pathlib import Path
+def current_report(total=3, planned=52, *, complete=False):
+    root = Path(__file__).resolve().parents[1]
+    return {
+        'configuration': {'evaluation_mode': 'live_compose_true', 'provenance': {
+            'runtime_source_sha256': {
+                name: hashlib.sha256((root / name).read_bytes()).hexdigest()
+                for name in ('src/agent.py', 'src/document_answers.py', 'src/document_context.py')
+            }}},
+        'summary': {'passed': total, 'total': total, 'planned': planned, 'complete': complete},
+        'complete': complete,
+        'results': [{'prediction': {}} for _ in range(total)],
+    }
 
+
+def patch_live_reports(monkeypatch, current):
     read_text = Path.read_text
 
     def report_text(path, *args, **kwargs):
-        if path.name in {'eval_step2_live_current.json', 'eval_step3_live_current.json'}:
+        if path.name == 'eval_step2_live_current.json':
+            return json.dumps(current)
+        if path.name == 'eval_step3_live_current.json':
             return '{}'
         if path.name == 'eval_step2_live_postfix_partial.json':
             return json.dumps({'summary': {'passed': 32, 'total': 32,
@@ -191,11 +209,53 @@ def test_partial_live_evaluation_is_clearly_incomplete(monkeypatch):
         return read_text(path, *args, **kwargs)
 
     monkeypatch.setattr(Path, 'read_text', report_text)
+
+
+def test_partial_live_evaluation_is_clearly_incomplete(monkeypatch):
+    patch_live_reports(monkeypatch, current_report())
     app = start()
-    status = next(item.value for item in app.info if 'Live model subset' in item.value)
-    assert '32 passed, 32 checked of 52 planned' in status
+    status = next(item.value for item in app.info if 'Current LLM-enabled questions:' in item.value)
+    assert '3 passed, 3 checked of 52 planned' in status
     assert 'incomplete' in status
     assert 'Complete recorded run' not in status
+    assert '32 passed' not in status
+
+
+def test_missing_current_results_do_not_promote_old_32_question_subset(monkeypatch):
+    patch_live_reports(monkeypatch, {})
+    app = start()
+    status = '\n'.join(item.value for item in app.info)
+    assert 'Current LLM-enabled questions: pending' in status
+    assert 'Current LLM-enabled conversation turns: pending' in status
+    assert '32 passed' not in status and 'Complete recorded run' not in status
+    labels = [item.label for item in app.metric]
+    assert len(labels) == 3 and all(label.startswith('Historical ') for label in labels)
+    assert any('Historical development adversarial checks:' in item.value for item in app.markdown)
+
+
+@pytest.mark.parametrize('provenance_state', ['legacy', 'changed'])
+def test_current_filename_cannot_promote_legacy_or_stale_runtime_evidence(monkeypatch, provenance_state):
+    fixture = current_report(52, 52, complete=True)
+    hashes = fixture['configuration']['provenance']['runtime_source_sha256']
+    if provenance_state == 'legacy':
+        hashes.pop('src/document_answers.py')
+        hashes.pop('src/document_context.py')
+    else:
+        hashes['src/document_answers.py'] = '0' * 64
+    patch_live_reports(monkeypatch, fixture)
+    app = start()
+    status = next(item.value for item in app.info if 'Current LLM-enabled questions:' in item.value)
+    assert 'pending' in status
+    assert '52 passed' not in status and 'Complete recorded run' not in status
+
+
+def test_completion_flag_alone_cannot_claim_a_finished_live_run(monkeypatch):
+    patch_live_reports(monkeypatch, current_report(3, 52, complete=True))
+    app = start()
+    status = next(item.value for item in app.info if 'Current LLM-enabled questions:' in item.value)
+    assert '3 passed, 3 checked of 52 planned' in status and 'incomplete' in status
+    assert 'Complete recorded run' not in status
+
 
 def test_all_ten_voice_languages_are_available_as_optional_preview():
     app = start()

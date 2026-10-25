@@ -48,7 +48,7 @@ def refund_llm():
         source = next(s for s in payload['source_text'] if s['id'] == 'REF-2')
         span = re.search(r'\|\s*UPI\s*\|\s*([^|]+)\|', source['text'])[1].strip()
         return {'decision': 'answer', 'answer': f'UPI refunds take {span} after initiation.',
-                'citations': [{'id': source['id'], 'quote': source['text']}]}
+                'covered': True}
     return ScriptedLLM([
         'How long does a UPI refund take?',
         'ప్రారంభించిన తర్వాత UPI రీఫండ్‌కు [[VALUE_A]] నుండి [[VALUE_B]] పని దినాలు పడుతుంది.',
@@ -63,6 +63,10 @@ def test_telugu_refund_uses_actual_sources_and_keeps_core_generation_route(resou
     out = agent.respond('యూపీఐ రీఫండ్ ఎన్ని రోజుల్లో వస్తుంది?', language_hint='te')
     assert out['decision'] == 'answer' and out['evidence_supported']
     assert out['composition'] == 'grounded_llm'
+    assert out['generation']['provenance_kind'] == 'generation_context'
+    assert out['citations'] == []
+    core_payload = next(json.loads(user) for system,user,kwargs in llm.calls if 'faithful translation engine' not in system)
+    assert {s['id'] for s in out['generation_context_sources']} == {s['id'] for s in core_payload['source_text']}
     assert 'REF-2' in out['retrieved_chunk_ids']
     assert '1 to 3 business days' in out['source_answer']
     assert out['answer'].startswith('నేను ZentroMart AI')

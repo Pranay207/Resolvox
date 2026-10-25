@@ -1,4 +1,4 @@
-"""Answers use the retrieved document version and model-selected citations."""
+"""Answers use fresh documents and honestly record the full generation context."""
 from dataclasses import replace
 import json
 
@@ -42,7 +42,7 @@ def test_empty_search_cannot_be_filled_with_planner_citations(monkeypatch):
     assert out['facts'] == {}
 
 
-def test_real_source_text_reaches_model_and_only_selected_quotes_are_cited(monkeypatch):
+def test_real_source_text_reaches_model_and_actual_generation_context_is_recorded(monkeypatch):
     r = Resources(dense=False)
     seen = {}
 
@@ -55,16 +55,23 @@ def test_real_source_text_reaches_model_and_only_selected_quotes_are_cited(monke
         return json.dumps({
             'decision': 'answer',
             'answer': 'Report damage within 48 hours, with photos of the item and packaging. After verification, a free replacement or full refund including delivery fees is available, without a reverse pickup fee.',
-            'citations': [{'id': cid, 'quote': sources[cid]['text']} for cid in ('DWM-1', 'DWM-2')],
+            'covered': True,
         })
 
     monkeypatch.setattr(r.llm, 'complete', complete)
     out = Agent(r, compose=True).respond('My item arrived damaged. What should I do?')
     assert out['composition'] == 'grounded_llm'
     assert seen['question'] == 'My item arrived damaged. What should I do?'
-    assert set(out['retrieved_chunk_ids']) == {'STY-1', 'DWM-1', 'DWM-2'}
+    supplied = {source['id']: source for source in seen['source_text']}
+    assert {'DWM-1', 'DWM-2'} <= set(supplied)
+    assert set(out['retrieved_chunk_ids']) == {'STY-1'} | set(supplied)
     assert {'DWM-1', 'DWM-2'} <= {x['id'] for x in out['retrieval_candidates']}
-    assert {c['id'] for c in out['citations']} == {'DWM-1', 'DWM-2'}
+    assert out['generation']['provenance_kind'] == 'generation_context'
+    assert set(out['generation']['context_source_ids']) == set(supplied)
+    assert out['citations'] == []
+    context = {source['id']: source for source in out['generation_context_sources']}
+    assert set(context) == set(supplied)
+    assert all(context[cid]['text'] == source['text'] for cid, source in supplied.items())
 
 
 def test_repeated_bare_proof_is_redacted_after_verification():
@@ -86,15 +93,17 @@ def test_uncovered_policy_uses_source_only_uncertainty_without_invented_restrict
         assert 'verified_rule_summary' not in payload
         return json.dumps({'decision': 'refuse',
                            'answer': 'I do not have enough supported information to answer that.',
-                           'citations': []})
+                           'covered': False})
 
     monkeypatch.setattr(r.llm, 'complete', complete)
     out = Agent(r, compose=True).respond('Can I schedule a delivery at midnight?')
     assert len(seen) == 1 and seen[0]['source_text']
     assert out['decision'] == 'refuse' and 'enough supported information' in out['answer']
     assert 'cannot schedule' not in out['answer']
-    assert out['composition'] == 'grounded_clarification'
+    assert out['composition'] == 'abstained_missing_evidence'
     assert not out['citations']
+    assert out['generation']['provenance_kind'] == 'generation_context'
+    assert {s['id'] for s in out['generation_context_sources']} == {s['id'] for s in seen[0]['source_text']}
 
 
 def _fixed_retrieval(resources, monkeypatch, ids):
@@ -104,10 +113,9 @@ def _fixed_retrieval(resources, monkeypatch, ids):
     monkeypatch.setattr(resources.retriever, 'search', lambda *args, **kwargs: rows)
 
 
-def _fake_answer(payload, text, ids=None):
-    sources = [s for s in payload['source_text'] if ids is None or s['id'] in ids]
-    return json.dumps({'decision': 'answer', 'answer': text, 'citations': [
-        {'id': source['id'], 'quote': source['text']} for source in sources]})
+def _fake_answer(payload, text):
+    assert payload['source_text']
+    return json.dumps({'decision': 'answer', 'answer': text, 'covered': True})
 
 
 def test_composed_missing_policy_has_no_stale_rule_payload_and_rejects_old_value(monkeypatch):
@@ -144,7 +152,7 @@ def test_composed_changed_source_uses_new_text_and_rejects_stale_values(monkeypa
     def complete(system, user, *args, **kwargs):
         payload = json.loads(user)
         seen.append(payload)
-        return _fake_answer(payload, f'Report the damage within {hours} hours, with photos of the item and packaging.', ['DWM-1'])
+        return _fake_answer(payload, f'Report the damage within {hours} hours, with photos of the item and packaging.')
 
     monkeypatch.setattr(r.llm, 'complete', complete)
     out = Agent(r, compose=True).respond('My item arrived damaged. What is the reporting deadline?')
@@ -176,7 +184,7 @@ def test_new_current_version_is_not_rejected_for_lacking_static_rule_fingerprint
         payload = json.loads(user)
         seen.append(payload)
         return json.dumps({'decision': 'answer', 'answer': 'Electronics have a 7 day return window from delivery.',
-                           'citations': [{'id': 'RET-2', 'quote': '| Electronics and accessories | 7 days | `electronics` |'}]})
+                           'covered': True})
 
     monkeypatch.setattr(r.llm, 'complete', complete)
     out = Agent(r, compose=True).respond(query)
@@ -186,6 +194,8 @@ def test_new_current_version_is_not_rejected_for_lacking_static_rule_fingerprint
     assert 'return_days' not in seen[0]['deterministic_facts']
     assert out['composition'] == 'grounded_llm'
     assert out['generation']['generation_attempts'] == 1
+    assert out['generation']['provenance_kind'] == 'generation_context'
+    assert out['citations'] == []
 
 
 def test_source_authority_filters_stale_superseded_index_objects_before_generation(monkeypatch):
@@ -198,7 +208,7 @@ def test_source_authority_filters_stale_superseded_index_objects_before_generati
     def complete(system, user, *args, **kwargs):
         payload = json.loads(user)
         seen.append(payload)
-        return json.dumps({'decision': 'refuse', 'answer': 'I cannot confirm the reporting deadline from these documents.', 'citations': []})
+        return json.dumps({'decision': 'refuse', 'answer': 'I cannot confirm the reporting deadline from these documents.', 'covered': False})
 
     monkeypatch.setattr(r.llm, 'complete', complete)
     out = Agent(r, compose=True).respond('What is the damaged-item reporting deadline?')
@@ -225,7 +235,7 @@ def test_verified_order_composition_and_proof_resumption_are_private_and_cache_d
 
     def complete(system, user, *args, **kwargs):
         seen.append({'system': system, 'payload': json.loads(user), 'options': kwargs})
-        return json.dumps({'decision': 'refuse', 'answer': 'I cannot confirm the order status from these documents.', 'citations': []})
+        return json.dumps({'decision': 'refuse', 'answer': 'I cannot confirm the order status from these documents.', 'covered': False})
 
     monkeypatch.setattr(r.tools, 'lookup', lookup)
     monkeypatch.setattr(r.llm, 'complete', complete)

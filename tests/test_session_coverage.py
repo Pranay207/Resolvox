@@ -74,7 +74,7 @@ def test_unknown_policy_returns_refusal_without_model_guessing(resource,monkeypa
         assert 'required_citations' not in payload
         return json.dumps({'decision':'refuse',
                            'answer':'I do not have enough supported information to answer that.',
-                           'citations':[]})
+                           'covered':False})
     monkeypatch.setattr(resource.llm,'complete',uncertainty)
     out=Agent(resource,compose=True).respond('Can I get a student discount?')
     assert len(seen)==1 and seen[0]['source_text']
@@ -84,6 +84,8 @@ def test_unknown_policy_returns_refusal_without_model_guessing(resource,monkeypa
     assert 'student discounts are unavailable' not in out['answer'].lower()
     assert not out['citations'] and not out['tool_calls']
     assert set(out['retrieved_chunk_ids']) <= {'STY-1'}
+    assert out['generation']['provenance_kind']=='generation_context'
+    assert {s['id'] for s in out['generation_context_sources']}=={s['id'] for s in seen[0]['source_text']}
 
 @pytest.mark.parametrize('question,expected_intent', [
     ('My pincode is 248001. What is the return period for ELE-0002?', 'return'),
