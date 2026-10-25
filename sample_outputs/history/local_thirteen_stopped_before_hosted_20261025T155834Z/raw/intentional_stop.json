@@ -1,0 +1,8 @@
+﻿{
+    "action":  "Intentional stop of local partial diagnostic for user-authorized hosted-model switch",
+    "target_pid":  36800,
+    "parent_pid":  32328,
+    "stopped_at_utc":  "2026-10-25T15:51:01.8764632Z",
+    "preserve_checkpoint":  true,
+    "reason":  "Valid Groq credential and successful hosted JSON probe; existing local responses remain historical partial evidence"
+}

@@ -1,0 +1,4 @@
+raw/** -text whitespace=cr-at-eol
+assistant_semantic_review.json -text whitespace=cr-at-eol
+semantic_checkpoint_receipt.json -text whitespace=cr-at-eol
+archive_manifest.json text eol=lf

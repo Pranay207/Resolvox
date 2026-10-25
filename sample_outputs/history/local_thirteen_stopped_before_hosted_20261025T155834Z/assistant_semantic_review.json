@@ -1,0 +1,341 @@
+{
+  "kind": "assistant semantic review; not organizer or human validation",
+  "run_key": "01db2e938998534813d0d926d5da92f348487b57270eff8a3be47ced9eadde49",
+  "identity": {
+    "inference_fingerprint": "49e24726dd80d2f9c2ee7e804031b1acf8e8bf6f8bee85f0f31a9e58d1d37251",
+    "provenance": {
+      "step": 2,
+      "evaluation_mode": "live_compose_true",
+      "runtime_source_sha256": {
+        "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+        "src/agent.py": "cec00fb56cd003c4db845984fcfdcc90edc38068898f555c874dc9fdbbd8c692",
+        "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+        "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+        "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+        "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+        "src/document_answers.py": "1bde032b0ca01f11c4919bd0fa480a2fa76a073381551544da0b13eec9544535",
+        "src/document_context.py": "ddf988e1f6f7266c7ad39c34fdc579a352f261477ee000ed458dabbeb496dffc",
+        "src/escalation_rules.py": "4179c3f45bb4499ac56deb8912a8b0b95daa4ba1d038d814f42befaa87c14775",
+        "src/evals.py": "4b54c5fd1a101ff0a1a8db1b795f0bc944122c83b47515fd9d26bb4735dcbe31",
+        "src/event_dates.py": "6b11f226ed84526bed3b3757061d2f29bde134fb599c929af80cdb3bc436e470",
+        "src/grounding.py": "4f4969bddeb334cd47a40c2436d2ec261265a19de9b13a40c78053cb04da0899",
+        "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+        "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+        "src/llm.py": "d68b545ed459a3b9623cb35d8f8db944a196b48ff96ee01499ee3af78b6f0ff5",
+        "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+        "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+        "src/operational_explanations.py": "d7f8b9eb932e1f17d2209a3f478ac88b879529d9e01322da6689c6119ec2b433",
+        "src/placement_conditions.py": "af80197b28304fc7107d2cc4676ba919fa89ed8e5854e69d898e9dd7e586a5a0",
+        "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+        "src/return_conditions.py": "add7e88c8ce1385598da4c8c90362a778de549df2df69724a045f529b4dcdc64",
+        "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+        "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
+        "src/source_semantics.py": "576dee7bc682e507b9e334cfe39245b10e70ae399e0818c54ddac8f7815ccbcc",
+        "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+        "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+        "src/voice.py": "75565d0e213fa98328e8b8522ebb42c17e6f15428ae96a4a9250a09889a79264",
+        "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b",
+        "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1",
+        "scripts/resume_live_practice.py": "c9d988fd792024b233f2d0e0b8bcc5a2a29e955ae17c5b0173c36cea85eb828c"
+      },
+      "dataset_sha256": {
+        "kb/00_about_this_knowledge_base.md": "de509ece6ea3f6c9fc451f4118fd3b513c3e3069f16fe49d666859a497e40a00",
+        "kb/agent_conversation_style.md": "1e2f8b6e8057c08bfab0f2781c35753906788535a9e5ed6762f9d2ebfffdc064",
+        "kb/agent_escalation_handoff.md": "7cdcf1cac2e1ef96097234c620660b44961d8e323b588c9b5cee7759b78d243c",
+        "kb/agent_identity_verification.md": "65080cf86c01fa180321c77ab27c7d1dffdf6b3bca915cf162bb8c1a694cf182",
+        "kb/faq_general.md": "17f9846d1ffb33ded2206d25dfec3e3e431b1e0759edd4a49fc342106d17cd5a",
+        "kb/faq_hindi.md": "abc9f07bd99100f28ad8ba2f652bc21540b8a1cf7898bb5c0b98a2f783d669a2",
+        "kb/help_reverse_pickup.md": "8b05d9c3c6be72cdf782471372f6b209af48b0a712e747b395c97df3c79350b5",
+        "kb/help_track_order.md": "8c8fe651e97e1b1d088934a25de1bbcb81552fa2ecf5e2e2756374a5679c4bed",
+        "kb/help_troubleshooting_electronics.md": "0aa55f0933a5db0663619d343634ca6a12a2792a1c58258cfc14d9d971965e87",
+        "kb/mkt_plus_benefits_page.md": "f7d1bb3f9a2b555f51cd759c099654e2d36d11132efb231ccc87767c2082f6d7",
+        "kb/pol_cancellations.md": "a81de76931982a96d79416e130fd81d4cacc54b65bce43812767d76d8af66a00",
+        "kb/pol_coupons_offers.md": "e5201e45767003eabb79f8e930ee6b43204a7e08713350579181041233d3467c",
+        "kb/pol_damaged_wrong_missing.md": "6287c52adb81c8f8febf9c262ef34362af2ad33a373dc0768ae7e9d07bf7ec71",
+        "kb/pol_delivery_shipping.md": "828a75578e9f1307b2e4f64f6f151d93636bfd2f2f9bc39fcef86b273b8226eb",
+        "kb/pol_marketplace_sellers.md": "76e1291bf8990152b7f9029c79f58bddcc286f57800fb65de550586f45887dc0",
+        "kb/pol_payments_cod.md": "3d88d83c934a0477955fbe63beb4cae5db3491889ecf01b985ef233d7c19c68f",
+        "kb/pol_plus_membership.md": "9ea896ff307ddb4c28d0aaedcc567cfdf3825335c9eded8f02adacbbb7d6c877",
+        "kb/pol_refunds.md": "aa315a1c5c1ae2f19b1c5678b138ef3970279d1f2ae002c1392db61a4851f48c",
+        "kb/pol_returns_v3_superseded.md": "5f37e77ac47d5aa34d056460ba3b0ef6369f0a846921b74e35801066a01cfd17",
+        "kb/pol_returns_v4.md": "964b54f48edbd9f079d718f11cfc3164e20ba95b3943b723e03eb49fa1ee30f6",
+        "kb/pol_warranty_assured.md": "b2522a4289f808f8d7a2087fef8df5f624fd164770bcad6ce863975c7d0465b1",
+        "data/customers.csv": "1f3aff8002de497698f1e4ff6342c67ceca3c7bb0b68ea97f780126bfe786dc2",
+        "data/holidays.csv": "21b4804250b38150182fa00efc673997dfb81687efa7996403136da688c4d05f",
+        "data/order_items.csv": "62e344a4713ddaa9e10055c8b4931b7b8fab28f6350a5836968ff404046d0dc3",
+        "data/orders.csv": "9fb915f9f401ae26a1d00c0f064f87ab17fcde048cb9652d6e8a234a1401068b",
+        "data/pincodes.csv": "89f17fc33ae98223e70975a36e3e5a55e1bc2e0616e19a3fd45896adceeed19b",
+        "data/products.csv": "0eb917871836ecb5f74100dfa61e85f2adf78eecdaf10554c521e8bc9b461fd7",
+        "data/support_logs.csv": "2ab97c83b46f690310a133a10cdec01e670122bd7f996a15fe18b00c30a60739",
+        "practice/conversations.csv": "f6c9d24112f63047f4af62a9b3f2cfd34c941597b55cf661df8415e8d59fcfc3",
+        "practice/questions.csv": "cac2302c995389f82c831800589b627c9d567620013bc44d6721c7d3c90e9190",
+        "tools/tools.py": "e4192adc096a4d9b5b13bb0f11604354a4c6d3e9cb887915f87756851679d743"
+      },
+      "inference": {
+        "LLM_PROVIDER": "ollama",
+        "LLM_MODEL": "qwen3:4b-instruct",
+        "RAG_LLM_TIMEOUT": "300",
+        "LLM_TIMEOUT": "300",
+        "DENSE_ENABLED": "true",
+        "REFERENCE_DATE": "2026-10-20",
+        "LLM_FALLBACK_PROVIDER": "",
+        "LLM_FALLBACK_MODEL": "",
+        "LLM_BASE_URL_sha256": "7e17659853212fae1a14d3b55d651aa8ecd6ff5fc343619102ba8f0a1a622f52",
+        "LLM_FALLBACK_BASE_URL_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "created_at_utc": "2026-10-25T15:00:50.341562+00:00",
+  "entries": {
+    "PQ0002": {
+      "id": "PQ0002",
+      "row_sha256": "11bcded33efe7cb4eb6c5520f82aeb248b90b90815daf3399ba05725aeaa03b2",
+      "status": "uncertain",
+      "notes": "Independent source review confirms a limited support caveat: the precise Claim control/click instruction is not documented. This is not proof the real UI lacks that option or that the warranty conclusion is false. The response must not count as fully source-grounded for the requested procedure. It also omits the delivery start event for the duration. Core policy facts remain supported; original mechanical checks are untouched.",
+      "source_ids": [
+        "WAR-2",
+        "products.csv:ELE-0012"
+      ],
+      "claims_checked": [
+        "unsupported_ui_instruction: precise Claim option/click step is absent from supplied evidence",
+        "Assured eligibility, duration, general My Orders route, and pickup/repair-or-replacement are supported"
+      ],
+      "first_seen_at_utc": "2026-10-25T15:00:50.348089+00:00",
+      "reviewed_at_utc": "2026-10-25T15:02:41.976532+00:00",
+      "reviewer": "Codex assistant"
+    },
+    "PQ0003": {
+      "id": "PQ0003",
+      "row_sha256": "89b150d7bbb43ba18302125b35a92a80f3395c34a4af2e6cd27282dd5bb728f0",
+      "status": "supported_with_limits",
+      "notes": "The actual REF-2 Wallet row says Instant, within 2 hours, and its section defines the clock after initiation. The delivered answer preserves the duration, unit and start event, and makes no personal completion or tool-action claim. No material source discrepancy identified in this bounded assistant review.",
+      "source_ids": [
+        "REF-2"
+      ],
+      "claims_checked": [
+        "Wallet refund timing is instant, within two hours after initiation"
+      ],
+      "first_seen_at_utc": "2026-10-25T15:02:00.249427+00:00",
+      "reviewed_at_utc": "2026-10-25T15:03:00.613700+00:00",
+      "reviewer": "Codex assistant"
+    },
+    "PQ0004": {
+      "id": "PQ0004",
+      "row_sha256": "ddea45feb2529f4a9c4f546b7b0537844ea58ddbda9a3f60bcb63c5d10b0453f",
+      "status": "material_error",
+      "notes": "The actual supplied DEL-1 gives delivery lead times and the Express ordering cutoff, without defining arrival-hour availability. CAN-3 defines only cancellation up to two hours before a chosen grocery slot. Neither establishes a midnight delivery ban or a defined delivery-hour window. The delivered response confidently invents this restriction and reports covered=True. This remains a raw frozen-run error; a separate post-run draft must not change this result or be counted as its successful response.",
+      "source_ids": [
+        "DEL-1",
+        "CAN-3"
+      ],
+      "claims_checked": [
+        "unsupported_clock_restriction: answer says midnight slots are unavailable and outside a defined delivery window",
+        "category_transfer: grocery cancellation lead time is used to justify delivery scheduling availability"
+      ],
+      "first_seen_at_utc": "2026-10-25T15:05:53.955320+00:00",
+      "reviewed_at_utc": "2026-10-25T15:06:10.855251+00:00",
+      "reviewer": "Codex assistant"
+    },
+    "PQ0005": {
+      "id": "PQ0005",
+      "row_sha256": "58388d66e4f6fb08f9f727b33527031824055352f705b74280083b3c59715db1",
+      "status": "uncertain",
+      "notes": "The actual catalog row is ZentroMart-fulfilled and assured=True, and WAR-2 supports the duration, delivery start event and remedy. The precise selection/form procedure is undocumented in all supplied sources. This is a limited support caveat, not proof the real UI lacks the form. Keep separate from the mechanical pass and any later UI-guard draft results.",
+      "source_ids": [
+        "WAR-2",
+        "products.csv:ELE-0002"
+      ],
+      "claims_checked": [
+        "unsupported_ui_instruction: an item-selection and warranty-claim-form procedure is added beyond the documented My Orders route",
+        "Assured eligibility, twelve months from delivery, pickup and repair-or-replacement are supported"
+      ],
+      "first_seen_at_utc": "2026-10-25T15:09:12.334773+00:00",
+      "reviewed_at_utc": "2026-10-25T15:24:48.260109+00:00",
+      "reviewer": "Codex assistant"
+    },
+    "PQ0006": {
+      "id": "PQ0006",
+      "row_sha256": "06841b1e1b2c66c68c99d406fda949e501048041bbb34d67a57781975e600626",
+      "status": "supported_with_limits",
+      "notes": "RET-6 explicitly waives the reverse pickup fee for Plus members, and PLS-2 states no reverse pickup fee on any return. The answer stays on the requested fee topic and does not claim that membership changes return eligibility or windows. No material source discrepancy identified in this bounded assistant review.",
+      "source_ids": [
+        "RET-6",
+        "PLS-2"
+      ],
+      "claims_checked": [
+        "Plus members are exempt from reverse pickup fees, including change-of-mind footwear returns"
+      ],
+      "first_seen_at_utc": "2026-10-25T15:27:40.685021+00:00",
+      "reviewed_at_utc": "2026-10-25T15:27:52.956789+00:00",
+      "reviewer": "Codex assistant"
+    },
+    "PQ0008": {
+      "id": "PQ0008",
+      "row_sha256": "d08baa27dd360e05cfaae5a751f494fe2e06c44823d4fc92ae4f911df9c2f8ac",
+      "status": "material_error",
+      "notes": "The question supplies only a card method and initiation date. There is no verified order or refund amount in facts. The delivered answer nevertheless says the card refund is 25 rupees. The only matching currency amount in its actual context is REF-5's COD fee, which cannot establish this transaction amount. Correct date arithmetic does not remedy this personal-fact invention. Mechanical pass and all frozen predictions remain unchanged.",
+      "source_ids": [
+        "REF-2",
+        "REF-5",
+        "KB-00.3"
+      ],
+      "claims_checked": [
+        "invented_personal_refund_amount: response assigns a COD fee amount to an unverified credit-card refund",
+        "Calculated twenty-fourth to twenty-seventh October interval and five-to-seven business-day duration are supported"
+      ],
+      "first_seen_at_utc": "2026-10-25T15:33:28.281515+00:00",
+      "reviewed_at_utc": "2026-10-25T15:34:10.704578+00:00",
+      "reviewer": "Codex assistant"
+    },
+    "PQ0009": {
+      "id": "PQ0009",
+      "row_sha256": "0834d893d3f77dad89840be0e9141374d0cc3297d15718541eca3430bff04a66",
+      "status": "supported_with_limits",
+      "notes": "The supplied sources establish other offers/fees and do not establish a student discount. The delivered host abstention explicitly says information is insufficient and offers help reaching a human. This is a safe uncertainty response, not evidence of a successful model-generated policy answer; composition is abstained_model_or_evidence.",
+      "source_ids": [],
+      "claims_checked": [
+        "Safe uncertainty about an unsupported student-discount question",
+        "No student benefit or prohibition is invented; no completed tool action is claimed"
+      ],
+      "first_seen_at_utc": "2026-10-25T15:33:28.284513+00:00",
+      "reviewed_at_utc": "2026-10-25T15:34:12.172512+00:00",
+      "reviewer": "Codex assistant"
+    },
+    "PQ0010": {
+      "id": "PQ0010",
+      "row_sha256": "1334d5515a873c1f7ffcf77ff5b93c82dcd0752f79f286d561c21dc61c253c44",
+      "status": "uncertain",
+      "notes": "RET-6 and DWM-2 support no reverse pickup fee for damage, so the direct answer to the fee question is correct. The response adds a remedy statement that the customer receives a free replacement/full refund but does not preserve DWM-2's explicit after-verification condition. It also expands beyond the requested fee topic. Record this as a limited conditional-support caveat, not as an invented completed operation or proof that the pickup-fee conclusion is false; frozen checks remain untouched.",
+      "source_ids": [
+        "RET-6",
+        "DWM-1",
+        "DWM-2"
+      ],
+      "claims_checked": [
+        "Requested damaged-item pickup-fee exemption is supported",
+        "Added replacement/full-refund explanation omits the source's after-verification condition"
+      ],
+      "first_seen_at_utc": "2026-10-25T15:34:10.636018+00:00",
+      "reviewed_at_utc": "2026-10-25T15:34:59.900672+00:00",
+      "reviewer": "Codex assistant"
+    },
+    "PQ0013": {
+      "id": "PQ0013",
+      "row_sha256": "537250633b491189cf52c7a19bdb7f019d93e4b98d0df7cdfb5add3edd0d316f",
+      "status": "uncertain",
+      "notes": "The opening and closing correctly deny an ordinary return for the customer-stated opened lipstick. The policy explanation introduces belts/other products, absent from the actual beauty/personal-care rule, and uses muddled opened/closed wording instead of clearly preserving unopened with seal intact. This is an unsupported category/condition narration caveat, not a finding that the final return-eligibility conclusion is wrong. Bounded assistant review only.",
+      "source_ids": [
+        "RET-4",
+        "RET-2",
+        "products.csv:BTY-0052"
+      ],
+      "claims_checked": [
+        "opened lipstick ordinary-return denial supported",
+        "unsupported category narration",
+        "unclear intact-seal condition narration"
+      ],
+      "first_seen_at_utc": "2026-10-25T15:43:58.005578+00:00",
+      "reviewed_at_utc": "2026-10-25T15:46:44.620947+00:00",
+      "reviewer": "Codex assistant"
+    },
+    "PQ0014": {
+      "id": "PQ0014",
+      "row_sha256": "0ba9de00a3e20d82a7370cd55619dae953cbd24aff303f0e119272a31fac71c1",
+      "status": "supported_with_limits",
+      "notes": "The notebook catalog category books_media and the same actual RET-2 table row support the stated 10-day duration. The answer omits the explicit calendar-day unit and delivery-date start event, so it is less complete than the source but does not invent a personal date or a different duration. Bounded assistant review of this duration question only.",
+      "source_ids": [
+        "RET-2",
+        "products.csv:BKS-0056"
+      ],
+      "claims_checked": [
+        "correct product-category duration",
+        "calendar-day and delivery-start qualifiers omitted",
+        "no personal date invented"
+      ],
+      "first_seen_at_utc": "2026-10-25T15:43:58.006578+00:00",
+      "reviewed_at_utc": "2026-10-25T15:46:44.908557+00:00",
+      "reviewer": "Codex assistant"
+    },
+    "PQ0015": {
+      "id": "PQ0015",
+      "row_sha256": "2dff62eb729d4bc3f3e5b2c290004cccade81c097a17be5e6f72df8b686868ce",
+      "status": "material_error",
+      "notes": "The user asks whether a bulk order receives a GST invoice. None of the actual generation context documents invoice eligibility or a bulk-order GST restriction. The answer turns lack of a policy reference into a definite statement that a GST invoice will not be provided. Absence of evidence supports uncertainty, not this prohibition. This is also an actual mechanical failure. Bounded assistant source review, no assertion about the real invoicing system beyond supplied evidence.",
+      "source_ids": [],
+      "claims_checked": [
+        "unsupported_GST_invoice_denial"
+      ],
+      "first_seen_at_utc": "2026-10-25T15:46:44.527780+00:00",
+      "reviewed_at_utc": "2026-10-25T15:47:13.399326+00:00",
+      "reviewer": "Codex assistant"
+    },
+    "PQ0016": {
+      "id": "PQ0016",
+      "row_sha256": "e9e75af59583db4ebac6b2df55194e96bc52185424231f97fa6bc71538ca3364",
+      "status": "material_error",
+      "notes": "The final ordinary-return denial and the last sentence correctly apply the unopened/intact-seal source requirement to the customer-stated opened perfume. However, the first explanation says the customer cannot return it because it is unopened with the seal intact, directly contradicting the supplied opened-item claim and the later sentence. This is an internally contradictory customer-item premise and rationale, not a wrong final eligibility outcome. No source or record verifies the item is unopened. Bounded assistant review only.",
+      "source_ids": [
+        "RET-4",
+        "products.csv:BTY-0055"
+      ],
+      "claims_checked": [
+        "ordinary-return denial supported",
+        "first explanation falsely asserts unopened customer item",
+        "later sentence states correct necessary condition"
+      ],
+      "first_seen_at_utc": "2026-10-25T15:53:54.968055+00:00",
+      "reviewed_at_utc": "2026-10-25T15:55:07.430008+00:00",
+      "reviewer": "Codex assistant"
+    },
+    "PQ0018": {
+      "id": "PQ0018",
+      "row_sha256": "873f973bc38b471b90ca9cb94e1c69dd76b3fe889bb98dbeb9ae887071bf9b7b",
+      "status": "supported_with_limits",
+      "notes": "The public question omits a product/category, while the current RET-2 table has different category-specific windows. The host correctly asks which product/category without choosing a duration, inventing a policy value, requesting identity, or invoking a model. Explicit source_input_clarification composition and generation_attempts=0 are preserved. This validates this missing-category workflow, not a model-generated policy answer.",
+      "source_ids": [
+        "RET-2"
+      ],
+      "claims_checked": [
+        "category needed to select current table row",
+        "neutral product/category clarification",
+        "host workflow with zero generation attempts"
+      ],
+      "first_seen_at_utc": "2026-10-25T15:53:54.972090+00:00",
+      "reviewed_at_utc": "2026-10-25T15:55:07.705204+00:00",
+      "reviewer": "Codex assistant"
+    }
+  },
+  "history": [
+    {
+      "id": "PQ0002",
+      "row_sha256": "11bcded33efe7cb4eb6c5520f82aeb248b90b90815daf3399ba05725aeaa03b2",
+      "status": "material_error",
+      "notes": "Core warranty facts are supported. The final delivered response adds a precise Claim option/click step after selecting an order, which WAR-2 does not specify; it only says claims are raised in the app under My Orders. This is unsupported procedural detail, not proof the UI option is false. The response also omits that the 12-month clock begins at delivery. Mechanical pass remains unchanged.",
+      "source_ids": [
+        "WAR-2",
+        "products.csv:ELE-0012"
+      ],
+      "claims_checked": [
+        "Assured eligibility and 12-month duration are supported by actual source/catalog.",
+        "My Orders claim route and pickup/repair-or-replacement are supported.",
+        "A named Claim option and click step are not established in any supplied source."
+      ],
+      "first_seen_at_utc": "2026-10-25T15:00:50.348089+00:00",
+      "reviewed_at_utc": "2026-10-25T15:02:00.321428+00:00",
+      "reviewer": "Codex assistant"
+    }
+  ],
+  "last_snapshot_sha256": "95f4293e2eb47b2872d45435911eb840a511dc9571f7403dcad7696745ad26d2",
+  "last_observed_at_utc": "2026-10-25T15:55:07.760360+00:00",
+  "summary": {
+    "completed_rows": 13,
+    "mechanical_passed": 11,
+    "mechanical_checked": 13,
+    "assistant_semantic_status_counts": {
+      "pending": 0,
+      "supported_with_limits": 5,
+      "material_error": 4,
+      "uncertain": 4
+    }
+  }
+}

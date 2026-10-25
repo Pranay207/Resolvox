@@ -1,0 +1,68 @@
+﻿{
+    "scope":  "Observed local machine idle-standby events; raw test timings remain unchanged",
+    "captured_at_utc":  "2026-10-25T15:39:54.3924261Z",
+    "temporary_display_awake_pid":  39736,
+    "temporary_awake_started_at_utc":  "2026-10-25T15:34:41Z",
+    "events":  [
+                   {
+                       "time_utc":  "2026-10-25T15:28:25.7586679Z",
+                       "event_id":  507,
+                       "message":  "The system is exiting Modern Standby  Reason: Input Keyboard."
+                   },
+                   {
+                       "time_utc":  "2026-10-25T15:27:58.5588018Z",
+                       "event_id":  506,
+                       "message":  "The system is entering Modern Standby  Reason: Idle Timeout."
+                   },
+                   {
+                       "time_utc":  "2026-10-25T15:23:47.6536252Z",
+                       "event_id":  507,
+                       "message":  "The system is exiting Modern Standby  Reason: Input Keyboard."
+                   },
+                   {
+                       "time_utc":  "2026-10-25T15:04:11.2110351Z",
+                       "event_id":  506,
+                       "message":  "The system is entering Modern Standby  Reason: Idle Timeout."
+                   },
+                   {
+                       "time_utc":  "2026-10-25T14:57:36.0627236Z",
+                       "event_id":  507,
+                       "message":  "The system is exiting Modern Standby  Reason: Input Keyboard."
+                   },
+                   {
+                       "time_utc":  "2026-10-25T14:57:32.4805698Z",
+                       "event_id":  506,
+                       "message":  "The system is entering Modern Standby  Reason: Idle Timeout."
+                   },
+                   {
+                       "time_utc":  "2026-10-25T14:54:29.4253086Z",
+                       "event_id":  507,
+                       "message":  "The system is exiting Modern Standby  Reason: Input Keyboard."
+                   },
+                   {
+                       "time_utc":  "2026-10-25T14:53:39.4100034Z",
+                       "event_id":  506,
+                       "message":  "The system is entering Modern Standby  Reason: Idle Timeout."
+                   },
+                   {
+                       "time_utc":  "2026-10-25T14:06:09.6009691Z",
+                       "event_id":  507,
+                       "message":  "The system is exiting Modern Standby  Reason: Input Keyboard."
+                   },
+                   {
+                       "time_utc":  "2026-10-25T13:47:07.2305343Z",
+                       "event_id":  506,
+                       "message":  "The system is entering Modern Standby  Reason: Idle Timeout."
+                   },
+                   {
+                       "time_utc":  "2026-10-25T13:46:36.1963973Z",
+                       "event_id":  507,
+                       "message":  "The system is exiting Modern Standby  Reason: Input Mouse."
+                   },
+                   {
+                       "time_utc":  "2026-10-25T13:46:27.5532109Z",
+                       "event_id":  506,
+                       "message":  "The system is entering Modern Standby  Reason: Idle Timeout."
+                   }
+               ]
+}

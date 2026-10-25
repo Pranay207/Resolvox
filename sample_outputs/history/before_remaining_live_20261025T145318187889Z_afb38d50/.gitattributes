@@ -1,0 +1,2 @@
+sample_outputs/** -text whitespace=cr-at-eol
+archive_manifest.json text eol=lf

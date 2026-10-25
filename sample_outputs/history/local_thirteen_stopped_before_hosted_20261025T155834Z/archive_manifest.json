@@ -1,0 +1,60 @@
+{
+  "scope": "Stopped local development diagnostic, not complete evaluation. Mechanical result 11/13; semantic review separate. Runtime unchanged during execution; post-stop generic fixes require a fresh run.",
+  "created_at": "2026-10-25T15:58:34.750591+00:00",
+  "files": [
+    {
+      "original_path": "sample_outputs/eval_step2_live_current.json",
+      "archive_path": "raw/eval_step2_live_current.json",
+      "sha256": "95f4293e2eb47b2872d45435911eb840a511dc9571f7403dcad7696745ad26d2",
+      "bytes": 355213
+    },
+    {
+      "original_path": "sample_outputs/live_sequence_receipt.json",
+      "archive_path": "raw/live_sequence_receipt.json",
+      "sha256": "17dc69123b822f0be644b4ce2c0a2d5ce9ac50090368570626027a759b183151",
+      "bytes": 52651
+    },
+    {
+      "original_path": "sample_outputs/engineering_verification.json",
+      "archive_path": "raw/engineering_verification.json",
+      "sha256": "c89e2f5fe742ff7c323d71bb61c34197e45b5dcb58ab83844624e0dd2a3fa3b7",
+      "bytes": 37042
+    },
+    {
+      "original_path": "tmp/local_run_provider_switch_stop.json",
+      "archive_path": "raw/intentional_stop.json",
+      "sha256": "a0e8c913f18230988477efad5e00562d5b0c223b25abbc1b9e62f3410c5532ea",
+      "bytes": 392
+    },
+    {
+      "original_path": "tmp/fresh_live_idle_observations.json",
+      "archive_path": "raw/idle_observations.json",
+      "sha256": "4bb9bc5113a8685708e6629ae2167ce445c13fca5ab90128270917a3ad4a3f7b",
+      "bytes": 3368
+    },
+    {
+      "original_path": "tmp/remaining_live_runs/20261025T145318187889Z_afb38d50/questions.log",
+      "archive_path": "raw/questions.log",
+      "sha256": "c102a991d87f756526d7ed47eb667853cf6af38f04c2cad9ba97fca8162d889f",
+      "bytes": 369
+    },
+    {
+      "original_path": "tmp/remaining_live_runs/20261025T145318187889Z_afb38d50/sequence_receipt.json",
+      "archive_path": "raw/sequence_receipt.json",
+      "sha256": "17dc69123b822f0be644b4ce2c0a2d5ce9ac50090368570626027a759b183151",
+      "bytes": 52651
+    },
+    {
+      "original_path": "tmp/semantic_reviews/01db2e9389985348/assistant_semantic_review.json",
+      "archive_path": "assistant_semantic_review.json",
+      "sha256": "6d4fcbc6cef0658711f0d231eb058e32ec5a4871c44c6d3e72c8d8c04ba32d2c",
+      "bytes": 22120
+    },
+    {
+      "original_path": "tmp/semantic_reviews/01db2e9389985348/checkpoint_receipt.json",
+      "archive_path": "semantic_checkpoint_receipt.json",
+      "sha256": "4135d4bdbd18f95e94f8cb204bfe126bea70a2ea05002205f5b4b3ad948acb62",
+      "bytes": 95605
+    }
+  ]
+}
