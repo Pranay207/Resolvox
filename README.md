@@ -87,6 +87,8 @@ GNANI_API_KEY=your_gnani_api_key
 LLM_PROVIDER=ollama
 LLM_BASE_URL=http://127.0.0.1:11434
 LLM_MODEL=qwen3:4b-instruct
+LLM_TIMEOUT=180
+RAG_LLM_TIMEOUT=180
 COMPOSE_WITH_LLM=true
 ```
 
@@ -98,7 +100,7 @@ Install the selected local model:
 ollama pull qwen3:4b-instruct
 ```
 
-The selected local model is `qwen3:4b-instruct`. The default per-request RAG timeout is 120 seconds; this is not a total response-time guarantee. Ensure Ollama is running. If its service is not already running, start `ollama serve` in a separate terminal.
+The recorded local configuration uses `qwen3:4b-instruct` with both request timeouts set to **180 seconds**. Code and `.env.example` defaults remain **120 seconds**. A request timeout does not bound a complete response, including repair and speech. Ensure Ollama is running. If its service is not already running, start `ollama serve` in a separate terminal.
 
 <details>
 <summary>Use a compatible hosted LLM instead</summary>
@@ -170,7 +172,11 @@ flowchart TD
 
 **Answer checks.** Numeric values/units, language, private identifiers and invented actions are checked against the actual supplied context and verified facts. Question-relevant category windows, calculated refund dates and delivery-attempt limits have source-bound numeric checks; repeated questions and one-word policy replies are rejected. Invalid output gets at most one repair; unavailable inference or another invalid output produces uncertainty. An uncovered reply must be non-substantive clarification or uncertainty. **Prewritten policy fallback is removed from normal answer generation.** Context provenance and finite validation do not prove per-claim semantic support, correct application of a condition or complete question coverage. Normal generation returns `citations=[]` rather than claiming exact model-selected quotes.
 
+**Source-derived safeguards.** Additional finite checks cover unopened/seal requirements, permission direction, warranty scope, paid-fee/Plus credit conditions and conditional return exceptions. Missing category or refund-arrival method inputs can trigger clarification; initiation-clock questions and COD option overviews do not force a payment-method lookup. These checks do not establish complete semantic correctness.
+
 **Routing and operational guards.** The legacy planner still supplies routing hints and deterministic verification, privacy, safety, handover and limited missing-record messages. Guard/escalation explanations can include policy text, bound to their explicit evidence and actual tool results. The planner's policy prose and constants are not supplied as normal answer summaries or used as generation fallbacks. With `compose=False`, the ordinary domain path displays `document_excerpts` as a diagnostic, not generated answers.
+
+**Unsupported requests.** Recognized unsupported topics stop before generation and receive generic uncertainty, rather than an invented company policy. Routing is conservative and incomplete: a saved “2 am” delivery probe unnecessarily asks for an order ID. That clarification is preserved as a failed expected-uncertainty check, not a quality pass.
 
 **Order access and actions.** Private order information requires verification, with one retry. Per-order failure counts survive order switches; tickets are reused only for the same order and reason. Ticket success requires `created=True`. The agent does not execute cancellations, refunds or replacements through nonexistent tools. Authentication and tool-result guards are labeled separately from answer retrieval.
 
@@ -193,14 +199,15 @@ The source-only answer path was corrected on **25 October 2026**. Its recorded e
 
 | Check | Current record | Evidence |
 | --- | --- | --- |
-| Current boolean-contract engineering suite | **658/658 passed**, 53.74 seconds | Core `1914516`; [verification details](VERIFICATION.md) |
+| Current engineering suite | **1016/1016 passed**; **32.429 s JUnit duration** | Code `5d08ca6`; [engineering receipt](sample_outputs/engineering_verification.json) and [JUnit XML](sample_outputs/engineering_artifacts/20261025T124401715563Z_8aea71eb/pytest.xml) |
 | Current source-only policy questions | **Rerun pending**; 52 planned | Completion and composition will be recorded in current JSON |
 | Current source-only conversation turns | **Rerun pending**; 96 planned | Completion and composition will be recorded in current JSON |
 | Current Gnani synthetic round trips | **Rerun pending** | Earlier speech evidence remains historical |
+| Official dataset validation | **Passed**; 9 CSVs and 21 KB documents | [dataset log](sample_outputs/engineering_artifacts/20261025T124401715563Z_8aea71eb/dataset_validation.log) |
 
-The public boolean-contract diagnostic has one completed Hinglish warranty case with a supported answer and no repair; the card-refund pilot is still pending. This is not a completed 52-question, 96-turn or voice evaluation.
+The planned verification order is 52 questions, 96 conversation turns, 77 live development checks, 91 live exposed regression responses, a 52-question same-model baseline, six Gnani round trips and silence recovery. Full live results remain pending; early passing cases are not a completed suite.
 
-**Comparison boundary:** the historical prompt-only baseline used `qwen3:1.7b`; the current selected model is `qwen3:4b-instruct`. This is **not a controlled same-model baseline/RAG ablation**. Current measurements remain pending.
+**Comparison boundary:** the historical prompt-only baseline used `qwen3:1.7b`; the current selected model is `qwen3:4b-instruct`. That historical comparison is **not a controlled same-model baseline/RAG ablation**. A new 52-question baseline using the current 4B model is planned; the current same-model comparison remains pending.
 
 **Trace contract:** normal generation records `model_flags` and `decision_origin=host_boolean_mapping`. Operational labels are derived by the host, not claimed as model-selected decisions. Evidence, numeric, privacy, action and language checks still apply.
 
@@ -209,7 +216,7 @@ The public boolean-contract diagnostic has one completed Hinglish warranty case 
 <details>
 <summary>Historical results and validation limits</summary>
 
-The earlier fallback implementation and incomplete development pilots remain available for audit. Their scores are **not scores of the final source-only revision**:
+The earlier fallback implementation and development diagnostics remain available for audit. Their scores are **not scores of the final source-only revision**:
 
 - Historical prompt-only baseline (`qwen3:1.7b`): **1/52**, one error, in [baseline outputs](sample_outputs/eval_step1.json). This baseline did not use the document-policy fallback.
 - Legacy live questions **52/52** and conversation turns **96/96** are preserved in [pre-change history](sample_outputs/history/pre_document_answers/). Questions included **16** generated answers, **25** checked fallbacks, **4** guards, **2** rules replies and **5** abstentions. Conversations included **8** generated answers, **9** checked fallbacks, **77** guards and **2** rules replies.
@@ -217,8 +224,9 @@ The earlier fallback implementation and incomplete development pilots remain ava
 - The first independent offline holdout was **23/91**. Earlier **49/91** predictions rescore to **51/91** under scorer v2 without changing predictions; only two points came from wording normalization. The later legacy **91/91** was an exposed-set regression after development, not a fresh blind result.
 - The strict quote-generation pilot passed **1/8 checked questions** before it was stopped; it was incomplete and is preserved in [pilot history](sample_outputs/history/pre_document_answers/strict_quote_pilot.json).
 - The first context-mode diagnostic passed **10/30 checked questions of 52 planned**, then was stopped. Its incomplete predictions remain in [diagnostic history](sample_outputs/history/source_context_first_pass/eval_step2_live_current.json). Later source-derived calculation, language and quality fixes require a new measured run; no policy templates were restored.
+- A later complete diagnostic recorded **36/52 mechanical passes** before the current repairs. A separate assistant source-by-source audit found **six material issues among mechanically passing answers**; it did not compute an adjusted score or provide human certification. See the [diagnostic receipt](sample_outputs/history/source_context_boolean_full_first_pass/diagnostic_receipt.json) and [semantic review](sample_outputs/history/source_context_boolean_full_first_pass/semantic_review.md). Fresh current-runtime results remain pending.
 - Earlier Gnani checks recorded **6/6** synthetic round trips, plus **1/1** Hindi UPI and **1/1** silent-audio recovery. They predate the source-only change and do not certify the revised end-to-end path.
-- Current dataset validation passed **9 CSVs and 21 KB documents**. Twelve Streamlit integration cases are included in the engineering suite. Direct final browser review was unavailable.
+- Twelve Streamlit integration cases are included in the engineering suite. Direct final browser review was unavailable.
 - Human accents, noise and subjective listening remain unverified. Own-voice rehearsal and the demo stay last.
 - Cold startup, warm uncached inference and output-cache hits are different measurements. No controlled cold-start study or live LLM holdout has been completed.
 
@@ -233,7 +241,7 @@ Run these commands with the virtual environment activated. Live model and speech
 ```sh
 python Capstone_Project_Dataset_FTTT_2026/validate_dataset.py
 python -m pytest -q
-python eval_step1.py
+python scripts/resume_live_practice.py --step 1
 python scripts/resume_live_practice.py --step 2
 python scripts/resume_live_practice.py --step 3
 python eval_holdout.py --check-only
@@ -242,7 +250,18 @@ python generate_voice_samples.py --reuse-inputs
 
 The resumable practice driver preserves completed units and rejects checkpoints whose inference inputs changed. Use `--output` to choose a separate result file for a fresh run. `eval_step2.py --live` and `eval_step3.py --live` are the non-resumable alternatives; without `--live`, ordinary policy turns use the `document_excerpts` diagnostic. `eval_holdout.py` uses live generation by default; `--offline` now tests excerpts and operational guards, not the legacy authored-answer path. Historical offline/adversarial files must not be relabeled as new-runtime measurements.
 
+Optional live development checks save separate outputs:
+
+```sh
+python eval_adversarial.py --live --output sample_outputs/eval_adversarial_live_current.json
+python eval_holdout.py --output sample_outputs/eval_holdout_live_current.json
+```
+
+The 91-response regression was exposed during development; a new live run is still not a new blind holdout. The current baseline command writes `sample_outputs/eval_step1_live_current.json`, preserving the historical 1.7B baseline.
+
 Inspect `composition`, `generation_context_sources`, `generation`, `validation_error`, `retrieval_k`, `timings`, `llm` and source traces alongside aggregate scores. Unit-test fake clients are not live speech evidence. Persistent LLM output caching includes model/settings and the full generation payload; verified-order turns do not use that cache.
+
+Recorded runtime sources use **LF** line endings under [.gitattributes](.gitattributes). Receipt hashes cover actual bytes: CRLF conversion can change them even when Git reports no content difference. Compare source/input hashes before reusing evidence. The append-only `tools/tickets_created.csv` is generated output and is excluded from input fingerprints.
 
 ## Language Support
 
