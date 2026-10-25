@@ -45,7 +45,7 @@ def test_real_source_text_reaches_model_and_output_is_generated(monkeypatch):
         sources=payload['source_text']
         assert sources and all(s['text'] for s in sources)
         assert 'sentences' not in payload
-        return json.dumps({'covered':True,'answer':'Report damage within 48 hours, with photos. After verification, replacement or a full refund including delivery fees is available, without a pickup fee.',
+        return json.dumps({'covered':True,'answer':'Report damage within 48 hours, with photos of the item and packaging. After verification, replacement or a full refund including delivery fees is available, without a pickup fee.',
                            'citations':[{'id':s['id'],'quote':s['text']} for s in sources]})
     monkeypatch.setattr(r.llm,'complete',complete)
     out=Agent(r,compose=True).respond('My item arrived damaged. What should I do?')

@@ -136,7 +136,9 @@ def test_private_generation_disables_output_cache_and_revalidates_model_text():
 ])
 def test_generic_conditional_prerequisites_do_not_claim_a_customer_action(conditional):
     answer = f'A refund to UPI typically takes 1 to 3 business days {conditional}.'
-    assert validate_generated(response(answer), [REFUND_SOURCE], ['REF-2'], required_text=REFUND)[0] == answer
+    # This test isolates forged-action detection. Completion/processing are
+    # not equivalent to the required initiation clock, tested separately below.
+    assert validate_generated(response(answer), [REFUND_SOURCE], ['REF-2'])[0] == answer
 
 
 @pytest.mark.parametrize('answer', [
@@ -149,3 +151,54 @@ def test_generic_conditional_prerequisites_do_not_claim_a_customer_action(condit
 def test_conditional_words_do_not_hide_completed_customer_or_agent_actions(answer):
     with pytest.raises(ValueError, match='unsupported_action'):
         validate_generated(response(answer), [REFUND_SOURCE], ['REF-2'])
+
+@pytest.mark.parametrize('answer', [
+    'UPI refunds take 1 to 3 business days.',
+    'UPI refunds take 1 to 3 business days when the refund is completed.',
+    'UPI refunds take 1 to 3 business days if the payment is processed.',
+])
+def test_generation_cannot_drop_or_replace_the_initiation_clock(answer):
+    with pytest.raises(ValueError, match='omitted_policy_aspect:initiation'):
+        validate_generated(response(answer), [REFUND_SOURCE], ['REF-2'], required_text=REFUND)
+
+
+def test_source_background_does_not_create_unrequested_aspect_requirements():
+    source = dict(REFUND_SOURCE, text=REFUND + ' A brand warranty claim requires packaging and photos.')
+    assert validate_generated(response(REFUND, source['text']), [source], ['REF-2'], required_text=REFUND)[0] == REFUND
+
+
+@pytest.mark.parametrize('required,answer,missing', [
+    ('The seller follows the same return policy. The pickup fee is 49 rupees.',
+     'The pickup fee is 49 rupees.', 'seller_policy_equivalence'),
+    ('The product has 3 months of brand warranty plus 12 months of additional Assured coverage. Claim the brand warranty through the manufacturer service centre and Assured in My Orders.',
+     'It has 3 months of brand warranty and 12 months of additional Assured cover in My Orders.', 'service_centre'),
+    ('The return refund starts after quality check. The pickup fee is 49 rupees.',
+     'The return refund starts after pickup and the pickup fee is 49 rupees.', 'quality_check'),
+    ('Keep the original tags, packaging and accessories.',
+     'Keep the original packaging and accessories.', 'tags'),
+])
+def test_missing_nonnumeric_multipart_aspects_are_rejected(required, answer, missing):
+    source = {'id': 'RULE-1', 'text': required}
+    with pytest.raises(ValueError, match='omitted_policy_aspect:' + missing):
+        validate_generated(response(answer, required, 'RULE-1'), [source], ['RULE-1'], required_text=required)
+
+
+@pytest.mark.parametrize('answer', [
+    'Identical return rules apply; the pickup charge is 49 rupees.',
+    'रिटर्न के समान नियम लागू हैं; पिकअप फ़ीस 49 रुपये है।',
+    'Same return rules apply hote hain; pickup charge 49 rupees hai.',
+])
+def test_policy_aspect_synonyms_allow_ordinary_multilingual_paraphrases(answer):
+    required = 'The seller follows the same return policy. The pickup fee is 49 rupees.'
+    source = {'id': 'RULE-1', 'text': required}
+    assert validate_generated(response(answer, required, 'RULE-1'), [source], ['RULE-1'], required_text=required)[0] == answer
+
+
+def test_long_reviewed_plan_skips_generation_instead_of_truncating():
+    from src.answering import Plan
+    plan = Plan('return', 'answer', 'a' * 1801, 'a' * 1801, 'a' * 1801, ['REF-2'])
+    class NoCall:
+        def complete(self, *args, **kwargs):
+            raise AssertionError('An overlong plan must use its reviewed deterministic rendering.')
+    with pytest.raises(ValueError, match='plan_exceeds_generation_limit'):
+        generate(NoCall(), 'A multi-part question', 'en', [REFUND_SOURCE], plan)
