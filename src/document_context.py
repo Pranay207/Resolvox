@@ -13,6 +13,8 @@ import json
 import re
 
 from .config import REFERENCE_DATE
+from .source_semantics import derive_source_constraints
+from .return_conditions import return_condition_context
 
 # Record fields, not policy thresholds. Explicit allowlists also filter nested
 # items: organizer records contain identities that must not enter model context.
@@ -242,6 +244,10 @@ def _public_refund_calculations(query, sources, data, today):
         calculation['record_field'] = 'customer_provided_refund_claim.initiated_on'
         calculation['input_status'] = 'customer_provided_unverified'
         calculation['inputs']['customer_statement_verified'] = False
+        # Public claims project a future range; elapsed time as of the dataset
+        # reference date is unrelated and easily confused with range length.
+        # Verified records retain their separately scoped elapsed-day facts.
+        calculation['result'].pop('elapsed_business_days', None)
     return claim, calculations
 
 
@@ -455,6 +461,79 @@ def _date_labels(value):
     return labels
 
 
+def _missing_application_inputs(query, sources, facts):
+    by_id = {row['id']: row for row in sources if row.get('status', 'current') == 'current'
+             and row.get('doc_type', 'policy') == 'policy' and row.get('id')}
+    # Asking to compare/list the whole table does not require choosing one row.
+    if re.search(
+            r'\b(?:compare|all categories|each category|every category|all payment methods|each payment method)\b|'
+            r'\u0924\u0941\u0932\u0928\u093e|'
+            r'(?:\u0938\u092d\u0940|\u0939\u0930|\u092a\u094d\u0930\u0924\u094d\u092f\u0947\u0915).{0,30}'
+            r'(?:\u0936\u094d\u0930\u0947\u0923|\u0915\u0948\u091f\u0947\u0917\u0930|\u092d\u0941\u0917\u0924\u093e\u0928|\u0924\u0930\u0940\u0915)|'
+            r'\b(?:sabhi|saare|sare|sab|har)\b.{0,30}\b(?:categor\w*|payment|methods?|taree?ke?|tarike?|windows?)\b', query, re.I):
+        return []
+    return_topic = bool(re.search(r'\breturn\w*\b|send.{0,15}back|\b(?:wapas|vaapas|lauta\w*)\b|\u0932\u094c\u091f\u093e|\u0935\u093e\u092a\u0938|\u0930\u093f\u091f\u0930\u094d\u0928', query, re.I))
+    refund_topic = bool(re.search(r'\brefund\b|\u0930\u093f\u092b\u093c?\u0902\u0921', query, re.I))
+    duration = bool(re.search(r'\b(?:window|period|days?|duration|when|soon)\b|\bhow\s+long\b|\bkab\b|\bkitn\w*.{0,12}\bdin\b|\u0926\u093f\u0928|\u0915\u092c|\u0905\u0935\u0927\u093f', query, re.I))
+    required = []
+    if return_topic and duration and not refund_topic and 'RET-2' in by_id:
+        options = [{'return_category': cells[2], 'return_window': cells[1]}
+                   for cells in _rows(by_id['RET-2']) if len(cells) == 3
+                   and re.fullmatch(r'[a-z]+(?:_[a-z]+)*', cells[2])
+                   and re.fullmatch(r'(?:\d+\s+(?:calendar\s+)?days?|not\s+returnable)', cells[1], re.I)]
+        known = {facts.get('public_context', {}).get('category'), facts.get('return_policy', {}).get('category')}
+        known.update(row.get('return_category') for row in facts.get('catalog', []) if isinstance(row, dict))
+        known.update(row.get('return_category') for row in facts.get('verified_order', {}).get('items', []) if isinstance(row, dict))
+        known.discard(None)
+        allowed = {row['return_category'] for row in options}
+        if len(options) > 1 and len(known & allowed) != 1:
+            required.append({'key': 'return_category', 'source_ids': ['RET-2'],
+                             'lookup_column': 'return_category', 'allowed_rows': options,
+                             'reason': 'unresolved_policy_table_lookup'})
+    # An initiation clock after pickup/QC is not a payment-method lookup.
+    # Require a method only for arrival/timeline applications, leaving table
+    # comparisons and source-wide initiation questions unforced.
+    initiation = bool(re.search(r'\b(?:initiat\w*|start\w*|begin\w*|shuru)\b|\u0936\u0941\u0930\u0942|\u0906\u0930\u0902\u092d', query, re.I))
+    receipt = bool(re.search(
+        r'\b(?:receiv\w*|credit\w*|arriv\w*|reflect\w*|reach\w*|deposit\w*|get|latest|by\s+when|by\s+what\s+date|'
+        r'mil\w*|aay\w*|aeg\w*|aayeg\w*|kab\s+tak)\b|'
+        r'\u092e\u093f\u0932|\u0906\u090f|\u0906\u092f|\u091c\u092e\u093e|\u0915\u092c\s*\u0924\u0915|\u0915\u093f\u0938\s+\u0924\u093e\u0930\u0940\u0916', query, re.I))
+    initiation_only = initiation and not receipt
+    cod = bool(re.search(r'\bcod\b|cash[ -]on[ -]delivery', query, re.I))
+    dated_application = initiation and receipt and bool(re.search(
+        r'(?<!\d)\d{4}-\d{2}-\d{2}(?!\d)|(?<!\d)\d{1,2}\s+[A-Za-z\u0900-\u097f]+\s+\d{4}(?!\d)', query))
+    cod_overview = cod and not dated_application
+    if refund_topic and duration and not initiation_only and not cod_overview and 'REF-2' in by_id:
+        options = [{'payment_method': _payment(cells[0]), 'label': cells[0], 'timeline': cells[1]}
+                   for cells in _rows(by_id['REF-2']) if len(cells) == 2 and _payment(cells[0])]
+        if cod:
+            options = [row for row in options if row['payment_method'].startswith('cod_')]
+        order = facts.get('verified_order', {})
+        known = {_payment(facts.get('customer_provided_refund_claim', {}).get('payment_method'))}
+        recorded = [order.get(prefix + '_refund_method') for prefix in ('return', 'cancellation', 'rto')]
+        known.update(_payment(value) for value in recorded if value)
+        if not any(recorded):
+            known.add(_payment(order.get('payment_method')))
+        for key, pattern in {
+            'upi': r'\bupi\b|\u092f\u0942\u092a\u0940\u0906\u0908',
+            'card': r'\bcard\b|\u0915\u093e\u0930\u094d\u0921',
+            'netbanking': r'\bnet\s*bank(?:ing)?\b|\u0928\u0947\u091f\s*\u092c\u0948\u0902\u0915',
+            'wallet': r'\bwallet\b|\u0935\u0949\u0932\u0947\u091f',
+            'cod_bank': r'\bneft\b|\bbank\s+transfer\b',
+        }.items():
+            if re.search(pattern, query, re.I):
+                if key == 'wallet' and re.search(r'\bcod\b|cash[ -]on[ -]delivery', query, re.I):
+                    key = 'cod_wallet'
+                known.add(key)
+        known.discard(None)
+        allowed = {row['payment_method'] for row in options}
+        if len(options) > 1 and len(known & allowed) != 1:
+            required.append({'key': 'payment_method', 'source_ids': ['REF-2'],
+                             'lookup_column': 'payment_method', 'allowed_rows': options,
+                             'reason': 'unresolved_policy_table_lookup'})
+    return required
+
+
 def build_context(query, sources, data, verified_order=None, public_context=None):
     """Build source facts, never a policy answer or predicted disposition.
 
@@ -514,11 +593,19 @@ def build_context(query, sources, data, verified_order=None, public_context=None
     service_facts, service_calculations = _public_serviceability(query, source_map, data)
     context.update(service_facts)
     context['calculations'].extend(service_calculations)
+    context.update(return_condition_context(query, source_map, reference_date=REFERENCE_DATE.isoformat()))
     context['answer_constraints'] = _answer_constraints(query, context, source_map)
+    source_semantic_constraints = derive_source_constraints(list(source_map.values()))
+    if source_semantic_constraints:
+        context['source_semantic_constraints'] = source_semantic_constraints
+    required_inputs = _missing_application_inputs(query, list(source_map.values()), context)
+    if required_inputs:
+        context['required_application_inputs'] = required_inputs
     # Hashes make the parsed numeric inputs auditable against retrieved bytes.
     used = {sid for calculation in context['calculations'] for sid in calculation['source_ids'] if sid in source_map}
     for fact in (context.get('return_policy', {}), context.get('delivery_policy', {})):
         used.update(sid for sid in fact.get('source_ids', []) if sid in source_map)
+    used.update(sid for sid in context.get('return_condition_policy', {}).get('source_ids', []) if sid in source_map)
     if used:
         context['calculation_source_sha256'] = {
             sid: hashlib.sha256(source_map[sid]['text'].encode('utf-8')).hexdigest()

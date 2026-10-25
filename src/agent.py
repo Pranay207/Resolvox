@@ -294,7 +294,11 @@ class Agent:
             preferred=[available[c] for c in plan.ids if c in available]
             related=[x for x in pool if x.get('doc_type') in {'policy','help','agent_guide','catalog'}]
             extra=[] if preferred else related[:4]
-            selected=list({x['id']:x for x in preferred+extra}.values())
+            # Catalog rows are public lookups already matched to this query.
+            # Retain shared-title variants without choosing an arbitrary SKU;
+            # their actual attributes remain available alongside policy text.
+            catalog=[x for x in pool if x.get('doc_type')=='catalog']
+            selected=list({x['id']:x for x in preferred+extra+catalog}.values())
             selected=[x for x in selected if x.get('text')]
             if plan.intent=='unsupported' or (not self.compose and not preferred):
                 selected=[]

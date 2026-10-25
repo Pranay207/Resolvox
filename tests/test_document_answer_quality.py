@@ -57,8 +57,10 @@ def test_wrong_language_repair_explains_whole_answer_rewrite(language, corrected
     assert out['generation_attempts'] == 2
     repair = client.calls[1]
     assert repair['payload']['repair_validation_error'] == 'wrong_output_language'
-    assert 'ENTIRE answer' in repair['payload']['repair_instruction']
-    assert 'Preserve only facts supported' in repair['payload']['repair_instruction']
+    marker = 'पिछले पूरे answer' if language == 'hi' else 'Pichhle poore answer'
+    assert marker in repair['payload']['repair_instruction']
+    assert repair['payload']['language_repair_contract'] == {'covered': True, 'decision': 'answer'}
+    assert ('देवनागरी हिन्दी' if language == 'hi' else 'Latin aksharon') in repair['system']
     assert repair['options']['cache'] is False
     assert client.calls[0]['payload']['source_text'] == [SOURCE]
     assert repair['payload']['source_text'] == [SOURCE]
