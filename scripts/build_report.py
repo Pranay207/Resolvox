@@ -1,92 +1,328 @@
-"""Generate the synchronized four-page technical report and Markdown source."""
-from pathlib import Path
+"""Build a four-page report from recorded evidence, plus synchronized Markdown.
+
+Importing this module does not generate artifacts. Run after final evaluations;
+missing/partial evidence remains visibly pending instead of becoming a success.
+"""
 from collections import Counter
+from pathlib import Path
+from statistics import mean
 from xml.sax.saxutils import escape
-import json,sys
-ROOT=Path(__file__).resolve().parents[1]
-sys.path.insert(0,str(ROOT))
-from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,Table,TableStyle,PageBreak,KeepTogether
-from reportlab.lib.styles import getSampleStyleSheet,ParagraphStyle
+import json
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_LEFT
-from reportlab.graphics.shapes import Drawing,Rect,String,Line,Polygon
+from reportlab.graphics.shapes import Drawing, Rect, String, Line, Polygon
 
-NAVY=colors.HexColor('#132842');BLUE=colors.HexColor('#2873ba');MINT=colors.HexColor('#e7f5f2');GRAY=colors.HexColor('#516174')
-def load(name):return json.loads((ROOT/'sample_outputs'/name).read_text(encoding='utf-8'))
-def pct(x):return f'{100*x:.1f}%'
+NAVY = colors.HexColor('#132842')
+BLUE = colors.HexColor('#2873ba')
+MINT = colors.HexColor('#e7f5f2')
+GRAY = colors.HexColor('#516174')
+HOLDOUT_HASH = '5f345355d495379623ecc7dfcecdbd7a78f56c3edab62fda5d6f6edfea9d03c7'
+
+
+def load(name):
+    try:
+        value = json.loads((ROOT / 'sample_outputs' / name).read_text(encoding='utf-8'))
+        return value if isinstance(value, dict) else {}
+    except (OSError, ValueError):
+        return {}
+
+
+def pct(value):
+    return f'{100 * value:.1f}%' if isinstance(value, (int, float)) else 'not recorded'
+
+
+def summary(data):
+    value = data.get('summary', {})
+    return value if isinstance(value, dict) else {}
+
+
+def predictions(data):
+    for row in data.get('results', []):
+        if isinstance(row, dict):
+            value = row.get('prediction', row.get('actual_output', {}))
+            if isinstance(value, dict):
+                yield value
+
+
+def composition(data):
+    recorded = summary(data).get('composition_counts')
+    if isinstance(recorded, dict):
+        return Counter(recorded)
+    return Counter(row.get('composition', row.get('mode', 'unrecorded')) for row in predictions(data))
+
+
+def count_text(counts):
+    return '; '.join(f'{key}: {value}' for key, value in sorted(counts.items())) or 'not recorded'
+
+
+def pass_text(data):
+    values = summary(data)
+    total = values.get('total', values.get('evaluated'))
+    if total is None or values.get('passed') is None:
+        return 'pending'
+    status = ' (partial)' if values.get('complete') is False else ''
+    return f"{values['passed']}/{total}{status}"
+
+
+def rate_text(data):
+    values = summary(data)
+    value = values.get('pass_rate')
+    total = values.get('total', values.get('evaluated'))
+    if value is None and total:
+        value = values.get('passed', 0) / total
+    return pct(value)
+
+
+def search_text(data):
+    values = summary(data)
+    if values.get('search_recall') is None:
+        return 'not recorded at current k'
+    ks = values.get('search_k', [])
+    return f"{pct(values['search_recall'])} at k={','.join(map(str, ks)) or 'unrecorded'}"
+
+
+def model_text(data):
+    config = data.get('configuration', data.get('metadata', {}))
+    configured = '/'.join(str(config[key]) for key in ('llm_provider', 'llm_model') if config.get(key))
+    actual = Counter()
+    for row in predictions(data):
+        provider = row.get('llm', {}).get('provider') or row.get('provider')
+        if provider:
+            actual[str(provider)] += 1
+    parts = []
+    if configured:
+        parts.append('configured ' + configured)
+    if actual:
+        parts.append('recorded calls ' + ', '.join(f'{key} ({value})' for key, value in actual.most_common(2)))
+    return '; '.join(parts) or 'model/call metadata not recorded'
+
+
+def first_holdout():
+    names = ('eval_holdout_first_pass.json', 'eval_holdout_firstpass.json',
+             'eval_holdout_first_run.json', 'eval_holdout_initial.json')
+    for name in names:
+        data = load(name)
+        if summary(data):
+            return name, data
+    return None, {}
+
+
+def seconds_range(values, milliseconds=False):
+    values = [value for value in values if isinstance(value, (int, float))]
+    if not values:
+        return 'not recorded'
+    divisor = 1000 if milliseconds else 1
+    return f'{min(values) / divisor:.2f}-{max(values) / divisor:.2f} s'
+
+
+def voice_text(data):
+    if not data:
+        return 'Voice validation pending; no speech-success claim is available.'
+    batch = data.get('batch', {})
+    semantic = data.get('semantic_validation', {})
+    return (f"Status: {data.get('status', 'unrecorded')}. Audio batches: "
+            f"{batch.get('succeeded', '?')}/{batch.get('total', '?')} succeeded; "
+            f"semantic/privacy checks passed: {semantic.get('passed', '?')}, "
+            f"failed: {semantic.get('failed', '?')}. Results describe the saved run, not a human listening study.")
+
+
+def engineering_text(data):
+    check = data.get('pytest', {})
+    if isinstance(check, dict) and check.get('passed') is not None:
+        return (f"Engineering pytest result: {check['passed']}/{check.get('total', '?')} passed; "
+                f"exit code {check.get('exit_code', 'unrecorded')}.")
+    return 'Final engineering result is pending or its count is not recorded; no test count is inferred.'
+
+
+def benchmark_rows(name, data):
+    rows = []
+    for item in data.get('models', []):
+        if not isinstance(item, dict):
+            continue
+        values = item.get('summary', {})
+        cases = item.get('cases', [])
+        generated = values.get('grounded_llm_count', sum(row.get('composition') == 'grounded_llm' for row in cases))
+        total = values.get('evaluated', len(cases))
+        wall = values.get('mean_latency_ms')
+        if wall is None:
+            durations = [row['latency_ms'] for row in cases if isinstance(row.get('latency_ms'), (int, float))]
+            wall = mean(durations) if durations else None
+        warmup = item.get('warmup', {})
+        warm = warmup.get('wall_ms')
+        rows.append([f"{name}: {item.get('model', 'unrecorded')}",
+                     f'{generated}/{total}',
+                     f'{wall / 1000:.2f} s' if isinstance(wall, (int, float)) else 'pending',
+                     f'{warm / 1000:.2f} s' if isinstance(warm, (int, float)) else 'not recorded'])
+    return rows
+
+
+def latency_text(data):
+    groups = summary(data).get('latency_by_path', {})
+    parts = []
+    for label in ('uncached_llm_attempt', 'cache_hit', 'no_model_call'):
+        row = groups.get(label, {})
+        if row:
+            def timing(key):
+                value = row.get(key)
+                return f'{value / 1000:.2f}s' if isinstance(value, (int, float)) else '?'
+            parts.append(f"{label}: n={row.get('count', '?')}, p50 {timing('p50_ms')}, p95 {timing('p95_ms')}")
+    return '; '.join(parts) or 'path-separated turn timings not recorded'
+
+
 def main():
-    base=load('eval_step1.json');rag=load('eval_step2.json');conv=load('eval_step3.json');adv=load('eval_adversarial.json');voice=load('voice_validation.json')
-    b=base['summary'];r=rag['summary'];c=conv['summary'];a=adv['summary']
-    composition=Counter(x['prediction'].get('composition','none') for x in rag['results']); conv_composition=Counter(x['prediction'].get('composition','none') for x in conv['results'])
-    styles=getSampleStyleSheet();styles.add(ParagraphStyle(name='TitleV',fontName='Helvetica-Bold',fontSize=25,leading=29,textColor=NAVY,spaceAfter=12))
-    styles.add(ParagraphStyle(name='HeadingV',fontName='Helvetica-Bold',fontSize=14,leading=18,textColor=NAVY,spaceBefore=12,spaceAfter=7))
-    styles.add(ParagraphStyle(name='BodyV',fontName='Helvetica',fontSize=9.6,leading=13.5,textColor=NAVY,spaceAfter=7))
-    styles.add(ParagraphStyle(name='SmallV',fontName='Helvetica',fontSize=8.3,leading=11,textColor=GRAY,spaceAfter=6))
-    story=[];md=[]
-    def p(text,style='BodyV'):
-        story.append(Paragraph(escape(text),styles[style]));md.append(text+'\n')
-    def h(text):p(text,'HeadingV')
-    def table(rows,widths):
-        body=[[Paragraph(escape(str(cell)),styles['SmallV']) for cell in row] for row in rows]
-        t=Table(body,colWidths=widths,hAlign='LEFT');t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),MINT),('VALIGN',(0,0),(-1,-1),'TOP'),('LINEBELOW',(0,0),(-1,0),.7,BLUE),('LINEBELOW',(0,1),(-1,-1),.25,colors.HexColor('#dce5ed')),('LEFTPADDING',(0,0),(-1,-1),8),('RIGHTPADDING',(0,0),(-1,-1),8),('TOPPADDING',(0,0),(-1,-1),7),('BOTTOMPADDING',(0,0),(-1,-1),5)]));story.append(t);story.append(Spacer(1,8));md.append('\n'.join('| '+' | '.join(map(str,row))+' |' for row in rows)+'\n')
-    def page():story.append(PageBreak());md.append('\n---\n')
-    p('VoiceOps 2026','SmallV');p('ZentroMart: support that listens','TitleV')
-    p('Technical report | Pranay207 | C&A Club, IIT Guwahati x Gnani.ai','SmallV')
-    p('A multilingual support agent grounded in the supplied synthetic retailer policies and order tools. Its priority is defensible answers and safe handovers, rather than unconstrained generation. A top-20 ranking is an aspiration, not an evaluated result.')
-    h('One support agent, four build steps')
-    diagram=Drawing(510,85);xs=[0,67,150,254,346,426];widths=[57,73,94,82,70,80];labels=[['Audio'],['Gnani STT'],['State / RAG','Policy rules'],['Verified','order tools'],['LLM','sentence plan'],['Gnani TTS','+ source trace']]
-    for x,w,lines in zip(xs,widths,labels):
-        diagram.add(Rect(x,29,w,43,rx=5,ry=5,fillColor=MINT,strokeColor=BLUE,strokeWidth=.7))
-        for j,label in enumerate(lines):diagram.add(String(x+w/2,54-j*11,label,textAnchor='middle',fontName='Helvetica',fontSize=8,fillColor=NAVY))
-    for i in range(5):
-        x=xs[i]+widths[i];end=xs[i+1]-2;diagram.add(Line(x,50,end,50,strokeColor=BLUE));diagram.add(Polygon([end,50,end-4,52,end-4,48],fillColor=BLUE,strokeColor=BLUE))
-    diagram.add(String(0,10,'Same stateful brain for text, voice, and batch evaluation. No alternate speech provider.',fontSize=8,fillColor=GRAY));story.append(diagram)
-    table([['Stage','What was built'],['1 - Baseline','Actual Ollama API call; role/limits; AI disclosure; no documents or order access.'],['2 - Grounding','Section-ID KB index; BM25 + multilingual MiniLM dense search; authority-aware ranking; traceable policy plans and abstention.'],['3 - Conversation','Session state, proof-gated supplied tools, date/eligibility rules, refusals and successful-ticket-only handover.'],['4 - Voice','Official Gnani REST STT/TTS wrapper, spoken-number handling and fault-isolated audio-folder CLI. Six synthetic voice round trips and semantic checks verified.']],[94,416])
-    h('Observed local results')
-    p(f"Baseline: {b['passed']}/{b['total']} mechanical checks. Grounded: {r['passed']}/{r['total']}. Conversations: {c['passed']}/{c['total']} turns. Original adversarial/stateful checks: {a['passed']}/{a['total']}. These are transparent local regression checks, not organizer scores or proof of hidden-test accuracy.")
-    p('Release status: text, local LLM composition and six real Gnani speech round trips verified. Synthetic audio does not establish human-speech robustness. The user-recorded demo remains outstanding.','SmallV')
-    page();p('Design choices and boundaries','TitleV')
-    h('Grounding is a data contract')
-    p('All 21 knowledge documents were read, preserving section IDs, version, status and effective dates. The public catalog and calendar are loaded separately. Customer and order tables are accessed only through the unchanged organizer tool module. Practice questions, expected answers and historical support logs never enter the runtime index.')
-    p('Authority is current policy > agent guide > help > FAQ > marketing. KB-00 supplies the date and precedence rules. Superseded text cannot govern unless its successor explicitly preserves a historical case: RET-3 keeps the 10-day electronics window only for deliveries before 1 August 2026; otherwise 7 days applies. A marketplace badge cannot override MKS-3, which excludes seller items from Assured coverage.')
-    h('Hybrid retrieval without a heavyweight training stack')
-    p('BM25 uses stop-word removal and light plural normalization. Dense retrieval uses the official 118 MB int8 ONNX export of multilingual MiniLM (384 dimensions), pinned to an immutable model revision. Intent vocabulary expands Hinglish and colloquial queries into policy terminology. Reciprocal-rank fusion combines both searches, with a modest authority prior. Model and section embeddings load once and are cached on disk.')
-    p('Search candidates and governing evidence are distinct. Policy rules retrieve specific source sections for decisions, while broad search candidates are logged independently. Explicit rule coverage helps structured policy cases but limits open-ended generalization; high answer-check pass rates must not hide weak search or intent coverage.')
-    h('Deterministic decisions; constrained LLM composition')
-    p('Code computes date windows, business-day deadlines, coupon arithmetic, proof limits and eligibility. Policy-derived statements are written in English, Hindi and Hinglish. The LLM arranges a verified sentence bank; its output must contain every sentence index exactly once. Invalid plans fall back to the original verified wording. This deliberately limits language freedom and prevents invented policy facts; it is not an unrestricted answer-generation model.')
-    h('Dates and a documented ambiguity')
-    p('The reference date is 20 October 2026. Refund/logistics days are Monday-Saturday excluding the four supplied holidays; initiation day is day zero. RET-2 says returns start on delivery, but does not spell out inclusive arithmetic. The supplied expected deadlines consistently use delivery + N calendar days. That operational convention is used globally and tested at category, sale-period and historical-policy boundaries; no question-specific date exceptions are coded.')
-    p('Schema: 300 customers -> 1,000 orders -> 1,783 order lines -> 70 products. Delivery pincodes reference 36 serviceability rows; four holidays define the business calendar. Identifiers remain strings. Blank completion dates are not interpreted as completed refunds.','SmallV')
-    page();p('Evaluation and failure analysis','TitleV')
-    table([['Generated evaluation','Passes','Rate / interpretation'],['Prompt-only, same 52 questions',f"{b['passed']}/{b['total']}",pct(b['pass_rate'])+f"; {b['errors']} invalid-output errors counted"],['Grounded single questions',f"{r['passed']}/{r['total']}",pct(r['pass_rate'])+' mechanical fact/decision checks'],['Conversation turns',f"{c['passed']}/{c['total']}",pct(c['pass_rate'])+'; 23 sequential sessions'],['Original adversarial + stateful',f"{a['passed']}/{a['total']}",f"{a['authored_single_questions']} authored questions + {a['stateful_cases']} stateful cases"],['Independent KB search recall@8','Single questions',pct(r.get('search_recall_at_8') or 0)],['Used-source evidence recall','Single / conversation',pct(r['evidence_recall'])+' / '+pct(c['evidence_recall'])]],[222,74,214])
-    p('The scorer checks acceptable decisions, required factual alternatives, forbidden claims and expected tool names. Dates are canonicalized across English/Hindi forms. It does not judge every semantic entailment, language nuance or action argument, so a perfect local pass rate is not equivalent to a perfect support agent.')
-    p(f"Single-turn LLM composition counts: {dict(composition)}. Conversation composition counts: {dict(conv_composition)}. Deterministic gates and abstentions need no LLM call. Saved baseline results are real API outputs; identical prompts may subsequently use cache. Invalid baseline JSON remains an error, not an edited answer.",'SmallV')
-    h('What broke, and what changed')
-    p('The baseline predicted Wallet refunds take 3-5 business days. REF-2 instead says instant, within 2 hours. The grounded path resolves payment methods before choosing a timeline and cites the policy rather than the generic FAQ.')
-    p('Product aliases initially missed a swimsuit because of the hyphenated product name and omitted colour. Matching now distinguishes exact variants from shared-category variants, using category evidence without inventing a specific variant. Initial return dates used inclusive counting and failed two expected dates; the globally applied day-zero convention above corrected that ambiguity.')
-    p('Broad hybrid search alone initially recalled 44.2% of single-question gold KB sections at eight candidates. Removing filler words and expanding intent vocabulary raised it to the figure reported above. Used-source recall is higher because deterministic policy routing separately retrieves governing sections. Conversation search recall includes many non-search authentication/greeting turns, so it is not directly comparable to standalone search quality.')
-    p('Live Gnani testing exposed stream-style WAV headers with unknown 0xffffffff lengths: short clips appeared longer than the STT limit. Header finalization now preserves identical PCM samples while recording actual lengths. Invalid transcripts and incomplete PCM frames are rejected; extra privacy tests cover spoken phone-ending phrases without masking ordinary product questions.')
-    p('Original tests also exposed routing bugs for unused beauty items and delivery-address changes. Added corpus-wide coverage catches these alongside proof lockout, order switching, safety, fraud, unsupported services, historical returns, festive boundaries and payment calendars. All raw generated results remain in sample_outputs/.')
-    page();p('Reproducibility, voice and next steps','TitleV')
-    h('Privacy and tool correctness')
-    p('The initial lookup never discloses order status or existence. Caller proof is sent only to the unchanged supplied lookup function, then discarded. A maximum of two attempts is tracked per order per session, and changing orders clears verified order context without clearing its failed-attempt counter. Sanitized traces hide proof, phone, email, pincode and internal notes; the LLM never sees verification values.')
-    p('Handover summaries record the issue, intent, order, checks and reason. Success wording requires created=True. No cancellation, compensation or replacement execution is fabricated: the provided tools cannot perform those actions. Their identity mechanism is an educational synthetic simulation, not secure real-world authentication.')
-    h('Voice implementation and honest validation status')
-    p('Gnani is the only STT/TTS provider. The REST adapter uses /stt/v3 and /api/v1/tts/inference, X-API-Key-ID authentication, explicit timbre-v2.5 and matching English/Hindi/Hinglish voices. WAV duration is checked against the 60-second REST limit. Multipart streams rewind on bounded 403/429/5xx retries, and returned audio must be a valid nonempty WAV.')
-    p('The batch runner isolates malformed clips, records errors in manifest.json, and attempts a real Gnani spoken recovery. It never creates fake speech. Successful clips save redacted transcript/decision/tool JSON, text, source chunks and reply WAV. Session-named filenames preserve multi-turn calls; unrelated files remain independent.')
-    p('Live speech status: '+voice['status']+'. Six genuine Gnani TTS inputs passed STT, agent and spoken-reply checks: English UPI, Hindi damage, Hinglish net banking, spoken order ID, first wrong-proof clarification and second wrong-proof refusal. All six input-understanding, semantic, privacy and nonempty-speech checks passed. Live LLM composition is enabled for answer turns; verification gates remain deterministic.')
-    p('The inputs are synthetic TTS, not human recordings. Human accent/noise robustness and subjective pronunciation are still unverified. The measured pipeline uses only Gnani speech services; 41 automated engineering tests also pass. generate_voice_samples.py reproduces the live checks; --reuse-inputs reuses the same genuine input clips without inventing speech.')
+    base, rag, conv, adv, voice = [load(name) for name in
+        ('eval_step1.json', 'eval_step2.json', 'eval_step3.json', 'eval_adversarial.json', 'voice_validation.json')]
+    holdout = load('eval_holdout.json')
+    first_name, first = first_holdout()
+    engineering = load('engineering_verification.json')
+    sections = load('generation_benchmark_sections.json')
+    selected = load('generation_benchmark_selected.json')
+    styles = getSampleStyleSheet()
+    styles.add(ParagraphStyle(name='TitleV', fontName='Helvetica-Bold', fontSize=25, leading=29, textColor=NAVY, spaceAfter=12))
+    styles.add(ParagraphStyle(name='HeadingV', fontName='Helvetica-Bold', fontSize=14, leading=18, textColor=NAVY, spaceBefore=10, spaceAfter=6))
+    styles.add(ParagraphStyle(name='BodyV', fontName='Helvetica', fontSize=9.3, leading=12.8, textColor=NAVY, spaceAfter=7))
+    styles.add(ParagraphStyle(name='SmallV', fontName='Helvetica', fontSize=8.1, leading=10.6, textColor=GRAY, spaceAfter=6))
+    story, md = [], []
 
-    h('Run and release')
-    p('Repository: https://github.com/Pranay207/ESD. One-command Windows setup: powershell -File setup.ps1. Organizer CLI: python run.py --audio_dir <in> --out_dir <out>. Run eval_step1.py, eval_step2.py --live, eval_step3.py --live, eval_adversarial.py, and python -m pytest -q from the clean .venv. requirements-lock.txt captures the tested Windows dependency set; setup.py pins the model revision.')
-    p('Before submitting: keep GNANI_API_KEY only in the ignored local .env, record demo.mp4 within 120 seconds using DEMO_SCRIPT.md, and regenerate the package. Rerun generate_voice_samples.py after speech-related changes. package_submission.py excludes the dataset, secrets, environments and model caches and marks remaining blockers. The brief allows at most four report pages and two video minutes.')
-    h('Limitations and useful next work')
-    p('Intent routing and sentence templates may miss unseen phrasing or nuanced multi-item cases. Numeric/fact checks do not replace semantic review. Improve unstructured-query fallback and native-language review; evaluate unseen audio, packet failures and latency; strengthen identity verification only for a separately scoped production system. No rank, prize or real customer outcome is claimed.')
-    p('Sources: official 14-page capstone brief; supplied dataset README, dictionary, KB and tools; official Gnani STT/TTS API docs; official multilingual MiniLM model card. Dataset and model are downloaded separately and are not redistributed in the submission.','SmallV')
-    def footer(canvas,doc):
-        canvas.setStrokeColor(colors.HexColor('#dce5ed'));canvas.line(42,37,553,37);canvas.setFont('Helvetica',8);canvas.setFillColor(GRAY);canvas.drawString(42,24,'VOICEOPS 2026  |  ZENTROMART  |  PRANAY207');canvas.drawRightString(553,24,str(doc.page))
-    doc=SimpleDocTemplate(str(ROOT/'report.pdf'),pagesize=(595.28,841.89),leftMargin=42,rightMargin=42,topMargin=37,bottomMargin=48,title='ZentroMart VoiceOps 2026 - Technical Report',author='Pranay207')
-    doc.build(story,onFirstPage=footer,onLaterPages=footer)
-    (ROOT/'report.md').write_text('# ZentroMart VoiceOps 2026\n\n'+'\n'.join(md),encoding='utf-8')
-    print('Created report.pdf and synchronized report.md')
-if __name__=='__main__':main()
+    def p(text, style='BodyV'):
+        story.append(Paragraph(escape(text), styles[style]))
+        md.append(text + '\n')
+
+    def h(text):
+        p(text, 'HeadingV')
+
+    def table(rows, widths):
+        body = [[Paragraph(escape(str(cell)), styles['SmallV']) for cell in row] for row in rows]
+        item = Table(body, colWidths=widths, hAlign='LEFT')
+        item.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), MINT), ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+            ('LINEBELOW', (0, 0), (-1, 0), .7, BLUE),
+            ('LINEBELOW', (0, 1), (-1, -1), .25, colors.HexColor('#dce5ed')),
+            ('LEFTPADDING', (0, 0), (-1, -1), 7), ('RIGHTPADDING', (0, 0), (-1, -1), 7),
+            ('TOPPADDING', (0, 0), (-1, -1), 5), ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+        ]))
+        story.extend([item, Spacer(1, 7)])
+        md.append('\n'.join('| ' + ' | '.join(map(str, row)) + ' |' for row in rows) + '\n')
+
+    def page():
+        story.append(PageBreak())
+        md.append('\n---\n')
+
+    p('VoiceOps 2026', 'SmallV')
+    p('ZentroMart: support that listens', 'TitleV')
+    p('Technical report | Pranay207 | C&A Club, IIT Guwahati x Gnani.ai', 'SmallV')
+    p('One multilingual support agent combines retrieval-first source-text generation, deterministic verification and arithmetic, supplied order/ticket tools, and Gnani speech. Recorded results distinguish generated answers, checked fallbacks, guardrails and abstentions. No organizer score or placing is claimed.')
+    h('Four cumulative build steps')
+    diagram = Drawing(510, 83)
+    xs, widths = [0, 67, 150, 254, 346, 426], [57, 73, 94, 82, 70, 80]
+    labels = [['Audio'], ['Gnani STT'], ['State + search', 'k=12 sources'], ['Verified facts', 'order tools'], ['LLM answer', '+ checks'], ['Gnani TTS', '+ source trace']]
+    for x, width, lines in zip(xs, widths, labels):
+        diagram.add(Rect(x, 29, width, 43, rx=5, ry=5, fillColor=MINT, strokeColor=BLUE, strokeWidth=.7))
+        for j, label in enumerate(lines):
+            diagram.add(String(x + width / 2, 54 - j * 11, label, textAnchor='middle', fontName='Helvetica', fontSize=8, fillColor=NAVY))
+    for i in range(5):
+        start, end = xs[i] + widths[i], xs[i + 1] - 2
+        diagram.add(Line(start, 50, end, 50, strokeColor=BLUE))
+        diagram.add(Polygon([end, 50, end - 4, 52, end - 4, 48], fillColor=BLUE, strokeColor=BLUE))
+    diagram.add(String(0, 10, 'The same stateful agent handles text, voice and batch evaluation.', fontSize=8, fillColor=GRAY))
+    story.append(diagram)
+    table([
+        ['Stage', 'Implementation'],
+        ['1 - Baseline', 'Actual configured LLM; role/limits and AI disclosure; no company documents or order access.'],
+        ['2 - RAG', 'Search first; scope policy rules to actual results; generate from supplied section text and checked facts; record source provenance.'],
+        ['3 - Conversation', 'Session/order state, proof-gated lookup, calendar/coupon arithmetic, explicit guard policies and confirmed-ticket-only handover.'],
+        ['4 - Voice', 'Official Gnani STT/TTS, spoken-number normalization, redaction, per-file failure isolation and JSON/text/WAV/source outputs.'],
+    ], [94, 416])
+    h('Evidence snapshot at report generation')
+    p(f'Baseline {pass_text(base)}; grounded questions {pass_text(rag)}; conversation turns {pass_text(conv)}; development adversarial/stateful checks {pass_text(adv)}. These are mechanical local checks. The practice and adversarial sets were used during development; answer quality is not established by retrieval recall or a successful fallback alone.')
+    p('Grounded run model metadata: ' + model_text(rag) + '.', 'SmallV')
+    p(engineering_text(engineering) + ' Required report limit: four pages. The user records the final demo within 120 seconds after validation.', 'SmallV')
+
+    page()
+    p('Architecture and evidence boundaries', 'TitleV')
+    h('Retrieval before policy planning')
+    p('KB sections preserve IDs, file, authority, status, version and effective date. Raw-query BM25 and multilingual MiniLM channels are fused separately from narrow glossary expansion. Complete tables and concise heading/prose embeddings provide complementary views; Hindi tokenization retains combining marks. Intent is a weak hint, not a mapping from practice questions to evidence.')
+    p('The agent searches at k=12 before planning. Explicit references, named policy concepts and bounded calendar/precedence/exception dependencies add governing context. Planning sees only retrieved sections, with public catalog/pincode facts supplied independently. A planner cannot append preferred citations from the full KB. Historical filtering excludes obsolete text unless the current successor authorizes that case.')
+    h('Actual source-text generation; explicit provenance')
+    p('The LLM receives actual section text, authority/version metadata, deterministic facts and an optional checked rule summary. It writes new reply wording. The current answer-only output contract avoids asking small models to reproduce section identifiers or select citation spans. Code records the IDs and exact full sections actually supplied as context provenance; this does not prove that every generated claim follows from those sections.')
+    p('Source-contract validation checks source membership, required coverage, numeric values and units, selected omitted constraints, language, private identifiers and common invented completed actions. These are finite heuristics, not general semantic entailment. Broad section support can contain multiple payment rows or exceptions; a model can still misapply them. Citation provenance and factual correctness are reported separately.')
+    h('Reviewed fallback and guard paths')
+    p('Offline, invalid-output and timeout fallback uses a static policy answer only when every governing section was actually retrieved and matches its reviewed content/metadata SHA-256 in rule_bindings.json. Missing or changed evidence causes abstention. Policy edits require reviewing rules and bindings; hashes do not automatically update policy logic. Authentication, privacy, urgent escalation and tool-result wording use explicit guard-policy lookups, labeled separately from answer search.')
+    h('Policy, time and private state')
+    p('Current policy outranks agent guide, help, FAQ and marketing; historical support logs never govern. The frozen date is 20 October 2026. Business days are Monday-Saturday excluding supplied holidays. Return deadlines use delivery + N calendar days: the supplied wording leaves inclusive counting ambiguous, so the consistent day-zero convention is documented. Proof is discarded after the supplied lookup; order switches clear verified context while retaining per-order failure counts. Tickets are deduplicated by order and reason, and success requires created=True.')
+
+    page()
+    p('Evaluation and observed limitations', 'TitleV')
+    rows = [
+        ['Recorded evaluation', 'Passes', 'Interpretation'],
+        ['Prompt-only questions', pass_text(base), rate_text(base) + '; errors ' + str(summary(base).get('errors', 'not recorded'))],
+        ['Grounded single questions', pass_text(rag), rate_text(rag) + '; search ' + search_text(rag)],
+        ['Conversation turns', pass_text(conv), rate_text(conv) + '; mixed answer/authentication turns'],
+        ['Development adversarial/stateful', pass_text(adv), rate_text(adv) + '; used for development'],
+    ]
+    if first:
+        rows.append(['First holdout (offline)', pass_text(first), rate_text(first)])
+        if holdout:
+            rows.append(['Post-fix holdout (offline)', pass_text(holdout), rate_text(holdout)])
+    else:
+        rows.append(['Saved holdout run', pass_text(holdout), rate_text(holdout) if holdout else 'pending; no result inferred'])
+    rows.append(['Used-source evidence recall', 'Single / conversation', pct(summary(rag).get('evidence_recall')) + ' / ' + pct(summary(conv).get('evidence_recall'))])
+    table(rows, [207, 72, 231])
+    p('The scorer checks decisions, required/forbidden facts and expected tools; independent holdout checks also inspect language, evidence, tool arguments and privacy. Mechanical regex/fact checks can miss semantic errors or reject valid paraphrases. Conversation search includes many guard/verification turns and is not directly comparable with standalone query recall.')
+    p('Single-question composition: ' + count_text(composition(rag)) + '. Conversation composition: ' + count_text(composition(conv)) + '.', 'SmallV')
+    h('Frozen holdout and honest reruns')
+    p('The independent fixture contains 64 single questions and 10 scenarios/27 turns: 91 judged responses. Full rubric SHA-256: ' + HOLDOUT_HASH + '. It is evaluation data, never runtime knowledge. Preserve the first pass before observing failures; later runs after fixes are regressions on an exposed set, not a new independent holdout.', 'SmallV')
+    if first:
+        p('First-pass artifact: ' + first_name + '. Current results: eval_holdout.json. Retain both; do not replace the initial failure record.', 'SmallV')
+    else:
+        p('A separately named first-pass artifact is not present. A saved current holdout score alone does not establish whether it preceded tuning; pending results remain pending.', 'SmallV')
+    h('Failures that shaped the implementation')
+    p('Early sentence ordering concealed the distinction between retrieval and rules. The revised path scopes planning to actual search results. Product variants, historical return windows, policy precedence, order switching and ticket reuse require independent checks. Development model experiments produced correct-looking prose with missing/invalid citations or unsupported constraints; their factual pass and accepted-generation counts are kept separate. The answer-only contract now attaches actual context provenance in code. New wording, multilingual conditions and multi-item decisions still require semantic review.')
+    p('Baseline model metadata: ' + model_text(base) + '. Compare run configurations before attributing differences solely to retrieval.', 'SmallV')
+
+    page()
+    p('Latency, voice and reproducibility', 'TitleV')
+    h('Model and latency evidence')
+    p('Grounded turn timing: ' + latency_text(rag) + '.', 'SmallV')
+    bench = benchmark_rows('selected-model check', selected) if selected else benchmark_rows('section experiment', sections)
+    if bench:
+        table([['Recorded model experiment', 'Accepted generation', 'Mean case wall', 'Warm-up wall']] + bench[:3], [218, 88, 97, 107])
+    else:
+        p('Final model benchmarking is pending; no speed or selected-model success is inferred.', 'SmallV')
+    p('Benchmarks use a small development sample and do not estimate unseen quality. Warm-up wall includes its request and may include loading; it is not automatically a controlled cold start. Warm uncached inference performs a new request, whereas an output-cache hit reuses stored text. Agent turn latency excludes resource creation before respond; inspect cache status and provider load/prompt/decode timings. Full prompt/source/fact/model settings enter cache keys; private-order calls bypass persistent output caching.', 'SmallV')
+    h('Real Gnani speech; separate time measures')
+    p(voice_text(voice))
+    wall = [row.get('latency_ms') for row in voice.get('batch', {}).get('entries', [])]
+    audio = [row.get('reply_seconds') for row in voice.get('semantic_validation', {}).get('checks', [])]
+    p('Saved voice processing wall range: ' + seconds_range(wall, milliseconds=True) + '; generated reply audio duration: ' + seconds_range(audio) + '. Processing time and playback length are different quantities. Gnani TTS input clips are synthetic, not human recordings; accent/noise robustness and subjective listening remain unverified.', 'SmallV')
+    p('Gnani is the only STT/TTS provider. Bounded retries rewind inputs; invalid transcripts, truncated PCM and empty speech are rejected. Stream-style WAV sizes are finalized without changing samples. Batch results retain redacted transcripts, sources, tool traces, timing and per-file errors. An offline-rules run disables answer generation but still requires Gnani speech.')
+    h('Reproduce and release')
+    p('Repository: https://github.com/Pranay207/ESD. Setup: powershell -File setup.ps1. Batch: python run.py --audio_dir <in> --out_dir <out>. Evaluate eval_step1.py, eval_step2.py --live, eval_step3.py --live, eval_adversarial.py, eval_holdout.py --check-only, eval_holdout.py, and python -m pytest -q. Reproduce voice with generate_voice_samples.py --reuse-inputs. Generated JSON retains the measured configuration and failures.', 'SmallV')
+    p('After final checks, regenerate the report, visually inspect all pages, record demo.mp4 within 120 seconds, then build/verify the release ZIP. Packaging excludes .env, dataset copies, model weights, caches, environments and private audio. Educational proof checking is not production authentication. No rank, prize or real customer outcome is promised.', 'SmallV')
+    p('Sources: capstone brief; supplied dataset README, dictionary, KB and tools; official Gnani STT/TTS docs; pinned multilingual MiniLM model card; sample_outputs JSON named above. Report measurements are loaded when this file is generated.', 'SmallV')
+
+    def footer(canvas, doc):
+        canvas.setStrokeColor(colors.HexColor('#dce5ed'))
+        canvas.line(42, 37, 553, 37)
+        canvas.setFont('Helvetica', 8)
+        canvas.setFillColor(GRAY)
+        canvas.drawString(42, 24, 'VOICEOPS 2026  |  ZENTROMART  |  PRANAY207')
+        canvas.drawRightString(553, 24, str(doc.page))
+
+    document = SimpleDocTemplate(str(ROOT / 'report.pdf'), pagesize=(595.28, 841.89),
+        leftMargin=42, rightMargin=42, topMargin=37, bottomMargin=48,
+        title='ZentroMart VoiceOps 2026 - Technical Report', author='Pranay207')
+    document.build(story, onFirstPage=footer, onLaterPages=footer)
+    if document.page > 4:
+        raise RuntimeError(f'Report overflowed to {document.page} pages; revise layout and rerender before release.')
+    (ROOT / 'report.md').write_text('# ZentroMart VoiceOps 2026\n\n' + '\n'.join(md), encoding='utf-8')
+    print('Created report.pdf and synchronized report.md; render and inspect before release.')
+
+
+if __name__ == '__main__':
+    main()

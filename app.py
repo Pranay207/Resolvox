@@ -15,7 +15,7 @@ with st.sidebar:
     st.title('ZentroMart')
     st.caption('VOICEOPS 2026 · AI SUPPORT')
     st.write('Ask about returns, refunds, deliveries and your order.')
-    live=st.toggle('LLM sentence composition',value=True,help='The LLM arranges verified sentences; it cannot add unsupported facts. Turn off for offline rules.')
+    live=st.toggle('Generate from retrieved policies',value=True,help='The model receives actual source text and checked facts. Invalid or timed-out output uses an evidence-checked fallback. Turn off for offline rules.')
     if st.button('New conversation',use_container_width=True):
         st.session_state.agent=Agent(r,compose=live);st.session_state.messages=[];st.session_state.voice_agent=Agent(r,compose=live)
     st.caption('Dataset date: 20 October 2026')

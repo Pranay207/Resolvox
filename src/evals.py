@@ -5,12 +5,13 @@ from pathlib import Path
 import csv,json,re,time,hashlib,os
 from .config import ROOT,dataset_dir
 from .normalize import redact,ascii_digits
+from .grounding import _numeric_text
 
 def rows(name:str) -> list[dict]:
     with (dataset_dir()/'practice'/name).open(encoding='utf-8-sig',newline='') as f: return list(csv.DictReader(f))
 
 def canonical(text:str) -> str:
-    text=ascii_digits(text).lower().replace('₹','').replace(',','')
+    text=_numeric_text(ascii_digits(text).lower().replace('₹','').replace(',',''))
     months={'जनवरी': 'January', 'फरवरी': 'February', 'मार्च': 'March', 'अप्रैल': 'April', 'मई': 'May', 'जून': 'June', 'जुलाई': 'July', 'अगस्त': 'August', 'सितंबर': 'September', 'अक्टूबर': 'October', 'नवंबर': 'November', 'दिसंबर': 'December'}
     for a,b in months.items(): text=text.replace(a,b.lower())
     def date_replace(m):
