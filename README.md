@@ -1,5 +1,7 @@
 # Resolvox — Multilingual AI Voice Support
 
+**VoiceOps 2026 Capstone**
+
 Built for ZentroMart’s online shoppers. A customer support agent that retrieves company policies, verifies order access, creates handover tickets through the supplied tools, and uses Gnani for speech. Primary support is English, Hindi and Hinglish. An optional regional-language preview configures all ten Gnani languages plus Hinglish; its incomplete quality is reported separately. New regional-language handling uses a dedicated local translation model around the same support agent; measured per-language readiness is recorded separately.
 
 **Public repository:** https://github.com/Pranay207/Resolvox
