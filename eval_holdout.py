@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parent
 FIXTURE = ROOT / "tests" / "holdout_cases.json"
 QUESTION_HASH = "dae8714691901953f1ee0dea2c4c74f45764a4b60509046a117d1d39004373dc"
 RUBRIC_HASH = "5f345355d495379623ecc7dfcecdbd7a78f56c3edab62fda5d6f6edfea9d03c7"
+SCORER_VERSION = "2.0.0"
 PRIVATE_EMAIL = r"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}"
 PRIVATE_PHONE = r"\+?91[ -]?5(?:[ -]?\d){9}"
 ROMAN_HINDI = r"\b(?:hai|hain|ka|ki|ke|ko|aap|nahi|nahin|karein|karo|mein|liye|aur|hoga|hogi|rakhein|karna|hote|karke)\b"
@@ -74,9 +75,41 @@ def number_normalize(text: str) -> str:
     return re.sub(r"\b(\d+)(?:st|nd|rd|th)\b", r"\1", text)
 
 
+def compound_normalize(text: str) -> str:
+    """Canonicalize equivalent English hyphen compounds, retaining quantities.
+
+    Attributive ``3-month warranty`` means the same duration as ``3 months``.
+    Hyphens between words are word boundaries (``change-of-mind``), but minus
+    signs, numeric ranges, identifiers and decimal points remain untouched.
+    This is a spelling transformation, not stemming or semantic paraphrasing.
+    """
+    hyphens = r"[-\u2010-\u2015]"
+    units = r"day|week|month|year|hour|minute|second"
+
+    def unit(match: re.Match[str]) -> str:
+        quantity, name = match.group(1), match.group(2)
+        return quantity + " " + name + ("" if quantity == "1" else "s")
+
+    text = re.sub(r"\b(\d+)\s*" + hyphens + r"\s*(" + units + r")s?\b", unit, text)
+    return re.sub(r"(?<=[a-z])" + hyphens + r"(?=[a-z])", " ", text)
+
+
 def variants(text: Any) -> list[str]:
     first = base_normalize(text)
-    return list(dict.fromkeys([first, number_normalize(first)]))
+    numbers = number_normalize(first)
+    return list(dict.fromkeys([first, numbers, compound_normalize(first), compound_normalize(numbers)]))
+
+
+def scorer_metadata() -> dict[str, Any]:
+    return {
+        "version": SCORER_VERSION,
+        "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "normalizations": ["unicode_nfkc_and_digits", "lowercase_and_whitespace",
+                           "english_and_hindi_number_words", "english_ordinal_suffixes",
+                           "hyphenated_duration_units", "hyphens_between_english_words"],
+        "frozen_rubric_unchanged": True,
+        "limitation": "Regex checks approximate meaning; equivalent spellings do not prove semantic correctness.",
+    }
 
 
 def found(pattern: str, texts: list[str]) -> bool:
@@ -267,12 +300,84 @@ def validate_fixture(data: dict[str, Any]) -> dict[str, Any]:
             "total_turns": len(all_cases), "questions_sha256": question_hash, "rubric_sha256": rubric_hash}
 
 
+def summarize(results: list[dict[str, Any]], planned: int, elapsed: float) -> dict[str, Any]:
+    passed = sum(item["judgment"]["passed"] for item in results)
+    failures = Counter(check["check"].split(":")[0] for item in results
+                       for check in item["judgment"]["checks"] if not check["passed"])
+    categories: dict[str, dict[str, int]] = {}
+    for item in results:
+        totals = categories.setdefault(item["category"], {"passed": 0, "total": 0})
+        totals["total"] += 1
+        totals["passed"] += int(item["judgment"]["passed"])
+    return {"passed": passed, "failed": len(results) - passed, "evaluated": len(results),
+            "planned": planned, "complete": len(results) == planned,
+            "pass_rate": passed / len(results) if results else 0.0,
+            "failed_check_counts": dict(failures), "by_category": categories,
+            "elapsed_seconds": round(elapsed, 3)}
+
+
+def rescore_saved_report(source: Path, output: Path, fixture: dict[str, Any]) -> dict[str, Any]:
+    """Rejudge unchanged saved predictions and keep the original artifact intact."""
+    if source.resolve() == output.resolve():
+        raise ValueError("Rescoring must write to a different file; preserve the original predictions and judgments.")
+    coverage = validate_fixture(fixture)
+    original_bytes = source.read_bytes()
+    report = json.loads(original_bytes)
+    previous_scorer = report.get("scorer", {"version": "legacy_v1_unversioned"})
+    source_coverage = report.get("coverage", {})
+    if any(source_coverage.get(key) != coverage[key] for key in ("questions_sha256", "rubric_sha256")):
+        raise ValueError("Saved report does not use the same frozen questions and rubric.")
+    cases = {case["id"]: (case, []) for case in fixture["single_cases"]}
+    cases.update({scenario["id"] + "/" + turn["id"]: (turn, scenario.get("sensitive_values", []))
+                  for scenario in fixture["scenarios"] for turn in scenario["turns"]})
+    predictions = [{"id": entry["id"], "actual_output": entry.get("actual_output")}
+                   for entry in report["results"]]
+    seen: set[str] = set()
+    changes: list[dict[str, Any]] = []
+    old_summary = report["summary"]
+    for entry in report["results"]:
+        case_id = entry["id"]
+        if case_id in seen or case_id not in cases:
+            raise ValueError("Unknown or duplicate saved case ID: " + case_id)
+        seen.add(case_id)
+        case, proofs = cases[case_id]
+        previous = entry["judgment"]
+        # A runtime failure is a product failure, not a normalization opportunity.
+        updated = previous if entry.get("error") else judge(case, entry.get("actual_output"), proofs)
+        changed_checks = [check["check"] for check in updated["checks"]
+                          if any(old["check"] == check["check"] and old["passed"] != check["passed"]
+                                 for old in previous["checks"])]
+        if updated != previous:
+            changes.append({"id": case_id, "previous_passed": previous["passed"],
+                            "rescored_passed": updated["passed"], "changed_checks": changed_checks})
+        entry["previous_judgment"] = previous
+        entry["judgment"] = updated
+    assert predictions == [{"id": entry["id"], "actual_output": entry.get("actual_output")}
+                           for entry in report["results"]]
+    report["summary"] = summarize(report["results"], coverage["total_turns"], old_summary.get("elapsed_seconds", 0))
+    report["scorer"] = scorer_metadata()
+    report["rescoring"] = {
+        "created_at_utc": datetime.now(timezone.utc).isoformat(),
+        "source_file": source.name,
+        "source_file_sha256": hashlib.sha256(original_bytes).hexdigest(),
+        "source_scorer": previous_scorer,
+        "predictions_sha256": digest(predictions), "predictions_unchanged": True,
+        "product_rerun": False, "previous_summary": old_summary,
+        "passed_delta": report["summary"]["passed"] - old_summary["passed"],
+        "changed_cases": changes,
+    }
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return report
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check-only", action="store_true", help="Validate frozen hashes and rubric without importing runtime.")
     parser.add_argument("--offline", action="store_true", help="Use compose=False; this is not an LLM generation evaluation.")
     parser.add_argument("--lexical", action="store_true", help="Use dense=False for a diagnostic lexical retrieval run.")
-    parser.add_argument("--output", type=Path, default=ROOT / "sample_outputs" / "eval_holdout.json")
+    parser.add_argument("--rescore-input", type=Path, help="Rejudge saved predictions only; no runtime or model calls.")
+    parser.add_argument("--output", type=Path, help="Defaults to eval_holdout.json, or eval_holdout_rescored.json when rescoring.")
     args = parser.parse_args()
     data = json.loads(FIXTURE.read_text(encoding="utf-8"))
     coverage = validate_fixture(data)
@@ -280,6 +385,12 @@ def main() -> int:
         print(json.dumps({"validated": True, **coverage}, indent=2))
         return 0
 
+    if args.rescore_input:
+        output = args.output or ROOT / "sample_outputs" / "eval_holdout_rescored.json"
+        rescored = rescore_saved_report(args.rescore_input, output, data)
+        print(json.dumps({"summary": rescored["summary"], "rescoring": rescored["rescoring"]}, indent=2))
+        return 0 if rescored["summary"]["failed"] == 0 else 1
+    args.output = args.output or ROOT / "sample_outputs" / "eval_holdout.json"
     results: list[dict[str, Any]] = []
     started = time.perf_counter()
     report = {
@@ -289,26 +400,13 @@ def main() -> int:
         "dense_retrieval": not args.lexical,
         "reference_date": data["metadata"]["reference_date"],
         "coverage": coverage,
+        "scorer": scorer_metadata(),
         "judging_limitations": data["metadata"]["judging_limitations"],
         "results": results,
     }
 
     def persist() -> None:
-        passed = sum(item["judgment"]["passed"] for item in results)
-        failures = Counter(check["check"].split(":")[0] for item in results
-                           for check in item["judgment"]["checks"] if not check["passed"])
-        categories: dict[str, dict[str, int]] = {}
-        for item in results:
-            totals = categories.setdefault(item["category"], {"passed": 0, "total": 0})
-            totals["total"] += 1
-            totals["passed"] += int(item["judgment"]["passed"])
-        report["summary"] = {
-            "passed": passed, "failed": len(results) - passed, "evaluated": len(results),
-            "planned": coverage["total_turns"], "complete": len(results) == coverage["total_turns"],
-            "pass_rate": passed / len(results) if results else 0.0,
-            "failed_check_counts": dict(failures), "by_category": categories,
-            "elapsed_seconds": round(time.perf_counter() - started, 3),
-        }
+        report["summary"] = summarize(results, coverage["total_turns"], time.perf_counter() - started)
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2, default=str) + "\n", encoding="utf-8")
 
