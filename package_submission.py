@@ -31,7 +31,7 @@ def status():
     elif duration>120:blockers.append('demo.mp4 exceeds the 120-second brief limit')
     report=ROOT/'report.pdf';pages=len(re.findall(rb'/Type\s*/Page\b',report.read_bytes())) if report.exists() else 0
     if pages!=4:blockers.append(f'Report expected 4 verified pages; found {pages}')
-    return {'ready_to_submit':not blockers,'blockers':blockers,'report_pages':pages,'demo_seconds':duration,'public_repository':'https://github.com/Pranay207/ESD','team_name_assumption':'pranay','speech_provider':'Gnani only','warning':'Mechanical test passes are not organizer scores.'}
+    return {'ready_to_submit':not blockers,'blockers':blockers,'report_pages':pages,'demo_seconds':duration,'public_repository':'https://github.com/Pranay207/Resolvox','team_name_assumption':'pranay','speech_provider':'Gnani only','warning':'Mechanical test passes are not organizer scores.'}
 
 def main():
     release=status();(ROOT/'SUBMISSION_STATUS.json').write_text(json.dumps(release,indent=2),encoding='utf-8')

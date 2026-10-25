@@ -12,6 +12,8 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from scripts.finalize_evidence import (select_current_live, live_complete, live_result_text,
+    live_narrative, composition_text, regional_preview_text)
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
@@ -194,6 +196,9 @@ def main():
         ('eval_step1.json', 'eval_step2.json', 'eval_step3.json', 'eval_adversarial.json', 'voice_validation.json')]
     holdout = load('eval_holdout.json')
     live_partial = load('eval_step2_live_postfix_partial.json')
+    live2_name, live2 = select_current_live(2, load)
+    live3_name, live3 = select_current_live(3, load)
+    primary_rag = live2 or rag
     first_name, first = first_holdout()
     engineering = load('engineering_verification.json')
     sections = load('generation_benchmark_sections.json')
@@ -256,8 +261,8 @@ def main():
         ['4 - Voice', 'Official Gnani STT/TTS, spoken-number normalization, redaction, per-file failure isolation and JSON/text/WAV/source outputs.'],
     ], [94, 416])
     h('Evidence snapshot at report generation')
-    p(f'Baseline {pass_text(base)}; current offline grounded questions {pass_text(rag)}; offline conversation turns {pass_text(conv)}; development adversarial/stateful checks {pass_text(adv)}. These are mechanical local checks. The practice and adversarial sets were used during development; answer quality is not established by retrieval recall or a successful fallback alone.')
-    p('Grounded run model metadata: ' + model_text(rag) + '.', 'SmallV')
+    p(f'Actual prompt-only baseline: {pass_text(base)}. LLM-enabled grounded questions: {live_result_text(live2)}. LLM-enabled conversation turns: {live_result_text(live3)}. Offline checks remain separate: {pass_text(rag)} questions, {pass_text(conv)} conversation turns; development adversarial/stateful checks {pass_text(adv)}. Mechanical checks on development practice do not establish unseen semantic quality.')
+    p('Grounded run model metadata: ' + model_text(primary_rag) + '.', 'SmallV')
     p(engineering_text(engineering) + ' Required report limit: four pages. The user records the final demo within 120 seconds after validation.', 'SmallV')
 
     page()
@@ -278,23 +283,22 @@ def main():
     rows = [
         ['Recorded evaluation', 'Passes', 'Interpretation'],
         ['Prompt-only questions', pass_text(base), rate_text(base) + '; errors ' + str(summary(base).get('errors', 'not recorded'))],
-        ['Grounded practice (offline)', pass_text(rag), rate_text(rag) + '; compose=False; search ' + search_text(rag)],
-        ['Conversation practice (offline)', pass_text(conv), rate_text(conv) + '; compose=False; answer/auth turns'],
+        ['Grounded questions (LLM-enabled)', pass_text(live2), f"{summary(live2).get('total',0)}/{summary(live2).get('planned','?')} evaluated; complete={live_complete(live2)}; compose=True" if live2 else 'pending; no current live artifact'],
+        ['Conversation turns (LLM-enabled)', pass_text(live3), f"{summary(live3).get('total',0)}/{summary(live3).get('planned','?')} evaluated; complete={live_complete(live3)}; compose=True" if live3 else 'pending; no current live artifact'],
+        ['Offline questions / conversations', pass_text(rag)+' / '+pass_text(conv), 'compose=False; separate rules/guard checks'],
         ['Development adversarial/stateful', pass_text(adv), rate_text(adv) + '; used for development'],
     ]
-    if live_partial:
-        ls=summary(live_partial)
-        rows.append(['Post-fix live subset',f"{ls.get('passed','?')}/{ls.get('planned','?')} planned",f"{ls.get('total','?')} evaluated; incomplete live rerun"])
     if first:
         rows.append(['First holdout (offline)', pass_text(first), rate_text(first)])
         if holdout:
             rows.append(['Post-fix holdout (offline)', pass_text(holdout), rate_text(holdout)])
     else:
         rows.append(['Saved holdout run', pass_text(holdout), rate_text(holdout) if holdout else 'pending; no result inferred'])
-    rows.append(['Used-source evidence recall', 'Single / conversation', pct(summary(rag).get('evidence_recall')) + ' / ' + pct(summary(conv).get('evidence_recall'))])
+    rows.append(['Used-source recall (selected runs)', 'Single / conversation', pct(summary(primary_rag).get('evidence_recall')) + ' / ' + pct(summary(live3 or conv).get('evidence_recall'))])
     table(rows, [207, 72, 231])
     p('The scorer checks decisions, required/forbidden facts and expected tools; independent holdout checks also inspect language, evidence, tool arguments and privacy. Mechanical regex/fact checks can miss semantic errors or reject valid paraphrases. Conversation search includes many guard/verification turns and is not directly comparable with standalone query recall.')
-    p('Complete current practice runs are offline compose=False; earlier complete live results predate the fixes. Current live evidence is the separately recorded incomplete subset. Single-question composition: ' + count_text(composition(rag)) + '. Conversation composition: ' + count_text(composition(conv)) + '.', 'SmallV')
+    historical_note=(f"Historical {summary(live_partial).get('passed','?')}/{summary(live_partial).get('planned','?')} partial subset remains preserved unchanged. " if live_partial else '')
+    p('LLM-enabled question composition: ' + (composition_text(live2) if live2 else 'pending') + '. LLM-enabled conversation composition: ' + (composition_text(live3) if live3 else 'pending') + '. These include cached generation, reviewed fallbacks and guards; a passing live run is not all fresh generation. '+historical_note+'Earlier complete live runs are separate historical evidence.', 'SmallV')
     h('Frozen holdout and honest reruns')
     p('The independent fixture contains 64 single questions and 10 scenarios/27 turns: 91 judged responses. Full rubric SHA-256: ' + HOLDOUT_HASH + '. It is evaluation data, never runtime knowledge. Preserve the first pass before observing failures; later runs after fixes are regressions on an exposed set, not a new independent holdout.', 'SmallV')
     if first:
@@ -308,13 +312,17 @@ def main():
     page()
     p('Latency, voice and reproducibility', 'TitleV')
     h('Model and latency evidence')
-    p('Current live subset turn timing: ' + latency_text(live_partial) + '. Offline timing is recorded separately. All outliers are retained; configured request timeouts do not establish a hard end-to-end latency bound.', 'SmallV')
+    p('Recorded LLM-enabled question timing: ' + latency_text(live2 or live_partial) + '. Conversation timings are retained in ' + live3_name + '; offline measurements remain separate. All outliers are retained; request timeouts do not establish a hard end-to-end bound.', 'SmallV')
     bench = benchmark_rows('selected-model check', selected) if selected else benchmark_rows('section experiment', sections)
     if bench:
         table([['Recorded model experiment', 'Accepted generation', 'Mean case wall', 'Warm-up wall']] + bench[:3], [218, 88, 97, 107])
     else:
         p('Final model benchmarking is pending; no speed or selected-model success is inferred.', 'SmallV')
     p('Benchmarks use a small development sample and do not estimate unseen quality. Warm-up wall includes its request and may include loading; it is not automatically a controlled cold start. Warm uncached inference performs a new request, whereas an output-cache hit reuses stored text. Agent turn latency excludes resource creation before respond; inspect cache status and provider load/prompt/decode timings. Full prompt/source/fact/model settings enter cache keys; private-order calls bypass persistent output caching.', 'SmallV')
+    extra_languages = load('language_validation.json')
+    if extra_languages:
+        h('Optional regional-language preview')
+        p('Primary support is English, Hindi and Hinglish. Additional regional choices are an optional preview using separate local translation with masked identifiers and round-trip checks. '+regional_preview_text(extra_languages)+' Failures and prior attempts remain in language_validation.json; translation weights are excluded from the archive.', 'SmallV')
     h('Real Gnani speech; separate time measures')
     p(voice_text(voice))
     wall = [row.get('latency_ms') for row in voice.get('batch', {}).get('entries', [])]
@@ -322,7 +330,7 @@ def main():
     p('Saved voice processing wall range: ' + seconds_range(wall, milliseconds=True) + '; generated reply audio duration: ' + seconds_range(audio) + '. Processing time and playback length are different quantities. Gnani TTS input clips are synthetic, not human recordings; accent/noise robustness and subjective listening remain unverified.', 'SmallV')
     p('Gnani is the only STT/TTS provider. Bounded retries rewind inputs; invalid transcripts, truncated PCM and empty speech are rejected. Stream-style WAV sizes are finalized without changing samples. Batch results retain redacted transcripts, sources, tool traces, timing and per-file errors. An offline-rules run disables answer generation but still requires Gnani speech.')
     h('Reproduce and release')
-    p('Repository: https://github.com/Pranay207/ESD. Setup: powershell -File setup.ps1. Batch: python run.py --audio_dir <in> --out_dir <out>. Evaluate eval_step1.py, eval_step2.py --live, eval_step3.py --live, eval_adversarial.py, eval_holdout.py --check-only, eval_holdout.py, and python -m pytest -q. Reproduce voice with generate_voice_samples.py --reuse-inputs. Generated JSON retains the measured configuration and failures.', 'SmallV')
+    p('Repository: https://github.com/Pranay207/Resolvox. Setup: powershell -File setup.ps1. Batch: python run.py --audio_dir <in> --out_dir <out>. Current live practice: python scripts/resume_live_practice.py --step 2, then --step 3; separate baseline/adversarial/holdout scripts retain earlier evidence. Run python -m pytest -q. Reproduce voice with generate_voice_samples.py --reuse-inputs. Generated JSON retains the measured configuration and failures.', 'SmallV')
     p('After final checks, regenerate the report, visually inspect all pages, record demo.mp4 within 120 seconds, then build/verify the release ZIP. Packaging excludes .env, dataset copies, model weights, caches, environments and private audio. Educational proof checking is not production authentication. No rank, prize or real customer outcome is promised.', 'SmallV')
     p('Sources: capstone brief; supplied dataset README, dictionary, KB and tools; official Gnani STT/TTS docs; pinned multilingual MiniLM model card; sample_outputs JSON named above. Report measurements are loaded when this file is generated.', 'SmallV')
 
