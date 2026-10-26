@@ -1,0 +1,105 @@
+PQ0015 False abstained_missing_evidence
+PQ0016 True grounded_llm
+PQ0018 True source_input_clarification
+PQ0019 True grounded_llm
+PQ0020 True grounded_llm
+PQ0021 True grounded_llm
+PQ0022 True grounded_llm
+PQ0023 True deterministic_guardrail
+PQ0024 True grounded_llm
+PQ0025 True grounded_llm
+PQ0026 True grounded_llm
+PQ0027 True grounded_llm
+PQ0028 False abstained_model_or_evidence
+PQ0029 False abstained_model_or_evidence
+PQ0030 True source_generated_handover
+PQ0031 True grounded_llm
+PQ0032 False abstained_model_or_evidence
+PQ0033 True grounded_llm
+PQ0034 True grounded_llm
+PQ0035 True grounded_llm
+PQ0036 True grounded_llm
+PQ0037 True abstained_model_or_evidence
+PQ0039 True grounded_llm
+PQ0040 False abstained_model_or_evidence
+PQ0041 True grounded_llm
+PQ0042 True grounded_llm
+PQ0044 True grounded_llm
+PQ0045 False abstained_model_or_evidence
+PQ0046 True source_generated_handover
+PQ0047 False abstained_model_or_evidence
+PQ0048 False abstained_model_or_evidence
+PQ0049 True grounded_llm
+PQ0050 False abstained_model_or_evidence
+PQ0051 True source_input_clarification
+PQ0052 True grounded_llm
+PQ0053 True abstained_model_or_evidence
+PQ0054 True grounded_llm
+PQ0056 True grounded_llm
+PQ0057 True grounded_llm
+PQ0058 False abstained_model_or_evidence
+PQ0059 True grounded_llm
+PQ0060 True deterministic_guardrail
+{
+  "search_k": [
+    12
+  ],
+  "search_recall": 0.935064935064935,
+  "step": "2",
+  "total": 52,
+  "passed": 39,
+  "pass_rate": 0.75,
+  "decision_accuracy": 0.7692307692307693,
+  "evidence_recall": 0.7,
+  "errors": 0,
+  "composition_counts": {
+    "abstained_model_or_evidence": 16,
+    "grounded_llm": 29,
+    "abstained_missing_evidence": 1,
+    "source_input_clarification": 2,
+    "deterministic_guardrail": 2,
+    "source_generated_handover": 2
+  },
+  "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates; search_k is the requested direct budget, with extra dependencies reported separately. Guardrail lookups are separate.",
+  "retrieval_budgets": {
+    "requested_direct_ks": [
+      12
+    ],
+    "candidate_limits": [
+      16
+    ],
+    "returned_count_histogram": {
+      "15": 15,
+      "14": 18,
+      "13": 12,
+      "10": 1,
+      "12": 2,
+      "16": 2
+    },
+    "candidate_role_counts": {
+      "direct": 598,
+      "dependency": 101
+    },
+    "scope": "Actual saved candidate arrays and trace metadata; missing roles remain unrecorded."
+  },
+  "latency_by_path": {
+    "uncached_llm_attempt": {
+      "count": 45,
+      "p50_ms": 161619.7,
+      "p95_ms": 253040.6
+    },
+    "cache_hit": {
+      "count": 3,
+      "p50_ms": 179.9,
+      "p95_ms": 179.9
+    },
+    "no_model_call": {
+      "count": 4,
+      "p50_ms": 21.0,
+      "p95_ms": 89.8
+    }
+  },
+  "planned": 52,
+  "complete": true,
+  "scope": "Current source-driven live practice; generation, guards, clarifications and abstentions are reported separately. No authored policy fallback. Mechanical checks are not organizer scoring."
+}

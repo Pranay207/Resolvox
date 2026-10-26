@@ -6,23 +6,24 @@ These are local measurements, not organizer scores. The source-only answer corre
 
 | Check | Current record |
 | --- | --- |
-| Current engineering suite, code `5c4df02` | **2069/2069 passed**; no failures, errors or skips; [receipt](sample_outputs/engineering_verification.json) |
-| Live grounded practice | **52 planned; local laptop run in progress** |
+| Engineering of applied fixes | **2670/2670 passed**; no failures/errors/skips; [receipt](sample_outputs/engineering_verification.json) |
+| Historical engineering at `5c4df02` | **2069/2069 passed**; no failures, errors or skips; [JUnit](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/pytest.xml) |
+| Live grounded practice | **Fresh 52-question run pending**; [before-fix run completed at 39/52](sample_outputs/history/local_52_before_fixes_20261026T161207Z/eval_step2_live_current.json) |
 | Live conversations | **96 turns planned; rerun pending** |
 | Current-model prompt-only baseline | **52 planned; pending** |
 | Live adversarial/development checks | **77 planned; pending** |
 | Live exposed regression | **91 planned; pending** |
 | Gnani synthetic end-to-end speech | Six round trips and silence recovery pending |
-| Report rendering and four-page QA | Existing PDF is a stale draft; regeneration and QA pending |
-| Revised ZIP extraction/hash/secret checks | Existing ZIP is stale; rebuild and verification pending |
+| Report rendering and page QA (maximum four) | Existing PDF is a draft; regeneration and QA pending |
+| Final ZIP extraction/hash/secret checks | No ZIP exists; create and verify only after all required evidence and the demo are complete |
 
-The current [engineering receipt](sample_outputs/engineering_verification.json) records exit code 0 and **2069/2069 passed**, no failures/errors/skips, matching start/end runtime hashes and unchanged inputs at code `5c4df02`. The [JUnit XML](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/pytest.xml) records **51.561 seconds**; pytest process wall time was **56.357 seconds**. [Pytest](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/pytest.log) and [dataset](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/dataset_validation.log) logs retain actual measurements. The official validator passed 9 CSVs, 21 KB documents, 1,000 orders, 1,783 items, 244 support logs, 52 practice questions and 23 conversations. Earlier 1741/1016-test evidence belongs to earlier revisions. This engineering pass does not certify model answers or speech.
+The current [engineering receipt](sample_outputs/engineering_verification.json) records **2670/2670 passed**, no failures/errors/skips, and unchanged runtime, test, dataset and verification-helper hashes. The [JUnit XML](sample_outputs/engineering_artifacts/20261026T165603484127Z_8702ddbb/pytest.xml) records **72.514 seconds**; pytest process wall time was **79.791 seconds**. The [dataset log](sample_outputs/engineering_artifacts/20261026T165603484127Z_8702ddbb/dataset_validation.log) records a passed official validation: 9 CSVs, 21 KB documents, 1,000 orders, 1,783 items, 244 support logs, 52 practice questions and 23 conversations. This offline pass does not certify model answers or speech. The receipt started from HEAD `c88edc7` with a dirty working tree and certifies recorded file hashes; it must not be described as a run started at a later commit.
 
-The 2069-case suite is offline and made no model inference. Its unchanged receipt retains the compatible/Groq settings selected when that engineering run started; those settings are not evidence of a hosted question evaluation and have not been rewritten for the current laptop configuration.
+The historical 2069-case suite was offline and made no model inference. Its [unchanged receipt](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/engineering_verification.json) retains the compatible/Groq settings selected when that engineering run started; those settings are not evidence of a hosted question evaluation and have not been rewritten for the current laptop configuration.
 
 The earlier public Hinglish warranty pilot and other local probes remain intermediate diagnostics. Their timing includes loading and varying CPU contention and is not a controlled cold/warm latency study. Complete current local practice, baseline, development/exposed regression and speech results remain pending.
 
-The selected verification runs on the laptop using **Ollama `qwen3:4b-instruct` at `http://127.0.0.1:11435`**, with `LLM_TIMEOUT=300` and `RAG_LLM_TIMEOUT=300`. The fresh 52-question laptop run is in progress; its completion, the current-model baseline and other batches remain pending. Hosted inference is not selected for these evaluations. The supported `.env.example` defaults remain local Ollama on port 11434 with 120-second request timeouts. Timeouts do not bound a complete turn.
+The selected verification runs on the laptop using **Ollama `qwen3:4b-instruct` at `http://127.0.0.1:11435`**, with `LLM_TIMEOUT=300` and `RAG_LLM_TIMEOUT=300`. The before-fix 52-question local run completed at **39/52 mechanical passes** and is archived; fresh validation of the applied fixes, the same-model baseline and other batches remain pending. Hosted inference is not selected for these evaluations. The supported `.env.example` defaults remain local Ollama on port 11434 with 120-second request timeouts. Timeouts do not bound a complete turn.
 
 Ordinary domain answers come from `document_reply`, which receives actual retrieved text and safe verified/source-derived facts. It returns an answer and strict `covered`/`needs_clarification` booleans. Validated Boolean uncertainty keeps `covered=False`, `reply_kind=uncertainty`, `evidence_status=insufficient_evidence` and no domain-answer source IDs even when the host decision is answer. Legacy explicit and privacy refusals remain unchanged. Traces retain model flags, host decision origin and full actual generation context; normal `citations=[]` does not claim model-selected quotes or per-claim proof. One bounded repair precedes abstention. Prewritten policy fallback is removed from normal generation and from business handover explanations. Fixed security/workflow messages and actual tool-outcome wording remain deterministic.
 
@@ -109,11 +110,11 @@ Recorded dataset validation passed **9 CSVs, 21 KB documents, 1,000 orders, 1,78
 
 ## Remaining validation and release
 
-- Current offline engineering at `5c4df02` passed 2069/2069; complete local practice, same-model baseline and speech results remain pending.
+- Current engineering passed 2670/2670 against matching tested file hashes. Fresh full local practice, same-model baseline and speech results remain pending; the older 2069-case pass is historical.
 - Rebuild/render the report and verify revised archive hashes, configured-secret scan and extracted-package smoke test.
 - The current live exposed regression and same-model baseline are pending. No new blind holdout or controlled cold-start study is complete.
 - Human speech, noise robustness and subjective listening remain unverified.
-- **Own-voice rehearsal and the user-recorded demo stay last.** `demo.mp4` must be at most 120 seconds. Keep the ZIP draft until current checks and that required artifact are complete.
+- **Own-voice rehearsal and the user-recorded demo stay last.** `demo.mp4` must be at most 120 seconds. Do not create or overwrite a ZIP until current checks and the required demo are complete.
 
 Reproduce with `python -m pytest -q`, then `python scripts/resume_live_practice.py --step 1`, `--step 2` and `--step 3`. Optional live regressions use `python eval_adversarial.py --live --output sample_outputs/eval_adversarial_live_current.json` and `python eval_holdout.py --output sample_outputs/eval_holdout_live_current.json`. Checkpoints resume only when inference inputs match. Earlier predictions are retained; missing results must never be filled manually.
 

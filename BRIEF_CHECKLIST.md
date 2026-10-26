@@ -21,8 +21,8 @@ Source: `voiceops_2026_capstone_brief.pdf`. These checks describe inspectable be
 
 ## Current verification
 
-- [x] Current code `5c4df02`: **2069/2069 engineering cases passed**, no failures/errors/skips; **51.561 s JUnit**, **56.357 s pytest wall**. [Receipt](sample_outputs/engineering_verification.json) and [JUnit](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/pytest.xml) bind actual bytes. Dataset validation passed 9 CSVs and 21 KB documents.
-- [ ] Current source-only questions: **52 planned; local laptop run in progress**.
+- [x] Engineering of the applied fixes: **2670/2670 passed**, no failures/errors/skips, **72.514 s JUnit** and **79.791 s pytest wall**. The [receipt](sample_outputs/engineering_verification.json) and [JUnit](sample_outputs/engineering_artifacts/20261026T165603484127Z_8702ddbb/pytest.xml) bind actual tested file hashes. The official dataset validator passed. Historical `5c4df02` engineering passed 2069/2069.
+- [ ] Fresh source-only questions for applied fixes: **52 planned; pending**. The [before-fix local run](sample_outputs/history/local_52_before_fixes_20261026T161207Z/eval_step2_live_current.json) completed at **39/52 mechanical passes**, with 13 failures.
 - [ ] Source-only live conversations: **96 turns planned; rerun pending**. Current output will be `sample_outputs/eval_step3_live_current.json`.
 - [ ] Current same-model prompt-only baseline: **52 planned**, to run with `python scripts/resume_live_practice.py --step 1`.
 - [ ] Current live adversarial/development checks: **77 planned**, pending.
@@ -30,7 +30,7 @@ Source: `voiceops_2026_capstone_brief.pdf`. These checks describe inspectable be
 - [ ] Current Gnani end-to-end synthetic speech rerun pending.
 - [ ] Current report rendering and package checks pending after revised measurements are saved.
 
-The selected verification runs on the laptop using **Ollama `qwen3:4b-instruct` at `http://127.0.0.1:11435`**, with `LLM_TIMEOUT=300` and `RAG_LLM_TIMEOUT=300`. The fresh 52-question laptop run is in progress; its completion, the current-model baseline and other batches remain pending. Hosted inference is not selected for these evaluations. The supported `.env.example` defaults remain local Ollama on port 11434 with 120-second request timeouts. Timeouts do not bound a complete turn.
+The selected verification runs on the laptop using **Ollama `qwen3:4b-instruct` at `http://127.0.0.1:11435`**, with `LLM_TIMEOUT=300` and `RAG_LLM_TIMEOUT=300`. The before-fix 52-question local run completed at **39/52 mechanical passes** and is archived; fresh validation of the applied fixes, the same-model baseline and other batches remain pending. Hosted inference is not selected for these evaluations. The supported `.env.example` defaults remain local Ollama on port 11434 with 120-second request timeouts. Timeouts do not bound a complete turn.
 
 Final runtime sources use LF under `.gitattributes`; current receipts bind actual Git HEAD and matching source/input hashes. CRLF conversion can change byte hashes even when Git reports no content change. Generated `tools/tickets_created.csv` is excluded from input fingerprints.
 
@@ -61,16 +61,16 @@ Raw failures/provenance remain retained. Human accents/noise and subjective list
 
 ## Final submission and additional validation
 
-Current offline engineering at `5c4df02` is complete. Model verification is selected to run locally on the laptop; the 52-question stage is in progress, while its completion and the same-model baseline remain pending. Full live/speech checks, regenerated report and verified final package remain pending. The user records the demo last.
+The reviewed fixes passed current engineering (2670/2670) against matching tested file hashes. The before-fix local run is archived at **39/52 mechanical passes**. Fresh current-runtime practice, the same-model baseline, other live/speech checks, refreshed report and verified final package remain pending. No submission ZIP exists. The user records the demo last.
 
 - [ ] Current live exposed-regression evaluation is pending. Historical holdout results are offline; a new live run still does not make the exposed set independent.
 - [ ] Controlled cold-start latency has **not** been measured. Per-turn uncached and cache measurements exclude prior resource startup and are not cold-start measurements.
 - [ ] Human speech testing and subjective listening have **not** been completed. Synthetic TTS-input round trips do not establish human accent/noise robustness.
-- [ ] Refresh `report.pdf` and render/inspect all four pages against source-only results. Earlier PDF QA is historical until regeneration.
-- [ ] Rebuild the revised draft ZIP and repeat extraction, import/answer smoke, allowlist, hash and secret checks. Earlier checks do not certify revised bytes.
+- [ ] Refresh `report.pdf` and render/inspect every page (maximum four) against current results. Earlier PDF QA is historical until regeneration.
+- [ ] After all required evidence and the demo are complete, build the ZIP and repeat extraction, import/answer smoke, allowlist, hash and secret checks. Earlier checks do not certify revised bytes.
 - [ ] Push the final submission revision containing demo.mp4 and final-ready package evidence; verify local and remote commit IDs after the demo is included.
 - [ ] User records `demo.mp4` (maximum 120 seconds) after final validation; show actual generation mode, sources, verification/handover and live Gnani speech.
-- [ ] Build final-ready `team_name_voiceops.zip` with the required report, demo and generated sample outputs. Keep draft status until required artifacts exist and verification passes.
+- [ ] Build final-ready `team_name_voiceops.zip` with the required report, demo and generated sample outputs. Keep release readiness in draft status until required artifacts exist and verification passes.
 
 Current measurements belong in `sample_outputs/*.json`, `VERIFICATION.md` and `SUBMISSION_STATUS.json`. A previous run or implemented feature is not evidence that a pending run passed.
 

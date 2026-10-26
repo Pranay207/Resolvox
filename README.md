@@ -100,7 +100,7 @@ Install the model when using the default local Ollama configuration:
 ollama pull qwen3:4b-instruct
 ```
 
-The example above reproduces the selected laptop configuration. The selected verification runs on the laptop using **Ollama `qwen3:4b-instruct` at `http://127.0.0.1:11435`**, with `LLM_TIMEOUT=300` and `RAG_LLM_TIMEOUT=300`. The fresh 52-question laptop run is in progress; its completion, the current-model baseline and other batches remain pending. Hosted inference is not selected for these evaluations. The supported `.env.example` defaults remain local Ollama on port 11434 with 120-second request timeouts. Timeouts do not bound a complete turn. Ensure Ollama is serving on the configured port before launching the app.
+The example above reproduces the selected laptop configuration. The selected verification runs on the laptop using **Ollama `qwen3:4b-instruct` at `http://127.0.0.1:11435`**, with `LLM_TIMEOUT=300` and `RAG_LLM_TIMEOUT=300`. The before-fix 52-question local run completed at **39/52 mechanical passes** and is archived; fresh validation of the applied fixes, the same-model baseline and other batches remain pending. Hosted inference is not selected for these evaluations. The supported `.env.example` defaults remain local Ollama on port 11434 with 120-second request timeouts. Timeouts do not bound a complete turn. Ensure Ollama is serving on the configured port before launching the app.
 
 To start an Ollama server on the selected port, use a separate terminal:
 
@@ -204,17 +204,18 @@ See [DESIGN.md](DESIGN.md) for the state model, retrieval strategy and evidence 
 
 ## Evaluation
 
-The source-only answer path was corrected on **25 October 2026**. Code `5c4df02` has current offline engineering evidence; complete local model and speech verification remains pending:
+The source-only runtime has further fixes applied on **26 October 2026**. Current engineering passed **2670/2670** against matching tested file hashes; fresh full local model and speech validation remain pending:
 
 | Check | Current record | Evidence |
 | --- | --- | --- |
-| Current offline engineering suite | **2069/2069 passed**; no failures, errors or skips | [Receipt](sample_outputs/engineering_verification.json); 51.561 s JUnit, 56.357 s pytest wall; no model inference |
-| Current source-only policy questions | **52 planned; laptop run in progress** | No current 52-question pass claim |
+| Engineering of the applied fixes | **2670/2670 passed**; no failures, errors or skips | [Receipt](sample_outputs/engineering_verification.json); 72.514 s JUnit, 79.791 s pytest wall; no model inference |
+| Historical engineering at `5c4df02` | **2069/2069 passed**; no failures, errors or skips | [JUnit](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/pytest.xml); 51.561 s JUnit, 56.357 s pytest wall; no model inference |
+| Current source-only policy questions | **Fresh 52-question run pending** | [Before-fix run: 39/52 mechanical passes](sample_outputs/history/local_52_before_fixes_20261026T161207Z/eval_step2_live_current.json) |
 | Current source-only conversation turns | **Rerun pending**; 96 planned | Completion and composition will be recorded in current JSON |
 | Current Gnani synthetic round trips | **Rerun pending** | Earlier speech evidence remains historical |
-| Current dataset validation | **Passed**; 9 CSVs, 21 KB documents, 1,000 orders and 1,783 items | [Dataset log](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/dataset_validation.log) |
+| Current dataset validation | **Passed**; 9 CSVs, 21 KB documents, 1,000 orders and 1,783 items | [Dataset log](sample_outputs/engineering_artifacts/20261026T165603484127Z_8702ddbb/dataset_validation.log) |
 
-The planned verification order is 52 questions, 96 conversation turns, 77 development checks, 91 exposed regression responses, a 52-question same-model baseline, six Gnani round trips and silence recovery. The 52-question stage is running locally on the laptop; the remaining batches and all final completion results are pending.
+The planned verification order is 52 questions, 96 conversation turns, 77 development checks, 91 exposed regression responses, a 52-question same-model baseline, six Gnani round trips and silence recovery. The completed before-fix run is archived; the applied fixes require a fresh 52-question stage and the remaining batches. No current-runtime completion result is claimed.
 
 **Comparison boundary:** historical baseline `qwen3:1.7b` and selected local `qwen3:4b-instruct` differ in model/configuration. Their scores are not a controlled same-model RAG ablation. A fresh 52-question baseline on the selected local model remains pending.
 
@@ -311,17 +312,17 @@ Mappings follow [Gnani's voice catalog](https://docs.gnani.ai/api/TTS/available-
 
 ## Submission Status
 
-**The current report PDF and submission ZIP are stale drafts from an earlier revision. Regeneration and verification are pending.** The boolean-contract code and engineering checks are complete; current full live and speech results remain pending. **The demo video will be recorded last**, after the own-voice rehearsal. The package remains a draft until current verification and the actual recording are complete.
+**The report PDF is a draft awaiting current results and QA. No submission ZIP exists; the earlier draft was removed.** The applied fixes passed current engineering; fresh full live and speech results remain pending. **The demo video will be recorded last**, after the own-voice rehearsal. Release readiness remains draft until current verification and the actual recording are complete.
 
 | Deliverable | Status |
 | --- | --- |
 | Public source, dependencies, setup and batch command | Available in this repository |
-| Report, maximum four pages | [report.pdf](report.pdf) is a stale draft; regeneration and four-page QA pending |
+| Report, maximum four pages | [report.pdf](report.pdf) is a draft; regeneration and QA of every page (maximum four) remain pending |
 | Generated text, sources and speech outputs | [sample_outputs/](sample_outputs/); current reruns pending, historical evidence retained |
 | Demo, maximum two minutes | Reserved above; recording pending |
-| Submission archive | Earlier draft `dist/pranay_voiceops.zip` is stale; rebuild/checks pending |
+| Submission archive | No ZIP exists; creation waits for all required evidence and the final demo |
 
-After adding `demo.mp4` to the project root, rebuild and verify the archive:
+After all required evidence gates and the final `demo.mp4` are complete, build and verify the archive. Packaging refuses creation or overwrite while blockers remain:
 
 ```sh
 python package_submission.py

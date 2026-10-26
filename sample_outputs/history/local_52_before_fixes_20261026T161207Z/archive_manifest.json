@@ -1,0 +1,99 @@
+{
+  "archived_at_utc": "2026-10-26T16:33:51.448275+00:00",
+  "scope": "Closed local before-fix run; source/data were unchanged throughout. Historical evidence, not current after edits.",
+  "summary": {
+    "search_k": [
+      12
+    ],
+    "search_recall": 0.935064935064935,
+    "step": "2",
+    "total": 52,
+    "passed": 39,
+    "pass_rate": 0.75,
+    "decision_accuracy": 0.7692307692307693,
+    "evidence_recall": 0.7,
+    "errors": 0,
+    "composition_counts": {
+      "abstained_model_or_evidence": 16,
+      "grounded_llm": 29,
+      "abstained_missing_evidence": 1,
+      "source_input_clarification": 2,
+      "deterministic_guardrail": 2,
+      "source_generated_handover": 2
+    },
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates; search_k is the requested direct budget, with extra dependencies reported separately. Guardrail lookups are separate.",
+    "retrieval_budgets": {
+      "requested_direct_ks": [
+        12
+      ],
+      "candidate_limits": [
+        16
+      ],
+      "returned_count_histogram": {
+        "15": 15,
+        "14": 18,
+        "13": 12,
+        "10": 1,
+        "12": 2,
+        "16": 2
+      },
+      "candidate_role_counts": {
+        "direct": 598,
+        "dependency": 101
+      },
+      "scope": "Actual saved candidate arrays and trace metadata; missing roles remain unrecorded."
+    },
+    "latency_by_path": {
+      "uncached_llm_attempt": {
+        "count": 45,
+        "p50_ms": 161619.7,
+        "p95_ms": 253040.6
+      },
+      "cache_hit": {
+        "count": 3,
+        "p50_ms": 179.9,
+        "p95_ms": 179.9
+      },
+      "no_model_call": {
+        "count": 4,
+        "p50_ms": 21.0,
+        "p95_ms": 89.8
+      }
+    },
+    "planned": 52,
+    "complete": true,
+    "scope": "Current source-driven live practice; generation, guards, clarifications and abstentions are reported separately. No authored policy fallback. Mechanical checks are not organizer scoring."
+  },
+  "files": [
+    {
+      "original_path": "sample_outputs/eval_step2_live_current.json",
+      "archived_path": "sample_outputs/history/local_52_before_fixes_20261026T161207Z/eval_step2_live_current.json",
+      "sha256": "2faebf7857f751a13ccbbf196c26695c62169749ed9b6bb273cba121ad70924e"
+    },
+    {
+      "original_path": "sample_outputs/live_sequence_receipt.json",
+      "archived_path": "sample_outputs/history/local_52_before_fixes_20261026T161207Z/live_sequence_receipt.json",
+      "sha256": "41fbc7dd009282a9d5dd18463ecbde7e7802f6f7749130cbf9af67e8ec1c6e80"
+    },
+    {
+      "original_path": "tmp/remaining_live_runs/20261025T162601217950Z_d8ca877b/sequence_receipt.json",
+      "archived_path": "sample_outputs/history/local_52_before_fixes_20261026T161207Z/sequence_receipt.json",
+      "sha256": "41fbc7dd009282a9d5dd18463ecbde7e7802f6f7749130cbf9af67e8ec1c6e80"
+    },
+    {
+      "original_path": "tmp/remaining_live_runs/20261025T162601217950Z_d8ca877b/questions.log",
+      "archived_path": "sample_outputs/history/local_52_before_fixes_20261026T161207Z/questions.log",
+      "sha256": "422974f759ffb28e37e07907c7635c25c9331822366edc49694414a096853355"
+    },
+    {
+      "original_path": "tmp/remaining_live_20261026T142353533Z.stdout.log",
+      "archived_path": "sample_outputs/history/local_52_before_fixes_20261026T161207Z/remaining_live_20261026T142353533Z.stdout.log",
+      "sha256": "c7e18d130f881e6d7d5b5725e175a2824977d95530d947f094fd29fe906f87c0"
+    },
+    {
+      "original_path": "tmp/remaining_live_20261026T142353533Z.stderr.log",
+      "archived_path": "sample_outputs/history/local_52_before_fixes_20261026T161207Z/remaining_live_20261026T142353533Z.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}
