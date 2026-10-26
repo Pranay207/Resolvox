@@ -1,7 +1,8 @@
 """Extract minimal unverified public event dates, without company policy values."""
-from datetime import date
+from datetime import date, timedelta
 import re
 from .normalize import ascii_digits
+from .grounding import _NUMBER_WORD, _numeric_text
 
 _MONTHS = {}
 for _number, _name in enumerate(('january','february','march','april','may','june','july','august','september','october','november','december'),1):
@@ -13,6 +14,8 @@ _MONTHS['\u092b\u093c\u0930\u0935\u0930\u0940']=2
 _MONTH_RE='|'.join(re.escape(x) for x in sorted(_MONTHS,key=len,reverse=True))
 _NAMED = re.compile(r'(?<!\d)(\d{1,2})(?:st|nd|rd|th)?\s+('+_MONTH_RE+r')(?![A-Za-z\u0900-\u097f])(?:\s*,?\s+(\d{4})(?!\d))?',re.I)
 _ISO = re.compile(r'(?<!\d)\d{4}-\d{2}-\d{2}(?!\d)')
+_RELATIVE = re.compile(r'(?<![\w.+,-])(?:today|yesterday|(?P<days>\d+|' + _NUMBER_WORD +
+    r'(?:[ -]+(?:and\s+)?' + _NUMBER_WORD + r')*)\s+days?\s+ago)(?![\w])', re.I)
 _CUES = {
     'placement': re.compile(
         r'\b(?:placed|ordered|bought|purchased)\b|\border\s+(?:kiya|diya|place(?:d)?)(?:\s+(?:tha|thi|hai))?\b|'
@@ -25,7 +28,7 @@ _CUES = {
         r'\u0935\u093f\u0924\u0930\u093f\u0924|\u092a\u0939\u0941\u0902\u091a[\u093e\u0940]',re.I),
 }
 _UNCERTAIN = re.compile(r"\b(?:if|assuming|suppose|maybe|perhaps|whether|not|never|nahi|nahin|agar|yadi)\b|"
-                        r"\b(?:didn['\u2019]?t|wasn['\u2019]?t|hasn['\u2019]?t)\b|"
+                        r"\b(?:didn['\u2019]?t|wasn['\u2019]?t|hasn['\u2019]?t|haven['\u2019]?t|hadn['\u2019]?t|weren['\u2019]?t)\b|"
                         r'\u092f\u0926\u093f|\u0905\u0917\u0930|\u0936\u093e\u092f\u0926|\u0928\u0939\u0940\u0902?',re.I)
 _SPLIT_SCOPE = re.compile(r'[,;]|\b(?:and|but|then|aur|lekin)\b|\u0914\u0930|\u0932\u0947\u0915\u093f\u0928',re.I)
 _MONEY = re.compile(r'\b(?:refund|money|payment|wallet|bank)\b|\bpaise?\b|\u092a\u0948\u0938|\u0930\u093f\u092b',re.I)
@@ -48,6 +51,23 @@ def _dates(text,reference):
         # Do not guess a previous year for a yearless future date in a past claim.
         if match[3] is None and parsed>reference: continue
         if match[3] is None and re.search(r'\b(?:last|previous|next)\s+year\b|\b(?:pichle|agle)\s+saal\b|\u092a\u093f\u091b\u0932\u0947\s*\u0938\u093e\u0932',text[max(0,match.start()-20):match.end()+25],re.I): continue
+        result.append((match.start(),match.end(),parsed))
+    for match in _RELATIVE.finditer(text):
+        if text[match.end():].casefold().startswith((chr(39)+'s',chr(8217)+'s')): continue
+        before=text[max(0,match.start()-20):match.start()]
+        after=_SPLIT_SCOPE.split(text[match.end():])[0][:65]
+        # Nested calendar arithmetic and approximate quantities are not an
+        # exact occurrence of this relative-day expression.
+        if re.search(r'\b(?:about|around|roughly|approximately|approx|nearly|almost|over|under|up\s+to|at\s+least|at\s+most|more\s+than|less\s+than|something\s+like|give\s+or\s+take|maybe|perhaps)\b',before,re.I): continue
+        if re.search(r'\b(?:before|after|from|since|until|till|ago|or)\s*(?:(?:just|exactly|right|only)\s+)*$|\b(?:days?|weeks?|months?|years?)\s+ago\b[^.!?;,]{0,20}$',before,re.I): continue
+        if re.match(r'\s*(?:plus|minus|before|after|from|ago|or|ish|approximately|roughly|give\s+or\s+take)\b',after,re.I): continue
+        if re.match(r'\s*(?:\d+|[a-z]+(?:[ -]+[a-z]+){0,4})\s+(?:days?|weeks?|months?|years?)\s+(?:ago|before|after|from)\b',after,re.I): continue
+        if re.search(r'[-+]\s*$|\b(?:minus|negative|point|in|next)\s*$',before,re.I): continue
+        try:
+            days=(int(_numeric_text(match['days'])) if match['days'] else
+                  1 if match[0].casefold()=='yesterday' else 0)
+            parsed=reference-timedelta(days=days)
+        except (ValueError,OverflowError): continue
         result.append((match.start(),match.end(),parsed))
     return sorted(result)
 
@@ -72,8 +92,15 @@ def event_date(text,event,reference_date):
                 prefix=_SPLIT_SCOPE.split(clause[:cue.start()])[-1][-55:]
                 suffix=_SPLIT_SCOPE.split(clause[cue.end():])[0][:20]
                 if _UNCERTAIN.search(prefix) or _UNCERTAIN.search(suffix): continue
-                if re.match(r'^\s*(?:did|was|were|whether)\b',prefix,re.I): continue
+                if re.match(r'^\s*(?:did|was|were|whether|has|have|had|may|is|are|can|could|would|will)\b',prefix,re.I): continue
+                # Modal/future descriptions are not completed event inputs.
+                if re.search(r'\b(?:will|would|could|might|can|must|should|shall)\b|\bgoing\s+to\b',prefix,re.I): continue
+                # May is a modal here unless it belongs to a named-date span.
+                named_dates=list(_NAMED.finditer(prefix))
+                if any(not any(named.start()<=modal.start()<named.end() for named in named_dates)
+                       for modal in re.finditer(r'\bmay\b',prefix,re.I)): continue
                 local=prefix + cue[0] + suffix
+                if re.search(r'\b(?:is|was)\s+(?:expected|scheduled|planned|due)\b',local,re.I): continue
                 if kind=='delivery' and _MONEY.search(local): continue
                 cues.append((cue.start(),cue.end(),kind))
         # Other explicit dated events are barriers, never placement/delivery

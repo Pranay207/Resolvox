@@ -4,9 +4,11 @@ This finite guard rejects assertions, never authors customer-facing prose. Gener
 current windows and conditional exception explanations do not require a date.
 """
 from datetime import date, datetime
+import json
 import re
 
 from .grounding import _numeric_text
+from .return_window_uncertainty import check_unknown_placement_window
 
 _PLACEMENT = re.compile(
     r'(?P<category>[A-Za-z][A-Za-z ,&-]+?)\s+from\s+orders\s+placed\s+between\s+'
@@ -36,6 +38,9 @@ _PLACED_ASSERTION = re.compile(
     r'\baapka\s+order\b.{0,100}\b(?:place\s+hua|placed|kiya\s+tha)\b|'
     r'\baapne\b.{0,80}\border\b.{0,50}\b(?:kiya|place)\b', re.I)
 _DELIVERED_ASSERTION = re.compile(
+    r'\b(?:it|this|that)\s+(?:was|is|has\s+been|had\s+been)\s+'
+    r'(?:not\s+)?(?:delivered|received)\s+'
+    r'(?:on|before|after|since|between|during|yesterday|today)\b|'
     r'\b(?:your|the|this)\s+(?:order|purchase|item|product)\s+(?:was|is|has\s+been)\s+'
     r'(?:not\s+)?(?:delivered|received)\b|'
     r'\b(?:your\s+delivery\s+date|delivery\s+date\s+(?:of|for)\s+'
@@ -45,6 +50,7 @@ _DELIVERED_ASSERTION = re.compile(
     r'.{0,55}(?:\u0939\u0941\u0906|\u0939\u0941\u0908|\u0915\u093f\u092f\u093e\s*\u0917\u092f\u093e)|'
     r'\baapka\b.{0,60}\bdeliver(?:y|ed)?\b.{0,50}\b(?:hua|hui|tha|thi)\b', re.I)
 _ENTITLEMENT = re.compile(
+    r'\b(?:it|(?:your|the|this)\s+(?:order|purchase|item|product|unit))\s+falls?\s+under\b|'
     r'\byou\s+(?:have|get|receive|qualify|are\s+eligible|are\s+entitled)\b|'
     r'\b(?:your|the|this)\s+(?:order|purchase|item|product)\s+(?:qualifies|is\s+eligible|gets|has)\b|'
     r'\bit\s+(?:qualifies|is\s+eligible)\b|'
@@ -229,6 +235,58 @@ def delivery_exception_status(facts, sources):
             'standard_window_calendar_days': standard_days, 'source_ids': ids}
 
 
+def _delivery_date_property_assertions(clause, facts, sources):
+    """Find dated individual-property claims about actual supplied identifiers.
+
+    Catalog identity is not evidence of a delivery event. This finite grammar
+    does not infer dates, parse relative input, or judge all date comparisons.
+    """
+    identifiers = set()
+    for key in ('public_context', 'verified_order'):
+        record = facts.get(key, {})
+        sku = record.get('sku') if isinstance(record, dict) else None
+        if isinstance(sku, str) and sku.strip():
+            identifiers.add(sku)
+    category = facts.get('return_policy', {}).get('category')
+    reference = _date(facts.get('reference_date'))
+    for source in _actual(sources).values():
+        if source.get('doc_type') != 'catalog' or source.get('status') != 'current':
+            continue
+        effective = source.get('effective_from')
+        if effective and (not reference or not _date(effective) or _date(effective) > reference):
+            continue
+        try:
+            row = json.loads(source['text'])
+        except (TypeError, ValueError):
+            continue
+        if (isinstance(row, dict) and row.get('return_category') == category
+                and isinstance(row.get('sku'), str) and row['sku'].strip()):
+            identifiers.add(row['sku'])
+    if not identifiers:
+        return []
+    identity = r'(?:' + '|'.join(re.escape(value) for value in sorted(identifiers, key=len, reverse=True)) + r')'
+    identity = r'(?<![A-Za-z0-9_-])`?' + identity + r'`?(?![A-Za-z0-9_-])'
+    subject = (r'(?:(?:the\s+)?delivery\s+date\s+(?:of|for)\s+(?:the\s+)?(?:sku\s+)?' + identity
+               + r'|' + identity + r"(?:'s|\u2019s)\s+delivery\s+date)")
+    temporal = (r'(?P<date>\d{4}-\d{2}-\d{2}|\d{1,2}\s+[A-Za-z]+\s+\d{4}|'
+                r'(?:this|that|the)\s+(?:date|cut[ -]?off)|(?:the\s+)?cut[ -]?off|today|yesterday)')
+    pattern = re.compile(subject + r'\s+(?:is|was|falls|lies)\s+(?:not\s+)?'
+                         r'(?:on\s+or\s+(?:before|after)|on|before|after|since)\s+' + temporal + r'\b', re.I)
+    request = re.compile(r'^\s*(?:(?:can|could|would)\s+you\s+(?:please\s+)?|please\s+)'
+                         r'(?:confirm|check)(?:\s+that)?\s*$', re.I)
+    other_scope = re.compile(r'\b(?:estimated|expected|promised|scheduled|proposed|projected|refund|payment|warehouse|shipment)\s*$', re.I)
+    result = []
+    for match in pattern.finditer(clause):
+        value = match['date']
+        if re.match(r'\d', value) and _date(value) is None and _source_date(value) is None:
+            continue
+        prefix = clause[:match.start()]
+        if request.fullmatch(prefix) or other_scope.search(prefix):
+            continue
+        result.append(match)
+    return result
+
+
 def _conditional(clause, position):
     # A condition must govern this predicate, not an earlier comma clause.
     prefix = clause[:position].rsplit(',', 1)[-1]
@@ -326,6 +384,7 @@ def _check_personal_current_window(answer, status, normalizer):
     personal_unit = r'(?:your|this)\s+(?:[A-Za-z0-9_-]+\s+){0,6}' + unit
     # A category or named model is not necessarily an individual delivered unit.
     personal = re.compile(
+        r'\b(?:the\s+(?:item|product|unit)|it)\s+(?:can|may|must)\s+be\s+returned\b|'
         r'\byour\s+return\s+(?:deadline|window|period|duration)\b|'
         r'\bfor\s+' + personal_unit + r'\s*[,;]\s*(?:the\s+)?(?:return\s+)?(?:deadline|window|period|duration)\b|'
         r'\b(?:deadline|window|period|duration|time)\b[^.;]{0,90}\b' + personal_unit + r'\b|'
@@ -388,6 +447,10 @@ def check_placement_exception_answer(answer, facts, sources, *, normalizer=_nume
               'delivery': _inputs(facts, 'delivered_on', 'delivered_on')[0]}
     _check_deictic_delivery_membership(answer, delivery, normalizer)
     for clause in re.split(r'[.!?;\u0964\n]+', answer):
+        if delivery is not None and inputs['delivery'] is None:
+            for asserted in _delivery_date_property_assertions(clause, facts, sources):
+                if not _conditional(clause, asserted.start()) and not _uncertain_predicate(clause, asserted.start()):
+                    raise ValueError('invented_delivery_premise')
         conditional_dates = {}
         for kind, pattern in (('placement', _PLACED_ASSERTION), ('delivery', _DELIVERED_ASSERTION)):
             assertions = list(pattern.finditer(clause))
@@ -411,3 +474,5 @@ def check_placement_exception_answer(answer, facts, sources, *, normalizer=_nume
                         and _mentions_days(claim, status['window_calendar_days'], normalizer)):
                     raise ValueError('unsupported_' + kind + '_exception_entitlement')
     _check_personal_current_window(answer, delivery, normalizer)
+    check_unknown_placement_window(answer, placement, sources,
+        category=policy.get('category'), normalizer=normalizer)

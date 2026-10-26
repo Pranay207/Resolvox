@@ -8,6 +8,8 @@ import json
 import os
 import re
 from decimal import Decimal
+from datetime import date
+import calendar
 from pathlib import Path
 
 from .llm import LLMUnavailable
@@ -73,9 +75,31 @@ _UNIT_PATTERN = '(?:' + '|'.join('(?P<' + name + '>' + pattern + ')' for name, p
 _QUANTITIES = re.compile(r'(?P<first>\d+(?:\.\d+)?)(?:\s*(?:to|and|or|[-–]|से|se|तक)\s*(?P<last>\d+(?:\.\d+)?))?\s*-?\s*' + _UNIT_PATTERN + r'(?![A-Za-z\u0900-\u097f])', re.I)
 
 
+def _quantity_date_spans(text):
+    """Recognize valid full calendar spans, never partial numeric tokens."""
+    months = {name.casefold(): number for names in (calendar.month_name, calendar.month_abbr)
+              for number, name in enumerate(names) if number and name}
+    named = re.compile(r'(?<![\w.+/-])(\d{1,2})(?:st|nd|rd|th)?\s+('
+        + '|'.join(map(re.escape, sorted(months, key=len, reverse=True)))
+        + r')\s+(\d{4})(?![\w.+/-])', re.I)
+    iso = re.compile(r'(?<![\w.+/-])\d{4}-\d{2}-\d{2}(?![\w.+/-])')
+    spans = []
+    for pattern in (named, iso):
+        for match in pattern.finditer(text):
+            if re.match(r'\s*[-+/.]\s*\d', text[match.end():]):
+                continue
+            try:
+                parsed = (date(int(match[3]), months[match[2].casefold()], int(match[1]))
+                          if pattern is named else date.fromisoformat(match[0]))
+            except ValueError:
+                continue
+            spans.append(match.span())
+    return spans
+
 def _quantities(text):
     normalized = _numeric_text(re.sub(r'(?<!\d),|,(?!\d)', ';', text))
     values = set()
+    date_spans = _quantity_date_spans(normalized)
     for match in _QUANTITIES.finditer(normalized):
         unit = next(name for name in _UNITS if match.group(name) is not None)
         if unit == 'day':
@@ -87,7 +111,14 @@ def _quantities(text):
                          r'\s+(?:(?:ko|mein|me|ke|ki|ka|are|is)\s+){0,2}$', prefix, re.I)
             if bound_unit and not re.search(r'\b(?:not|non|nahi|nahin)\s*[- ]*$', prefix[:bound_unit.start()], re.I):
                 unit = 'business_day'
-        values.add((match.group('first'), unit))
+        # A date's trailing year/day is not a duration range endpoint.
+        # Require a real following quantity; bare date+unit stays checked.
+        date_endpoint = match.group('last') and any(
+            begin <= match.start('first') and match.end('first') <= end
+            and not (begin <= match.start('last') and match.end('last') <= end)
+            for begin, end in date_spans)
+        if not date_endpoint:
+            values.add((match.group('first'), unit))
         if match.group('last'):
             values.add((match.group('last'), unit))
     for match in re.finditer(r'(?:₹|\bINR\s*)\s*(\d+(?:\.\d+)?)', normalized, re.I):
@@ -172,7 +203,72 @@ _CONCEPTS = {
 }
 
 
+def _english_pronoun_prerequisite_view(answer):
+    """Recognize only a complete generic present policy-clock answer.
+
+    Any other clause/prose declines masking, preserving every consequent or
+    neighboring claim without a lexical list of claim paraphrases.
+    """
+    operation = r'(?:refund|payment|return|pickup|request|order|ticket)'
+    route = r'(?:[ \t]+(?:to|via|through)[ \t]+(?P<route>[A-Za-z]{1,32}))?'
+    number = r'(?:\d+(?:\.\d+)?|' + _NUMBER_WORD + r'(?:[ -]+' + _NUMBER_WORD + r')*)'
+    duration = (r'(?:(?:from|between)[ \t]+)?' + number
+        + r'(?:(?:[ \t]+(?:to|and|through)[ \t]+|[ \t]*[-–][ \t]*)' + number + r')?'
+        + r'[ \t]+(?:(?:business|working|calendar)[ \t]+)?(?:minutes?|hours?|days?|weeks?)')
+    clock = re.compile(
+        r'(?P<matrix>\s*(?:a|an)[ \t]+' + operation + route
+        + r'[ \t]+takes[ \t]+' + duration + r'[ \t]+)'
+        + r'after[ \t]+it[ \t]+is[ \t]+' + _COMPLETED
+        + r'(?P<ending>[ \t]*[.!?।]?\s*)', re.I)
+    match = clock.fullmatch(answer)
+    if not match:
+        return answer
+    non_generic = re.compile(
+        r'\b(?:I|we|my|our|you|your|me|us|he|she|his|her|they|their|its|'
+        r'is|are|was|were|had|has|have|already|now|today|yesterday|earlier|previously|currently|on|at|since|during|'
+        r'done|complete|guarantee(?:d)?)\b|\b[A-Za-z]+ed\b', re.I)
+    if non_generic.search(match['route'] or ''):
+        return answer
+    return match['matrix'] + 'after a generic prerequisite' + match['ending']
+
+def _hindi_generic_prerequisite_view(answer):
+    """Mask only a bounded prerequisite with a closed predicate grammar.
+
+    Extra modifiers, recipients and dates do not fit this finite grammar.
+    Other completion/person cues decline masking to preserve anaphoric claims.
+    """
+    subject = r'(?:ऑर्डर|आदेश|रिफ़ंड|रिफंड|भुगतान|पिकअप|पार्सल|टिकट|रिटर्न)'
+    perfective = r'(?:गया|गई|गए|चुका|चुकी|चुके)'
+    passive = r'(?:गया|गई|गए)'
+    state = r'(?:शिप|पूरा|पूर्ण|बंद|रद्द|जारी|कैंसिल|कैंसल)'
+    operation = r'(?:पूरा|पूर्ण|बंद|रद्द|जारी|कैंसिल|कैंसल)'
+    predicate = (r'(?:(?:' + state + r'\s+)?हो\s+' + perfective
+        + r'|' + operation + r'\s+(?:किया|की|किए)\s+' + passive
+        + r'|(?:बनाया|बन)\s+' + passive + r'|(?:रद्द|जारी)\s+(?:हुआ|हुई|है))')
+    grammar = re.compile(r'(?:(?:कोई(?:\s+भी)?|एक)\s+)?' + subject
+        + r'\s+' + predicate + r'(?:\s+(?:है|हैं))?', re.I)
+    person = re.compile(r'मैं|हम|आपने|तुमने|उसने|इसने|उन्होंने|इन्होंने|\b(?:I|we|you)\b', re.I)
+    other_completed = re.compile(
+        r'कर\s*(?:दिया|दी|दिए)|हो\s*(?:गया|गई|गए|चुका|चुकी|चुके)|'
+        r'बना(?:या)?\s*(?:दिया|गया|गई|गए)|(?:किया|की|किए)\s*(?:गया|गई|गए)|'
+        r'(?:रद्द|जारी)\s*(?:है|हुआ|हुई)|पूरा|पूर्ण|सम्पन्न')
+    clauses = re.compile(
+        r'(?P<lead>(?:^|(?<=[,;.!?।\n]))[ \t]*(?:अगर|यदि)[ \t]+)'
+        r'(?P<condition>[^,;.!?।\n]{1,120}?)'
+        r'(?P<boundary>[ \t]+तो(?=$|[ \t,;.!?।\n])|(?=[,;.!?।\n]))')
+
+    def replace(match):
+        if not grammar.fullmatch(match['condition'].strip()):
+            return match[0]
+        outside = answer[:match.start('condition')] + answer[match.end('condition'):]
+        if person.search(outside) or other_completed.search(outside):
+            return match[0]
+        return match['lead'] + 'सामान्य शर्त' + match['boundary']
+
+    return clauses.sub(replace, answer)
+
 def _completed_action(answer):
+    answer = _english_pronoun_prerequisite_view(answer)
     # Completed operational outcomes are rendered by deterministic tool/state
     # code. Even a true-looking model assertion falls back for review there.
     # A generic prerequisite describes when a policy clock starts, rather than
@@ -196,7 +292,7 @@ def _completed_action(answer):
                       r'(?=\s+(?:within|in)\s+(?:\d|' + _NUMBER_WORD + r'))',
                       'refund timing applies', clause, flags=re.I)
     conditional_view = re.sub(r'\b(?:If|When)\b[^.!?;\n]{1,240},[^.!?;\n]{0,400}',
-                              generic_consequence, answer, flags=re.I)
+                              generic_consequence, _hindi_generic_prerequisite_view(answer), flags=re.I)
     text = re.sub(conditional, '', conditional_view, flags=re.I)
     text = re.sub(r"\b(?:has|have|had|is|are|was|were)\s+not\s+(?:yet\s+)?(?:been\s+)?" + _COMPLETED, '', text, flags=re.I)
     patterns = [

@@ -4,6 +4,7 @@ import json
 from types import SimpleNamespace
 
 import pytest
+from src.generation_diagnostics import GenerationValidationError,failure_diagnostics
 
 @pytest.fixture(scope='module')
 def staged():
@@ -140,10 +141,17 @@ def test_generation_repairs_requirement_polarity_once_without_policy_template(st
 def test_repeated_wrong_requirement_fails_without_authored_fallback(staged,sources):
     _,_,answers=staged
     client=ScriptedClient(*['No, your opened item cannot be returned. Products must be opened.']*2)
-    with pytest.raises(ValueError,match='contradicted_return_condition_polarity:opened'):
+    with pytest.raises(GenerationValidationError,match='^document_generation_failed:contradicted_return_condition_polarity$') as failure:
         answers.document_reply(client,'I opened Aster Tint. Can I return it?','en',sources,
                                facts=facts(staged,sources),context_provenance=True)
     assert len(client.calls)==2
+
+    diagnostics=failure_diagnostics(failure.value)
+    assert diagnostics['repair_errors']==['contradicted_return_condition_polarity', 'contradicted_return_condition_polarity']
+    assert diagnostics['validation_error']=='contradicted_return_condition_polarity'
+    assert diagnostics['generation_attempts']==len(client.calls)==2
+    assert diagnostics['repair_attempted'] is True and len(diagnostics['attempt_metrics'])==2
+    assert client.calls[1][0]['repair_validation_error']=='contradicted_return_condition_polarity:opened'
 
 
 @pytest.mark.parametrize('answer',[

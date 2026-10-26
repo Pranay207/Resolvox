@@ -1,6 +1,7 @@
 """Definite customer-state assertions remain distinct from source requirements."""
 import copy,json
 import pytest
+from src.generation_diagnostics import GenerationValidationError,failure_diagnostics
 from src import return_conditions as helper
 from src.document_answers import document_reply,CONTEXT_SYSTEM,CONTEXT_LANGUAGE
 
@@ -91,6 +92,13 @@ def test_one_repair_uses_only_original_inputs_with_unchanged_primary_prompt():
 
 def test_repeated_wrong_premise_fails_after_exactly_two_calls():
     client=Client('It is unopened.','It is unopened.')
-    with pytest.raises(ValueError,match='contradicted_customer_item_premise:opened'):
+    with pytest.raises(GenerationValidationError,match='^document_generation_failed:contradicted_customer_item_premise$') as failure:
         document_reply(client,QUERY,'en',SOURCES,facts=facts(),context_provenance=True)
     assert len(client.calls)==2
+
+    diagnostics=failure_diagnostics(failure.value)
+    assert diagnostics['repair_errors']==['contradicted_customer_item_premise', 'contradicted_customer_item_premise']
+    assert diagnostics['validation_error']=='contradicted_customer_item_premise'
+    assert diagnostics['generation_attempts']==len(client.calls)==2
+    assert diagnostics['repair_attempted'] is True and len(diagnostics['attempt_metrics'])==2
+    assert client.calls[1][1]['repair_validation_error']=='contradicted_customer_item_premise:opened'

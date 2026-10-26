@@ -13,6 +13,7 @@ from .normalize import order_id,proof_value,language,redact,number_words,public_
 from .llm import LLM,LLMUnavailable
 from .grounding import compatible,abstention
 from .document_answers import document_reply
+from .generation_diagnostics import failure_diagnostics, failure_validation_error, safe_attempt_metrics
 from .document_context import build_context
 from .source_inputs import source_input_clarification, make_source_input_workflow, resume_source_input, workflow_binding_sources, ModelCallProbe
 from .source_selection import select_policy_context
@@ -65,6 +66,47 @@ def _public_delivery_capability(query):
     return _delivery_capability_request(query)
 
 
+def _public_category_candidate(policy, text, *, awaiting_category=False):
+    """Bind ambiguous household/location words only in a product/category role.
+
+    This finite language filter is not policy evidence. Source workflow
+    validation still decides whether a bare category choice is allowed.
+    """
+    home = r'(?:\b(?:home|ghar|ghr)\b|(?<!\w)(?:\u0918\u0930|\u0939\u094b\u092e)(?!\w))'
+    noun = (r'(?:goods?|products?|items?|appliances?|furnishings?|decor|category|section|kitchen|'
+            r'samaan|saman|shreni|\u0938\u093e\u092e\u093e\u0928|\u0909\u0924\u094d\u092a\u093e\u0926|'
+            r'\u0935\u0938\u094d\u0924\u0941|\u0936\u094d\u0930\u0947\u0923\u0940|\u0915\u0948\u091f\u0947\u0917\u0930\u0940|\u0930\u0938\u094b\u0908)')
+    suffix = (r'\s*(?:(?:ka|ki|ke|and|or|aur|ya|&|\u0915\u093e|\u0915\u0940|\u0915\u0947|\u0914\u0930)\s*)?'
+              + noun + r'(?!\w)')
+    named = (r'(?:category|section|shreni|\u0936\u094d\u0930\u0947\u0923\u0940|\u0915\u0948\u091f\u0947\u0917\u0930\u0940)'
+             r'\s*(?:(?:is|hai|=|:)\s*)?$')
+    negative = (r"\b(?:not|never|no|nahi|nahin|cannot|[A-Za-z]+n['\u2019]t)\b|\u0928\u0939\u0940\u0902")
+    policy_action = r'\b(?:return\w*|refund\w*|exchang\w*|warrant\w*|repair\w*|cover\w*)\b'
+    bare = awaiting_category and bool(re.fullmatch(r'\s*' + home + r'\s*[.!?]*\s*', text, re.I))
+    scoped = text
+    for mention in reversed(list(re.finditer(home, text, re.I))):
+        before = re.split(r'[,;.!?\u0964\n]|\b(?:but|however|yet|lekin|magar)\b|\u0932\u0947\u0915\u093f\u0928', text[:mention.start()], flags=re.I)[-1][-60:]
+        after = text[mention.end():]
+        description = re.match(suffix, after, re.I)
+        end = mention.end() + (description.end() if description else 0)
+        post_negative = re.match(
+            r'\s*(?:(?:is|are|hai|hain)\s+)?(?:not|nahi|nahin|\u0928\u0939\u0940\u0902)(?:\s+(?:hai|hain|\u0939\u0948|\u0939\u0948\u0902))?\s*(?:[,;.!?\u0964]|$)',
+            text[end:], re.I)
+        positive = bare or description or re.search(named, before, re.I)
+        operators = list(re.finditer(negative, before, re.I))
+        tail = before[operators[-1].end():] if operators else ''
+        # Category selection/denial differs from a negative policy-action
+        # question. Contrast clauses and not-only quantifiers retain scope.
+        denied = bool(post_negative or (operators and not re.match(r'\s*only\b', tail, re.I)
+                       and not re.search(policy_action, tail, re.I)))
+        if positive and not denied:
+            scoped = scoped[:mention.start()] + 'home' + scoped[mention.end():]
+        else:
+            # Removing a negated noun phrase also removes its coordinated noun.
+            scoped = scoped[:mention.start()] + ' ' + scoped[end if denied else mention.end():]
+    return policy._category(scoped)
+
+
 class Resources:
     def __init__(self,dense:bool|None=None):
         self.data=Data(); self.kb=KnowledgeBase(); self.retriever=Retriever(self.kb,dense=dense); self.policy=Policy(self.kb,self.data); self.tools=Tools(); self.llm=LLM()
@@ -103,6 +145,7 @@ class Agent:
         if oid and oid!=s.order_id:
             if s.order_id is not None: s.pending_intent=''; s.pending_issue=''; s.last_intent=''
             s.order_id=oid; s.order=None
+            s.public_context={}
         if s.last_intent=='safety' and intent not in {'privacy','fraud','legal','human'} and re.search(r'try|test|charg|plug|use|turn.{0,4}on|repair|जाँच|चार्ज|चलाऊ|इस्तेमाल',text,re.I):
             intent='safety'
         credential=bool(re.search(r'(last.?four|last.?4|digits|(?:phone|mobile|number).{0,18}(?:ends?|suffix|last|ending)|आख़?िरी|अंतिम|अंक|aakhri|aakhiri|akhri)',text,re.I)) or bool(s.order_id and not s.order and re.search(r'pincode|pin code|पिनकोड',text,re.I))
@@ -118,7 +161,10 @@ class Agent:
         if workflow and not (oid or credential or proof) and (intent in {'unknown',workflow.get('intent')} or (intent=='payment' and workflow.get('requirement',{}).get('key')=='payment_method')):
             bound_sources=workflow_binding_sources(workflow,r.kb.chunks,r.data.products,r.data.pincodes)
             source_input_resumed=resume_source_input(workflow,safe_text,bound_sources,order_id=s.order_id,
-                candidate_product=r.policy.product(safe_text),candidate_category=r.policy._category(safe_text))
+                candidate_product=r.policy.product(safe_text),
+                candidate_category=_public_category_candidate(r.policy,safe_text,
+                    awaiting_category=workflow.get('awaiting_reply') is True
+                    and workflow.get('requirement',{}).get('key')=='return_category'))
             if source_input_resumed:
                 intent=source_input_resumed['intent']
                 s.public_context=dict(source_input_resumed['public_context'])
@@ -146,7 +192,9 @@ class Agent:
                 context['sku']=product['sku']
                 context.pop('category',None)
             else:
-                category=r.policy._category(safe_text)
+                category=(source_input_resumed['value']
+                    if source_input_resumed and source_input_resumed['key']=='return_category'
+                    else _public_category_candidate(r.policy,safe_text))
                 if category:
                     context['category']=category
                     context.pop('sku',None)
@@ -409,11 +457,11 @@ class Agent:
                     generation['explanation_decision']=generated['decision']
                     composition='source_generated_handover' if source_ids else 'uncertain_handover'
                 except (LLMUnavailable,ValueError,TypeError) as exc:
-                    validation_error=str(exc) if isinstance(exc,ValueError) else 'model_unavailable_or_invalid'
+                    generation.update(failure_diagnostics(exc, attempts=model_probe.calls,
+                        last_metrics=model_probe.last_metrics))
+                    validation_error=failure_validation_error(exc)
                     answer=abstention(s.language)+' '+outcome
                     composition='operational_handover_generation_failed'
-                    generation['generation_attempts']=model_probe.calls
-                    generation['repair_attempted']=model_probe.calls>1
                 llm_ms=1000*(time.perf_counter()-began) if model_probe.calls else 0.0
             else:
                 excerpt_sources=business_route['sources']
@@ -471,7 +519,9 @@ class Agent:
                         generation['workflow_input_resolution']={key:source_input_resumed[key] for key in ('key','value','source_ids')}
                         generation['workflow_input_resolution']['input_status']='customer_provided_unverified' if source_input_resumed.get('value') is not None else 'unresolved'
                 except (LLMUnavailable,ValueError,TypeError) as exc:
-                    validation_error=str(exc) if isinstance(exc,ValueError) else 'model_unavailable_or_invalid'
+                    generation.update(failure_diagnostics(exc, attempts=model_probe.calls,
+                        last_metrics=model_probe.last_metrics))
+                    validation_error=failure_validation_error(exc)
                     composition='abstained_model_or_evidence'
                     plan.decision='answer' if intent=='unknown' else 'refuse'
                 llm_ms=1000*(time.perf_counter()-began) if model_probe.calls else 0.0
@@ -505,6 +555,7 @@ class Agent:
                 'retrieval_mode':r.retriever.dense_status,'retrieval_k':12,'retrieval_direct_k':12,'retrieval_dependency_limit':4,'retrieval_candidate_limit':16,'retrieval_returned_count':len(candidates),'retrieval_direct_count':sum(x.get('retrieval_role')=='direct' for x in candidates),'retrieval_dependency_count':sum(x.get('retrieval_role')=='dependency' for x in candidates),'evidence_supported':supported,
                 'validation_error':validation_error,'citations':citations,'generation':generation,
                 'generation_context_sources':generation_context_sources,
-                'llm':r.llm.last_metrics.copy() if llm_ms else {},
+                'llm':(safe_attempt_metrics(r.llm.last_metrics) if generation.get('generation_failed')
+                       else r.llm.last_metrics.copy()) if llm_ms else {},
                 'timings':{'retrieval_ms':round(retrieval_ms,2),'llm_ms':round(llm_ms,2)},
                 'latency_ms':round(1000*(time.perf_counter()-start),2)}

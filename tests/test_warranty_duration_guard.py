@@ -4,6 +4,7 @@ import json
 from types import SimpleNamespace
 
 import pytest
+from src.generation_diagnostics import GenerationValidationError,failure_diagnostics
 
 @pytest.fixture(scope='module')
 def staged():
@@ -233,10 +234,17 @@ def test_generation_repairs_duration_omission_once_with_same_actual_context(stag
 def test_repeated_omission_raises_without_authored_policy_fallback(staged,sources):
     _,_,answers,_=staged
     client=ScriptedClient(*['Helio Secure is available. You can file claims in the app under My Orders.']*2)
-    with pytest.raises(ValueError,match='answer_constraint_missing:warranty_duration.assured.duration_months'):
+    with pytest.raises(GenerationValidationError,match='^document_generation_failed:answer_constraint_missing$') as failure:
         answers.document_reply(client,'Does ITEM-X have Helio Secure? How do I claim?','en',sources,
                                facts=build(staged,sources),context_provenance=True)
     assert len(client.calls) == 2
+
+    diagnostics=failure_diagnostics(failure.value)
+    assert diagnostics['repair_errors']==['answer_constraint_missing', 'answer_constraint_missing']
+    assert diagnostics['validation_error']=='answer_constraint_missing'
+    assert diagnostics['generation_attempts']==len(client.calls)==2
+    assert diagnostics['repair_attempted'] is True and len(diagnostics['attempt_metrics'])==2
+    assert client.calls[1][0]['repair_validation_error']=='answer_constraint_missing:warranty_duration.assured.duration_months'
 
 
 def test_provider_failure_does_not_render_a_warranty_template(staged,sources):

@@ -1,6 +1,7 @@
 """Validated uncertainty is an operation, never evidence of factual coverage."""
 import json
 import pytest
+from src.generation_diagnostics import GenerationValidationError,failure_diagnostics
 from src.document_answers import document_reply
 from src.llm import LLMUnavailable
 
@@ -114,9 +115,17 @@ def test_missing_source_bound_input_cannot_be_relabelled_as_answered_uncertainty
     table={'id':'unknown-table','text':'| Orchid | 17 calendar days | orchid |\n| Iris | 21 calendar days | iris |','doc_type':'policy','status':'current'}
     facts={'required_application_inputs':[{'key':'return_category','source_ids':[table['id']],'allowed_rows':[{'return_category':'orchid','return_window':'17 calendar days'},{'return_category':'iris','return_window':'21 calendar days'}]}]}
     client=Client(flags(),flags())
-    with pytest.raises(ValueError,match='missing_required_input:return_category'):
+    with pytest.raises(GenerationValidationError,match='^document_generation_failed:missing_required_input$') as failure:
         document_reply(client,'How long can I return it?','en',[table],facts=facts,context_provenance=True)
     assert len(client.calls)==2
+
+    diagnostics=failure_diagnostics(failure.value)
+    assert diagnostics['repair_errors']==['missing_required_input', 'missing_required_input']
+    assert diagnostics['validation_error']=='missing_required_input'
+    assert diagnostics['generation_attempts']==len(client.calls)==2
+    assert diagnostics['repair_attempted'] is True and len(diagnostics['attempt_metrics'])==2
+    assert client.calls[1]['payload']['repair_validation_error']=='missing_required_input:return_category'
+    assert client.calls[1]['payload']['repair_required_inputs'][0]['key']=='return_category'
 
 
 def test_provider_failure_does_not_create_an_uncertainty_answer():
