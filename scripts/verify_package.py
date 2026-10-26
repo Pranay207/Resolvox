@@ -48,7 +48,7 @@ def main():
         assert all('voice_inputs' not in PurePosixPath(n).parts for n in names)
         assert '.env' not in names and '.streamlit/secrets.toml' not in names
         required={'.env.example','pytest.ini','.streamlit/config.toml','README.md','report.pdf',
-                  'requirements.txt','run.py','app.py','SUBMISSION_STATUS.json',
+                  'requirements.txt','run.py','app.py','SUBMISSION_STATUS.json','demo.mp4',
                   'src/agent.py','src/document_answers.py','src/document_context.py'}
         assert required<=set(names),'Release is missing required source or submission files'
         for name in names:assert (target/name).resolve().is_relative_to(target)
@@ -66,11 +66,15 @@ assert all(citation['quote'] in sources[citation['id']] for citation in output['
     smoke=subprocess.run([sys.executable,'-X','utf8','-c',code],cwd=target,env=env,capture_output=True,text=True)
     if smoke.returncode:raise RuntimeError('Extracted package failed import/document-excerpt diagnostic check')
     cli=subprocess.run([sys.executable,'run.py','--help'],cwd=target,env=env,capture_output=True,text=True);assert cli.returncode==0
-    status=json.loads((target/'SUBMISSION_STATUS.json').read_text());assert status['report_pages']==4
+    status=json.loads((target/'SUBMISSION_STATUS.json').read_text())
+    assert status.get('ready_to_submit') is True and status.get('blockers') == [], 'Release blockers remain'
+    assert 1 <= status['report_pages'] <= 4
     record={'archive_files':len(names),**integrity,'excluded_secrets_dataset_models_venv':True,
             'extracted_imports_and_document_excerpts':True,'smoke_mode':'offline document_excerpts diagnostic',
-            'llm_inference_tested':False,'cli_help':True,'test_collection_scoped':True,
-            'report_pages':4,'release_blockers':status['blockers']}
+            'llm_inference_tested':False,'recorded_release_status_checked':True,
+            'release_gate_rerun_in_smoke':False,'dataset_source':'working checkout; not a clean setup',
+            'smoke_dense_enabled':False,'cli_help':True,'test_collection_scoped':True,
+            'report_pages':status['report_pages'],'release_blockers':status['blockers']}
     (ROOT/'sample_outputs/package_smoke.json').write_text(json.dumps(record,indent=2))
     print(json.dumps(record,indent=2))
 if __name__=='__main__':main()

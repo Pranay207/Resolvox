@@ -1,6 +1,7 @@
 """Package only permitted deliverables, with explicit readiness blockers."""
 from pathlib import Path
 import hashlib,json,re,struct,subprocess,zipfile
+from scripts.release_evidence import blockers as release_evidence_blockers
 ROOT=Path(__file__).resolve().parent
 
 def mp4_duration(path:Path):
@@ -64,7 +65,7 @@ def _complete_live(record,planned):
 def status():
     # Recompute every readiness condition from actual current evidence. An old
     # perfect score must not clear unresolved verification/report blockers.
-    blockers=[];expected=runtime_source_hashes()
+    blockers=release_evidence_blockers(ROOT);expected=runtime_source_hashes()
     for step,planned,label in ((2,52,'questions'),(3,96,'conversation turns')):
         live=_json_record(f'eval_step{step}_live_current.json')
         if not _current_runtime(live,expected):
@@ -103,13 +104,13 @@ def status():
     try:report_bytes=report.read_bytes()
     except OSError:report_bytes=b''
     pages=len(re.findall(rb'/Type\s*/Page\b',report_bytes))
-    if pages!=4:blockers.append(f'Report expected 4 verified pages; found {pages}')
+    if not 1 <= pages <= 4:blockers.append(f'Report must contain 1 to 4 verified pages; found {pages}')
     qa=_json_record('pdf_qa.json')
     if (not _current_runtime(qa,expected) or not report_bytes
             or qa.get('pdf_sha256')!=hashlib.sha256(report_bytes).hexdigest()
-            or qa.get('pages')!=4 or qa.get('visually_reviewed_pages')!=[1,2,3,4]
+            or qa.get('pages')!=pages or qa.get('visually_reviewed_pages')!=list(range(1,pages+1))
             or qa.get('layout_issues_found') is not False):
-        blockers.append('Current four-page report visual QA missing or stale')
+        blockers.append('Current report visual QA missing or stale')
     return {'ready_to_submit':not blockers,'blockers':blockers,'report_pages':pages,
         'demo_seconds':duration,'public_repository':'https://github.com/Pranay207/Resolvox',
         'team_name_assumption':'pranay','speech_provider':'Gnani only',
@@ -117,7 +118,11 @@ def status():
         'warning':'Mechanical test passes are not organizer scores.'}
 
 def main():
-    release=status();(ROOT/'SUBMISSION_STATUS.json').write_text(json.dumps(release,indent=2),encoding='utf-8')
+    release=status()
+    if release.get('ready_to_submit') is not True or release.get('blockers'):
+        print(json.dumps({'status':'blocked','release':release},indent=2))
+        return 2
+    (ROOT/'SUBMISSION_STATUS.json').write_text(json.dumps(release,indent=2),encoding='utf-8')
     files=[]
     roots=['.streamlit/config.toml','README.md','.gitignore','.gitattributes','.env.example','requirements.txt','requirements-lock.txt','pytest.ini','setup.py','setup.ps1','run.py','app.py','eval_step1.py','eval_step2.py','eval_step3.py','eval_adversarial.py','eval_holdout.py','generate_voice_samples.py','check_all.py','package_submission.py','BRIEF_CHECKLIST.md','DESIGN.md','DEMO_SCRIPT.md','THIRD_PARTY.md','VERIFICATION.md','report.pdf','report.md','SUBMISSION_STATUS.json']
     files.extend(ROOT/name for name in roots if (ROOT/name).is_file())

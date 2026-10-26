@@ -52,6 +52,8 @@ def verified_tree(tmp_path, monkeypatch):
         'runtime_source_sha256': hashes, 'pdf_sha256': hashlib.sha256(pdf).hexdigest(),
         'pages': 4, 'visually_reviewed_pages': [1, 2, 3, 4], 'layout_issues_found': False,
     })
+    from release_gate_fixtures import bind_complete_sequence
+    bind_complete_sequence(tmp_path)
     return tmp_path
 
 
@@ -137,7 +139,7 @@ def test_source_change_invalidates_otherwise_perfect_current_evidence(verified_t
     (verified_tree / 'src' / 'agent.py').write_text('# changed source\n', encoding='utf-8')
     release = package_submission.status()
     assert release['ready_to_submit'] is False
-    assert len(release['blockers']) == 5  # two live runs, engineering, speech, PDF QA
+    assert len(release['blockers']) >= 5  # source change also invalidates the complete sequence
 
 
 def test_missing_demo_remains_an_explicit_final_blocker(verified_tree, monkeypatch):

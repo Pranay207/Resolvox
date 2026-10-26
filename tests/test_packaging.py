@@ -15,7 +15,7 @@ def test_release_preserves_app_theme_and_excludes_local_settings(tmp_path, monke
     (tmp_path / '.env').write_text('GNANI_API_KEY=local-only')
     (tmp_path / 'app.py').write_text('import streamlit as st\nst.title("Resolvox")\n')
     monkeypatch.setattr(package_submission, 'ROOT', tmp_path)
-    monkeypatch.setattr(package_submission, 'status', lambda: {'ready_to_submit': False})
+    monkeypatch.setattr(package_submission, 'status', lambda: {'ready_to_submit': True, 'blockers': []})
 
     assert package_submission.main() == 0
 
@@ -60,7 +60,7 @@ def test_package_keeps_linked_engineering_xml_logs_without_widening_private_inpu
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(b'private or out of scope synthetic fixture')
     monkeypatch.setattr(package_submission, 'ROOT', tmp_path)
-    monkeypatch.setattr(package_submission, 'status', lambda: {'ready_to_submit': False})
+    monkeypatch.setattr(package_submission, 'status', lambda: {'ready_to_submit': True, 'blockers': []})
 
     assert package_submission.main() == 0
 

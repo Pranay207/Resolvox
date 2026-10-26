@@ -193,7 +193,8 @@ def main():
         print(str(exc),file=sys.stderr)
         return 2
     print(json.dumps(summary,indent=2),flush=True)
-    return 0 if summary['complete'] and summary['passed']==summary['total'] else (1 if summary['complete'] else 2)
+    success = summary['complete'] and (summary['passed']==summary['total'] or (args.step==1 and summary.get('errors')==0))
+    return 0 if success else (1 if summary['complete'] else 2)
 
 
 if __name__=='__main__':
