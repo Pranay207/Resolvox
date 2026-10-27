@@ -1,0 +1,27 @@
+{
+  "archived_at_utc": "2026-10-27T13:30:24.421381+00:00",
+  "scope": "Interrupted four-case local development pilot; only one case is recorded. The recorded case hit the 300-second request timeout. Remaining cases were not certified; no full-suite score is claimed.",
+  "summary": {
+    "planned": 4,
+    "checked": 1,
+    "passed": 0,
+    "complete": false
+  },
+  "files": [
+    {
+      "original_path": "tmp/live_question_pilots/postfix_core_four_20261026T165807287Z.json",
+      "archived_path": "sample_outputs/history/local_timeout_pilot_20261026T165807Z/postfix_core_four_20261026T165807287Z.json",
+      "sha256": "8ece008c53df327cc54de3736a6dd6ed2072a476aa0871fbe571bd6dc1004920"
+    },
+    {
+      "original_path": "tmp/pilot_20261026T165807287Z.stdout.log",
+      "archived_path": "sample_outputs/history/local_timeout_pilot_20261026T165807Z/pilot_20261026T165807287Z.stdout.log",
+      "sha256": "6253e110aea5bf2d270d4b8b42b4328789450631022c3083b370457c5274c13b"
+    },
+    {
+      "original_path": "tmp/pilot_20261026T165807287Z.stderr.log",
+      "archived_path": "sample_outputs/history/local_timeout_pilot_20261026T165807Z/pilot_20261026T165807287Z.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

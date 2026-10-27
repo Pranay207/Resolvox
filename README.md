@@ -87,8 +87,8 @@ GNANI_API_KEY=your_gnani_api_key
 LLM_PROVIDER=ollama
 LLM_BASE_URL=http://127.0.0.1:11435
 LLM_MODEL=qwen3:4b-instruct
-LLM_TIMEOUT=300
-RAG_LLM_TIMEOUT=300
+LLM_TIMEOUT=600
+RAG_LLM_TIMEOUT=600
 COMPOSE_WITH_LLM=true
 ```
 
@@ -100,7 +100,9 @@ Install the model when using the default local Ollama configuration:
 ollama pull qwen3:4b-instruct
 ```
 
-The example above reproduces the selected laptop configuration. The selected verification runs on the laptop using **Ollama `qwen3:4b-instruct` at `http://127.0.0.1:11435`**, with `LLM_TIMEOUT=300` and `RAG_LLM_TIMEOUT=300`. The before-fix 52-question local run completed at **39/52 mechanical passes** and is archived; fresh validation of the applied fixes, the same-model baseline and other batches remain pending. Hosted inference is not selected for these evaluations. The supported `.env.example` defaults remain local Ollama on port 11434 with 120-second request timeouts. Timeouts do not bound a complete turn. Ensure Ollama is serving on the configured port before launching the app.
+The example above reproduces the selected laptop configuration. The selected verification runs on the laptop using **Ollama `qwen3:4b-instruct` at `http://127.0.0.1:11435`**, with `LLM_TIMEOUT=600` and `RAG_LLM_TIMEOUT=600`. The before-fix 52-question local run completed at **39/52 mechanical passes** and is archived; fresh validation of the applied fixes, the same-model baseline and other batches remain pending. Hosted inference is not selected for these evaluations. The supported `.env.example` defaults remain local Ollama on port 11434 with 120-second request timeouts. Timeouts do not bound a complete turn. Ensure Ollama is serving on the configured port before launching the app.
+
+The selected laptop request timeout is now 600 seconds after a [development pilot reached the previous 300-second limit](sample_outputs/history/local_timeout_pilot_20261026T165807Z/postfix_core_four_20261026T165807287Z.json). This permits slow CPU inference; it is not a response-time target, and a repaired turn can make two requests. A new development subset targets the original 13 failed cases; it does not replace the full 52-question evaluation.
 
 To start an Ollama server on the selected port, use a separate terminal:
 

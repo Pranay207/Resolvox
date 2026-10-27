@@ -1,0 +1,18 @@
+{
+  "selection": {
+    "scope": "Development subset only, not the full 52-question result",
+    "question_ids": [
+      "PQ0002",
+      "PQ0028",
+      "PQ0045",
+      "PQ0058"
+    ],
+    "selected_rows_sha256": "300f0c482985ed9f736b798ab3a4ee5ab0d486470e8b7011c22f2d4cb2006782",
+    "pilot_driver_sha256": "ab3bf126f5ea1893e79c692ffc4ba4a64b1598f714a1c490bc5403432da82cf6"
+  },
+  "output": "tmp/live_question_pilots/postfix_core_four_20261026T165807287Z.json",
+  "local_only": true,
+  "scoring": "Unchanged src.evals.score",
+  "run_requested": true
+}
+PQ0002 False abstained_model_or_evidence
