@@ -145,7 +145,7 @@ def test_bad_date_and_action_fail_before_language_check_and_keep_normal_repair(f
     out = reply(client)
     assert out['answer'] == GOOD
     assert client.calls[1]['payload']['repair_validation_error'] == expected
-    assert client.calls[1]['system'] == client.calls[0]['system']
+    assert client.calls[1]['system'] == client.calls[0]['system'] + '\nHost repair task:\n' + client.calls[1]['payload']['repair_instruction']
     assert 'language_repair_contract' not in client.calls[1]['payload']
     assert len(client.calls) == 2
 
@@ -159,7 +159,7 @@ def test_other_unsupported_claims_never_enter_language_only_repair(suffix):
     out = reply(client)
     assert out['answer'] == GOOD
     assert client.calls[1]['payload']['repair_validation_error'] != 'wrong_output_language'
-    assert client.calls[1]['system'] == client.calls[0]['system']
+    assert client.calls[1]['system'] == client.calls[0]['system'] + '\nHost repair task:\n' + client.calls[1]['payload']['repair_instruction']
     assert 'language_repair_contract' not in client.calls[1]['payload']
 
 

@@ -83,7 +83,8 @@ def test_one_repair_uses_only_original_inputs_with_unchanged_primary_prompt():
     out=document_reply(client,QUERY,'en',SOURCES,facts=facts(),context_provenance=True)
     assert out['generation_attempts']==2 and out['repair_errors']==['contradicted_customer_item_premise:opened']
     first,second=client.calls
-    assert first[0]==second[0]==CONTEXT_SYSTEM+'\n'+CONTEXT_LANGUAGE['en']
+    assert first[0]==CONTEXT_SYSTEM+'\n'+CONTEXT_LANGUAGE['en']
+    assert second[0]==first[0]+'\nHost repair task:\n'+second[1]['repair_instruction']
     assert set(first[1])=={'source_text','deterministic_facts','reference_date','language','question'}
     assert first[1]['source_text']==second[1]['source_text']
     assert first[1]['deterministic_facts']==second[1]['deterministic_facts']

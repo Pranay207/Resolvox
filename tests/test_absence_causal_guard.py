@@ -57,7 +57,8 @@ def test_one_strict_uncertainty_repair_preserves_original_evidence_and_primary_p
     assert out['reply_kind']=='uncertainty' and out['evidence_status']=='insufficient_evidence'
     assert out['repair_errors']==['absence_causal_policy_denial']
     first,second=client.calls
-    assert first[0]==second[0]==CONTEXT_SYSTEM+'\n'+CONTEXT_LANGUAGE['en']
+    assert first[0]==CONTEXT_SYSTEM+'\n'+CONTEXT_LANGUAGE['en']
+    assert second[0]==first[0]+'\nHost repair task:\n'+second[1]['repair_instruction']
     assert set(first[1])=={'source_text','deterministic_facts','reference_date','language','question'}
     assert first[1]['source_text']==second[1]['source_text']==[SOURCE]
     assert 'repair_instruction' not in first[1]

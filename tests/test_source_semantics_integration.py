@@ -65,5 +65,5 @@ def test_semantic_error_precedes_wrong_language_and_uses_the_existing_single_rep
     out = reply(client, language='hi-en')
     assert out['answer'] == correct and out['generation_attempts'] == 2
     assert client.calls[1]['payload']['repair_validation_error'] == 'source_permission_reversed'
-    assert client.calls[0]['system'] == client.calls[1]['system']
+    assert client.calls[1]['system'] == client.calls[0]['system'] + '\nHost repair task:\n' + client.calls[1]['payload']['repair_instruction']
     assert 'language_repair_contract' not in client.calls[1]['payload']

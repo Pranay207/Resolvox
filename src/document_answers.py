@@ -992,6 +992,9 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                     CONTEXT_LANGUAGE[language])
         if attempt and context_provenance and language_contract is None:
             payload['repair_instruction'] = payload.get('repair_instruction', '') + " Also recheck applicable facts and constraints within this repair's required response type; the first error is not exhaustive. "
+        if attempt and context_provenance and language_contract is None:
+            # Only the host-authored task gains instruction priority.
+            call_system = system + '\nHost repair task:\n' + payload['repair_instruction']
         try:
             try:
                 raw = client.complete(
