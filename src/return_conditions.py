@@ -290,11 +290,13 @@ _POLARITY_ONLY_ITEMS = re.compile(
     r'\bonly\s+(?P<phrase>(?P<state>unopened|opened|open))\s+(?:products?|items?)\s+'
     r'(?:are\s+)?(?:returnable|eligible|can\s+be\s+returned)\b', re.I)
 _POLARITY_HI = re.compile(
-    r'(?P<phrase>(?:(?:\u0928\u0939\u0940\u0902|\u0928)\s+)?'
-    r'(?P<state>\u0905\u0928\u0916\u0941\u0932[\u093e\u0940\u0947]|\u0916\u0941\u0932[\u093e\u0940\u0947]|\u0916\u094b\u0932[\u093e\u0940\u0947])'
-    r'(?:\s+(?:\u0928\u0939\u0940\u0902|\u0928))?(?:\s+\u0917[\u090f\u092f\u0940])?'
-    r'(?:\s+(?:\u0928\u0939\u0940\u0902|\u0928))?\s+'
-    r'(?P<norm>\u0939\u094b\u0928[\u093e\u0947]\s+\u091a\u093e\u0939\u093f\u090f|\u0930\u0939\u0928[\u093e\u0947]\s+\u091a\u093e\u0939\u093f\u090f|\u0939\u094b\u0902))', re.I)
+    r'(?P<phrase>(?:(?:नहीं|न)\s+)?'
+    r'(?P<state>अनखुल[ाीे]|खुल[ाीे]|खोल[ाीे])'
+    r'(?:\s+(?:नहीं|न))?(?:\s+ग[एयी])?'
+    r'(?:\s+(?:नहीं|न))?\s+'
+    r'(?P<norm>होन[ाे]\s+चाहिए|रहन[ाे]\s+चाहिए|'
+    r'(?:होन[ाे]|रहन[ाे])\s+की\s+(?:आवश्यकता|ज़रूरत|जरूरत)\s+(?:है|होती\s+है)|'
+    r'(?:होन[ाे]|रहन[ाे])\s+(?:जरूरी|ज़रूरी|आवश्यक)\s+है|हों))', re.I)
 _POLARITY_ROMAN = re.compile(
     r'\b(?P<phrase>(?:(?:nahi|nahin|na)\s+)?(?P<state>unopened|opened|open|khula|khuli|khule|khola|kholi|khole)'
     r'(?:\s+(?:nahi|nahin|na))?(?:\s+(?:hua|hue|gaye))?'

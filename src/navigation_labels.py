@@ -30,10 +30,10 @@ def _parts(text):return re.findall(r'[^.!?;\u0964\n]+[.!?;\u0964\n]?',text)
 def _neutral(part):
  if '?' in part:return True
  # A negative/absence clause must not hide a later positive instruction.
- positive_tail=re.search(r'(?:,|\b(?:and|but|then|however|phir|lekin)\b)\s*(?:you\s+(?:can|should|must)\s+)?(?:click|tap|select|open|choose|fill|complete)\b',part,re.I)
+ positive_tail=re.search(r'(?:,|\b(?:and|but|then|however|phir|lekin)\b)\s*(?:you\s+(?:can|should|must)\s+)?(?:click|tap|select|open|choose|fill|complete|view|see|review|check)\b',part,re.I)
  if positive_tail:return False
  return (bool(_DOC.search(part) and _NEG.search(part))
-         or bool(re.search(r"\b(?:do\s+not|don't|never|cannot|can't)\s+(?:\w+\s+){0,2}(?:click|tap|select|open|press)\b|\b(?:click|tap)\s+(?:mat|nahi|nahin)\b",part,re.I)))
+         or bool(re.search(r"\b(?:do\s+not|don't|never|cannot|can't)\s+(?:\w+\s+){0,2}(?:click|tap|select|open|press|view|see|review|check)\b|\b(?:click|tap)\s+(?:mat|nahi|nahin)\b",part,re.I)))
 
 def _candidates(prefix,*,source=False):
  prefix=prefix.rstrip()
@@ -154,6 +154,15 @@ def _procedure_mentions(part):
            r'(?P<object>'+_RECORD_WORDS+r')(?:\s+(?:ko|ka|par|pe|mein|me|\u0915\u094b))?\s*(?:select|choose|\u091a\u0941\u0928\u0947\u0902|\u091a\u092f\u0928\s*\u0915\u0930\u0947\u0902)\b']
  for pattern in patterns:
   for match in re.finditer(pattern,part,re.I):steps.add(('select_record',_record_object(match['object'])))
+ # Viewing a record is a distinct interaction from a documented location.
+ # Bind only explicit record/detail verbs; payment or product choices remain
+ # outside this typed procedure check.
+ details=[r'\b(?:view|see|review|check|open)\s+(?:(?:the|your|this|that|an?|specific|relevant)\s+){0,3}(?P<object>'+_RECORD_WORDS+r')\s+(?:details|information)\b',
+          r'(?P<object>'+_RECORD_WORDS+r')\s+(?:ki\s+)?details\s+(?:ko\s+)?(?:dekhne|dekhein|dekhen|dekho)\b']
+ for pattern in details:
+  for match in re.finditer(pattern,part,re.I):steps.add(('view_record_details',_record_object(match['object'])))
+ for match in re.finditer(r'(?P<object>'+_RECORD_WORDS+r')\s+(?:ko\s+)?(?:dikhayein|dikhaayein|dekhein|dekhen|dekho)\b',part,re.I):
+  steps.add(('view_record',_record_object(match['object'])))
  form=r'(?:\bforms?\b|\u092b\u0949\u0930\u094d\u092e|\u092b\u093e\u0930\u094d\u092e)'
  fill=r'(?:\b(?:fill|complete|bharein|bharen|bharo|bharna)\b|\u092d\u0930\u0947\u0902|\u092d\u0930\u093f\u090f)'
  if re.search(fill+r'[^.!?;\n]{0,70}'+form+'|'+form+r'[^.!?;\n]{0,70}'+fill,part,re.I):steps.add(('complete_form','form'))

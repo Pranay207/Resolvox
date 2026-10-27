@@ -6,7 +6,7 @@ These are local measurements, not organizer scores. The source-only answer corre
 
 | Check | Current record |
 | --- | --- |
-| Engineering of applied fixes | **2670/2670 passed**; no failures/errors/skips; [receipt](sample_outputs/engineering_verification.json) |
+| Engineering of applied fixes | **2697/2697 passed**; no failures/errors/skips; [receipt](sample_outputs/engineering_verification.json) |
 | Historical engineering at `5c4df02` | **2069/2069 passed**; no failures, errors or skips; [JUnit](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/pytest.xml) |
 | Live grounded practice | **Fresh 52-question run pending**; [before-fix run completed at 39/52](sample_outputs/history/local_52_before_fixes_20261026T161207Z/eval_step2_live_current.json) |
 | Live conversations | **96 turns planned; rerun pending** |
@@ -17,7 +17,7 @@ These are local measurements, not organizer scores. The source-only answer corre
 | Report rendering and page QA (maximum four) | Existing PDF is a draft; regeneration and QA pending |
 | Final ZIP extraction/hash/secret checks | No ZIP exists; create and verify only after all required evidence and the demo are complete |
 
-The current [engineering receipt](sample_outputs/engineering_verification.json) records **2670/2670 passed**, no failures/errors/skips, and unchanged runtime, test, dataset and verification-helper hashes. The [JUnit XML](sample_outputs/engineering_artifacts/20261026T165603484127Z_8702ddbb/pytest.xml) records **72.514 seconds**; pytest process wall time was **79.791 seconds**. The [dataset log](sample_outputs/engineering_artifacts/20261026T165603484127Z_8702ddbb/dataset_validation.log) records a passed official validation: 9 CSVs, 21 KB documents, 1,000 orders, 1,783 items, 244 support logs, 52 practice questions and 23 conversations. This offline pass does not certify model answers or speech. The receipt started from HEAD `c88edc7` with a dirty working tree and certifies recorded file hashes; it must not be described as a run started at a later commit.
+The current [engineering receipt](sample_outputs/engineering_verification.json) records **2697/2697 passed**, no failures/errors/skips, and unchanged runtime, test, dataset and verification-helper hashes. The [JUnit XML](sample_outputs/engineering_artifacts/20261027T174120173411Z_43b5be8f/pytest.xml) records **172.889 seconds**; pytest process wall time was **196.216 seconds**. The [dataset log](sample_outputs/engineering_artifacts/20261027T174120173411Z_43b5be8f/dataset_validation.log) records a passed official validation: 9 CSVs, 21 KB documents, 1,000 orders, 1,783 items, 244 support logs, 52 practice questions and 23 conversations. This offline pass does not certify model answers or speech. The receipt started from HEAD `2f48838` with a dirty working tree and certifies recorded file hashes; it must not be described as a run started at a later commit.
 
 The historical 2069-case suite was offline and made no model inference. Its [unchanged receipt](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/engineering_verification.json) retains the compatible/Groq settings selected when that engineering run started; those settings are not evidence of a hosted question evaluation and have not been rewritten for the current laptop configuration.
 
@@ -110,7 +110,7 @@ Recorded dataset validation passed **9 CSVs, 21 KB documents, 1,000 orders, 1,78
 
 ## Remaining validation and release
 
-- Current engineering passed 2670/2670 against matching tested file hashes. Fresh full local practice, same-model baseline and speech results remain pending; the older 2069-case pass is historical.
+- Current engineering passed 2697/2697 against matching tested file hashes. Fresh full local practice, same-model baseline and speech results remain pending; the older 2069-case pass is historical.
 - Rebuild/render the report and verify revised archive hashes, configured-secret scan and extracted-package smoke test.
 - The current live exposed regression and same-model baseline are pending. No new blind holdout or controlled cold-start study is complete.
 - Human speech, noise robustness and subjective listening remain unverified.

@@ -206,16 +206,16 @@ See [DESIGN.md](DESIGN.md) for the state model, retrieval strategy and evidence 
 
 ## Evaluation
 
-The source-only runtime has further fixes applied on **26 October 2026**. Current engineering passed **2670/2670** against matching tested file hashes; fresh full local model and speech validation remain pending:
+The source-only runtime has further fixes applied on **27 October 2026**. Current engineering passed **2697/2697** against matching tested file hashes; fresh full local model and speech validation remain pending:
 
 | Check | Current record | Evidence |
 | --- | --- | --- |
-| Engineering of the applied fixes | **2670/2670 passed**; no failures, errors or skips | [Receipt](sample_outputs/engineering_verification.json); 72.514 s JUnit, 79.791 s pytest wall; no model inference |
+| Engineering of the applied fixes | **2697/2697 passed**; no failures, errors or skips | [Receipt](sample_outputs/engineering_verification.json); 172.889 s JUnit, 196.216 s pytest wall; no model inference |
 | Historical engineering at `5c4df02` | **2069/2069 passed**; no failures, errors or skips | [JUnit](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/pytest.xml); 51.561 s JUnit, 56.357 s pytest wall; no model inference |
 | Current source-only policy questions | **Fresh 52-question run pending** | [Before-fix run: 39/52 mechanical passes](sample_outputs/history/local_52_before_fixes_20261026T161207Z/eval_step2_live_current.json) |
 | Current source-only conversation turns | **Rerun pending**; 96 planned | Completion and composition will be recorded in current JSON |
 | Current Gnani synthetic round trips | **Rerun pending** | Earlier speech evidence remains historical |
-| Current dataset validation | **Passed**; 9 CSVs, 21 KB documents, 1,000 orders and 1,783 items | [Dataset log](sample_outputs/engineering_artifacts/20261026T165603484127Z_8702ddbb/dataset_validation.log) |
+| Current dataset validation | **Passed**; 9 CSVs, 21 KB documents, 1,000 orders and 1,783 items | [Dataset log](sample_outputs/engineering_artifacts/20261027T174120173411Z_43b5be8f/dataset_validation.log) |
 
 The planned verification order is 52 questions, 96 conversation turns, 77 development checks, 91 exposed regression responses, a 52-question same-model baseline, six Gnani round trips and silence recovery. The completed before-fix run is archived; the applied fixes require a fresh 52-question stage and the remaining batches. No current-runtime completion result is claimed.
 
