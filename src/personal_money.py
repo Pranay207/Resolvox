@@ -70,7 +70,14 @@ def _negated_amount(part,match):
 def _conditional_amount(part,match,role):
  prefix=part[:match.start()]
  if re.search(r'\b(?:for\s+example|for\s+instance|hypothetically|suppose|assuming|maan\s+lijiye|udaharan)\b[^;]{0,80}$',prefix,re.I):return True
- if re.search(r'\b(?:if|agar|yadi)\b[^;]{0,70}$|(?:\u0905\u0917\u0930|\u092f\u0926\u093f)[^;]{0,70}$',prefix,re.I):
+ # An article does not turn an explicit payment premise into a fact.
+ # Require the conditional marker to govern that payment predicate directly;
+ # an unrelated late-delivery condition cannot establish a paid amount.
+ if role=='paid_amount' and re.search(
+     r'\b(?:if|assuming|provided(?:\s+that)?)\s+(?:(?:you|i|we|the\s+customer|a\s+customer)\s+)?'
+     r'(?:(?:have|had)\s+)?(?:paid|pay)\s+(?:the|a|an)\s*$',prefix,re.I):return True
+ condition=re.search(r'\b(?:if|agar|yadi)\b[^;]{0,70}$|(?:\u0905\u0917\u0930|\u092f\u0926\u093f)[^;]{0,70}$',prefix,re.I)
+ if condition and not re.search(r'\b(?:then|therefore|hence|thus|so)\b',condition[0],re.I):
   if role=='refund_amount':
    premise=r'(?:refund(?:\s+amount)?|\u0930\u093f\u092b\u093c?\u0902\u0921)\s*(?:(?:is|were|was|equals|of|hai|ho)\s*)?$'
   else:premise=r'(?:paid|pay|payment|\u092d\u0941\u0917\u0924\u093e\u0928)\s*(?:(?:is|were|was|of|kiya)\s*)?$'
