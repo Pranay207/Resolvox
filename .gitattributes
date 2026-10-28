@@ -9,6 +9,7 @@
 *.zip binary
 
 # Preserve captured evidence bytes referenced by SHA-256 receipts.
+sample_outputs/** -text whitespace=cr-at-eol
 sample_outputs/engineering_artifacts/** -text whitespace=cr-at-eol
 sample_outputs/engineering_verification.json -text whitespace=cr-at-eol
 sample_outputs/history/boolean_context_first_pass/** -text whitespace=cr-at-eol
