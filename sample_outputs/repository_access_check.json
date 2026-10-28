@@ -1,0 +1,12 @@
+{
+  "observed_on": "2026-10-28",
+  "repository": "https://github.com/Pranay207/Resolvox",
+  "visibility": "private",
+  "visibility_confirmed_by": "user",
+  "unauthenticated_api_status": 404,
+  "original_ESD_url_unauthenticated_api_status": 404,
+  "public_control_repository": "ollama/ollama",
+  "public_control_api_status": 200,
+  "owner_next_action": "Make the repository public after verification and final pushes are complete, then recheck anonymous access.",
+  "scope": "Repository access metadata only; the owner explicitly chose to publish after completion."
+}

@@ -16,7 +16,7 @@ Source: `voiceops_2026_capstone_brief.pdf`. These checks describe inspectable be
 - [x] Verify before private order disclosure; one retry; redact proof values and private contact fields from traces/model input.
 - [x] Reference date 20 October 2026, Mon-Sat business days excluding holidays, calendar-day returns and successor-authorized historical scope.
 - [x] Gnani STT -> same agent -> Gnani TTS adapter, served model selection, batch failure isolation and real-WAV validation.
-- [x] Public repository, installation instructions, dependencies, `.env.example` and exact organizer batch command.
+- [x] Repository URL, installation instructions, dependencies, `.env.example` and exact organizer batch command documented.
 - [x] Frozen independent holdout fixture and checker: 64 singles + 10 scenarios/27 turns = 91 judged responses.
 
 ## Current verification
@@ -60,6 +60,8 @@ These runs predate the final source-only revision and **do not establish its per
 Raw failures/provenance remain retained. Human accents/noise and subjective listening have not been verified. See `VERIFICATION.md` for the runtime boundary.
 
 ## Final submission and additional validation
+
+- [ ] Owner makes the repository public after verification and final pushes, then confirms anonymous access. The [current access check](sample_outputs/repository_access_check.json) records private development visibility.
 
 The reviewed fixes passed current engineering (2770/2770) against matching tested file hashes. The before-fix local run is archived at **39/52 mechanical passes**. Fresh current-runtime practice, the same-model baseline, other live/speech checks, refreshed report and verified final package remain pending. No submission ZIP exists. The user records the demo last.
 

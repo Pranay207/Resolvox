@@ -18,6 +18,7 @@ The [five-case development rerun](sample_outputs/history/applied_repair_five_202
 | Live exposed regression | **91 planned; pending** |
 | Gnani synthetic end-to-end speech | Six round trips and silence recovery pending |
 | Report rendering and page QA (maximum four) | Existing PDF is a draft; regeneration and QA pending |
+| Repository access | Private during development; owner will make it public after verification and final pushes. [Access record](sample_outputs/repository_access_check.json) |
 | Final ZIP extraction/hash/secret checks | No ZIP exists; create and verify only after all required evidence and the demo are complete |
 
 The current [engineering receipt](sample_outputs/engineering_verification.json) records **2770/2770 passed**, no failures/errors/skips, and unchanged runtime, test, dataset and verification-helper hashes. The [JUnit XML](sample_outputs/engineering_artifacts/20261028T174308921749Z_dc857670/pytest.xml) records **126.457 seconds**; pytest process wall time was **141.927 seconds**. The [dataset log](sample_outputs/engineering_artifacts/20261028T174308921749Z_dc857670/dataset_validation.log) records a passed official validation: 9 CSVs, 21 KB documents, 1,000 orders, 1,783 items, 244 support logs, 52 practice questions and 23 conversations. This offline pass does not certify model answers or speech. The receipt started from HEAD `0c74024` with a dirty working tree and certifies recorded file hashes; it must not be described as a run started at a later commit.
