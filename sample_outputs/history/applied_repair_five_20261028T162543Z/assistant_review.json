@@ -1,0 +1,116 @@
+{
+  "scope": "Assistant source review of a five-case exposed development subset, not independent human certification, organizer scoring or a complete 52-question result. Primary response-cache hits were reused where recorded; final repairs were actual uncached local model calls.",
+  "predictions_sha256": "4a047c8d062e7748bfd38a7f934f84d67ca4b82ab75334967f98f8afb9d8ef83",
+  "mechanical_passed": 5,
+  "mechanical_checked": 5,
+  "results": [
+    {
+      "id": "PQ0002",
+      "review": "supported_with_stated_limits",
+      "note": "Correct catalog-linked warranty duration, delivery start event and documented app location; no invented navigation step.",
+      "generation_source_ids": [
+        "WAR-1",
+        "WAR-2",
+        "WAR-3",
+        "products.csv:ELE-0012",
+        "RET-1",
+        "RET-2",
+        "MKS-3",
+        "DWM-4",
+        "MKS-1",
+        "MKS-2",
+        "RET-3",
+        "RET-4",
+        "RET-8",
+        "REF-1",
+        "DWM-3",
+        "DEL-5"
+      ]
+    },
+    {
+      "id": "PQ0005",
+      "review": "supported_with_stated_limits",
+      "note": "Correct catalog-linked warranty duration, delivery start event and documented app location; no invented navigation step.",
+      "generation_source_ids": [
+        "WAR-1",
+        "WAR-2",
+        "WAR-3",
+        "products.csv:ELE-0002",
+        "RET-1",
+        "RET-2",
+        "MKS-3",
+        "DWM-4",
+        "MKS-1",
+        "MKS-2",
+        "RET-4",
+        "RET-3",
+        "RET-8",
+        "RET-7",
+        "DWM-3",
+        "DEL-5"
+      ]
+    },
+    {
+      "id": "PQ0013",
+      "review": "supported_with_stated_limits",
+      "note": "Keeps the reported opened state separate from the unopened/intact-seal requirements and states that the ordinary condition is not met. Does not invent a reported seal state. Hindi phrasing remains awkward.",
+      "generation_source_ids": [
+        "RET-4",
+        "products.csv:BTY-0052",
+        "RET-2",
+        "RET-1",
+        "RET-5",
+        "RET-8",
+        "MKS-3",
+        "WAR-1",
+        "DWM-1",
+        "WAR-2",
+        "MKS-2",
+        "CPN-3",
+        "MKS-1",
+        "DEL-1"
+      ]
+    },
+    {
+      "id": "PQ0047",
+      "review": "supported_with_stated_limits",
+      "note": "Credit is conditional on paying the Express fee; retains the member exclusion, automatic 48-hour timing and lack of Standard compensation. Does not assert a completed customer credit.",
+      "generation_source_ids": [
+        "DEL-4",
+        "DEL-1",
+        "DEL-2",
+        "REF-1",
+        "REF-3",
+        "PLS-2",
+        "DEL-5",
+        "CAN-3",
+        "CAN-2",
+        "TRK-2",
+        "RET-8",
+        "TRK-1",
+        "KB-00.3"
+      ]
+    },
+    {
+      "id": "PQ0050",
+      "review": "supported_with_stated_limits",
+      "note": "Offers both COD refund choices with their separate timing and bank-verification prerequisite. Does not claim a refund was initiated or completed. The answer is a concise option list.",
+      "generation_source_ids": [
+        "REF-3",
+        "REF-2",
+        "REF-5",
+        "PAY-3",
+        "PAY-1",
+        "RET-6",
+        "CAN-2",
+        "RET-7",
+        "REF-6",
+        "REF-4",
+        "PAY-2",
+        "PAY-4",
+        "DEL-4",
+        "PLS-2"
+      ]
+    }
+  ]
+}

@@ -4,6 +4,9 @@ These are local measurements, not organizer scores. The source-only answer corre
 
 ## Current source-only runtime
 
+The [five-case development rerun](sample_outputs/history/applied_repair_five_20261028T162543Z/predictions.json) passed **5/5** after the latest repairs. The [assistant source review](sample_outputs/history/applied_repair_five_20261028T162543Z/assistant_review.json) records the meaning and limits of those answers. This subset does not replace the fresh 52-question run, which is now in progress with an initially empty application response cache; model/prompt caches were not reset.
+
+
 | Check | Current record |
 | --- | --- |
 | Engineering of applied fixes | **2770/2770 passed**; no failures/errors/skips; [receipt](sample_outputs/engineering_verification.json) |

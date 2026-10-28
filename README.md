@@ -206,6 +206,9 @@ See [DESIGN.md](DESIGN.md) for the state model, retrieval strategy and evidence 
 
 ## Evaluation
 
+The [five-case development rerun](sample_outputs/history/applied_repair_five_20261028T162543Z/predictions.json) passed **5/5** after the latest repairs. The [assistant source review](sample_outputs/history/applied_repair_five_20261028T162543Z/assistant_review.json) records the meaning and limits of those answers. This subset does not replace the fresh 52-question run, which is now in progress with an initially empty application response cache; model/prompt caches were not reset.
+
+
 The source-only runtime has further fixes applied on **28 October 2026**. Current engineering passed **2770/2770** against matching tested file hashes; fresh full local model and speech validation remain pending:
 
 | Check | Current record | Evidence |
