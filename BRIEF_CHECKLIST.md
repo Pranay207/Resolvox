@@ -21,7 +21,7 @@ Source: `voiceops_2026_capstone_brief.pdf`. These checks describe inspectable be
 
 ## Current verification
 
-- [x] Engineering of the applied fixes: **2724/2724 passed**, no failures/errors/skips, **98.233 s JUnit** and **106.320 s pytest wall**. The [receipt](sample_outputs/engineering_verification.json) and [JUnit](sample_outputs/engineering_artifacts/20261028T141937203160Z_8e5bf43f/pytest.xml) bind actual tested file hashes. The official dataset validator passed. Historical `5c4df02` engineering passed 2069/2069.
+- [x] Engineering of the applied fixes: **2770/2770 passed**, no failures/errors/skips, **142.746 s JUnit** and **153.065 s pytest wall**. The [receipt](sample_outputs/engineering_verification.json) and [JUnit](sample_outputs/engineering_artifacts/20261028T162235993682Z_cc2ec7f5/pytest.xml) bind actual tested file hashes. The official dataset validator passed. Historical `5c4df02` engineering passed 2069/2069.
 - [ ] Fresh source-only questions for applied fixes: **52 planned; pending**. The [before-fix local run](sample_outputs/history/local_52_before_fixes_20261026T161207Z/eval_step2_live_current.json) completed at **39/52 mechanical passes**, with 13 failures.
 - [ ] Source-only live conversations: **96 turns planned; rerun pending**. Current output will be `sample_outputs/eval_step3_live_current.json`.
 - [ ] Current same-model prompt-only baseline: **52 planned**, to run with `python scripts/resume_live_practice.py --step 1`.
@@ -61,7 +61,7 @@ Raw failures/provenance remain retained. Human accents/noise and subjective list
 
 ## Final submission and additional validation
 
-The reviewed fixes passed current engineering (2724/2724) against matching tested file hashes. The before-fix local run is archived at **39/52 mechanical passes**. Fresh current-runtime practice, the same-model baseline, other live/speech checks, refreshed report and verified final package remain pending. No submission ZIP exists. The user records the demo last.
+The reviewed fixes passed current engineering (2770/2770) against matching tested file hashes. The before-fix local run is archived at **39/52 mechanical passes**. Fresh current-runtime practice, the same-model baseline, other live/speech checks, refreshed report and verified final package remain pending. No submission ZIP exists. The user records the demo last.
 
 - [ ] Current live exposed-regression evaluation is pending. Historical holdout results are offline; a new live run still does not make the exposed set independent.
 - [ ] Controlled cold-start latency has **not** been measured. Per-turn uncached and cache measurements exclude prior resource startup and are not cold-start measurements.
