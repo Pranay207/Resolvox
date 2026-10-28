@@ -1,0 +1,50 @@
+{
+  "created_at_utc": "2026-10-28T17:31:06.644909+00:00",
+  "entries": [
+    {
+      "original": "sample_outputs/eval_step2_live_current.json",
+      "preserved": "sample_outputs/history/before_remaining_live_20261028T173105879468Z_4049c7e9/sample_outputs/eval_step2_live_current.json",
+      "operation": "move",
+      "files_sha256": {
+        ".": "19a3e846aee634cb1795573d96ebb08480d67f3727568652ae70922d6a983534"
+      },
+      "bytes_verified": true
+    },
+    {
+      "original": "sample_outputs/live_sequence_receipt.json",
+      "preserved": "sample_outputs/history/before_remaining_live_20261028T173105879468Z_4049c7e9/sample_outputs/live_sequence_receipt.json",
+      "operation": "move",
+      "files_sha256": {
+        ".": "7ef0589a02e1d383c287656bbdb1e9f0f16b716b0ad447037a3733c00e2a0193"
+      },
+      "bytes_verified": true
+    },
+    {
+      "original": "sample_outputs/voice_inputs",
+      "preserved": "sample_outputs/history/before_remaining_live_20261028T173105879468Z_4049c7e9/sample_outputs/voice_inputs",
+      "operation": "copy",
+      "files_sha256": {
+        "01_en.wav": "94b88cf980d39b47db21174fbca8db38693ff5c710f58c29146e80fd80fac2cb",
+        "02_hi.wav": "a758b0ccd319cf0679e8001a8cd286f3ddbc47fb38d32811dbc626b65aa56310",
+        "03_hinglish.wav": "a326e0df11a77920580c6d1ab2bd19adde53a8e779333c7a76b24a53685ec180",
+        "04_identity__01.wav": "77c89f4b5c1983d218bd1adaad6a3afd6e9105f056f15ef411e5846fef237308",
+        "04_identity__02.wav": "e62d88c0d8088b74a60fbc6da4bb2b85cbd817868903f6b81656ff28d0000499",
+        "04_identity__03.wav": "70f504423ce99dde84d373993d413d29551e326e219504eb8938d7c60bcaa149",
+        "sessions.json": "929f08b8214a0f2251ac1100e8acd93357c19f6fc57e310071fc5f9af2768931"
+      },
+      "bytes_verified": true
+    },
+    {
+      "original": "tmp/voice_recovery_inputs",
+      "preserved": "sample_outputs/history/before_remaining_live_20261028T173105879468Z_4049c7e9/tmp/voice_recovery_inputs",
+      "operation": "copy",
+      "files_sha256": {
+        "20261025T084024232306Z/silence.wav": "643f8a8dc8bd9c19225afffad2becfec5426180b3749cb208abdf1a6c8354efc",
+        "20261025T084253622883Z/silence.wav": "643f8a8dc8bd9c19225afffad2becfec5426180b3749cb208abdf1a6c8354efc"
+      },
+      "bytes_verified": true
+    }
+  ],
+  "engineering_receipt_untouched": true,
+  "llm_cache_untouched": true
+}

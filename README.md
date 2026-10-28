@@ -102,16 +102,19 @@ ollama pull qwen3:4b-instruct
 
 The example above reproduces the selected laptop configuration. The selected verification runs on the laptop using **Ollama `qwen3:4b-instruct` at `http://127.0.0.1:11435`**, with `LLM_TIMEOUT=600` and `RAG_LLM_TIMEOUT=600`. The before-fix 52-question local run completed at **39/52 mechanical passes** and is archived; fresh validation of the applied fixes, the same-model baseline and other batches remain pending. Hosted inference is not selected for these evaluations. The supported `.env.example` defaults remain local Ollama on port 11434 with 120-second request timeouts. Timeouts do not bound a complete turn. Ensure Ollama is serving on the configured port before launching the app.
 
+The [recorded local server configuration](sample_outputs/local_ollama_configuration.json) uses Ollama **0.40.12** with a **512 MiB host prompt-cache limit**, retaining the selected model and 4,096-token request context. Set `LLAMA_ARG_CACHE_RAM` in the server terminal as shown below; this is a per-process memory setting. The setting is documented by an [Ollama collaborator](https://github.com/ollama/ollama/issues/17351). Full validation is being rerun under this recorded configuration.
+
 The selected laptop request timeout is now 600 seconds after a [development pilot reached the previous 300-second limit](sample_outputs/history/local_timeout_pilot_20261026T165807Z/postfix_core_four_20261026T165807287Z.json). This permits slow CPU inference; it is not a response-time target, and a repaired turn can make two requests. A new development subset targets the original 13 failed cases; it does not replace the full 52-question evaluation.
 
 To start an Ollama server on the selected port, use a separate terminal:
 
 ```powershell
 $env:OLLAMA_HOST='127.0.0.1:11435'
+$env:LLAMA_ARG_CACHE_RAM='512'
 ollama serve
 ```
 
-For macOS/Linux, use `OLLAMA_HOST=127.0.0.1:11435 ollama serve`. Keep the default port 11434 when using the unchanged `.env.example` configuration.
+For macOS/Linux, use `LLAMA_ARG_CACHE_RAM=512 OLLAMA_HOST=127.0.0.1:11435 ollama serve`. Keep the default port 11434 when using the unchanged `.env.example` configuration.
 
 <details>
 <summary>Use a compatible hosted LLM instead</summary>

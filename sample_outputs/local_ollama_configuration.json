@@ -1,0 +1,31 @@
+{
+  "started_at_utc": "2026-10-28T17:29:14.470245+00:00",
+  "pid": 40756,
+  "host": "127.0.0.1:11435",
+  "cloud_disabled": true,
+  "parallel_requests": 1,
+  "max_loaded_models": 1,
+  "requested_prompt_cache_ram_mib": 512,
+  "setting": "LLAMA_ARG_CACHE_RAM",
+  "version": "0.40.12",
+  "verified_prompt_cache_ram_mib": 512,
+  "verification_log_lines": [
+    "srv    load_model: prompt cache is enabled, size limit: 512 MiB",
+    "srv    load_model: use `--cache-ram 0` to disable the prompt cache",
+    "srv          init: idle slots will be saved to prompt cache upon starting a new task",
+    "srv  get_availabl: updating prompt cache",
+    "srv  get_availabl: prompt cache update took 0.90 ms"
+  ],
+  "preflight_scope": "One generic one-token local warm-up; not a practice question or a cold-start benchmark.",
+  "model": "qwen3:4b-instruct",
+  "num_ctx": 4096,
+  "source": "https://github.com/ollama/ollama/issues/17351",
+  "scope": "Local server configuration evidence only; no question pass rate or latency benchmark is claimed.",
+  "interrupted_partial": {
+    "checked": 4,
+    "passed": 4,
+    "complete": false,
+    "reason": "Restarted to bound host prompt-cache memory; completed predictions were preserved unchanged.",
+    "archive": "sample_outputs/history/before_remaining_live_20261028T173105879468Z_4049c7e9"
+  }
+}
