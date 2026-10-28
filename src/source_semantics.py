@@ -420,6 +420,19 @@ def derive_source_constraints(sources):
     return constraints
 
 
+def _membership_label_present(text, full_label, labels):
+    """A short membership name cannot match a different named group."""
+    normalized = _norm(text)
+    for name in labels:
+        for match in re.finditer(r'(?<!\w)' + re.escape(name) + r'(?!\w)', normalized):
+            if name == full_label:
+                return True
+            prefix = normalized[:match.start()].split()
+            if not prefix or prefix[-1] in {'for', 'the', 'all', 'our', 'with', 'and', 'but', 'of', 'only'}:
+                return True
+    return False
+
+
 def validate_source_semantics(answer, sources):
     """Reject only the explicitly represented relationships; return provenance.
 
@@ -454,11 +467,25 @@ def validate_source_semantics(answer, sources):
             labels = {label}
             if len(label_tokens) == 2:
                 labels.add(label_tokens[-1])
+            # A nonrestrictive fee-only clause does not change the subject
+            # of the following credit predicate. Remove only this bounded
+            # relative clause, preserving the actual membership and negation.
+            exclusion_text = answer
+            for name in sorted(labels, key=len, reverse=True):
+                relative = (r'(?P<subject>(?<!\w)' + re.escape(name) + r'(?!\w)\s+members)\s*,\s*'
+                    r'who\s+(?:pay\s+no|do\s+not\s+pay|are\s+not\s+charged)\s+'
+                    r'(?:(?:the|an?|express|delivery|shipping|service)\s+){0,4}(?:fee|charge)s?\s*,\s*')
+                def join_relative(match):
+                    subject_clause = _clauses(exclusion_text[:match.end('subject')])[-1]
+                    if not _membership_label_present(subject_clause, label, labels):
+                        return match[0]
+                    return match['subject']+' '
+                exclusion_text = re.sub(relative, join_relative, exclusion_text, flags=re.I)
+            exclusion_clauses = _clauses(exclusion_text)
             exclusion = any(
                 _CREDIT.search(clause) and _NEG.search(clause)
-                and any(re.search(r'(?<!\w)' + re.escape(name) + r'(?!\w)', _norm(clause))
-                        for name in labels)
-                for clause in clauses)
+                and _membership_label_present(clause, label, labels)
+                for clause in exclusion_clauses)
             if not exclusion:
                 raise ValueError('source_credit_membership_exclusion_missing')
     return constraints
