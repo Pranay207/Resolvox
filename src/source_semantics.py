@@ -482,6 +482,20 @@ def validate_source_semantics(answer, sources):
                     return match['subject']+' '
                 exclusion_text = re.sub(relative, join_relative, exclusion_text, flags=re.I)
             exclusion_clauses = _clauses(exclusion_text)
+            # Preserve an explicit same-person membership antecedent across
+            # its comma. A fee negation alone never supplies credit negation.
+            for name in labels:
+                conditional = (
+                    r'\bif\s+you\s+are\s+(?:(?:a|an)\s+)?'
+                    r'(?P<membership>' + re.escape(name) + r'\s+members?)'
+                    r'(?:\s+who\s+(?:does\s+not\s+pay|do\s+not\s+pay|pay\s+no|pays\s+no|'
+                    r'is\s+not\s+charged|are\s+not\s+charged)\s+'
+                    r'(?:(?:the|an?|express|delivery|shipping|service)\s+){0,4}(?:fee|charge)s?)?'
+                    r'(?:\s*,\s*|\s+then\s+)'
+                    r'(?P<consequence>you\s+(?:(?:do\s+not|don.t|will\s+not|won.t)\s+'
+                    r'(?:get|receive)\s+(?:any\s+)?credit|(?:get|receive)\s+no\s+credit))\b')
+                for match in re.finditer(conditional, answer, re.I):
+                    exclusion_clauses.append(match['membership']+' '+match['consequence'])
             exclusion = any(
                 _CREDIT.search(clause) and _NEG.search(clause)
                 and _membership_label_present(clause, label, labels)
