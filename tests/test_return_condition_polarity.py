@@ -133,7 +133,9 @@ def test_generation_repairs_requirement_polarity_once_without_policy_template(st
     assert out['repair_attempted'] is True and len(client.calls)==2
     assert out['repair_errors']==['contradicted_return_condition_polarity:opened']
     assert client.calls[0][0]['source_text']==client.calls[1][0]['source_text']
-    assert client.calls[0][0]['deterministic_facts']==client.calls[1][0]['deterministic_facts']
+    keys=('return_condition_policy','customer_item_condition_claim','ordinary_return_condition_check')
+    assert client.calls[1][0]['deterministic_facts']=={key:client.calls[0][0]['deterministic_facts'][key] for key in keys}
+    assert out['repair_mode']=='source_condition_application'
     assert 'verified_rule_summary' not in client.calls[1][0]
     assert out['citations']==[]
 

@@ -226,8 +226,11 @@ def test_generation_repairs_duration_omission_once_with_same_actual_context(stag
     assert out['generation_attempts'] == 2 and out['repair_attempted'] is True
     assert out['repair_errors'] == ['answer_constraint_missing:warranty_duration.assured.duration_months']
     assert out['citations'] == [] and out['provenance_kind'] == 'generation_context'
-    assert client.calls[0][0]['source_text'] == client.calls[1][0]['source_text']
-    assert client.calls[0][0]['deterministic_facts'] == client.calls[1][0]['deterministic_facts']
+    first,second=client.calls[0][0],client.calls[1][0]
+    assert {r['id']:r for r in first['source_text']}=={r['id']:r for r in second['source_text']}
+    assert second['deterministic_facts']=={'answer_constraints':first['deterministic_facts']['answer_constraints']}
+    assert out['repair_mode']=='evidence_restatement'
+    assert out['context_source_ids']==[r['id'] for r in first['source_text']]
     assert 'verified_rule_summary' not in client.calls[1][0]
 
 

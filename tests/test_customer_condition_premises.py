@@ -84,11 +84,13 @@ def test_one_repair_uses_only_original_inputs_with_unchanged_primary_prompt():
     assert out['generation_attempts']==2 and out['repair_errors']==['contradicted_customer_item_premise:opened']
     first,second=client.calls
     assert first[0]==CONTEXT_SYSTEM+'\n'+CONTEXT_LANGUAGE['en']
-    assert second[0]==first[0]+'\nHost repair task:\n'+second[1]['repair_instruction']
+    assert out['repair_mode']=='source_condition_application'
+    assert 'not independent verification' in second[0]
     assert set(first[1])=={'source_text','deterministic_facts','reference_date','language','question'}
     assert first[1]['source_text']==second[1]['source_text']
-    assert first[1]['deterministic_facts']==second[1]['deterministic_facts']
-    assert 'unverified' in second[1]['repair_instruction']
+    keys=('return_condition_policy','customer_item_condition_claim','ordinary_return_condition_check')
+    assert second[1]['deterministic_facts']=={key:first[1]['deterministic_facts'][key] for key in keys}
+    assert 'question' not in second[1] and 'previous_response' not in second[1]
     assert first[2]['cache'] is True and second[2]['cache'] is False
 
 def test_repeated_wrong_premise_fails_after_exactly_two_calls():
