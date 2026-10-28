@@ -216,12 +216,12 @@ The source-only runtime has further fixes applied on **28 October 2026**. Curren
 
 | Check | Current record | Evidence |
 | --- | --- | --- |
-| Engineering of the applied fixes | **2770/2770 passed**; no failures, errors or skips | [Receipt](sample_outputs/engineering_verification.json); 142.746 s JUnit, 153.065 s pytest wall; no model inference |
+| Engineering of the applied fixes | **2770/2770 passed**; no failures, errors or skips | [Receipt](sample_outputs/engineering_verification.json); 126.457 s JUnit, 141.927 s pytest wall; no model inference |
 | Historical engineering at `5c4df02` | **2069/2069 passed**; no failures, errors or skips | [JUnit](sample_outputs/engineering_artifacts/20261025T160113690763Z_4f731e19/pytest.xml); 51.561 s JUnit, 56.357 s pytest wall; no model inference |
 | Current source-only policy questions | **Fresh 52-question run pending** | [Before-fix run: 39/52 mechanical passes](sample_outputs/history/local_52_before_fixes_20261026T161207Z/eval_step2_live_current.json) |
 | Current source-only conversation turns | **Rerun pending**; 96 planned | Completion and composition will be recorded in current JSON |
 | Current Gnani synthetic round trips | **Rerun pending** | Earlier speech evidence remains historical |
-| Current dataset validation | **Passed**; 9 CSVs, 21 KB documents, 1,000 orders and 1,783 items | [Dataset log](sample_outputs/engineering_artifacts/20261028T162235993682Z_cc2ec7f5/dataset_validation.log) |
+| Current dataset validation | **Passed**; 9 CSVs, 21 KB documents, 1,000 orders and 1,783 items | [Dataset log](sample_outputs/engineering_artifacts/20261028T174308921749Z_dc857670/dataset_validation.log) |
 
 The planned verification order is 52 questions, 96 conversation turns, 77 development checks, 91 exposed regression responses, a 52-question same-model baseline, six Gnani round trips and silence recovery. The completed before-fix run is archived; the applied fixes require a fresh 52-question stage and the remaining batches. No current-runtime completion result is claimed.
 

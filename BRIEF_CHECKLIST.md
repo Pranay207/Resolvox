@@ -21,7 +21,7 @@ Source: `voiceops_2026_capstone_brief.pdf`. These checks describe inspectable be
 
 ## Current verification
 
-- [x] Engineering of the applied fixes: **2770/2770 passed**, no failures/errors/skips, **142.746 s JUnit** and **153.065 s pytest wall**. The [receipt](sample_outputs/engineering_verification.json) and [JUnit](sample_outputs/engineering_artifacts/20261028T162235993682Z_cc2ec7f5/pytest.xml) bind actual tested file hashes. The official dataset validator passed. Historical `5c4df02` engineering passed 2069/2069.
+- [x] Engineering of the applied fixes: **2770/2770 passed**, no failures/errors/skips, **126.457 s JUnit** and **141.927 s pytest wall**. The [receipt](sample_outputs/engineering_verification.json) and [JUnit](sample_outputs/engineering_artifacts/20261028T174308921749Z_dc857670/pytest.xml) bind actual tested file hashes. The official dataset validator passed. Historical `5c4df02` engineering passed 2069/2069.
 - [ ] Fresh source-only questions for applied fixes: **52 planned; pending**. The [before-fix local run](sample_outputs/history/local_52_before_fixes_20261026T161207Z/eval_step2_live_current.json) completed at **39/52 mechanical passes**, with 13 failures.
 - [ ] Source-only live conversations: **96 turns planned; rerun pending**. Current output will be `sample_outputs/eval_step3_live_current.json`.
 - [ ] Current same-model prompt-only baseline: **52 planned**, to run with `python scripts/resume_live_practice.py --step 1`.
