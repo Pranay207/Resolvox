@@ -1,0 +1,22 @@
+{
+  "recorded_at_utc": "2026-10-29T16:42:36.497122+00:00",
+  "artifact": "predictions.json",
+  "sha256": "be76febf926fa9ab14cb3f3def43271a32f1a821b17e4a16eccad368b6b90dd4",
+  "scope": "Interrupted frozen local run prefix. Not a complete 52-question result. Continued in the original live artifact after input fingerprints matched.",
+  "planned": 52,
+  "checked": 9,
+  "mechanical_passed": 8,
+  "mechanical_failed": 1,
+  "pending_at_interruption": 43,
+  "detected_at_utc": "2026-10-29T16:26:29Z",
+  "controller_absent": true,
+  "worker_absent": true,
+  "termination_cause": "unverified",
+  "original_ollama_server_alive": true,
+  "local_server_pid": 40756,
+  "all_frozen_inputs_matched_before_resume": true,
+  "runtime_and_scoring_changed": false,
+  "completed_responses_rerun": false,
+  "resumed_output": "../../eval_step2_live_current.json",
+  "limitations": "Mechanical matching does not establish semantic correctness. Original model/cache flags and measured durations are preserved."
+}

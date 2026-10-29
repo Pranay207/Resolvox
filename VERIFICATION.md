@@ -2,6 +2,12 @@
 
 These are local measurements, not organizer scores. The source-only answer correction on **25 October 2026** creates a new runtime boundary. Earlier authored-fallback results are preserved and must not be presented as current results.
 
+## Resumed local verification — 29 October 2026
+
+The previous controller and evaluator stopped after a nine-question checkpoint: **8 passed, 1 failed, 43 pending**. The termination cause is unverified. The [unchanged prefix](sample_outputs/history/interrupted_local_nine_20261029T162629Z/predictions.json), [interruption receipt](sample_outputs/history/interrupted_local_nine_20261029T162629Z/interruption_receipt.json) and [assistant source review](sample_outputs/history/interrupted_local_nine_20261029T162629Z/assistant_review.json) are retained. Source, dataset, inference and scoring fingerprints matched before resuming the original output; completed responses were not rerun or counted twice.
+
+The one mechanical failure describes missing policy information with an inconsistent coverage flag and uncertainty wording. Source review also found an omitted verification prerequisite in a mechanically passing remedy explanation. Generic repairs are under test in an isolated preview. They have not been applied to the active frozen batch. This checkpoint is not a complete 52-question score or evidence that the repairs passed live verification.
+
 ## Current source-only runtime
 
 The [five-case development rerun](sample_outputs/history/applied_repair_five_20261028T162543Z/predictions.json) passed **5/5** after the latest repairs. The [assistant source review](sample_outputs/history/applied_repair_five_20261028T162543Z/assistant_review.json) records the meaning and limits of those answers. This subset does not replace the fresh 52-question run, which is now in progress with an initially empty application response cache; model/prompt caches were not reset.

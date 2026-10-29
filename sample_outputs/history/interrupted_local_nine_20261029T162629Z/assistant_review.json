@@ -1,0 +1,54 @@
+{
+  "reviewed_at_utc": "2026-10-29T16:42:36.499119+00:00",
+  "reviewer": "coding assistant source review",
+  "artifact_sha256": "be76febf926fa9ab14cb3f3def43271a32f1a821b17e4a16eccad368b6b90dd4",
+  "scope": "Finite source review of the preserved nine-row prefix; not organizer scoring, human listening or a revised numeric score.",
+  "rows": [
+    {
+      "id": "PQ0002",
+      "classification": "supported_with_limits",
+      "note": "Catalog warranty duration and delivery anchor are retained, with documented My Orders navigation. Hinglish fluency is not human-certified."
+    },
+    {
+      "id": "PQ0003",
+      "classification": "supported_with_limits",
+      "note": "Wallet refund timing is tied to initiation."
+    },
+    {
+      "id": "PQ0004",
+      "classification": "safe_abstention",
+      "note": "The host withheld unsupported scheduling claims after model-validation failures; this is not a successful generated policy explanation."
+    },
+    {
+      "id": "PQ0005",
+      "classification": "supported_with_limits",
+      "note": "Catalog warranty and claim route are source-supported; spoken Hinglish grammar remains awkward."
+    },
+    {
+      "id": "PQ0006",
+      "classification": "supported_with_limits",
+      "note": "The current Plus pickup-fee waiver answers the stated fee question."
+    },
+    {
+      "id": "PQ0008",
+      "classification": "supported_with_limits",
+      "note": "The conditional credit-card arrival estimate uses the supplied initiation date and documented business-day/holiday calculations."
+    },
+    {
+      "id": "PQ0009",
+      "classification": "needs_fix",
+      "note": "The final response describes absent policy information while marking coverage true. It also misses the strict uncertainty wording check. It does not fabricate a discount."
+    },
+    {
+      "id": "PQ0010",
+      "classification": "needs_fix",
+      "note": "The collection-fee answer also asserts replacement/refund entitlement but omits the governing after-verification prerequisite. Mechanical checks passed this row."
+    },
+    {
+      "id": "PQ0013",
+      "classification": "supported_with_limits",
+      "note": "The opened-item customer claim is kept separate from the policy unopened/seal-intact requirements. No unsupported claim that the customer broke the seal is added. Hindi fluency is not human-certified."
+    }
+  ],
+  "fix_status": "Generic fixes are being tested in an isolated preview; not yet applied to the active frozen runtime."
+}
