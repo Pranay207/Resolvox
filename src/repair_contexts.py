@@ -107,3 +107,84 @@ def fee_only_restatement_inputs(query, facts, sources, reference_date):
     if not selected or sum(len(source['text']) for source in selected) > 4800:
         return None
     return {'sources': selected, 'facts': project_inference_facts(facts)}
+
+
+
+def troubleshooting_restatement_inputs(query, facts, sources, reference_date):
+    """Use one unambiguous current procedure for a public troubleshooting retry.
+
+    Heading overlap is a bounded selector, not an entailment proof. Compound
+    policy requests and ambiguous procedures retain the complete original view.
+    Every output still passes all original policy/fact validators.
+    """
+    if (facts.get('verified_order') or facts.get('calculations') or facts.get('operational_escalation')
+            or not re.search(r"\b(?:won['’]?t|doesn['’]?t|cannot|can['’]?t|not|no)\b.{0,35}\b(?:power\w*|turn|charg\w*|work\w*|sync\w*|start\w*)\b|\b(?:nahi|nahin)\b", query, re.I)
+            or re.search(r'\b(?:returns?|refund\w*|replac\w*|warrant\w*|fees?|costs?|prices?|eligible|cancel\w*)\b|money\s+back|send\s+(?:it\s+)?back|रिटर्न|रिफंड|वापस|वारंटी', query, re.I)):
+        return None
+    stop=set('my the this that a an it its for of to at on off in with and or not no wont won doesnt doesn t cannot can power powering powered turn turning work working start starting sync syncing charge charging'.split())
+    def keys(text):
+        words={word.casefold().rstrip('s') for word in re.findall(r'[A-Za-z][A-Za-z0-9_-]{2,}',text)}
+        return words-{word.rstrip('s') for word in stop}
+    wanted=keys(query);ranked=[]
+    for source in sources:
+        if source.get('doc_type')!='help' or source.get('status')!='current':
+            continue
+        try:
+            if source.get('effective_from') and date.fromisoformat(source['effective_from'])>date.fromisoformat(str(reference_date)[:10]):
+                continue
+        except (TypeError,ValueError):
+            continue
+        text=source.get('text','')
+        if not isinstance(text,str) or not re.search(r'^\s*\d+[.)]\s+',text,re.M) or len(text)>4800:
+            continue
+        heading=re.sub(r'^\s*#{1,6}\s*(?:\[[^\]]+\]\s*)?','',text.splitlines()[0])
+        overlap=wanted & keys(heading)
+        if len(overlap)>=2:ranked.append((len(overlap),source))
+    if not ranked:
+        return None
+    ranked.sort(key=lambda item:item[0],reverse=True)
+    if len(ranked)>1 and ranked[0][0]==ranked[1][0]:
+        return None
+    return {'sources':[ranked[0][1]],'facts':{},'scope':'public_source_procedure_only'}
+
+
+
+def public_refund_projection_inputs(query, facts, sources, reference_date):
+    """A date estimate uses its actual calendar calculation, not transaction state."""
+    claim=facts.get('customer_provided_refund_claim')
+    if (not isinstance(claim,dict) or claim.get('verified') is not False or facts.get('verified_order')
+            or re.search(r'\b(?:amount|rrn|warranty|how\s+much|reference\s+number|order\s+status)\b|kitn\w*.{0,15}paise|कितन.{0,15}पैस',query,re.I)):
+        return None
+    calculations=facts.get('calculations',[])
+    if not isinstance(calculations,list):return None
+    rows=[row for row in calculations if isinstance(row,dict)
+          and row.get('operation')=='refund_business_date_range'
+          and row.get('record_field')=='customer_provided_refund_claim.initiated_on'
+          and row.get('input_status')=='customer_provided_unverified']
+    if len(rows)!=1:return None
+    calculation=rows[0];inputs=calculation.get('inputs',{});result=calculation.get('result',{})
+    if not isinstance(inputs,dict) or not isinstance(result,dict):return None
+    if inputs.get('customer_statement_verified') is not False or inputs.get('initiated_on')!=claim.get('initiated_on'):
+        return None
+    try:
+        begin=date.fromisoformat(result['earliest_date']);end=date.fromisoformat(result['latest_date'])
+        if begin>end or date.fromisoformat(inputs['initiated_on'])>begin:return None
+        low,high=inputs['minimum_business_days'],inputs['maximum_business_days']
+        if type(low) is not int or type(high) is not int or not 0<=low<=high:return None
+    except (KeyError,TypeError,ValueError):return None
+    actual={source['id']:source for source in sources}
+    ids=set(calculation.get('source_ids',[]))-{'data/holidays.csv'}
+    if not ids or not ids<=actual.keys():return None
+    today=date.fromisoformat(str(reference_date)[:10])
+    for ident in ids:
+        source=actual[ident]
+        if source.get('doc_type') not in {'policy','meta'} or source.get('status')!='current':return None
+        try:
+            if source.get('effective_from') and date.fromisoformat(source['effective_from'])>today:return None
+        except (TypeError,ValueError):return None
+    selected=[source for source in sources if source['id'] in ids]
+    if sum(len(source['text']) for source in selected)>4800:return None
+    return {'sources':selected,'facts':{'customer_provided_refund_claim':dict(claim),
+        'refund_projection':{'input_status':'customer_provided_unverified','initiated_on':inputs['initiated_on'],
+            'payment_method':inputs['payment_method'],'minimum_business_days':low,'maximum_business_days':high,
+            'earliest_expected_date':begin.isoformat(),'latest_expected_date':end.isoformat()}}}
