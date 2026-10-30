@@ -108,8 +108,8 @@ def _quantities(text):
             # carry a unit across punctuation/an unrelated clause.
             prefix = normalized[max(0, match.start()-70):match.start()]
             bound_unit = re.search(r'(?<![\w-])(?:business\s+(?:days?|din)|working\s+(?:days?|din))'
-                         r'\s+(?:(?:ko|mein|me|ke|ki|ka|are|is)\s+){0,2}$', prefix, re.I)
-            if bound_unit and not re.search(r'\b(?:not|non|nahi|nahin)\s*[- ]*$', prefix[:bound_unit.start()], re.I):
+                         r'\s+(?:(?:(?:ko|mein|me|ke|ki|ka|are|is)\s+){0,2}|(?:range|window|period)\s+of\s+)$', prefix, re.I)
+            if bound_unit and not re.search(r'\b(?:not|non|nahi|nahin)\s*[- ]*(?:(?:a|an)\s+)?$', prefix[:bound_unit.start()], re.I):
                 unit = 'business_day'
         # A date's trailing year/day is not a duration range endpoint.
         # Require a real following quantity; bare date+unit stays checked.
