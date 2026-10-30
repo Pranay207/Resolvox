@@ -19,6 +19,7 @@ from .generation_diagnostics import GenerationValidationError, GenerationUnavail
 from .normalize import ascii_digits
 from .warranty_durations import validate_warranty_duration_constraint, warranty_duration_answer_matches
 from .placement_conditions import check_placement_exception_answer
+from .return_transition_claims import check_effective_return_windows
 from .source_semantics import derive_source_constraints, validate_source_semantics
 from .return_conditions import _premise_is_conditional, check_return_condition_answer
 from .remedy_prerequisites import check_remedy_prerequisites, derive_remedy_prerequisites
@@ -117,6 +118,20 @@ _QUESTION = re.compile(
     r'please\s+(?:provide|tell|share|confirm|specify)|'
     r'क्या|कौन|किस|कब|कहाँ|कृपया|'
     r'kaunsa|kaunsi|kaun|kya|kab|kahan|kripya|batayein|bataiye)(?=\s|[?।.!]|$)', re.I)
+# A statement about absent documentation is uncertainty, not supported coverage.
+# This is a bounded lexical consistency check, not a semantic entailment test.
+_SOURCE_ABSENCE = re.compile(
+    r'\bno\s+(?:mention|reference|information)\b.{0,180}\b(?:in|within)\s+'
+    r'(?:(?:the|provided|supplied|available|retrieved)\s+)*(?:polic(?:y|ies)|documents?|sources?|evidence)\b|'
+    r'\b(?:polic(?:y|ies)|documents?|sources?|evidence)\b.{0,90}'
+    r'\b(?:do not|don\x27t|does not|doesn\x27t)\s+(?:mention|specify|describe|state|establish|confirm)\b|'
+    r'\b(?:polic(?:y|ies)|documents?|sources?|evidence)\b.{0,90}'
+    r'\b(?:make|makes|contain|contains|have|has)\s+no\s+(?:mention|reference|information)\b|'
+    r'(?:नीति|नीतियों|दस्तावेज़?|स्रोत|प्रमाण).{0,90}(?:उल्लेख|जानकारी|विवरण).{0,35}नहीं|'
+    r'\b(?:polic(?:y|ies)|documents?|sources?|evidence)\b.{0,90}'
+    r'\b(?:mention|zikr|jaankari|jankari)\b.{0,35}\b(?:nahi|nahin)\b', re.I)
+
+
 _LIMITATION = re.compile(
     r"(?:\b(?:I|we)\s+(?:do not|don't|don’t)\s+have\b|"
     r"\b(?:cannot|can't|can’t|unable to)\s+(?:answer|confirm|verify|determine|find)\b|"
@@ -153,7 +168,7 @@ def _language_check(answer, language):
         raise ValueError('wrong_output_language')
 
 
-def _non_answer(answer, decision):
+def _non_answer(answer, decision, *, allow_source_absence=False):
     """Allow only short non-substantive questions or uncertainty without quotes.
 
     These finite language checks are a guard, not a semantic entailment test.
@@ -177,8 +192,20 @@ def _non_answer(answer, decision):
         refusal_parts = [part.strip() for clause in clauses
                          for part in re.split(r'\b(?:but|however)\b|लेकिन|मगर|\blekin\b', clause, flags=re.I)
                          if part.strip()]
-        if not all(_LIMITATION.search(clause) for clause in refusal_parts):
+        if not all(_LIMITATION.search(clause) or (allow_source_absence and _SOURCE_ABSENCE.search(clause))
+                   for clause in refusal_parts):
             raise ValueError('uncited_substantive_refusal')
+
+
+def _source_absence_only(answer):
+    """Recognize only bounded non-substantive source-absence explanations."""
+    if not _SOURCE_ABSENCE.search(answer):
+        return False
+    try:
+        _non_answer(answer, 'refuse', allow_source_absence=True)
+    except ValueError:
+        return False
+    return True
 
 
 _RRN_FIELDS = ('return_rrn', 'cancellation_rrn', 'rto_rrn')
@@ -744,6 +771,7 @@ def _validate_context(value, sources, facts, language, *, private=False, query='
         validate_personal_money(answer, query, facts, sources, private=private)
         validate_navigation_steps(answer, sources)
         check_placement_exception_answer(answer, facts, sources, normalizer=_constraint_text)
+        check_effective_return_windows(answer, sources, reference_date=REFERENCE_DATE)
         if decision == 'answer':
             _check_answer_constraints(answer, facts, sources)
         checked_answer = _record_validation_text(answer, facts, private)
@@ -755,6 +783,8 @@ def _validate_context(value, sources, facts, language, *, private=False, query='
             {'covered': True, 'answer': checked_answer, 'citations': evidence},
             sources, required_ids=(), facts=facts, required_text='')
         evaluated_source_constraints = validate_source_semantics(answer, sources)
+        if _source_absence_only(answer):
+            raise ValueError('source_absence_marked_covered')
     else:
         if decision == 'answer':
             raise ValueError('uncovered_answer')
@@ -951,6 +981,19 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                 payload['repair_instruction'] = (
                     'Write only a natural customer-facing explanation from the original sources and facts in answer. '
                     'Keep schema fields and Boolean flags outside the spoken answer. Do not mention internal checks. ' + CONTEXT_LANGUAGE[language])
+            elif context_provenance and errors[-1] == 'contradicted_effective_return_window':
+                payload['repair_instruction'] = (
+                    'An explicit date/category/return-window claim conflicts with a dated change clause in the supplied policy. '
+                    'Re-read the original source_text. Keep the current and historical windows attached to their actual dates and categories. '
+                    'Answer the requested historical or current scope without adding contradictory transition statements. '
+                    'Do not invent customer dates or new policy values. ' + CONTEXT_LANGUAGE[language])
+            elif context_provenance and errors[-1] == 'source_absence_marked_covered':
+                payload['repair_instruction'] = (
+                    'The previous response only described missing source information while marking the question covered. '
+                    'Re-read the original evidence. If applicable evidence establishes the requested fact, explain it with covered true. '
+                    'Otherwise clearly say what you do not have enough information to confirm, '
+                    'with covered false and needs_clarification false. Missing documentation does not prove a policy denial. '
+                    'Do not invent benefits, restrictions, numbers or completed actions. ' + CONTEXT_LANGUAGE[language])
             elif context_provenance and errors[-1] == 'absence_causal_policy_denial':
                 payload['repair_instruction'] = (
                     'The previous answer converted missing source information into a definite policy denial. '

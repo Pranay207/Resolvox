@@ -134,11 +134,13 @@ def response(text):return {'answer':text,'covered':True,'needs_clarification':Fa
 
 def test_one_repair_omits_unbound_amount_and_receives_no_primary_extra_facts():
  from src.document_answers import document_reply
- c=Client([response('Your refund is INR 37.'),response('The supplied sources do not establish the amount of your refund.')])
+ c=Client([response('Your refund is INR 37.'),{**response('The supplied sources do not establish the amount of your refund.'),'covered':False}])
  # A source-backed fee supplies the same bare numeric value, exposing exactly
  # the role-transfer error that plain numeric validation alone would miss.
  result=document_reply(c,'What is my card refund amount?','en',[source()],facts={},context_provenance=True)
  assert result['repair_errors']==['unsupported_personal_money_amount'] and len(c.calls)==2
+ assert result['covered'] is False and result['reply_kind']=='uncertainty'
+ assert result['model_flags']=={'covered':False,'needs_clarification':False}
  assert 'repair_personal_money_bindings' not in c.calls[0]
  assert c.calls[1]['repair_personal_money_bindings']['amount_bindings']==[]
  assert c.calls[0]['source_text']==c.calls[1]['source_text']

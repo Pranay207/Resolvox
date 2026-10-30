@@ -7,7 +7,10 @@ from datetime import date
 import hashlib,json,re,unicodedata
 
 _AUTHORITY={'policy':4,'agent_guide':3,'help':2}
-_RECIPIENT=re.compile(r'\b(?:you|customer|customers|buyer|buyers|aapko|aap|grahak|customer\s+ko)\b|आपको|आप\b|ग्राहक',re.I)
+# A definite entitlement may be predicated of a claim/report/item rather than
+# its owner. Fee-only statements still have no entitlement verb/remedy pair.
+_RECIPIENT=re.compile(r'\b(?:you|customer|customers|buyer|buyers|aapko|aap|grahak|customer\s+ko|'
+ r'it|item|product|order|claim|report|request|case)\b|आपको|आप\b|ग्राहक',re.I)
 _ENTITLED=re.compile(r'\b(?:gets?|receiv\w*|entitled|eligible|qualif\w*|mile\w*|milt\w*|mil\s+jay\w*)\b|मिले|मिलत|मिल\s*जाए|पात्र|हकदार|प्राप्त',re.I)
 _REMEDIES={'refund':re.compile(r'\brefund\w*\b|रिफ़?ंड|धनवापसी',re.I),
  'replacement':re.compile(r'\breplace\w*\b|रिप्लेसमेंट|प्रतिस्थापन|बदलाव',re.I)}
@@ -17,7 +20,7 @@ _CONDITIONS={'verification':re.compile(r'\b(?:verif\w*|validation|validated|vali
 _RELATION=re.compile(r'\b(?:after|following|upon|once|subject\s+to|baad)\b|के\s*बाद|होने\s*पर',re.I)
 _NEGATIVE=re.compile(r'\b(?:not|no|never|cannot|can\x27t|won\x27t|nahi|nahin)\b|नहीं|नही',re.I)
 _TENTATIVE=re.compile(r'\b(?:may|might|could|possibly|consider\w*|sakt\w*)\b|सकता|सकती|संभव',re.I)
-_QUESTION=re.compile(r'^\s*(?:can|could|would|will|what|which|whether|क्या|kya)\b',re.I)
+_QUESTION=re.compile(r'^\s*(?:can|could|would|will|does|do|is|are|what|which|whether|क्या|kya)\b',re.I)
 _SCOPE_ALIASES={
  'damage':r'\b(?:damag\w*|torn|ripped|broken|defect\w*|expired|toot\w*|tut\w*|phat\w*)\b|फट|टूट|खराब|क्षतिग्रस्त|दोषपूर्ण|एक्सपायर',
  'wrong':r'\b(?:wrong|incorrect|mismatch\w*|galat)\b|गलत',
@@ -25,7 +28,7 @@ _SCOPE_ALIASES={
 _ALLOWED_TAIL=re.compile(r'^[\s,:()\-]*(?:(?:is|was|has|have|been|be|successfully|complete|completed|done|passed|of|the|your|a|an|claim|damage|item|identity|account|payment|quality|customer|order|verification|inspection|approval|hone|ke|baad|ho|jaane|gaya|hai|की|के|का|बाद|होने|पर|पूरा|पूरी|है|हो|गया|दावे|दावा|पहचान|जाँच|जांच|सत्यापन|मंजूरी)\b[\s,:()\-]*)*$',re.I)
 
 
-_TAIL_WORDS=frozenset('is was has have been be successfully complete completed done passed of the your a an claim damage item identity account payment quality customer order verification inspection approval hone ke baad ho jaane gaya hai की के का बाद होने पर पूरा पूरी है हो गया दावे दावा पहचान जाँच जांच सत्यापन मंजूरी'.split())
+_TAIL_WORDS=frozenset('is was has have been be successfully complete completed done passed of the your this that a an claim damage item identity account payment quality customer order verification inspection approval hone ke baad ho jaane gaya hai की के का बाद होने पर पूरा पूरी है हो गया दावे दावा पहचान जाँच जांच सत्यापन मंजूरी'.split())
 
 def _tail_allowed(text):
  return all(word in _TAIL_WORDS for word in re.findall(r'[^\s,:()\-]+',text))
@@ -53,7 +56,13 @@ def _condition_occurrences(text):
    if _RELATION.search(before) or re.match(r'\s*(?:ke\s+baad|के\s*बाद|होने\s*पर)',after):
     prefix=list(_RELATION.finditer(before))
     begin=max(0,match.start()-70)+(prefix[-1].start() if prefix else len(before))
-    result.append({'kind':kind,'role':_role(text[begin:match.end()+35]),'start':match.start(),'end':match.end(),
+    # Read role modifiers attached to verification, not a following subject
+    # such as 'After verification, the claim qualifies ...'.
+    role_text=text[begin:match.end()]
+    role_tail=re.match(r'\s+(?:of|for)\s+(?:(?:the|your|a|an)\s+)?'
+      r'(?:identity|account|claim|damage|quality|payment)\b',text[match.end():],re.I)
+    if role_tail:role_text+=role_tail.group()
+    result.append({'kind':kind,'role':_role(role_text),'start':match.start(),'end':match.end(),
       'relation_start':begin})
  return sorted(result,key=lambda x:x['start'])
 
