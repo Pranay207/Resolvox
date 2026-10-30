@@ -52,7 +52,8 @@ def test_generation_uses_original_reporting_section_and_final_original_validatio
     class Client:
         def complete(self, system, user, **options):
             calls.append(json.loads(user))
-            return json.dumps({'answer': first if len(calls) == 1 else good, 'covered': True, 'needs_clarification': False})
+            support_key = 'has_document_support' if 'has_document_support' in options['schema']['properties'] else 'covered'
+            return json.dumps({'answer': first if len(calls) == 1 else good, support_key: True, 'needs_clarification': False})
     sources = [report(), {**report(), 'id': 'STAFF-X', 'text': 'High-value claims require the support agent to create a ticket.'}]
     result = document_reply(Client(), 'मेरा सामान टूटा हुआ आया है, अब क्या करूँ?', 'hi', sources, context_provenance=True)
     assert result['answer'] == good
