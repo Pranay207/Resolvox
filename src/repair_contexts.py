@@ -256,3 +256,36 @@ def public_return_period_restatement_inputs(query, facts, sources, constraints):
     # Constraints have already been rebound to source text by document_reply.
     projected = {'return_policy': dict(policy), 'answer_constraints': requested}
     return {'sources': list(sources), 'facts': projected}
+
+
+def verified_return_restatement_inputs(query, facts, sources, reference_date):
+    """A minimal source-bound retry view for one verified return question.
+
+    Keep full original selected sections; never render an authored answer.
+    The caller still validates the response against all original facts/sources.
+    """
+    if (not facts.get('verified_order') or facts.get('operational_escalation')
+            or not re.search(r'\breturn\w*\b|\bwapas\b|\bvaapas\b|वापस|रिटर्न',query,re.I)
+            or re.search(r'\b(?:refund\w*|warrant\w*|cancel\w*|replac\w*|categor\w*)\b|रिफ़?ंड|वारंटी|कैंसिल|श्रेणी|कैटेगरी',query,re.I)):
+        return None
+    from .document_context import _return_pickup_fee, _return_calculation
+    actual={row['id']:row for row in sources}
+    fee=facts.get('return_pickup_policy');policy=facts.get('return_policy')
+    if not isinstance(fee,dict) or not isinstance(policy,dict):return None
+    if _return_pickup_fee(query,facts,actual)!=fee:return None
+    rebound=_return_calculation(facts['verified_order'],facts.get('public_context',{}),facts.get('catalog',[]),actual)
+    recorded=[row for row in facts.get('calculations',[]) if row.get('operation')=='return_calendar_deadline']
+    if len(rebound)!=1 or recorded!=rebound:return None
+    ids=set(fee['source_ids'])|set(policy['source_ids'])|set(rebound[0]['source_ids'])
+    # Retain actual item-condition rules, not unrelated methods/refund phases.
+    for row in sources:
+        if _active(row,reference_date) and re.search(r'\bitems\s+must\s+be\s+unused\b',row['text'],re.I):ids.add(row['id'])
+    if not ids<=actual.keys() or any(not _active(actual[sid],reference_date) for sid in ids):return None
+    selected=[row for row in sources if row['id'] in ids]
+    if sum(len(row['text']) for row in selected)>5000:return None
+    order=facts['verified_order']
+    view={'return_policy':dict(policy),'return_pickup_policy':dict(fee),
+          'return_deadline':rebound[0]['result']['deadline'],
+          'verified_order':{key:order[key] for key in ('placed_at','delivered_on','is_plus','return_reason') if key in order},
+          'calculations':rebound,'answer_constraints':facts.get('answer_constraints',[])}
+    return {'sources':selected,'facts':project_inference_facts(view)}
