@@ -188,3 +188,44 @@ def public_refund_projection_inputs(query, facts, sources, reference_date):
         'refund_projection':{'input_status':'customer_provided_unverified','initiated_on':inputs['initiated_on'],
             'payment_method':inputs['payment_method'],'minimum_business_days':low,'maximum_business_days':high,
             'earliest_expected_date':begin.isoformat(),'latest_expected_date':end.isoformat()}}}
+
+
+def damage_reporting_restatement_inputs(query, facts, sources, reference_date):
+    """Focus a simple reporting request on one actual current reporting rule.
+
+    Compound remedies, late reports, product-specific decisions and ambiguous
+    authorities keep the complete evidence view. No policy value is authored.
+    """
+    if (facts.get('verified_order') or facts.get('calculations') or facts.get('operational_escalation')
+            or facts.get('public_context') or facts.get('catalog')
+            or not re.search(r'\b(?:damag\w*|broken|defect\w*|torn)\b|टूट|क्षतिग्रस्त|खराब', query, re.I)
+            or re.search(r'\d|\b(?:returns?|refund\w*|replac\w*|warrant\w*|fees?|costs?|late|after|elapsed|expired|aur)\b|रिफंड|रिफ़ंड|वापस|वारंटी|शुल्क|बाद|और', query, re.I)
+            or query.count('?') > 1):
+        return None
+    reporting = []
+    for source in sources:
+        if not _active(source, reference_date) or not source.get('file'):
+            continue
+        text = re.sub(r'[*`]', '', source.get('text', ''))
+        if (re.search(r'\breport\b[^.!?;\n]{0,180}\bwithin\s+\d+\s+hours?\s+of\s+delivery\b', text, re.I)
+                and re.search(r'\bphotos?\b', text, re.I)):
+            reporting.append(source)
+    if len(reporting) != 1:
+        return None
+    selected = {reporting[0]['id']}
+    by_id = {row['id']: row for row in sources}
+    pending = list(selected)
+    while pending:
+        ident = pending.pop()
+        for linked in re.findall(r'\b[A-Z][A-Z0-9]{1,15}-\d{1,4}\b', by_id[ident]['text']):
+            if linked in selected:
+                continue
+            if linked not in by_id or not _active(by_id[linked], reference_date):
+                return None
+            selected.add(linked); pending.append(linked)
+            if len(selected) > 4:
+                return None
+    rows = [row for row in sources if row['id'] in selected]
+    if sum(len(row['text']) for row in rows) > 2600:
+        return None
+    return {'sources': rows, 'facts': {}, 'scope': 'public_reporting_obligation_only'}
