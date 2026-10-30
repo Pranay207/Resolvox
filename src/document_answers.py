@@ -136,14 +136,25 @@ _SOURCE_ABSENCE = re.compile(
     r'\b(?:mention|zikr|jaankari|jankari)\b.{0,35}\b(?:nahi|nahin)\b', re.I)
 
 
+_INFO_QUALIFIERS = r'(?:(?:any|a|an|enough|sufficient|supported|reliable|relevant|confirmed|verified|current|available|the|this|that|such|specific|additional)\s+){0,4}'
+_INFO_OBJECTS = r'(?:information|evidence|details|records?|documentation|confirmation|sources?|documents?|access)'
 _LIMITATION = re.compile(
-    r"(?:\b(?:I|we)\s+(?:do not|don't|don’t)\s+have\b|"
+    r"(?:\b(?:I|we)\s+(?:do not|don't|don’t)\s+have\s+" + _INFO_QUALIFIERS + _INFO_OBJECTS + r'\b|'
     r"\b(?:cannot|can't|can’t|unable to)\s+(?:answer|confirm|verify|determine|find)\b|"
     r'\b(?:insufficient|not enough|no supported|no reliable)\s+(?:information|evidence|details)\b|'
-    r"\b(?:documents?|sources?|evidence)\b.{0,70}\b(?:do not|don't|don’t|does not|doesn't|doesn’t|lack|missing|insufficient)\b|"
-    r'(?:दस्तावेज़?|जानकारी|प्रमाण|पुष्टि).{0,90}(?:नहीं|अपर्याप्त)|'
-    r'(?:documents?|sources?|evidence|jaankari|information|mere paas).{0,90}(?:nahi|nahin|insufficient)|'
-    r'(?:nahi|nahin).{0,35}(?:bata|confirm|verify))', re.I)
+    r"\b(?:documents?|sources?|evidence)\b[^.!?;,\n]{0,70}\b(?:do not|don't|don’t|does not|doesn't|doesn’t)\s+"
+    r'(?:mention|specify|describe|state|establish|confirm|show|document|list)\b|'
+    r"\b(?:documents?|sources?|evidence)\b[^.!?;,\n]{0,70}\b"
+    r"(?:(?:do not|don't|don’t|does not|doesn't|doesn’t)\s+(?:provide|contain|give|have)|lacks?|missing|insufficient)\s+"
+    + _INFO_QUALIFIERS + _INFO_OBJECTS + r'\b|'
+    r'(?:दस्तावेज़?(?:ों)?|जानकारी|प्रमाण|पुष्टि|विवरण|सूचना)'
+    r'(?:\s+(?:अभी|पर्याप्त|पूरी|विश्वसनीय|समर्थित|प्रमाणित|सत्यापित|उपलब्ध|मौजूद|प्राप्त|अधिक|भी)){0,4}'
+    r'\s+(?:नहीं|अपर्याप्त)|'
+    r'\b(?:jaankari|jankari|information|evidence|confirmation|documentation|saboot|pramaan|pushti)\b'
+    r'(?:\s+(?:abhi|paryapt|poori|puri|sahi|pramanit|adhikarik|available|maujood|enough|supported|reliable|relevant|confirmed|verified|hi|bhi)){0,4}'
+    r'\s+(?:nahi|nahin|insufficient)\b|'
+    r'\b(?:nahi|nahin)\s+(?:bata|confirm|verify)\b|'
+    r'\b(?:bata|confirm|verify)\s+(?:nahi|nahin)\b)', re.I)
 
 
 def _context(sources):
@@ -193,10 +204,12 @@ def _non_answer(answer, decision, *, allow_source_absence=False):
     else:
         # A disclaimer must not authorize a following unsupported assertion.
         # This stays a finite linguistic guard, not a semantic guarantee.
+        has_explicit_uncertainty = any(_LIMITATION.search(clause) for clause in clauses)
         refusal_parts = [part.strip() for clause in clauses
-                         for part in re.split(r'\b(?:but|however)\b|लेकिन|मगर|\blekin\b', clause, flags=re.I)
+                         for part in re.split(r'[,;]|\b(?:and|but|however|aur|lekin|magar)\b|लेकिन|मगर|और', clause, flags=re.I)
                          if part.strip()]
-        if not all(_LIMITATION.search(clause) or (allow_source_absence and _SOURCE_ABSENCE.search(clause))
+        if not all(_LIMITATION.search(clause) or
+                   ((allow_source_absence or has_explicit_uncertainty) and _SOURCE_ABSENCE.search(clause))
                    for clause in refusal_parts):
             raise ValueError('uncited_substantive_refusal')
 
