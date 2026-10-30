@@ -1,0 +1,7 @@
+{
+  "scope": "Unmodified partial live conversation run preserved before runtime fixes. Includes genuine failed records; not rescored or overwritten.",
+  "source_sha256": {
+    "eval_step3_live_current.json": "7fb929ffec2875530329ea406068dcf088460347665e94a9626401f4f7c0fdfc",
+    "live_sequence_receipt.json": "88fc90ed19b4791d3d1589edd8d94459d52ab15f9204543aa1ee6fa56d3aa000"
+  }
+}
