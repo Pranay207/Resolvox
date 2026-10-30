@@ -68,3 +68,32 @@ def test_store_presence_alone_does_not_establish_order_pickup_service():
         check_store_presence_claim('No, store pickup is not allowed.',query,presence,TODAY)
     explicit=[{**UNRELATED[0],'text':'Store pickup is available.'}]
     check_store_presence_claim('Yes, store pickup is available.',query,explicit,TODAY)
+
+
+@pytest.mark.parametrize('answer', [
+    'There is no shop and I have no information about one.',
+    'There is a shop, but I cannot confirm this.',
+    'देवपुर में कोई दुकान नहीं है और इस बात की जानकारी नहीं है।',
+    'Dukaan nahi hai aur jaankari nahi hai.',
+])
+def test_coordinated_uncertainty_cannot_hide_a_presence_or_absence_claim(answer):
+    with pytest.raises(ValueError, match='unsupported_physical_store_claim'):
+        check_store_presence_claim(answer, 'Do you have a physical shop?', UNRELATED, TODAY)
+
+
+@pytest.mark.parametrize('language,answer', [
+    ('en', 'There is no shop and I have no information about one.'),
+    ('hi', 'देवपुर में कोई दुकान नहीं है और इस बात की जानकारी नहीं है।'),
+    ('hi-en', 'Dukaan nahi hai aur jaankari nahi hai.'),
+])
+def test_noncovered_flag_never_bypasses_storefront_claim_validation(language, answer):
+    class UncertainFlagClient:
+        def __init__(self): self.calls = 0
+        def complete(self, system, user, **options):
+            self.calls += 1
+            return json.dumps({'answer': answer, 'covered': False, 'needs_clarification': False})
+    client = UncertainFlagClient()
+    with pytest.raises(ValueError) as error:
+        document_reply(client, 'Do you have a physical shop?', language, UNRELATED, context_provenance=True)
+    assert client.calls == 2
+    assert error.value.diagnostics['repair_errors'] == ['unsupported_physical_store_claim'] * 2
