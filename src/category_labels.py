@@ -1,7 +1,7 @@
-"""Require explicitly named policy taxonomy labels to retain source spelling.
+"""Require explicitly named policy taxonomy labels to match source identities.
 
-This implements the generation contract's technical-name rule. It does not
-certify translations generally or decide which category applies to an item.
+Known script transliterations preserve the same technical term. This does not
+certify free translations or decide which category applies to an item.
 """
 from datetime import date
 import json
@@ -14,11 +14,18 @@ _ASSIGNMENT=re.compile(
 _EXAMPLE=re.compile(r'(?:\bcategor(?:y|ies)\b|श्रेणियों|श्रेणी|कैटेगरी)[^.!?;।\n]{0,60}?(?:including|such\s+as|जैसे)\s+(?P<label>[^,.;!?।\n]{1,90})',re.I)
 
 
+# Language normalization only: no category eligibility, durations or answers.
+# A normalized term is accepted only if that same identity is in actual sources.
+_SCRIPT_TERMS = {'फैशन':'fashion', 'फ़ैशन':'fashion', 'इलेक्ट्रॉनिक्स':'electronics',
+                 'इलेक्ट्रोनिक्स':'electronics', 'ग्रोसरी':'grocery',
+                 'इनरवियर':'innerwear', 'डिजिटल':'digital'}
+
+
 def _norm(value):
     value=unicodedata.normalize('NFKC',value).casefold().strip()
     value=re.sub(r'^(?:the|a|an)\s+','',value)
     value=re.sub(r'\s+(?:की|के|का)$','',value)
-    return ' '.join(re.findall(r'[\w\u0900-\u097f]+',value))
+    return ' '.join(_SCRIPT_TERMS.get(word, word) for word in re.findall(r'[\w\u0900-\u097f]+',value))
 
 
 def _first_example(value):return re.split(r'\b(?:and|or)\b|और|अथवा',value,maxsplit=1,flags=re.I)[0].strip()

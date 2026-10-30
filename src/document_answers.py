@@ -1040,6 +1040,13 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                     'keep dated policy branches conditional; do not invent a delivery date or date range to select one. '
                     'Do not claim the product was shipped or delivered merely because its catalog identifies a seller. '
                     'Do not invent customer dates or new policy values. ' + CONTEXT_LANGUAGE[language])
+            elif context_provenance and errors[-1] == 'answer_constraint_missing:return_pickup_policy.standard_fee_inr':
+                payload['repair_instruction'] = (
+                    'The previous answer omitted the source-bound reverse-pickup charge from an ordinary return explanation. '
+                    'Give the verified calculated return deadline and the conditional pickup cost together in concise complete sentences. '
+                    'Read the cost only from return_pickup_policy and its original policy source. Keep change-of-mind and waiver conditions attached. '
+                    'A conditional policy fee is not proof of a charge or a completed return. Preserve item-condition prerequisites from the original sources. '
+                    'Do not invent a personal payment or action; do not omit any answer_constraint. ' + CONTEXT_LANGUAGE[language])
             elif context_provenance and errors[-1] == 'missing_pending_refund_condition':
                 payload['repair_instruction'] = (
                     'The verified return record has pickup but no recorded quality-check pass or refund initiation. '
