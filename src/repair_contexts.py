@@ -230,3 +230,29 @@ def damage_reporting_restatement_inputs(query, facts, sources, reference_date):
     if sum(len(row['text']) for row in rows) > 2600:
         return None
     return {'sources': rows, 'facts': {}, 'scope': 'public_reporting_obligation_only'}
+
+
+def public_return_period_restatement_inputs(query, facts, sources, constraints):
+    """Restate a host-bound period without replaying the customer's story.
+
+    Keep the entire original evidence, dated exceptions and source conditions.
+    Compound remedies and deadline questions retain the ordinary repair path.
+    """
+    if (facts.get('verified_order') or facts.get('operational_escalation')
+            or not re.search(r'\breturn\w*\b|रिटर्न|वापस', query, re.I)
+            or not re.search(r'\b(?:how\s+long|how\s+many|kitn\w*)\b|कितन', query, re.I)
+            or re.search(r'\b(?:refund\w*|replac\w*|warrant\w*|fees?|charg\w*|pick[ -]?up|deadline|last\s+date|which\s+date|by\s+when|kab\s+tak|opened|unused|sealed|damag\w*|broken)\b|रिफंड|वारंटी|शुल्क|कब\s+तक|खोल|खुल|टूट|खराब', query, re.I)):
+        return None
+    policy = facts.get('return_policy')
+    if not isinstance(policy, dict):
+        return None
+    requested = [item for item in constraints if item.get('key') == 'return_policy.window_calendar_days']
+    if len(requested) != 1 or requested[0].get('value') != policy.get('window_calendar_days'):
+        return None
+    ids = set(requested[0].get('source_ids', []))
+    actual = {row['id']: row for row in sources}
+    if not ids or not ids <= actual.keys():
+        return None
+    # Constraints have already been rebound to source text by document_reply.
+    projected = {'return_policy': dict(policy), 'answer_constraints': requested}
+    return {'sources': list(sources), 'facts': projected}
