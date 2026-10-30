@@ -1007,6 +1007,7 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
         repair_mode = None
         repair_scope_check = None
         coverage_contract = None
+        reporting_support_contract = None
         language_contract = None
         if attempt:
             payload['repair_validation_error'] = errors[-1]
@@ -1481,6 +1482,23 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                             "Otherwise do not introduce that category. Use grammatical खुला/खुली/खुले as appropriate.")
                 if language == 'hi-en':
                     schema['properties']['answer']['pattern'] = (r'^[^"\\\u0000-\u001F\u007F\u0900-\u097F]{60,1800}$')
+                if repair_mode == 'source_reporting_restatement':
+                    # Support for an explanation is distinct from an item's
+                    # insurance/return eligibility. Preserve the model Boolean;
+                    # do not infer or force support from the selected source.
+                    schema['properties']['has_document_support'] = schema['properties'].pop('covered')
+                    schema['required'] = ['has_document_support' if key == 'covered' else key
+                                          for key in schema['required']]
+                    call_system = re.sub(r'\bcovered\b', 'has_document_support', call_system)
+                    call_system += (
+                        " has_document_support means the evidence supports your explanation; "
+                        "it does not mean the item qualifies for a benefit. A source-supported reporting "
+                        "explanation uses true, including when the item is damaged. Keep all control fields "
+                        "outside the spoken answer. Return no other fields.")
+                    reporting_support_contract = {'origin': 'explicit_source_support_field',
+                        'scope': 'public_reporting_obligation_only',
+                        'source_ids': [row['id'] for row in focused],
+                        'field_alias': {'has_document_support': 'covered'}}
                 payload = {'deterministic_facts': focused_facts,
                            'language': language, 'reference_date': REFERENCE_DATE.isoformat(),
                            'repair_validation_error': errors[-1], 'source_text': focused}
@@ -1508,6 +1526,14 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                 metric = getattr(client, 'last_metrics', {})
                 metrics.append(dict(metric) if isinstance(metric, dict) else {})
             value = json.loads(raw)
+            if reporting_support_contract is not None:
+                if not isinstance(value, dict) or set(value) != {'answer', 'has_document_support', 'needs_clarification'}:
+                    raise ValueError('invalid_response_fields')
+                reporting_support_contract['original_model_flags'] = {
+                    'has_document_support': value['has_document_support'],
+                    'needs_clarification': value['needs_clarification']}
+                value = {'answer': value['answer'], 'covered': value['has_document_support'],
+                         'needs_clarification': value['needs_clarification']}
             if coverage_contract is not None:
                 if isinstance(value, dict) and set(value) == {'answer','has_document_support','needs_clarification'}:
                     coverage_contract['original_model_flags'] = {
@@ -1549,6 +1575,8 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                 result['repair_scope_check'] = repair_scope_check
             if coverage_contract is not None:
                 result['coverage_contract'] = coverage_contract
+            if reporting_support_contract is not None:
+                result['reporting_support_contract'] = reporting_support_contract
             if repair_mode == 'source_window_scope':
                 result['repair_placement_scope'] = payload['placement_scope']
             if repair_mode:
