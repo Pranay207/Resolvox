@@ -10,7 +10,7 @@ _COMPLETED = re.compile(
     r"(?:डिलीवर|डिलिवर|शिप)\s+हो\s+(?:गय[ाीे]|चुक[ाीे])|"
     r"\b(?:deliver(?:ed)?|ship(?:ped)?|dispatch(?:ed)?)\s+(?:ho\s+)?(?:hua|hui|chuka|chuki|gaya|gayi)\b", re.I)
 _BOUNDARY = re.compile(r'[,;.!?।\n]|\b(?:and|but|however|aur|lekin)\b|और|लेकिन', re.I)
-_CONDITIONAL = re.compile(r'\b(?:if|when|once|after|before|assuming|provided|agar|yadi|jab)\b|यदि|अगर|जब|के\s+बाद', re.I)
+_CONDITIONAL = re.compile(r'\b(?:if|whether|when|once|after|before|assuming|provided|agar|yadi|jab|chahe)\b|यदि|अगर|जब|चाहे|के\s+बाद', re.I)
 _UNCERTAIN = re.compile(r"\b(?:cannot|can't|unable\s+to|do\s+not|don't)\s+(?:confirm|verify|establish|know)|\bno\s+(?:record|evidence|confirmation)|पुष्टि\s+नहीं|सत्यापित\s+नहीं", re.I)
 _GENERIC = re.compile(r'\b(?:items|products|orders|parcels)\s+(?:that|which)\s*$', re.I)
 

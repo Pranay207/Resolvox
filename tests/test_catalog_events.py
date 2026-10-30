@@ -8,7 +8,8 @@ FACTS = {'catalog': [{'sku': 'SYN-X', 'fulfilled_by': 'Example Seller'}], 'publi
  'The product SYN-X was shipped from a marketplace seller and delivered after the change date.',
  'Your item has been delivered.', 'The parcel was not delivered.', 'It was shipped yesterday.',
  'The product is already delivered.', 'यह सामान डिलीवर हो गया है।', 'Product deliver ho chuka hai.',
- 'I cannot confirm its date, but the product was delivered after the cutoff.'
+ 'I cannot confirm its date, but the product was delivered after the cutoff.',
+ 'I checked whether it was delivered, and the product was delivered yesterday.'
 ])
 def test_catalog_does_not_establish_completed_fulfillment(answer):
  with pytest.raises(ValueError, match='^unverified_catalog_fulfillment_event$'):
@@ -21,7 +22,9 @@ def test_catalog_does_not_establish_completed_fulfillment(answer):
  'Products that were delivered before the change follow the historical rule.',
  'I cannot confirm whether it was delivered.',
  'अगर सामान डिलीवर हो गया है तो लागू अवधि देखें।',
- 'Agar product deliver ho chuka hai, applicable window dekhein.'
+ 'Agar product deliver ho chuka hai, applicable window dekhein.',
+ 'This applies regardless of whether the item was delivered by the retailer or a seller.',
+ 'Chahe product deliver ho chuka hai, condition ki jaanch zaroori hai.'
 ])
 def test_catalog_attributes_conditional_policy_and_uncertainty_are_preserved(answer):
  check_catalog_fulfillment_claim(answer, 'What return rule applies to this product?', FACTS)
