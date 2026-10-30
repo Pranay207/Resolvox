@@ -187,3 +187,28 @@ def test_actual_same_unresolved_issue_keeps_verified_repeat_handover(sources,dat
  result=derive(sources,data,query,order={'contacts_last_9_days':'3'})
  assert row(result,'repeat_contact')['applicable'] is True
  assert result['recommended_reason']=='repeat_contact'
+
+
+@pytest.mark.parametrize('prefix', ['Maine', 'Humne', 'मैंने', 'हमने'])
+def test_reported_damage_identifies_named_verified_line_without_asking_for_colour(sources,data,prefix):
+ order={'items':[{'sku':'CASE-X','title':'Aster Radio, Blue','unit_price_inr':'800'},
+                 {'sku':'TV-X','title':'Aster Vista 43-inch Smart TV, Grey','unit_price_inr':'1500'}]}
+ decision=row(derive(sources,data,prefix+' Aster Vista 43 inch Smart TV damage report kiya tha. Replacement approve karo?',order=order),'high_value_damage')
+ assert decision['applicable'] is True
+ assert decision['facts']['item_sku']=='TV-X' and decision['facts']['item_value_inr']=='1500'
+ assert decision['facts']['value_origin']=='verified_order.items.unit_price_inr'
+
+
+def test_same_named_family_in_two_order_lines_remains_ambiguous(sources,data):
+ order={'items':[{'sku':'TV-A','title':'Aster Vista Smart TV, Grey','unit_price_inr':'1500'},
+                 {'sku':'TV-B','title':'Aster Vista Smart TV, Blue','unit_price_inr':'1600'}]}
+ decision=row(derive(sources,data,'Maine Aster Vista Smart TV damage report kiya tha.',order=order),'high_value_damage')
+ assert decision['applicable'] is None and 'one_unambiguous_item_value' in decision['missing_inputs']
+
+
+def test_verified_named_line_uses_mutated_source_threshold(sources,data):
+ sources[0]['text']=sources[0]['text'].replace('1,200','1,600')
+ order={'items':[{'sku':'CASE-X','title':'Aster Radio, Blue','unit_price_inr':'800'},
+                 {'sku':'TV-X','title':'Aster Vista Smart TV, Grey','unit_price_inr':'1500'}]}
+ decision=row(derive(sources,data,'Maine Aster Vista Smart TV damage report kiya tha.',order=order),'high_value_damage')
+ assert decision['applicable'] is False and decision['facts']['threshold_inr']=='1600'

@@ -123,7 +123,7 @@ def _asserted_damage(query):
             if _UNCERTAIN.search(prefix) or re.search(r"\b(?:isn.t|wasn.t|aren.t|weren.t)\b",prefix,re.I) or re.match(r'\s*(?:nahi|nahin|नहीं)',suffix,re.I):continue
             # Generic policy-overview questions are not individual claims.
             if re.search(r'\b(?:rules?|policy|threshold|hypothetic\w*)\b',clause,re.I) and not re.search(r'\b(?:my|our|mera|meri|hamara)\b|मेरा|मेरी',clause,re.I):continue
-            asserted=re.search(r'\b(?:my|our|i|we|mera|meri|mujhe|hamara|received|arrived|came|got|delivered)\b|मेरा|मेरी|मुझे|मिला|मिली|आया',clause,re.I)
+            asserted=re.search(r'\b(?:my|our|i|we|mera|meri|maine|humne|mujhe|hamara|received|arrived|came|got|delivered)\b|मेरा|मेरी|मैंने|हमने|मुझे|मिला|मिली|आया',clause,re.I)
             if not asserted or re.match(r'^\s*(?:is|was|are|were|did|does|would|could)\b',clause,re.I):continue
             return True
     return False
@@ -156,11 +156,19 @@ def _damage(query,sources,order,public,workflow):
     amount=None;origin=None;sku=public.get('sku')
     if order:
         items=[item for item in order.get('items',[]) if isinstance(item,dict)]
-        if sku:items=[item for item in items if item.get('sku')==sku]
+        exact=[item for item in items if item.get('sku') and re.search(r'(?<!\w)'+re.escape(item['sku'])+r'(?!\w)',query,re.I)]
+        def title_key(text):
+            text=re.sub(r'(?<=[0-9])(?=[a-z])|(?<=[a-z])(?=[0-9])',' ',str(text).casefold())
+            return ' '.join(re.findall(r'\w+',text))
+        query_key=' '+title_key(query)+' '
+        named=[]
+        for item in items:
+            core=title_key(str(item.get('title') or '').split(',')[0])
+            if len(core)>=8 and ' '+core+' ' in query_key:named.append(item)
+        if exact:items=exact
+        elif named:items=named
+        elif sku:items=[item for item in items if item.get('sku')==sku]
         elif selected:items=[item for item in items if item.get('sku')==selected[0]['sku']]
-        else:
-            exact=[item for item in items if item.get('sku') and re.search(r'(?<!\w)'+re.escape(item['sku'])+r'(?!\w)',query,re.I)]
-            items=exact or items
         if len(items)==1:
             amount=_amount(items[0].get('unit_price_inr'));sku=items[0].get('sku');origin='verified_order.items.unit_price_inr'
     elif selected:
