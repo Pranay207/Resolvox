@@ -10,6 +10,7 @@ import re
 _AUDIT_MAP_PATHS = (
     ('calculation_source_sha256',),
     ('reporting_time_check', 'source_sha256'),
+    ('pending_refund_requirement', 'source_sha256'),
     ('operational_escalation', 'source_sha256'),
     ('return_condition_policy', 'source_sha256'),
     ('warranty_duration', 'assured', 'source_sha256'),

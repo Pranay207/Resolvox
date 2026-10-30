@@ -22,6 +22,7 @@ from .warranty_durations import validate_warranty_duration_constraint, warranty_
 from .placement_conditions import check_placement_exception_answer
 from .return_transition_claims import check_effective_return_windows
 from .refund_arrival_claims import check_public_refund_timeliness, check_public_refund_business_day_roles
+from .refund_status import check_pending_refund_answer
 from .store_presence import check_store_presence_claim
 from .catalog_events import check_catalog_fulfillment_claim
 from .reporting_clock import reporting_clock_inputs, check_reporting_clock_claim
@@ -808,6 +809,7 @@ def _validate_context(value, sources, facts, language, *, private=False, query='
         validate_navigation_steps(answer, sources)
         check_placement_exception_answer(answer, facts, sources, normalizer=_constraint_text)
         check_effective_return_windows(answer, sources, reference_date=REFERENCE_DATE)
+        check_pending_refund_answer(answer, query, facts, sources, REFERENCE_DATE)
         check_public_refund_timeliness(answer, facts)
         check_public_refund_business_day_roles(answer, facts, date_mentions=_date_mentions)
         check_policy_category_labels(answer, sources, REFERENCE_DATE)
@@ -1038,6 +1040,13 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                     'keep dated policy branches conditional; do not invent a delivery date or date range to select one. '
                     'Do not claim the product was shipped or delivered merely because its catalog identifies a seller. '
                     'Do not invent customer dates or new policy values. ' + CONTEXT_LANGUAGE[language])
+            elif context_provenance and errors[-1] == 'missing_pending_refund_condition':
+                payload['repair_instruction'] = (
+                    'The verified return record has pickup but no recorded quality-check pass or refund initiation. '
+                    'Explain the applicable source prerequisite and initiation timing before any payment-method arrival timing. '
+                    'Keep initiation, processing and settlement separate, and describe absent record fields as unrecorded, not completed. '
+                    'Use concise complete sentences with no repeated filler. Do not invent an account destination or transaction. '
+                    'Read all requirements, durations and exceptions from the original evidence and verified facts. ' + CONTEXT_LANGUAGE[language])
             elif context_provenance and errors[-1] == 'contradicted_reporting_window_status':
                 payload['repair_instruction'] = (
                     'The report-time verdict contradicts the verified recorded elapsed hours and actual source reporting window. '
@@ -1253,6 +1262,7 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                     "Answer the customer's actual request using only source_text and deterministic_facts. "
                     "Give the relevant procedure or policy in two or three concise complete sentences. "
                     "Keep every requested part, its source duration and timing anchor, and any prerequisite for a remedy. "
+                    "Retain every host answer_constraint, including a conditional pickup fee; explain a cost as a rule, never as a charge you performed. "
                     "Do not repeat category classifications, category examples or hypothetical safety examples unless explicitly requested. "
                     "Do not invent a taxonomy translation, route, performed action or personal eligibility. "
                     "If the customer requests a formal category, retain its actual source name as a technical label. "
