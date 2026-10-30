@@ -5,10 +5,22 @@ SOURCE={'id':'route-new','text':'Claims are raised in the app under Service Requ
 class Client:
  def __init__(self,*answers):self.answers=list(answers)
  def complete(self,*a,**kw):return json.dumps({'answer':self.answers.pop(0),'covered':True,'needs_clarification':False})
-@pytest.mark.parametrize('bad',['covered=true reason: Claims are in the app.','has_document_support=true reason: Claims are in the app.','needs_clarification: false.','ordinary_return_condition_check is not satisfied.'])
+@pytest.mark.parametrize('bad',['covered=true reason: Claims are in the app.','has_document_support=true reason: Claims are in the app.','needs_clarification: false.','ordinary_return_condition_check is not satisfied.',
+ 'The item is not covered (assured = False).', 'ASSURED: TRUE.',
+ 'Use create_ticket to escalate.', 'Run lookup_order for details.', 'Use lookup_customer to find them.',
+ '"assured": false.', "'assured' = 'False'.", '"covered": true.', '"needs_clarification": "false".'])
 def test_machine_metadata_is_rejected_as_spoken_text(bad):
  with pytest.raises(GenerationValidationError):document_reply(Client(bad,bad),'Where are claims raised?','en',[SOURCE],context_provenance=True)
 def test_metadata_leak_gets_one_source_based_repair():
  good='Claims are in the app under Service Requests.'
  result=document_reply(Client('covered=true reason: Claims are in the app.',good),'Where are claims raised?','en',[SOURCE],context_provenance=True)
  assert result['answer']==good and result['repair_errors']==['internal_metadata_in_answer']
+
+
+def test_catalog_flag_gets_a_natural_explanation_without_changing_its_value():
+ source={'id':'catalog-synthetic','text':'This product does not carry Assured coverage.', 'doc_type':'catalog','status':'current'}
+ good='This product does not carry Assured coverage.'
+ result=document_reply(Client('This product does not carry Assured coverage (assured = False).',good),'Does this product carry Assured coverage?','en',[source],context_provenance=True)
+ assert result['answer']==good
+ assert result['generation_attempts']==2
+ assert result['repair_errors']==['internal_metadata_in_answer']

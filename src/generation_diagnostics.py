@@ -48,7 +48,7 @@ unsupported_language unsupported_navigation_label unsupported_navigation_procedu
 unsupported_number unsupported_personal_money_amount unsupported_placement_exception_entitlement
 unsupported_placement_exception_personal_window
 unsupported_quantity_unit unverified_record_completion unverified_record_status
-unverified_refund_reference wrong_output_language
+unverified_refund_reference unverified_refund_timeliness conflicted_refund_business_day_role unsupported_physical_store_claim unsupported_category_label wrong_output_language
 """.split())
 _COUNTERS = frozenset((
     'attempts', 'http_attempts', 'rate_limit_events', 'rate_limit_retries',
