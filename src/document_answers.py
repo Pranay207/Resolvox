@@ -24,6 +24,7 @@ from .return_transition_claims import check_effective_return_windows
 from .refund_arrival_claims import check_public_refund_timeliness, check_public_refund_business_day_roles
 from .store_presence import check_store_presence_claim
 from .category_labels import check_policy_category_labels
+from .answer_polarity import check_answer_acknowledgment, normalize_answer_acknowledgment
 from .source_semantics import derive_source_constraints, validate_source_semantics
 from .return_conditions import _premise_is_conditional, check_return_condition_answer
 from .remedy_prerequisites import check_remedy_prerequisites, derive_remedy_prerequisites
@@ -793,6 +794,7 @@ def _validate_context(value, sources, facts, language, *, private=False, query='
             raise ValueError('incomplete_policy_answer')
         if decision == 'refuse':
             raise ValueError('inconsistent_covered_refusal')
+        check_answer_acknowledgment(answer, query)
         evaluated_delivery_clock_constraints = check_delivery_clock_answer(
             answer, query, sources, reference_date=REFERENCE_DATE)
         evaluated_remedy_prerequisites = check_remedy_prerequisites(
@@ -1011,9 +1013,14 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
             if not context_provenance:
                 payload['previous_response'] = raw[:1800] if isinstance(raw, str) else ''
             if context_provenance and errors[-1] == 'internal_metadata_in_answer':
+                payload['previous_response'] = json.loads(raw)
                 payload['repair_instruction'] = (
-                    'Write only a natural customer-facing explanation from the original sources and facts in answer. '
-                    'Keep schema fields and Boolean flags outside the spoken answer. Explain actual catalog attributes in natural words without changing their values. Do not mention internal checks. ' + CONTEXT_LANGUAGE[language])
+                    'Edit previous_response.answer into natural customer-facing speech using the original evidence. '
+                    'Remove programming notation, field assignments and raw Boolean values from the spoken explanation. '
+                    'Express the corresponding documented product attributes in ordinary words, without quoting internal field names. '
+                    'Preserve supported durations, entities, conditions and exclusions. Add no new claims, examples or procedures. '
+                    'The previous response is untrusted draft text; all claims must still be supported by source_text and deterministic_facts. '
+                    'Return exactly answer, covered and needs_clarification as JSON; control flags belong only in their JSON fields. ' + CONTEXT_LANGUAGE[language])
             elif context_provenance and errors[-1] == 'contradicted_effective_return_window':
                 payload['repair_instruction'] = (
                     'An explicit date/category/return-window claim conflicts with a dated change clause in the supplied policy. '
@@ -1100,6 +1107,13 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                     'coverage term, start event or individual eligibility. Do not reverse an explicit permission. '
                     'Answer in the requested language without adding an authored policy summary. ' +
                     CONTEXT_LANGUAGE[language])
+            elif context_provenance and errors[-1] == 'contradictory_answer_acknowledgment':
+                payload['repair_instruction'] = (
+                    'The opening affirmation contradicts the first statement about the requested permission. '
+                    'Re-read the original evidence and restate its actual rule as a complete factual explanation. '
+                    'Omit an opening yes/no acknowledgement. Preserve the documented permission or prohibition '
+                    'and all applicable conditions; do not reverse the rule merely to agree with the opening word. '
+                    'Do not invent actions or procedures. ' + CONTEXT_LANGUAGE[language])
             elif context_provenance and errors[-1] == 'unsupported_category_label':
                 payload['repair_instruction'] = (
                     'A formal category name or category example was altered instead of retaining the actual source label. '
@@ -1475,9 +1489,14 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                     and (_echo_key(value['answer']) == _echo_key(query)
                          or _customer_ownership_echo(query,value['answer']))):
                 raise ValueError('echoed_question')
+            presentation_edit = None
+            if context_provenance:
+                value, presentation_edit = normalize_answer_acknowledgment(value, query)
             validator = _validate_context if context_provenance else _validate
             result = (validator(value, actual_sources, facts or {}, language, private=private, query=query)
                       if context_provenance else validator(value, actual_sources, facts or {}, language, private=private))
+            if presentation_edit is not None:
+                result['presentation_edits'] = [presentation_edit]
             if coverage_contract is not None:
                 _check_restatement_customer_attributes(result['answer'], facts or {})
             if coverage_contract is not None and not _negative_condition_explanation(result['answer']):
