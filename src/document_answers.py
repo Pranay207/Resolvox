@@ -1124,11 +1124,13 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                     'from ordinary or calendar days. Remove unrelated unsupported numbers rather than guessing. '
                     'Rewrite the complete answer in the resolved language. ' + CONTEXT_LANGUAGE[language])
             elif context_provenance and errors[-1].startswith((
-                    'source_permission_', 'unsupported_brand_warranty_', 'source_credit_', 'source_refund_condition_')):
+                    'source_permission_', 'unsupported_brand_warranty_', 'source_credit_', 'source_refund_condition_',
+                    'source_membership_refund_')):
                 payload['repair_source_constraints'] = derive_source_constraints(actual_sources)
                 payload['repair_instruction'] = (
                     'Preserve the source-derived permissions, documented attribute limits and benefit conditions. '
                     'Keep every antecedent bound to its consequence, including payment qualifications on a failed-delivery refund rule. '
+                    'Keep refund initiation timing separate from arrival after initiation; attribute speed only to its documented condition. '
                     'Use only repair_source_constraints and the original evidence; do not invent a positive '
                     'coverage term, start event or individual eligibility. Do not reverse an explicit permission. '
                     'Answer in the requested language without adding an authored policy summary. ' +
