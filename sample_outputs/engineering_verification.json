@@ -1,15 +1,15 @@
 {
-  "started_at": "2026-10-30T13:40:35.992767+00:00",
+  "started_at": "2026-10-30T14:02:15.263947+00:00",
   "status": "tested",
   "complete": true,
   "scope": "Full offline engineering regressions and official dataset integrity; not semantic certification or organizer scoring.",
   "answer_path": "document_context_generation",
-  "attempt_directory": "tmp/engineering_runs/20261030T134035989766Z_80e5c747",
+  "attempt_directory": "tmp/engineering_runs/20261030T140215261947Z_5dfb727f",
   "excluded_generated_outputs": [
     "Capstone_Project_Dataset_FTTT_2026/tools/tickets_created.csv"
   ],
-  "previous_receipt": "tmp/engineering_runs/20261030T134035989766Z_80e5c747/previous_engineering_verification.json",
-  "previous_receipt_sha256": "fd1b3c64fc1fa641c79585d83c59a5fa08d08374bcadb456fec3b693674382a3",
+  "previous_receipt": "tmp/engineering_runs/20261030T140215261947Z_5dfb727f/previous_engineering_verification.json",
+  "previous_receipt_sha256": "f299a3ddd32326030b5d375fde57c5504ef35135ac5829412831a5d7a080c6a1",
   "runtime_source_sha256": {
     "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
     "src/agent.py": "4fa36c7fe138ca11c1aadd1e4ce53867c9768a81e004b7a511c2e7e7a53f668c",
@@ -20,7 +20,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "67ae9907d90bc8d65b5db67aa6fd5a47e5e1cccec0afdfa5d358e511a96bad42",
+    "src/document_answers.py": "d66d2112bde28d1d76c40449e34b1c92b94bb6977480fdbefcb4b34f7d635e6e",
     "src/document_context.py": "ddf988e1f6f7266c7ad39c34fdc579a352f261477ee000ed458dabbeb496dffc",
     "src/escalation_rules.py": "4179c3f45bb4499ac56deb8912a8b0b95daa4ba1d038d814f42befaa87c14775",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -143,7 +143,8 @@
     "tests/test_repair_priority.py": "0e6211f90c311103f235117149f22f80d669d5173c5dff6f1238805d0c473d90",
     "tests/test_repair_regeneration.py": "84aee7a6dd35a5c22c37c952181bccdb1f41f9034f85f62ad0f686866de6def6",
     "tests/test_report_freshness.py": "26cb642fa812b24420b8cd17727b25cb020b4f0be1bd66007bd0725606f4a40d",
-    "tests/test_reporting_restatement.py": "fbfae4fd0de7bf1aef18f015aec7d8fe08a8b7b52e4b32b33df74d7c617482b4",
+    "tests/test_reporting_restatement.py": "1bd8b3eaf77269374c44f019646dd7f3783aba12aae4f699ce7b69fd0a508fe1",
+    "tests/test_reporting_support_contract.py": "d86b2becbe95c27ca4378ebd129e5c6e558ca1d86cb9a809c0c579887738546e",
     "tests/test_restatement_scope.py": "f95ab9dcbec21f63374cf4312668e4f8ffea90f826aabfaa2c59021be4328514",
     "tests/test_retrieval.py": "f7518739be0a9bfcae3577be91e01ba648599fe340da488534ef36b7f5c81958",
     "tests/test_retrieval_dependency_append.py": "2a7a033aec95a8ba43e08c15c274891b80e89c52fb6a014a5bc6627b48c6421e",
@@ -222,7 +223,7 @@
   },
   "verification_helper_sha256": "e2345df7799f7596429dc60f44f9b0d0ce6c6445ea296162455bc3654baebb72",
   "git_started": {
-    "head": "617e6686a6034c2e0605c0cab3f953c3f1c1edb3",
+    "head": "761982dbd146506b870e5135f9e4dfc88590f5aa",
     "dirty": true,
     "status_porcelain": [
       " M report.md",
@@ -233,18 +234,21 @@
       "?? sample_outputs/engineering_artifacts/20261028T173824893591Z_ab8d12ae/",
       "?? sample_outputs/engineering_artifacts/20261030T090322008244Z_91b7525b/",
       "?? sample_outputs/eval_step2_live_current.json",
+      "?? sample_outputs/eval_step2_targeted_20261030T134136239Z.json",
       "?? sample_outputs/history/before_remaining_live_20261025T162601217950Z_d8ca877b/",
       "?? sample_outputs/history/before_remaining_live_20261028T163225853098Z_e70e9363/",
       "?? sample_outputs/history/before_remaining_live_20261028T174604810839Z_df0efb2d/",
       "?? sample_outputs/history/before_remaining_live_20261030T062325041997Z_cf6a6868/",
       "?? sample_outputs/history/before_remaining_live_20261030T092439681197Z_33dea86e/",
       "?? sample_outputs/history/before_remaining_live_20261030T105705654222Z_ac8fc6cb/",
+      "?? sample_outputs/history/before_reporting_support_fix_20261030T140158Z/",
       "?? sample_outputs/history/before_targeted_continuation_20261030T133933Z/",
       "?? sample_outputs/history/interrupted_local_ten_checkpoint_20261026T142325Z/",
-      "?? sample_outputs/live_sequence_receipt.json"
+      "?? sample_outputs/live_sequence_receipt.json",
+      "?? sample_outputs/retained_answer_validation_20261030.json"
     ]
   },
-  "runtime_commit": "617e6686a6034c2e0605c0cab3f953c3f1c1edb3",
+  "runtime_commit": "761982dbd146506b870e5135f9e4dfc88590f5aa",
   "inference_environment": {
     "provider": "ollama",
     "model": "qwen3:4b-instruct",
@@ -259,11 +263,11 @@
     "scope": "All tests under tests/; inherited selectors disabled."
   },
   "pytest": {
-    "started_at": "2026-10-30T13:40:36.940392+00:00",
-    "finished_at": "2026-10-30T13:41:33.859384+00:00",
+    "started_at": "2026-10-30T14:02:17.739653+00:00",
+    "finished_at": "2026-10-30T14:03:21.683985+00:00",
     "exit_code": 0,
-    "wall_duration_seconds": 56.91969,
-    "command": "C:\\Users\\Shiva\\Downloads\\Resolvox\\.venv\\Scripts\\python.exe -u -m pytest C:\\Users\\Shiva\\Downloads\\Resolvox\\tests -q -p no:cacheprovider --junitxml=C:\\Users\\Shiva\\Downloads\\Resolvox\\tmp\\engineering_runs\\20261030T134035989766Z_80e5c747\\pytest.xml -o junit_family=xunit2 -o addopts=",
+    "wall_duration_seconds": 63.944872,
+    "command": "C:\\Users\\Shiva\\Downloads\\Resolvox\\.venv\\Scripts\\python.exe -u -m pytest C:\\Users\\Shiva\\Downloads\\Resolvox\\tests -q -p no:cacheprovider --junitxml=C:\\Users\\Shiva\\Downloads\\Resolvox\\tmp\\engineering_runs\\20261030T140215261947Z_5dfb727f\\pytest.xml -o junit_family=xunit2 -o addopts=",
     "argv": [
       "C:\\Users\\Shiva\\Downloads\\Resolvox\\.venv\\Scripts\\python.exe",
       "-u",
@@ -273,40 +277,40 @@
       "-q",
       "-p",
       "no:cacheprovider",
-      "--junitxml=C:\\Users\\Shiva\\Downloads\\Resolvox\\tmp\\engineering_runs\\20261030T134035989766Z_80e5c747\\pytest.xml",
+      "--junitxml=C:\\Users\\Shiva\\Downloads\\Resolvox\\tmp\\engineering_runs\\20261030T140215261947Z_5dfb727f\\pytest.xml",
       "-o",
       "junit_family=xunit2",
       "-o",
       "addopts="
     ],
-    "log": "sample_outputs/engineering_artifacts/20261030T134035989766Z_80e5c747/pytest.log",
-    "log_sha256": "6e20c8524feea5ab9a5460eaaa06d219fc4f7af425241d5fe027567461093f64",
+    "log": "sample_outputs/engineering_artifacts/20261030T140215261947Z_5dfb727f/pytest.log",
+    "log_sha256": "fca5ab220be0319490262609f846f70916bd04faa18d1b1734c65edfff9617f5",
     "stopped_for_input_change": false,
-    "total": 3111,
+    "total": 3116,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
-    "passed": 3111,
-    "duration_seconds": 50.118,
-    "testcase_entries": 3111,
+    "passed": 3116,
+    "duration_seconds": 54.841,
+    "testcase_entries": 3116,
     "result_source": "pytest_junit_xml",
-    "junit_xml": "sample_outputs/engineering_artifacts/20261030T134035989766Z_80e5c747/pytest.xml",
-    "junit_xml_sha256": "6f2ebc5b5a3cc14cec7d52649e0ef70a837df595105b1a7bbab31645bfa60711",
-    "original_log": "tmp/engineering_runs/20261030T134035989766Z_80e5c747/pytest.log",
-    "original_junit_xml": "tmp/engineering_runs/20261030T134035989766Z_80e5c747/pytest.xml"
+    "junit_xml": "sample_outputs/engineering_artifacts/20261030T140215261947Z_5dfb727f/pytest.xml",
+    "junit_xml_sha256": "082bb35ed41c32646a79ebca7b56a200d97d5bc71cf2d8306493cf9f1f0a8236",
+    "original_log": "tmp/engineering_runs/20261030T140215261947Z_5dfb727f/pytest.log",
+    "original_junit_xml": "tmp/engineering_runs/20261030T140215261947Z_5dfb727f/pytest.xml"
   },
   "dataset_validation": {
-    "started_at": "2026-10-30T13:41:34.062892+00:00",
-    "finished_at": "2026-10-30T13:41:35.286904+00:00",
+    "started_at": "2026-10-30T14:03:21.913960+00:00",
+    "finished_at": "2026-10-30T14:03:23.180768+00:00",
     "exit_code": 0,
-    "wall_duration_seconds": 1.223875,
+    "wall_duration_seconds": 1.266833,
     "command": "C:\\Users\\Shiva\\Downloads\\Resolvox\\.venv\\Scripts\\python.exe -u C:\\Users\\Shiva\\Downloads\\Resolvox\\Capstone_Project_Dataset_FTTT_2026\\validate_dataset.py",
     "argv": [
       "C:\\Users\\Shiva\\Downloads\\Resolvox\\.venv\\Scripts\\python.exe",
       "-u",
       "C:\\Users\\Shiva\\Downloads\\Resolvox\\Capstone_Project_Dataset_FTTT_2026\\validate_dataset.py"
     ],
-    "log": "sample_outputs/engineering_artifacts/20261030T134035989766Z_80e5c747/dataset_validation.log",
+    "log": "sample_outputs/engineering_artifacts/20261030T140215261947Z_5dfb727f/dataset_validation.log",
     "log_sha256": "1940c9b3a5861098b475edb214b36b0ba2a8c16b68444385e25ac83260b19bd3",
     "stopped_for_input_change": false,
     "csv_files": 9,
@@ -318,9 +322,9 @@
     "conversations": 23,
     "result_source": "official_validator_stdout",
     "validator_sha256": "8f7056a58021aa75194404150a655dda199570e31e9ce362eb1413263a994455",
-    "original_log": "tmp/engineering_runs/20261030T134035989766Z_80e5c747/dataset_validation.log"
+    "original_log": "tmp/engineering_runs/20261030T140215261947Z_5dfb727f/dataset_validation.log"
   },
-  "finished_at": "2026-10-30T13:41:35.539035+00:00",
+  "finished_at": "2026-10-30T14:03:23.368523+00:00",
   "runtime_source_sha256_finished": {
     "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
     "src/agent.py": "4fa36c7fe138ca11c1aadd1e4ce53867c9768a81e004b7a511c2e7e7a53f668c",
@@ -331,7 +335,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "67ae9907d90bc8d65b5db67aa6fd5a47e5e1cccec0afdfa5d358e511a96bad42",
+    "src/document_answers.py": "d66d2112bde28d1d76c40449e34b1c92b94bb6977480fdbefcb4b34f7d635e6e",
     "src/document_context.py": "ddf988e1f6f7266c7ad39c34fdc579a352f261477ee000ed458dabbeb496dffc",
     "src/escalation_rules.py": "4179c3f45bb4499ac56deb8912a8b0b95daa4ba1d038d814f42befaa87c14775",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -454,7 +458,8 @@
     "tests/test_repair_priority.py": "0e6211f90c311103f235117149f22f80d669d5173c5dff6f1238805d0c473d90",
     "tests/test_repair_regeneration.py": "84aee7a6dd35a5c22c37c952181bccdb1f41f9034f85f62ad0f686866de6def6",
     "tests/test_report_freshness.py": "26cb642fa812b24420b8cd17727b25cb020b4f0be1bd66007bd0725606f4a40d",
-    "tests/test_reporting_restatement.py": "fbfae4fd0de7bf1aef18f015aec7d8fe08a8b7b52e4b32b33df74d7c617482b4",
+    "tests/test_reporting_restatement.py": "1bd8b3eaf77269374c44f019646dd7f3783aba12aae4f699ce7b69fd0a508fe1",
+    "tests/test_reporting_support_contract.py": "d86b2becbe95c27ca4378ebd129e5c6e558ca1d86cb9a809c0c579887738546e",
     "tests/test_restatement_scope.py": "f95ab9dcbec21f63374cf4312668e4f8ffea90f826aabfaa2c59021be4328514",
     "tests/test_retrieval.py": "f7518739be0a9bfcae3577be91e01ba648599fe340da488534ef36b7f5c81958",
     "tests/test_retrieval_dependency_append.py": "2a7a033aec95a8ba43e08c15c274891b80e89c52fb6a014a5bc6627b48c6421e",
@@ -535,7 +540,7 @@
   "source_runtime_unchanged": true,
   "all_verification_inputs_unchanged": true,
   "git_finished": {
-    "head": "617e6686a6034c2e0605c0cab3f953c3f1c1edb3",
+    "head": "761982dbd146506b870e5135f9e4dfc88590f5aa",
     "dirty": true,
     "status_porcelain": [
       " M report.md",
@@ -546,18 +551,21 @@
       "?? sample_outputs/engineering_artifacts/20261028T173824893591Z_ab8d12ae/",
       "?? sample_outputs/engineering_artifacts/20261030T090322008244Z_91b7525b/",
       "?? sample_outputs/eval_step2_live_current.json",
+      "?? sample_outputs/eval_step2_targeted_20261030T134136239Z.json",
       "?? sample_outputs/history/before_remaining_live_20261025T162601217950Z_d8ca877b/",
       "?? sample_outputs/history/before_remaining_live_20261028T163225853098Z_e70e9363/",
       "?? sample_outputs/history/before_remaining_live_20261028T174604810839Z_df0efb2d/",
       "?? sample_outputs/history/before_remaining_live_20261030T062325041997Z_cf6a6868/",
       "?? sample_outputs/history/before_remaining_live_20261030T092439681197Z_33dea86e/",
       "?? sample_outputs/history/before_remaining_live_20261030T105705654222Z_ac8fc6cb/",
+      "?? sample_outputs/history/before_reporting_support_fix_20261030T140158Z/",
       "?? sample_outputs/history/before_targeted_continuation_20261030T133933Z/",
       "?? sample_outputs/history/interrupted_local_ten_checkpoint_20261026T142325Z/",
-      "?? sample_outputs/live_sequence_receipt.json"
+      "?? sample_outputs/live_sequence_receipt.json",
+      "?? sample_outputs/retained_answer_validation_20261030.json"
     ]
   },
-  "runtime_commit_finished": "617e6686a6034c2e0605c0cab3f953c3f1c1edb3",
+  "runtime_commit_finished": "761982dbd146506b870e5135f9e4dfc88590f5aa",
   "git_head_unchanged": true,
-  "engineering_artifact_directory": "sample_outputs/engineering_artifacts/20261030T134035989766Z_80e5c747"
+  "engineering_artifact_directory": "sample_outputs/engineering_artifacts/20261030T140215261947Z_5dfb727f"
 }
