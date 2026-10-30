@@ -16,6 +16,7 @@ from .config import REFERENCE_DATE
 from .warranty_durations import warranty_duration_context, warranty_duration_constraints
 from .source_semantics import derive_source_constraints
 from .return_conditions import return_condition_context
+from .refund_status import pending_refund_requirement
 
 # Record fields, not policy thresholds. Explicit allowlists also filter nested
 # items: organizer records contain identities that must not enter model context.
@@ -328,9 +329,58 @@ def _source_delivery_policy(sources):
     return {'delivery_attempt_limit': values.pop(), 'source_ids': ['DEL-3']}
 
 
+def _return_pickup_fee(query, context, sources):
+    """Bind a conditional charge when explaining a verified ordinary return.
+
+    The amount and category scope are read from current policy. This is a
+    conditional cost explanation, never proof that a fee was actually charged.
+    """
+    order = context.get('verified_order', {})
+    selected = context.get('return_policy', {})
+    if order.get('is_plus') is not False or not selected or not _return_application_facet(query):
+        return None
+    permission = r'\b(?:can|may|could)\s+(?:i|we)\b|\b(?:kar|bhej|lauta)\w*\s+sakt\w*\b|कर\s*सक|भेज\s*सक|लौटा\s*सक|\beligib\w*\b|\breturnable\b'
+    if not re.search(permission, query, re.I):
+        return None
+    if re.search(r'\bdamag\w*|\bdefect\w*|\bbroken\b|\bwrong\b|खराब|टूट|क्षतिग्रस्त|गलत', query, re.I):
+        return None
+    deadlines = [_date(row.get('result', {}).get('deadline')) for row in context.get('calculations', []) if row.get('operation') == 'return_calendar_deadline']
+    if any(day is not None and day < REFERENCE_DATE for day in deadlines):
+        return None
+    reason = str(order.get('return_reason') or '')
+    if reason and not re.fullmatch(r'change[_ -]of[_ -]mind', reason, re.I):
+        return None
+    normalized = lambda text: set(re.findall(r'[a-z]+',text.casefold())) - {'and','the'}
+    category = normalized(selected.get('category_label',''))
+    if not category:
+        return None
+    found = []
+    pattern = re.compile(r'reverse\s+pickup\s+fee\s+of\s+(?:₹|INR\s*|Rs\.?\s*)(?P<amount>\d[\d,]*(?:\.\d+)?)\s+'
+                         r'applies\s+to\s+change.of.mind\s+returns\s+of\s+(?P<scope>[^.;\n]+)', re.I)
+    for source in sources.values():
+        if source.get('doc_type') != 'policy' or source.get('status') != 'current':
+            continue
+        effective = _date(source.get('effective_from'))
+        if source.get('effective_from') and (effective is None or effective > REFERENCE_DATE):
+            continue
+        for match in pattern.finditer(_text(source)):
+            amount = _amount(match['amount'])
+            if amount is not None and category == normalized(match['scope']):
+                found.append((amount, source['id'], match['scope']))
+    if not found or len({row[0] for row in found}) != 1:
+        return None
+    return {'standard_fee_inr': found[0][0], 'condition': 'change_of_mind',
+            'category_label': found[0][2], 'personal_charge_confirmed': False,
+            'source_ids': sorted({row[1] for row in found})}
+
+
 def _answer_constraints(query, context, sources):
     """Require only question-relevant, host-derived numeric facts, never prose."""
     constraints = []
+    fee = context.get('return_pickup_policy')
+    if fee:
+        constraints.append({'kind': 'number', 'value': fee['standard_fee_inr'],
+                            'key': 'return_pickup_policy.standard_fee_inr', 'source_ids': fee['source_ids']})
     return_topic = bool(re.search(r'\breturn\w*\b|\bsend.{0,15}back\b|\b(?:wapas|vaapas|lauta\w*)\b|\u0930\u093f\u091f\u0930\u094d\u0928|\u0932\u094c\u091f\u093e|\u0935\u093e\u092a\u0938', query, re.I))
     duration = bool(re.search(r'\b(?:window|period|days?|deadline|duration)\b|\bhow\s+long\b|\bhow\s+much\s+time\b|\bkitn[aei]\w*.{0,12}\bdin\b|\u0926\u093f\u0928|\u0905\u0935\u0927\u093f', query, re.I))
     refund_topic = bool(re.search(r'\brefund\b|\u0930\u093f\u092b\u093c?\u0902\u0921', query, re.I))
@@ -647,17 +697,23 @@ def build_context(query, sources, data, verified_order=None, public_context=None
     context['calculations'].extend(service_calculations)
     context.update(return_condition_context(query, source_map, reference_date=REFERENCE_DATE.isoformat()))
     context.update(warranty_duration_context(query, source_map, reference_date=REFERENCE_DATE.isoformat(), sku=public.get('sku')))
+    fee = _return_pickup_fee(query, context, source_map)
+    if fee:
+        context['return_pickup_policy'] = fee
     context['answer_constraints'] = _answer_constraints(query, context, source_map)
     context['answer_constraints'].extend(warranty_duration_constraints(context))
     source_semantic_constraints = derive_source_constraints(list(source_map.values()))
     if source_semantic_constraints:
         context['source_semantic_constraints'] = source_semantic_constraints
+    pending_refund = pending_refund_requirement(query, context, list(source_map.values()), REFERENCE_DATE)
+    if pending_refund:
+        context['pending_refund_requirement'] = pending_refund
     required_inputs = _missing_application_inputs(query, list(source_map.values()), context)
     if required_inputs:
         context['required_application_inputs'] = required_inputs
     # Hashes make the parsed numeric inputs auditable against retrieved bytes.
     used = {sid for calculation in context['calculations'] for sid in calculation['source_ids'] if sid in source_map}
-    for fact in (context.get('return_policy', {}), context.get('delivery_policy', {})):
+    for fact in (context.get('return_policy', {}), context.get('delivery_policy', {}), context.get('return_pickup_policy', {})):
         used.update(sid for sid in fact.get('source_ids', []) if sid in source_map)
     used.update(sid for sid in context.get('return_condition_policy', {}).get('source_ids', []) if sid in source_map)
     if used:

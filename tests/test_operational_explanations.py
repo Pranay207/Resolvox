@@ -267,3 +267,25 @@ def test_explicit_warranty_question_retains_the_requested_warranty_evidence(monk
     module.Agent(r,compose=True).respond('My '+p['sku']+' arrived with a crack; what warranty applies?','en')
     assert len(calls)==1
     assert any(x.get('file')=='pol_warranty_assured.md' for x in calls[0]['sources'])
+
+
+def test_overdue_refund_keeps_complete_governing_policy_and_reference_without_unrelated_branches():
+    r=resources();agent=verified(r,refund='2026-07-01')
+    pool=[chunk.public() for chunk in r.kb.chunks.values()]
+    route=explanation.resolve_business_escalation('Where is my refund?','refund','refund',True,
+        r.kb,pool,r.data,verified_order=agent.state.order)
+    assert route['state']=='escalate' and route['reason']=='refund_overdue'
+    ids={s['id'] for s in route['sources']}
+    assert {'ESC-1','ESC-2','KB-00.3','REF-2','REF-6'}<=ids
+    assert 'RET-2' not in ids and 'DWM-1' not in ids
+    facts=explanation.build_context('Where is my refund?',route['sources'],r.data,
+                                     verified_order=agent.state.order)
+    assert facts['verified_order']['return_rrn']=='123456789012'
+
+
+def test_compound_refund_and_return_window_request_retains_extra_requested_policy():
+    r=resources();agent=verified(r,refund='2026-07-01')
+    pool=[chunk.public() for chunk in r.kb.chunks.values()]
+    route=explanation.resolve_business_escalation('Where is my refund and what return window applies?',
+        'refund','refund',True,r.kb,pool,r.data,verified_order=agent.state.order)
+    assert 'RET-2' in {s['id'] for s in route['sources']}

@@ -77,9 +77,11 @@ def resolve_business_escalation(query,intent,plan_intent,legacy_escalate,kb,pool
     explanation={sid:by_id[sid] for sid in selected['source_ids']}
     original={row['id']:row for row in actual}
     extra_topic = re.search(r'warrant|refund|return|cancel|fees?|delivery\s+(?:time|date)|वारंटी|रिफंड|रिटर्न|वापस|कैंसिल|शुल्क', query, re.I)
-    if reason == 'high_value_damage' and not extra_topic:
-        # Explain the actual handover and the complete governing damage policy.
-        # Unrequested warranty/return-clock material must not redirect this claim.
+    if reason == 'refund_overdue':
+        extra_topic = re.search(r'warrant|cancel|fees?|pick[ -]?up|quality\s+check|\bQC\b|return.{0,20}(?:window|eligib|deadline)|delivery\s+(?:time|date)|वारंटी|कैंसिल|शुल्क|पिकअप|गुणवत्ता', query, re.I)
+    if reason in {'high_value_damage', 'refund_overdue', 'repeat_contact'} and not extra_topic:
+        # Keep the complete governing policy files, selected workflow and calendar.
+        # Unrelated retrieval branches must not overflow or redirect this explanation.
         policy_files = {row.get('file') for row in explanation.values()
                         if row.get('doc_type') == 'policy' and row.get('file')}
         for row in actual:
