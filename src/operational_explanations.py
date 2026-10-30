@@ -3,6 +3,7 @@ from datetime import date
 import copy
 import hashlib
 import json
+import re
 
 from .config import REFERENCE_DATE
 from .document_answers import document_reply
@@ -75,9 +76,19 @@ def resolve_business_escalation(query,intent,plan_intent,legacy_escalate,kb,pool
     # sources used by derivation; never replace a source with a plan summary.
     explanation={sid:by_id[sid] for sid in selected['source_ids']}
     original={row['id']:row for row in actual}
-    for row in pool:
-        if row.get('id') in original and row.get('doc_type') in {'policy','meta','catalog'}:
-            explanation.setdefault(row['id'],original[row['id']])
+    extra_topic = re.search(r'warrant|refund|return|cancel|fees?|delivery\s+(?:time|date)|वारंटी|रिफंड|रिटर्न|वापस|कैंसिल|शुल्क', query, re.I)
+    if reason == 'high_value_damage' and not extra_topic:
+        # Explain the actual handover and the complete governing damage policy.
+        # Unrequested warranty/return-clock material must not redirect this claim.
+        policy_files = {row.get('file') for row in explanation.values()
+                        if row.get('doc_type') == 'policy' and row.get('file')}
+        for row in actual:
+            if row.get('doc_type') == 'policy' and row.get('file') in policy_files:
+                explanation.setdefault(row['id'], row)
+    else:
+        for row in pool:
+            if row.get('id') in original and row.get('doc_type') in {'policy','meta','catalog'}:
+                explanation.setdefault(row['id'],original[row['id']])
     return {'state':'escalate','reason':reason,'decision':selected,'decisions':decisions,
             'sources':list(explanation.values()),'source_sha256':{sid:_source_digest(row) for sid,row in explanation.items()}}
 

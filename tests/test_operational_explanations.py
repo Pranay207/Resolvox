@@ -247,3 +247,23 @@ def test_tampered_rule_binding_cannot_create_ticket_or_render_business_answer(mo
     out=module.Agent(r,compose=True).respond('My '+p['sku']+' is damaged.','en')
     assert not r.tools.calls and out['composition']=='abstained_unbound_business_rule'
     assert out['validation_error']=='changed_business_escalation_sources'
+
+
+
+def test_damage_handover_keeps_complete_governing_policy_not_unrequested_warranty(monkeypatch):
+    r=resources();p=product(r);calls=fake_explanation(monkeypatch)
+    out=module.Agent(r,compose=True).respond('My '+p['sku']+' arrived yesterday with a crack. I want it sorted.','en')
+    assert out['decision']=='escalate' and len(calls)==1
+    sources=calls[0]['sources']
+    assert {'DWM-1','DWM-2','DWM-3','DWM-4'} <= {x['id'] for x in sources}
+    assert not any(x.get('file')=='pol_warranty_assured.md' for x in sources)
+    assert 'return_policy' not in calls[0]['facts']
+    assert calls[0]['facts']['operational_escalation']['binding_status']=='bound'
+
+
+def test_explicit_warranty_question_retains_the_requested_warranty_evidence(monkeypatch):
+    r=resources();p=product(r);calls=fake_explanation(monkeypatch)
+    monkeypatch.setattr(module,'document_reply',explanation.document_reply)
+    module.Agent(r,compose=True).respond('My '+p['sku']+' arrived with a crack; what warranty applies?','en')
+    assert len(calls)==1
+    assert any(x.get('file')=='pol_warranty_assured.md' for x in calls[0]['sources'])
