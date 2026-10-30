@@ -1,0 +1,385 @@
+{
+  "finished_at_utc": "2026-10-30T14:44:30.129747+00:00",
+  "selection": {
+    "kind": "failed_unfinished_and_explicit_wording_review_only",
+    "base_artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+    "base_sha256": "3b62664433b29b37d6d6e15ee082c9c3c6a4ddd6f28b37f264f17e7da4078652",
+    "original_failed_ids": [
+      "PQ0058"
+    ],
+    "unfinished_ids": [],
+    "additional_review_ids": [
+      "PQ0057"
+    ],
+    "selected_ids": [
+      "PQ0057",
+      "PQ0058"
+    ],
+    "driver_sha256": "0d77aa9e4cd3596f4aea1d3c5704d73107ee27a017b2f3ecf4d70a4c7bc3eebd"
+  },
+  "scope": "Accumulated case records across preserved original checkpoint and targeted Agent continuation/retests. This is not a new single-revision frozen full-52 run. Previously passing ordinary model answers require separate offline validator revalidation.",
+  "retest_artifact": "sample_outputs/eval_step2_return_final_20261030T143936291Z.json",
+  "retest_sha256": "a5d6bfe5df832ebc1669473d35da0c8dac4bb9eecbd6ae61f8c373a4abbff6a7",
+  "retest_summary": {
+    "search_k": [
+      12
+    ],
+    "search_recall": 1.0,
+    "step": "2",
+    "total": 2,
+    "passed": 2,
+    "pass_rate": 1.0,
+    "decision_accuracy": 1.0,
+    "evidence_recall": 1.0,
+    "errors": 0,
+    "composition_counts": {
+      "grounded_llm": 2
+    },
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates; search_k is the requested direct budget, with extra dependencies reported separately. Guardrail lookups are separate.",
+    "retrieval_budgets": {
+      "requested_direct_ks": [
+        12
+      ],
+      "candidate_limits": [
+        16
+      ],
+      "returned_count_histogram": {
+        "16": 1,
+        "14": 1
+      },
+      "candidate_role_counts": {
+        "direct": 24,
+        "dependency": 6
+      },
+      "scope": "Actual saved candidate arrays and trace metadata; missing roles remain unrecorded."
+    },
+    "latency_by_path": {
+      "uncached_llm_attempt": {
+        "count": 2,
+        "p50_ms": 125266.4,
+        "p95_ms": 125266.4
+      }
+    },
+    "planned": 2,
+    "complete": true,
+    "scope": "Current source-driven live practice; generation, guards, clarifications and abstentions are reported separately. No authored policy fallback. Mechanical checks are not organizer scoring."
+  },
+  "all_cases_on_same_revision": false,
+  "total_case_records": 52,
+  "latest_passing_records": 52,
+  "remaining_failed_ids": [],
+  "case_records": [
+    {
+      "id": "PQ0002",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0003",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0004",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0005",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0006",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0008",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0009",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0010",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0013",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0014",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0015",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0016",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0018",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0019",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0020",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0021",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0022",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0023",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0024",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0025",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0026",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0027",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0028",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0029",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0030",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0031",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0032",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0033",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0034",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0035",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0036",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0037",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0039",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0040",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0041",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0042",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0044",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0045",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0046",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0047",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0048",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0049",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0050",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0051",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0052",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0053",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0054",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0056",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0057",
+      "passed": true,
+      "artifact": "sample_outputs/eval_step2_return_final_20261030T143936291Z.json",
+      "retained_without_new_inference": false
+    },
+    {
+      "id": "PQ0058",
+      "passed": true,
+      "artifact": "sample_outputs/eval_step2_return_final_20261030T143936291Z.json",
+      "retained_without_new_inference": false
+    },
+    {
+      "id": "PQ0059",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    },
+    {
+      "id": "PQ0060",
+      "passed": true,
+      "artifact": "sample_outputs/history/before_return_narration_fix_20261030T143625Z/accumulated_case_checkpoint.json",
+      "retained_without_new_inference": true
+    }
+  ]
+}
