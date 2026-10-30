@@ -18,6 +18,13 @@ _PRESENT = re.compile(
     r"\b(?:is|remains)\s+(?:still\s+)?on\s+time\b|"
     r"\b(?:delay|deri|der)\s+(?:nahi|nahin)\s+(?:hai|hua)\b|"
     r"(?:देरी|विलंब)\s+नहीं\s+(?:है|हुआ)(?=\s|[.,;!?।]|$)", re.I)
+# A delivery estimate cannot certify a delay-free transaction, even while
+# its latest projected date is still in the future. This is separate from
+# the calendar-consistency check for the comparative word overdue below.
+_NO_DELAY_PRESENT = re.compile(
+    r"\bthere\s+(?:is|are|has\s+been|have\s+been)\s+no\s+(?:(?:further|additional)\s+)?delays?\b|"
+    r"\b(?:delay|deri|der)\s+(?:nahi|nahin)\s+(?:hai|hain|hua|hui)\b|"
+    r"(?:देरी|विलंब)\s+नहीं\s+(?:है|हैं|हुआ|हुई)(?=\s|[.,;!?।]|$)", re.I)
 _UNCERTAIN_PREFIX = re.compile(
     r"\b(?:cannot|can't|(?:do|does|did)\s+not|unable\s+to)\s+(?:guarantee|promise|confirm|assure|verify)\s+"
     r"(?:you\s+)?(?:that\s+)?(?:(?:it|(?:your|the|this)\s+(?:refund|payment|transaction))\s+)?$|"
@@ -72,7 +79,7 @@ def check_public_refund_timeliness(answer, facts):
     for clause in re.split(r'[.!;।\n]+', answer):
         if '?' in clause:
             continue
-        patterns = [_FUTURE] + ([_PRESENT] if reference > latest else [])
+        patterns = [_FUTURE, _NO_DELAY_PRESENT] + ([_PRESENT] if reference > latest else [])
         for pattern in patterns:
             for match in pattern.finditer(clause):
                 prefix, suffix = clause[:match.start()], clause[match.end():]
