@@ -24,6 +24,7 @@ from .return_transition_claims import check_effective_return_windows
 from .refund_arrival_claims import check_public_refund_timeliness, check_public_refund_business_day_roles
 from .store_presence import check_store_presence_claim
 from .catalog_events import check_catalog_fulfillment_claim
+from .reporting_clock import reporting_clock_inputs, check_reporting_clock_claim
 from .category_labels import check_policy_category_labels
 from .answer_polarity import check_answer_acknowledgment, normalize_answer_acknowledgment
 from .source_semantics import derive_source_constraints, validate_source_semantics
@@ -773,14 +774,15 @@ def _validate_context(value, sources, facts, language, *, private=False, query='
     if not isinstance(answer, str) or not answer.strip() or len(answer) > 1800:
         raise ValueError('invalid_answer')
     answer = answer.strip()
-    if re.search(r"\b(?:covered|has_document_support|needs_clarification|assured)[\"']?\s*[:=]\s*[\"']?(?:true|false)\b|"
-                 r'\b(?:create_ticket|lookup_order|lookup_customer|ordinary_return_condition_check|return_condition_policy|repair_validation_error|source_choice_rule|unreported_customer_attributes)\b', answer, re.I):
+    if re.search(r"\b(?:covered|has_document_support|needs_clarification|assured|within_reporting_window)[\"']?\s*[:=]\s*[\"']?(?:true|false)\b|"
+                 r'\b(?:create_ticket|lookup_order|lookup_customer|ordinary_return_condition_check|return_condition_policy|repair_validation_error|reporting_time_check|source_choice_rule|unreported_customer_attributes)\b', answer, re.I):
         raise ValueError('internal_metadata_in_answer')
     _check_absence_causal_denial(answer)
     # An uncertainty flag must not authorize a factual storefront assertion.
     # Check this finite claim scope before either covered/non-covered branch.
     check_store_presence_claim(answer, query, sources, REFERENCE_DATE)
     check_catalog_fulfillment_claim(answer, query, facts)
+    check_reporting_clock_claim(answer, query, facts, sources, REFERENCE_DATE)
     required = _validated_required_application_inputs(facts, sources)
     if required:
         clauses = [part.strip() for part in re.split(r'[.!?;\u0964\n]+', answer) if part.strip()]
@@ -994,6 +996,9 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
         'language': language,
         'question': query,
     }
+    report_clock = reporting_clock_inputs(query, facts or {}, actual_sources, REFERENCE_DATE) if context_provenance else None
+    if report_clock is not None:
+        payload['deterministic_facts']['reporting_time_check'] = project_inference_facts({'reporting_time_check': report_clock})['reporting_time_check']
     try:
         json.dumps(payload, ensure_ascii=False)
         timeout = float(os.getenv('RAG_LLM_TIMEOUT', '120'))
@@ -1033,6 +1038,13 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                     'keep dated policy branches conditional; do not invent a delivery date or date range to select one. '
                     'Do not claim the product was shipped or delivered merely because its catalog identifies a seller. '
                     'Do not invent customer dates or new policy values. ' + CONTEXT_LANGUAGE[language])
+            elif context_provenance and errors[-1] == 'contradicted_reporting_window_status':
+                payload['repair_instruction'] = (
+                    'The report-time verdict contradicts the verified recorded elapsed hours and actual source reporting window. '
+                    'Use reporting_time_check: elapsed time within the policy limit is not a late report. '
+                    'Do not recompute elapsed hours from date-only fields, and do not describe elapsed hours as overdue delay. '
+                    'Timely reporting does not establish photos, claim verification or approval; preserve those separate prerequisites. '
+                    'Explain only what the source and verified record establish in natural words, without internal field names. ' + CONTEXT_LANGUAGE[language])
             elif context_provenance and errors[-1] == 'unverified_catalog_fulfillment_event':
                 payload['repair_instruction'] = (
                     'The catalog describes a product and its fulfillment party, not an actual order shipment or delivery. '
@@ -1437,7 +1449,7 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                         CONTEXT_LANGUAGE[language])
                     if language == 'hi-en':
                         call_system += (
-                            " Customer ko aap/aapka kehkar jawab dein. Mera/maine se apni kharidari ki kahani na likhein. "
+                            " Customer ko aap/aapka kehkar jawab dein. Policy ki aam avadhi ko seedhe, nirpeksh vaakya mein samjhayen. "
                             "Sirf policy ki aam avadhi aur uski shartein samjhayen; customer ka sawal na dohrayen.")
             if not focused and errors[-1] in {'unsupported_action','unverified_refund_timeliness','conflicted_refund_business_day_role','echoed_question'}:
                 projection = public_refund_projection_inputs(query, facts or {}, actual_sources, REFERENCE_DATE)
@@ -1612,6 +1624,8 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                 result['coverage_contract'] = coverage_contract
             if reporting_support_contract is not None:
                 result['reporting_support_contract'] = reporting_support_contract
+            if report_clock is not None:
+                result['reporting_time_check'] = report_clock
             if repair_mode == 'source_window_scope':
                 result['repair_placement_scope'] = payload['placement_scope']
             if repair_mode:
