@@ -1,0 +1,13 @@
+{
+  "scope": "Byte-preserved diagnostics and development outputs. Failed attempts are retained; no predicted response, official score, or gold answer was edited.",
+  "files_sha256": {
+    "assistant_review.json": "499b6ce0f9ab1e07aed329816c6069f31980c4e456798eb080ef130814c74660",
+    "development_v4.json": "c9178bb911be886e94468f2f16b96f3ebc318bdcf29939b68d2bec90ad14bbd5",
+    "development_v4b.json": "3e46c4da348634a7752f505d13b4495bfddde045f6f2f61630cf1ebf7d2b6b5a",
+    "development_v4c.json": "65275c02e63c8cfa49afda70ac5cc54727ef0829d2e6e481268e1fa058511d4d",
+    "diagnostic_prefix.json": "f2b108cbe6916ce7dff926939cf1016f06d2836cf03e065f2c8d9c9b4141e1e9",
+    "diagnostic_sequence_receipt.json": "82bb40e612e0b3b076ef73da435ab6f4bbbb7a3237adb42af735c92b88b78776",
+    "diagnostic_transition_note.json": "747999438df66ba810f394d09939bdb5e96a5ab32970467a0b15fe633ce76f5f",
+    "fresh52_run_design.json": "240882f94714eaf6411c447c464ec5e71246d7831dab5ebd818faccea8ec2b7f"
+  }
+}

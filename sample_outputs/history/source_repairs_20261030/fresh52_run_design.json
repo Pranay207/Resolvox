@@ -1,0 +1,54 @@
+{
+  "created_at_utc": "2026-10-30T06:20:41.328214+00:00",
+  "runtime_commit": "7bc6822093a63b83a4d57707e80db29be19c0b8a",
+  "planned_questions": 52,
+  "mode": "fresh_model_generation_with_empty_application_response_cache",
+  "old_cache_preserved": "tmp/response_cache_before_final52_20261030T062041Z",
+  "old_cache_entries": 24,
+  "preserved_entries_sha256": {
+    "1170488d128a3e2c120fdb1de2c4339583df2bc1f918c1f49e1d8ae500ed34d9.json": "64d8497d75a8b8d4447b3e00130ba72a34c6d44af8dc58722b804043256900e8",
+    "144c92ec07153329746955c4d709990d7da5e06722b80f73193db41f9d3cb760.json": "2c6002fc96b21072f803d28f97c7f1b84bbc9851394b28fc537e4415c068a09a",
+    "1e4b3ae5a1ac1520fed9122e022e5ab8d95a09bc708a104e6529919be6cae0b3.json": "13dfa23663b20b3fc0fd144a064fd1928f483ab5f99350559acd60acc6b7e5e1",
+    "2837d55e888f080c2712202e66e90cc23aa9f2d9dc8fbf70403c5ae375121c74.json": "0076300584c57ff6089029f63caf5b855e3b5492ff7883241e840db56212ef20",
+    "31f6557d7f91a78e05610f1d6caf66cda18ec482fad1a1206bbe0d0e63ea6766.json": "82101e84ea6f89cfa5daa8ac96eef959824ee115d537b1208aa7c4d0ce4ae637",
+    "3872e7eb4960b3d962443d6335d368564873df3c941d7563eb1efda507dc9d41.json": "30c64f847cfec98aa4d86561537393534f229310c78f75cfc8f6491bc1876fa9",
+    "43a0baf4f5099e4f7efb1668d6f4e6ca275cd709dd53e3c05089f86e26162161.json": "57e7bae30a903094ddafbd2185dded01fb3af04eda0a4d99c65218db1174d2cc",
+    "4445149e689f936aa851d4b9d6421a1e760612335234b4be868a6e5ba65947c3.json": "0c9499302b7f148d11e6b07ca765da75e7b772fe4515ee751f3a98048caf92df",
+    "4c26c7d347abac59fe13c6ceaae2bcaad3ed5a68aa38db100b3568c27453a9ce.json": "cd06e38fd1eb21eb308a9b4c7068e4b2bc1e5856f940769c5a82fd215cb3dbd2",
+    "4ca43211531d2bd4f41472a46225b1792f0fd246563e6d31044eb16c822bcb66.json": "5cef18f316c94386dcaac38abdfc73b323f0588d17f0dddb8702239caffeb068",
+    "6d017a3a20de74750db8ea5ebe78c28292e6d593f5fa241baa904892043f8fae.json": "86e39b36f6efa744d75b13e6c2089ee812707dcceded257c5591587dce65895e",
+    "6e084ee2d8a199477ca95434730dbb1abd158879408f7048aeefa9d6baae27e1.json": "5b77efa7be12ffec02058bc127bef16f16a8a30fffcbdc3c9bb1fc54b1af58a2",
+    "7ea2e00a07ee540b9ec7c07bd6037596461c0635a6d98d3e3ff2a667963616f0.json": "56487e68c529748d6cc83ac9d39c0e77d383034d0eac29e908407c4f002af453",
+    "8bbd34bf31f752dbc1b4db8735b6f9d501f53bf03d40b8c4551ea440a09887aa.json": "b0807da64d10a114180febeae673101fdb953638c5493211ec07537b0fd82e68",
+    "8ffdb6d6b83d6c74d29ae7b29df862116652919b09ad25de3046dc5677111b5c.json": "95d7d52be0138a8b58e97349e881cf85fae86a00271e64dab99379955c5bfa2b",
+    "abb4eeb95bb8ec0d49892be627ae1e86219cff2b998124d92bd94f42968b44e2.json": "6a5c9ba507ed0d5efa4e60e84a7377c87404ff1bcf563bfa5fc29017fa4e2d22",
+    "bf16b3a1971bc11695d3a3624ad079f04453321e329520eb54f57fa34bca99ff.json": "1cd9f67da85979cb0864a33958317a9d5b891ed082a896bf287c716e677e1034",
+    "c6b657b069a777e9d36024589065dfebd708396e82c092c525e048434f8a6f3e.json": "adb396b17fc417df483f215085b63da4821e0be1d57447cef027ce0a3faaf137",
+    "db41c61699cb8b9c2b415bebb3cfbd926d694a5fcde04c91d01c5fe933b62888.json": "272579adabb829367fa5c0a2daa29e009af37d2b66ede71922a3f41b9c7de590",
+    "de012eb2018069779dcc1e33e45b1651b2b37999655f70b74bc7bdbbf7d74dbf.json": "dafa662944a473b127ea9ff3fb1563a2fa0d5e1200b79895388b2e18e3ef09b6",
+    "e4026faea694b42ac42eed7d6b7570e2c9bacec0c5675a4c77fc8100c068b469.json": "2a8bfb76f45706bd0e26afb6f7718be16e39f426fbbed64bf909fd69c77d634e",
+    "e890bdb92dc6e38df6679e4b5d5c5f6b5290ca8b2773b4477a09e186e02e78b9.json": "f3642d72ff1bfbee6f1931bba3dea754adb1a985ddb0375069d61e8bf1e22276",
+    "f743ad511c90a0806998b6ee24150ac4db1ef6e25b2ec4b54372e3376201a4a0.json": "e71e151404e6306c922368d85b7f6fffb9f7156771b98b853b5cc66e8062668d",
+    "f8d2bc813e3060228e6b5268807f85a3285a6f88430519d89e795d57f90ac00c.json": "c447b5b5db725b4eeccc7b9617aabe79953b7ee5508c5f8d740b0c6e6c38b0f7"
+  },
+  "application_cache_entries_before_run": 0,
+  "local_server_version": "0.40.12",
+  "loaded_model_observation": {
+    "name": "qwen3:4b-instruct",
+    "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "size": 3186108660,
+    "size_vram": 0,
+    "context_length": 4096,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3",
+      "families": [
+        "qwen3"
+      ],
+      "parameter_size": "4.0B",
+      "quantization_level": "Q4_K_M"
+    }
+  },
+  "scope": "Fresh API generations will be measured; internal Ollama prompt caching remains warm and bounded. This is not a controlled cold-start benchmark. Source, scoring and official practice remain unchanged during the new batch."
+}

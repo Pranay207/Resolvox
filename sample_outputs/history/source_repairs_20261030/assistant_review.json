@@ -1,0 +1,63 @@
+{
+  "reviewed_at_utc": "2026-10-30T06:27:38.041332+00:00",
+  "reviewer": "coding assistant source review",
+  "scope": "Finite source review of the six saved development outputs; not organizer scoring, human speech certification, a new blind set, or a full 52-question result.",
+  "runtime_commit": "7bc6822093a63b83a4d57707e80db29be19c0b8a",
+  "artifact_sha256": "65275c02e63c8cfa49afda70ac5cc54727ef0829d2e6e481268e1fa058511d4d",
+  "official_scorer_unchanged": true,
+  "composition_counts": {
+    "abstained_model_or_evidence": 1,
+    "grounded_llm": 5
+  },
+  "model_call_counts": {
+    "primary_public_response_cache_hits": 6,
+    "uncached_local_repair_calls": 6
+  },
+  "rows": [
+    {
+      "id": "PQ0009",
+      "classification": "safe_abstention",
+      "note": "The host withheld an unsupported discount answer after model validation failures. The result is safe uncertainty, not a generated student-discount policy."
+    },
+    {
+      "id": "PQ0020",
+      "classification": "supported_with_limits",
+      "note": "The Hindi answer gives the source ordinary fashion window and a conditional placement-date extension without inventing the customer placement date. Hindi fluency is not human-certified."
+    },
+    {
+      "id": "PQ0021",
+      "classification": "supported_with_limits",
+      "note": "The reply retains the source attempt limit, SMS rescheduling and return-to-origin consequence. It makes no unrequested refund or completed-action claim."
+    },
+    {
+      "id": "PQ0024",
+      "classification": "supported_with_limits",
+      "note": "The ordinary window and conditional placement-date extension are both preserved. Unless introduces a hypothetical exception rather than asserting that the customer qualifies."
+    },
+    {
+      "id": "PQ0010",
+      "classification": "supported_with_limits",
+      "note": "The reply explains the source collection fee and damaged/defective/wrong-item waiver. It does not promise an already approved refund or replacement."
+    },
+    {
+      "id": "PQ0019",
+      "classification": "supported_with_limits",
+      "note": "The historical electronics window and later effective change are consistent with the stated delivery date and retrieved predecessor/successor sources. Spoken source-code phrasing remains a presentation limitation."
+    }
+  ],
+  "earlier_development_attempts": [
+    {
+      "artifact": "development_v4.json",
+      "checked": 2,
+      "passed": 1,
+      "complete": true
+    },
+    {
+      "artifact": "development_v4b.json",
+      "checked": 5,
+      "passed": 3,
+      "complete": true
+    }
+  ],
+  "full_fresh_run": "Required separately; application response cache was quarantined before the new run. Results are never combined across source versions."
+}

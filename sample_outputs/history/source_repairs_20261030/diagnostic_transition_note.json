@@ -1,0 +1,14 @@
+{
+  "created_at_utc": "2026-10-30T06:05:28.339952+00:00",
+  "reason": "Preserve the existing diagnostic prefix and free the single local inference queue for validated repairs before a complete current-runtime 52-question rerun. No failed result is edited or removed.",
+  "checked_before_stop": 25,
+  "passed_before_stop": 21,
+  "planned": 52,
+  "frozen_inputs_unchanged_before_stop": true,
+  "next_required_run": "Complete all 52 questions on repaired source; never combine versions into one score.",
+  "checked_after_stop": 25,
+  "passed_after_stop": 21,
+  "failed_after_stop": 4,
+  "pending_after_stop": 27,
+  "final_frozen_inputs_unchanged": true
+}
