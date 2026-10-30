@@ -218,9 +218,20 @@ def _different_or_general_issue(query):
     return bool(general and not same)
 
 
+def _same_issue_call(query):
+    """Resolve explicit call-about-this anaphora without a policy threshold."""
+    contact = re.compile(
+        r'\b(?:call(?:ing|ed)?|phon(?:e|ed|ing))\b[^.!?;\n]{0,65}'
+        r'(?:\babout\s+(?:this|that|it)\b|\b(?:isi|usi)\s+(?:baare|bare|mudde)\b)|'
+        r'(?:कॉल|फ़ोन|फोन)[^.!?;।\n]{0,65}(?:इसी|उसी)\s*(?:बारे|मुद्दे|समस्या)|'
+        r'(?:इसी|उसी)\s*(?:बारे|मुद्दे|समस्या)[^.!?;।\n]{0,65}(?:कॉल|फ़ोन|फोन)', re.I)
+    return any(contact.search(clause) and not _UNCERTAIN.search(clause)
+               for clause in re.split(r'[.!?;।\n]+',query))
+
+
 def _repeat(query,sources,order,workflow):
     reason='repeat_contact'
-    if not order or not _CASE_TOPIC.search(query) or _different_or_general_issue(query):return _row(reason,False,'not_relevant'),[]
+    if not order or not (_CASE_TOPIC.search(query) or _same_issue_call(query)) or _different_or_general_issue(query):return _row(reason,False,'not_relevant'),[]
     rule,status,used=_repeat_rule(sources)
     if not rule:return _row(reason,None,status,used,missing=['current_repeat_contact_rule']),used
     count=_int(order.get(rule['record_field']))
