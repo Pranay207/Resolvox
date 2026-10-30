@@ -58,5 +58,16 @@ def test_generation_uses_original_reporting_section_and_final_original_validatio
     assert result['answer'] == good
     assert result['repair_mode'] == 'source_reporting_restatement'
     assert len(calls[0]['source_text']) == 2 and calls[1]['source_text'] == [report()]
+    assert calls[1]['question'] == 'मेरा सामान टूटा हुआ आया है, अब क्या करूँ?'
     assert result['context_source_ids'] == ['REPORT-NEW', 'STAFF-X']
     assert result['repair_context_sources'] == [report()]
+
+
+@pytest.mark.parametrize('question', [
+    'Can I send my broken item back?',
+    'What should I do about a broken item and a missing refund?',
+    'My SKU-ALPHA arrived broken. What should I do?',
+    'What reporting steps apply to damage and a late delivery?'
+])
+def test_other_requested_decisions_are_not_reduced_to_a_reporting_procedure(question):
+    assert damage_reporting_restatement_inputs(question, {}, [report()], TODAY) is None

@@ -199,7 +199,8 @@ def damage_reporting_restatement_inputs(query, facts, sources, reference_date):
     if (facts.get('verified_order') or facts.get('calculations') or facts.get('operational_escalation')
             or facts.get('public_context') or facts.get('catalog')
             or not re.search(r'\b(?:damag\w*|broken|defect\w*|torn)\b|टूट|क्षतिग्रस्त|खराब', query, re.I)
-            or re.search(r'\d|\b(?:returns?|refund\w*|replac\w*|warrant\w*|fees?|costs?|late|after|elapsed|expired|aur)\b|रिफंड|रिफ़ंड|वापस|वारंटी|शुल्क|बाद|और', query, re.I)
+            or not re.search(r'\breport\w*\b|\bwhat\b[^.!?;]{0,40}\b(?:do|now|steps)\b|क्या[^.!?;।]{0,25}कर|रिपोर्ट', query, re.I)
+            or re.search(r'\d|\b(?:returns?|refund\w*|replac\w*|warrant\w*|fees?|costs?|late|later|after|elapsed|expired|and|aur|sku)\b|रिफंड|रिफ़ंड|वापस|वारंटी|शुल्क|बाद|और', query, re.I)
             or query.count('?') > 1):
         return None
     reporting = []
