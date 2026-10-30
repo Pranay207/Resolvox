@@ -381,6 +381,65 @@ def _brand_coverage_allowed(scope, item):
     return True
 
 
+def _membership_refund_constraints(sources):
+    """Read an explicit current policy exclusion for post-initiation timing.
+
+    This finite relationship check does not infer an entire benefit catalogue.
+    Names and the excluded timing role come from the supplied policy text.
+    """
+    result = []
+    for source in sources:
+        if source.get('doc_type') != 'policy' or _attribute_authority(source) is None:
+            continue
+        for sentence in re.split(r'[.!?;\n]+', _plain(source['text'])):
+            match = re.fullmatch(
+                r'\s*(?P<label>[A-Za-z][A-Za-z0-9 -]{0,60}?)\s+'
+                r'does\s+not\s+(?:change|alter|affect|shorten)\s+'
+                r'[^.!?;\n]{0,100}\brefund\s+(?:timelines?|times?)\s+'
+                r'after\s+initiation\s*', sentence, re.I)
+            if match:
+                result.append({'kind': 'membership_refund_timing_exclusion',
+                               'membership_label': match['label'].strip(),
+                               'timing_role': 'after_initiation',
+                               'source_ids': [source['id']]})
+    return result
+
+
+def _check_membership_refund_causation(answer, item):
+    """Reject recognized causal attribution of arrival speed to membership.
+
+    A membership may change initiation without changing settlement duration.
+    Ordinary wallet timing and explicit denials retain their original scope.
+    """
+    label = _norm(item['membership_label'])
+    labels = {label}
+    if len(label.split()) == 2:
+        labels.add(label.split()[-1])
+    causal = re.compile(r'\b(?:because|therefore|hence|so|since|isliye|kyunki)\b|इसलिए|क्योंकि', re.I)
+    speed = re.compile(r'\b(?:instant(?:ly)?|immediate(?:ly)?|faster|quicker|sooner|turant|jaldi)\b|तुरंत|जल्दी', re.I)
+    initiation = re.compile(r'\b(?:initiat(?:e[ds]?|ing)|starts?|shuru)\b|शुरू', re.I)
+    for sentence in re.split(r'[.!?;।\n]+', _plain(answer)):
+        if not _REFUND_WORD.search(sentence) or not speed.search(sentence):
+            continue
+        if not _membership_label_present(sentence, label, labels):
+            continue
+        # An explicit denial is not a promise that membership speeds arrival.
+        if _NEG.search(sentence):
+            continue
+        for link in causal.finditer(sentence):
+            before, after = sentence[:link.start()], sentence[link.end():]
+            reason_first = link[0].casefold() in {'because', 'since', 'kyunki', 'क्योंकि'}
+            antecedent, consequence = (after, before) if reason_first else (before, after)
+            if reason_first and not before.strip():
+                parts = re.split(r',|\bthen\b|तो', after, maxsplit=1, flags=re.I)
+                if len(parts) == 2:
+                    antecedent, consequence = parts
+            if (_membership_label_present(antecedent, label, labels)
+                    and speed.search(consequence) and _REFUND_WORD.search(consequence)
+                    and not initiation.search(consequence)):
+                raise ValueError('source_membership_refund_speed')
+
+
 def derive_source_constraints(sources):
     """Return inspectable source-bound constraints, not authored replies."""
     actual_sources = list(sources)
@@ -409,6 +468,7 @@ def derive_source_constraints(sources):
                                 'excluded_membership': group['label'].strip(),
                                 'source_ids': [cid]})
     constraints.extend(_conditional_refund_constraints(records))
+    constraints.extend(_membership_refund_constraints(actual_sources))
     brand_constraint = _brand_authority_constraint(actual_sources)
     if brand_constraint:
         constraints.append(brand_constraint)
@@ -445,6 +505,8 @@ def validate_source_semantics(answer, sources):
         if item['kind'] == 'explicit_permission':
             if any(_PARCEL.search(clause) and _REFUSE_DENIED.search(clause) for clause in clauses):
                 raise ValueError('source_permission_reversed')
+        elif item['kind'] == 'membership_refund_timing_exclusion':
+            _check_membership_refund_causation(answer, item)
         elif item['kind'] == 'conditional_rto_refund':
             _check_conditional_refund(answer, item)
         elif item['kind'] == 'brand_warranty_attributes':
