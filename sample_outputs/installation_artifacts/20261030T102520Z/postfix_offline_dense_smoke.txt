@@ -1,0 +1,1 @@
+New main source loaded, fresh dense model active, hybrid retrieval and exact source excerpts verified without inference

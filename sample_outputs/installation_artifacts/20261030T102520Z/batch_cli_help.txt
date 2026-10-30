@@ -1,0 +1,15 @@
+usage: run.py [-h] --audio_dir AUDIO_DIR --out_dir OUT_DIR
+              [--language LANGUAGE]
+              [--session_mode {auto,independent,sequential}] [--offline-rules]
+
+Batch runner: python run.py --audio_dir <in> --out_dir <out>.
+
+options:
+  -h, --help            show this help message and exit
+  --audio_dir AUDIO_DIR
+  --out_dir OUT_DIR
+  --language LANGUAGE   Spoken language: en-IN, hi-IN, ta-IN, te-IN, kn-IN,
+                        ml-IN, mr-IN, bn-IN, gu-IN, pa-IN; hi-en uses en-IN
+                        speech recognition
+  --session_mode {auto,independent,sequential}
+  --offline-rules

@@ -1,0 +1,72 @@
+{
+  "scope": "Byte-preserved actual clean-install and current-source dense-RAG verification evidence. Initial dependency environment was reused because pinned requirements were unchanged; current main source was copied and smoke-tested after downloading the pinned embedding model. No live LLM or speech was invoked by this installation check.",
+  "files": [
+    {
+      "original": "tmp/clean_install_20261030T102520Z/receipt.json",
+      "preserved": "sample_outputs/installation_artifacts/20261030T102520Z/receipt.json",
+      "bytes": 16536,
+      "sha256": "1bb0ac1cb25aeaf019f7e0950ad521db702579ab413678ebb3838f25001b516a"
+    },
+    {
+      "original": "tmp/clean_install_20261030T102520Z/postfix_dense_receipt.json",
+      "preserved": "sample_outputs/installation_artifacts/20261030T102520Z/postfix_dense_receipt.json",
+      "bytes": 11494,
+      "sha256": "c250fc4ab839a3707238716494f092ab988a8b36729a1905b48414813efddbaf"
+    },
+    {
+      "original": "tmp/clean_install_20261030T102520Z/dataset_identity.json",
+      "preserved": "sample_outputs/installation_artifacts/20261030T102520Z/dataset_identity.json",
+      "bytes": 6708,
+      "sha256": "6e3d17a46e6db0f6b6290f5a1f896d90981c6c2298e0b4352d30ab5454d9fa75"
+    },
+    {
+      "original": "tmp/clean_install_20261030T102520Z/upgrade_pip_windows_trust.log",
+      "preserved": "sample_outputs/installation_artifacts/20261030T102520Z/upgrade_pip_windows_trust.txt",
+      "bytes": 480,
+      "sha256": "8bd26217cefad2f72bee4ff168cbaaa10f0577c12fccfdd9ae97c6723a4173fe"
+    },
+    {
+      "original": "tmp/clean_install_20261030T102520Z/install_requirements.log",
+      "preserved": "sample_outputs/installation_artifacts/20261030T102520Z/install_requirements.txt",
+      "bytes": 20567,
+      "sha256": "062eb717a75fcdfde1fd4ed83048e44d788abf276ea0dde0510e875b6cdaa412"
+    },
+    {
+      "original": "tmp/clean_install_20261030T102520Z/pip_check.log",
+      "preserved": "sample_outputs/installation_artifacts/20261030T102520Z/pip_check.txt",
+      "bytes": 31,
+      "sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf"
+    },
+    {
+      "original": "tmp/clean_install_20261030T102520Z/official_dataset_setup.log",
+      "preserved": "sample_outputs/installation_artifacts/20261030T102520Z/official_dataset_setup.txt",
+      "bytes": 293,
+      "sha256": "9a45716971ac9bcc135fbdd7f98264ac2bf138d7989ac95c751764633ac777eb"
+    },
+    {
+      "original": "tmp/clean_install_20261030T102520Z/offline_source_smoke.log",
+      "preserved": "sample_outputs/installation_artifacts/20261030T102520Z/offline_source_smoke.txt",
+      "bytes": 82,
+      "sha256": "a4f4364f52cf5523178f3e381a64b77e4e95f2a16cff358b9dac28f9aa17866a"
+    },
+    {
+      "original": "tmp/clean_install_20261030T102520Z/batch_cli_help.log",
+      "preserved": "sample_outputs/installation_artifacts/20261030T102520Z/batch_cli_help.txt",
+      "bytes": 622,
+      "sha256": "f7c2eae04704e663108f4b7cf0c5ab30ad73af5d42522fb273b61b1f9c2f5d0d"
+    },
+    {
+      "original": "tmp/clean_install_20261030T102520Z/pinned_dense_model_setup.log",
+      "preserved": "sample_outputs/installation_artifacts/20261030T102520Z/pinned_dense_model_setup.txt",
+      "bytes": 420,
+      "sha256": "8d414ea2184fb5044499364d12fde8fd278de79602aab12825e22096ec89f4b5"
+    },
+    {
+      "original": "tmp/clean_install_20261030T102520Z/postfix_offline_dense_smoke.log",
+      "preserved": "sample_outputs/installation_artifacts/20261030T102520Z/postfix_offline_dense_smoke.txt",
+      "bytes": 121,
+      "sha256": "41fb6d206344c82d4aa7ed8b6bf96b473af3191095eff60e43c77c84ac055b89"
+    }
+  ],
+  "all_copied_bytes_verified": true
+}

@@ -1,0 +1,7 @@
+PASS — all 9 CSVs, 21 KB documents, primary/foreign keys, order math,
+       practice evidence, verification gates and company naming validated.
+       1,000 orders | 1,783 items | 244 logs | 52 questions | 23 conversations
+Downloading tokenizer.json
+Downloading onnx/model_quint8_avx2.onnx
+Model pinned to e8f8c211226b894fcb81acc59f3b34ba3efd5f42
+Setup complete. Configure .env; python -m streamlit run app.py

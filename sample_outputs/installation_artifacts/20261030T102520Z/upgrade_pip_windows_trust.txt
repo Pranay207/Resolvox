@@ -1,0 +1,10 @@
+Requirement already satisfied: pip in c:\users\shiva\downloads\resolvox\tmp\clean_install_20261030t102520z\.venv\lib\site-packages (24.0)
+Collecting pip
+  Using cached pip-26.2.2-py3-none-any.whl.metadata (4.6 kB)
+Using cached pip-26.2.2-py3-none-any.whl (1.8 MB)
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 24.0
+    Uninstalling pip-24.0:
+      Successfully uninstalled pip-24.0
+Successfully installed pip-26.2.2
