@@ -92,3 +92,18 @@ def delivery_attempt_inputs(facts, sources, constraints):
                 if set(item.get('source_ids', [])) <= ids]
     return {'sources': selected, 'facts': {'delivery_policy': policy,
         'answer_constraints': requested, 'source_semantic_constraints': semantic}}
+
+
+
+def fee_only_restatement_inputs(query, facts, sources, reference_date):
+    """Focus only a collection-price question, preserving original host facts."""
+    if (not re.search(r'\b(?:pick[ -]?up|collect\w*)\b|पिकअप|संग्रह', query, re.I)
+            or not re.search(r'\b(?:free|fees?|charg\w*|cost\w*)\b|मुफ्त|फ्री|शुल्क|चार्ज', query, re.I)
+            or re.search(r'refund|replace|money\s+back|रिफंड|रिफ़ंड|धनवापसी|रिप्लेस|प्रतिस्थापन|paise\s+(?:wapas|vaapas)|पैसे\s*वापस', query, re.I)):
+        return None
+    fee = re.compile(r'\b(?:reverse\s+)?pick[ -]?up\s+(?:fees?|charges?)\b|\bcollection\s+(?:fees?|charges?)\b', re.I)
+    selected = [source for source in sources if _active(source, reference_date)
+                and isinstance(source.get('text'), str) and fee.search(source['text'])]
+    if not selected or sum(len(source['text']) for source in selected) > 4800:
+        return None
+    return {'sources': selected, 'facts': project_inference_facts(facts)}

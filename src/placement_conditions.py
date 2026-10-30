@@ -287,6 +287,13 @@ def _delivery_date_property_assertions(clause, facts, sources):
     return result
 
 
+def _unless_placement_hypothesis(clause, position):
+    # Only an immediately governing unless marks this date predicate as
+    # hypothetical. It does not prove that an exception applies.
+    prefix = clause[:position].rsplit(',', 1)[-1]
+    return bool(re.search(r'\bunless\s*$', prefix, re.I))
+
+
 def _conditional(clause, position):
     # A condition must govern this predicate, not an earlier comma clause.
     prefix = clause[:position].rsplit(',', 1)[-1]
@@ -457,6 +464,8 @@ def check_placement_exception_answer(answer, facts, sources, *, normalizer=_nume
             conditional_dates[kind] = any(_conditional(clause, match.start()) for match in assertions) or _implicit_date_condition(clause, kind)
             for asserted in assertions:
                 if inputs[kind] is None and not _conditional(clause, asserted.start()):
+                    if kind == 'placement' and _unless_placement_hypothesis(clause, asserted.start()):
+                        continue
                     if not _uncertain_predicate(clause, asserted.start()):
                         raise ValueError('invented_' + kind + '_premise')
         for entitlement in _ENTITLEMENT.finditer(clause):

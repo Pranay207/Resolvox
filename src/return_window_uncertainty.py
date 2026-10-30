@@ -80,7 +80,7 @@ def _ordinary_placement_condition(clause, status, normalizer):
     """Recognize a local condition selecting outside the actual source range."""
     if _OTHER.search(clause) or _UNIVERSAL.search(clause):
         return False
-    conditional = re.search(r'\b(?:if|provided|assuming|when|whether|agar|yadi)\b|यदि|अगर', clause, re.I)
+    conditional = re.search(r'\b(?:if|provided|assuming|when|whether|unless|agar|yadi)\b|यदि|अगर', clause, re.I)
     if not conditional:
         return False
     condition = clause[conditional.start():]
@@ -92,6 +92,13 @@ def _ordinary_placement_condition(clause, status, normalizer):
         return False
     begin = _date_pattern(status['placed_from'], normalizer)
     end = _date_pattern(status['placed_through'], normalizer)
+    if conditional.group().casefold() == 'unless':
+        # The ordinary branch excludes the actual source range. Do not
+        # accept a reversed range, outside condition or negated placement.
+        if re.search(r'\b(?:not|no|never|outside|before|after|nahi|nahin)\b|नहीं', condition, re.I):
+            return False
+        bounded = r'\b(?:placed|ordered)\s+between\s+' + begin + r'\s+(?:and|to)\s+' + end
+        return bool(re.search(bounded, condition, re.I))
     before = re.search(r'(?:\bbefore\s+' + begin + r'|' + begin + r'\s*(?:से\s*पहले|se\s+pehle))', condition, re.I)
     after = re.search(r'(?:\bafter\s+' + end + r'|' + end + r'\s*(?:के\s*बाद|ke\s+baad))', condition, re.I)
     if re.search(r'\bnot\b|नहीं|\b(?:nahi|nahin)\b', condition, re.I):
