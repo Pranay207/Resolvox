@@ -44,7 +44,7 @@ def check_store_presence_claim(answer, query, sources, reference_date):
                 if explicit_pickup:return
             elif _EXPLICIT_PHYSICAL.search(text):
                 return
-    for clause in re.split(r'[.!?;।\n]+|\b(?:but|however|lekin|magar)\b|लेकिन',answer,flags=re.I):
+    for clause in re.split(r'[,.!?;।\n]+|\b(?:and|but|however|aur|lekin|magar|because)\b|लेकिन|और|क्योंकि',answer,flags=re.I):
         if not clause.strip() or _UNKNOWN.search(clause):
             continue
         if _CLAIM.search(clause) or re.match(r'^\s*(?:yes|no|haan|han|nahi|nahin|हाँ|हां|नहीं)(?:\b|[ ,])',clause,re.I):
