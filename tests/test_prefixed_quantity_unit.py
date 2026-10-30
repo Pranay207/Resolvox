@@ -50,3 +50,38 @@ def test_equivalence_preserves_actual_source_units_without_relaxing_other_quanti
 
 def test_thousands_separator_still_normalizes_as_one_quantity():
     assert _quantities('It costs 1,000 rupees.')=={('1000','money')}
+
+
+@pytest.mark.parametrize('text', [
+    'a business day range of 4 to 6 days',
+    'a working day window of 2 to 8 days',
+    'a business day period of 3 days',
+])
+def test_explicit_duration_noun_phrase_retains_its_business_unit(text):
+    quantities = _quantities(text)
+    assert quantities and all(unit == 'business_day' for _, unit in quantities)
+
+
+@pytest.mark.parametrize('text', [
+    'not a business day range of 4 to 6 days',
+    'business day range of returns; 4 to 6 days',
+    'business day range, of 4 to 6 days',
+    'business day range of calendar days and 4 to 6 days',
+])
+def test_duration_noun_phrase_does_not_cross_negation_or_unrelated_scope(text):
+    assert _quantities(text) == {('4', 'day'), ('6', 'day')}
+
+
+def test_duration_noun_phrase_preserves_calendar_contradiction_and_changed_values():
+    source = {'id': 'changed-duration', 'text': 'Net banking arrival takes 4 to 6 business days.'}
+    for answer, valid in [
+        ('The expected arrival uses a business day range of 4 to 6 days.', True),
+        ('The expected arrival uses a business day range of 4 to 6 calendar days.', False),
+        ('The expected arrival uses a business day range of 3 to 5 days.', False),
+    ]:
+        value = {'answer': answer, 'covered': True, 'citations': [{'id': source['id'], 'quote': source['text']}]}
+        if valid:
+            validate_generated(value, [source])
+        else:
+            with pytest.raises(ValueError):
+                validate_generated(value, [source])
