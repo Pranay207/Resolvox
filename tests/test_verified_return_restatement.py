@@ -47,3 +47,14 @@ def test_repair_uses_the_smaller_bound_view_and_still_rejects_invented_cost():
     assert client.calls[1][2]['cache'] is False
     client=Client('You can request a return within the window.',good.replace('23 rupees','29 rupees'))
     with pytest.raises(ValueError):document_reply(client,query,'en',sources,facts=facts,private=True,context_provenance=True)
+
+
+def test_simple_verified_return_starts_with_bound_small_context_without_a_failed_draft():
+ facts,sources=context()
+ sources=sources+[{'id':'unrelated-topic','doc_type':'help','status':'current','text':'Contact support for other questions.'}]
+ good='You may request a return by 31 October 2026 if the item conditions are satisfied. A change-of-mind return has a reverse pickup fee of 23 rupees unless a documented waiver applies.'
+ client=Client(good)
+ result=document_reply(client,'Can I return this jacket?','en',sources,facts=facts,private=True,context_provenance=True)
+ assert len(client.calls)==1 and result['repair_attempted'] is False
+ assert 'unrelated-topic' not in {row['id'] for row in client.calls[0][1]['source_text']}
+ assert client.calls[0][1]['deterministic_facts']['return_deadline']=='2026-10-31'

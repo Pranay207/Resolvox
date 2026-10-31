@@ -1588,9 +1588,10 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                     payload['unreported_customer_attributes'] = [key for key in policy['requirements']
                         if type(report.get(key)) is not bool]
                     payload['source_text'] = focused
-        if (attempt and context_provenance and language_contract is None
-                and (errors[-1] in {'unsupported_category_label','unsupported_quantity_unit','unsupported_number'}
-                     or errors[-1].startswith('answer_constraint_missing:'))):
+        if (context_provenance and language_contract is None
+                and ((not attempt and not re.search(r'\b(?:and|aur)\b|और',query,re.I) and query.count('?')<=1)
+                     or (attempt and (errors[-1] in {'unsupported_category_label','unsupported_quantity_unit','unsupported_number'}
+                                      or errors[-1].startswith('answer_constraint_missing:'))))):
             verified_return = verified_return_restatement_inputs(query, facts or {}, actual_sources, REFERENCE_DATE)
             if verified_return:
                 repair_mode = 'source_verified_return_restatement'
@@ -1605,11 +1606,11 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                     "Use covered true for a supported policy explanation, including a conditional one. " + CONTEXT_LANGUAGE[language])
                 if language == 'hi':
                     call_system += (
-                        " दिए हुए return_deadline और standard_fee_inr को ही पढ़ें। छोटे सीधे वाक्य लिखें। "
+                        " गणना की गई अंतिम तारीख और नीतिगत शुल्क को ही पढ़ें। छोटे सीधे वाक्य लिखें। "
                         "नीतिगत शुल्क उसकी सही शर्त के साथ बताएँ और छूट को शुल्क लगने की शर्त में न बदलें। "
                         "किसी श्रेणी की सूची या अनचाही जानकारी न जोड़ें।")
-                payload = {'deterministic_facts':focused_facts,'source_text':focused,
-                           'language':language,'repair_validation_error':errors[-1]}
+                payload = {'deterministic_facts':focused_facts,'source_text':focused,'language':language}
+                if attempt:payload['repair_validation_error']=errors[-1]
         if context_provenance and language_contract is None:
             arrival_view = refund_timeline_inputs(query, facts or {}, actual_sources, REFERENCE_DATE)
             if arrival_view:
