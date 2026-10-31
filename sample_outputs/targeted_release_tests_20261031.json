@@ -1,6 +1,6 @@
 {
   "scope": "Only targeted packaging, saved-output provenance and report automated regressions. Scripted LLM clients; no live inference, speech calls, full engineering suite or 52-question rerun.",
-  "started_at_utc": "2026-10-31T09:33:11.110794+00:00",
+  "started_at_utc": "2026-10-31T11:07:44.567936+00:00",
   "selected_test_files": [
     "tests/test_targeted_release_policy.py",
     "tests/test_release_gate.py",
@@ -9,7 +9,7 @@
     "tests/test_targeted_voice_evidence.py"
   ],
   "source_and_test_sha256_started": {
-    "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+    "src/agent.py": "3d8318a1bc56f404ef79b00403ebc1e2ed206a4fe56056a29b68a2c2e1a1562e",
     "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
     "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
     "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
@@ -18,7 +18,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "4af28d50a334f6c8575af2100ed16c8585ed5805d9db5e7be3b5d18311374e6c",
+    "src/document_answers.py": "129e9350c87571bd56fe23780cda6d61f9dc633f896c32db68435e440c0842a0",
     "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -49,7 +49,7 @@
     "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
     "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
     "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
-    "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+    "src/source_semantics.py": "3c10ef36e839dc89bc9107931e2d4f8864e843c9a0d2e3332971b385741efce5",
     "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
     "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
     "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
@@ -63,13 +63,13 @@
     "tests/test_release_gate.py": "8a46ba03f5abff61af8b5b3668ff9b739e0f53590c418562f34d7eabb0b49d5c",
     "tests/test_release_verification.py": "ceac1592cb61b23fedd3bceb6ab6128855b1b1fde142556630c8e7322dfaec70",
     "tests/test_report_freshness.py": "26cb642fa812b24420b8cd17727b25cb020b4f0be1bd66007bd0725606f4a40d",
-    "tests/test_targeted_voice_evidence.py": "709647e3c2ae0eb28c2cf712f4548456a068ee4d8eb864774eb790770be5e931",
+    "tests/test_targeted_voice_evidence.py": "317069f4f2794813e63f98a9f3fdcbc35629ec4a049f859097017affd6897e52",
     "package_submission.py": "c3ec4cfc095f7638e3dcfcb8d8c14652cd73940b636d6bca6663c8d6ace6c0e4",
     "scripts/targeted_release.py": "9aabc2e6b4224c3fe65f106538f7af9a8d5af31d310dfe39af84fd9046782e87",
-    "scripts/targeted_voice_evidence.py": "dc1256bcb26b7772bb114d730488ba0f452c22481dfdb0e2470a38a19c0e59a0",
-    "scripts/retained_target_checks.py": "d5f545f819cb4b94407cba0f1aa2c5ec9e81511f13eeaf5f17ae57dcc62b054d",
+    "scripts/targeted_voice_evidence.py": "14f60f6f1519f1cd2c3a723e58f8dfbaafe2a9d28cda13139ca5f923abb3391e",
+    "scripts/retained_target_checks.py": "aa3b1f70b0127861aabd0be0726e83bc31a08671c7ad5f3c289b828519bd377b",
     "scripts/release_evidence.py": "6d1a8f80a8af8be2eacb3c966a596451ac4106dda721a4ab459c177b262582a9",
-    "scripts/targeted_report.py": "1b71aaa97c1568f53e8aa1bfcd671c79bb674aeb324f7569cbae732e337de0e2",
+    "scripts/targeted_report.py": "6ded9ea3d83c05965d285e2a4cb825e323a2f6d03542ebe257b133f88f92d5ed",
     "scripts/build_report.py": "b216ebbbfbb8ce2ce327fdda7c750999d82bf92ff403ced89fe602a6d08a014e",
     "scripts/validate_targeted_live.py": "06c200a901d9e9992acfbd09c75bada6a7a985832aa27bc3a9604f11e171b65b",
     "scripts/validate_targeted_voice.py": "f0aaac7ab47a23f68f2a51d9710f4e438ff9a8e12b63c598a7ad5e2670c95509",
@@ -94,17 +94,17 @@
     "--tb=short",
     "--junitxml=C:\\Users\\Shiva\\Downloads\\Resolvox\\sample_outputs\\targeted_release_reporting_final_20261031\\pytest.xml"
   ],
-  "finished_at_utc": "2026-10-31T09:33:22.494303+00:00",
+  "finished_at_utc": "2026-10-31T11:08:15.421380+00:00",
   "exit_code": 0,
   "pytest": {
-    "tests": 145,
+    "tests": 148,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
-    "passed": 145
+    "passed": 148
   },
   "source_and_test_sha256_finished": {
-    "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+    "src/agent.py": "3d8318a1bc56f404ef79b00403ebc1e2ed206a4fe56056a29b68a2c2e1a1562e",
     "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
     "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
     "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
@@ -113,7 +113,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "4af28d50a334f6c8575af2100ed16c8585ed5805d9db5e7be3b5d18311374e6c",
+    "src/document_answers.py": "129e9350c87571bd56fe23780cda6d61f9dc633f896c32db68435e440c0842a0",
     "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -144,7 +144,7 @@
     "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
     "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
     "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
-    "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+    "src/source_semantics.py": "3c10ef36e839dc89bc9107931e2d4f8864e843c9a0d2e3332971b385741efce5",
     "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
     "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
     "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
@@ -158,13 +158,13 @@
     "tests/test_release_gate.py": "8a46ba03f5abff61af8b5b3668ff9b739e0f53590c418562f34d7eabb0b49d5c",
     "tests/test_release_verification.py": "ceac1592cb61b23fedd3bceb6ab6128855b1b1fde142556630c8e7322dfaec70",
     "tests/test_report_freshness.py": "26cb642fa812b24420b8cd17727b25cb020b4f0be1bd66007bd0725606f4a40d",
-    "tests/test_targeted_voice_evidence.py": "709647e3c2ae0eb28c2cf712f4548456a068ee4d8eb864774eb790770be5e931",
+    "tests/test_targeted_voice_evidence.py": "317069f4f2794813e63f98a9f3fdcbc35629ec4a049f859097017affd6897e52",
     "package_submission.py": "c3ec4cfc095f7638e3dcfcb8d8c14652cd73940b636d6bca6663c8d6ace6c0e4",
     "scripts/targeted_release.py": "9aabc2e6b4224c3fe65f106538f7af9a8d5af31d310dfe39af84fd9046782e87",
-    "scripts/targeted_voice_evidence.py": "dc1256bcb26b7772bb114d730488ba0f452c22481dfdb0e2470a38a19c0e59a0",
-    "scripts/retained_target_checks.py": "d5f545f819cb4b94407cba0f1aa2c5ec9e81511f13eeaf5f17ae57dcc62b054d",
+    "scripts/targeted_voice_evidence.py": "14f60f6f1519f1cd2c3a723e58f8dfbaafe2a9d28cda13139ca5f923abb3391e",
+    "scripts/retained_target_checks.py": "aa3b1f70b0127861aabd0be0726e83bc31a08671c7ad5f3c289b828519bd377b",
     "scripts/release_evidence.py": "6d1a8f80a8af8be2eacb3c966a596451ac4106dda721a4ab459c177b262582a9",
-    "scripts/targeted_report.py": "1b71aaa97c1568f53e8aa1bfcd671c79bb674aeb324f7569cbae732e337de0e2",
+    "scripts/targeted_report.py": "6ded9ea3d83c05965d285e2a4cb825e323a2f6d03542ebe257b133f88f92d5ed",
     "scripts/build_report.py": "b216ebbbfbb8ce2ce327fdda7c750999d82bf92ff403ced89fe602a6d08a014e",
     "scripts/validate_targeted_live.py": "06c200a901d9e9992acfbd09c75bada6a7a985832aa27bc3a9604f11e171b65b",
     "scripts/validate_targeted_voice.py": "f0aaac7ab47a23f68f2a51d9710f4e438ff9a8e12b63c598a7ad5e2670c95509",
@@ -172,7 +172,7 @@
   },
   "all_tested_bytes_unchanged": true,
   "artifacts": {
-    "sample_outputs/targeted_release_reporting_final_20261031/pytest.log": "2c55e12eda0bd111a3908c4cef82ce5a831fbf78ac29d52425d8bad0f415c84c",
-    "sample_outputs/targeted_release_reporting_final_20261031/pytest.xml": "f9ac5e38bc584226ddbe87280cdf6f351a3682cd03844e96cc4d6f1502d50ff8"
+    "sample_outputs/targeted_release_reporting_final_20261031/pytest.log": "992c88e4d565d3f46ce52134438c930a1d7b01993617e322428dce9ee9e5b0ae",
+    "sample_outputs/targeted_release_reporting_final_20261031/pytest.xml": "c082134db7a502111df40cd08f03e280404ea5eba9cb1e1469467ff0070bca18"
   }
 }

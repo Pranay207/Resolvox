@@ -3,10 +3,10 @@
   "complete": true,
   "verification_mode": "mixed_live_retests_and_current_saved_output_validation",
   "scope": "Selected official conversations and two refund edges only. Pipeline retests and earlier recorded execution epochs are distinguished per case; output-cache hits remain identified in attempt metrics; retained responses were revalidated by current finite guards, without repeating inference. Not a fresh full52/full96 run or organizer score.",
-  "finished_at_utc": "2026-10-31T09:02:58.019229+00:00",
+  "finished_at_utc": "2026-10-31T11:07:40.387635+00:00",
   "runtime_source_sha256": {
     "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
-    "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+    "src/agent.py": "3d8318a1bc56f404ef79b00403ebc1e2ed206a4fe56056a29b68a2c2e1a1562e",
     "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
     "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
     "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
@@ -15,7 +15,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "4af28d50a334f6c8575af2100ed16c8585ed5805d9db5e7be3b5d18311374e6c",
+    "src/document_answers.py": "129e9350c87571bd56fe23780cda6d61f9dc633f896c32db68435e440c0842a0",
     "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -47,7 +47,7 @@
     "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1",
     "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
     "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
-    "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+    "src/source_semantics.py": "3c10ef36e839dc89bc9107931e2d4f8864e843c9a0d2e3332971b385741efce5",
     "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
     "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
     "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
@@ -57,7 +57,7 @@
   },
   "runtime_source_sha256_finished": {
     "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
-    "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+    "src/agent.py": "3d8318a1bc56f404ef79b00403ebc1e2ed206a4fe56056a29b68a2c2e1a1562e",
     "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
     "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
     "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
@@ -66,7 +66,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "4af28d50a334f6c8575af2100ed16c8585ed5805d9db5e7be3b5d18311374e6c",
+    "src/document_answers.py": "129e9350c87571bd56fe23780cda6d61f9dc633f896c32db68435e440c0842a0",
     "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -98,7 +98,7 @@
     "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1",
     "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
     "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
-    "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+    "src/source_semantics.py": "3c10ef36e839dc89bc9107931e2d4f8864e843c9a0d2e3332971b385741efce5",
     "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
     "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
     "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
@@ -217,7 +217,7 @@
       "run_manifest": "sample_outputs/targeted_retests_20261031.json",
       "saved_output_revalidation": {
         "artifact": "sample_outputs/targeted_saved_output_revalidation_final_20261031/PC009.json",
-        "sha256": "618ac96d858111bb598d8ac5c265f909959cd2865a79173c6c66c8b7a57fe417"
+        "sha256": "08faeefd41829e87657e396bbaf8018e0b58194fee22e02c14ef76acdc66f8a8"
       }
     },
     {
@@ -329,7 +329,7 @@
       "run_manifest": "sample_outputs/targeted_live_20261031T073740Z/manifest.json",
       "saved_output_revalidation": {
         "artifact": "sample_outputs/targeted_saved_output_revalidation_final_20261031/PC010.json",
-        "sha256": "d8580f05b2175557cb34f677b1b2069000eaba9c4e834cad8da79b66c1fb0971"
+        "sha256": "143081ae66c52c74981d55e9068ab951a9a85b34a5176a4c863ac1bd051745a2"
       }
     },
     {
@@ -443,7 +443,7 @@
       "run_manifest": "sample_outputs/targeted_retests_20261031.json",
       "saved_output_revalidation": {
         "artifact": "sample_outputs/targeted_saved_output_revalidation_final_20261031/PC003.json",
-        "sha256": "35bc082a1d356dc35cdf5292a356a72439c1b1a5e69263a4af1c8b3ec3dc7a14"
+        "sha256": "03c650a557d4fd65f9cf2fc57b3bd8ea59caca700240f0b86659fd239c112605"
       }
     },
     {
@@ -556,7 +556,7 @@
       "run_manifest": "sample_outputs/targeted_retests_20261031.json",
       "saved_output_revalidation": {
         "artifact": "sample_outputs/targeted_saved_output_revalidation_final_20261031/PC004.json",
-        "sha256": "ab77f6e47ea6a29782350b3c03f259ccbd3e3fbb82633f95635598a77d24ec4c"
+        "sha256": "7ba9a1a4ca42be07cb22369b602db7eafcd800667bd6e43303e3c12b550e3850"
       }
     },
     {
@@ -619,7 +619,7 @@
       "run_manifest": "sample_outputs/targeted_final_edges_20261031.json",
       "saved_output_revalidation": {
         "artifact": "sample_outputs/targeted_saved_output_revalidation_final_20261031/refund_coupon_context.json",
-        "sha256": "44d2189316cf32ac8abce7787b3c3361124bcfd0b9271cb0009b3db0e1e632a2"
+        "sha256": "e906935439af51dc29e498a603df49693b534015409200a3c7e1c5b198a34030"
       }
     },
     {
@@ -682,7 +682,7 @@
       "run_manifest": "sample_outputs/targeted_completion_retest_20261031.json",
       "saved_output_revalidation": {
         "artifact": "sample_outputs/targeted_saved_output_revalidation_final_20261031/refund_completed_date.json",
-        "sha256": "45a033b136a613e6935ba42aa2d828bfa60d04899b9b9d1b0896018bd8f48513"
+        "sha256": "b84992d150c2f15784c498ad7e2c425bc70a61391cd400cc9e4e6bc969e1ae32"
       }
     }
   ],
@@ -733,5 +733,10 @@
   "preserved_initial_failures": {
     "artifact": "sample_outputs/targeted_live_20261031T073740Z/manifest.json",
     "notes": "PC009.4 had unsupported missing-record/absent-RRN wording; PC003.5 mixed wallet hours and business days with an invented date. Coupon edge abstained on an overbroad conditional-action guard. Actual earlier outputs are preserved."
+  },
+  "interactive_user_checks": {
+    "artifact": "sample_outputs/ui_user_smoke_20261031.json",
+    "sha256": "52b2ecbe13ea7a97a35d7d563e08b54cbc1c06e9830e90db8cb773bc2d424eb1",
+    "scope": "Separate manual new-case UI observations and affected retests; per-case original inference epochs retained."
   }
 }

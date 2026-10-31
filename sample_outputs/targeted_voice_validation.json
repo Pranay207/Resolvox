@@ -7,7 +7,7 @@
   "live_llm_composition_enabled": true,
   "runtime_source_sha256": {
     "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
-    "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+    "src/agent.py": "3d8318a1bc56f404ef79b00403ebc1e2ed206a4fe56056a29b68a2c2e1a1562e",
     "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
     "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
     "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
@@ -16,7 +16,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "4af28d50a334f6c8575af2100ed16c8585ed5805d9db5e7be3b5d18311374e6c",
+    "src/document_answers.py": "129e9350c87571bd56fe23780cda6d61f9dc633f896c32db68435e440c0842a0",
     "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -48,7 +48,7 @@
     "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1",
     "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
     "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
-    "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+    "src/source_semantics.py": "3c10ef36e839dc89bc9107931e2d4f8864e843c9a0d2e3332971b385741efce5",
     "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
     "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
     "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
@@ -58,7 +58,7 @@
   },
   "runtime_source_sha256_finished": {
     "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
-    "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+    "src/agent.py": "3d8318a1bc56f404ef79b00403ebc1e2ed206a4fe56056a29b68a2c2e1a1562e",
     "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
     "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
     "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
@@ -67,7 +67,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "4af28d50a334f6c8575af2100ed16c8585ed5805d9db5e7be3b5d18311374e6c",
+    "src/document_answers.py": "129e9350c87571bd56fe23780cda6d61f9dc633f896c32db68435e440c0842a0",
     "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -99,7 +99,7 @@
     "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1",
     "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
     "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
-    "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+    "src/source_semantics.py": "3c10ef36e839dc89bc9107931e2d4f8864e843c9a0d2e3332971b385741efce5",
     "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
     "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
     "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
@@ -108,7 +108,7 @@
     "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b"
   },
   "source_runtime_unchanged": true,
-  "finished_at_utc": "2026-10-31T09:09:43.646775+00:00",
+  "finished_at_utc": "2026-10-31T11:07:43.882299+00:00",
   "batch": {
     "total": 3,
     "succeeded": 3,
@@ -273,7 +273,7 @@
       },
       "saved_spoken_output_revalidation": {
         "artifact": "sample_outputs/targeted_voice_revalidation_20261031/en.json",
-        "sha256": "64dc663fead1c0829b69970494d49520beabf12ec648e81b374c4683851e7d99"
+        "sha256": "ee4ad797136a7287e149f0bf54dee374d79108e37c7c7de05be3a775fcd9ca84"
       }
     },
     {
@@ -341,6 +341,10 @@
         "src/voice.py": "75565d0e213fa98328e8b8522ebb42c17e6f15428ae96a4a9250a09889a79264",
         "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b",
         "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1"
+      },
+      "saved_spoken_output_revalidation": {
+        "artifact": "sample_outputs/targeted_voice_revalidation_20261031/hi.json",
+        "sha256": "124d93d731090d982022bfa24f8fe26022653039c24e663a171971ff4f0dea97"
       }
     },
     {
@@ -411,7 +415,7 @@
       },
       "saved_spoken_output_revalidation": {
         "artifact": "sample_outputs/targeted_voice_revalidation_20261031/hi-en.json",
-        "sha256": "4c5c22595fa1b5c7ad9e51be4004171517d03381d7a9dc8d4e27ccfbcae30177"
+        "sha256": "e8b31107e8876ccfcdb5694e6bdee6fa097e417138cd5fb360fafe1e6c6b696c"
       }
     }
   ],
@@ -435,9 +439,10 @@
     "sample_outputs/targeted_voice_20261031T090259Z/001_02_hi_sources.json": "cf270c17ab2309ae00101e7baf556eaa4a9a6f4a271cfa1952c8521ecd231ea6",
     "sample_outputs/targeted_voice_20261031T090259Z/manifest.json": "10b94c0bd283c628cee64405048a019a9b8fe1861717b6a8e1ec95a3aef46108",
     "sample_outputs/history/targeted_voice_initial_20261031.json": "7ccda3975ae8d4447b3ed249f0e4cecc0d45da23f463ddc88c4b35efdf9f3ad4",
-    "sample_outputs/targeted_voice_revalidation_20261031/en.json": "64dc663fead1c0829b69970494d49520beabf12ec648e81b374c4683851e7d99",
+    "sample_outputs/targeted_voice_revalidation_20261031/en.json": "ee4ad797136a7287e149f0bf54dee374d79108e37c7c7de05be3a775fcd9ca84",
     "sample_outputs/targeted_voice_hindi_retest_20261031.json": "39714b5f853566305fa03259c11f6dea57f1b63c2b4a62f81bea4b8d14a6f11f",
-    "sample_outputs/targeted_voice_revalidation_20261031/hi-en.json": "4c5c22595fa1b5c7ad9e51be4004171517d03381d7a9dc8d4e27ccfbcae30177"
+    "sample_outputs/targeted_voice_revalidation_20261031/hi.json": "124d93d731090d982022bfa24f8fe26022653039c24e663a171971ff4f0dea97",
+    "sample_outputs/targeted_voice_revalidation_20261031/hi-en.json": "e8b31107e8876ccfcdb5694e6bdee6fa097e417138cd5fb360fafe1e6c6b696c"
   },
   "preserved_initial_failure": {
     "artifact": "sample_outputs/history/targeted_voice_initial_20261031.json",

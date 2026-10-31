@@ -1,5 +1,5 @@
 {
-  "pdf_sha256": "60ab532c9a8a34b053bd27ab3a20fa93cb717f2a835ace9843f3edeee7714700",
+  "pdf_sha256": "c4a014b35ae0745f63ca93c3adb6b03e58047ad23b6685a90417e8d7b9af4cf9",
   "pages": 4,
   "visually_reviewed_pages": [
     1,
@@ -9,17 +9,17 @@
   ],
   "layout_issues_found": false,
   "reviewer_type": "assistant_visual_inspection",
-  "reviewed_at_utc": "2026-10-31T09:35:47.001773+00:00",
+  "reviewed_at_utc": "2026-10-31T11:20:01.577857+00:00",
   "render_engine": "PDFium, scale 1.7",
   "rendered_page_sha256": {
     "page-1.png": "3b64722873a7930313d48240975bc3ed02d259f3600746a5682e9679235409b5",
-    "page-2.png": "7b5fbf08c6bd4471acd40350b1a7a7be49bd94b9158fd431994185c24f2fde5f",
-    "page-3.png": "539160f1757040e2061d6779d0a70329e7353857dc850469a1dc1eea9f101076",
+    "page-2.png": "089e207c4c90b13c62fc5f618bb105b00581335caf0c64e46fbc812a22235751",
+    "page-3.png": "d99dc41ff2c157eab0d1a1cadb1e745919e2de28a788ce00a4fce372a179b1ac",
     "page-4.png": "291e40ae19d898d74134d7336c33d8e248fc404a7f56e105f03fd0c8d0f538cf"
   },
   "runtime_source_sha256": {
     "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
-    "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+    "src/agent.py": "3d8318a1bc56f404ef79b00403ebc1e2ed206a4fe56056a29b68a2c2e1a1562e",
     "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
     "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
     "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
@@ -28,7 +28,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "4af28d50a334f6c8575af2100ed16c8585ed5805d9db5e7be3b5d18311374e6c",
+    "src/document_answers.py": "129e9350c87571bd56fe23780cda6d61f9dc633f896c32db68435e440c0842a0",
     "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -60,7 +60,7 @@
     "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1",
     "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
     "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
-    "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+    "src/source_semantics.py": "3c10ef36e839dc89bc9107931e2d4f8864e843c9a0d2e3332971b385741efce5",
     "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
     "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
     "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
@@ -70,7 +70,7 @@
   },
   "report_source_sha256": {
     "scripts/build_report.py": "b216ebbbfbb8ce2ce327fdda7c750999d82bf92ff403ced89fe602a6d08a014e",
-    "scripts/targeted_report.py": "1b71aaa97c1568f53e8aa1bfcd671c79bb674aeb324f7569cbae732e337de0e2"
+    "scripts/targeted_report.py": "6ded9ea3d83c05965d285e2a4cb825e323a2f6d03542ebe257b133f88f92d5ed"
   },
   "scope": "Four-step implementation, recorded Step 1/Step 2 scores, actual selected verification, observed failures/fixes, next improvements and bonus work. All four pages visually reviewed; no clipping or overlapping content."
 }

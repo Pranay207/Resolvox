@@ -1,6 +1,6 @@
 {
   "scope": "Only targeted automated refund-context, prompt-integration and record-safety regressions. Scripted LLM clients; no live inference, speech calls, full engineering suite or 52-question rerun.",
-  "started_at_utc": "2026-10-31T09:10:15.446258+00:00",
+  "started_at_utc": "2026-10-31T11:02:48.314486+00:00",
   "selected_test_files": [
     "tests/test_refund_context_scope.py",
     "tests/test_refund_payment_timeline.py",
@@ -14,10 +14,14 @@
     "tests/test_generation_diagnostics.py",
     "tests/test_refund_conditional_clock.py",
     "tests/test_completed_refund_record_view.py",
-    "tests/test_public_reporting_primary.py"
+    "tests/test_public_reporting_primary.py",
+    "tests/test_source_semantics.py",
+    "tests/test_credit_relative_clause.py",
+    "tests/test_delivery_scope.py",
+    "tests/test_delivery_clock_guard.py"
   ],
   "source_and_test_sha256_started": {
-    "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+    "src/agent.py": "3d8318a1bc56f404ef79b00403ebc1e2ed206a4fe56056a29b68a2c2e1a1562e",
     "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
     "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
     "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
@@ -26,7 +30,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "4af28d50a334f6c8575af2100ed16c8585ed5805d9db5e7be3b5d18311374e6c",
+    "src/document_answers.py": "129e9350c87571bd56fe23780cda6d61f9dc633f896c32db68435e440c0842a0",
     "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -57,7 +61,7 @@
     "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
     "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
     "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
-    "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+    "src/source_semantics.py": "3c10ef36e839dc89bc9107931e2d4f8864e843c9a0d2e3332971b385741efce5",
     "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
     "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
     "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
@@ -68,7 +72,7 @@
     "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1",
     "pytest.ini": "adf35da0642114a4c4867167eb6320584691a6adb313159f0844151961d37840",
     "tests/test_refund_context_scope.py": "5533344aef77c296b05f3d46c19c772f7a3154867ea0daa07c62d95c2888f31e",
-    "tests/test_refund_payment_timeline.py": "52ae5d05b135edbc16e321104c96cdf257c8b646d0bec3413626204bd0b981f6",
+    "tests/test_refund_payment_timeline.py": "746785effd18dc04b6692927c25a3aed50c46c95af266fc475a8e57e1be3c04c",
     "tests/test_document_record_answers.py": "e6f7857f0a30c0bf99f9346f0001b506719ff01f6ffea69412a9c0f7540d29de",
     "tests/test_pending_refund_status.py": "f9f1173afdd6ac4eef462fc4e0c42eab1b494e383b2565269a6e453caa809664",
     "tests/test_spoken_quality.py": "98595eb3d23134ead6641af852f4b9b9cdb2e97d119d0841f2c6aefa16662c65",
@@ -79,7 +83,11 @@
     "tests/test_generation_diagnostics.py": "bab97a392d34a59e02449ab42b1be2e577f4282b45d390a7799df8bad4f51caf",
     "tests/test_refund_conditional_clock.py": "7a4a2c47cf7df9ea38176bf0998b58145918a2f0dc8955f53349eff25ded9fb3",
     "tests/test_completed_refund_record_view.py": "82b369374d242b5c8e798224dd1aa92999ca19f2a7ece23b7eff4fabc47eb53b",
-    "tests/test_public_reporting_primary.py": "543066430ffd3b6d7bcef61cd893b127cb0220d4d5c6f0e1649eb41050223c2e"
+    "tests/test_public_reporting_primary.py": "543066430ffd3b6d7bcef61cd893b127cb0220d4d5c6f0e1649eb41050223c2e",
+    "tests/test_source_semantics.py": "7fbb8d0b7fa54f2944ca5852f2bd97a71f84ccae3d786fbf5750f63e1901ab48",
+    "tests/test_credit_relative_clause.py": "9d7e3c7512bb8bb13caaa1dd00eff7be8055e760f71b28cb4149cb7ad26593b7",
+    "tests/test_delivery_scope.py": "036a31a7435160c0bbbc77cc0ad215c82982b6e086ad672d9d4074b14834db88",
+    "tests/test_delivery_clock_guard.py": "cf3296c7d6f605a91302188d7e90e265632fd5c2665be1f81dbd4e44cbb001e6"
   },
   "complete": true,
   "command": [
@@ -101,24 +109,28 @@
     "tests/test_refund_conditional_clock.py",
     "tests/test_completed_refund_record_view.py",
     "tests/test_public_reporting_primary.py",
+    "tests/test_source_semantics.py",
+    "tests/test_credit_relative_clause.py",
+    "tests/test_delivery_scope.py",
+    "tests/test_delivery_clock_guard.py",
     "-q",
     "-p",
     "no:cacheprovider",
     "--override-ini=addopts=",
     "--tb=short",
-    "--junitxml=C:\\Users\\Shiva\\Downloads\\Resolvox\\sample_outputs\\refund_scope_targeted_reporting_final_20261031\\pytest.xml"
+    "--junitxml=C:\\Users\\Shiva\\Downloads\\Resolvox\\sample_outputs\\refund_scope_targeted_ui_fixes_20261031\\pytest.xml"
   ],
-  "finished_at_utc": "2026-10-31T09:10:19.466619+00:00",
+  "finished_at_utc": "2026-10-31T11:03:04.327827+00:00",
   "exit_code": 0,
   "pytest": {
-    "tests": 185,
+    "tests": 371,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
-    "passed": 185
+    "passed": 371
   },
   "source_and_test_sha256_finished": {
-    "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+    "src/agent.py": "3d8318a1bc56f404ef79b00403ebc1e2ed206a4fe56056a29b68a2c2e1a1562e",
     "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
     "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
     "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
@@ -127,7 +139,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "4af28d50a334f6c8575af2100ed16c8585ed5805d9db5e7be3b5d18311374e6c",
+    "src/document_answers.py": "129e9350c87571bd56fe23780cda6d61f9dc633f896c32db68435e440c0842a0",
     "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -158,7 +170,7 @@
     "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
     "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
     "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
-    "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+    "src/source_semantics.py": "3c10ef36e839dc89bc9107931e2d4f8864e843c9a0d2e3332971b385741efce5",
     "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
     "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
     "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
@@ -169,7 +181,7 @@
     "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1",
     "pytest.ini": "adf35da0642114a4c4867167eb6320584691a6adb313159f0844151961d37840",
     "tests/test_refund_context_scope.py": "5533344aef77c296b05f3d46c19c772f7a3154867ea0daa07c62d95c2888f31e",
-    "tests/test_refund_payment_timeline.py": "52ae5d05b135edbc16e321104c96cdf257c8b646d0bec3413626204bd0b981f6",
+    "tests/test_refund_payment_timeline.py": "746785effd18dc04b6692927c25a3aed50c46c95af266fc475a8e57e1be3c04c",
     "tests/test_document_record_answers.py": "e6f7857f0a30c0bf99f9346f0001b506719ff01f6ffea69412a9c0f7540d29de",
     "tests/test_pending_refund_status.py": "f9f1173afdd6ac4eef462fc4e0c42eab1b494e383b2565269a6e453caa809664",
     "tests/test_spoken_quality.py": "98595eb3d23134ead6641af852f4b9b9cdb2e97d119d0841f2c6aefa16662c65",
@@ -180,11 +192,15 @@
     "tests/test_generation_diagnostics.py": "bab97a392d34a59e02449ab42b1be2e577f4282b45d390a7799df8bad4f51caf",
     "tests/test_refund_conditional_clock.py": "7a4a2c47cf7df9ea38176bf0998b58145918a2f0dc8955f53349eff25ded9fb3",
     "tests/test_completed_refund_record_view.py": "82b369374d242b5c8e798224dd1aa92999ca19f2a7ece23b7eff4fabc47eb53b",
-    "tests/test_public_reporting_primary.py": "543066430ffd3b6d7bcef61cd893b127cb0220d4d5c6f0e1649eb41050223c2e"
+    "tests/test_public_reporting_primary.py": "543066430ffd3b6d7bcef61cd893b127cb0220d4d5c6f0e1649eb41050223c2e",
+    "tests/test_source_semantics.py": "7fbb8d0b7fa54f2944ca5852f2bd97a71f84ccae3d786fbf5750f63e1901ab48",
+    "tests/test_credit_relative_clause.py": "9d7e3c7512bb8bb13caaa1dd00eff7be8055e760f71b28cb4149cb7ad26593b7",
+    "tests/test_delivery_scope.py": "036a31a7435160c0bbbc77cc0ad215c82982b6e086ad672d9d4074b14834db88",
+    "tests/test_delivery_clock_guard.py": "cf3296c7d6f605a91302188d7e90e265632fd5c2665be1f81dbd4e44cbb001e6"
   },
   "all_tested_bytes_unchanged": true,
   "artifacts": {
-    "sample_outputs/refund_scope_targeted_reporting_final_20261031/pytest.log": "5a6154accbc59b9b4af100310144ac5cd5ab842c822f5247f6dcfb26bbafeb4e",
-    "sample_outputs/refund_scope_targeted_reporting_final_20261031/pytest.xml": "a655584580718e486cfc29779a6561c13501392fcb0293edc3f4cb4de404e79e"
+    "sample_outputs/refund_scope_targeted_ui_fixes_20261031/pytest.log": "7d5007da097f7cb0a9623f1e0a0038d11588f3c36d5dd88b9bccf20754938f74",
+    "sample_outputs/refund_scope_targeted_ui_fixes_20261031/pytest.xml": "0a0d4eccce22c77534109c3c22f468e983fb8d07f1ab1680126ba92d347ea356"
   }
 }
