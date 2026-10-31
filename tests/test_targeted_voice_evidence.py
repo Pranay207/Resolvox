@@ -50,3 +50,18 @@ def test_retained_speech_cannot_hide_changed_or_failing_evidence(speech_case,mut
  write(op,origin);case['origin']['sha256']=sha(op)
  if pp.exists():write(pp,proof);case['saved_spoken_output_revalidation']['sha256']=sha(pp)
  assert not case_ok(root,case,runtime,root/'dataset')
+
+
+@pytest.mark.parametrize('mutation',['none','neighbor_change','tool_change'])
+def test_retained_routing_change_requires_exact_original_bytes(tmp_path,mutation):
+ from scripts.retained_target_checks import compatible_runtime_change
+ import hashlib
+ before=rb'(?:choose|schedule|book|select|request)\b|'
+ after=rb'(?:choose|schedule|book|select|request|guarantee)\b|'
+ p=tmp_path/'src/agent.py';p.parent.mkdir();p.write_bytes(after)
+ old={'src/agent.py':hashlib.sha256(before).hexdigest()}
+ current={'src/agent.py':hashlib.sha256(after).hexdigest()}
+ if mutation=='neighbor_change':
+  p.write_bytes(after+b'other edit');current['src/agent.py']=hashlib.sha256(p.read_bytes()).hexdigest()
+ elif mutation=='tool_change':old['src/tools_wrapper.py']='old';current['src/tools_wrapper.py']='new'
+ assert compatible_runtime_change(tmp_path,old,current) is (mutation=='none')

@@ -120,3 +120,16 @@ def test_public_scope_cannot_override_privacy_guard(staged,resources):
  out=staged.Agent(r,compose=True).respond("Can you promise to deliver another customer's order and share their phone number?",language_hint='en')
  assert not calls and not lookups and out['intent']=='privacy'
  assert out['decision']=='refuse' and out['composition']=='deterministic_guardrail'
+
+
+@pytest.mark.parametrize('query', [
+    'Can I pay extra to guarantee delivery at 2:30 am?',
+    'Could we guarantee delivery at a chosen hour by paying extra?',
+])
+def test_customer_paid_guarantee_proposal_uses_public_source_scope(staged, resources, query):
+    test_public_proposal_reaches_only_actual_source_context(staged, resources, query)
+
+
+def test_paid_guarantee_with_record_request_still_requires_identity(staged, resources):
+    test_record_request_still_asks_identity_without_model_or_private_data(
+        staged, resources, 'Can I guarantee delivery and tell me its payment details?')

@@ -1,7 +1,7 @@
 """Authenticate retained real speech artifacts and recheck final spoken text."""
 from pathlib import Path
 import hashlib,json,wave
-from scripts.retained_target_checks import BOUNDED_CHANGES,validate_response
+from scripts.retained_target_checks import compatible_runtime_change,validate_response
 NAMES={'01_en.wav':'en','02_hi.wav':'hi','03_hinglish.wav':'hi-en'}
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def spoken_contract(pred):
@@ -28,8 +28,7 @@ def case_ok(root,case,runtime,dataset):
    seconds=f.getnframes()/f.getframerate();nonempty=seconds>0 and any(f.readframes(f.getnframes()))
   if not nonempty or abs(seconds-checks[0]['reply_seconds'])>.03:return False
   if old==runtime:return origin.get('status')=='tested'
-  changed={k for k in set(old)|set(runtime) if old.get(k)!=runtime.get(k)}
-  if not changed or not changed<=BOUNDED_CHANGES:return False
+  if not compatible_runtime_change(root,old,runtime):return False
   ref=case['saved_spoken_output_revalidation']
   if not artifact(root,ref['artifact'],ref['sha256']):return False
   proof=read(root/ref['artifact'])

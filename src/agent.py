@@ -37,7 +37,7 @@ def _delivery_capability_request(query):
     capability = (
         r'\b(?:can|could|would|will)\s+(?:you|the\s+(?:courier|carrier))\b.{0,70}'
         r'\b(?:promise|guarantee|commit|offer|schedule|arrange)\b|'
-        r'\b(?:can|could|may)\s+(?:i|we)\b.{0,55}\b(?:choose|schedule|book|select|request)\b|'
+        r'\b(?:can|could|may)\s+(?:i|we)\b.{0,55}\b(?:choose|schedule|book|select|request|guarantee)\b|'
         r'\b(?:do|does)\s+(?:you|the\s+(?:courier|carrier))\b.{0,45}\b(?:offer|guarantee|promise)\b|'
         r'\bkya\b.{0,50}\b(?:guarantee|promise|vaada|vada|schedule|arrange)\b|'
         r'क्या.{0,50}(?:गारंटी|वादा|तय|समय\s*चुन)')

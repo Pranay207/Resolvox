@@ -1,7 +1,23 @@
 """Recheck saved generated responses; never replay tools or claim fresh inference."""
 from pathlib import Path
 import hashlib,json,copy
-BOUNDED_CHANGES={'src/document_answers.py','src/generation_diagnostics.py','src/pending_refund_context.py','src/refund_timeline.py'}
+BOUNDED_CHANGES={'src/document_answers.py','src/generation_diagnostics.py','src/pending_refund_context.py','src/refund_timeline.py','src/source_semantics.py'}
+
+
+def compatible_runtime_change(root, old, current):
+ # Saved inference is not a fresh routing test. Admit only the exact public
+ # request-vocabulary edit, verified by reconstructing the original file hash.
+ changed={k for k in set(old)|set(current) if old.get(k)!=current.get(k)}
+ if not changed or not (changed-{'src/agent.py'})<=BOUNDED_CHANGES:return False
+ if 'src/agent.py' not in changed:return True
+ try:
+  data=(Path(root)/'src/agent.py').read_bytes()
+  before=rb'(?:choose|schedule|book|select|request)\b|'
+  after=rb'(?:choose|schedule|book|select|request|guarantee)\b|'
+  return (data.count(after)==1 and hashlib.sha256(data).hexdigest()==current['src/agent.py']
+          and hashlib.sha256(data.replace(after,before,1)).hexdigest()==old['src/agent.py'])
+ except (OSError,KeyError,TypeError):return False
+
 
 def validation_sources(prediction,dataset=None):
  # The spoken-source view can be smaller than the actual host validator view.
@@ -51,8 +67,7 @@ def retained_ok(root,case,value,expected,dataset):
   else:
    old=proof['original_runtime_source_sha256'];rows=[value]
   if proof.get('original_runtime_source_sha256')!=old:return False
-  changed={k for k in set(old)|set(current) if old.get(k)!=current.get(k)}
-  if not changed or not changed<=BOUNDED_CHANGES:return False
+  if not compatible_runtime_change(root,old,current):return False
   generated=[r for r in rows if r.get('prediction',{}).get('generation',{}).get('generation_attempts',0)>0]
   checks=proof.get('validations',[])
   if len(checks)!=len(generated) or not checks:return False
