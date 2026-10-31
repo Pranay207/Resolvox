@@ -44,9 +44,11 @@ Capstone for **From Tokens to Transformers**, organized by the Consulting & Anal
 
 ### Using the Application
 
-Choose **Voice support** to record or upload audio, or **Text support** to type a question. Provide an order ID and verification detail when requested. Replies include expandable sources and confirmed tool outcomes.
+Use the compact **Speak · Type** switch in **Your conversation** to record a message or type a question. **Upload an audio clip** is a secondary option under Speak. Both input modes share one history, including replies and audio playback.
 
-The layout adapts to phone, tablet and desktop widths. Both tabs share conversation state. **New conversation** clears that state and verification; **Retry reply audio** retries speech without repeating the agent action. Under **Advanced options**, AI policy answers are enabled by default and extra language previews are disabled.
+**Your case** shows order details only after a successful verification lookup. **Your next step** reflects the latest reply, and a ticket reference appears only after confirmed creation. On smaller screens, the collapsible case details sit above the conversation; the message history scrolls within its panel. **New conversation** clears the history and verification. **Retry reply audio** retries speech without repeating the agent action.
+
+Under **Advanced options**, AI policy answers are enabled by default and extra language previews are disabled.
 
 ## Quick Start
 
@@ -136,7 +138,7 @@ Set `LLM_PROVIDER=compatible`, `LLM_BASE_URL`, `LLM_MODEL` and `LLM_API_KEY` in 
 .venv/bin/python -m streamlit run app.py
 ```
 
-Open [localhost:8501](http://localhost:8501). Choose the spoken language and **Record** or **Upload**, then send a clip of up to **60 seconds**. Uploads are limited to **20 MB**. Text support uses the same conversation and verification state.
+Open [localhost:8501](http://localhost:8501). Choose a language and **Speak**, then record or upload a clip of up to **60 seconds**. Uploads are limited to **20 MB**. Choose **Type** to continue the same conversation by text.
 
 ## Organizer Batch Command
 
@@ -183,7 +185,7 @@ flowchart TD
 
 | Component | Implementation |
 | --- | --- |
-| Interface | Responsive Streamlit console with Voice support and Text support tabs |
+| Interface | Responsive Streamlit workspace with Speak/Type input, one conversation and verified case details |
 | Answer model | Local Ollama `qwen3:4b-instruct`; selected laptop endpoint on port 11435 |
 | Retrieval | Lexical search + multilingual MiniLM embeddings using quantized ONNX |
 | Speech | Gnani STT and TTS only |
