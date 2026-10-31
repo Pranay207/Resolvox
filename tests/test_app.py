@@ -82,11 +82,12 @@ def voice_double(monkeypatch, *, fail_audio=False):
 
 def test_text_ui_and_source_panel():
     app = start()
+    app.radio(key='input_mode').set_value('Type').run()
     app.chat_input[0].set_value('UPI refund timing please').run()
     assert not app.exception
     assert any('1 to 3' in item.value for item in app.markdown)
-    panels = [item for item in app.expander if item.label == 'Sources and actions']
-    assert len(panels) == 2  # Both channels show the same single conversation.
+    panels = [item for item in app.expander if item.label == 'View supporting policy']
+    assert len(panels) == 1  # One shared conversation renders each reply once.
     assert len(app.session_state.messages) == 1
     output = app.session_state.messages[0]['output']
     assert output['retrieved_chunk_ids']
@@ -95,6 +96,7 @@ def test_text_ui_and_source_panel():
 
 def test_new_conversation_clears_private_context_and_history():
     app = start()
+    app.radio(key='input_mode').set_value('Type').run()
     app.chat_input[0].set_value('UPI refund timing please').run()
     previous = app.session_state.agent
     previous.state.order_id = '35061733'
@@ -128,7 +130,7 @@ def test_voice_reply_is_redacted_and_survives_reruns(monkeypatch):
     assert entry['output']['transcript'] == '[verification value redacted]'
     assert entry['audio'] == wav_bytes()
     assert entry['audio_error'] is None
-    assert len(app.get('audio')) == 2
+    assert len(app.get('audio')) == 1
     app.selectbox[0].set_value('Hindi').run()
     assert not app.exception
     assert app.session_state.messages[0]['audio'] == wav_bytes()
@@ -152,7 +154,7 @@ def test_audio_retry_preserves_text_without_repeating_agent(monkeypatch):
     assert entry['output']['transcript'] == '[verification value redacted]'
     assert any('Your text answer is saved' in item.value for item in app.warning)
     voice.fail = False
-    app.button(key='voice_retry_audio_0').click().run()
+    app.button(key='support_retry_audio_0').click().run()
     assert not app.exception
     assert len(app.session_state.messages) == 1
     recovered = app.session_state.messages[0]
@@ -165,96 +167,27 @@ def test_audio_retry_preserves_text_without_repeating_agent(monkeypatch):
     assert not app.warning
 
 
-def test_record_and_upload_show_only_selected_input():
+def test_speak_type_switch_keeps_one_conversation_and_secondary_upload():
     app = start()
+    assert not app.tabs
     assert len(app.get('audio_input')) == 1
-    assert not app.get('file_uploader')
-    assert button(app, 'Send voice message').disabled
-    app.radio[0].set_value('Upload').run()
-    assert not app.exception
-    assert not app.get('audio_input')
     assert len(app.get('file_uploader')) == 1
+    assert any(x.label == 'Upload an audio clip' for x in app.expander)
     assert button(app, 'Send voice message').disabled
-    app.radio[0].set_value('Record').run()
+    app.radio(key='input_mode').set_value('Type').run()
     assert not app.exception
+    assert not app.get('audio_input') and not app.get('file_uploader')
+    app.chat_input[0].set_value('UPI refund timing please').run()
+    saved = app.session_state.messages[0]['output']
+    agent = app.session_state.agent
+    app.radio(key='input_mode').set_value('Speak').run()
+    assert not app.exception
+    assert app.session_state.agent is agent
+    assert app.session_state.messages[0]['output'] == saved
+    assert len(app.get('chat_message')) == 2
     assert len(app.get('audio_input')) == 1
-    assert not app.get('file_uploader')
+    assert button(app, 'Send voice message').disabled
 
-
-def current_report(total=3, planned=52, *, complete=False):
-    root = Path(__file__).resolve().parents[1]
-    return {
-        'configuration': {'evaluation_mode': 'live_compose_true', 'provenance': {
-            'runtime_source_sha256': {
-                name: hashlib.sha256((root / name).read_bytes()).hexdigest()
-                for name in ('src/agent.py', 'src/document_answers.py', 'src/document_context.py')
-            }}},
-        'summary': {'passed': total, 'total': total, 'planned': planned, 'complete': complete},
-        'complete': complete,
-        'results': [{'prediction': {}} for _ in range(total)],
-    }
-
-
-def patch_live_reports(monkeypatch, current):
-    read_text = Path.read_text
-
-    def report_text(path, *args, **kwargs):
-        if path.name == 'eval_step2_live_current.json':
-            return json.dumps(current)
-        if path.name == 'eval_step3_live_current.json':
-            return '{}'
-        if path.name == 'eval_step2_live_postfix_partial.json':
-            return json.dumps({'summary': {'passed': 32, 'total': 32,
-                                          'planned': 52, 'complete': False}})
-        return read_text(path, *args, **kwargs)
-
-    monkeypatch.setattr(Path, 'read_text', report_text)
-
-
-def test_partial_live_evaluation_is_clearly_incomplete(monkeypatch):
-    patch_live_reports(monkeypatch, current_report())
-    app = start()
-    status = next(item.value for item in app.info if 'Current LLM-enabled questions:' in item.value)
-    assert '3 passed, 3 checked of 52 planned' in status
-    assert 'incomplete' in status
-    assert 'Complete recorded run' not in status
-    assert '32 passed' not in status
-
-
-def test_missing_current_results_do_not_promote_old_32_question_subset(monkeypatch):
-    patch_live_reports(monkeypatch, {})
-    app = start()
-    status = '\n'.join(item.value for item in app.info)
-    assert 'Current LLM-enabled questions: pending' in status
-    assert 'Current LLM-enabled conversation turns: pending' in status
-    assert '32 passed' not in status and 'Complete recorded run' not in status
-    labels = [item.label for item in app.metric]
-    assert len(labels) == 3 and all(label.startswith('Historical ') for label in labels)
-    assert any('Historical development adversarial checks:' in item.value for item in app.markdown)
-
-
-@pytest.mark.parametrize('provenance_state', ['legacy', 'changed'])
-def test_current_filename_cannot_promote_legacy_or_stale_runtime_evidence(monkeypatch, provenance_state):
-    fixture = current_report(52, 52, complete=True)
-    hashes = fixture['configuration']['provenance']['runtime_source_sha256']
-    if provenance_state == 'legacy':
-        hashes.pop('src/document_answers.py')
-        hashes.pop('src/document_context.py')
-    else:
-        hashes['src/document_answers.py'] = '0' * 64
-    patch_live_reports(monkeypatch, fixture)
-    app = start()
-    status = next(item.value for item in app.info if 'Current LLM-enabled questions:' in item.value)
-    assert 'pending' in status
-    assert '52 passed' not in status and 'Complete recorded run' not in status
-
-
-def test_completion_flag_alone_cannot_claim_a_finished_live_run(monkeypatch):
-    patch_live_reports(monkeypatch, current_report(3, 52, complete=True))
-    app = start()
-    status = next(item.value for item in app.info if 'Current LLM-enabled questions:' in item.value)
-    assert '3 passed, 3 checked of 52 planned' in status and 'incomplete' in status
-    assert 'Complete recorded run' not in status
 
 
 def test_all_ten_voice_languages_are_available_as_optional_preview():
@@ -272,7 +205,8 @@ def test_all_ten_voice_languages_are_available_as_optional_preview():
 def test_marathi_text_choice_does_not_become_hindi():
     app = start()
     app.toggle[1].set_value(True).run()
-    app.selectbox[1].set_value('Marathi').run()
+    app.selectbox[0].set_value('Marathi').run()
+    app.radio(key='input_mode').set_value('Type').run()
     app.chat_input[0].set_value('UPI परतावा कधी मिळेल?').run()
     assert not app.exception
     output = app.session_state.messages[0]['output']
@@ -280,3 +214,93 @@ def test_marathi_text_choice_does_not_become_hindi():
     assert output['localization']['status'] == 'unavailable_offline'
     assert output['decision'] == 'clarify'
     assert not output['tool_calls']
+
+
+def test_workspace_keeps_evaluation_metrics_out_of_customer_ui():
+    app = start()
+    assert not app.tabs and not app.metric
+    assert [item.value for item in app.title] == ['How can we help?']
+    assert any(item.label == 'Your case' for item in app.expander)
+    assert any(item.value == 'Your next step' for item in app.subheader)
+    assert not any('52' in item.value for item in app.info)
+
+
+def snapshot_function():
+    # Load the pure presentation helper without starting Streamlit/resources.
+    import ast
+    tree = ast.parse(Path('app.py').read_text(encoding='utf-8'))
+    node = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == 'case_snapshot')
+    namespace = {}
+    exec(compile(ast.Module(body=[node], type_ignores=[]), 'app.py', 'exec'), namespace)
+    return namespace['case_snapshot']
+
+
+def case_agent(oid='order-a', order=None):
+    from types import SimpleNamespace
+    return SimpleNamespace(state=SimpleNamespace(order_id=oid, order=order))
+
+
+def output_message(calls=(), **extra):
+    return {'output': {'tool_calls': list(calls), 'decision': 'answer', **extra}}
+
+
+def lookup_call(oid='order-a', verified=True):
+    return {'name': 'lookup_order', 'arguments': {'order_id': oid}, 'result': {'verified': verified}}
+
+
+def test_case_panel_never_trusts_model_verified_flag_or_unverified_order_data():
+    order = {'order_id': 'order-a', 'status': 'delivered', 'phone': 'private-phone',
+             'delivery_pincode': 'private-proof', 'items': [{'sku': 'private-item'}]}
+    for calls in [[], [lookup_call(verified=False)], [lookup_call('different-order')]]:
+        view = snapshot_function()(case_agent(order=order), [output_message(calls, verified=True)])
+        assert not view['verified']
+        assert view['details'] == {} and view['items'] == []
+        assert 'private' not in json.dumps(view)
+
+
+def test_verified_case_allowlist_and_order_switch_hide_old_order():
+    order = {'order_id': 'order-a', 'status': 'shipped', 'payment_method': 'upi',
+             'phone': 'private-phone', 'delivery_pincode': 'private-proof',
+             'items': [{'sku': 'ELE-1', 'qty': 1, 'proof': 'private-proof'}]}
+    messages = [output_message([lookup_call()])]
+    view = snapshot_function()(case_agent(order=order), messages)
+    assert view['verified'] and view['details']['status'] == 'shipped'
+    assert view['items'] == [{'sku': 'ELE-1', 'qty': 1}]
+    assert 'private' not in json.dumps(view)
+    switched = snapshot_function()(case_agent(oid='order-b', order=None), messages)
+    assert not switched['verified'] and not switched['details'] and not switched['items']
+
+
+@pytest.mark.parametrize('created,oid,expected', [(True,'order-a','T-1'), (False,'order-a',None), (True,'order-b',None)])
+def test_ticket_status_requires_success_for_current_case(created, oid, expected):
+    call = {'name': 'create_ticket', 'arguments': {'order_id': oid},
+            'result': {'created': created, 'ticket_id': 'T-1'}}
+    view = snapshot_function()(case_agent(), [output_message([call], decision='escalate')])
+    assert view['ticket_id'] == expected
+    assert ('Keep your ticket' in view['next_title']) == bool(expected)
+
+
+def test_verified_lookup_renders_case_once_and_new_order_hides_it():
+    app = start()
+    app.radio(key='input_mode').set_value('Type').run()
+    app.chat_input[0].set_value('Where is my order 89782837?').run()
+    app.run()  # Settle the explicit UI rerun before submitting the next trigger.
+    assert not app.exception
+    assert not any('Order verified' in item.value for item in app.markdown)
+    assert any('Verification needed' in item.value for item in app.markdown)
+    app.chat_input[0].set_value('4533').run()  # Supplied fictional verification example.
+    app.run()
+    assert not app.exception
+    assert any('Order verified' in item.value for item in app.markdown)
+    assert app.session_state.messages[-1]['output']['transcript'] == '[verification value redacted]'
+    assert '4533' not in '\n'.join(item.value for item in app.markdown)
+    saved = list(app.session_state.messages)
+    app.radio(key='input_mode').set_value('Speak').run()
+    assert not app.exception
+    assert app.session_state.messages == saved
+    assert len(app.get('chat_message')) == 4
+    app.radio(key='input_mode').set_value('Type').run()
+    app.chat_input[0].set_value('Now check order 35061733').run()
+    assert not app.exception
+    assert app.session_state.agent.state.order is None
+    assert not any('Order verified' in item.value for item in app.markdown)

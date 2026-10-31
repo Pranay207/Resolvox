@@ -2,6 +2,7 @@
 import base64
 import tempfile
 from pathlib import Path
+from datetime import date
 
 import streamlit as st
 from src.agent import resources
@@ -37,12 +38,8 @@ st.markdown("""<style>
 [data-testid="stSidebar"] h1 {font-size:1.65rem;letter-spacing:-.8px;}
 [data-testid="stSidebar"] [data-testid="stSidebarContent"] {padding:0!important;}
 [data-testid="stMainBlockContainer"] > [data-testid="stVerticalBlock"] {gap:.75rem;}
-.st-key-voice_workspace [data-testid="stVerticalBlock"],.st-key-text_workspace [data-testid="stVerticalBlock"] {gap:.6rem;}
-.st-key-voice_workspace,.st-key-text_workspace {background:white;border-radius:18px;border:1px solid #dfe7f2;box-shadow:0 10px 35px #233b5806;}
-[data-testid="stTabs"] [role="tablist"] {gap:1.4rem;border-bottom:1px solid #dbe4f0;}
-[data-testid="stTabs"] [role="tab"] {color:#52647c;padding:.5rem .2rem;font-size:.9rem;font-weight:600;min-height:2.5rem;height:2.5rem;}
-[data-testid="stTabs"] [aria-selected="true"] {color:#2563eb;}
-[data-testid="stTabs"] [data-baseweb="tab-highlight"] {background:#2563eb;}
+.st-key-support_conversation {background:white;border-radius:18px;border:1px solid #dfe7f2;box-shadow:0 10px 35px #233b5806;}
+.st-key-support_conversation [data-testid="stVerticalBlock"] {gap:.65rem;}
 [data-testid="stChatMessage"] {background:#f5f8fd;border-radius:16px;}
 [data-testid="stFileUploaderDropzone"] {background:#f5f8fd;border:1px dashed #b9c9df;color:#233b58;border-radius:14px;}
 [data-testid="stFileUploaderDropzone"] [data-testid="stMarkdownContainer"] {color:#233b58;}
@@ -85,7 +82,6 @@ st.markdown("""<style>
 [data-testid="stMain"] [data-testid^="stBaseButton"],
 [data-testid="stSidebarUserContent"] [data-testid^="stBaseButton"],
 [data-testid="stSidebarUserContent"] a {min-height:44px;}
-[data-testid="stTabs"] [role="tab"] {height:44px;min-height:44px;}
 [data-baseweb="select"]>div {min-height:44px;}
 [role="radiogroup"] label,[data-testid="stSidebarUserContent"] label:has(input[type="checkbox"]) {min-height:44px;align-items:center;}
 [data-testid="stSidebar"] summary {min-height:44px;}
@@ -95,6 +91,44 @@ st.markdown("""<style>
 .empty-reply {min-height:140px;}
 }
 @media(max-height:760px) and (min-width:801px) {.empty-reply {min-height:150px;}}
+
+.support-intro {color:#596b82;font-size:.9rem;margin:0 0 .25rem;}
+.st-key-case_column {min-width:0;}
+.st-key-case_column [data-testid="stMarkdownContainer"] {overflow-wrap:anywhere;}
+.st-key-next_step {background:#eef4ff;border:1px solid #d9e5fa;border-radius:16px;}
+.st-key-next_step h3 {font-size:1rem!important;}
+.case-label {font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#596b82;margin:0 0 7px;}
+.case-status {display:inline-block;font-size:.78rem;font-weight:600;padding:5px 9px;border-radius:8px;background:#eaf0f8;color:#425975;margin-bottom:5px;}
+.case-status.verified {background:#e8f5ef;color:#246447;}
+.case-status.ticket {background:#eaf0ff;color:#294eb0;}
+.case-value {font-size:.9rem;overflow-wrap:anywhere;margin:0 0 12px;}
+.st-key-support_conversation [data-testid="stLayoutWrapper"]:has(> .st-key-conversation_history) {height:clamp(200px,calc(100dvh - 450px),320px)!important;flex:none!important;min-height:0!important;}
+.st-key-conversation_history {height:100%!important;overflow-y:auto;overscroll-behavior:contain;}
+.st-key-conversation_history .empty-reply {min-height:180px;margin-top:0;border:0;background:transparent;}
+.st-key-input_mode [role="radiogroup"] {display:flex;flex-wrap:nowrap;gap:3px;width:fit-content;background:#eef3fb;border:1px solid #dce5f1;border-radius:12px;padding:3px;}
+.st-key-input_mode [role="radiogroup"] label {padding:7px 12px;margin:0!important;min-height:38px;box-sizing:border-box;border-radius:9px;}
+.st-key-input_mode [role="radiogroup"] label > div:first-child {display:none;}
+.st-key-input_mode [role="radiogroup"] label:has(input:checked) {background:#fff;box-shadow:0 1px 4px #14243b16;}
+.st-key-input_mode [role="radiogroup"] label p {font-size:.875rem!important;font-weight:600;}
+.st-key-composer_toolbar {align-items:center;}
+.st-key-composer_toolbar [data-testid="stElementContainer"] {min-width:0;}
+.st-key-conversation_language {max-width:230px;}
+.st-key-conversation_language [data-baseweb="select"] * {font-size:.82rem!important;}
+.st-key-upload_audio {margin:0;}
+.st-key-quick_questions button {font-size:.8rem;min-height:36px;}
+@media(max-width:800px) {
+.st-key-support_layout > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] {flex-direction:column;gap:.8rem;}
+.st-key-support_layout > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {width:100%!important;flex:1 1 auto!important;min-width:0!important;}
+.st-key-case_column [data-testid="stVerticalBlock"] {gap:.45rem;}
+.st-key-next_step {padding:.65rem!important;}
+.st-key-next_step [data-testid="stVerticalBlock"] {gap:.2rem;}
+.st-key-support_conversation [data-testid="stLayoutWrapper"]:has(> .st-key-conversation_history) {height:180px!important;}
+.st-key-conversation_history .empty-reply {min-height:120px;padding:.65rem;}
+.st-key-input_mode [role="radiogroup"] label {min-height:44px;padding:9px 12px;}
+.st-key-conversation_language {max-width:100%;}
+.st-key-support_layout summary {min-height:44px;}
+.st-key-quick_questions [data-testid="stHorizontalBlock"] {flex-wrap:wrap;gap:.4rem;}
+}
 </style>""", unsafe_allow_html=True)
 
 @st.cache_resource
@@ -102,8 +136,8 @@ def shared():
     return resources()
 
 r = shared()
-if st.session_state.get('ui_version') != 'support-console-v4':
-    st.session_state.ui_version = 'support-console-v4'
+if 'agent' not in st.session_state or 'messages' not in st.session_state:
+    st.session_state.ui_version = 'support-console-v5'
     st.session_state.agent = Agent(r)
     st.session_state.messages = []
     st.session_state.voice_epoch = 0
@@ -130,19 +164,19 @@ with st.sidebar:
     st.link_button('Project documentation ↗', 'https://github.com/Pranay207/Resolvox', use_container_width=True)
 
 st.session_state.agent.compose = live
-st.title('Customer support')
-voice_tab, text_tab = st.tabs(['Voice support', 'Text support'])
+st.title('How can we help?')
+st.markdown('<p class="support-intro">ZentroMart support for your orders, returns and refunds.</p>', unsafe_allow_html=True)
 
 def evidence(out):
-    with st.expander('Sources and actions'):
+    with st.expander('View supporting policy'):
         ids = out.get('retrieved_chunk_ids', [])
         st.write(' · '.join(ids) or 'No supporting company information found.')
         for source in out.get('sources', []):
             st.markdown('**' + source['id'] + '** — ' + source.get('file', ''))
             st.text(source['text'])
         if out.get('tool_calls'):
+            st.caption('Support actions')
             st.json(out['tool_calls'])
-        st.caption(f"Decision: {out['decision']} · {out.get('latency_ms', 0):.0f} ms · {out.get('composition', '')}")
 
 def speak_reply(entry, voice=None):
     folder = ROOT / 'tmp/voice_ui'
@@ -159,7 +193,7 @@ def speak_reply(entry, voice=None):
 def render_conversation(channel):
     messages = st.session_state.messages
     if not messages:
-        st.markdown('<div class="empty-reply"><div class="wave" aria-hidden="true"><i style="height:14px"></i><i style="height:28px"></i><i style="height:44px"></i><i style="height:32px"></i><i style="height:20px"></i></div><strong>Your conversation starts here</strong><p>Your transcript, answer and voice reply will appear here.</p></div>', unsafe_allow_html=True)
+        st.markdown('<div class="empty-reply"><div class="wave" aria-hidden="true"><i style="height:14px"></i><i style="height:28px"></i><i style="height:44px"></i><i style="height:32px"></i><i style="height:20px"></i></div><strong>Let’s sort it out.</strong><p>Record a message or type your question. Your replies and supporting policies stay here.</p></div>', unsafe_allow_html=True)
         return
     for i, entry in enumerate(messages):
         out = entry['output']
@@ -201,16 +235,16 @@ def process_voice(audio, spoken_language):
     try:
         with st.status('Listening to your message…', expanded=True) as progress:
             voice = GnaniVoice()
-            st.write('1 / 3 · Listening with Gnani')
+            st.write('Listening to your recorded message')
             selected = VOICE_LANGUAGES[spoken_language]
             heard = voice.transcribe(path, STT_CODES[selected])
             progress.update(label='Checking your question…')
-            st.write('2 / 3 · Checking information and conversation context')
+            st.write('Checking your question against ZentroMart information')
             out = respond_in_language(heard, None if spoken_language == 'English / Hinglish' else selected)
             entry = {'output': out, 'audio': None, 'audio_error': None}
             st.session_state.messages.append(entry)
             progress.update(label='Preparing your voice reply…')
-            st.write('3 / 3 · Preparing reply audio')
+            st.write('Preparing your spoken reply')
             speak_reply(entry, voice)
             progress.update(label='Reply ready', state='complete', expanded=False)
     except (VoiceUnavailable, VoiceError, OSError) as exc:
@@ -222,51 +256,133 @@ def process_voice(audio, spoken_language):
         path.unlink(missing_ok=True)
         st.session_state.voice_epoch += 1
 
-with voice_tab:
-    with st.container(border=True, key='voice_workspace'):
-        controls, conversation = st.columns([1, 1.15], gap='medium')
-        with controls:
-            st.subheader('Ask by voice')
-            st.caption('Record a short question or upload an audio clip.')
-            spoken_language = st.selectbox('Spoken language', list(VOICE_LANGUAGES) if regional_preview else ['English / Hinglish', 'Hindi'], key='spoken_language')
-            audio_source = st.radio('Audio source', ['Record', 'Upload'], horizontal=True, key='audio_source')
-            epoch = st.session_state.voice_epoch
-            if audio_source == 'Record':
-                audio = st.audio_input('Record your question', key=f'voice_recording_{epoch}')
-            else:
-                audio = st.file_uploader('Choose an audio clip', type=['wav', 'mp3', 'ogg', 'flac', 'aac', 'm4a'], key=f'voice_upload_{epoch}')
-            st.caption('Up to 60 seconds · WAV, MP3, OGG, FLAC, AAC or M4A')
-            send_voice = st.button('Send voice message', type='primary', use_container_width=True, disabled=audio is None)
-            st.markdown('<div class="step-guide">Listen → Check → Reply<br>Try: “When will my UPI refund arrive?”</div>', unsafe_allow_html=True)
-            if st.session_state.voice_error:
-                st.error('We could not process that recording. Try a clear, short clip or continue in Text support.')
-                st.caption(st.session_state.voice_error)
-            if send_voice:
-                process_voice(audio, spoken_language)
-                st.rerun()
-        with conversation:
-            st.subheader('Your conversation')
-            st.caption('Your transcript, replies and audio stay in this conversation.')
-            render_conversation('voice')
 
-with text_tab:
-    with st.container(border=True, key='text_workspace'):
-        st.subheader('Continue by text')
-        st.caption('The same conversation and verified order context carry across voice and text.')
-        text_choices = LANGUAGE_NAMES.values() if regional_preview else [LANGUAGE_NAMES[c] for c in ['en', 'hi', 'hi-en']]
-        text_language = st.selectbox('Question language', ['Auto-detect', *text_choices], key='text_language')
-        render_conversation('text')
-        examples = [('Refund timing', 'How long does a UPI refund take?'),
-                    ('Return policy', 'What is the return window for electronics?'),
-                    ('Track an order', 'Where is my order?')]
-        example_prompt = None
-        for col, (label, question) in zip(st.columns(3), examples):
-            if col.button(label, use_container_width=True):
-                example_prompt = question
-        prompt = st.chat_input('Type your question…', key='support_chat') or example_prompt
-        if prompt:
-            with st.spinner('Checking your question…'):
-                selected = None if text_language == 'Auto-detect' else normalize_language(text_language)
-                out = respond_in_language(prompt, selected)
-            st.session_state.messages.append({'output': out, 'audio': None, 'audio_error': None})
-            st.rerun()
+def case_snapshot(agent, messages):
+    """Build presentation state from confirmed tool activity, never model claims."""
+    state = agent.state
+    current_id = state.order_id
+    calls = [call for entry in messages for call in entry['output'].get('tool_calls', [])]
+    verified_call = any(
+        call.get('name') == 'lookup_order'
+        and call.get('arguments', {}).get('order_id') == current_id
+        and call.get('result', {}).get('verified') is True
+        for call in calls
+    )
+    verified = bool(current_id and state.order and verified_call
+                    and str(state.order.get('order_id', '')) == str(current_id))
+    order = state.order if verified else {}
+    # Only a small allowlist reaches the case panel; proofs/contact fields never do.
+    details = {key: order[key] for key in ('order_id', 'status', 'promised_date', 'payment_method') if order.get(key)}
+    items = [{'sku': item.get('sku', ''), 'qty': item.get('qty', '')}
+             for item in order.get('items', [])] if verified else []
+    confirmed_tickets = [call.get('result', {}) for call in calls
+                         if call.get('name') == 'create_ticket'
+                         and call.get('arguments', {}).get('order_id') == current_id
+                         and call.get('result', {}).get('created') is True
+                         and call.get('result', {}).get('ticket_id')]
+    ticket = confirmed_tickets[-1].get('ticket_id') if confirmed_tickets else None
+    last = messages[-1]['output'] if messages else {}
+    decision = last.get('decision')
+    if not last:
+        next_title = 'Tell us what happened'
+        next_detail = 'Tell us about an order, return, refund or product.'
+    elif decision == 'escalate' and ticket:
+        next_title = 'Keep your ticket reference'
+        next_detail = 'A human colleague will follow up. The conversation below records what was checked.'
+    elif decision == 'escalate':
+        next_title = 'Follow the support guidance'
+        next_detail = 'No handover ticket is confirmed. Check the latest reply for how to continue.'
+    elif decision == 'clarify':
+        next_title = 'Answer the question below'
+        next_detail = 'Share only the detail requested in the latest reply.'
+    else:
+        next_title = 'Review your support guidance'
+        next_detail = 'Your latest reply explains the available next step. You can ask a follow-up here.'
+    return {'verified': verified, 'order_linked': bool(current_id), 'details': details,
+            'items': items, 'ticket_id': ticket, 'next_title': next_title, 'next_detail': next_detail}
+
+
+def render_case(snapshot):
+    with st.expander('Your case', expanded=snapshot['verified']):
+        if snapshot['verified']:
+            st.markdown('<span class="case-status verified">Order verified</span>', unsafe_allow_html=True)
+            details = snapshot['details']
+            st.write('**Order** · ' + str(details['order_id']))
+            if details.get('status'):
+                st.write('**Order status** · ' + str(details['status']).replace('_', ' ').capitalize())
+            if details.get('promised_date'):
+                try:
+                    promised = date.fromisoformat(str(details['promised_date'])).strftime('%d %B %Y').lstrip('0')
+                except ValueError:
+                    promised = str(details['promised_date'])
+                st.write('**Promised delivery** · ' + promised)
+            if details.get('payment_method'):
+                st.write('**Payment** · ' + str(details['payment_method']).replace('_', ' ').upper())
+            if snapshot['items']:
+                with st.expander('Order items', expanded=False):
+                    for item in snapshot['items']:
+                        product = r.data.products.get(item['sku'], {})
+                        st.caption(str(product.get('title') or item['sku']) + ' · Qty ' + str(item['qty']))
+        elif snapshot['order_linked']:
+            st.write('Verification needed')
+            st.caption('Order details stay hidden until the requested verification succeeds.')
+        else:
+            st.write('No order linked yet')
+            st.caption('You can ask a general policy question without an order ID.')
+        if snapshot['ticket_id']:
+            st.markdown('<span class="case-status ticket">Ticket created</span>', unsafe_allow_html=True)
+            st.write('**Reference** · ' + str(snapshot['ticket_id']))
+    with st.container(border=True, key='next_step'):
+        st.subheader('Your next step')
+        st.write('**' + snapshot['next_title'] + '**')
+        st.caption(snapshot['next_detail'])
+
+
+with st.container(key='support_layout'):
+    case_column, conversation_column = st.columns([.9, 2.1], gap='medium')
+    with case_column:
+        with st.container(key='case_column'):
+            render_case(case_snapshot(st.session_state.agent, st.session_state.messages))
+    with conversation_column:
+        with st.container(border=True, key='support_conversation'):
+            st.subheader('Your conversation')
+            with st.container(height=260, border=False, key='conversation_history'):
+                render_conversation('support')
+            with st.container(horizontal=True, vertical_alignment='center', gap='small', key='composer_toolbar'):
+                mode = st.radio('Message input', ['Speak', 'Type'], horizontal=True,
+                                key='input_mode', label_visibility='collapsed')
+                language_choices = list(VOICE_LANGUAGES) if regional_preview else ['English / Hinglish', 'Hindi']
+                if st.session_state.get('conversation_language') not in language_choices:
+                    st.session_state.conversation_language = language_choices[0]
+                spoken_language = st.selectbox('Language', language_choices, key='conversation_language',
+                    help='English / Hinglish follows the language of your message. Choose Hindi or a preview language explicitly.', label_visibility='collapsed', width=160)
+            if mode == 'Speak':
+                epoch = st.session_state.voice_epoch
+                audio = st.audio_input('Record a message', key=f'voice_recording_{epoch}')
+                uploaded = None
+                with st.expander('Upload an audio clip', expanded=False):
+                    uploaded = st.file_uploader('Choose an audio clip', type=['wav', 'mp3', 'ogg', 'flac', 'aac', 'm4a'], key=f'voice_upload_{epoch}')
+                selected_audio = uploaded if uploaded is not None else audio
+                if uploaded is not None and audio is not None:
+                    st.caption('The uploaded clip will be sent instead of the recording.')
+                st.caption('Up to 60 seconds per message · Uploads up to 20 MB')
+                if st.session_state.voice_error:
+                    st.error('We could not process that recording. Try a clear, short clip or switch to Type.')
+                if st.button('Send voice message', type='primary', use_container_width=True, disabled=selected_audio is None):
+                    process_voice(selected_audio, spoken_language)
+                    st.rerun()
+            else:
+                example_prompt = None
+                if not st.session_state.messages:
+                    with st.container(horizontal=True, gap='small', key='quick_questions'):
+                        for label, question in [('Track an order', 'Where is my order?'),
+                                                ('Refund timing', 'How long does a UPI refund take?')]:
+                            if st.button(label):
+                                example_prompt = question
+                prompt = st.chat_input('Type your question…', key='support_chat') or example_prompt
+                if prompt:
+                    with st.spinner('Checking your question…'):
+                        selected = None if spoken_language == 'English / Hinglish' else VOICE_LANGUAGES[spoken_language]
+                        out = respond_in_language(prompt, selected)
+                    st.session_state.messages.append({'output': out, 'audio': None, 'audio_error': None})
+                    st.rerun()
