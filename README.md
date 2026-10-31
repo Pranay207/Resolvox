@@ -17,13 +17,21 @@
   <img src="https://img.shields.io/badge/ONNX_Runtime-Local_Retrieval-005CED?style=flat-square&amp;logo=onnx&amp;logoColor=white" alt="ONNX Runtime">
 </p>
 
+<h3 align="center">
+  <a href="ENGINEERING_DEEP_DIVE.md">Engineering Deep Dive &#8594;</a>
+</h3>
+<p align="center">
+  Inside Resolvox: from voice to verified answers.<br>
+  Design decisions, challenges and results behind the agent.
+</p>
+
 Resolvox answers customer questions from ZentroMart’s documents, looks up verified orders and creates human-support tickets when needed. Voice and text share the same conversation, retrieval and tools.
 
 **Primary languages:** English, Hindi and Hinglish.
 
 Capstone for **From Tokens to Transformers**, organized by the Consulting & Analytics Club, IIT Guwahati × Gnani.ai.
 
-[Report](report.pdf) · [Engineering Deep Dive](ENGINEERING_DEEP_DIVE.md) · [Demo](#demo-video) · [Quick Start](#quick-start) · [Batch Command](#organizer-batch-command) · [Architecture](#architecture) · [Evaluation](#evaluation) · [Documentation](#documentation)
+[Report](report.pdf) · [Demo](#demo-video) · [Quick Start](#quick-start) · [Batch Command](#organizer-batch-command) · [Architecture](#architecture) · [Evaluation](#evaluation) · [Documentation](#documentation)
 
 ## Demo Video
 
