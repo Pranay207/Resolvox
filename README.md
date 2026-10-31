@@ -41,7 +41,7 @@ Built for **From Tokens to Transformers**, Consulting & Analytics Club, IIT Guwa
 3. **Resolve:** receive an answer with policy sources and, for voice requests, spoken playback.
 4. **Escalate:** receive a confirmed handover ticket when the case needs human support.
 
-The Streamlit console provides **Voice support** and **Text support** tabs. Conversation state, redacted transcripts and reply audio persist across reruns. **Retry reply audio** synthesizes the saved answer without repeating the agent action; **New conversation** clears the session and verification state.
+The Streamlit console provides **Voice support** and **Text support** tabs. The layout adapts to phone, tablet and desktop widths, stacking voice controls and the conversation on narrow screens. Conversation state, redacted transcripts and reply audio persist across reruns. **Retry reply audio** synthesizes the saved answer without repeating the agent action; **New conversation** clears the session and verification state.
 
 ## Quick Start
 
