@@ -1619,7 +1619,7 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                 focused_facts = arrival_view['facts']
                 call_system = (
                     "Explain only the applicable refund-arrival timeline from the selected source payment row. "
-                    "Read the payment method and business-day bounds from refund_arrival_policy; preserve the complete range and business-day unit. "
+                    "Read the payment method and timing unit from refund_arrival_policy. For hour units preserve maximum_hours and the within limit; otherwise preserve the complete business-day range. Never convert wallet hours to business days. "
                     "Keep the timing anchor after refund initiation. Do not select another method's row. "
                     "If initiation has not been recorded, describe the timeline conditionally after initiation, not as a completed transaction. "
                     "For a return, preserve the supplied initiation/QC and membership conditions separately from arrival time. "
