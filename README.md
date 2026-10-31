@@ -23,7 +23,7 @@ Resolvox answers customer questions from ZentroMart’s documents, looks up veri
 
 Capstone for **From Tokens to Transformers**, organized by the Consulting & Analytics Club, IIT Guwahati × Gnani.ai.
 
-[Report](report.pdf) · [Demo](#demo-video) · [Quick Start](#quick-start) · [Batch Command](#organizer-batch-command) · [Architecture](#architecture) · [Evaluation](#evaluation) · [Documentation](#documentation)
+[Report](report.pdf) · [Engineering Deep Dive](ENGINEERING_DEEP_DIVE.md) · [Demo](#demo-video) · [Quick Start](#quick-start) · [Batch Command](#organizer-batch-command) · [Architecture](#architecture) · [Evaluation](#evaluation) · [Documentation](#documentation)
 
 ## Demo Video
 
@@ -244,6 +244,7 @@ Setup instructions, translation details and the voice-route table are in [Option
 | Resource | Purpose |
 | --- | --- |
 | [report.pdf](report.pdf) | Four-page capstone technical report |
+| [Engineering Deep Dive](ENGINEERING_DEEP_DIVE.md) | Design decisions, failure analysis and verified outcomes |
 | [DESIGN.md](DESIGN.md) | Architecture, retrieval, session state and privacy boundaries |
 | [VERIFICATION.md](VERIFICATION.md) | Detailed measurements, historical failures and limitations |
 | [THIRD_PARTY.md](THIRD_PARTY.md) | Model revisions, dependencies and licensing |
