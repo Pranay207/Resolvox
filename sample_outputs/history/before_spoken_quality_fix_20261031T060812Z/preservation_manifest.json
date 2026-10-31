@@ -1,0 +1,9 @@
+{
+  "reason": "Preserve complete actual PC004/PC007/PC008 checks before applying isolated spoken-quality guards. PC004 remains manual language review despite its mechanical pass. No scores changed.",
+  "files": {
+    "accumulated_case_checkpoint.json": "8937ae087217c2f87da563a7b8405348c900470d98260907cf1919143d24abd9",
+    "eval_step3_live_current.json": "eaaacd68d2679b7ed128378b89be3df60100ed2c675caf60c9d7e9994c0ae48e",
+    "live_sequence_receipt.json": "e2f5cd6bacd7229b7e7aebb3b92cff583a35cb35e127cabbcc8ad2eb7c4ad865"
+  },
+  "all_original_source_artifact_hashes_valid": true
+}
