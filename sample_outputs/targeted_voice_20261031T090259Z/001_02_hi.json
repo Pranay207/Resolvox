@@ -1,0 +1,324 @@
+{
+  "transcript": "मेरा सामान खराब आया है, अब क्या करूँ?",
+  "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। डिलीवरी के बाद 48 घंटे के भीतर, ग्राहक की बताई गई क्षतिग्रस्त वस्तु के बारे में रिपोर्ट करें, जिसमें वस्तु और पैकेजिंग की फोटो शामिल हों। डिलीवरी से लेकर 48 घंटे तक की स्रोत-अवधि और वस्तु की फोटो ज़रूरी हैं।",
+  "intent": "damage",
+  "decision": "answer",
+  "language": "hi",
+  "retrieved_chunk_ids": [
+    "STY-1",
+    "DWM-1"
+  ],
+  "sources": [
+    {
+      "id": "STY-1",
+      "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+      "file": "agent_conversation_style.md",
+      "doc_type": "agent_guide",
+      "status": "current",
+      "effective_from": "2026-07-01",
+      "version": "1.1",
+      "title": "Opening"
+    },
+    {
+      "id": "DWM-1",
+      "text": "## [DWM-1] Reporting window\nReport a damaged, defective, expired, wrong or missing item within **48 hours of delivery**, with photos of the item and the packaging. This applies to every category, including grocery and other non-returnable items.",
+      "file": "pol_damaged_wrong_missing.md",
+      "doc_type": "policy",
+      "status": "current",
+      "effective_from": "2026-05-01",
+      "version": "1.3",
+      "title": "Reporting window"
+    }
+  ],
+  "retrieval_candidates": [
+    {
+      "id": "DWM-1",
+      "score": 0.130749,
+      "dense_score": 0.2922,
+      "retrieval_role": "direct",
+      "direct_rank": 1,
+      "dependency_weight": 1.15
+    },
+    {
+      "id": "RET-5",
+      "score": 0.124687,
+      "dense_score": 0.3982,
+      "retrieval_role": "direct",
+      "direct_rank": 2,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "DWM-2",
+      "score": 0.111621,
+      "dense_score": 0.2409,
+      "retrieval_role": "direct",
+      "direct_rank": 3,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "FAQH-3",
+      "score": 0.109988,
+      "dense_score": 0.3812,
+      "retrieval_role": "direct",
+      "direct_rank": 4,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "RET-4",
+      "score": 0.109987,
+      "dense_score": 0.299,
+      "retrieval_role": "direct",
+      "direct_rank": 5,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "DWM-3",
+      "score": 0.107297,
+      "dense_score": 0.2111,
+      "retrieval_role": "direct",
+      "direct_rank": 6,
+      "dependency_weight": 0.97
+    },
+    {
+      "id": "DWM-4",
+      "score": 0.105211,
+      "dense_score": 0.2488,
+      "retrieval_role": "direct",
+      "direct_rank": 7,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "RET-6",
+      "score": 0.080652,
+      "dense_score": 0.2687,
+      "retrieval_role": "direct",
+      "direct_rank": 8,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "DWM-5",
+      "score": 0.07859,
+      "dense_score": 0.1952,
+      "retrieval_role": "direct",
+      "direct_rank": 9,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "WAR-3",
+      "score": 0.077697,
+      "dense_score": 0.0496,
+      "retrieval_role": "direct",
+      "direct_rank": 10,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "FAQH-4",
+      "score": 0.0627,
+      "dense_score": 0.16,
+      "retrieval_role": "direct",
+      "direct_rank": 11,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "FAQH-1",
+      "score": 0.058592,
+      "dense_score": 0.1975,
+      "retrieval_role": "direct",
+      "direct_rank": 12,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "KB-00.1",
+      "score": 0.042778,
+      "dense_score": -0.0049,
+      "retrieval_role": "dependency",
+      "direct_rank": null,
+      "dependency_weight": 0.92
+    },
+    {
+      "id": "ESC-1",
+      "score": 0.042777,
+      "dense_score": 0.1663,
+      "retrieval_role": "dependency",
+      "direct_rank": null,
+      "dependency_weight": 0.81
+    },
+    {
+      "id": "ESC-2",
+      "score": 0.042776,
+      "dense_score": 0.0855,
+      "retrieval_role": "dependency",
+      "direct_rank": null,
+      "dependency_weight": 0.8
+    }
+  ],
+  "tool_calls": [],
+  "facts": {
+    "reference_date": "2026-10-20",
+    "calculations": [],
+    "answer_constraints": [],
+    "date_labels": {
+      "2026-10-20": "20 October 2026"
+    }
+  },
+  "verified": false,
+  "reference_date": "2026-10-20",
+  "composition": "grounded_llm",
+  "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+  "retrieval_k": 12,
+  "retrieval_direct_k": 12,
+  "retrieval_dependency_limit": 4,
+  "retrieval_candidate_limit": 16,
+  "retrieval_returned_count": 15,
+  "retrieval_direct_count": 12,
+  "retrieval_dependency_count": 3,
+  "evidence_supported": true,
+  "validation_error": null,
+  "citations": [],
+  "generation": {
+    "covered": true,
+    "provenance_kind": "generation_context",
+    "context_source_ids": [
+      "DWM-1"
+    ],
+    "model_flags": {
+      "covered": true,
+      "needs_clarification": false
+    },
+    "decision_origin": "host_boolean_mapping",
+    "evaluated_source_constraints": [],
+    "evaluated_remedy_prerequisites": [
+      {
+        "kind": "remedy_prerequisite",
+        "condition_kind": "verification",
+        "condition_role": "unspecified",
+        "remedies": [
+          "refund",
+          "replacement"
+        ],
+        "scope_topics": [
+          "damage",
+          "wrong",
+          "missing"
+        ],
+        "source_ids": [
+          "DWM-2"
+        ],
+        "source_sha256": {
+          "DWM-2": "03441ce196e8a2b4dfa18b1b5ce725c2a4f7ad1d66e1a2e1e4bcbf8840045f99"
+        },
+        "source_clause": "After verification the customer gets a free replacement or a full refund, including delivery fees",
+        "authority": "policy",
+        "priority": 4
+      }
+    ],
+    "evaluated_delivery_clock_constraints": [],
+    "repair_attempted": false,
+    "generation_attempts": 1,
+    "repair_errors": [],
+    "validation_error": null,
+    "attempt_metrics": [
+      {
+        "cache_hit": false,
+        "attempts": 1,
+        "http_attempts": 1,
+        "http_statuses": [
+          200
+        ],
+        "rate_limit_events": 0,
+        "rate_limit_retries": 0,
+        "rate_limit_wait_ms": 0.0,
+        "rate_limit_planned_wait_ms": 0.0,
+        "last_http_status": 200,
+        "provider": "ollama:qwen3:4b-instruct",
+        "wall_ms": 64574.72,
+        "load_ms": 10274.2,
+        "prompt_eval_ms": 20376.21,
+        "eval_ms": 33814.4,
+        "prompt_eval_count": 623,
+        "eval_count": 211,
+        "done_reason": "stop"
+      }
+    ],
+    "generation_input_contexts": [
+      {
+        "attempt": 1,
+        "source_ids": [
+          "DWM-1"
+        ]
+      }
+    ],
+    "validation_source_ids": [
+      "DWM-1",
+      "DWM-2",
+      "DWM-3",
+      "DWM-4",
+      "DWM-5",
+      "KB-00.1",
+      "RET-4",
+      "RET-5",
+      "RET-6",
+      "WAR-3"
+    ],
+    "reporting_support_contract": {
+      "origin": "explicit_source_support_field",
+      "scope": "public_reporting_obligation_only",
+      "source_ids": [
+        "DWM-1"
+      ],
+      "field_alias": {
+        "has_document_support": "covered"
+      },
+      "original_model_flags": {
+        "has_document_support": true,
+        "needs_clarification": false
+      }
+    },
+    "repair_mode": "source_reporting_restatement",
+    "repair_context_facts": {}
+  },
+  "generation_context_sources": [
+    {
+      "id": "DWM-1",
+      "text": "## [DWM-1] Reporting window\nReport a damaged, defective, expired, wrong or missing item within **48 hours of delivery**, with photos of the item and the packaging. This applies to every category, including grocery and other non-returnable items.",
+      "file": "pol_damaged_wrong_missing.md",
+      "doc_type": "policy",
+      "status": "current",
+      "effective_from": "2026-05-01",
+      "version": "1.3",
+      "title": "Reporting window"
+    }
+  ],
+  "llm": {
+    "cache_hit": false,
+    "attempts": 1,
+    "http_attempts": 1,
+    "http_statuses": [
+      200
+    ],
+    "rate_limit_events": 0,
+    "rate_limit_retries": 0,
+    "rate_limit_wait_ms": 0.0,
+    "rate_limit_planned_wait_ms": 0.0,
+    "last_http_status": 200,
+    "provider": "ollama:qwen3:4b-instruct",
+    "wall_ms": 64574.72,
+    "load_ms": 10274.2,
+    "prompt_eval_ms": 20376.21,
+    "eval_ms": 33814.4,
+    "prompt_eval_count": 623,
+    "eval_count": 211,
+    "done_reason": "stop"
+  },
+  "timings": {
+    "retrieval_ms": 71.46,
+    "llm_ms": 64762.69
+  },
+  "latency_ms": 64903.01,
+  "voice_timings": {
+    "stt_ms": 1354.34,
+    "agent_ms": 64903.12,
+    "tts_ms": 2033.73,
+    "total_ms": 68293.3
+  }
+}

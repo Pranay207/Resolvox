@@ -1,0 +1,569 @@
+{
+  "id": "refund_completed_date",
+  "kind": "refund_edge",
+  "question": "When was my refund completed?",
+  "prediction": {
+    "transcript": "When was my refund completed?",
+    "answer": "I don't have enough supported information in the retrieved documents. I can help you reach a human colleague.",
+    "intent": "unsupported",
+    "decision": "refuse",
+    "language": "en",
+    "retrieved_chunk_ids": [],
+    "sources": [],
+    "retrieval_candidates": [
+      {
+        "id": "REF-2",
+        "score": 0.200554,
+        "dense_score": 0.6437,
+        "retrieval_role": "direct",
+        "direct_rank": 1,
+        "dependency_weight": 1.15
+      },
+      {
+        "id": "RET-7",
+        "score": 0.189718,
+        "dense_score": 0.5694,
+        "retrieval_role": "direct",
+        "direct_rank": 2,
+        "dependency_weight": 1.15
+      },
+      {
+        "id": "REF-1",
+        "score": 0.176044,
+        "dense_score": 0.5553,
+        "retrieval_role": "direct",
+        "direct_rank": 3,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "REF-6",
+        "score": 0.174037,
+        "dense_score": 0.5801,
+        "retrieval_role": "direct",
+        "direct_rank": 4,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "REF-3",
+        "score": 0.160032,
+        "dense_score": 0.5028,
+        "retrieval_role": "direct",
+        "direct_rank": 5,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "PLS-2",
+        "score": 0.147489,
+        "dense_score": 0.4175,
+        "retrieval_role": "direct",
+        "direct_rank": 6,
+        "dependency_weight": 0.88
+      },
+      {
+        "id": "REF-5",
+        "score": 0.136568,
+        "dense_score": 0.5348,
+        "retrieval_role": "direct",
+        "direct_rank": 7,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "CAN-2",
+        "score": 0.135062,
+        "dense_score": 0.4268,
+        "retrieval_role": "direct",
+        "direct_rank": 8,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "REF-4",
+        "score": 0.13464,
+        "dense_score": 0.3727,
+        "retrieval_role": "direct",
+        "direct_rank": 9,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "FAQ-1",
+        "score": 0.129654,
+        "dense_score": 0.5369,
+        "retrieval_role": "direct",
+        "direct_rank": 10,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "DEL-1",
+        "score": 0.128909,
+        "dense_score": 0.3643,
+        "retrieval_role": "direct",
+        "direct_rank": 11,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "MKS-2",
+        "score": 0.126783,
+        "dense_score": 0.3786,
+        "retrieval_role": "direct",
+        "direct_rank": 12,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "KB-00.3",
+        "score": 0.07319,
+        "dense_score": 0.1462,
+        "retrieval_role": "dependency",
+        "direct_rank": null,
+        "dependency_weight": 1.2
+      },
+      {
+        "id": "DEL-3",
+        "score": 0.073189,
+        "dense_score": 0.3096,
+        "retrieval_role": "dependency",
+        "direct_rank": null,
+        "dependency_weight": 0.88
+      }
+    ],
+    "tool_calls": [],
+    "facts": {
+      "reference_date": "2026-10-20",
+      "calculations": [
+        {
+          "operation": "refund_business_date_range",
+          "source_ids": [
+            "REF-2",
+            "KB-00.3",
+            "data/holidays.csv"
+          ],
+          "record_field": "return_refund_initiated_on",
+          "inputs": {
+            "initiated_on": "2026-09-05",
+            "payment_method": "upi",
+            "minimum_business_days": 1,
+            "maximum_business_days": 3,
+            "reference_date": "2026-10-20",
+            "holidays": [
+              "2026-08-15",
+              "2026-10-02",
+              "2026-10-19",
+              "2026-11-09"
+            ],
+            "business_weekdays": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "result": {
+            "earliest_date": "2026-09-07",
+            "latest_date": "2026-09-09",
+            "elapsed_business_days": 36
+          }
+        }
+      ],
+      "verified_order": {
+        "placed_at": "2026-08-24T13:13",
+        "status": "returned_refunded",
+        "payment_method": "upi",
+        "delivery_type": "standard",
+        "promised_date": "2026-08-31",
+        "shipped_on": "2026-08-25",
+        "delivered_on": "2026-08-31",
+        "delivery_attempts": 1,
+        "subtotal_inr": 2897,
+        "coupon_code": null,
+        "coupon_discount_inr": null,
+        "coupon_min_order_inr": null,
+        "delivery_fee_inr": 0,
+        "cod_fee_inr": 0,
+        "total_inr": 2897,
+        "contacts_last_7_days": 0,
+        "cancellation_refund_initiated_on": null,
+        "cancellation_refund_method": null,
+        "cancellation_refund_amount_inr": null,
+        "cancellation_rrn": null,
+        "rto_refund_initiated_on": null,
+        "rto_refund_method": null,
+        "rto_refund_amount_inr": null,
+        "rto_rrn": null,
+        "express_late_credit_inr": null,
+        "express_late_credit_on": null,
+        "return_sku": "BTY-0055",
+        "return_line_no": 2,
+        "return_qty": 1,
+        "return_reason": "changed_mind",
+        "return_status": "refund_completed",
+        "return_requested_on": "2026-09-02",
+        "return_pickup_on": "2026-09-03",
+        "return_qc_passed_on": "2026-09-05",
+        "return_refund_initiated_on": "2026-09-05",
+        "return_refund_method": "upi",
+        "return_refund_amount_inr": 2099,
+        "return_refund_completed_on": "2026-09-07",
+        "return_rrn": "627407386634",
+        "return_reverse_pickup_fee_inr": 0,
+        "damage_sku": null,
+        "damage_issue": null,
+        "damage_reported_at": null,
+        "damage_hours_after_delivery": null,
+        "damage_photos_attached": null,
+        "damage_status": null,
+        "is_plus": false,
+        "items": [
+          {
+            "line_no": 1,
+            "sku": "BTY-0054",
+            "title": "Neelam Herbal Face Wash 150 ml",
+            "return_category": "beauty_sealed",
+            "qty": 1,
+            "unit_price_inr": 239
+          },
+          {
+            "line_no": 2,
+            "sku": "BTY-0055",
+            "title": "Neelam Eau de Parfum 50 ml",
+            "return_category": "beauty_sealed",
+            "qty": 1,
+            "unit_price_inr": 2099
+          },
+          {
+            "line_no": 3,
+            "sku": "BTY-0052",
+            "title": "Gulmohar Matte Lipstick",
+            "return_category": "beauty_sealed",
+            "qty": 1,
+            "unit_price_inr": 559
+          }
+        ]
+      },
+      "catalog": [
+        {
+          "sku": "BTY-0052",
+          "title": "Gulmohar Matte Lipstick",
+          "brand": "Gulmohar",
+          "return_category": "beauty_sealed",
+          "price_inr": "559",
+          "fulfilled_by": "Urban Basket Retail",
+          "assured": "False",
+          "warranty_months": "0",
+          "description": "Gulmohar Matte Lipstick. Sold on ZentroMart. Ships from a marketplace seller."
+        },
+        {
+          "sku": "BTY-0054",
+          "title": "Neelam Herbal Face Wash 150 ml",
+          "brand": "Neelam",
+          "return_category": "beauty_sealed",
+          "price_inr": "239",
+          "fulfilled_by": "Urban Basket Retail",
+          "assured": "False",
+          "warranty_months": "0",
+          "description": "Neelam Herbal Face Wash 150 ml. Sold on ZentroMart. Ships from a marketplace seller."
+        },
+        {
+          "sku": "BTY-0055",
+          "title": "Neelam Eau de Parfum 50 ml",
+          "brand": "Neelam",
+          "return_category": "beauty_sealed",
+          "price_inr": "2099",
+          "fulfilled_by": "ZentroMart",
+          "assured": "False",
+          "warranty_months": "0",
+          "description": "Neelam Eau de Parfum 50 ml. Sold on ZentroMart."
+        }
+      ],
+      "delivery_policy": {
+        "delivery_attempt_limit": 3,
+        "source_ids": [
+          "DEL-3"
+        ]
+      },
+      "answer_constraints": [],
+      "source_semantic_constraints": [
+        {
+          "kind": "explicit_permission",
+          "action": "refuse_parcel",
+          "source_ids": [
+            "CAN-2"
+          ],
+          "source_sha256": {
+            "CAN-2": "9e9e53f75b7a7ced1cd3348adafe4d68f95aff9c0466a0e1083274b5567b7812"
+          }
+        },
+        {
+          "kind": "conditional_rto_refund",
+          "payment_condition": "prepaid",
+          "source_antecedent": "Prepaid order refused at the door or not delivered after 3 attempts",
+          "source_consequence": "once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+          "source_ids": [
+            "REF-1"
+          ],
+          "source_sha256": {
+            "REF-1": "30f3fc9957fa76cc2c3d59df05fd859766d77239c8d2c35dce3f1f510addf9e2"
+          }
+        },
+        {
+          "kind": "membership_refund_timing_exclusion",
+          "membership_label": "ZentroMart Plus",
+          "timing_role": "after_initiation",
+          "source_ids": [
+            "PLS-2"
+          ],
+          "source_sha256": {
+            "PLS-2": "8b54c13f45bf1a25403c0392bb796928ee1a6ac4e1f4641fc3add50b62863246"
+          }
+        }
+      ],
+      "calculation_source_sha256": {
+        "DEL-3": "8d22f941c929f317ad5578c47daae0f9b8b1027d148a060e40f15aaea4585d1c",
+        "KB-00.3": "128b8150ce2065af577ffa770730cdb4fbda95e25a27d2bceae41b2da7db4086",
+        "REF-2": "913886a7d0e4810241fd90b1d812c39c5900d428dce65112ccbdfb8c8855ced4"
+      },
+      "date_labels": {
+        "2026-10-20": "20 October 2026",
+        "2026-09-05": "5 September 2026",
+        "2026-08-15": "15 August 2026",
+        "2026-10-02": "2 October 2026",
+        "2026-10-19": "19 October 2026",
+        "2026-11-09": "9 November 2026",
+        "2026-09-07": "7 September 2026",
+        "2026-09-09": "9 September 2026",
+        "2026-08-24": "24 August 2026",
+        "2026-08-31": "31 August 2026",
+        "2026-08-25": "25 August 2026",
+        "2026-09-02": "2 September 2026",
+        "2026-09-03": "3 September 2026"
+      }
+    },
+    "verified": true,
+    "reference_date": "2026-10-20",
+    "composition": "abstained_model_or_evidence",
+    "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+    "retrieval_k": 12,
+    "retrieval_direct_k": 12,
+    "retrieval_dependency_limit": 4,
+    "retrieval_candidate_limit": 16,
+    "retrieval_returned_count": 14,
+    "retrieval_direct_count": 12,
+    "retrieval_dependency_count": 2,
+    "evidence_supported": false,
+    "validation_error": "document_generation_failed:unsupported_action",
+    "citations": [],
+    "generation": {
+      "generation_failed": true,
+      "failure_kind": "validation",
+      "generation_attempts": 2,
+      "repair_attempted": true,
+      "repair_errors": [
+        "unsupported_action",
+        "unsupported_action"
+      ],
+      "validation_error": "unsupported_action",
+      "attempt_metrics": [
+        {
+          "cache_hit": false,
+          "rate_limit_retries": 0,
+          "prompt_eval_count": 3587,
+          "eval_count": 37,
+          "attempts": 1,
+          "rate_limit_events": 0,
+          "http_attempts": 1,
+          "load_ms": 38.42,
+          "rate_limit_planned_wait_ms": 0.0,
+          "eval_ms": 10279.89,
+          "wall_ms": 176213.01,
+          "prompt_eval_ms": 165173.64,
+          "rate_limit_wait_ms": 0.0,
+          "last_http_status": 200,
+          "http_statuses": [
+            200
+          ]
+        },
+        {
+          "cache_hit": false,
+          "rate_limit_retries": 0,
+          "prompt_eval_count": 3813,
+          "eval_count": 156,
+          "attempts": 1,
+          "rate_limit_events": 0,
+          "http_attempts": 1,
+          "load_ms": 35.81,
+          "rate_limit_planned_wait_ms": 0.0,
+          "eval_ms": 56297.12,
+          "wall_ms": 280664.31,
+          "prompt_eval_ms": 223720.6,
+          "rate_limit_wait_ms": 0.0,
+          "last_http_status": 200,
+          "http_statuses": [
+            200
+          ]
+        }
+      ]
+    },
+    "generation_context_sources": [
+      {
+        "id": "REF-6",
+        "text": "## [REF-6] Refund reference number\nEvery initiated refund has a refund reference number (RRN) that the customer's bank can trace. Share it when a customer says the money has not arrived.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "Refund reference number"
+      },
+      {
+        "id": "REF-2",
+        "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "How long refunds take after initiation"
+      },
+      {
+        "id": "RET-7",
+        "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy.",
+        "file": "pol_returns_v4.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-08-01",
+        "version": "4.0",
+        "title": "After pickup"
+      },
+      {
+        "id": "REF-1",
+        "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "When a refund is initiated"
+      },
+      {
+        "id": "REF-3",
+        "text": "## [REF-3] Cash-on-delivery refunds\nFor cash-on-delivery orders, the customer chooses either ZentroMart Wallet (instant) or a bank transfer. Bank transfers start only after the bank account details are verified, then take 5 to 7 business days.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "Cash-on-delivery refunds"
+      },
+      {
+        "id": "PLS-2",
+        "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+        "file": "pol_plus_membership.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-01-01",
+        "version": "1.0",
+        "title": "Benefits"
+      },
+      {
+        "id": "REF-5",
+        "text": "## [REF-5] Delivery and COD fees\nDelivery fees and the ₹25 cash-on-delivery fee are refunded only when the whole order is cancelled before shipping or returned because it was damaged, defective or wrong.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "Delivery and COD fees"
+      },
+      {
+        "id": "CAN-2",
+        "text": "## [CAN-2] After the order ships\nA shipped order cannot be cancelled. The customer can:\n- refuse the parcel at the door. For cash-on-delivery orders nothing is charged. For prepaid orders the refund follows REF-1 once the parcel returns to the warehouse; or\n- accept the delivery and return the item within its return window, if the category is returnable.",
+        "file": "pol_cancellations.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-05-01",
+        "version": "1.4",
+        "title": "After the order ships"
+      },
+      {
+        "id": "REF-4",
+        "text": "## [REF-4] Partial refunds and coupons\nIf part of an order is returned, the refund is the price paid for that item after its share of any coupon discount. If the remaining order falls below the coupon's minimum order value, the coupon discount on the remaining items is deducted from the refund.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "Partial refunds and coupons"
+      },
+      {
+        "id": "DEL-1",
+        "text": "## [DEL-1] Delivery times\n| Delivery type | Metro cities | Other locations |\n| --- | --- | --- |\n| Standard | 3 to 6 business days | 5 to 9 business days |\n| Express (selected pincodes) | Next business day if ordered before 2 pm, otherwise the business day after | Not available |\n\nEach order shows a promised delivery date at checkout. That date is the commitment.",
+        "file": "pol_delivery_shipping.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-04-01",
+        "version": "2.0",
+        "title": "Delivery times"
+      },
+      {
+        "id": "MKS-2",
+        "text": "## [MKS-2] Returns and refunds\nReturn windows, reverse pickup and refunds are the same for every seller and are handled by ZentroMart.",
+        "file": "pol_marketplace_sellers.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-03-01",
+        "version": "1.0",
+        "title": "Returns and refunds"
+      },
+      {
+        "id": "KB-00.3",
+        "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+        "file": "00_about_this_knowledge_base.md",
+        "doc_type": "meta",
+        "status": "current",
+        "effective_from": "2026-08-01",
+        "version": "1.2",
+        "title": "Business days"
+      },
+      {
+        "id": "DEL-3",
+        "text": "## [DEL-3] Delivery attempts\nThe courier makes up to 3 delivery attempts. After a failed attempt the customer gets an SMS to reschedule. If the third attempt fails, the parcel is returned to the warehouse (return to origin, RTO) and REF-1 applies.",
+        "file": "pol_delivery_shipping.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-04-01",
+        "version": "2.0",
+        "title": "Delivery attempts"
+      }
+    ],
+    "llm": {
+      "cache_hit": false,
+      "rate_limit_retries": 0,
+      "prompt_eval_count": 3813,
+      "eval_count": 156,
+      "attempts": 1,
+      "rate_limit_events": 0,
+      "http_attempts": 1,
+      "load_ms": 35.81,
+      "rate_limit_planned_wait_ms": 0.0,
+      "eval_ms": 56297.12,
+      "wall_ms": 280664.31,
+      "prompt_eval_ms": 223720.6,
+      "rate_limit_wait_ms": 0.0,
+      "last_http_status": 200,
+      "http_statuses": [
+        200
+      ]
+    },
+    "timings": {
+      "retrieval_ms": 99.35,
+      "llm_ms": 456962.49
+    },
+    "latency_ms": 457075.83
+  },
+  "checks": {
+    "authenticated": true,
+    "recorded_date_answered": false,
+    "generated": false
+  },
+  "passed": false,
+  "authentication_setup_artifact": "sample_outputs/targeted_live_20261031T083035Z/edge_authentication.json"
+}

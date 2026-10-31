@@ -1,0 +1,24 @@
+{
+  "total": 1,
+  "succeeded": 1,
+  "failed": 0,
+  "speech_provider": "Gnani only",
+  "startup_ms": 1721.34,
+  "batch_wall_ms": 70018.6,
+  "entries": [
+    {
+      "input": "02_hi.wav",
+      "output_prefix": "001_02_hi",
+      "session_id": "02_hi.wav",
+      "status": "ok",
+      "agent_succeeded": true,
+      "decision": "answer",
+      "audio": "001_02_hi_reply.wav",
+      "stt_ms": 1354.34,
+      "agent_ms": 64903.12,
+      "tts_ms": 2033.73,
+      "total_ms": 68293.3,
+      "latency_ms": 68293.3
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+I'm ZentroMart's AI support assistant. For a UPI payment, after refund initiation, the refund arrives within 1 to 3 business days. Business days are Monday to Saturday, excluding warehouse holidays such as 2026-08-15, 2026-10-02, 2026-10-19, and 2026-11-09. The timing anchor is after refund initiation.

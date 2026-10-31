@@ -1,0 +1,378 @@
+{
+  "scope": "Actual redacted host/tool authentication; no policy inference",
+  "predictions": [
+    {
+      "transcript": "नमस्ते, मुझे अपने ऑर्डर के बारे में मदद चाहिए।",
+      "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। आपका ऑर्डर नंबर क्या है?",
+      "intent": "greeting",
+      "decision": "clarify",
+      "language": "hi",
+      "retrieved_chunk_ids": [
+        "STY-1",
+        "STY-5"
+      ],
+      "sources": [
+        {
+          "id": "STY-1",
+          "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "Opening"
+        },
+        {
+          "id": "STY-5",
+          "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "One question at a time"
+        }
+      ],
+      "retrieval_candidates": [
+        {
+          "id": "FAQH-1",
+          "score": 0.108459,
+          "dense_score": 0.4444,
+          "retrieval_role": "direct",
+          "direct_rank": 1,
+          "dependency_weight": 0.0
+        },
+        {
+          "id": "FAQH-4",
+          "score": 0.081624,
+          "dense_score": 0.2456,
+          "retrieval_role": "direct",
+          "direct_rank": 2,
+          "dependency_weight": 0.0
+        },
+        {
+          "id": "FAQH-3",
+          "score": 0.080528,
+          "dense_score": 0.2679,
+          "retrieval_role": "direct",
+          "direct_rank": 3,
+          "dependency_weight": 0.0
+        },
+        {
+          "id": "FAQH-2",
+          "score": 0.075481,
+          "dense_score": 0.2063,
+          "retrieval_role": "direct",
+          "direct_rank": 4,
+          "dependency_weight": 0.0
+        },
+        {
+          "id": "ESC-3",
+          "score": 0.050149,
+          "dense_score": 0.4471,
+          "retrieval_role": "direct",
+          "direct_rank": 5,
+          "dependency_weight": 0.0
+        },
+        {
+          "id": "CAN-1",
+          "score": 0.044606,
+          "dense_score": 0.4333,
+          "retrieval_role": "direct",
+          "direct_rank": 6,
+          "dependency_weight": 0.0
+        },
+        {
+          "id": "RVP-1",
+          "score": 0.043671,
+          "dense_score": 0.4432,
+          "retrieval_role": "direct",
+          "direct_rank": 7,
+          "dependency_weight": 0.0
+        },
+        {
+          "id": "CAN-2",
+          "score": 0.043068,
+          "dense_score": 0.426,
+          "retrieval_role": "direct",
+          "direct_rank": 8,
+          "dependency_weight": 0.0
+        },
+        {
+          "id": "TRK-1",
+          "score": 0.042053,
+          "dense_score": 0.4377,
+          "retrieval_role": "direct",
+          "direct_rank": 9,
+          "dependency_weight": 0.0
+        },
+        {
+          "id": "ESC-2",
+          "score": 0.038825,
+          "dense_score": 0.3905,
+          "retrieval_role": "direct",
+          "direct_rank": 10,
+          "dependency_weight": 0.8
+        },
+        {
+          "id": "CAN-3",
+          "score": 0.037848,
+          "dense_score": 0.3766,
+          "retrieval_role": "direct",
+          "direct_rank": 11,
+          "dependency_weight": 0.0
+        },
+        {
+          "id": "TRK-2",
+          "score": 0.037847,
+          "dense_score": 0.3995,
+          "retrieval_role": "direct",
+          "direct_rank": 12,
+          "dependency_weight": 0.0
+        },
+        {
+          "id": "ESC-1",
+          "score": 0.025608,
+          "dense_score": 0.2702,
+          "retrieval_role": "dependency",
+          "direct_rank": null,
+          "dependency_weight": 0.81
+        }
+      ],
+      "tool_calls": [],
+      "facts": {},
+      "verified": false,
+      "reference_date": "2026-10-20",
+      "composition": "deterministic_guardrail",
+      "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+      "retrieval_k": 12,
+      "retrieval_direct_k": 12,
+      "retrieval_dependency_limit": 4,
+      "retrieval_candidate_limit": 16,
+      "retrieval_returned_count": 13,
+      "retrieval_direct_count": 12,
+      "retrieval_dependency_count": 1,
+      "evidence_supported": true,
+      "validation_error": null,
+      "citations": [],
+      "generation": {},
+      "generation_context_sources": [],
+      "llm": {},
+      "timings": {
+        "retrieval_ms": 39.38,
+        "llm_ms": 0.0
+      },
+      "latency_ms": 59.98
+    },
+    {
+      "transcript": "ऑर्डर नंबर है 7936 3550।",
+      "answer": "कृपया एक सत्यापन जानकारी दें: पंजीकृत फ़ोन के अंतिम 4 अंक या ऑर्डर का डिलीवरी पिनकोड।",
+      "intent": "verification",
+      "decision": "clarify",
+      "language": "hi",
+      "retrieved_chunk_ids": [
+        "IDV-1",
+        "IDV-2",
+        "STY-5"
+      ],
+      "sources": [
+        {
+          "id": "IDV-1",
+          "text": "## [IDV-1] When verification is needed\nBefore sharing anything about a specific order (status, items, address, amounts, refund details), verify the customer. General policy questions need no verification.",
+          "file": "agent_identity_verification.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.2",
+          "title": "When verification is needed"
+        },
+        {
+          "id": "IDV-2",
+          "text": "## [IDV-2] How to verify\nAsk for the order ID, then ask for **one** of: the last 4 digits of the registered phone number, or the delivery pincode for that order. Compare with the `phone_last4` or `delivery_pincode` fields from order lookup.",
+          "file": "agent_identity_verification.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.2",
+          "title": "How to verify"
+        },
+        {
+          "id": "STY-5",
+          "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+          "file": "agent_conversation_style.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.1",
+          "title": "One question at a time"
+        }
+      ],
+      "retrieval_candidates": [],
+      "tool_calls": [
+        {
+          "name": "lookup_order",
+          "arguments": {
+            "order_id": "79363550"
+          },
+          "result": {
+            "verified": false,
+            "verification_required": true
+          }
+        }
+      ],
+      "facts": {},
+      "verified": false,
+      "reference_date": "2026-10-20",
+      "composition": "deterministic_guardrail",
+      "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+      "retrieval_k": 12,
+      "retrieval_direct_k": 12,
+      "retrieval_dependency_limit": 4,
+      "retrieval_candidate_limit": 16,
+      "retrieval_returned_count": 0,
+      "retrieval_direct_count": 0,
+      "retrieval_dependency_count": 0,
+      "evidence_supported": true,
+      "validation_error": null,
+      "citations": [],
+      "generation": {},
+      "generation_context_sources": [],
+      "llm": {},
+      "timings": {
+        "retrieval_ms": 0.0,
+        "llm_ms": 0.0
+      },
+      "latency_ms": 2.15
+    },
+    {
+      "transcript": "[verification value redacted]",
+      "answer": "सत्यापन सफल हुआ। इस ऑर्डर में क्या मदद चाहिए?",
+      "intent": "verification",
+      "decision": "answer",
+      "language": "hi",
+      "retrieved_chunk_ids": [
+        "IDV-2"
+      ],
+      "sources": [
+        {
+          "id": "IDV-2",
+          "text": "## [IDV-2] How to verify\nAsk for the order ID, then ask for **one** of: the last 4 digits of the registered phone number, or the delivery pincode for that order. Compare with the `phone_last4` or `delivery_pincode` fields from order lookup.",
+          "file": "agent_identity_verification.md",
+          "doc_type": "agent_guide",
+          "status": "current",
+          "effective_from": "2026-07-01",
+          "version": "1.2",
+          "title": "How to verify"
+        }
+      ],
+      "retrieval_candidates": [],
+      "tool_calls": [
+        {
+          "name": "lookup_order",
+          "arguments": {
+            "order_id": "79363550",
+            "verification_value": "[REDACTED]"
+          },
+          "result": {
+            "verified": true,
+            "verification_required": false,
+            "found": true,
+            "order": {
+              "order_id": "79363550",
+              "placed_at": "2026-10-06T19:44",
+              "status": "delivered",
+              "payment_method": "upi",
+              "delivery_type": "standard",
+              "promised_date": "2026-10-13",
+              "shipped_on": "2026-10-07",
+              "delivered_on": "2026-10-14",
+              "delivery_attempts": 1,
+              "subtotal_inr": 2978,
+              "coupon_code": null,
+              "coupon_discount_inr": null,
+              "coupon_min_order_inr": null,
+              "delivery_fee_inr": 0,
+              "cod_fee_inr": 0,
+              "total_inr": 2978,
+              "contacts_last_7_days": 0,
+              "cancellation_refund_initiated_on": null,
+              "cancellation_refund_method": null,
+              "cancellation_refund_amount_inr": null,
+              "cancellation_rrn": null,
+              "rto_refund_initiated_on": null,
+              "rto_refund_method": null,
+              "rto_refund_amount_inr": null,
+              "rto_rrn": null,
+              "express_late_credit_inr": null,
+              "express_late_credit_on": null,
+              "return_sku": null,
+              "return_line_no": null,
+              "return_qty": null,
+              "return_reason": null,
+              "return_status": null,
+              "return_requested_on": null,
+              "return_pickup_on": null,
+              "return_qc_passed_on": null,
+              "return_refund_initiated_on": null,
+              "return_refund_method": null,
+              "return_refund_amount_inr": null,
+              "return_refund_completed_on": null,
+              "return_rrn": null,
+              "return_reverse_pickup_fee_inr": null,
+              "damage_sku": null,
+              "damage_issue": null,
+              "damage_reported_at": null,
+              "damage_hours_after_delivery": null,
+              "damage_photos_attached": null,
+              "damage_status": null,
+              "items": [
+                {
+                  "order_id": "79363550",
+                  "line_no": 1,
+                  "sku": "FSH-0030",
+                  "title": "UrbanThread Slim Fit Jeans, Maroon",
+                  "return_category": "fashion",
+                  "qty": 1,
+                  "unit_price_inr": 1959
+                },
+                {
+                  "order_id": "79363550",
+                  "line_no": 2,
+                  "sku": "FSH-0036",
+                  "title": "Sootra Linen Shirt, Maroon",
+                  "return_category": "fashion",
+                  "qty": 1,
+                  "unit_price_inr": 1019
+                }
+              ],
+              "is_plus": false
+            }
+          }
+        }
+      ],
+      "facts": {},
+      "verified": true,
+      "reference_date": "2026-10-20",
+      "composition": "deterministic_guardrail",
+      "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+      "retrieval_k": 12,
+      "retrieval_direct_k": 12,
+      "retrieval_dependency_limit": 4,
+      "retrieval_candidate_limit": 16,
+      "retrieval_returned_count": 0,
+      "retrieval_direct_count": 0,
+      "retrieval_dependency_count": 0,
+      "evidence_supported": true,
+      "validation_error": null,
+      "citations": [],
+      "generation": {},
+      "generation_context_sources": [],
+      "llm": {},
+      "timings": {
+        "retrieval_ms": 0.0,
+        "llm_ms": 0.0
+      },
+      "latency_ms": 1.73
+    }
+  ]
+}

@@ -1,0 +1,1434 @@
+{
+  "configuration": {
+    "recorded_at": "2026-10-31T13:18:23",
+    "runtime_sha256": "b2b84095a699aebea6e5260e7da1dbcebd1a824b07d1c8b5541f6cc8cc073c7e",
+    "llm_provider": "ollama",
+    "llm_model": "qwen3:4b-instruct",
+    "reference_date": "2026-10-20",
+    "evaluation_mode": "live_compose_true",
+    "inference_fingerprint": "2492cad80a443ec552776c0680a384b296888ef9eec090532394f295fdbcbf14",
+    "provenance": {
+      "step": 3,
+      "evaluation_mode": "live_compose_true",
+      "runtime_source_sha256": {
+        "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+        "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+        "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
+        "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+        "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
+        "src/category_labels.py": "3937d794fc8e46d40fe16917792f54043f2a875f84bf920aca5cb948c5685bf4",
+        "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+        "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+        "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+        "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+        "src/document_answers.py": "b7a35feae40854e5e3eeb65c9f7c8cd77ee521a8c992bcc81087a9aad74d9984",
+        "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
+        "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
+        "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+        "src/event_dates.py": "50c95bfa6c406662ddf451d6142c9103f280783881dc9e8981ae027715944acc",
+        "src/generation_diagnostics.py": "1166129e6271c8f007a9312f68ad5a571d0eeed7b94457cb9351a2d568f053d0",
+        "src/grounding.py": "2b1fe2642061684ac0e9de452d337bc01bc82038c2386710b1b438b915e09586",
+        "src/inference_facts.py": "d3819522d139ff8f64082e000446728185072a37eb3dde7dfa5860a3fa3bec5b",
+        "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+        "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+        "src/llm.py": "f794cec90041e1c5a12a90f3e34f2d0cdcf8fd3542c5f1ce1c1fc55cd0e6a4de",
+        "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+        "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
+        "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+        "src/operational_explanations.py": "f4457d3fdd658b89c449e9f1b3cfc18ecb98fe45330e2867ee46fe65bb4ad1f2",
+        "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
+        "src/placement_conditions.py": "3eb576b2a2aee31004165cd5fb69325066e57c7a6aac175023d9879b4bec740c",
+        "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
+        "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
+        "src/refund_status.py": "4fa8084768804b5772dc34b813bf33b00105434303bb4bcc198e3fae0e3f49f9",
+        "src/refund_timeline.py": "346916f4ba10c49a7030257735fb30cfae23e51b11b06b91cef358bc1126d9a7",
+        "src/remedy_prerequisites.py": "bcc35bc0ea4893e478b0e77e24a9c546f0226bbfbc130af3994813a03a7c575a",
+        "src/repair_contexts.py": "991548ed379332429b82665103e4dc21e18ada072711cb4e58e3998ba0beb833",
+        "src/reporting_clock.py": "4bbd09b3788b5454e889b49a5c872983a6fe01bb812a89e415e35a2b5c0d0ccf",
+        "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+        "src/return_conditions.py": "c29c8736effec57d7b8d7a0efab1e092bd5bc4a315f5ac8fd28f6ce98b329795",
+        "src/return_transition_claims.py": "569a5c35b84c8d5f2112731374a698118cc34fd8caed354a65e70f6f51aec2c4",
+        "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
+        "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+        "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
+        "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+        "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
+        "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
+        "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+        "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+        "src/voice.py": "75565d0e213fa98328e8b8522ebb42c17e6f15428ae96a4a9250a09889a79264",
+        "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b",
+        "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1",
+        "scripts/resume_live_practice.py": "f5b76552666ecc63f15a378bb8815b0ab8f3655ffced4768f94f9c455febe5d3"
+      },
+      "dataset_sha256": {
+        "kb/00_about_this_knowledge_base.md": "de509ece6ea3f6c9fc451f4118fd3b513c3e3069f16fe49d666859a497e40a00",
+        "kb/agent_conversation_style.md": "1e2f8b6e8057c08bfab0f2781c35753906788535a9e5ed6762f9d2ebfffdc064",
+        "kb/agent_escalation_handoff.md": "7cdcf1cac2e1ef96097234c620660b44961d8e323b588c9b5cee7759b78d243c",
+        "kb/agent_identity_verification.md": "65080cf86c01fa180321c77ab27c7d1dffdf6b3bca915cf162bb8c1a694cf182",
+        "kb/faq_general.md": "17f9846d1ffb33ded2206d25dfec3e3e431b1e0759edd4a49fc342106d17cd5a",
+        "kb/faq_hindi.md": "abc9f07bd99100f28ad8ba2f652bc21540b8a1cf7898bb5c0b98a2f783d669a2",
+        "kb/help_reverse_pickup.md": "8b05d9c3c6be72cdf782471372f6b209af48b0a712e747b395c97df3c79350b5",
+        "kb/help_track_order.md": "8c8fe651e97e1b1d088934a25de1bbcb81552fa2ecf5e2e2756374a5679c4bed",
+        "kb/help_troubleshooting_electronics.md": "0aa55f0933a5db0663619d343634ca6a12a2792a1c58258cfc14d9d971965e87",
+        "kb/mkt_plus_benefits_page.md": "f7d1bb3f9a2b555f51cd759c099654e2d36d11132efb231ccc87767c2082f6d7",
+        "kb/pol_cancellations.md": "a81de76931982a96d79416e130fd81d4cacc54b65bce43812767d76d8af66a00",
+        "kb/pol_coupons_offers.md": "e5201e45767003eabb79f8e930ee6b43204a7e08713350579181041233d3467c",
+        "kb/pol_damaged_wrong_missing.md": "6287c52adb81c8f8febf9c262ef34362af2ad33a373dc0768ae7e9d07bf7ec71",
+        "kb/pol_delivery_shipping.md": "828a75578e9f1307b2e4f64f6f151d93636bfd2f2f9bc39fcef86b273b8226eb",
+        "kb/pol_marketplace_sellers.md": "76e1291bf8990152b7f9029c79f58bddcc286f57800fb65de550586f45887dc0",
+        "kb/pol_payments_cod.md": "3d88d83c934a0477955fbe63beb4cae5db3491889ecf01b985ef233d7c19c68f",
+        "kb/pol_plus_membership.md": "9ea896ff307ddb4c28d0aaedcc567cfdf3825335c9eded8f02adacbbb7d6c877",
+        "kb/pol_refunds.md": "aa315a1c5c1ae2f19b1c5678b138ef3970279d1f2ae002c1392db61a4851f48c",
+        "kb/pol_returns_v3_superseded.md": "5f37e77ac47d5aa34d056460ba3b0ef6369f0a846921b74e35801066a01cfd17",
+        "kb/pol_returns_v4.md": "964b54f48edbd9f079d718f11cfc3164e20ba95b3943b723e03eb49fa1ee30f6",
+        "kb/pol_warranty_assured.md": "b2522a4289f808f8d7a2087fef8df5f624fd164770bcad6ce863975c7d0465b1",
+        "data/customers.csv": "1f3aff8002de497698f1e4ff6342c67ceca3c7bb0b68ea97f780126bfe786dc2",
+        "data/holidays.csv": "21b4804250b38150182fa00efc673997dfb81687efa7996403136da688c4d05f",
+        "data/order_items.csv": "62e344a4713ddaa9e10055c8b4931b7b8fab28f6350a5836968ff404046d0dc3",
+        "data/orders.csv": "9fb915f9f401ae26a1d00c0f064f87ab17fcde048cb9652d6e8a234a1401068b",
+        "data/pincodes.csv": "89f17fc33ae98223e70975a36e3e5a55e1bc2e0616e19a3fd45896adceeed19b",
+        "data/products.csv": "0eb917871836ecb5f74100dfa61e85f2adf78eecdaf10554c521e8bc9b461fd7",
+        "data/support_logs.csv": "2ab97c83b46f690310a133a10cdec01e670122bd7f996a15fe18b00c30a60739",
+        "practice/conversations.csv": "f6c9d24112f63047f4af62a9b3f2cfd34c941597b55cf661df8415e8d59fcfc3",
+        "practice/questions.csv": "cac2302c995389f82c831800589b627c9d567620013bc44d6721c7d3c90e9190",
+        "tools/tools.py": "e4192adc096a4d9b5b13bb0f11604354a4c6d3e9cb887915f87756851679d743"
+      },
+      "inference": {
+        "LLM_PROVIDER": "ollama",
+        "LLM_MODEL": "qwen3:4b-instruct",
+        "RAG_LLM_TIMEOUT": "600",
+        "LLM_TIMEOUT": "600",
+        "DENSE_ENABLED": "true",
+        "REFERENCE_DATE": "2026-10-20",
+        "LLM_FALLBACK_PROVIDER": "",
+        "LLM_FALLBACK_MODEL": "",
+        "LLM_BASE_URL_sha256": "7e17659853212fae1a14d3b55d651aa8ecd6ff5fc343619102ba8f0a1a622f52",
+        "LLM_FALLBACK_BASE_URL_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "summary": {
+    "search_k": [
+      12
+    ],
+    "search_recall": 0.3333333333333333,
+    "step": "3",
+    "total": 4,
+    "passed": 4,
+    "pass_rate": 1.0,
+    "decision_accuracy": 1.0,
+    "evidence_recall": 1.0,
+    "errors": 0,
+    "composition_counts": {
+      "deterministic_guardrail": 3,
+      "source_generated_handover": 1
+    },
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates; search_k is the requested direct budget, with extra dependencies reported separately. Guardrail lookups are separate.",
+    "retrieval_budgets": {
+      "requested_direct_ks": [
+        12
+      ],
+      "candidate_limits": [
+        16
+      ],
+      "returned_count_histogram": {
+        "14": 1,
+        "13": 1
+      },
+      "candidate_role_counts": {
+        "direct": 24,
+        "dependency": 3
+      },
+      "scope": "Actual saved candidate arrays and trace metadata; missing roles remain unrecorded."
+    },
+    "latency_by_path": {
+      "no_model_call": {
+        "count": 3,
+        "p50_ms": 3.3,
+        "p95_ms": 3.3
+      },
+      "uncached_llm_attempt": {
+        "count": 1,
+        "p50_ms": 257118.7,
+        "p95_ms": 257118.7
+      }
+    },
+    "planned": 4,
+    "complete": true,
+    "scope": "Current source-driven live practice; generation, guards, clarifications and abstentions are reported separately. No authored policy fallback. Mechanical checks are not organizer scoring."
+  },
+  "results": [
+    {
+      "id": "PC010.1",
+      "question": "Hello, mujhe order ke baare mein help chahiye.",
+      "prediction": {
+        "transcript": "Hello, mujhe order ke baare mein help chahiye.",
+        "answer": "Main ZentroMart ki AI support assistant hoon. Aapka order ID kya hai?",
+        "intent": "greeting",
+        "decision": "clarify",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "STY-5"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "TRK-1",
+            "score": 0.085278,
+            "dense_score": 0.2166,
+            "retrieval_role": "direct",
+            "direct_rank": 1,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "STY-3",
+            "score": 0.073927,
+            "dense_score": 0.2383,
+            "retrieval_role": "direct",
+            "direct_rank": 2,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "IDV-3",
+            "score": 0.06996,
+            "dense_score": 0.0374,
+            "retrieval_role": "direct",
+            "direct_rank": 3,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "KB-00.4",
+            "score": 0.06875,
+            "dense_score": 0.0448,
+            "retrieval_role": "direct",
+            "direct_rank": 4,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "CAN-1",
+            "score": 0.067222,
+            "dense_score": 0.1202,
+            "retrieval_role": "direct",
+            "direct_rank": 5,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "CPN-1",
+            "score": 0.064821,
+            "dense_score": -0.009,
+            "retrieval_role": "direct",
+            "direct_rank": 6,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "KB-00.1",
+            "score": 0.063462,
+            "dense_score": 0.0601,
+            "retrieval_role": "direct",
+            "direct_rank": 7,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "CAN-2",
+            "score": 0.062586,
+            "dense_score": 0.1017,
+            "retrieval_role": "direct",
+            "direct_rank": 8,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.0605,
+            "dense_score": 0.0868,
+            "retrieval_role": "direct",
+            "direct_rank": 9,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.055,
+            "dense_score": 0.0271,
+            "retrieval_role": "direct",
+            "direct_rank": 10,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "IDV-2",
+            "score": 0.054656,
+            "dense_score": 0.0163,
+            "retrieval_role": "direct",
+            "direct_rank": 11,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-4",
+            "score": 0.053382,
+            "dense_score": 0.0949,
+            "retrieval_role": "direct",
+            "direct_rank": 12,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-1",
+            "score": 0.032411,
+            "dense_score": 0.0692,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 1.1
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.03079,
+            "dense_score": 0.0714,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 1.1
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "deterministic_guardrail",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "retrieval_direct_k": 12,
+        "retrieval_dependency_limit": 4,
+        "retrieval_candidate_limit": 16,
+        "retrieval_returned_count": 14,
+        "retrieval_direct_count": 12,
+        "retrieval_dependency_count": 2,
+        "evidence_supported": true,
+        "validation_error": null,
+        "citations": [],
+        "generation": {},
+        "generation_context_sources": [],
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 851.23,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 861.61
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 0,
+        "search_total": 1,
+        "evidence_hits": 1,
+        "evidence_total": 1,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 863.8
+    },
+    {
+      "id": "PC010.2",
+      "question": "Order number hai 1664 0894.",
+      "prediction": {
+        "transcript": "Order number hai 1664 0894.",
+        "answer": "Ek verification detail dein: registered phone ke last 4 digits ya order ka delivery pincode.",
+        "intent": "verification",
+        "decision": "clarify",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "IDV-1",
+          "IDV-2",
+          "STY-5"
+        ],
+        "sources": [
+          {
+            "id": "IDV-1",
+            "text": "## [IDV-1] When verification is needed\nBefore sharing anything about a specific order (status, items, address, amounts, refund details), verify the customer. General policy questions need no verification.",
+            "file": "agent_identity_verification.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.2",
+            "title": "When verification is needed"
+          },
+          {
+            "id": "IDV-2",
+            "text": "## [IDV-2] How to verify\nAsk for the order ID, then ask for **one** of: the last 4 digits of the registered phone number, or the delivery pincode for that order. Compare with the `phone_last4` or `delivery_pincode` fields from order lookup.",
+            "file": "agent_identity_verification.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.2",
+            "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
+          }
+        ],
+        "retrieval_candidates": [],
+        "tool_calls": [
+          {
+            "name": "lookup_order",
+            "arguments": {
+              "order_id": "16640894"
+            },
+            "result": {
+              "verified": false,
+              "verification_required": true
+            }
+          }
+        ],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "deterministic_guardrail",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "retrieval_direct_k": 12,
+        "retrieval_dependency_limit": 4,
+        "retrieval_candidate_limit": 16,
+        "retrieval_returned_count": 0,
+        "retrieval_direct_count": 0,
+        "retrieval_dependency_count": 0,
+        "evidence_supported": true,
+        "validation_error": null,
+        "citations": [],
+        "generation": {},
+        "generation_context_sources": [],
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 0.0,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 2.23
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 0,
+        "search_total": 1,
+        "evidence_hits": 1,
+        "evidence_total": 1,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 3.3
+    },
+    {
+      "id": "PC010.3",
+      "question": "[verification value redacted]",
+      "prediction": {
+        "transcript": "[verification value redacted]",
+        "answer": "Verification successful. Order ke baare mein kya help chahiye?",
+        "intent": "verification",
+        "decision": "answer",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "IDV-2"
+        ],
+        "sources": [
+          {
+            "id": "IDV-2",
+            "text": "## [IDV-2] How to verify\nAsk for the order ID, then ask for **one** of: the last 4 digits of the registered phone number, or the delivery pincode for that order. Compare with the `phone_last4` or `delivery_pincode` fields from order lookup.",
+            "file": "agent_identity_verification.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.2",
+            "title": "How to verify"
+          }
+        ],
+        "retrieval_candidates": [],
+        "tool_calls": [
+          {
+            "name": "lookup_order",
+            "arguments": {
+              "order_id": "16640894",
+              "verification_value": "[REDACTED]"
+            },
+            "result": {
+              "verified": true,
+              "verification_required": false,
+              "found": true,
+              "order": {
+                "order_id": "16640894",
+                "placed_at": "2026-07-03T19:28",
+                "status": "return_refund_initiated",
+                "payment_method": "upi",
+                "delivery_type": "standard",
+                "promised_date": "2026-07-14",
+                "shipped_on": "2026-07-04",
+                "delivered_on": "2026-07-14",
+                "delivery_attempts": 1,
+                "subtotal_inr": 5618,
+                "coupon_code": "SAVE10",
+                "coupon_discount_inr": 561,
+                "coupon_min_order_inr": 999,
+                "delivery_fee_inr": 0,
+                "cod_fee_inr": 0,
+                "total_inr": 5057,
+                "contacts_last_7_days": 0,
+                "cancellation_refund_initiated_on": null,
+                "cancellation_refund_method": null,
+                "cancellation_refund_amount_inr": null,
+                "cancellation_rrn": null,
+                "rto_refund_initiated_on": null,
+                "rto_refund_method": null,
+                "rto_refund_amount_inr": null,
+                "rto_rrn": null,
+                "express_late_credit_inr": null,
+                "express_late_credit_on": null,
+                "return_sku": "FSH-0027",
+                "return_line_no": 1,
+                "return_qty": 1,
+                "return_reason": "changed_mind",
+                "return_status": "refund_initiated",
+                "return_requested_on": "2026-07-16",
+                "return_pickup_on": "2026-07-17",
+                "return_qc_passed_on": "2026-07-20",
+                "return_refund_initiated_on": "2026-07-20",
+                "return_refund_method": "upi",
+                "return_refund_amount_inr": 2480,
+                "return_refund_completed_on": null,
+                "return_rrn": "315633825001",
+                "return_reverse_pickup_fee_inr": 49,
+                "damage_sku": null,
+                "damage_issue": null,
+                "damage_reported_at": null,
+                "damage_hours_after_delivery": null,
+                "damage_photos_attached": null,
+                "damage_status": null,
+                "items": [
+                  {
+                    "order_id": "16640894",
+                    "line_no": 1,
+                    "sku": "FSH-0027",
+                    "title": "Rangoli Silk Blend Saree, Grey",
+                    "return_category": "fashion",
+                    "qty": 1,
+                    "unit_price_inr": 2809
+                  },
+                  {
+                    "order_id": "16640894",
+                    "line_no": 2,
+                    "sku": "FSH-0027",
+                    "title": "Rangoli Silk Blend Saree, Grey",
+                    "return_category": "fashion",
+                    "qty": 1,
+                    "unit_price_inr": 2809
+                  }
+                ],
+                "is_plus": false
+              }
+            }
+          }
+        ],
+        "facts": {},
+        "verified": true,
+        "reference_date": "2026-10-20",
+        "composition": "deterministic_guardrail",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "retrieval_direct_k": 12,
+        "retrieval_dependency_limit": 4,
+        "retrieval_candidate_limit": 16,
+        "retrieval_returned_count": 0,
+        "retrieval_direct_count": 0,
+        "retrieval_dependency_count": 0,
+        "evidence_supported": true,
+        "validation_error": null,
+        "citations": [],
+        "generation": {},
+        "generation_context_sources": [],
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 0.0,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 1.9
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 0,
+        "search_total": 1,
+        "evidence_hits": 1,
+        "evidence_total": 1,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 3.1
+    },
+    {
+      "id": "PC010.4",
+      "question": "Mera refund kahan hai?",
+      "prediction": {
+        "transcript": "Mera refund kahan hai?",
+        "answer": "Mera refund 20 July 2026 ko initiate kiya gaya hai aur UPI par 1 se 3 business days me pahunchega. 20 October 2026 tak 73 business days ke baad bhi refund nahi aaya hai, isliye aapko ek human agent se contact karna hoga. Refund reference number 315633825001 hai, isse aapne bank ko trace kar sakte hain. Aapko ek ticket bana diya gaya hai aur aapko kisi bhi outcome ya time ke baare mein promise nahi kiya gaya hai. Ticket create ho gaya; human colleague contact karenge.",
+        "intent": "refund",
+        "decision": "escalate",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "ESC-1",
+          "ESC-2",
+          "KB-00.3",
+          "REF-1",
+          "REF-2",
+          "REF-3",
+          "REF-4",
+          "REF-5",
+          "REF-6",
+          "data/holidays.csv"
+        ],
+        "sources": [
+          {
+            "id": "ESC-1",
+            "text": "## [ESC-1] When to hand over to a human\nHand over at once when any of these is true:\n\n1. **Damaged, defective or wrong item worth more than ₹10,000.**\n2. **Customer reports an order, payment or account activity they did not make.**\n3. **Customer mentions legal action, a consumer court or a police complaint.**\n4. **Third or later contact about the same issue within 7 days.**\n5. **Refund more than 3 business days past its maximum timeline.**\n6. **Customer asks for a human agent.**\n7. **Product safety risk such as a swelling battery, burning smell, sparks or injury.**\n\nFor the repeat-contact rule, use the `contacts_last_7_days` field returned by order lookup. It counts earlier contacts only, not the current one. Escalate when it is 2 or more.",
+            "file": "agent_escalation_handoff.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "2.0",
+            "title": "When to hand over to a human"
+          },
+          {
+            "id": "ESC-2",
+            "text": "## [ESC-2] What to do first\nCreate a ticket with `create_ticket` before handing over. Tell the customer a human colleague will contact them, and never promise an outcome, amount or time beyond what a policy states.",
+            "file": "agent_escalation_handoff.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "2.0",
+            "title": "What to do first"
+          },
+          {
+            "id": "KB-00.3",
+            "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+            "file": "00_about_this_knowledge_base.md",
+            "doc_type": "meta",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Business days"
+          },
+          {
+            "id": "REF-1",
+            "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "When a refund is initiated"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "REF-3",
+            "text": "## [REF-3] Cash-on-delivery refunds\nFor cash-on-delivery orders, the customer chooses either ZentroMart Wallet (instant) or a bank transfer. Bank transfers start only after the bank account details are verified, then take 5 to 7 business days.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "Cash-on-delivery refunds"
+          },
+          {
+            "id": "REF-4",
+            "text": "## [REF-4] Partial refunds and coupons\nIf part of an order is returned, the refund is the price paid for that item after its share of any coupon discount. If the remaining order falls below the coupon's minimum order value, the coupon discount on the remaining items is deducted from the refund.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "Partial refunds and coupons"
+          },
+          {
+            "id": "REF-5",
+            "text": "## [REF-5] Delivery and COD fees\nDelivery fees and the ₹25 cash-on-delivery fee are refunded only when the whole order is cancelled before shipping or returned because it was damaged, defective or wrong.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "Delivery and COD fees"
+          },
+          {
+            "id": "REF-6",
+            "text": "## [REF-6] Refund reference number\nEvery initiated refund has a refund reference number (RRN) that the customer's bank can trace. Share it when a customer says the money has not arrived.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "Refund reference number"
+          },
+          {
+            "id": "data/holidays.csv",
+            "file": "data/holidays.csv",
+            "text": "{\"warehouse_holidays\":[\"2026-08-15\",\"2026-10-02\",\"2026-10-19\",\"2026-11-09\"]}",
+            "doc_type": "catalog",
+            "status": "current"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-2",
+            "score": 0.189396,
+            "dense_score": 0.4594,
+            "retrieval_role": "direct",
+            "direct_rank": 1,
+            "dependency_weight": 1.15
+          },
+          {
+            "id": "REF-6",
+            "score": 0.188544,
+            "dense_score": 0.5186,
+            "retrieval_role": "direct",
+            "direct_rank": 2,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-7",
+            "score": 0.186998,
+            "dense_score": 0.5047,
+            "retrieval_role": "direct",
+            "direct_rank": 3,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-1",
+            "score": 0.18619,
+            "dense_score": 0.5092,
+            "retrieval_role": "direct",
+            "direct_rank": 4,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-3",
+            "score": 0.165749,
+            "dense_score": 0.4389,
+            "retrieval_role": "direct",
+            "direct_rank": 5,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.154544,
+            "dense_score": 0.4042,
+            "retrieval_role": "direct",
+            "direct_rank": 6,
+            "dependency_weight": 0.88
+          },
+          {
+            "id": "REF-5",
+            "score": 0.154004,
+            "dense_score": 0.4892,
+            "retrieval_role": "direct",
+            "direct_rank": 7,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-4",
+            "score": 0.15287,
+            "dense_score": 0.4099,
+            "retrieval_role": "direct",
+            "direct_rank": 8,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "CAN-2",
+            "score": 0.148987,
+            "dense_score": 0.4344,
+            "retrieval_role": "direct",
+            "direct_rank": 9,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "DWM-2",
+            "score": 0.138555,
+            "dense_score": 0.408,
+            "retrieval_role": "direct",
+            "direct_rank": 10,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.129541,
+            "dense_score": 0.3793,
+            "retrieval_role": "direct",
+            "direct_rank": 11,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "FAQ-1",
+            "score": 0.128864,
+            "dense_score": 0.4365,
+            "retrieval_role": "direct",
+            "direct_rank": 12,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.096669,
+            "dense_score": 0.3283,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 0.88
+          }
+        ],
+        "tool_calls": [
+          {
+            "name": "create_ticket",
+            "arguments": {
+              "summary": "Issue: Mera refund kahan hai?. Intent: refund. Order: 16640894. Checked: ESC-1, ESC-2, KB-00.3, REF-2, data/holidays.csv. Verified caller: True. Escalation reason: refund_overdue. No outcome promised.",
+              "order_id": "16640894",
+              "reason": "refund_overdue",
+              "intent": "refund"
+            },
+            "result": {
+              "created": true,
+              "ticket_id": "TKTbb252e6d5edd450a827fff544b991496"
+            }
+          }
+        ],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [
+            {
+              "operation": "refund_business_date_range",
+              "source_ids": [
+                "REF-2",
+                "KB-00.3",
+                "data/holidays.csv"
+              ],
+              "record_field": "return_refund_initiated_on",
+              "inputs": {
+                "initiated_on": "2026-07-20",
+                "payment_method": "upi",
+                "minimum_business_days": 1,
+                "maximum_business_days": 3,
+                "reference_date": "2026-10-20",
+                "holidays": [
+                  "2026-08-15",
+                  "2026-10-02",
+                  "2026-10-19",
+                  "2026-11-09"
+                ],
+                "business_weekdays": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ]
+              },
+              "result": {
+                "earliest_date": "2026-07-21",
+                "latest_date": "2026-07-23",
+                "elapsed_business_days": 76
+              }
+            }
+          ],
+          "verified_order": {
+            "placed_at": "2026-07-03T19:28",
+            "status": "return_refund_initiated",
+            "payment_method": "upi",
+            "delivery_type": "standard",
+            "promised_date": "2026-07-14",
+            "shipped_on": "2026-07-04",
+            "delivered_on": "2026-07-14",
+            "delivery_attempts": 1,
+            "subtotal_inr": 5618,
+            "coupon_code": "SAVE10",
+            "coupon_discount_inr": 561,
+            "coupon_min_order_inr": 999,
+            "delivery_fee_inr": 0,
+            "cod_fee_inr": 0,
+            "total_inr": 5057,
+            "contacts_last_7_days": 0,
+            "cancellation_refund_initiated_on": null,
+            "cancellation_refund_method": null,
+            "cancellation_refund_amount_inr": null,
+            "cancellation_rrn": null,
+            "rto_refund_initiated_on": null,
+            "rto_refund_method": null,
+            "rto_refund_amount_inr": null,
+            "rto_rrn": null,
+            "express_late_credit_inr": null,
+            "express_late_credit_on": null,
+            "return_sku": "FSH-0027",
+            "return_line_no": 1,
+            "return_qty": 1,
+            "return_reason": "changed_mind",
+            "return_status": "refund_initiated",
+            "return_requested_on": "2026-07-16",
+            "return_pickup_on": "2026-07-17",
+            "return_qc_passed_on": "2026-07-20",
+            "return_refund_initiated_on": "2026-07-20",
+            "return_refund_method": "upi",
+            "return_refund_amount_inr": 2480,
+            "return_refund_completed_on": null,
+            "return_rrn": "315633825001",
+            "return_reverse_pickup_fee_inr": 49,
+            "damage_sku": null,
+            "damage_issue": null,
+            "damage_reported_at": null,
+            "damage_hours_after_delivery": null,
+            "damage_photos_attached": null,
+            "damage_status": null,
+            "is_plus": false,
+            "items": [
+              {
+                "line_no": 1,
+                "sku": "FSH-0027",
+                "title": "Rangoli Silk Blend Saree, Grey",
+                "return_category": "fashion",
+                "qty": 1,
+                "unit_price_inr": 2809
+              },
+              {
+                "line_no": 2,
+                "sku": "FSH-0027",
+                "title": "Rangoli Silk Blend Saree, Grey",
+                "return_category": "fashion",
+                "qty": 1,
+                "unit_price_inr": 2809
+              }
+            ]
+          },
+          "catalog": [
+            {
+              "sku": "FSH-0027",
+              "title": "Rangoli Silk Blend Saree, Grey",
+              "brand": "Rangoli",
+              "return_category": "fashion",
+              "price_inr": "2809",
+              "fulfilled_by": "Kalpana Fashions",
+              "assured": "False",
+              "warranty_months": "0",
+              "description": "Rangoli Silk Blend Saree, Grey. Sold on ZentroMart. Ships from a marketplace seller."
+            }
+          ],
+          "answer_constraints": [],
+          "source_semantic_constraints": [
+            {
+              "kind": "conditional_rto_refund",
+              "payment_condition": "prepaid",
+              "source_antecedent": "Prepaid order refused at the door or not delivered after 3 attempts",
+              "source_consequence": "once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+              "source_ids": [
+                "REF-1"
+              ],
+              "source_sha256": {
+                "REF-1": "30f3fc9957fa76cc2c3d59df05fd859766d77239c8d2c35dce3f1f510addf9e2"
+              }
+            }
+          ],
+          "calculation_source_sha256": {
+            "KB-00.3": "128b8150ce2065af577ffa770730cdb4fbda95e25a27d2bceae41b2da7db4086",
+            "REF-2": "913886a7d0e4810241fd90b1d812c39c5900d428dce65112ccbdfb8c8855ced4",
+            "data/holidays.csv": "932cea3eb73226b46f06e868bfd9333e693a93a68eabdb4659241c27358d89a1"
+          },
+          "date_labels": {
+            "2026-10-20": "20 October 2026",
+            "2026-07-20": "20 July 2026",
+            "2026-08-15": "15 August 2026",
+            "2026-10-02": "2 October 2026",
+            "2026-10-19": "19 October 2026",
+            "2026-11-09": "9 November 2026",
+            "2026-07-21": "21 July 2026",
+            "2026-07-23": "23 July 2026",
+            "2026-07-03": "3 July 2026",
+            "2026-07-14": "14 July 2026",
+            "2026-07-04": "4 July 2026",
+            "2026-07-16": "16 July 2026",
+            "2026-07-17": "17 July 2026"
+          },
+          "operational_escalation": {
+            "reason": "refund_overdue",
+            "source_ids": [
+              "ESC-1",
+              "ESC-2",
+              "KB-00.3",
+              "REF-2",
+              "data/holidays.csv"
+            ],
+            "source_sha256": {
+              "ESC-1": "1fc967355f95279418550a963f0353ce2755a353a2c4329380db3e57e0fe70fc",
+              "ESC-2": "f2fe921477015ccaadf592523d4428ef7ea29c1e789c9b7dec23b981ab5f7334",
+              "KB-00.3": "14e4c5a86aa4e3721b7d94675f0f237c5a4ff0ad9a359c0a04ec77413a7c283a",
+              "REF-2": "3d2912c31bdc78f44820dd15bf403d337976eddb411e0fea955d6c6e67079bc7",
+              "data/holidays.csv": "47992be0f2d605aa06a5541e0c051ae6d171dae07350b53c81d18298ec111ed2"
+            },
+            "facts": {
+              "tolerance_business_days": 3,
+              "operator": "gt",
+              "minimum_business_days": 1,
+              "maximum_business_days": 3,
+              "payment_method": "upi",
+              "refund_event": "return",
+              "initiated_on": "2026-07-20",
+              "reference_date": "2026-10-20",
+              "earliest_date": "2026-07-21",
+              "maximum_date": "2026-07-23",
+              "elapsed_business_days_past_maximum": 73,
+              "tolerance_boundary_date": "2026-07-27",
+              "value_origin": "verified_order.return_refund_initiated_on"
+            },
+            "calculations": [
+              {
+                "operation": "source_refund_overdue_comparison",
+                "source_ids": [
+                  "ESC-1",
+                  "KB-00.3",
+                  "REF-2",
+                  "data/holidays.csv"
+                ],
+                "inputs": {
+                  "initiated_on": "2026-07-20",
+                  "reference_date": "2026-10-20",
+                  "minimum_business_days": 1,
+                  "maximum_business_days": 3,
+                  "payment_method": "upi",
+                  "tolerance_business_days": 3,
+                  "operator": "gt",
+                  "business_weekdays": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                  ],
+                  "holidays": [
+                    "2026-08-15",
+                    "2026-10-02",
+                    "2026-10-19",
+                    "2026-11-09"
+                  ]
+                },
+                "result": {
+                  "earliest_date": "2026-07-21",
+                  "maximum_date": "2026-07-23",
+                  "tolerance_boundary_date": "2026-07-27",
+                  "elapsed_business_days_past_maximum": 73,
+                  "escalation_required": true
+                }
+              }
+            ],
+            "binding_status": "bound"
+          }
+        },
+        "verified": true,
+        "reference_date": "2026-10-20",
+        "composition": "source_generated_handover",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "retrieval_direct_k": 12,
+        "retrieval_dependency_limit": 4,
+        "retrieval_candidate_limit": 16,
+        "retrieval_returned_count": 13,
+        "retrieval_direct_count": 12,
+        "retrieval_dependency_count": 1,
+        "evidence_supported": true,
+        "validation_error": null,
+        "citations": [],
+        "generation": {
+          "decision_origin": "host_boolean_mapping",
+          "generation_attempts": 1,
+          "operational_rule_decisions": [
+            {
+              "reason": "high_value_damage",
+              "applicable": false,
+              "binding_status": "not_relevant",
+              "source_ids": [],
+              "source_sha256": {},
+              "facts": {},
+              "calculations": [],
+              "missing_inputs": []
+            },
+            {
+              "reason": "repeat_contact",
+              "applicable": false,
+              "binding_status": "bound",
+              "source_ids": [
+                "ESC-1"
+              ],
+              "source_sha256": {
+                "ESC-1": "1fc967355f95279418550a963f0353ce2755a353a2c4329380db3e57e0fe70fc"
+              },
+              "facts": {
+                "record_field": "contacts_last_7_days",
+                "earlier_contact_threshold": 2,
+                "window_calendar_days": 7,
+                "current_contact_excluded": true,
+                "earlier_contact_count": 0,
+                "value_origin": "verified_order.contacts_last_7_days"
+              },
+              "calculations": [],
+              "missing_inputs": []
+            },
+            {
+              "reason": "refund_overdue",
+              "applicable": true,
+              "binding_status": "bound",
+              "source_ids": [
+                "ESC-1",
+                "ESC-2",
+                "KB-00.3",
+                "REF-2",
+                "data/holidays.csv"
+              ],
+              "source_sha256": {
+                "ESC-1": "1fc967355f95279418550a963f0353ce2755a353a2c4329380db3e57e0fe70fc",
+                "ESC-2": "f2fe921477015ccaadf592523d4428ef7ea29c1e789c9b7dec23b981ab5f7334",
+                "KB-00.3": "14e4c5a86aa4e3721b7d94675f0f237c5a4ff0ad9a359c0a04ec77413a7c283a",
+                "REF-2": "3d2912c31bdc78f44820dd15bf403d337976eddb411e0fea955d6c6e67079bc7",
+                "data/holidays.csv": "47992be0f2d605aa06a5541e0c051ae6d171dae07350b53c81d18298ec111ed2"
+              },
+              "facts": {
+                "tolerance_business_days": 3,
+                "operator": "gt",
+                "minimum_business_days": 1,
+                "maximum_business_days": 3,
+                "payment_method": "upi",
+                "refund_event": "return",
+                "initiated_on": "2026-07-20",
+                "reference_date": "2026-10-20",
+                "earliest_date": "2026-07-21",
+                "maximum_date": "2026-07-23",
+                "elapsed_business_days_past_maximum": 73,
+                "tolerance_boundary_date": "2026-07-27",
+                "value_origin": "verified_order.return_refund_initiated_on"
+              },
+              "calculations": [
+                {
+                  "operation": "source_refund_overdue_comparison",
+                  "source_ids": [
+                    "ESC-1",
+                    "KB-00.3",
+                    "REF-2",
+                    "data/holidays.csv"
+                  ],
+                  "inputs": {
+                    "initiated_on": "2026-07-20",
+                    "reference_date": "2026-10-20",
+                    "minimum_business_days": 1,
+                    "maximum_business_days": 3,
+                    "payment_method": "upi",
+                    "tolerance_business_days": 3,
+                    "operator": "gt",
+                    "business_weekdays": [
+                      0,
+                      1,
+                      2,
+                      3,
+                      4,
+                      5
+                    ],
+                    "holidays": [
+                      "2026-08-15",
+                      "2026-10-02",
+                      "2026-10-19",
+                      "2026-11-09"
+                    ]
+                  },
+                  "result": {
+                    "earliest_date": "2026-07-21",
+                    "maximum_date": "2026-07-23",
+                    "tolerance_boundary_date": "2026-07-27",
+                    "elapsed_business_days_past_maximum": 73,
+                    "escalation_required": true
+                  }
+                }
+              ],
+              "missing_inputs": []
+            }
+          ],
+          "tool_outcome_origin": "actual_create_ticket_result",
+          "covered": true,
+          "provenance_kind": "generation_context",
+          "context_source_ids": [
+            "ESC-1",
+            "ESC-2",
+            "KB-00.3",
+            "REF-1",
+            "REF-2",
+            "REF-3",
+            "REF-4",
+            "REF-5",
+            "REF-6",
+            "data/holidays.csv"
+          ],
+          "model_flags": {
+            "covered": true,
+            "needs_clarification": false
+          },
+          "evaluated_source_constraints": [
+            {
+              "kind": "conditional_rto_refund",
+              "payment_condition": "prepaid",
+              "source_antecedent": "Prepaid order refused at the door or not delivered after 3 attempts",
+              "source_consequence": "once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+              "source_ids": [
+                "REF-1"
+              ],
+              "source_sha256": {
+                "REF-1": "30f3fc9957fa76cc2c3d59df05fd859766d77239c8d2c35dce3f1f510addf9e2"
+              }
+            }
+          ],
+          "evaluated_remedy_prerequisites": [],
+          "evaluated_delivery_clock_constraints": [],
+          "repair_attempted": false,
+          "repair_errors": [],
+          "validation_error": null,
+          "attempt_metrics": [
+            {
+              "cache_hit": false,
+              "attempts": 1,
+              "http_attempts": 1,
+              "http_statuses": [
+                200
+              ],
+              "rate_limit_events": 0,
+              "rate_limit_retries": 0,
+              "rate_limit_wait_ms": 0.0,
+              "rate_limit_planned_wait_ms": 0.0,
+              "last_http_status": 200,
+              "provider": "ollama:qwen3:4b-instruct",
+              "wall_ms": 256924.64,
+              "load_ms": 54.38,
+              "prompt_eval_ms": 193650.84,
+              "eval_ms": 61918.69,
+              "prompt_eval_count": 3467,
+              "eval_count": 163,
+              "done_reason": "stop"
+            }
+          ],
+          "generation_input_contexts": [
+            {
+              "attempt": 1,
+              "source_ids": [
+                "ESC-1",
+                "ESC-2",
+                "KB-00.3",
+                "REF-1",
+                "REF-2",
+                "REF-3",
+                "REF-4",
+                "REF-5",
+                "REF-6",
+                "data/holidays.csv"
+              ]
+            }
+          ],
+          "validation_source_ids": [
+            "ESC-1",
+            "ESC-2",
+            "KB-00.3",
+            "REF-1",
+            "REF-2",
+            "REF-3",
+            "REF-4",
+            "REF-5",
+            "REF-6",
+            "data/holidays.csv"
+          ],
+          "explanation_decision": "answer"
+        },
+        "generation_context_sources": [
+          {
+            "id": "ESC-1",
+            "text": "## [ESC-1] When to hand over to a human\nHand over at once when any of these is true:\n\n1. **Damaged, defective or wrong item worth more than ₹10,000.**\n2. **Customer reports an order, payment or account activity they did not make.**\n3. **Customer mentions legal action, a consumer court or a police complaint.**\n4. **Third or later contact about the same issue within 7 days.**\n5. **Refund more than 3 business days past its maximum timeline.**\n6. **Customer asks for a human agent.**\n7. **Product safety risk such as a swelling battery, burning smell, sparks or injury.**\n\nFor the repeat-contact rule, use the `contacts_last_7_days` field returned by order lookup. It counts earlier contacts only, not the current one. Escalate when it is 2 or more.",
+            "file": "agent_escalation_handoff.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "2.0",
+            "title": "When to hand over to a human"
+          },
+          {
+            "id": "ESC-2",
+            "text": "## [ESC-2] What to do first\nCreate a ticket with `create_ticket` before handing over. Tell the customer a human colleague will contact them, and never promise an outcome, amount or time beyond what a policy states.",
+            "file": "agent_escalation_handoff.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "2.0",
+            "title": "What to do first"
+          },
+          {
+            "id": "KB-00.3",
+            "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+            "file": "00_about_this_knowledge_base.md",
+            "doc_type": "meta",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Business days"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "data/holidays.csv",
+            "file": "data/holidays.csv",
+            "text": "{\"warehouse_holidays\":[\"2026-08-15\",\"2026-10-02\",\"2026-10-19\",\"2026-11-09\"]}",
+            "doc_type": "catalog",
+            "status": "current"
+          },
+          {
+            "id": "REF-1",
+            "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "When a refund is initiated"
+          },
+          {
+            "id": "REF-3",
+            "text": "## [REF-3] Cash-on-delivery refunds\nFor cash-on-delivery orders, the customer chooses either ZentroMart Wallet (instant) or a bank transfer. Bank transfers start only after the bank account details are verified, then take 5 to 7 business days.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "Cash-on-delivery refunds"
+          },
+          {
+            "id": "REF-4",
+            "text": "## [REF-4] Partial refunds and coupons\nIf part of an order is returned, the refund is the price paid for that item after its share of any coupon discount. If the remaining order falls below the coupon's minimum order value, the coupon discount on the remaining items is deducted from the refund.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "Partial refunds and coupons"
+          },
+          {
+            "id": "REF-5",
+            "text": "## [REF-5] Delivery and COD fees\nDelivery fees and the ₹25 cash-on-delivery fee are refunded only when the whole order is cancelled before shipping or returned because it was damaged, defective or wrong.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "Delivery and COD fees"
+          },
+          {
+            "id": "REF-6",
+            "text": "## [REF-6] Refund reference number\nEvery initiated refund has a refund reference number (RRN) that the customer's bank can trace. Share it when a customer says the money has not arrived.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "Refund reference number"
+          }
+        ],
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "http_attempts": 1,
+          "http_statuses": [
+            200
+          ],
+          "rate_limit_events": 0,
+          "rate_limit_retries": 0,
+          "rate_limit_wait_ms": 0.0,
+          "rate_limit_planned_wait_ms": 0.0,
+          "last_http_status": 200,
+          "provider": "ollama:qwen3:4b-instruct",
+          "wall_ms": 256924.64,
+          "load_ms": 54.38,
+          "prompt_eval_ms": 193650.84,
+          "eval_ms": 61918.69,
+          "prompt_eval_count": 3467,
+          "eval_count": 163,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 90.28,
+          "llm_ms": 256997.91
+        },
+        "latency_ms": 257111.39
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 2,
+        "search_total": 3,
+        "evidence_hits": 3,
+        "evidence_total": 3,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 257118.7
+    }
+  ],
+  "segments": [
+    {
+      "started_at_utc": "2026-10-31T07:44:05.502598+00:00",
+      "git_sha": "521393d0ab714619b3de0f6dc18590796423f87f",
+      "reused_responses": 0,
+      "new_responses": 4,
+      "completed": true,
+      "checkpoint_at_utc": "2026-10-31T07:48:23.695730+00:00"
+    }
+  ],
+  "complete": true
+}

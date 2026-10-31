@@ -1,0 +1,62 @@
+[
+  {
+    "id": "STY-1",
+    "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+    "file": "agent_conversation_style.md",
+    "doc_type": "agent_guide",
+    "status": "current",
+    "effective_from": "2026-07-01",
+    "version": "1.1",
+    "title": "Opening"
+  },
+  {
+    "id": "KB-00.3",
+    "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+    "file": "00_about_this_knowledge_base.md",
+    "doc_type": "meta",
+    "status": "current",
+    "effective_from": "2026-08-01",
+    "version": "1.2",
+    "title": "Business days"
+  },
+  {
+    "id": "PLS-2",
+    "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+    "file": "pol_plus_membership.md",
+    "doc_type": "policy",
+    "status": "current",
+    "effective_from": "2026-01-01",
+    "version": "1.0",
+    "title": "Benefits"
+  },
+  {
+    "id": "REF-1",
+    "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+    "file": "pol_refunds.md",
+    "doc_type": "policy",
+    "status": "current",
+    "effective_from": "2026-06-15",
+    "version": "2.1",
+    "title": "When a refund is initiated"
+  },
+  {
+    "id": "REF-2",
+    "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+    "file": "pol_refunds.md",
+    "doc_type": "policy",
+    "status": "current",
+    "effective_from": "2026-06-15",
+    "version": "2.1",
+    "title": "How long refunds take after initiation"
+  },
+  {
+    "id": "RET-7",
+    "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy.",
+    "file": "pol_returns_v4.md",
+    "doc_type": "policy",
+    "status": "current",
+    "effective_from": "2026-08-01",
+    "version": "4.0",
+    "title": "After pickup"
+  }
+]

@@ -1,0 +1,737 @@
+{
+  "status": "tested",
+  "complete": true,
+  "verification_mode": "mixed_live_retests_and_current_saved_output_validation",
+  "scope": "Selected official conversations and two refund edges only. Pipeline retests and earlier recorded execution epochs are distinguished per case; output-cache hits remain identified in attempt metrics; retained responses were revalidated by current finite guards, without repeating inference. Not a fresh full52/full96 run or organizer score.",
+  "finished_at_utc": "2026-10-31T09:02:58.019229+00:00",
+  "runtime_source_sha256": {
+    "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+    "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+    "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
+    "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+    "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
+    "src/category_labels.py": "3937d794fc8e46d40fe16917792f54043f2a875f84bf920aca5cb948c5685bf4",
+    "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+    "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+    "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+    "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+    "src/document_answers.py": "4af28d50a334f6c8575af2100ed16c8585ed5805d9db5e7be3b5d18311374e6c",
+    "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
+    "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
+    "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+    "src/event_dates.py": "50c95bfa6c406662ddf451d6142c9103f280783881dc9e8981ae027715944acc",
+    "src/generation_diagnostics.py": "45a815d890d9095e94d2ccec474fa5a5a954260946bc0fa76cbee74f21c79f69",
+    "src/grounding.py": "2b1fe2642061684ac0e9de452d337bc01bc82038c2386710b1b438b915e09586",
+    "src/inference_facts.py": "d3819522d139ff8f64082e000446728185072a37eb3dde7dfa5860a3fa3bec5b",
+    "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+    "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+    "src/llm.py": "f794cec90041e1c5a12a90f3e34f2d0cdcf8fd3542c5f1ce1c1fc55cd0e6a4de",
+    "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+    "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
+    "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+    "src/operational_explanations.py": "f4457d3fdd658b89c449e9f1b3cfc18ecb98fe45330e2867ee46fe65bb4ad1f2",
+    "src/pending_refund_context.py": "7db580e1d420d47a31fc9d99aa7fbd238ed098247c6fa633999a37bdc9292572",
+    "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
+    "src/placement_conditions.py": "3eb576b2a2aee31004165cd5fb69325066e57c7a6aac175023d9879b4bec740c",
+    "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
+    "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
+    "src/refund_status.py": "4fa8084768804b5772dc34b813bf33b00105434303bb4bcc198e3fae0e3f49f9",
+    "src/refund_timeline.py": "e8a293ca89f178edcfebcc54af2e70dba87edd1fafc1f884fe4571a8a9b3198d",
+    "src/remedy_prerequisites.py": "bcc35bc0ea4893e478b0e77e24a9c546f0226bbfbc130af3994813a03a7c575a",
+    "src/repair_contexts.py": "991548ed379332429b82665103e4dc21e18ada072711cb4e58e3998ba0beb833",
+    "src/reporting_clock.py": "4bbd09b3788b5454e889b49a5c872983a6fe01bb812a89e415e35a2b5c0d0ccf",
+    "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+    "src/return_conditions.py": "c29c8736effec57d7b8d7a0efab1e092bd5bc4a315f5ac8fd28f6ce98b329795",
+    "src/return_transition_claims.py": "569a5c35b84c8d5f2112731374a698118cc34fd8caed354a65e70f6f51aec2c4",
+    "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
+    "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1",
+    "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+    "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
+    "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+    "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
+    "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
+    "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+    "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+    "src/voice.py": "75565d0e213fa98328e8b8522ebb42c17e6f15428ae96a4a9250a09889a79264",
+    "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b"
+  },
+  "runtime_source_sha256_finished": {
+    "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+    "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+    "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
+    "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+    "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
+    "src/category_labels.py": "3937d794fc8e46d40fe16917792f54043f2a875f84bf920aca5cb948c5685bf4",
+    "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+    "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+    "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+    "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+    "src/document_answers.py": "4af28d50a334f6c8575af2100ed16c8585ed5805d9db5e7be3b5d18311374e6c",
+    "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
+    "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
+    "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+    "src/event_dates.py": "50c95bfa6c406662ddf451d6142c9103f280783881dc9e8981ae027715944acc",
+    "src/generation_diagnostics.py": "45a815d890d9095e94d2ccec474fa5a5a954260946bc0fa76cbee74f21c79f69",
+    "src/grounding.py": "2b1fe2642061684ac0e9de452d337bc01bc82038c2386710b1b438b915e09586",
+    "src/inference_facts.py": "d3819522d139ff8f64082e000446728185072a37eb3dde7dfa5860a3fa3bec5b",
+    "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+    "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+    "src/llm.py": "f794cec90041e1c5a12a90f3e34f2d0cdcf8fd3542c5f1ce1c1fc55cd0e6a4de",
+    "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+    "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
+    "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+    "src/operational_explanations.py": "f4457d3fdd658b89c449e9f1b3cfc18ecb98fe45330e2867ee46fe65bb4ad1f2",
+    "src/pending_refund_context.py": "7db580e1d420d47a31fc9d99aa7fbd238ed098247c6fa633999a37bdc9292572",
+    "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
+    "src/placement_conditions.py": "3eb576b2a2aee31004165cd5fb69325066e57c7a6aac175023d9879b4bec740c",
+    "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
+    "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
+    "src/refund_status.py": "4fa8084768804b5772dc34b813bf33b00105434303bb4bcc198e3fae0e3f49f9",
+    "src/refund_timeline.py": "e8a293ca89f178edcfebcc54af2e70dba87edd1fafc1f884fe4571a8a9b3198d",
+    "src/remedy_prerequisites.py": "bcc35bc0ea4893e478b0e77e24a9c546f0226bbfbc130af3994813a03a7c575a",
+    "src/repair_contexts.py": "991548ed379332429b82665103e4dc21e18ada072711cb4e58e3998ba0beb833",
+    "src/reporting_clock.py": "4bbd09b3788b5454e889b49a5c872983a6fe01bb812a89e415e35a2b5c0d0ccf",
+    "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+    "src/return_conditions.py": "c29c8736effec57d7b8d7a0efab1e092bd5bc4a315f5ac8fd28f6ce98b329795",
+    "src/return_transition_claims.py": "569a5c35b84c8d5f2112731374a698118cc34fd8caed354a65e70f6f51aec2c4",
+    "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
+    "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1",
+    "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+    "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
+    "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+    "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
+    "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
+    "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+    "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+    "src/voice.py": "75565d0e213fa98328e8b8522ebb42c17e6f15428ae96a4a9250a09889a79264",
+    "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b"
+  },
+  "source_runtime_unchanged": true,
+  "cases": [
+    {
+      "id": "PC009",
+      "kind": "official_conversation_subset",
+      "artifact": "sample_outputs/targeted_live_20261031T081721Z/PC009.json",
+      "sha256": "90514fa3bb0dadfe83ebdd72243432013ce2f984d033d6f238853c049d47b26a",
+      "summary": {
+        "search_k": [
+          12
+        ],
+        "search_recall": 0.4,
+        "step": "3",
+        "total": 4,
+        "passed": 4,
+        "pass_rate": 1.0,
+        "decision_accuracy": 1.0,
+        "evidence_recall": 1.0,
+        "errors": 0,
+        "composition_counts": {
+          "deterministic_guardrail": 3,
+          "grounded_llm": 1
+        },
+        "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates; search_k is the requested direct budget, with extra dependencies reported separately. Guardrail lookups are separate.",
+        "retrieval_budgets": {
+          "requested_direct_ks": [
+            12
+          ],
+          "candidate_limits": [
+            16
+          ],
+          "returned_count_histogram": {
+            "13": 2
+          },
+          "candidate_role_counts": {
+            "direct": 24,
+            "dependency": 2
+          },
+          "scope": "Actual saved candidate arrays and trace metadata; missing roles remain unrecorded."
+        },
+        "latency_by_path": {
+          "no_model_call": {
+            "count": 3,
+            "p50_ms": 7.5,
+            "p95_ms": 7.5
+          },
+          "uncached_llm_attempt": {
+            "count": 1,
+            "p50_ms": 86725.8,
+            "p95_ms": 86725.8
+          }
+        },
+        "planned": 4,
+        "complete": true,
+        "scope": "Current source-driven live practice; generation, guards, clarifications and abstentions are reported separately. No authored policy fallback. Mechanical checks are not organizer scoring."
+      },
+      "passed": true,
+      "inference_runtime_source_sha256": {
+        "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+        "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+        "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
+        "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+        "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
+        "src/category_labels.py": "3937d794fc8e46d40fe16917792f54043f2a875f84bf920aca5cb948c5685bf4",
+        "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+        "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+        "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+        "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+        "src/document_answers.py": "66124ff441b16db6ee5cf6a56cfbd698f42acf8278794655ce17ea36efe401ec",
+        "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
+        "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
+        "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+        "src/event_dates.py": "50c95bfa6c406662ddf451d6142c9103f280783881dc9e8981ae027715944acc",
+        "src/generation_diagnostics.py": "45a815d890d9095e94d2ccec474fa5a5a954260946bc0fa76cbee74f21c79f69",
+        "src/grounding.py": "2b1fe2642061684ac0e9de452d337bc01bc82038c2386710b1b438b915e09586",
+        "src/inference_facts.py": "d3819522d139ff8f64082e000446728185072a37eb3dde7dfa5860a3fa3bec5b",
+        "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+        "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+        "src/llm.py": "f794cec90041e1c5a12a90f3e34f2d0cdcf8fd3542c5f1ce1c1fc55cd0e6a4de",
+        "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+        "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
+        "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+        "src/operational_explanations.py": "f4457d3fdd658b89c449e9f1b3cfc18ecb98fe45330e2867ee46fe65bb4ad1f2",
+        "src/pending_refund_context.py": "7db580e1d420d47a31fc9d99aa7fbd238ed098247c6fa633999a37bdc9292572",
+        "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
+        "src/placement_conditions.py": "3eb576b2a2aee31004165cd5fb69325066e57c7a6aac175023d9879b4bec740c",
+        "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
+        "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
+        "src/refund_status.py": "4fa8084768804b5772dc34b813bf33b00105434303bb4bcc198e3fae0e3f49f9",
+        "src/refund_timeline.py": "7aea4f47124b1271dfd614b14acd496d2f9360800552fcec3699c9762739ec4b",
+        "src/remedy_prerequisites.py": "bcc35bc0ea4893e478b0e77e24a9c546f0226bbfbc130af3994813a03a7c575a",
+        "src/repair_contexts.py": "991548ed379332429b82665103e4dc21e18ada072711cb4e58e3998ba0beb833",
+        "src/reporting_clock.py": "4bbd09b3788b5454e889b49a5c872983a6fe01bb812a89e415e35a2b5c0d0ccf",
+        "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+        "src/return_conditions.py": "c29c8736effec57d7b8d7a0efab1e092bd5bc4a315f5ac8fd28f6ce98b329795",
+        "src/return_transition_claims.py": "569a5c35b84c8d5f2112731374a698118cc34fd8caed354a65e70f6f51aec2c4",
+        "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
+        "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+        "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
+        "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+        "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
+        "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
+        "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+        "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+        "src/voice.py": "75565d0e213fa98328e8b8522ebb42c17e6f15428ae96a4a9250a09889a79264",
+        "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b",
+        "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1"
+      },
+      "run_manifest": "sample_outputs/targeted_retests_20261031.json",
+      "saved_output_revalidation": {
+        "artifact": "sample_outputs/targeted_saved_output_revalidation_final_20261031/PC009.json",
+        "sha256": "618ac96d858111bb598d8ac5c265f909959cd2865a79173c6c66c8b7a57fe417"
+      }
+    },
+    {
+      "id": "PC010",
+      "kind": "official_conversation_subset",
+      "artifact": "sample_outputs/targeted_live_20261031T073740Z/PC010.json",
+      "sha256": "3a656c414fe110f38b631b5954aff4b379f0f3fdb72bd7e400dcfcc7693b418a",
+      "summary": {
+        "search_k": [
+          12
+        ],
+        "search_recall": 0.3333333333333333,
+        "step": "3",
+        "total": 4,
+        "passed": 4,
+        "pass_rate": 1.0,
+        "decision_accuracy": 1.0,
+        "evidence_recall": 1.0,
+        "errors": 0,
+        "composition_counts": {
+          "deterministic_guardrail": 3,
+          "source_generated_handover": 1
+        },
+        "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates; search_k is the requested direct budget, with extra dependencies reported separately. Guardrail lookups are separate.",
+        "retrieval_budgets": {
+          "requested_direct_ks": [
+            12
+          ],
+          "candidate_limits": [
+            16
+          ],
+          "returned_count_histogram": {
+            "14": 1,
+            "13": 1
+          },
+          "candidate_role_counts": {
+            "direct": 24,
+            "dependency": 3
+          },
+          "scope": "Actual saved candidate arrays and trace metadata; missing roles remain unrecorded."
+        },
+        "latency_by_path": {
+          "no_model_call": {
+            "count": 3,
+            "p50_ms": 3.3,
+            "p95_ms": 3.3
+          },
+          "uncached_llm_attempt": {
+            "count": 1,
+            "p50_ms": 257118.7,
+            "p95_ms": 257118.7
+          }
+        },
+        "planned": 4,
+        "complete": true,
+        "scope": "Current source-driven live practice; generation, guards, clarifications and abstentions are reported separately. No authored policy fallback. Mechanical checks are not organizer scoring."
+      },
+      "passed": true,
+      "inference_runtime_source_sha256": {
+        "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+        "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+        "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
+        "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+        "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
+        "src/category_labels.py": "3937d794fc8e46d40fe16917792f54043f2a875f84bf920aca5cb948c5685bf4",
+        "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+        "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+        "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+        "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+        "src/document_answers.py": "b7a35feae40854e5e3eeb65c9f7c8cd77ee521a8c992bcc81087a9aad74d9984",
+        "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
+        "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
+        "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+        "src/event_dates.py": "50c95bfa6c406662ddf451d6142c9103f280783881dc9e8981ae027715944acc",
+        "src/generation_diagnostics.py": "1166129e6271c8f007a9312f68ad5a571d0eeed7b94457cb9351a2d568f053d0",
+        "src/grounding.py": "2b1fe2642061684ac0e9de452d337bc01bc82038c2386710b1b438b915e09586",
+        "src/inference_facts.py": "d3819522d139ff8f64082e000446728185072a37eb3dde7dfa5860a3fa3bec5b",
+        "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+        "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+        "src/llm.py": "f794cec90041e1c5a12a90f3e34f2d0cdcf8fd3542c5f1ce1c1fc55cd0e6a4de",
+        "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+        "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
+        "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+        "src/operational_explanations.py": "f4457d3fdd658b89c449e9f1b3cfc18ecb98fe45330e2867ee46fe65bb4ad1f2",
+        "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
+        "src/placement_conditions.py": "3eb576b2a2aee31004165cd5fb69325066e57c7a6aac175023d9879b4bec740c",
+        "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
+        "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
+        "src/refund_status.py": "4fa8084768804b5772dc34b813bf33b00105434303bb4bcc198e3fae0e3f49f9",
+        "src/refund_timeline.py": "346916f4ba10c49a7030257735fb30cfae23e51b11b06b91cef358bc1126d9a7",
+        "src/remedy_prerequisites.py": "bcc35bc0ea4893e478b0e77e24a9c546f0226bbfbc130af3994813a03a7c575a",
+        "src/repair_contexts.py": "991548ed379332429b82665103e4dc21e18ada072711cb4e58e3998ba0beb833",
+        "src/reporting_clock.py": "4bbd09b3788b5454e889b49a5c872983a6fe01bb812a89e415e35a2b5c0d0ccf",
+        "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+        "src/return_conditions.py": "c29c8736effec57d7b8d7a0efab1e092bd5bc4a315f5ac8fd28f6ce98b329795",
+        "src/return_transition_claims.py": "569a5c35b84c8d5f2112731374a698118cc34fd8caed354a65e70f6f51aec2c4",
+        "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
+        "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+        "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
+        "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+        "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
+        "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
+        "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+        "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+        "src/voice.py": "75565d0e213fa98328e8b8522ebb42c17e6f15428ae96a4a9250a09889a79264",
+        "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b",
+        "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1"
+      },
+      "run_manifest": "sample_outputs/targeted_live_20261031T073740Z/manifest.json",
+      "saved_output_revalidation": {
+        "artifact": "sample_outputs/targeted_saved_output_revalidation_final_20261031/PC010.json",
+        "sha256": "d8580f05b2175557cb34f677b1b2069000eaba9c4e834cad8da79b66c1fb0971"
+      }
+    },
+    {
+      "id": "PC003",
+      "kind": "official_conversation_subset",
+      "artifact": "sample_outputs/targeted_live_20261031T081721Z/PC003.json",
+      "sha256": "d672f101f16b868c0eeb0e3718460c79ac7b26de39f1da4607f3598573b63400",
+      "summary": {
+        "search_k": [
+          12
+        ],
+        "search_recall": 0.5714285714285714,
+        "step": "3",
+        "total": 5,
+        "passed": 5,
+        "pass_rate": 1.0,
+        "decision_accuracy": 1.0,
+        "evidence_recall": 1.0,
+        "errors": 0,
+        "composition_counts": {
+          "deterministic_guardrail": 3,
+          "grounded_llm": 2
+        },
+        "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates; search_k is the requested direct budget, with extra dependencies reported separately. Guardrail lookups are separate.",
+        "retrieval_budgets": {
+          "requested_direct_ks": [
+            12
+          ],
+          "candidate_limits": [
+            16
+          ],
+          "returned_count_histogram": {
+            "14": 1,
+            "12": 1,
+            "15": 1
+          },
+          "candidate_role_counts": {
+            "direct": 36,
+            "dependency": 5
+          },
+          "scope": "Actual saved candidate arrays and trace metadata; missing roles remain unrecorded."
+        },
+        "latency_by_path": {
+          "no_model_call": {
+            "count": 3,
+            "p50_ms": 6.9,
+            "p95_ms": 6.9
+          },
+          "uncached_llm_attempt": {
+            "count": 2,
+            "p50_ms": 73139.0,
+            "p95_ms": 73139.0
+          }
+        },
+        "planned": 5,
+        "complete": true,
+        "scope": "Current source-driven live practice; generation, guards, clarifications and abstentions are reported separately. No authored policy fallback. Mechanical checks are not organizer scoring."
+      },
+      "passed": true,
+      "inference_runtime_source_sha256": {
+        "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+        "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+        "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
+        "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+        "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
+        "src/category_labels.py": "3937d794fc8e46d40fe16917792f54043f2a875f84bf920aca5cb948c5685bf4",
+        "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+        "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+        "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+        "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+        "src/document_answers.py": "66124ff441b16db6ee5cf6a56cfbd698f42acf8278794655ce17ea36efe401ec",
+        "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
+        "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
+        "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+        "src/event_dates.py": "50c95bfa6c406662ddf451d6142c9103f280783881dc9e8981ae027715944acc",
+        "src/generation_diagnostics.py": "45a815d890d9095e94d2ccec474fa5a5a954260946bc0fa76cbee74f21c79f69",
+        "src/grounding.py": "2b1fe2642061684ac0e9de452d337bc01bc82038c2386710b1b438b915e09586",
+        "src/inference_facts.py": "d3819522d139ff8f64082e000446728185072a37eb3dde7dfa5860a3fa3bec5b",
+        "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+        "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+        "src/llm.py": "f794cec90041e1c5a12a90f3e34f2d0cdcf8fd3542c5f1ce1c1fc55cd0e6a4de",
+        "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+        "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
+        "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+        "src/operational_explanations.py": "f4457d3fdd658b89c449e9f1b3cfc18ecb98fe45330e2867ee46fe65bb4ad1f2",
+        "src/pending_refund_context.py": "7db580e1d420d47a31fc9d99aa7fbd238ed098247c6fa633999a37bdc9292572",
+        "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
+        "src/placement_conditions.py": "3eb576b2a2aee31004165cd5fb69325066e57c7a6aac175023d9879b4bec740c",
+        "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
+        "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
+        "src/refund_status.py": "4fa8084768804b5772dc34b813bf33b00105434303bb4bcc198e3fae0e3f49f9",
+        "src/refund_timeline.py": "7aea4f47124b1271dfd614b14acd496d2f9360800552fcec3699c9762739ec4b",
+        "src/remedy_prerequisites.py": "bcc35bc0ea4893e478b0e77e24a9c546f0226bbfbc130af3994813a03a7c575a",
+        "src/repair_contexts.py": "991548ed379332429b82665103e4dc21e18ada072711cb4e58e3998ba0beb833",
+        "src/reporting_clock.py": "4bbd09b3788b5454e889b49a5c872983a6fe01bb812a89e415e35a2b5c0d0ccf",
+        "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+        "src/return_conditions.py": "c29c8736effec57d7b8d7a0efab1e092bd5bc4a315f5ac8fd28f6ce98b329795",
+        "src/return_transition_claims.py": "569a5c35b84c8d5f2112731374a698118cc34fd8caed354a65e70f6f51aec2c4",
+        "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
+        "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+        "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
+        "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+        "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
+        "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
+        "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+        "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+        "src/voice.py": "75565d0e213fa98328e8b8522ebb42c17e6f15428ae96a4a9250a09889a79264",
+        "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b",
+        "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1"
+      },
+      "run_manifest": "sample_outputs/targeted_retests_20261031.json",
+      "saved_output_revalidation": {
+        "artifact": "sample_outputs/targeted_saved_output_revalidation_final_20261031/PC003.json",
+        "sha256": "35bc082a1d356dc35cdf5292a356a72439c1b1a5e69263a4af1c8b3ec3dc7a14"
+      }
+    },
+    {
+      "id": "PC004",
+      "kind": "official_conversation_subset",
+      "artifact": "sample_outputs/targeted_live_20261031T081721Z/PC004.json",
+      "sha256": "e3b7b46e150665c124cb281a450008aabe1a52b4d0820fec14776a732142f704",
+      "summary": {
+        "search_k": [
+          12
+        ],
+        "search_recall": 0.625,
+        "step": "3",
+        "total": 5,
+        "passed": 5,
+        "pass_rate": 1.0,
+        "decision_accuracy": 1.0,
+        "evidence_recall": 0.875,
+        "errors": 0,
+        "composition_counts": {
+          "deterministic_guardrail": 3,
+          "grounded_llm": 2
+        },
+        "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates; search_k is the requested direct budget, with extra dependencies reported separately. Guardrail lookups are separate.",
+        "retrieval_budgets": {
+          "requested_direct_ks": [
+            12
+          ],
+          "candidate_limits": [
+            16
+          ],
+          "returned_count_histogram": {
+            "13": 2,
+            "15": 1
+          },
+          "candidate_role_counts": {
+            "direct": 36,
+            "dependency": 5
+          },
+          "scope": "Actual saved candidate arrays and trace metadata; missing roles remain unrecorded."
+        },
+        "latency_by_path": {
+          "no_model_call": {
+            "count": 3,
+            "p50_ms": 6.0,
+            "p95_ms": 6.0
+          },
+          "uncached_llm_attempt": {
+            "count": 2,
+            "p50_ms": 84337.6,
+            "p95_ms": 84337.6
+          }
+        },
+        "planned": 5,
+        "complete": true,
+        "scope": "Current source-driven live practice; generation, guards, clarifications and abstentions are reported separately. No authored policy fallback. Mechanical checks are not organizer scoring."
+      },
+      "passed": true,
+      "inference_runtime_source_sha256": {
+        "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+        "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+        "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
+        "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+        "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
+        "src/category_labels.py": "3937d794fc8e46d40fe16917792f54043f2a875f84bf920aca5cb948c5685bf4",
+        "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+        "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+        "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+        "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+        "src/document_answers.py": "66124ff441b16db6ee5cf6a56cfbd698f42acf8278794655ce17ea36efe401ec",
+        "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
+        "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
+        "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+        "src/event_dates.py": "50c95bfa6c406662ddf451d6142c9103f280783881dc9e8981ae027715944acc",
+        "src/generation_diagnostics.py": "45a815d890d9095e94d2ccec474fa5a5a954260946bc0fa76cbee74f21c79f69",
+        "src/grounding.py": "2b1fe2642061684ac0e9de452d337bc01bc82038c2386710b1b438b915e09586",
+        "src/inference_facts.py": "d3819522d139ff8f64082e000446728185072a37eb3dde7dfa5860a3fa3bec5b",
+        "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+        "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+        "src/llm.py": "f794cec90041e1c5a12a90f3e34f2d0cdcf8fd3542c5f1ce1c1fc55cd0e6a4de",
+        "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+        "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
+        "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+        "src/operational_explanations.py": "f4457d3fdd658b89c449e9f1b3cfc18ecb98fe45330e2867ee46fe65bb4ad1f2",
+        "src/pending_refund_context.py": "7db580e1d420d47a31fc9d99aa7fbd238ed098247c6fa633999a37bdc9292572",
+        "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
+        "src/placement_conditions.py": "3eb576b2a2aee31004165cd5fb69325066e57c7a6aac175023d9879b4bec740c",
+        "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
+        "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
+        "src/refund_status.py": "4fa8084768804b5772dc34b813bf33b00105434303bb4bcc198e3fae0e3f49f9",
+        "src/refund_timeline.py": "7aea4f47124b1271dfd614b14acd496d2f9360800552fcec3699c9762739ec4b",
+        "src/remedy_prerequisites.py": "bcc35bc0ea4893e478b0e77e24a9c546f0226bbfbc130af3994813a03a7c575a",
+        "src/repair_contexts.py": "991548ed379332429b82665103e4dc21e18ada072711cb4e58e3998ba0beb833",
+        "src/reporting_clock.py": "4bbd09b3788b5454e889b49a5c872983a6fe01bb812a89e415e35a2b5c0d0ccf",
+        "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+        "src/return_conditions.py": "c29c8736effec57d7b8d7a0efab1e092bd5bc4a315f5ac8fd28f6ce98b329795",
+        "src/return_transition_claims.py": "569a5c35b84c8d5f2112731374a698118cc34fd8caed354a65e70f6f51aec2c4",
+        "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
+        "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+        "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
+        "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+        "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
+        "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
+        "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+        "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+        "src/voice.py": "75565d0e213fa98328e8b8522ebb42c17e6f15428ae96a4a9250a09889a79264",
+        "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b",
+        "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1"
+      },
+      "run_manifest": "sample_outputs/targeted_retests_20261031.json",
+      "saved_output_revalidation": {
+        "artifact": "sample_outputs/targeted_saved_output_revalidation_final_20261031/PC004.json",
+        "sha256": "ab77f6e47ea6a29782350b3c03f259ccbd3e3fbb82633f95635598a77d24ec4c"
+      }
+    },
+    {
+      "id": "refund_coupon_context",
+      "kind": "refund_edge",
+      "artifact": "sample_outputs/targeted_live_20261031T083035Z/refund_coupon_context.json",
+      "sha256": "eaa9796c9d0817ae69a1cca8d48f1b0e63f383881276ab00e94adf17f448e84f",
+      "passed": true,
+      "inference_runtime_source_sha256": {
+        "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+        "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+        "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
+        "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+        "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
+        "src/category_labels.py": "3937d794fc8e46d40fe16917792f54043f2a875f84bf920aca5cb948c5685bf4",
+        "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+        "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+        "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+        "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+        "src/document_answers.py": "d15288b88e88d650d01b1b55bb71cc45034c5f337e3e06096965c940d9a1de74",
+        "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
+        "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
+        "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+        "src/event_dates.py": "50c95bfa6c406662ddf451d6142c9103f280783881dc9e8981ae027715944acc",
+        "src/generation_diagnostics.py": "45a815d890d9095e94d2ccec474fa5a5a954260946bc0fa76cbee74f21c79f69",
+        "src/grounding.py": "2b1fe2642061684ac0e9de452d337bc01bc82038c2386710b1b438b915e09586",
+        "src/inference_facts.py": "d3819522d139ff8f64082e000446728185072a37eb3dde7dfa5860a3fa3bec5b",
+        "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+        "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+        "src/llm.py": "f794cec90041e1c5a12a90f3e34f2d0cdcf8fd3542c5f1ce1c1fc55cd0e6a4de",
+        "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+        "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
+        "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+        "src/operational_explanations.py": "f4457d3fdd658b89c449e9f1b3cfc18ecb98fe45330e2867ee46fe65bb4ad1f2",
+        "src/pending_refund_context.py": "7db580e1d420d47a31fc9d99aa7fbd238ed098247c6fa633999a37bdc9292572",
+        "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
+        "src/placement_conditions.py": "3eb576b2a2aee31004165cd5fb69325066e57c7a6aac175023d9879b4bec740c",
+        "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
+        "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
+        "src/refund_status.py": "4fa8084768804b5772dc34b813bf33b00105434303bb4bcc198e3fae0e3f49f9",
+        "src/refund_timeline.py": "7aea4f47124b1271dfd614b14acd496d2f9360800552fcec3699c9762739ec4b",
+        "src/remedy_prerequisites.py": "bcc35bc0ea4893e478b0e77e24a9c546f0226bbfbc130af3994813a03a7c575a",
+        "src/repair_contexts.py": "991548ed379332429b82665103e4dc21e18ada072711cb4e58e3998ba0beb833",
+        "src/reporting_clock.py": "4bbd09b3788b5454e889b49a5c872983a6fe01bb812a89e415e35a2b5c0d0ccf",
+        "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+        "src/return_conditions.py": "c29c8736effec57d7b8d7a0efab1e092bd5bc4a315f5ac8fd28f6ce98b329795",
+        "src/return_transition_claims.py": "569a5c35b84c8d5f2112731374a698118cc34fd8caed354a65e70f6f51aec2c4",
+        "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
+        "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+        "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
+        "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+        "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
+        "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
+        "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+        "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+        "src/voice.py": "75565d0e213fa98328e8b8522ebb42c17e6f15428ae96a4a9250a09889a79264",
+        "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b",
+        "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1"
+      },
+      "run_manifest": "sample_outputs/targeted_final_edges_20261031.json",
+      "saved_output_revalidation": {
+        "artifact": "sample_outputs/targeted_saved_output_revalidation_final_20261031/refund_coupon_context.json",
+        "sha256": "44d2189316cf32ac8abce7787b3c3361124bcfd0b9271cb0009b3db0e1e632a2"
+      }
+    },
+    {
+      "id": "refund_completed_date",
+      "kind": "refund_edge",
+      "artifact": "sample_outputs/targeted_live_20261031T084512Z/refund_completed_date.json",
+      "sha256": "e504aa87f918b1050677c40ad60be2dea0c786430a832d6ce8f18537e539f9ea",
+      "passed": true,
+      "inference_runtime_source_sha256": {
+        "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+        "src/agent.py": "069ba46a4958c8202af15854b16ad7f6d3ad92a1e8609e028c63ed5821adc541",
+        "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
+        "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+        "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
+        "src/category_labels.py": "3937d794fc8e46d40fe16917792f54043f2a875f84bf920aca5cb948c5685bf4",
+        "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+        "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+        "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+        "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+        "src/document_answers.py": "7fee2dec6ed176468abf58c62039fe844859049e2827345be9ac3cf4eede305c",
+        "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
+        "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
+        "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+        "src/event_dates.py": "50c95bfa6c406662ddf451d6142c9103f280783881dc9e8981ae027715944acc",
+        "src/generation_diagnostics.py": "45a815d890d9095e94d2ccec474fa5a5a954260946bc0fa76cbee74f21c79f69",
+        "src/grounding.py": "2b1fe2642061684ac0e9de452d337bc01bc82038c2386710b1b438b915e09586",
+        "src/inference_facts.py": "d3819522d139ff8f64082e000446728185072a37eb3dde7dfa5860a3fa3bec5b",
+        "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+        "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+        "src/llm.py": "f794cec90041e1c5a12a90f3e34f2d0cdcf8fd3542c5f1ce1c1fc55cd0e6a4de",
+        "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+        "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
+        "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+        "src/operational_explanations.py": "f4457d3fdd658b89c449e9f1b3cfc18ecb98fe45330e2867ee46fe65bb4ad1f2",
+        "src/pending_refund_context.py": "7db580e1d420d47a31fc9d99aa7fbd238ed098247c6fa633999a37bdc9292572",
+        "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
+        "src/placement_conditions.py": "3eb576b2a2aee31004165cd5fb69325066e57c7a6aac175023d9879b4bec740c",
+        "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
+        "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
+        "src/refund_status.py": "4fa8084768804b5772dc34b813bf33b00105434303bb4bcc198e3fae0e3f49f9",
+        "src/refund_timeline.py": "e8a293ca89f178edcfebcc54af2e70dba87edd1fafc1f884fe4571a8a9b3198d",
+        "src/remedy_prerequisites.py": "bcc35bc0ea4893e478b0e77e24a9c546f0226bbfbc130af3994813a03a7c575a",
+        "src/repair_contexts.py": "991548ed379332429b82665103e4dc21e18ada072711cb4e58e3998ba0beb833",
+        "src/reporting_clock.py": "4bbd09b3788b5454e889b49a5c872983a6fe01bb812a89e415e35a2b5c0d0ccf",
+        "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+        "src/return_conditions.py": "c29c8736effec57d7b8d7a0efab1e092bd5bc4a315f5ac8fd28f6ce98b329795",
+        "src/return_transition_claims.py": "569a5c35b84c8d5f2112731374a698118cc34fd8caed354a65e70f6f51aec2c4",
+        "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
+        "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+        "src/source_selection.py": "df468e707077f181442d6b9f6bc74305aa6fb2a0cf2a9852af1334ae0d685015",
+        "src/source_semantics.py": "1e1dc5ead7846f216ea1758ad8300e50fc2a03db8ffec56b8f5c4a342de57cd9",
+        "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
+        "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
+        "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+        "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+        "src/voice.py": "75565d0e213fa98328e8b8522ebb42c17e6f15428ae96a4a9250a09889a79264",
+        "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b",
+        "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1"
+      },
+      "run_manifest": "sample_outputs/targeted_completion_retest_20261031.json",
+      "saved_output_revalidation": {
+        "artifact": "sample_outputs/targeted_saved_output_revalidation_final_20261031/refund_completed_date.json",
+        "sha256": "45a033b136a613e6935ba42aa2d828bfa60d04899b9b9d1b0896018bd8f48513"
+      }
+    }
+  ],
+  "manual_semantic_review": {
+    "status": "passed",
+    "reviewer_type": "assistant_source_review_not_human_certification",
+    "scope": "Source/record accuracy review of actual selected outputs, not independent hidden-test or subjective speech certification. Wording limitations are disclosed.",
+    "reviewed_at_utc": "2026-10-31T08:49:10.463221+00:00",
+    "cases": [
+      {
+        "id": "PC009",
+        "artifact_sha256": "90514fa3bb0dadfe83ebdd72243432013ce2f984d033d6f238853c049d47b26a",
+        "passed": true,
+        "notes": "QC-pass and refund-initiation dates are described as not recorded, without asserting a failed check or advising use of an absent RRN. The quality-check prerequisite is explained; the wording remains repetitive."
+      },
+      {
+        "id": "PC010",
+        "artifact_sha256": "3a656c414fe110f38b631b5954aff4b379f0f3fdb72bd7e400dcfcc7693b418a",
+        "passed": true,
+        "notes": "Known UPI 1-3 business-day policy, recorded initiation date/reference and overdue calculation are separated from confirmed human handover. No refund was executed by the assistant."
+      },
+      {
+        "id": "PC003",
+        "artifact_sha256": "d672f101f16b868c0eeb0e3718460c79ac7b26de39f1da4607f3598573b63400",
+        "passed": true,
+        "notes": "Fashion return window and calculated 27 October deadline match the recorded delivery/placement. Plus pickup waiver/initiation conditions are preserved. Wallet receipt is within 2 hours after initiation; no invented date or business-day wallet estimate remains. Some grammar/repetition remains."
+      },
+      {
+        "id": "PC004",
+        "artifact_sha256": "e3b7b46e150665c124cb281a450008aabe1a52b4d0820fec14776a732142f704",
+        "passed": true,
+        "notes": "Calculated 13 November deadline and 49-rupee pickup policy are stated with change-of-mind versus damaged/defective/wrong-item and Plus waiver conditions. UPI arrival remains 1-3 business days after initiation."
+      },
+      {
+        "id": "refund_coupon_context",
+        "artifact_sha256": "eaa9796c9d0817ae69a1cca8d48f1b0e63f383881276ab00e94adf17f448e84f",
+        "passed": true,
+        "notes": "Known UPI receipt range remains conditional on initiation. The returned item price after coupon discount and the remaining-order minimum-value deduction condition are preserved. The conditional statement does not claim a performed action."
+      },
+      {
+        "id": "refund_completed_date",
+        "artifact_sha256": "e504aa87f918b1050677c40ad60be2dea0c786430a832d6ce8f18537e539f9ea",
+        "passed": true,
+        "notes": "The answer gives 2026-09-07, exactly the authenticated return_refund_completed_on field. It reads an existing record rather than calculating a completion date or performing a refund. Wording is terse and remains a presentation limitation."
+      }
+    ]
+  },
+  "preserved_initial_failures": {
+    "artifact": "sample_outputs/targeted_live_20261031T073740Z/manifest.json",
+    "notes": "PC009.4 had unsupported missing-record/absent-RRN wording; PC003.5 mixed wallet hours and business days with an invented date. Coupon edge abstained on an overbroad conditional-action guard. Actual earlier outputs are preserved."
+  }
+}
