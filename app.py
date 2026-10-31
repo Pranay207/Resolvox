@@ -120,7 +120,7 @@ st.markdown("""<style>
 .st-key-support_layout > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] {flex-direction:column;gap:.8rem;}
 .st-key-support_layout > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {width:100%!important;flex:1 1 auto!important;min-width:0!important;}
 .st-key-case_column [data-testid="stVerticalBlock"] {gap:.45rem;}
-.st-key-next_step {padding:.65rem!important;}
+.st-key-next_step {padding:0!important;}
 .st-key-next_step [data-testid="stVerticalBlock"] {gap:.2rem;}
 .st-key-support_conversation [data-testid="stLayoutWrapper"]:has(> .st-key-conversation_history) {height:180px!important;}
 .st-key-conversation_history .empty-reply {min-height:120px;padding:.65rem;}
@@ -128,6 +128,30 @@ st.markdown("""<style>
 .st-key-conversation_language {max-width:100%;}
 .st-key-support_layout summary {min-height:44px;}
 .st-key-quick_questions [data-testid="stHorizontalBlock"] {flex-wrap:wrap;gap:.4rem;}
+}
+
+/* Let the primary recording action stay in view, including short screens. */
+.st-key-support_conversation > [data-testid="stLayoutWrapper"]:has(> .st-key-input_composer) {position:sticky;bottom:.5rem;z-index:3;background:#fff;border-radius:12px;}
+.st-key-compact_case {max-width:100%;}
+.st-key-support_conversation [data-testid="stLayoutWrapper"]:has(> .st-key-conversation_history) {height:clamp(90px,calc(100dvh - 580px),260px)!important;}
+@media(max-height:760px) {
+.st-key-conversation_history .empty-reply {min-height:70px;padding:.35rem;}
+.st-key-conversation_history .wave {height:28px;}
+.st-key-conversation_history .wave i {max-height:28px;}
+.st-key-conversation_history .empty-reply p {font-size:.8rem;margin:3px 0 0;}
+}
+@media(max-width:800px) {
+.st-key-support_conversation [data-testid="stLayoutWrapper"]:has(> .st-key-conversation_history) {height:clamp(72px,calc(100dvh - 620px),160px)!important;}
+.st-key-support_layout:has(.st-key-case_column) .st-key-support_conversation [data-testid="stLayoutWrapper"]:has(> .st-key-conversation_history) {height:clamp(56px,calc(100dvh - 720px),100px)!important;}
+.st-key-next_step [data-testid="stCaptionContainer"] {display:none;}
+.st-key-next_step h3 {font-size:.85rem!important;}
+.st-key-next_step p {font-size:.85rem;}
+.st-key-conversation_history .empty-reply {min-height:64px;padding:.25rem;}
+.st-key-conversation_history .empty-reply .wave {display:none;}
+}
+@media(max-width:800px) and (max-height:700px) {
+.st-key-support_conversation [data-testid="stLayoutWrapper"]:has(> .st-key-conversation_history):has(.empty-reply) {display:none;}
+.st-key-next_step h3 {display:none;}
 }
 </style>""", unsafe_allow_html=True)
 
@@ -165,7 +189,7 @@ with st.sidebar:
 
 st.session_state.agent.compose = live
 st.title('How can we help?')
-st.markdown('<p class="support-intro">ZentroMart support for your orders, returns and refunds.</p>', unsafe_allow_html=True)
+st.markdown('<p class="support-intro">ZentroMart customer support</p>', unsafe_allow_html=True)
 
 def evidence(out):
     with st.expander('View supporting policy'):
@@ -298,7 +322,7 @@ def case_snapshot(agent, messages):
     else:
         next_title = 'Review your support guidance'
         next_detail = 'Your latest reply explains the available next step. You can ask a follow-up here.'
-    return {'verified': verified, 'order_linked': bool(current_id), 'details': details,
+    return {'verified': verified, 'order_linked': bool(current_id), 'show_next_step': bool(last and decision in {'clarify', 'escalate'}), 'details': details,
             'items': items, 'ticket_id': ticket, 'next_title': next_title, 'next_detail': next_detail}
 
 
@@ -332,34 +356,59 @@ def render_case(snapshot):
         if snapshot['ticket_id']:
             st.markdown('<span class="case-status ticket">Ticket created</span>', unsafe_allow_html=True)
             st.write('**Reference** · ' + str(snapshot['ticket_id']))
-    with st.container(border=True, key='next_step'):
-        st.subheader('Your next step')
-        st.write('**' + snapshot['next_title'] + '**')
-        st.caption(snapshot['next_detail'])
+    if snapshot['show_next_step']:
+        with st.container(border=True, key='next_step'):
+            st.subheader('Your next step')
+            st.write('**' + snapshot['next_title'] + '**')
+            st.caption(snapshot['next_detail'])
 
 
+snapshot = case_snapshot(st.session_state.agent, st.session_state.messages)
+has_case_context = snapshot['order_linked'] or snapshot['ticket_id'] or snapshot['show_next_step']
 with st.container(key='support_layout'):
-    case_column, conversation_column = st.columns([.9, 2.1], gap='medium')
-    with case_column:
-        with st.container(key='case_column'):
-            render_case(case_snapshot(st.session_state.agent, st.session_state.messages))
+    if has_case_context:
+        case_column, conversation_column = st.columns([.9, 2.1], gap='medium')
+        with case_column:
+            with st.container(key='case_column'):
+                render_case(snapshot)
+    else:
+        with st.container(key='compact_case', width=280):
+            render_case(snapshot)
+        conversation_column = st.container()
     with conversation_column:
         with st.container(border=True, key='support_conversation'):
             st.subheader('Your conversation')
             with st.container(height=260, border=False, key='conversation_history'):
                 render_conversation('support')
-            with st.container(horizontal=True, vertical_alignment='center', gap='small', key='composer_toolbar'):
-                mode = st.radio('Message input', ['Speak', 'Type'], horizontal=True,
-                                key='input_mode', label_visibility='collapsed')
-                language_choices = list(VOICE_LANGUAGES) if regional_preview else ['English / Hinglish', 'Hindi']
-                if st.session_state.get('conversation_language') not in language_choices:
-                    st.session_state.conversation_language = language_choices[0]
-                spoken_language = st.selectbox('Language', language_choices, key='conversation_language',
-                    help='English / Hinglish follows the language of your message. Choose Hindi or a preview language explicitly.', label_visibility='collapsed', width=160)
+            with st.container(key='input_composer'):
+                with st.container(horizontal=True, vertical_alignment='center', gap='small', key='composer_toolbar'):
+                    mode = st.radio('Message input', ['Speak', 'Type'], horizontal=True,
+                                    key='input_mode', label_visibility='collapsed')
+                    language_choices = list(VOICE_LANGUAGES) if regional_preview else ['English / Hinglish', 'Hindi']
+                    if st.session_state.get('conversation_language') not in language_choices:
+                        st.session_state.conversation_language = language_choices[0]
+                    spoken_language = st.selectbox('Language', language_choices, key='conversation_language',
+                        help='English / Hinglish follows the language of your message. Choose Hindi or a preview language explicitly.', label_visibility='collapsed', width=160)
+                if mode == 'Speak':
+                    epoch = st.session_state.voice_epoch
+                    audio = st.audio_input('Record a message', key=f'voice_recording_{epoch}')
+                    send_action = st.container(key='send_voice_action')
+                else:
+                    example_prompt = None
+                    if not st.session_state.messages:
+                        with st.container(horizontal=True, gap='small', key='quick_questions'):
+                            for label, question in [('Track an order', 'Where is my order?'),
+                                                    ('Refund timing', 'How long does a UPI refund take?')]:
+                                if st.button(label):
+                                    example_prompt = question
+                    prompt = st.chat_input('Type your question…', key='support_chat') or example_prompt
+                    if prompt:
+                        with st.spinner('Checking your question…'):
+                            selected = None if spoken_language == 'English / Hinglish' else VOICE_LANGUAGES[spoken_language]
+                            out = respond_in_language(prompt, selected)
+                        st.session_state.messages.append({'output': out, 'audio': None, 'audio_error': None})
+                        st.rerun()
             if mode == 'Speak':
-                epoch = st.session_state.voice_epoch
-                audio = st.audio_input('Record a message', key=f'voice_recording_{epoch}')
-                uploaded = None
                 with st.expander('Upload an audio clip', expanded=False):
                     uploaded = st.file_uploader('Choose an audio clip', type=['wav', 'mp3', 'ogg', 'flac', 'aac', 'm4a'], key=f'voice_upload_{epoch}')
                 selected_audio = uploaded if uploaded is not None else audio
@@ -368,21 +417,8 @@ with st.container(key='support_layout'):
                 st.caption('Up to 60 seconds per message · Uploads up to 20 MB')
                 if st.session_state.voice_error:
                     st.error('We could not process that recording. Try a clear, short clip or switch to Type.')
-                if st.button('Send voice message', type='primary', use_container_width=True, disabled=selected_audio is None):
+                with send_action:
+                    send_voice = st.button('Send voice message', type='primary', use_container_width=True, disabled=selected_audio is None)
+                if send_voice:
                     process_voice(selected_audio, spoken_language)
-                    st.rerun()
-            else:
-                example_prompt = None
-                if not st.session_state.messages:
-                    with st.container(horizontal=True, gap='small', key='quick_questions'):
-                        for label, question in [('Track an order', 'Where is my order?'),
-                                                ('Refund timing', 'How long does a UPI refund take?')]:
-                            if st.button(label):
-                                example_prompt = question
-                prompt = st.chat_input('Type your question…', key='support_chat') or example_prompt
-                if prompt:
-                    with st.spinner('Checking your question…'):
-                        selected = None if spoken_language == 'English / Hinglish' else VOICE_LANGUAGES[spoken_language]
-                        out = respond_in_language(prompt, selected)
-                    st.session_state.messages.append({'output': out, 'audio': None, 'audio_error': None})
                     st.rerun()

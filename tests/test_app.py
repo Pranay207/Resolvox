@@ -221,7 +221,9 @@ def test_workspace_keeps_evaluation_metrics_out_of_customer_ui():
     assert not app.tabs and not app.metric
     assert [item.value for item in app.title] == ['How can we help?']
     assert any(item.label == 'Your case' for item in app.expander)
-    assert any(item.value == 'Your next step' for item in app.subheader)
+    assert not any(item.value == 'Your next step' for item in app.subheader)
+    assert not any('Tell us what happened' in item.value for item in app.markdown)
+    assert len(app.get('column')) == 0
     assert not any('52' in item.value for item in app.info)
 
 
@@ -304,3 +306,24 @@ def test_verified_lookup_renders_case_once_and_new_order_hides_it():
     assert not app.exception
     assert app.session_state.agent.state.order is None
     assert not any('Order verified' in item.value for item in app.markdown)
+
+
+def test_case_context_and_next_step_only_expand_when_action_is_needed():
+    app = start()
+    assert not any(x.value == 'Your next step' for x in app.subheader)
+    app.radio(key='input_mode').set_value('Type').run()
+    app.chat_input[0].set_value('Where is my order?').run()
+    app.run()
+    assert not app.exception
+    assert any(x.value == 'Your next step' for x in app.subheader)
+    assert any('Answer the question below' in x.value for x in app.markdown)
+    button(app, 'New conversation').click().run()
+    assert not any(x.value == 'Your next step' for x in app.subheader)
+
+
+def test_policy_answer_does_not_add_a_generic_next_step_card():
+    view = snapshot_function()(case_agent(oid=None), [output_message(decision='answer')])
+    assert view['show_next_step'] is False
+    for decision in ['clarify', 'escalate']:
+        view = snapshot_function()(case_agent(oid=None), [output_message(decision=decision)])
+        assert view['show_next_step'] is True

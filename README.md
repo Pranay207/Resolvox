@@ -46,7 +46,7 @@ Capstone for **From Tokens to Transformers**, organized by the Consulting & Anal
 
 Use the compact **Speak · Type** switch in **Your conversation** to record a message or type a question. **Upload an audio clip** is a secondary option under Speak. Both input modes share one history, including replies and audio playback.
 
-**Your case** shows order details only after a successful verification lookup. **Your next step** reflects the latest reply, and a ticket reference appears only after confirmed creation. On smaller screens, the collapsible case details sit above the conversation; the message history scrolls within its panel. **New conversation** clears the history and verification. **Retry reply audio** retries speech without repeating the agent action.
+**Your case** starts as a compact disclosure and expands into contextual support when needed. Order details appear only after a successful verification lookup, and ticket references require confirmed creation. **Your next step** appears for clarification or handover, rather than repeating the welcome message. On smaller screens, case details sit above the conversation. The history scrolls separately, and the grouped input controls keep the recorder and Send action together on short screens. **New conversation** clears the history and verification. **Retry reply audio** retries speech without repeating the agent action.
 
 Under **Advanced options**, AI policy answers are enabled by default and extra language previews are disabled.
 
