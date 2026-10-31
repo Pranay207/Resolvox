@@ -235,7 +235,7 @@ Additional regional routes are experimental and have not been validated for the 
 python scripts/setup_translation.py
 ```
 
-This separately downloads approximately **907 MB** of pinned NLLB weights. Enable **Demo settings → Preview additional languages** afterward. Other regional languages use masked local translation around the same agent; placeholder, script and translation checks reject malformed output with a localized retry. These checks do not prove semantic equivalence. Choose Marathi explicitly because Hindi and Marathi share Devanagari; English/Hindi/Hinglish retain their existing path.
+This separately downloads approximately **907 MB** of pinned NLLB weights. Enable **Advanced options → Extra languages** afterward. Other regional languages use masked local translation around the same agent; placeholder, script and translation checks reject malformed output with a localized retry. These checks do not prove semantic equivalence. Choose Marathi explicitly because Hindi and Marathi share Devanagari; English/Hindi/Hinglish retain their existing path.
 
 | Language | Batch/STT code | TTS voice |
 | --- | --- | --- |
