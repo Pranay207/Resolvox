@@ -568,7 +568,27 @@ def _source_generic_initiation_validation_text(answer, sources):
         start, end = match.span('predicate')
         offset = match.start()
         return match[0][:start-offset] + 'refund initiation occurs' + match[0][end-offset:]
-    return pattern.sub(replace, answer)
+    answer = pattern.sub(replace, answer)
+    # Mask only the conditional subordinate clause licensed by a current
+    # refund initiation clock. Keep surrounding claims, numbers and speech
+    # untouched; an adjacent actual/performed action still reaches the guard.
+    licensed = False
+    for source in sources:
+        if source.get('doc_type') != 'policy' or source.get('status') != 'current':
+            continue
+        try:
+            if datetime.fromisoformat(source['effective_from']).date() > REFERENCE_DATE:
+                continue
+        except (KeyError, TypeError, ValueError):
+            continue
+        text = source.get('text', '')
+        if (re.search(r'\brefund', text, re.I) and
+                re.search(r'after\s+initiation|from[^.\n]{0,80}refund\s+is\s+initiated', text, re.I)):
+            licensed = True
+    if licensed:
+        answer = re.sub(r'(\brefund\b[^.!?;\n]{0,160}\b(?:after|once|when|if)\s+)it\s+is\s+initiated\b',
+                        lambda match: match[1] + 'refund initiation', answer, flags=re.I)
+    return answer
 
 
 def _source_effective_date_validation_text(answer, sources):
