@@ -1,13 +1,21 @@
-# Resolvox
+<p align="center">
+  <img src="assets/resolvox-logo.svg" alt="Resolvox voice support logo" width="96" height="96">
+</p>
 
-**Multilingual voice and text support for ZentroMart**
+<h1 align="center">Resolvox</h1>
 
-VoiceOps 2026 Capstone · From Tokens to Transformers
+<p align="center">
+  <strong>Multilingual voice and text support for ZentroMart</strong><br>
+  VoiceOps 2026 Capstone · From Tokens to Transformers
+</p>
 
-![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-Support_Console-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)
-![Gnani](https://img.shields.io/badge/Gnani-STT_%2B_TTS-16866C?style=flat-square)
-![ONNX Runtime](https://img.shields.io/badge/ONNX_Runtime-Local_Retrieval-005CED?style=flat-square&logo=onnx&logoColor=white)
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Python 3.11">
+  <img src="https://img.shields.io/badge/Streamlit-Support_Console-FF4B4B?style=flat-square&amp;logo=streamlit&amp;logoColor=white" alt="Streamlit">
+  <img src="https://img.shields.io/badge/Ollama-Local_LLM-111827?style=flat-square&amp;logo=ollama&amp;logoColor=white" alt="Ollama local LLM">
+  <img src="https://img.shields.io/badge/Gnani-STT_%2B_TTS-16866C?style=flat-square" alt="Gnani STT and TTS">
+  <img src="https://img.shields.io/badge/ONNX_Runtime-Local_Retrieval-005CED?style=flat-square&amp;logo=onnx&amp;logoColor=white" alt="ONNX Runtime">
+</p>
 
 Resolvox answers customer questions from ZentroMart’s documents, looks up verified orders and creates human-support tickets when needed. Voice and text share the same conversation, retrieval and tools.
 
