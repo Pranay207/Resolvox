@@ -44,7 +44,9 @@ _START = re.compile(
 _COVER = re.compile(r'\b(?:covers?|protects?\s+against)\b|कवर\s+कर(?:ता|ती|ते)|कवरेज', re.I)
 _EVENT = {'डिलीवरी': 'delivery', 'खरीद': 'purchase',
           'इनवॉइस': 'invoice', 'सक्रियण': 'activation'}
-_CREDIT = re.compile(r'\bcredit(?:ed)?\b|क्रेडिट', re.I)
+# A payment instrument is not a compensation-credit claim. Keep later
+# genuine credit predicates in the same clause subject to the benefit guard.
+_CREDIT = re.compile(r'\bcredit(?:ed)?\b(?![ -]+cards?\b)|क्रेडिट(?![ -]*कार्ड)', re.I)
 _FEE_EN = r'(?:fees?|charges?)'
 _PAID_EN = r'(?:paid|charged|collected|billed|pay kiya|pay ki|diya|di|bhara|bhari|chukaya|chukai)'
 _FEE_HI = r'(?:फ़ीस|फीस|शुल्क)'

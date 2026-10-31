@@ -212,3 +212,22 @@ def test_no_fee_charged_exclusion_is_not_itself_proof_that_a_fee_was_paid():
         validate_source_semantics(
             'You get a wallet credit. Orchid Club members have no fee charged and get no credit.',
             [credit_source()])
+
+
+@pytest.mark.parametrize('answer', [
+    'For a credit card payment, the refund follows the card payment timeline.',
+    'Credit-card refunds follow the payment-method policy.',
+    'क्रेडिट कार्ड भुगतान का रिफंड भुगतान विधि की समयसीमा के अनुसार आता है।',
+])
+def test_credit_card_instrument_is_not_a_delivery_compensation_claim(answer):
+    validate_source_semantics(answer, [credit_source()])
+
+
+@pytest.mark.parametrize('answer', [
+    'For a credit card payment, you also get a credit to your wallet.',
+    'Credit-card payments also receive a credit.',
+    'क्रेडिट कार्ड भुगतान पर आपको क्रेडिट मिलेगा।',
+])
+def test_card_reference_does_not_hide_a_separate_compensation_claim(answer):
+    with pytest.raises(ValueError, match='source_credit_paid_fee_condition_missing'):
+        validate_source_semantics(answer, [credit_source()])

@@ -107,3 +107,17 @@ def test_input_context_trace_excludes_unseen_chunks_but_full_validation_is_prese
  assert result['generation_input_contexts']==[{'attempt':1,'source_ids':actual_ids}]
  assert 'unrelated-help' not in result['source_ids']
  assert 'unrelated-help' in result['validation_source_ids']
+
+
+def test_focused_arrival_prompt_preserves_customer_membership_question():
+    query='When will my card refund arrive, and does membership make it faster?'
+    facts,sources=context(method='credit_card',query=query)
+    sources.append({'id':'membership-rule','doc_type':'policy','status':'current',
+                    'text':'Orchid Club does not change refund timelines after initiation.'})
+    answer='Card refunds take 41 to 53 business days after initiation. Orchid Club does not change refund timelines after initiation.'
+    client=Client(answer)
+    result=document_reply(client,query,'en',sources,facts=facts,private=True,context_provenance=True)
+    assert result['answer']==answer
+    assert client.calls[0][1]['question']==query
+    assert 'membership-rule' in {s['id'] for s in client.calls[0][1]['source_text']}
+    assert 'every requested facet' in client.calls[0][0]
