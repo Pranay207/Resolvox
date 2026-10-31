@@ -1,25 +1,25 @@
 # Resolvox
 
-**Multilingual AI Voice Support for ZentroMart**
+**Multilingual voice and text support for ZentroMart**
 
-**VoiceOps 2026 Capstone**
+VoiceOps 2026 Capstone · From Tokens to Transformers
 
 ![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Support_Console-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)
 ![Gnani](https://img.shields.io/badge/Gnani-STT_%2B_TTS-16866C?style=flat-square)
 ![ONNX Runtime](https://img.shields.io/badge/ONNX_Runtime-Local_Retrieval-005CED?style=flat-square&logo=onnx&logoColor=white)
 
-Resolvox helps online shoppers resolve questions about returns, refunds, deliveries and orders through voice or text. It retrieves ZentroMart policies, verifies access before disclosing private order information, and creates support handover tickets through the supplied tools.
+Resolvox answers customer questions from ZentroMart’s documents, looks up verified orders and creates human-support tickets when needed. Voice and text share the same conversation, retrieval and tools.
 
 **Primary languages:** English, Hindi and Hinglish.
 
-Built for **From Tokens to Transformers**, Consulting & Analytics Club, IIT Guwahati × Gnani.ai.
+Capstone for **From Tokens to Transformers**, organized by the Consulting & Analytics Club, IIT Guwahati × Gnani.ai.
 
-[Demo Video](#demo-video) · [Quick Start](#quick-start) · [Architecture](#architecture) · [Evaluation](#evaluation) · [Languages](#language-support) · [Documentation](#documentation)
+[Demo](#demo-video) · [Quick Start](#quick-start) · [Batch Command](#organizer-batch-command) · [Architecture](#architecture) · [Evaluation](#evaluation) · [Submission](#submission-status) · [Documentation](#documentation)
 
 ## Demo Video
 
-> **Space reserved for the final demo video.**
+> Demo video — recording to be added here.
 
 <!-- Add the actual recording link or embedded video here after the final own-voice rehearsal. -->
 
@@ -34,14 +34,11 @@ Built for **From Tokens to Transformers**, Consulting & Analytics Club, IIT Guwa
 | Voice and text | Uses one shared agent for typed questions and Gnani speech input/output. |
 | Uncertainty handling | Attempts one bounded repair of invalid model output, then abstains if a supported answer is unavailable. |
 
-### Customer Workflow
+### Using the Application
 
-1. **Ask:** type a question, record speech or upload an audio clip.
-2. **Clarify:** the agent asks for missing details and verifies order access when needed.
-3. **Resolve:** receive an answer with policy sources and, for voice requests, spoken playback.
-4. **Escalate:** receive a confirmed handover ticket when the case needs human support.
+Choose **Voice support** to record or upload audio, or **Text support** to type a question. Provide an order ID and verification detail when requested. Replies include expandable sources and confirmed tool outcomes.
 
-The Streamlit console provides **Voice support** and **Text support** tabs. The layout adapts to phone, tablet and desktop widths, stacking voice controls and the conversation on narrow screens. Conversation state, redacted transcripts and reply audio persist across reruns. **Retry reply audio** synthesizes the saved answer without repeating the agent action; **New conversation** clears the session and verification state.
+The layout adapts to phone, tablet and desktop widths. Both tabs share conversation state. **New conversation** clears that state and verification; **Retry reply audio** retries speech without repeating the agent action. Under **Advanced options**, AI policy answers are enabled by default and extra language previews are disabled.
 
 ## Quick Start
 
@@ -52,7 +49,9 @@ The Streamlit console provides **Voice support** and **Text support** tabs. The 
 - Your own **Gnani API key** for speech, available from the [Gnani voice dashboard](https://app.gnani.ai/voice).
 - Internet access for the initial dependency, dataset and model downloads, and for Gnani speech calls.
 
-The recorded environment is Windows with Python 3.11. Setup downloads the official synthetic dataset separately, validates it, and obtains the pinned quantized multilingual embedding model. The optional regional translation model is downloaded only when explicitly requested.
+The tested environment is Windows with Python 3.11. Setup downloads and validates the official synthetic dataset and downloads the pinned embedding model. Regional translation weights are optional.
+
+**Connectivity:** local retrieval and Ollama text generation can run offline after setup. Gnani speech recognition and synthesis require internet access; the complete voice application is not fully offline.
 
 ### 1. Clone and Install
 
@@ -85,7 +84,7 @@ Edit your local `.env` before launching the app:
 ```dotenv
 GNANI_API_KEY=your_gnani_api_key
 LLM_PROVIDER=ollama
-LLM_BASE_URL=http://127.0.0.1:11435
+LLM_BASE_URL=http://127.0.0.1:11434
 LLM_MODEL=qwen3:4b-instruct
 LLM_TIMEOUT=600
 RAG_LLM_TIMEOUT=600
@@ -94,20 +93,19 @@ COMPOSE_WITH_LLM=true
 
 Keep the remaining defaults from [.env.example](.env.example), including `REFERENCE_DATE=2026-10-20`. Credentials belong only in the ignored `.env`; use synthetic or consented audio.
 
-Install the model when using the default local Ollama configuration:
+Start Ollama in a separate terminal if it is not already running:
+
+```sh
+ollama serve
+```
+
+Then download the model from another terminal:
 
 ```sh
 ollama pull qwen3:4b-instruct
 ```
 
-The recorded local configuration uses **Ollama `qwen3:4b-instruct` on port 11435**. Start its server in a separate terminal:
-
-```powershell
-$env:OLLAMA_HOST='127.0.0.1:11435'
-ollama serve
-```
-
-For macOS/Linux, use `OLLAMA_HOST=127.0.0.1:11435 ollama serve`. The unchanged `.env.example` uses port **11434**; keep the server port and `LLM_BASE_URL` consistent.
+The setup above uses Ollama’s default port **11434**, matching `.env.example`. The recorded laptop checks used **11435**; to reproduce that endpoint, set `OLLAMA_HOST=127.0.0.1:11435` before starting Ollama and set `LLM_BASE_URL=http://127.0.0.1:11435` in `.env`. The two ports must match.
 
 <details>
 <summary>Use a compatible hosted LLM instead</summary>
@@ -130,7 +128,7 @@ Set `LLM_PROVIDER=compatible`, `LLM_BASE_URL`, `LLM_MODEL` and `LLM_API_KEY` in 
 .venv/bin/python -m streamlit run app.py
 ```
 
-Open **http://localhost:8501**. Choose the spoken language and **Record** or **Upload**, then send a clip of up to **60 seconds**. Uploads are limited to **20 MB**. Text support uses the same conversation and verification state.
+Open [localhost:8501](http://localhost:8501). Choose the spoken language and **Record** or **Upload**, then send a clip of up to **60 seconds**. Uploads are limited to **20 MB**. Text support uses the same conversation and verification state.
 
 ## Organizer Batch Command
 
@@ -177,7 +175,7 @@ flowchart TD
 
 | Component | Implementation |
 | --- | --- |
-| Interface | Streamlit voice, text and evaluation console |
+| Interface | Responsive Streamlit console with Voice support and Text support tabs |
 | Answer model | Local Ollama `qwen3:4b-instruct`; selected laptop endpoint on port 11435 |
 | Retrieval | Lexical search + multilingual MiniLM embeddings using quantized ONNX |
 | Speech | Gnani STT and TTS only |
@@ -188,37 +186,40 @@ See [DESIGN.md](DESIGN.md) for the state model, retrieval strategy and evidence 
 
 ## Evaluation
 
-A separate [new-case UI smoke check](sample_outputs/ui_user_smoke_20261031.json) records the card/Plus, wallet follow-up and unsupported delivery-guarantee probes, their initial issues and affected retests.
-
-Recorded verification as of **31 October 2026**:
+Recorded local development results as of **31 October 2026**:
 
 | Check | Recorded result | Evidence |
 | --- | --- | --- |
-| Last full engineering run, before the latest refund patch | **3,290 passed**, zero failures, errors or skips | [Verification receipt](sample_outputs/engineering_verification.json) |
-| Latest refund-context fixes, targeted tests only | **371 passed**, zero failures, errors or skips | [Targeted verification](sample_outputs/refund_scope_verification_20261031.json) |
-| Official dataset validation | **Passed** · 9 CSVs and 21 knowledge-base documents | [Validator output](sample_outputs/engineering_artifacts/20261031T060814584432Z_92c93db5/dataset_validation.log) |
-| Selected live conversations and refund edges | **6/6 case groups passed**; live retests and retained-output checks are distinguished | [Targeted evidence](sample_outputs/targeted_live_validation.json) |
-| Current primary-language speech batch | **3/3** selected synthetic round trips; Hindi retested separately | [Speech evidence](sample_outputs/targeted_voice_validation.json) |
-| Saved policy-question checks | **52/52** accumulated checks across recorded revisions | [Question records](sample_outputs/eval_step2_latest_cases.json) |
-| Latest live verification | **Stopped at the owner's request**; confirmation of the latest fixes remains incomplete | [Saved status](sample_outputs/verification_stop_20261031.json) |
+| Step 1: prompt-only baseline | **1/52**, including one recorded error | [Baseline outputs](sample_outputs/eval_step1.json) |
+| Step 2: grounded practice questions | **52/52 accumulated checks** across recorded revisions | [Question records](sample_outputs/eval_step2_latest_cases.json) |
+| Selected conversation scenarios | **18/18 turns**, plus **2/2 refund edge cases** | [Targeted evidence](sample_outputs/targeted_live_validation.json) |
+| Refund and reporting regressions | **371 passed** | [Test receipt](sample_outputs/refund_scope_verification_20261031.json) |
+| Packaging and report regressions | **148 passed** | [Test receipt](sample_outputs/targeted_release_tests_20261031.json) |
+| English, Hindi and Hinglish speech | **3/3 selected synthetic round trips**; Hindi retested separately | [Speech evidence](sample_outputs/targeted_voice_validation.json) |
+| Official dataset validation | **Passed**: 9 CSVs and 21 knowledge-base documents | [Validator output](sample_outputs/engineering_artifacts/20261031T060814584432Z_92c93db5/dataset_validation.log) |
 
-Question and conversation totals combine preserved predictions and targeted retests from different revisions. They are local development results, not organizer scores or a fresh complete run of the current revision. The selected conversation/refund checks and three-language synthetic speech batch are recorded separately. Some saved outputs were checked by current validators without fresh inference. The historical baseline uses a different model; it is not a controlled comparison. Each linked receipt identifies its recorded scope and execution revision.
+**Scope:** these are development checks, not organizer scores. The 52-question total combines preserved outputs and targeted retests; it is not a fresh complete run of the current revision. Selected conversation and speech evidence also identifies retained outputs and execution revisions. The baseline used `qwen3:1.7b`, while the selected model is `qwen3:4b-instruct`, so the comparison is not a controlled same-model experiment.
+
+Synthetic audio does not establish real-speaker, accent or noise performance. Selected generated turns took **12.4–257.1 seconds** on the recorded CPU setup. See [VERIFICATION.md](VERIFICATION.md) for measurement limits and historical runs, and the [new-case UI smoke check](sample_outputs/ui_user_smoke_20261031.json) for interactive probes and their targeted fixes.
 
 <details>
 <summary>Verification commands</summary>
 
-Run with the virtual environment activated. Live commands require the configured model or speech services.
+Activate the virtual environment before running these commands:
 
 ```sh
 python Capstone_Project_Dataset_FTTT_2026/validate_dataset.py
 python -m pytest -q
-python scripts/resume_live_practice.py --step 1
-python scripts/resume_live_practice.py --step 2
-python scripts/resume_live_practice.py --step 3
-python generate_voice_samples.py --reuse-inputs
 ```
 
-Use separate `--output` files when changing inference inputs. Historical measurements and limitations are documented in [VERIFICATION.md](VERIFICATION.md).
+Selected live checks require the configured local LLM and, for speech, Gnani access:
+
+```sh
+python scripts/validate_targeted_live.py
+python scripts/validate_targeted_voice.py
+```
+
+The original Step 1, Step 2 and Step 3 evaluation drivers remain available as `eval_step1.py`, `eval_step2.py` and `eval_step3.py`. Preserve previous outputs when changing the model or runtime configuration.
 
 </details>
 
@@ -257,24 +258,27 @@ Mappings follow [Gnani's voice catalog](https://docs.gnani.ai/api/TTS/available-
 
 ## Submission Status
 
-**The four-page report is updated and every page has been visually reviewed. No submission ZIP exists.** Current targeted checks and their limitations are linked above. **The demo video will be recorded last**, after the own-voice rehearsal. Final packaging waits for the real demo and confirmed public repository access.
+**Submission preparation is incomplete.** The demo is reserved above, repository access must be made public, and final ZIP creation is deferred until those steps are complete.
 
 | Deliverable | Status |
 | --- | --- |
-| Source, dependencies, setup and batch command | Available in this repository; make the repository public before submission |
-| Report, maximum four pages | [report.pdf](report.pdf): four pages, updated results and page-by-page visual QA |
-| Generated text, sources and speech outputs | [sample_outputs/](sample_outputs/); selected current checks, saved-output validation and historical evidence retain their scopes |
-| Demo, maximum two minutes | Reserved above; recording pending |
-| Submission archive | No ZIP exists; creation waits for all required evidence and the final demo |
+| Code, setup and organizer command | Available; public GitHub access still needs confirmation |
+| Report, maximum four pages | [report.pdf](report.pdf): four pages, visually reviewed |
+| Answer text, sources and speech examples | Available in [sample_outputs/](sample_outputs/), with recorded verification scopes |
+| Demo, maximum two minutes | Pending; record the final own-voice demonstration last |
+| Submission ZIP | Pending; no submission archive has been created |
 
-Once the final report, required evidence and `demo.mp4` are ready, build and verify the archive. Packaging currently remains blocked by the recorded submission status:
+After adding the real `demo.mp4` and confirming public access, create and check the final archive:
 
 ```sh
+python scripts/check_repository_visibility.py
 python package_submission.py
 python scripts/verify_package.py
 ```
 
-The archive name uses `pranay` as the documented team-name assumption. Packaging excludes credentials, `.env`, the dataset, model weights, caches, virtual environments, the source brief and private input audio. [SUBMISSION_STATUS.json](SUBMISSION_STATUS.json) records readiness and blockers; [BRIEF_CHECKLIST.md](BRIEF_CHECKLIST.md) maps implementation and evidence to the brief.
+The packager checks readiness and creates `dist/pranay_voiceops.zip`; `pranay` is the current team-name assumption. It excludes credentials, `.env`, the dataset copy, model weights, caches, virtual environments, the source brief and private input audio.
+
+[SUBMISSION_STATUS.json](SUBMISSION_STATUS.json) records release blockers. [BRIEF_CHECKLIST.md](BRIEF_CHECKLIST.md) maps the implementation and evidence to the brief.
 
 ## Documentation
 
