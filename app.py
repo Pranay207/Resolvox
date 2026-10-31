@@ -94,7 +94,7 @@ with st.sidebar:
                          help='Generate from retrieved source text. Invalid output is repaired once, then answered with uncertainty. Turn off to inspect document excerpts without generation.')
         st.caption('Synthetic order records · 20 October 2026')
         st.caption('Primary speech: English, Hindi and Hinglish')
-        regional_preview = st.toggle('Preview additional languages', value=False, key='regional_preview', help='Experimental regional translation. Per-language results are shown in Evaluation details.')
+        regional_preview = st.toggle('Preview additional languages', value=False, key='regional_preview', help='Experimental regional translation. Primary tested languages: English, Hindi and Hinglish.')
     st.link_button('Project & documentation ↗', 'https://github.com/Pranay207/Resolvox', use_container_width=True)
 
 st.session_state.agent.compose = live
