@@ -79,7 +79,7 @@ CONTEXT_SCHEMA = {
 }
 
 
-CONTEXT_LANGUAGE = {'en': 'Write the entire answer in English. Preserve product names, SKU codes and technical names exactly.', 'hi': 'Write the entire answer in Devanagari Hindi with Hindi grammar. Preserve English brand names, SKU codes and technical names exactly.', 'hi-en': 'Write the entire answer in Latin-script Hinglish: Hindi sentences using Latin letters and Hindi grammar. Do not use English sentences or Devanagari. Preserve English brand names, SKU codes and technical names exactly.'}
+CONTEXT_LANGUAGE = {'en': 'Write the entire answer in English. Preserve product names, SKU codes and technical names exactly.', 'hi': 'Write the entire answer in Devanagari Hindi with Hindi grammar. Preserve English brand names, SKU codes and technical names exactly. Preserve the meaning of item conditions: damaged means क्षतिग्रस्त, defective means दोषपूर्ण and wrong item means गलत वस्तु. Use separate short sentences for charges and their conditional waivers. State complete dates clearly; preserve the exact day, month and year.', 'hi-en': 'Write the entire answer in Latin-script Hinglish: Hindi sentences using Latin letters and Hindi grammar. Do not use English sentences or Devanagari. Preserve English brand names, SKU codes and technical names exactly.'}
 
 
 _LANGUAGE_REPAIR_SYSTEM = {
