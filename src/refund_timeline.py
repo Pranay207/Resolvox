@@ -141,3 +141,24 @@ def refund_timeline_inputs(query, facts, sources, reference_date):
   if facts.get(key):view[key]=facts[key]
  from .inference_facts import project_inference_facts
  return {'sources':selected,'facts':project_inference_facts(view)}
+
+
+def completed_refund_record_inputs(query, facts, sources):
+ """A simple historical date read uses only its authenticated record field.
+
+ No date is computed or authored. Compound policy/amount questions keep the
+ complete context. The caller retains all original facts/source validators.
+ """
+ if (not _REFUND.search(query) or not _PAST_REFUND_EVENT.search(query)
+     or not _DURATION.search(query) or _COMPOUND.search(query) or _REFUND_DETAILS.search(query)
+     or re.search(r'\b(?:and|aur)\b|और',query,re.I)):return None
+ order=facts.get('verified_order') or {};value=order.get('return_refund_completed_on')
+ if not isinstance(value,str):return None
+ try:date.fromisoformat(value)
+ except ValueError:return None
+ if any(order.get(k) for k in ('cancellation_refund_completed_on','rto_refund_completed_on')):return None
+ candidates=[s for s in sources if s.get('doc_type')=='policy' and s.get('status')=='current' and re.search(r'\brefund',s.get('text',''),re.I)]
+ if not candidates:return None
+ selected=[min(candidates,key=lambda s:len(s['text']))]
+ return {'sources':selected,'facts':{'verified_order':{'return_refund_completed_on':value},
+         'date_labels':{value:facts.get('date_labels',{}).get(value,value)}}}
