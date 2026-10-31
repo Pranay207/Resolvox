@@ -1,0 +1,20 @@
+{
+  "reason": "Actual local model unavailable after laptop Ollama update. Failed results preserved; no answer or scorer changes.",
+  "files": [
+    {
+      "original": "sample_outputs\\eval_step3_live_current.json",
+      "preserved": "sample_outputs\\history\\before_local_service_retry_20261031T035158Z\\eval_step3_live_current.json",
+      "sha256": "2718abba7da04dc40d533af7f921737e7d1849709e170719d16c8f5ac524002a"
+    },
+    {
+      "original": "sample_outputs\\eval_step3_latest_cases.json",
+      "preserved": "sample_outputs\\history\\before_local_service_retry_20261031T035158Z\\eval_step3_latest_cases.json",
+      "sha256": "3c3de69802ca30e62709872dfa381ff1a0ea465b2a1da24ed64644a57dd43888"
+    },
+    {
+      "original": "sample_outputs\\live_sequence_receipt.json",
+      "preserved": "sample_outputs\\history\\before_local_service_retry_20261031T035158Z\\live_sequence_receipt.json",
+      "sha256": "4cb24d18a74d2294bdd7bce9fc8c6783f7736cd27e8fadabc50a2eaf241c86cf"
+    }
+  ]
+}

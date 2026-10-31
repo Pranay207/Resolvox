@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-10-31T03:53:48.567141+00:00",
+  "scope": "Local service identity after laptop Ollama update; not an answer accuracy result. One generic one-token warm-up passed before the live retry.",
+  "local_only": true,
+  "cloud_disabled": true,
+  "server_version": "0.40.13",
+  "previous_server_version": "0.40.12",
+  "model": "qwen3:4b-instruct",
+  "model_digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+  "requested_context_tokens": 4096,
+  "parallel_requests": 1,
+  "max_loaded_models": 1,
+  "verified_prompt_cache_ram_mib": 512,
+  "warmup_runtime_metadata_sha256": "207eb84cb8d856d19d4f1e956e5055c99e83a4df991dd53bf1cae7d1a358c51a"
+}
