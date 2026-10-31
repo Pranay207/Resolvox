@@ -23,7 +23,7 @@ Resolvox answers customer questions from ZentroMart’s documents, looks up veri
 
 Capstone for **From Tokens to Transformers**, organized by the Consulting & Analytics Club, IIT Guwahati × Gnani.ai.
 
-[Demo](#demo-video) · [Quick Start](#quick-start) · [Batch Command](#organizer-batch-command) · [Architecture](#architecture) · [Evaluation](#evaluation) · [Submission](#submission-status) · [Documentation](#documentation)
+[Demo](#demo-video) · [Quick Start](#quick-start) · [Batch Command](#organizer-batch-command) · [Architecture](#architecture) · [Evaluation](#evaluation) · [Documentation](#documentation)
 
 ## Demo Video
 
@@ -266,34 +266,11 @@ Mappings follow [Gnani's voice catalog](https://docs.gnani.ai/api/TTS/available-
 
 </details>
 
-## Submission Status
-
-**Submission preparation is incomplete.** The demo is reserved above, repository access must be made public, and final ZIP creation is deferred until those steps are complete.
-
-| Deliverable | Status |
-| --- | --- |
-| Code, setup and organizer command | Available; public GitHub access still needs confirmation |
-| Report, maximum four pages | [report.pdf](report.pdf): four pages, visually reviewed |
-| Answer text, sources and speech examples | Available in [sample_outputs/](sample_outputs/), with recorded verification scopes |
-| Demo, maximum two minutes | Pending; record the final own-voice demonstration last |
-| Submission ZIP | Pending; no submission archive has been created |
-
-After adding the real `demo.mp4` and confirming public access, create and check the final archive:
-
-```sh
-python scripts/check_repository_visibility.py
-python package_submission.py
-python scripts/verify_package.py
-```
-
-The packager checks readiness and creates `dist/pranay_voiceops.zip`; `pranay` is the current team-name assumption. It excludes credentials, `.env`, the dataset copy, model weights, caches, virtual environments, the source brief and private input audio.
-
-[SUBMISSION_STATUS.json](SUBMISSION_STATUS.json) records release blockers. [BRIEF_CHECKLIST.md](BRIEF_CHECKLIST.md) maps the implementation and evidence to the brief.
-
 ## Documentation
 
 | Resource | Purpose |
 | --- | --- |
+| [report.pdf](report.pdf) | Four-page capstone technical report |
 | [DESIGN.md](DESIGN.md) | Architecture, retrieval, session state and privacy boundaries |
 | [VERIFICATION.md](VERIFICATION.md) | Detailed measurements, historical failures and limitations |
 | [BRIEF_CHECKLIST.md](BRIEF_CHECKLIST.md) | Requirement-by-requirement checklist |
