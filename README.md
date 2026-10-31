@@ -260,3 +260,7 @@ Setup instructions, translation details and the voice-route table are in [Option
 ## License
 
 Resolvox’s original code is licensed under the [MIT License](LICENSE). Third-party software, model weights, datasets and services retain their own terms; see [THIRD_PARTY.md](THIRD_PARTY.md).
+
+---
+
+<p align="center">Built by <strong>R LAKSHMI PRANAY TEJ</strong></p>
