@@ -12,6 +12,15 @@ _DURATION = re.compile(r"\b(?:days?|long|soon|when|time|kab|kitn\w*)\b|दिन
 _RECEIPT = re.compile(r"\b(?:arriv\w*|receiv\w*|reach\w*|get|aay\w*|aeg\w*|mil\w*)\b|आए|आय|मिल", re.I)
 _START = re.compile(r"\b(?:initiat\w*|start\w*|begin\w*|shuru)\b|शुरू|शुरुआत|आरंभ|प्रारंभ", re.I)
 _COMPOUND = re.compile(r"\b(?:compare|all|each|every|warrant\w*|return\s+(?:window|deadline)|pick.?up\s+(?:cost|fee)|RRN)\b|तुलना|सभी|वारंटी|शुल्क", re.I)
+# These questions need the original context, not a future-arrival-only view.
+_REFUND_DETAILS = re.compile(
+ r'\b(?:coupon\w*|discount\w*|partial|amount\w*|deduct\w*|fees?|charg\w*)\b|'
+ r'\bhow\s+much\s+(?:money|refund)\b|\bkitn\w*\s+(?:paise|paisa|rak[am]+)\b|'
+ r'कूपन|कुपन|छूट|राशि|रकम|आंशिक|शुल्क|कटौती|कितन[^।?!]{0,15}पैस', re.I)
+_PAST_REFUND_EVENT = re.compile(
+ r'\b(?:was|were|did|has|have|had)\b[^.!?;]{0,80}\b(?:complet\w*|settled|credited|arriv\w*|receiv\w*)\b|'
+ r'(?:पूरा|पूर्ण)[^।?!]{0,12}(?:हुआ|हुई)|'
+ r'\b(?:complete\w*|settle\w*|credit\w*)\s+(?:ho\s+)?(?:hua|hui|ho\s+gaya|ho\s+chuka)\b', re.I)
 _METHODS = {
  'upi': r'\bupi\b|यूपीआई',
  'card': r'\b(?:(?:credit|debit)\s+)?cards?\b|कार्ड',
@@ -23,7 +32,19 @@ _METHODS = {
 def mentioned_methods(text):
  return {key for key,pattern in _METHODS.items() if re.search(pattern,text,re.I)}
 
+def _recorded_completion(order):
+ """A verified completion date takes precedence over an arrival estimate."""
+ for event in ('return', 'cancellation', 'rto'):
+  value=order.get(event+'_refund_completed_on')
+  if not isinstance(value,str):continue
+  try:date.fromisoformat(value[:10])
+  except ValueError:continue
+  return True
+ return False
+
+
 def refund_timeline_binding(query, facts, sources, reference_date):
+ if _PAST_REFUND_EVENT.search(query) or _recorded_completion(facts.get('verified_order') or {}):return None
  if (not _REFUND.search(query) or not _DURATION.search(query) or _COMPOUND.search(query)
      or (_START.search(query) and not _RECEIPT.search(query))): return None
  from .document_context import _payment, _rows
@@ -78,6 +99,8 @@ def check_refund_timeline_answer(answer, query, facts, sources, reference_date):
 def refund_timeline_inputs(query, facts, sources, reference_date):
  binding=refund_timeline_binding(query,facts,sources,reference_date)
  if not binding or facts.get('operational_escalation') or facts.get('refund_arrival_policy')!=binding:return None
+ # Leave the complete original sources/facts available for every requested facet.
+ if _REFUND_DETAILS.search(query):return None
  ids=set(binding['source_ids'])
  for source in sources:
   text=source.get('text','')
