@@ -17,13 +17,10 @@
   <img src="https://img.shields.io/badge/ONNX_Runtime-Local_Retrieval-005CED?style=flat-square&amp;logo=onnx&amp;logoColor=white" alt="ONNX Runtime">
 </p>
 
-<h2 align="center">
-  <a href="ENGINEERING_DEEP_DIVE.md">Engineering Deep Dive &#8594;</a>
-</h2>
-<p align="center">
-  Inside Resolvox: from voice to verified answers.<br>
-  Design decisions, challenges and results behind the agent.
-</p>
+## [Engineering Deep Dive →](ENGINEERING_DEEP_DIVE.md)
+
+**Inside Resolvox: from voice to verified answers.**<br>
+Design decisions, challenges and results behind the agent.
 
 Resolvox answers customer questions from ZentroMart’s documents, looks up verified orders and creates human-support tickets when needed. Voice and text share the same conversation, retrieval and tools.
 
