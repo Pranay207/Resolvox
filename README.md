@@ -192,7 +192,8 @@ Recorded verification as of **31 October 2026**:
 
 | Check | Recorded result | Evidence |
 | --- | --- | --- |
-| Engineering tests | **3,290 passed**, zero failures, errors or skips | [Verification receipt](sample_outputs/engineering_verification.json) |
+| Last full engineering run, before the latest refund patch | **3,290 passed**, zero failures, errors or skips | [Verification receipt](sample_outputs/engineering_verification.json) |
+| Latest refund-context fixes, targeted tests only | **118 passed**, zero failures, errors or skips | [Targeted verification](sample_outputs/refund_scope_verification_20261031.json) |
 | Official dataset validation | **Passed** · 9 CSVs and 21 knowledge-base documents | [Validator output](sample_outputs/engineering_artifacts/20261031T060814584432Z_92c93db5/dataset_validation.log) |
 | Saved policy-question checks | **52/52** accumulated checks across recorded revisions | [Question records](sample_outputs/eval_step2_latest_cases.json) |
 | Saved conversation checks | **36/38 recorded turns passed** · 96 planned | [Conversation records](sample_outputs/eval_step3_latest_cases.json) |
