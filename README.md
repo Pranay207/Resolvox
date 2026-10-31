@@ -196,7 +196,7 @@ See [DESIGN.md](DESIGN.md) for the state model, retrieval strategy and evidence 
 
 ## Evaluation
 
-Recorded local development results as of **31 October 2026**:
+Recorded local development results:
 
 | Check | Recorded result | Evidence |
 | --- | --- | --- |
