@@ -191,16 +191,27 @@ st.session_state.agent.compose = live
 st.title('How can we help?')
 st.markdown('<p class="support-intro">ZentroMart customer support</p>', unsafe_allow_html=True)
 
+def customer_policy_sources(out):
+    """Select customer-facing references without altering saved agent evidence."""
+    if out.get('decision') == 'clarify' or out.get('intent') in {'greeting', 'verification', 'repeat', 'unclear_audio'}:
+        return []
+    used_ids = set(out.get('retrieved_chunk_ids', []))
+    return [source for source in out.get('sources', [])
+            if source.get('id') in used_ids
+            and source.get('doc_type') in {'policy', 'help', 'faq'}]
+
+
 def evidence(out):
+    sources = customer_policy_sources(out)
+    if not sources:
+        return
     with st.expander('View supporting policy'):
-        ids = out.get('retrieved_chunk_ids', [])
-        st.write(' · '.join(ids) or 'No supporting company information found.')
-        for source in out.get('sources', []):
-            st.markdown('**' + source['id'] + '** — ' + source.get('file', ''))
-            st.text(source['text'])
-        if out.get('tool_calls'):
-            st.caption('Support actions')
-            st.json(out['tool_calls'])
+        for source in sources:
+            st.markdown('**' + source.get('title', 'Supporting policy') + '**')
+            text = source.get('text', '')
+            body = text.partition('\n')[2] if text.startswith('## [') else text
+            st.markdown(body)
+
 
 def speak_reply(entry, voice=None):
     folder = ROOT / 'tmp/voice_ui'

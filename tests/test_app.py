@@ -327,3 +327,43 @@ def test_policy_answer_does_not_add_a_generic_next_step_card():
     for decision in ['clarify', 'escalate']:
         view = snapshot_function()(case_agent(oid=None), [output_message(decision=decision)])
         assert view['show_next_step'] is True
+
+
+def policy_source_function():
+    import ast
+    tree = ast.parse(Path('app.py').read_text(encoding='utf-8'))
+    node = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == 'customer_policy_sources')
+    namespace = {}
+    exec(compile(ast.Module(body=[node], type_ignores=[]), 'app.py', 'exec'), namespace)
+    return namespace['customer_policy_sources']
+
+
+def test_policy_filter_keeps_customer_references_and_preserves_evidence():
+    output = {'decision': 'answer', 'intent': 'refund',
+              'retrieved_chunk_ids': ['STY-1', 'REF-2', 'KB-00', 'ORDER-1', 'MKT-1'],
+              'sources': [{'id': 'STY-1', 'doc_type': 'agent_guide'},
+                          {'id': 'REF-2', 'doc_type': 'policy', 'text': 'Policy text'},
+                          {'id': 'KB-00', 'doc_type': 'meta'},
+                          {'id': 'ORDER-1', 'doc_type': 'record'},
+                          {'id': 'MKT-1', 'doc_type': 'marketing'},
+                          {'id': 'UNUSED', 'doc_type': 'policy'}],
+              'tool_calls': [{'name': 'lookup_order'}]}
+    saved = json.dumps(output, sort_keys=True)
+    assert [x['id'] for x in policy_source_function()(output)] == ['REF-2']
+    assert json.dumps(output, sort_keys=True) == saved
+    assert policy_source_function()({**output, 'decision': 'clarify'}) == []
+    assert policy_source_function()({**output, 'intent': 'greeting'}) == []
+
+
+def test_clarification_hides_internal_sources_and_empty_policy_panel():
+    app = start()
+    app.radio(key='input_mode').set_value('Type').run()
+    app.chat_input[0].set_value('Where is my order?').run()
+    app.run()
+    assert not app.exception
+    output = app.session_state.messages[0]['output']
+    assert output['sources'] and output['decision'] == 'clarify'
+    assert not any(x.label == 'View supporting policy' for x in app.expander)
+    visible = '\n'.join(x.value for x in app.markdown) + '\n'.join(x.value for x in app.text)
+    assert 'agent_conversation_style.md' not in visible
+    assert 'STY-1' not in visible and 'STY-5' not in visible
