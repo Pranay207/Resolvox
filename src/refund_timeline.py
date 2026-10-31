@@ -70,10 +70,20 @@ def refund_timeline_binding(query, facts, sources, reference_date):
   for cells in _rows(source):
    if len(cells)!=2 or _payment(cells[0])!=method:continue
    span=re.fullmatch(r'\s*(\d+)\s+(?:to|-)\s+(\d+)\s+business\s+days?\s*',cells[1],re.I)
-   if not span or int(span[1])>int(span[2]):return None
-   found.append((int(span[1]),int(span[2]),source,cells))
- if not found or len({(r[0],r[1],r[3][0]) for r in found})!=1:return None
+   if method=='wallet':
+    hours=re.fullmatch(r'\s*(?:instant,?\s*)?within\s+(\d+)\s+hours?\s*',cells[1],re.I)
+    if not hours:return None
+    found.append((0,int(hours[1]),source,cells))
+   else:
+    if not span or int(span[1])>int(span[2]):return None
+    found.append((int(span[1]),int(span[2]),source,cells))
+ if not found or len({(r[0],r[1]) for r in found})!=1:return None
  low,high,_,cells=found[0]
+ if method=='wallet':
+  return {'payment_method':method,'source_payment_label':cells[0],'maximum_hours':high,
+          'timing_unit':'hour','timing_anchor':'after_refund_initiation',
+          'source_ids':sorted({r[2]['id'] for r in found}),
+          'source_sha256':{r[2]['id']:hashlib.sha256(r[2]['text'].encode('utf-8')).hexdigest() for r in found}}
  return {'payment_method':method,'source_payment_label':cells[0],'minimum_business_days':low,
          'maximum_business_days':high,'timing_anchor':'after_refund_initiation',
          'source_ids':sorted({r[2]['id'] for r in found}),
@@ -84,6 +94,18 @@ def check_refund_timeline_answer(answer, query, facts, sources, reference_date):
  if facts.get('refund_arrival_policy') is not None and facts['refund_arrival_policy']!=binding:
   raise ValueError('unbound_refund_arrival_policy')
  if not binding:return None
+ if binding['payment_method']=='wallet':
+  maximum=binding['maximum_hours']
+  if not re.search(r'(?<![\d.])'+str(maximum)+r'\s*(?:hours?|hrs?|ghant\w*|घंटे|घंटों)(?![A-Za-z\u0900-\u097f])',_numeric_text(answer),re.I):
+   raise ValueError('missing_refund_arrival_range')
+  if not (_START.search(answer) and re.search(r'\b(?:after|following|from|once)\b|के\s*(?:बाद|पश्चात)|ke\s+baad',answer,re.I)):
+   raise ValueError('missing_refund_initiation_anchor')
+  if mentioned_methods(answer)-{'wallet'}:raise ValueError('wrong_refund_payment_method')
+  order=facts.get('verified_order') or {}
+  if not any(order.get(event+'_refund_initiated_on') for event in ('return','cancellation','rto')):
+   from .document_answers import _date_mentions
+   if _date_mentions(answer):raise ValueError('unsupported_refund_arrival_date')
+  return binding
  low=binding['minimum_business_days']; high=binding['maximum_business_days']
  unit=_UNITS['business_day']
  # Require one ordered range with its unit, not stray matching digits.
