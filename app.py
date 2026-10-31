@@ -1,4 +1,5 @@
 """Resolvox support console. Voice and text share one verified conversation."""
+import base64
 import tempfile
 from pathlib import Path
 
@@ -9,7 +10,11 @@ from src.languages import LANGUAGE_NAMES, STT_CODES, normalize_language
 from src.config import ROOT
 from src.voice import GnaniVoice, VoiceError, VoiceUnavailable
 
-st.set_page_config(page_title='Resolvox | ZentroMart', page_icon='🎧', layout='wide')
+# Inline SVG keeps the sidebar mark and favicon portable in the submission.
+LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Resolvox voice support">\n  <title>Resolvox voice support</title>\n  <path fill="#2563eb" d="M16 5h32c7.18 0 13 5.82 13 13v24c0 7.18-5.82 13-13 13H24l-14 7v-9.2C5.85 50.6 3 46.2 3 41.3V18C3 10.82 8.82 5 16 5Z"/>\n  <path fill="#ffffff" fill-rule="evenodd" d="M16 18h11.2C34 18 38 21.2 38 26.7c0 4-2 6.7-5.7 8L39 45h-7l-5.5-9.4H22V45h-6V18Zm6 5.3v7.1h4.8c3.4 0 5.2-1.3 5.2-3.6 0-2.2-1.8-3.5-5.2-3.5H22Z"/>\n  <g fill="#ffffff">\n    <rect x="42" y="27" width="3" height="9" rx="1.5"/>\n    <rect x="48" y="23" width="3" height="17" rx="1.5"/>\n    <rect x="54" y="28" width="3" height="7" rx="1.5"/>\n  </g>\n</svg>'
+LOGO_DATA_URI = 'data:image/svg+xml;base64,' + base64.b64encode(LOGO_SVG.encode('utf-8')).decode('ascii')
+
+st.set_page_config(page_title='Resolvox | ZentroMart', page_icon=LOGO_SVG, layout='wide')
 st.markdown("""<style>
 .stApp {background:#f5f8fd;color:#14243b;color-scheme:light;}
 [data-testid="stHeader"] {background:#f5f8fd;height:1.5rem;min-height:1.5rem;}
@@ -56,7 +61,8 @@ st.markdown("""<style>
 [data-testid="stBaseButton-primary"]:disabled [data-testid="stMarkdownContainer"],[data-testid="stBaseButton-primary"]:disabled p {color:#64758c!important;}
 [data-testid="stBaseButton-secondary"] {background:white;color:#233b58;border:1px solid #cedaeb;border-radius:12px;}
 [data-testid="stBaseButton-secondary"] [data-testid="stMarkdownContainer"] {color:#233b58;}
-.brand-mark {display:inline-flex;flex:none;width:44px;height:44px;align-items:center;justify-content:center;background:#2563eb;color:white;border-radius:10px;font-weight:800;font-size:20px;}
+.brand-mark {display:inline-flex;flex:none;width:44px;height:44px;align-items:center;justify-content:center;}
+.brand-mark img {display:block;width:100%;height:100%;}
 .brand-lockup {display:flex;align-items:center;gap:10px;margin:0 0 .65rem;}
 .brand-lockup strong {display:block;font-size:1.85rem;font-weight:800;letter-spacing:-.65px;color:#14243b;line-height:1.15;}
 .brand-lockup small {display:block;font-size:.6rem;letter-spacing:1px;color:#52647c;margin-top:4px;}
@@ -114,7 +120,7 @@ def reset_conversation():
             del st.session_state[key]
 
 with st.sidebar:
-    st.markdown('<div class="brand-lockup"><span class="brand-mark">R</span><div><strong>Resolvox</strong><small>ZENTROMART SUPPORT</small></div></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="brand-lockup"><span class="brand-mark"><img src="{LOGO_DATA_URI}" alt="Resolvox voice support" width="44" height="44"></span><div><strong>Resolvox</strong><small>ZENTROMART SUPPORT</small></div></div>', unsafe_allow_html=True)
     st.button('New conversation', icon=':material/add:', use_container_width=True, on_click=reset_conversation)
     st.divider()
     with st.expander('Advanced options', expanded=True):
