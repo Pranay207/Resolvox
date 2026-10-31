@@ -1,0 +1,49 @@
+{
+  "updated_at_utc": "2026-10-31T07:09:01.774363+00:00",
+  "status": "stopped_at_user_request",
+  "reason": "User requested stopping live tests and pushing completed changes. No verification completion is claimed.",
+  "runtime_commit": "442eb6c",
+  "engineering": {
+    "passed": 3290,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "receipt": "sample_outputs/engineering_verification.json"
+  },
+  "question_checks": {
+    "summary": {
+      "total": 52,
+      "passed": 52,
+      "planned": 52,
+      "complete": true,
+      "scope": "Latest actual case checks from preserved successful records and targeted retests across recorded revisions. Not a new single-revision frozen full-52 inference run. Mechanical checks and finite validators do not certify every semantic or wording property."
+    },
+    "scope": "Accumulated actual saved question checks across recorded revisions; not a fresh uniform-source run."
+  },
+  "conversation_checks": {
+    "summary": {
+      "total": 38,
+      "passed": 36,
+      "planned": 96,
+      "pending": 58,
+      "complete": false,
+      "scope": "Latest actual saved conversation records across preserved and retested revisions; not a fresh single-revision 96-turn run or organizer score."
+    },
+    "scope": "Preserved complete conversation records across recorded revisions; not a complete current-runtime 96-turn validation.",
+    "manual_review_pending": [
+      "PC003",
+      "PC004"
+    ],
+    "recorded_failed_turns": [
+      "PC009.4",
+      "PC010.4"
+    ]
+  },
+  "stopped_attempt": {
+    "path": "tmp/remaining_live_runs/20261031T070131061723Z_9681eb06",
+    "status": "review_required",
+    "all_frozen_inputs_unchanged": true,
+    "receipt": "sample_outputs/live_sequence_receipt.json"
+  },
+  "remaining": "Current-runtime conversation confirmation, same-model baseline and additional live/speech verification are incomplete. Final report review, demo recording and final ZIP remain pending."
+}
