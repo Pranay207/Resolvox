@@ -41,7 +41,7 @@ Built for **From Tokens to Transformers**, Consulting & Analytics Club, IIT Guwa
 3. **Resolve:** receive an answer with policy sources and, for voice requests, spoken playback.
 4. **Escalate:** receive a confirmed handover ticket when the case needs human support.
 
-The Streamlit console provides **Voice support**, **Text support** and **Evaluation** tabs. Conversation state, redacted transcripts and reply audio persist across reruns. **Retry reply audio** synthesizes the saved answer without repeating the agent action; **New conversation** clears the session and verification state.
+The Streamlit console provides **Voice support** and **Text support** tabs. Conversation state, redacted transcripts and reply audio persist across reruns. **Retry reply audio** synthesizes the saved answer without repeating the agent action; **New conversation** clears the session and verification state.
 
 ## Quick Start
 
@@ -188,18 +188,21 @@ See [DESIGN.md](DESIGN.md) for the state model, retrieval strategy and evidence 
 
 ## Evaluation
 
+A separate [new-case UI smoke check](sample_outputs/ui_user_smoke_20261031.json) records the card/Plus, wallet follow-up and unsupported delivery-guarantee probes, their initial issues and affected retests.
+
 Recorded verification as of **31 October 2026**:
 
 | Check | Recorded result | Evidence |
 | --- | --- | --- |
 | Last full engineering run, before the latest refund patch | **3,290 passed**, zero failures, errors or skips | [Verification receipt](sample_outputs/engineering_verification.json) |
-| Latest refund-context fixes, targeted tests only | **118 passed**, zero failures, errors or skips | [Targeted verification](sample_outputs/refund_scope_verification_20261031.json) |
+| Latest refund-context fixes, targeted tests only | **371 passed**, zero failures, errors or skips | [Targeted verification](sample_outputs/refund_scope_verification_20261031.json) |
 | Official dataset validation | **Passed** · 9 CSVs and 21 knowledge-base documents | [Validator output](sample_outputs/engineering_artifacts/20261031T060814584432Z_92c93db5/dataset_validation.log) |
+| Selected live conversations and refund edges | **6/6 case groups passed**; live retests and retained-output checks are distinguished | [Targeted evidence](sample_outputs/targeted_live_validation.json) |
+| Current primary-language speech batch | **3/3** selected synthetic round trips; Hindi retested separately | [Speech evidence](sample_outputs/targeted_voice_validation.json) |
 | Saved policy-question checks | **52/52** accumulated checks across recorded revisions | [Question records](sample_outputs/eval_step2_latest_cases.json) |
-| Saved conversation checks | **36/38 recorded turns passed** · 96 planned | [Conversation records](sample_outputs/eval_step3_latest_cases.json) |
 | Latest live verification | **Stopped at the owner's request**; confirmation of the latest fixes remains incomplete | [Saved status](sample_outputs/verification_stop_20261031.json) |
 
-Question and conversation totals combine preserved predictions and targeted retests from different revisions. They are local development results, not organizer scores or a fresh complete run of the current revision. The current-model baseline and updated speech checks remain pending; report review and the demo recording are also outstanding.
+Question and conversation totals combine preserved predictions and targeted retests from different revisions. They are local development results, not organizer scores or a fresh complete run of the current revision. The selected conversation/refund checks and three-language synthetic speech batch are recorded separately. Some saved outputs were checked by current validators without fresh inference. The historical baseline uses a different model; it is not a controlled comparison. Each linked receipt identifies its recorded scope and execution revision.
 
 <details>
 <summary>Verification commands</summary>
@@ -254,13 +257,13 @@ Mappings follow [Gnani's voice catalog](https://docs.gnani.ai/api/TTS/available-
 
 ## Submission Status
 
-**The report PDF is a draft awaiting current results and QA. No submission ZIP exists; the earlier draft was removed.** The applied fixes passed current engineering; fresh full live and speech results remain pending. **The demo video will be recorded last**, after the own-voice rehearsal. Release readiness remains draft until current verification and the actual recording are complete.
+**The four-page report is updated and every page has been visually reviewed. No submission ZIP exists.** Current targeted checks and their limitations are linked above. **The demo video will be recorded last**, after the own-voice rehearsal. Final packaging waits for the real demo and confirmed public repository access.
 
 | Deliverable | Status |
 | --- | --- |
 | Source, dependencies, setup and batch command | Available in this repository; make the repository public before submission |
-| Report, maximum four pages | [report.pdf](report.pdf) is a draft; regeneration and QA of every page (maximum four) remain pending |
-| Generated text, sources and speech outputs | [sample_outputs/](sample_outputs/); current reruns pending, historical evidence retained |
+| Report, maximum four pages | [report.pdf](report.pdf): four pages, updated results and page-by-page visual QA |
+| Generated text, sources and speech outputs | [sample_outputs/](sample_outputs/); selected current checks, saved-output validation and historical evidence retain their scopes |
 | Demo, maximum two minutes | Reserved above; recording pending |
 | Submission archive | No ZIP exists; creation waits for all required evidence and the final demo |
 

@@ -441,6 +441,9 @@ def document_composition(data):
 
 
 def main():
+    if (ROOT / 'sample_outputs/targeted_live_validation.json').is_file():
+        from scripts.targeted_report import build
+        return build(ROOT)
     historical_base, old_rag, old_conv, old_adv, saved_voice = [load(name) for name in
         ('eval_step1.json', 'eval_step2.json', 'eval_step3.json', 'eval_adversarial.json', 'voice_validation.json')]
     holdout = load('eval_holdout.json')
