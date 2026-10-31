@@ -256,3 +256,7 @@ Setup instructions, translation details and the voice-route table are in [Option
 - [VoiceOps 2026 capstone brief](https://d8it4huxumps7.cloudfront.net/uploads/submissions_case/6ad64c83eae85_voiceops_2026_capstone_brief.pdf).
 - [Gnani speech-to-text API](https://docs.gnani.ai/api/STT/speech-to-text) and [text-to-speech API](https://docs.gnani.ai/api/TTS/tts-inference).
 - [Multilingual MiniLM embedding model](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2) — pinned quantized ONNX export; revision and Apache-2.0 attribution in [THIRD_PARTY.md](THIRD_PARTY.md).
+
+## License
+
+Resolvox’s original code is licensed under the [MIT License](LICENSE). Third-party software, model weights, datasets and services retain their own terms; see [THIRD_PARTY.md](THIRD_PARTY.md).

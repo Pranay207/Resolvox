@@ -1,5 +1,7 @@
 # Third-party components
 
+The project-level [MIT License](LICENSE) covers Resolvox’s original code. It does not replace the licenses or terms of the components, data, weights or services below.
+
 - Official capstone dataset: synthetic teaching resource from C&A Club IIT Guwahati x Gnani.ai. Download separately; no redistribution is included in the repository or submission ZIP. Read the supplied dataset README and usage rules.
 - Embedding model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2, Apache-2.0, https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 . Revision pinned in setup.py. Weights downloaded separately.
 - Ollama and Qwen3: separately installed local model/runtime; consult their licenses. We do not redistribute weights.

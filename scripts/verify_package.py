@@ -47,7 +47,7 @@ def main():
         assert all(not n.startswith(('Capstone_Project_Dataset_FTTT_2026/','.venv/','.cache/','.git/')) for n in names)
         assert all('voice_inputs' not in PurePosixPath(n).parts for n in names)
         assert '.env' not in names and '.streamlit/secrets.toml' not in names
-        required={'.env.example','pytest.ini','.streamlit/config.toml','README.md','report.pdf',
+        required={'.env.example','pytest.ini','.streamlit/config.toml','README.md','LICENSE','report.pdf',
                   'requirements.txt','run.py','app.py','SUBMISSION_STATUS.json','demo.mp4',
                   'src/agent.py','src/document_answers.py','src/document_context.py'}
         assert required<=set(names),'Release is missing required source or submission files'
