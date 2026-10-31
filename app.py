@@ -1,6 +1,4 @@
 """Resolvox support console. Voice and text share one verified conversation."""
-import hashlib
-import json
 import tempfile
 from pathlib import Path
 
@@ -10,7 +8,6 @@ from src.multilingual import MultilingualAgent as Agent
 from src.languages import LANGUAGE_NAMES, STT_CODES, normalize_language
 from src.config import ROOT
 from src.voice import GnaniVoice, VoiceError, VoiceUnavailable
-from scripts.finalize_evidence import live_complete
 
 st.set_page_config(page_title='Resolvox | ZentroMart', page_icon='🎧', layout='wide')
 st.markdown("""<style>
@@ -110,7 +107,7 @@ with badge:
     badge_text = '10 languages + Hinglish · preview' if regional_preview else 'English · हिन्दी · Hinglish'
     st.markdown(f'<div class="hero-note">{badge_text}</div>', unsafe_allow_html=True)
 st.markdown('<div class="topic-row"><span class="topic">Returns & refunds</span><span class="topic">Orders & delivery</span><span class="topic">Product support</span></div>', unsafe_allow_html=True)
-voice_tab, text_tab, eval_tab = st.tabs(['Voice support', 'Text support', 'Evaluation'])
+voice_tab, text_tab = st.tabs(['Voice support', 'Text support'])
 
 def evidence(out):
     with st.expander('Sources and actions'):
@@ -249,76 +246,3 @@ with text_tab:
                 out = respond_in_language(prompt, selected)
             st.session_state.messages.append({'output': out, 'audio': None, 'audio_error': None})
             st.rerun()
-
-def load_report(name):
-    try:
-        value = json.loads((ROOT / 'sample_outputs' / name).read_text(encoding='utf-8'))
-        return value if isinstance(value, dict) else {}
-    except (OSError, ValueError):
-        return {}
-
-def current_live_report(name):
-    """Show only results recorded with this document-only answer runtime."""
-    data = load_report(name)
-    config = data.get('configuration', {})
-    if not isinstance(config, dict) or config.get('evaluation_mode') != 'live_compose_true':
-        return {}
-    provenance = config.get('provenance', {})
-    recorded = provenance.get('runtime_source_sha256', {}) if isinstance(provenance, dict) else {}
-    if not isinstance(recorded, dict) or not isinstance(data.get('summary'), dict):
-        return {}
-    # These files establish the answer-generation boundary. Legacy runs do not
-    # contain the document modules and cannot become current through a filename.
-    for relative in ('src/agent.py', 'src/document_answers.py', 'src/document_context.py'):
-        try:
-            actual = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
-        except OSError:
-            return {}
-        if recorded.get(relative) != actual:
-            return {}
-    return data
-
-
-with eval_tab:
-    st.subheader('Recorded evaluation')
-    st.caption('These are saved local checks, not organizer scores. Current document-only generation is reported separately from historical tests and speech checks.')
-    reports = [('Historical questions \u00b7 offline', 'eval_step2.json'),
-               ('Historical conversation turns \u00b7 offline', 'eval_step3.json'),
-               ('Historical broader regression \u00b7 offline', 'eval_holdout.json')]
-    for col, (label, filename) in zip(st.columns(3), reports):
-        summary = load_report(filename).get('summary', {})
-        total = summary.get('total', summary.get('evaluated'))
-        col.metric(label, f"{summary['passed']} / {total}" if 'passed' in summary and total else 'Not recorded')
-    st.caption('Historical scores were recorded before the document-only answer path. They do not measure the current runtime.')
-    live_report = current_live_report('eval_step2_live_current.json')
-    if live_report:
-        summary = live_report['summary']
-        evaluated = summary.get('total', summary.get('evaluated', 0))
-        planned = summary.get('planned', 52)
-        st.info(f"Current LLM-enabled questions: {summary.get('passed', 0)} passed, {evaluated} checked of {planned} planned. "
-                + ('Complete recorded run.' if live_complete(live_report) else 'The current live rerun is incomplete.'))
-    else:
-        st.info('Current LLM-enabled questions: pending. No matching document-only runtime results have been recorded.')
-    live_conversations = current_live_report('eval_step3_live_current.json')
-    if live_conversations:
-        summary = live_conversations['summary']
-        st.info(f"Current LLM-enabled conversation turns: {summary.get('passed', 0)} passed, {summary.get('total', 0)} checked of {summary.get('planned', 96)} planned. "
-                + ('Complete recorded run.' if live_complete(live_conversations) else 'The current live conversation rerun is incomplete.'))
-    else:
-        st.info('Current LLM-enabled conversation turns: pending. No matching document-only runtime results have been recorded.')
-    voice_report = load_report('voice_validation.json')
-    if voice_report:
-        semantic = voice_report.get('semantic_validation', {})
-        st.write(f"**Gnani speech check:** {semantic.get('passed', 0)} passed, {semantic.get('failed', 0)} failed.")
-        st.caption('Recorded synthetic-audio round trips; human speech and noisy-room performance remain unverified.')
-    with st.expander('Evaluation details'):
-        language_check = load_report('language_validation.json').get('summary', {})
-        if language_check:
-            st.write(f"Optional regional-language preview: {language_check.get('voice_passed', 0)}/{language_check.get('planned', 0)} synthetic voice checks passed; {language_check.get('failed', 0)} failed.")
-            st.caption('Experimental language routing is separate from primary English/Hindi/Hinglish support. Failed checks remain visible.')
-        baseline = load_report('eval_step1.json').get('summary', {})
-        st.write(f"Historical prompt-only baseline: {baseline.get('passed', '?')} / {baseline.get('total', '?')}")
-        adversarial = load_report('eval_adversarial.json').get('summary', {})
-        st.write(f"Historical development adversarial checks: {adversarial.get('passed', '?')} / {adversarial.get('total', '?')}")
-        st.caption('The supplied practice and exposed regression sets were used during development. Historical scores remain preserved as earlier evidence. Read the repository evidence for source hashes, failed earlier runs, composition and timings.')
-        st.caption('Dense retrieval: ' + r.retriever.dense_status)
