@@ -2,6 +2,7 @@
 from pathlib import Path
 import hashlib,json,re,struct,subprocess,zipfile
 from scripts.release_evidence import blockers as release_evidence_blockers
+from scripts.targeted_release import WARNINGS as TARGETED_WARNINGS
 ROOT=Path(__file__).resolve().parent
 
 def mp4_duration(path:Path):
@@ -66,37 +67,39 @@ def status():
     # Recompute every readiness condition from actual current evidence. An old
     # perfect score must not clear unresolved verification/report blockers.
     blockers=release_evidence_blockers(ROOT);expected=runtime_source_hashes()
-    for step,planned,label in ((2,52,'questions'),(3,96,'conversation turns')):
-        live=_json_record(f'eval_step{step}_live_current.json')
-        if not _current_runtime(live,expected):
-            blockers.append(f'Current source-only {label} verification missing or stale')
-        elif not _complete_live(live,planned):
-            blockers.append(f'Current source-only {label} verification incomplete: {planned} responses required')
-        else:
-            summary=live['summary']
-            if summary.get('passed')!=planned or summary.get('failed',0)!=0 or summary.get('errors')!=0:
-                blockers.append(f'Current source-only {label} verification has failed or erroneous responses')
-    engineering=_json_record('engineering_verification.json')
-    pytest=engineering.get('pytest',{})
-    if (not _current_runtime(engineering,expected) or not isinstance(pytest,dict)
-            or type(pytest.get('total')) is not int or pytest['total']<=0
-            or pytest.get('passed')!=pytest['total'] or pytest.get('exit_code')!=0):
-        blockers.append('Current engineering test verification missing, stale or failing')
-    voice=_json_record('voice_validation.json')
-    batch=voice.get('batch',{});semantic=voice.get('semantic_validation',{})
-    checks=semantic.get('checks',[]) if isinstance(semantic,dict) else []
-    total=batch.get('total',0) if isinstance(batch,dict) else 0
-    voice_passed=(voice.get('status')=='tested' and voice.get('live_llm_composition_enabled') is True
-        and isinstance(batch,dict) and isinstance(semantic,dict)
-        and type(total) is int and total>=5
-        and batch.get('succeeded')==total and batch.get('failed')==0
-        and semantic.get('passed')==total and semantic.get('failed')==0
-        and isinstance(checks,list) and len(checks)==total
-        and all(isinstance(check,dict) and check.get('passed') is True for check in checks))
-    finished={'runtime_source_sha256':voice.get('runtime_source_sha256_finished',{})}
-    if (not _current_runtime(voice,expected) or not _current_runtime(finished,expected)
-            or voice.get('source_runtime_unchanged') is not True or not voice_passed):
-        blockers.append('Current Gnani speech semantic validation missing, stale or failing')
+    targeted=(ROOT/'sample_outputs/targeted_live_validation.json').is_file()
+    if not targeted:
+        for step,planned,label in ((2,52,'questions'),(3,96,'conversation turns')):
+            live=_json_record(f'eval_step{step}_live_current.json')
+            if not _current_runtime(live,expected):
+                blockers.append(f'Current source-only {label} verification missing or stale')
+            elif not _complete_live(live,planned):
+                blockers.append(f'Current source-only {label} verification incomplete: {planned} responses required')
+            else:
+                summary=live['summary']
+                if summary.get('passed')!=planned or summary.get('failed',0)!=0 or summary.get('errors')!=0:
+                    blockers.append(f'Current source-only {label} verification has failed or erroneous responses')
+        engineering=_json_record('engineering_verification.json')
+        pytest=engineering.get('pytest',{})
+        if (not _current_runtime(engineering,expected) or not isinstance(pytest,dict)
+                or type(pytest.get('total')) is not int or pytest['total']<=0
+                or pytest.get('passed')!=pytest['total'] or pytest.get('exit_code')!=0):
+            blockers.append('Current engineering test verification missing, stale or failing')
+        voice=_json_record('voice_validation.json')
+        batch=voice.get('batch',{});semantic=voice.get('semantic_validation',{})
+        checks=semantic.get('checks',[]) if isinstance(semantic,dict) else []
+        total=batch.get('total',0) if isinstance(batch,dict) else 0
+        voice_passed=(voice.get('status')=='tested' and voice.get('live_llm_composition_enabled') is True
+            and isinstance(batch,dict) and isinstance(semantic,dict)
+            and type(total) is int and total>=5
+            and batch.get('succeeded')==total and batch.get('failed')==0
+            and semantic.get('passed')==total and semantic.get('failed')==0
+            and isinstance(checks,list) and len(checks)==total
+            and all(isinstance(check,dict) and check.get('passed') is True for check in checks))
+        finished={'runtime_source_sha256':voice.get('runtime_source_sha256_finished',{})}
+        if (not _current_runtime(voice,expected) or not _current_runtime(finished,expected)
+                or voice.get('source_runtime_unchanged') is not True or not voice_passed):
+            blockers.append('Current Gnani speech semantic validation missing, stale or failing')
     duration=mp4_duration(ROOT/'demo.mp4')
     if duration is None:blockers.append('User-recorded demo.mp4 missing or duration unverified')
     elif duration<=0 or duration>120:blockers.append('demo.mp4 must contain at most 120 seconds of valid video')
@@ -111,11 +114,61 @@ def status():
             or qa.get('pages')!=pages or qa.get('visually_reviewed_pages')!=list(range(1,pages+1))
             or qa.get('layout_issues_found') is not False):
         blockers.append('Current report visual QA missing or stale')
+    public=_json_record('repository_visibility.json')
+    if targeted and not (public.get('is_public') is True and public.get('repository_url')=='https://github.com/Pranay207/Resolvox' and public.get('http_status')==200):
+        blockers.append('Public GitHub repository access has not been confirmed')
     return {'ready_to_submit':not blockers,'blockers':blockers,'report_pages':pages,
         'demo_seconds':duration,'public_repository':'https://github.com/Pranay207/Resolvox',
         'team_name_assumption':'pranay','speech_provider':'Gnani only',
         'answer_path':'document_context_generation','runtime_source_sha256':expected,
+        'verification_policy':'targeted_live_with_disclosed_limits' if targeted else 'full_fixture',
+        'evaluation_warnings':TARGETED_WARNINGS if targeted else [],
         'warning':'Mechanical test passes are not organizer scores.'}
+
+def referenced_evidence_files():
+    """Follow published evidence references; exclude unreferenced working history."""
+    names=['engineering_verification.json','refund_scope_verification_20261031.json',
+           'targeted_release_tests_20261031.json','targeted_live_validation.json',
+           'targeted_voice_validation.json','pdf_qa.json','eval_step1.json',
+           'eval_step2_latest_cases.json','eval_step3_latest_cases.json','language_validation.json',
+           'repository_visibility.json']
+    pending=[ROOT/'sample_outputs'/name for name in names];seen=set();result=[]
+    def strings(value):
+        if isinstance(value,str):yield value
+        elif isinstance(value,dict):
+            for key,child in value.items():yield key;yield from strings(child)
+        elif isinstance(value,list):
+            for child in value:yield from strings(child)
+    while pending:
+        path=pending.pop()
+        if path in seen or not path.is_file():continue
+        seen.add(path)
+        if path.is_symlink() or not path.resolve().is_relative_to((ROOT/'sample_outputs').resolve()):
+            raise ValueError('Unsafe evidence reference')
+        result.append(path)
+        if path.suffix=='.json':
+            try:value=json.loads(path.read_text(encoding='utf-8'))
+            except ValueError:continue
+            for name in strings(value):
+                if isinstance(name,str) and name.startswith('sample_outputs/'):
+                    target=ROOT/name
+                    if target.is_file():pending.append(target)
+    return result
+
+
+def contains_credential(data):
+    patterns=[rb'\bsk-(?:proj-)?[A-Za-z0-9_-]{24,}',rb'\bgsk_[A-Za-z0-9_-]{20,}',
+              rb'\bvach_[A-Za-z0-9_=-]{30,}',rb'\b(?:gh[pousr]|github_pat)_[A-Za-z0-9_]{20,}',
+              rb'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----']
+    if any(re.search(pattern,data) for pattern in patterns):return True
+    from dotenv import dotenv_values
+    for name in ('.env','.env.hosted'):
+        path=ROOT/name
+        if not path.is_file():continue
+        for key,value in dotenv_values(path).items():
+            if re.search(r'KEY|TOKEN|SECRET|PASSWORD',key,re.I) and isinstance(value,str) and len(value)>=12 and value.encode() in data:return True
+    return False
+
 
 def main():
     release=status()
@@ -127,7 +180,8 @@ def main():
     roots=['.streamlit/config.toml','README.md','.gitignore','.gitattributes','.env.example','requirements.txt','requirements-lock.txt','pytest.ini','setup.py','setup.ps1','run.py','app.py','eval_step1.py','eval_step2.py','eval_step3.py','eval_adversarial.py','eval_holdout.py','generate_voice_samples.py','check_all.py','package_submission.py','BRIEF_CHECKLIST.md','DESIGN.md','DEMO_SCRIPT.md','THIRD_PARTY.md','VERIFICATION.md','report.pdf','report.md','SUBMISSION_STATUS.json']
     files.extend(ROOT/name for name in roots if (ROOT/name).is_file())
     if (ROOT/'demo.mp4').exists():files.append(ROOT/'demo.mp4')
-    for folder in ['src','scripts','tests','sample_outputs']:
+    files.extend(referenced_evidence_files())
+    for folder in ['src','scripts','tests']:
         for p in (ROOT/folder).rglob('*'):
             if not p.is_file() or any(part in {'__pycache__','.pytest_cache','voice_inputs'} for part in p.relative_to(ROOT).parts):continue
             relative=p.relative_to(ROOT)
@@ -139,7 +193,7 @@ def main():
         name=p.relative_to(ROOT).as_posix()
         if any(x in name for x in ['Capstone_Project_Dataset','.cache/','.venv/']) or p.name=='.env':raise ValueError('Forbidden archive entry')
         data=p.read_bytes()
-        if p.suffix in {'.py','.json','.md','.txt'} and re.search(rb'\bsk-(?:proj-)?[A-Za-z0-9_-]{24,}',data):raise ValueError('Potential API secret in deliverable')
+        if contains_credential(data):raise ValueError('Potential API secret in deliverable')
         manifest.append({'path':name,'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()})
     out=ROOT/'dist';out.mkdir(exist_ok=True);archive=out/'pranay_voiceops.zip'
     with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED) as z:

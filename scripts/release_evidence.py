@@ -151,6 +151,9 @@ def complete_extra_stage(name, value):
 
 def blockers(root):
     root = Path(root)
+    if (root / 'sample_outputs/targeted_live_validation.json').is_file():
+        from scripts.targeted_release import blockers as targeted_blockers
+        return targeted_blockers(root)
     try:
         expected = snapshot(root)
         required = {'src/agent.py', 'src/document_answers.py', 'src/document_context.py', 'src/rule_bindings.json'}
