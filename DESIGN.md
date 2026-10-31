@@ -87,6 +87,32 @@ Only official Gnani STT/TTS is used, including retries. Multipart streams rewind
 
 Synthetic TTS-input round trips do not establish human accent/noise robustness or intelligibility. Own-voice/listening tests remain for the final rehearsal.
 
+## Optional regional languages
+
+English, Hindi and Hinglish remain the primary supported scope. Regional routes are experimental; the [recorded language checks](sample_outputs/language_validation.json) describe their verification limits.
+
+```sh
+python scripts/setup_translation.py
+```
+
+This separately downloads approximately **907 MB** of pinned NLLB weights. Enable **Advanced options → Extra languages** afterward. Other regional languages use masked local translation around the same agent; placeholder, script and translation checks reject malformed output with a localized retry. These checks do not prove semantic equivalence. Choose Marathi explicitly because Hindi and Marathi share Devanagari; English/Hindi/Hinglish retain their existing path.
+
+| Language | Batch/STT code | TTS voice |
+| --- | --- | --- |
+| English | `en-IN` | Kaveri |
+| Hindi | `hi-IN` | Nalini |
+| Hinglish | `en-IN` (TTS `hi-en`) | Poorvi |
+| Bengali | `bn-IN` | Kirra |
+| Gujarati | `gu-IN` | Falak |
+| Kannada | `kn-IN` | Saanvi |
+| Malayalam | `ml-IN` | Reshma |
+| Marathi | `mr-IN` | Zahira |
+| Punjabi | `pa-IN` | Mehuli |
+| Tamil | `ta-IN` | Asmita |
+| Telugu | `te-IN` | Suhana |
+
+Mappings follow [Gnani's voice catalog](https://docs.gnani.ai/api/TTS/available-voices). Run `python scripts/validate_languages.py --languages te` for a Telugu synthetic pilot, or omit `--languages` for all ten plus Hinglish. Routing, valid audio and grounded meaning are checked separately.
+
 ## Evaluation and provenance
 
 The source-only change invalidates earlier authored-fallback scores as evidence of current performance. Legacy offline practice 52/52 and 96/96, adversarial 77/77, exposed offline regression 91/91 and live practice 52/52 and 96/96 retain their actual composition. Pre-change live files are archived under `sample_outputs/history/pre_document_answers/`. They are not current pass claims.

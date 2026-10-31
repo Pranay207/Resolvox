@@ -17,6 +17,19 @@ Actual outputs retain their original inference source hashes. Saved successful r
 
 The required report comparison is the recorded prompt-only baseline (1/52) and accumulated grounded practice checks (52/52). The baseline used qwen3:1.7b; the current selected model is qwen3:4b-instruct, and recorded model/source revisions differ. This is a descriptive comparison with a disclosed confound, not a controlled same-model ablation.
 
+## Recorded local runtime
+
+The recorded laptop checks used local Ollama `qwen3:4b-instruct` on port **11435**. The README and `.env.example` use the standard port **11434** for setup. To reproduce the recorded endpoint, start Ollama in a separate PowerShell terminal:
+
+```powershell
+$env:OLLAMA_HOST='127.0.0.1:11435'
+ollama serve
+```
+
+Set `LLM_BASE_URL=http://127.0.0.1:11435` in the ignored `.env` when using that server. The server address and client configuration must match.
+
+Selected generated turns took **12.4–257.1 seconds** on the recorded CPU setup. Per-stage timings and execution revisions are retained in the [targeted evidence](sample_outputs/targeted_live_validation.json); these timings do not establish a general latency guarantee. The [new-case UI smoke check](sample_outputs/ui_user_smoke_20261031.json) records interactive probes and their targeted fixes.
+
 ## Reproduce selected checks
 
 ```powershell

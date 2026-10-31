@@ -44,11 +44,11 @@ Capstone for **From Tokens to Transformers**, organized by the Consulting & Anal
 
 ### Using the Application
 
-Use the compact **Speak · Type** switch in **Your conversation** to record a message or type a question. **Upload an audio clip** is a secondary option under Speak. Both input modes share one history, including replies and audio playback.
+Choose **Speak** to record a message or **Type** to write a question. **Upload an audio clip** accepts an existing recording. Both modes share the same conversation and audio playback.
 
-**Your case** starts as a compact disclosure and expands into contextual support when needed. Order details appear only after a successful verification lookup, and ticket references require confirmed creation. **Your next step** appears for clarification or handover, rather than repeating the welcome message. On smaller screens, case details sit above the conversation. The history scrolls separately, and the grouped input controls keep the recorder and Send action together on short screens. **New conversation** clears the history and verification. **Retry reply audio** retries speech without repeating the agent action.
+**Your case** shows verified order details and confirmed ticket references. **Your next step** provides clarification or handover guidance. The layout adapts to phone, tablet and desktop screens.
 
-Under **Advanced options**, AI policy answers are enabled by default and extra language previews are disabled.
+**New conversation** clears the history and verification. **Retry reply audio** retries speech without repeating the agent action. Under **Advanced options**, AI policy answers are enabled by default and extra language previews are disabled.
 
 ## Quick Start
 
@@ -115,7 +115,7 @@ Then download the model from another terminal:
 ollama pull qwen3:4b-instruct
 ```
 
-The setup above uses Ollama’s default port **11434**, matching `.env.example`. The recorded laptop checks used **11435**; to reproduce that endpoint, set `OLLAMA_HOST=127.0.0.1:11435` before starting Ollama and set `LLM_BASE_URL=http://127.0.0.1:11435` in `.env`. The two ports must match.
+Use Ollama’s default port **11434**, matching `.env.example`. Keep the server port and `LLM_BASE_URL` consistent.
 
 <details>
 <summary>Use a compatible hosted LLM instead</summary>
@@ -186,7 +186,7 @@ flowchart TD
 | Component | Implementation |
 | --- | --- |
 | Interface | Responsive Streamlit workspace with Speak/Type input, one conversation and verified case details |
-| Answer model | Local Ollama `qwen3:4b-instruct`; selected laptop endpoint on port 11435 |
+| Answer model | Local Ollama `qwen3:4b-instruct` |
 | Retrieval | Lexical search + multilingual MiniLM embeddings using quantized ONNX |
 | Speech | Gnani STT and TTS only |
 | State and tools | Shared agent session with supplied dataset lookup/ticket tools |
@@ -208,9 +208,9 @@ Recorded local development results:
 | English, Hindi and Hinglish speech | **3/3 selected synthetic round trips**; Hindi retested separately | [Speech evidence](sample_outputs/targeted_voice_validation.json) |
 | Official dataset validation | **Passed**: 9 CSVs and 21 knowledge-base documents | [Validator output](sample_outputs/engineering_artifacts/20261031T060814584432Z_92c93db5/dataset_validation.log) |
 
-**Scope:** these are development checks, not organizer scores. The 52-question total combines preserved outputs and targeted retests; it is not a fresh complete run of the current revision. Selected conversation and speech evidence also identifies retained outputs and execution revisions. The baseline used `qwen3:1.7b`, while the selected model is `qwen3:4b-instruct`, so the comparison is not a controlled same-model experiment.
+**Scope:** the 52/52 total combines saved outputs and targeted retests across revisions, rather than a fresh complete run. The baseline used `qwen3:1.7b`, while the selected model is `qwen3:4b-instruct`; this is not a controlled same-model comparison.
 
-Synthetic audio does not establish real-speaker, accent or noise performance. Selected generated turns took **12.4–257.1 seconds** on the recorded CPU setup. See [VERIFICATION.md](VERIFICATION.md) for measurement limits and historical runs, and the [new-case UI smoke check](sample_outputs/ui_user_smoke_20261031.json) for interactive probes and their targeted fixes.
+These are local development results, not organizer scores. Synthetic speech checks do not establish real-speaker or noise performance. See [VERIFICATION.md](VERIFICATION.md) for provenance, latency, recorded runtime settings and limitations.
 
 <details>
 <summary>Verification commands</summary>
@@ -235,36 +235,9 @@ The original Step 1, Step 2 and Step 3 evaluation drivers remain available as `e
 
 ## Language Support
 
-**English, Hindi and Hinglish are the primary scope.** Select the spoken language before recording. Additional regional languages are an optional preview, disabled by default.
+**English, Hindi and Hinglish are the primary scope.** Select a language before recording. Additional regional languages are an experimental preview, disabled by default and not validated for the current revision.
 
-Additional regional routes are experimental and have not been validated for the current revision. See the [recorded language checks](sample_outputs/language_validation.json) before enabling the preview.
-
-<details>
-<summary>Configure the optional regional preview and inspect voice routes</summary>
-
-```sh
-python scripts/setup_translation.py
-```
-
-This separately downloads approximately **907 MB** of pinned NLLB weights. Enable **Advanced options → Extra languages** afterward. Other regional languages use masked local translation around the same agent; placeholder, script and translation checks reject malformed output with a localized retry. These checks do not prove semantic equivalence. Choose Marathi explicitly because Hindi and Marathi share Devanagari; English/Hindi/Hinglish retain their existing path.
-
-| Language | Batch/STT code | TTS voice |
-| --- | --- | --- |
-| English | `en-IN` | Kaveri |
-| Hindi | `hi-IN` | Nalini |
-| Hinglish | `en-IN` (TTS `hi-en`) | Poorvi |
-| Bengali | `bn-IN` | Kirra |
-| Gujarati | `gu-IN` | Falak |
-| Kannada | `kn-IN` | Saanvi |
-| Malayalam | `ml-IN` | Reshma |
-| Marathi | `mr-IN` | Zahira |
-| Punjabi | `pa-IN` | Mehuli |
-| Tamil | `ta-IN` | Asmita |
-| Telugu | `te-IN` | Suhana |
-
-Mappings follow [Gnani's voice catalog](https://docs.gnani.ai/api/TTS/available-voices). Run `python scripts/validate_languages.py --languages te` for a Telugu synthetic pilot, or omit `--languages` for all ten plus Hinglish. Routing, valid audio and grounded meaning are checked separately.
-
-</details>
+Setup instructions, translation details and the voice-route table are in [Optional regional languages](DESIGN.md#optional-regional-languages).
 
 ## Documentation
 
@@ -273,8 +246,6 @@ Mappings follow [Gnani's voice catalog](https://docs.gnani.ai/api/TTS/available-
 | [report.pdf](report.pdf) | Four-page capstone technical report |
 | [DESIGN.md](DESIGN.md) | Architecture, retrieval, session state and privacy boundaries |
 | [VERIFICATION.md](VERIFICATION.md) | Detailed measurements, historical failures and limitations |
-| [BRIEF_CHECKLIST.md](BRIEF_CHECKLIST.md) | Requirement-by-requirement checklist |
-| [DEMO_SCRIPT.md](DEMO_SCRIPT.md) | Plan for the final recording |
 | [THIRD_PARTY.md](THIRD_PARTY.md) | Model revisions, dependencies and licensing |
 | [.env.example](.env.example) | Configuration template without credentials |
 | [sample_outputs/](sample_outputs/) | Recorded answer, source, tool and speech evidence |
