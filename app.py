@@ -46,6 +46,10 @@ st.markdown("""<style>
 [data-testid="stChatInput"] {background:#f5f8fd;border-color:#cedaeb;}
 [data-testid="stChatInput"] textarea {color:#14243b;}
 [data-testid="stAudioInput"] {color-scheme:light;}
+[data-testid="stAudioInput"] button {min-width:44px;min-height:44px;}
+[data-testid="stChatMessage"] {min-width:0;}
+[data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] {overflow-wrap:anywhere;}
+[data-testid="stExpander"] pre {max-width:100%;overflow-x:auto;}
 [data-testid="stBaseButton-primary"] {background:#2563eb;color:#fff;border-radius:12px;border-color:#2563eb;min-height:2.6rem;}
 [data-testid="stBaseButton-primary"] [data-testid="stMarkdownContainer"] {color:#fff!important;}
 [data-testid="stBaseButton-primary"]:disabled {background:#edf2f8!important;border-color:#d4deeb!important;color:#64758c!important;}
@@ -65,7 +69,25 @@ st.markdown("""<style>
 @media(max-width:1100px) {[data-testid="stMainBlockContainer"] {padding:1.25rem 1.25rem 1.5rem;}}
 .stApp:has([data-testid="stSidebar"][aria-expanded="false"]) [data-testid="stHeader"] {height:2.5rem;min-height:2.5rem;}
 .stApp:has([data-testid="stSidebar"][aria-expanded="false"]) [data-testid="stMainBlockContainer"] {padding-top:2.75rem;}
-@media(max-width:800px) {[data-testid="stMainBlockContainer"] {padding:2.75rem .85rem 1.25rem;}[data-testid="stMain"] h1 {font-size:1.5rem;}.empty-reply {min-height:140px;}}
+@media(max-width:800px) {
+[data-testid="stMainBlockContainer"] {padding:3.25rem .85rem 1.25rem!important;}
+[data-testid="stHeader"] {height:3rem!important;min-height:3rem!important;}
+[data-testid="stMain"] h1 {font-size:1.5rem;}
+[data-testid="stHeader"] button,[data-testid="stSidebarHeader"] button {min-width:44px;min-height:44px;}
+[data-testid="stSidebarHeader"] {width:44px;height:44px;min-height:44px;}
+[data-testid="stSidebarUserContent"] {padding-top:3rem!important;}
+[data-testid="stMain"] [data-testid^="stBaseButton"],
+[data-testid="stSidebarUserContent"] [data-testid^="stBaseButton"],
+[data-testid="stSidebarUserContent"] a {min-height:44px;}
+[data-testid="stTabs"] [role="tab"] {height:44px;min-height:44px;}
+[data-baseweb="select"]>div {min-height:44px;}
+[role="radiogroup"] label,[data-testid="stSidebarUserContent"] label:has(input[type="checkbox"]) {min-height:44px;align-items:center;}
+[data-testid="stSidebar"] summary {min-height:44px;}
+[data-testid="stChatInput"],[data-testid="stChatInput"] textarea {min-height:44px;}
+[data-testid="stChatInput"] textarea {font-size:16px;}
+[data-testid="stChatInput"] button {min-width:44px;min-height:44px;}
+.empty-reply {min-height:140px;}
+}
 @media(max-height:760px) and (min-width:801px) {.empty-reply {min-height:150px;}}
 </style>""", unsafe_allow_html=True)
 
