@@ -10,7 +10,7 @@ from .grounding import _numeric_text, _UNITS
 _REFUND = re.compile(r"refund|रिफ़?ंड|धनवापसी", re.I)
 _DURATION = re.compile(r"\b(?:days?|long|soon|when|time|kab|kitn\w*)\b|दिन|कब|समय", re.I)
 _RECEIPT = re.compile(r"\b(?:arriv\w*|receiv\w*|reach\w*|get|aay\w*|aeg\w*|mil\w*)\b|आए|आय|मिल", re.I)
-_START = re.compile(r"\b(?:initiat\w*|start\w*|begin\w*|shuru)\b|शुरू|आरंभ", re.I)
+_START = re.compile(r"\b(?:initiat\w*|start\w*|begin\w*|shuru)\b|शुरू|शुरुआत|आरंभ|प्रारंभ", re.I)
 _COMPOUND = re.compile(r"\b(?:compare|all|each|every|warrant\w*|return\s+(?:window|deadline)|pick.?up\s+(?:cost|fee)|RRN)\b|तुलना|सभी|वारंटी|शुल्क", re.I)
 _METHODS = {
  'upi': r'\bupi\b|यूपीआई',
@@ -69,6 +69,8 @@ def check_refund_timeline_answer(answer, query, facts, sources, reference_date):
  pattern=(r'(?<![\d.])'+str(low)+r'\s*(?:'+unit+r')?\s*(?:to|[-–]|से|se|and|और|तक)\s*'
           +str(high)+r'\s*(?:'+unit+r')(?![A-Za-z\u0900-\u097f])')
  if not re.search(pattern,_numeric_text(answer),re.I):raise ValueError('missing_refund_arrival_range')
+ if not (_START.search(answer) and re.search(r'\b(?:after|following|from|once)\b|के\s*(?:बाद|पश्चात)|ke\s+baad',answer,re.I)):
+  raise ValueError('missing_refund_initiation_anchor')
  methods=mentioned_methods(answer)
  if methods and methods!={binding['payment_method']}:raise ValueError('wrong_refund_payment_method')
  return binding
