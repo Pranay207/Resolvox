@@ -17,6 +17,7 @@ from .warranty_durations import warranty_duration_context, warranty_duration_con
 from .source_semantics import derive_source_constraints
 from .return_conditions import return_condition_context
 from .refund_status import pending_refund_requirement
+from .refund_timeline import refund_timeline_binding
 
 # Record fields, not policy thresholds. Explicit allowlists also filter nested
 # items: organizer records contain identities that must not enter model context.
@@ -700,6 +701,9 @@ def build_context(query, sources, data, verified_order=None, public_context=None
     fee = _return_pickup_fee(query, context, source_map)
     if fee:
         context['return_pickup_policy'] = fee
+    refund_arrival = refund_timeline_binding(query, context, list(source_map.values()), REFERENCE_DATE)
+    if refund_arrival:
+        context['refund_arrival_policy'] = refund_arrival
     context['answer_constraints'] = _answer_constraints(query, context, source_map)
     context['answer_constraints'].extend(warranty_duration_constraints(context))
     source_semantic_constraints = derive_source_constraints(list(source_map.values()))

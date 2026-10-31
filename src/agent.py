@@ -506,6 +506,9 @@ class Agent:
                         generation_context_sources=[]
                         s.source_input_workflow=make_source_input_workflow(plan.facts,selected,answer_query,
                             plan.intent,s.public_context,s.order_id)
+                    if 'context_source_ids' in generated:
+                        supplied_ids = set(generated['context_source_ids'])
+                        generation_context_sources = [row for row in selected if row['id'] in supplied_ids]
                     answer=generated['answer']; source_ids=generated['source_ids']
                     citations=generated.get('citations',[])
                     sources=[available[c] for c in source_ids]
