@@ -1,31 +1,42 @@
-# Resolvox - Two-minute Demo Script
+# Resolvox - Demonstration Guide
 
-Record your screen and narration after final validation, and save `demo.mp4` at the project root. Leave a few seconds below the 120-second limit. Show real app/tool/speech output; do not replace answers, hide failures or display simulated success. Keep `.env`, private table rows and unredacted proof inputs off-screen.
+The current production target is **1 minute 45 seconds (105 seconds)**. The brief allows at most 120 seconds. Show an actual document-grounded answer, a follow-up in the same conversation, and either a confirmed handover or a clear statement of uncertainty.
 
-## Prepare after the final run
+## This demonstration
 
-1. Confirm the selected local model and actual current evidence: Ollama `qwen3:4b-instruct` on the laptop. The before-fix 52-question local run completed at **39/52 mechanical passes** and is archived; validation of the applied fixes and the current-model baseline remain pending. Historical 1.7B/4B results are not a controlled same-model comparison. Use actual completed current results only when they exist.
-2. Confirm real Gnani validation with `python generate_voice_samples.py --reuse-inputs` (omit `--reuse-inputs` if inputs do not yet exist). Inspect `sample_outputs/voice_validation.json`, actual batch artifacts, matching runtime hashes and `source_runtime_unchanged=true`. A blocked, failed or stale run is not current speech proof. Synthetic test inputs are not human speech evidence.
-3. Use the selected laptop Ollama endpoint `http://127.0.0.1:11435`, `LLM_MODEL=qwen3:4b-instruct`, `LLM_TIMEOUT=600` and `RAG_LLM_TIMEOUT=600`. Keep credentials private. The `.env.example` local defaults remain supported; match the app base URL to the running Ollama port. Start `python -m streamlit run app.py` with the intended configuration. Request timeouts do not promise complete-turn latency.
-4. Rehearse the chosen query and inspect its JSON: `composition=grounded_llm` means accepted generated wording; `document_excerpts` is explicitly offline source display, `deterministic_guardrail` is an operational guard, and abstention modes mean the agent withheld an unsupported answer. No normal policy-answer fallback is used. The model returns `answer`, `covered` and `needs_clarification`; the host derives `decision`, retains `model_flags` and validates content. Generic Boolean uncertainty retains covered=False, reply_kind=uncertainty and insufficient-evidence status even with operational decision answer. A source_input_clarification is a neutral host question with zero LLM calls, not a generated policy answer. Legacy explicit and privacy refusals retain their decisions. These flags do not prove correctness. Confirm `llm.cache_hit` and timing fields; keep the sanitized JSON trace ready for fields absent from the app caption. If warming the app before recording, disclose that the shown run is warm; a cache hit is not fresh inference. Turn timing also excludes startup/resource loading.
-5. Prepare a synthetic order/proof privately. Mask only the input area or enter proof off-screen; the displayed history must show its redaction. Keep app session state clear before the recorded verification example.
-6. Choose a documented query, an order follow-up and a handover or uncovered service question. Use a saved baseline only if its actual generated answer demonstrates the claimed difference. Keep the final recording within the time budget, including real provider latency; trim narration or examples rather than disguising wait time.
+Use one fresh conversation in the application with **AI policy answers on**, **English / Hinglish** selected, and **Speak** mode. The prepared walkthrough uses clearly labelled synthetic customer questions and narration through Gnani. Agent replies must come from the actual application, with its real Gnani STT and TTS path. It is an edited walkthrough, not an unedited real-time latency demonstration.
 
-Current offline engineering passed **2770/2770 cases**, with no failures/errors/skips (**126.457 s JUnit; 141.927 s pytest wall**), supported by the [receipt](sample_outputs/engineering_verification.json) and [JUnit](sample_outputs/engineering_artifacts/20261028T174308921749Z_dc857670/pytest.xml) matching tested file hashes. The [before-fix local run](sample_outputs/history/local_52_before_fixes_20261026T161207Z/eval_step2_live_current.json) completed at **39/52 mechanical passes** and is historical. Fresh full local practice, the 96-turn run, same-model baseline, speech and report/package verification remain pending. The demo stays last.
+| Part | Screen action | Spoken content |
+| --- | --- | --- |
+| Introduction | Show Resolvox and the support workspace | Meet Resolvox, an AI support assistant for ZentroMart. This edited walkthrough uses synthetic customer speech and real application responses. |
+| Grounded answer | Upload or record the first question, send it, show the reply and open View supporting policy | As a non-Plus customer, what is the standard return window for clothing? |
+| Follow-up | Keep the same conversation and send the second question | And what reverse pickup fee applies if I change my mind about those clothes? |
+| Uncertainty | Keep the same conversation and send the third question | What return policy will ZentroMart introduce in the year 2030? |
+| Closing | Show the conversation and a compact pipeline summary | The same conversation connects Gnani speech recognition, document retrieval, a local language model, and Gnani speech synthesis. Supporting policies remain visible, and unsupported questions receive uncertainty. |
 
-Before rehearsal, compare actual source/input/settings hashes and use the intended provider/model. The finite navigation, scheduling-clock, amount-role, remedy-prerequisite and customer-state guards do not certify every answer. Show the actual generated answer and separate confirmed ticket outcome. Keep the video placeholder until the user records the final demo.
+The edited version adds short, clearly labelled narrator explanations after each actual reply: why the policy supports the first answer, how context carries into the follow-up, and why the final question receives uncertainty. These explanations are separate from the unmodified agent replies.
 
-The stopped local `qwen3:4b-instruct` run checked **13 of 52 planned questions**, with **11/13 mechanical passes**. Separate assistant source-by-source review classified **5 supported with limits, 4 material errors and 4 uncertain**. These categories are not an adjusted score or certification. The unchanged [predictions](sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/raw/eval_step2_live_current.json) and [assistant review](sample_outputs/history/local_thirteen_stopped_before_hosted_20261025T155834Z/assistant_semantic_review.json) are archived; the run predates the latest guards and the new local rerun.
+## What to verify before using a take
 
-## Recording outline
+- The first reply must use the actual clothing return policy: 15 calendar days from delivery, with any stated conditions supported by the document.
+- The follow-up must preserve the clothing context. The policy states a Rs 49 reverse-pickup fee for change-of-mind returns of clothing, footwear and bags, waived for Plus members and damaged, defective or wrong items.
+- The future-policy question must not invent a policy for 2030. Show the actual reply acknowledging the missing information. If the reply invents a policy, preserve the failed take and fix or investigate it before recording a new take.
+- Speech playback must be an actual Gnani reply, not a substituted recording or a manually authored agent answer.
+- Supporting policy text must be visible at least once. Internal style instructions are not customer-facing evidence.
 
-| Time | Action and concise narration |
-|---|---|
-| 00:00-00:10 | Show app title. "This is Resolvox, ZentroMart's multilingual AI support assistant. It searches company policies, verifies order access, and uses Gnani for speech." |
-| 00:10-00:35 | Ask a documented policy question, such as UPI refund timing. Open Sources and composition/timing evidence. "It retrieved these sections first. The model generated the answer from their actual text. The source trace records the exact sections supplied; checks can reject unsupported values, but do not prove every claim." State whether the response was warm uncached or cached; if the reply is a guard or abstention, identify it accurately. |
-| 00:35-01:00 | Ask about the prepared synthetic order, show the verification prompt, provide proof off-screen and reveal the redacted successful lookup trace. "Order details are withheld until verification succeeds. The credential is removed from the trace and model input." |
-| 01:00-01:20 | Ask a follow-up on that order, then request a human if time permits. Show the actual ticket result. "The session keeps the verified order context. A ticket is reported only after the supplied tool confirms success." If creation fails, describe the failure honestly. |
-| 01:20-01:45 | Record a short Hindi/Hinglish policy question in the Voice support tab and play the real Gnani reply. "Gnani transcribes my voice; the same agent answers; Gnani speaks the reply." Include actual processing time in the recorded sequence. |
-| 01:45-01:55 | Show an uncovered service question or saved current abstention, then a current evaluation result. "The agent can abstain. These are local measured checks, with generation, operational guards, abstentions and cache behavior recorded separately." |
+## Recording and editing
 
-The outline is a rehearsal budget, not a latency promise. If real waits would exceed 120 seconds, remove the optional score/baseline segment or use fewer examples. Do not describe cache playback as fresh generation. Existing voice checks use synthetic TTS inputs; human speech testing and subjective listening have not been completed. If speech validation fails, keep release readiness in draft status and fix the failure before recording the required live speech demonstration.
+Keep a visible label: **Edited walkthrough - synthetic customer speech - processing waits shortened**. Preserve the complete customer questions and actual spoken replies. Subtitles may reproduce the exact visible transcript and answer; do not rewrite a response to make it correct. Processing screens can be shortened, but do not imply instant or real-time performance. A rehearsed or cached turn is not fresh inference.
+
+Do not show API keys, environment files, private verification proofs or customer tables. This policy-only flow needs no private order details. Do not add a ticket-created or order-verified claim, because this particular walkthrough does not demonstrate those actions.
+
+## Final checks
+
+- Total duration is at most 120 seconds, with a short margin.
+- The picture and speech are readable and audible on a laptop and phone.
+- All three replies are reviewed against the sources and their stated uncertainty.
+- Save the approved video as `demo.mp4` at the repository root.
+- Keep any generated-video provenance separate from the claim that a human recorded their own voice.
+- Rebuild the draft ZIP after adding the video; confirm anonymous repository access before creating the final submission ZIP.
+
+The recorded evaluation and its limits are in [VERIFICATION.md](VERIFICATION.md). The demo is a product walkthrough, not evidence that every unseen question passes.

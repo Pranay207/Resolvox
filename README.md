@@ -32,9 +32,21 @@ Capstone for **From Tokens to Transformers**, organized by the Consulting & Anal
 
 ## Demo Video
 
-> Demo video — recording to be added here.
+[Watch the 1:45 demonstration](demo.mp4)
 
-<!-- Add the actual recording link or embedded video here after the final own-voice rehearsal. -->
+A policy-grounded answer, a follow-up and an uncertainty response in one voice conversation. The edited walkthrough uses synthetic customer speech and narration, actual application replies, and clearly disclosed shortened processing waits.
+
+## Application Preview
+
+<p align="center">
+  <img src="assets/resolvox-desktop.jpg" alt="Resolvox desktop workspace with voice and text input, compact case details and visible support controls" width="1100">
+</p>
+<p align="center"><em>Desktop workspace</em></p>
+
+<p align="center">
+  <img src="assets/resolvox-mobile.jpg" alt="Resolvox mobile layout with Speak and Type controls, microphone recording and audio upload" width="300">
+</p>
+<p align="center"><em>Mobile layout</em></p>
 
 ## What Resolvox Does
 

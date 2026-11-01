@@ -1,11 +1,10 @@
 {
   "ready_to_submit": false,
   "blockers": [
-    "User-recorded demo.mp4 missing or duration unverified",
     "Public GitHub repository access has not been confirmed"
   ],
   "report_pages": 4,
-  "demo_seconds": null,
+  "demo_seconds": 105.0,
   "public_repository": "https://github.com/Pranay207/Resolvox",
   "team_name_assumption": "pranay",
   "speech_provider": "Gnani only",
@@ -68,5 +67,5 @@
     "Synthetic audio does not establish human-speech, accent, noise or subjective listening quality."
   ],
   "warning": "Mechanical test passes are not organizer scores.",
-  "checked_at_utc": "2026-10-31T11:26:51.032667+00:00"
+  "checked_at_utc": "2026-11-01T06:46:25.892754+00:00"
 }
