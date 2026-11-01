@@ -19,6 +19,8 @@ The recorded [uncached wallet voice turn](sample_outputs/reliability_artifacts/p
 
 The [history manifest](sample_outputs/reliability_artifacts/history_manifest.json) distinguishes these historical timing records from current audio evidence. Historical WAV bytes were not retained when their output path was reused; the current published reply WAV is checked against its exact recorded SHA-256.
 
+A [smaller-model experiment](sample_outputs/reliability_fast_model_candidate.json) disabled model-output caching and tested two focused wallet questions with local `qwen3:1.7b`. It took **30.123 seconds** (timeout) and **18.020 seconds** (incomplete answer rejected). Neither met the 10-second target or passed answer validation. The candidate was rejected; the application default remains `qwen3:4b-instruct`.
+
 The laptop is CPU-only. This setup **does not meet a general 5–10 second response target** for unseen questions. Faster inference hardware remains necessary to pursue that target with the selected model; cached-response timing does not establish it. The [desktop UI checks](sample_outputs/reliability_ui_validation.json) confirm that a supported reply and an uncertainty reply are actually shown in the application.
 
 Response scopes now bound model and speech waits, report busy/time-out/unavailable states separately from missing policy evidence, and keep validated text visible if reply audio fails. Only an active Windows request holds off automatic idle sleep; its previous execution state is restored afterward. Full input context and rejected drafts remain in audit evidence. No hosted LLM was used in these checks, and speech remains Gnani-only. The supplied orders and ticket tools remain capstone fixtures, not a live store backend.
