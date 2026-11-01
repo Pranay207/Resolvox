@@ -205,7 +205,7 @@ Recorded local development results:
 
 | Check | Recorded result | Evidence |
 | --- | --- | --- |
-| Step 1: prompt-only baseline | **1/52**, including one recorded error | [Baseline outputs](sample_outputs/eval_step1.json) |
+| Step 1: prompt-only baseline | **52/52**, including one recorded error | [Baseline outputs](sample_outputs/eval_step1.json) |
 | Step 2: grounded practice questions | **52/52 accumulated checks** across recorded revisions | [Question records](sample_outputs/eval_step2_latest_cases.json) |
 | Selected conversation scenarios | **18/18 turns**, plus **2/2 refund edge cases** | [Targeted evidence](sample_outputs/targeted_live_validation.json) |
 | Refund and reporting regressions | **371 passed** | [Test receipt](sample_outputs/refund_scope_verification_20261031.json) |
