@@ -41,7 +41,7 @@ These commands run the selected scenarios and three synthetic speech clips. Smal
 
 ## Recorded demonstration
 
-[demo.mp4](demo.mp4) is a **105-second edited walkthrough** of three actual UI voice turns: clothing return timing, a contextual pickup-fee follow-up, and uncertainty about an undocumented future policy. Customer speech and narration are synthetic Gnani audio; the replies are actual application outputs. Processing waits are shortened and disclosed. [Demo provenance](sample_outputs/demo_validation.json) preserves unmodified replies, source captures, speech hashes, round-trip transcripts and the observed processing-time bounds. This is a selected product demonstration, not a new full practice score or a human/noise listening study.
+[Resolovox Demo.mp4](<Resolovox Demo.mp4>) is a **105-second edited walkthrough** of three actual UI voice turns: clothing return timing, a contextual pickup-fee follow-up, and uncertainty about an undocumented future policy. Customer speech and narration are synthetic Gnani audio; the replies are actual application outputs. Processing waits are shortened and disclosed. [Demo provenance](sample_outputs/demo_validation.json) preserves unmodified replies, source captures, speech hashes, round-trip transcripts and the observed processing-time bounds. This is a selected product demonstration, not a new full practice score or a human/noise listening study.
 
 ## Submission checks
 

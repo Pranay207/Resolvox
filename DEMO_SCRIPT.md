@@ -35,7 +35,7 @@ Do not show API keys, environment files, private verification proofs or customer
 - Total duration is at most 120 seconds, with a short margin.
 - The picture and speech are readable and audible on a laptop and phone.
 - All three replies are reviewed against the sources and their stated uncertainty.
-- Save the approved video as `demo.mp4` at the repository root.
+- Save the approved video as `Resolovox Demo.mp4` at the repository root.
 - Keep any generated-video provenance separate from the claim that a human recorded their own voice.
 - Rebuild the draft ZIP after adding the video; confirm anonymous repository access before creating the final submission ZIP.
 

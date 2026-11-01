@@ -5,6 +5,7 @@
   ],
   "report_pages": 4,
   "demo_seconds": 105.0,
+  "demo_filename": "Resolovox Demo.mp4",
   "public_repository": "https://github.com/Pranay207/Resolvox",
   "team_name_assumption": "pranay",
   "speech_provider": "Gnani only",
@@ -66,6 +67,5 @@
     "The historical baseline and current model are not a controlled same-model full comparison.",
     "Synthetic audio does not establish human-speech, accent, noise or subjective listening quality."
   ],
-  "warning": "Mechanical test passes are not organizer scores.",
-  "checked_at_utc": "2026-11-01T06:46:25.892754+00:00"
+  "warning": "Mechanical test passes are not organizer scores."
 }

@@ -121,9 +121,9 @@
     "sample_outputs/demo_assets/question_03.wav": "b34445a5973ebbba5bddb5288f40f7730d41dd59f4b250a4cd55633ece15ce46",
     "sample_outputs/demo_assets/reply_03.wav": "f979115ef182b7ca70d43e3cf33d5bbc333cf110033f7db9c6771b24ef681280",
     "sample_outputs/demo_assets/answer_03.jpg": "4a436bea16e05d8c6a5d336553e05b41775b409fd5a8b4f529b2b49d3c5eeff0",
-    "demo.mp4": "db6311054b959c963f2ac6766ffc03238bc4645d5ac6fc965cf23a2b77eca284"
+    "Resolovox Demo.mp4": "db6311054b959c963f2ac6766ffc03238bc4645d5ac6fc965cf23a2b77eca284"
   },
-  "video": "demo.mp4",
+  "video": "Resolovox Demo.mp4",
   "video_sha256": "db6311054b959c963f2ac6766ffc03238bc4645d5ac6fc965cf23a2b77eca284",
   "video_seconds": 105.0,
   "resolution": [

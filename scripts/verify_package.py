@@ -48,9 +48,10 @@ def main():
         assert all('voice_inputs' not in PurePosixPath(n).parts for n in names)
         assert '.env' not in names and '.streamlit/secrets.toml' not in names
         required={'.env.example','pytest.ini','.streamlit/config.toml','README.md','LICENSE','report.pdf',
-                  'requirements.txt','run.py','app.py','ENGINEERING_DEEP_DIVE.md','SUBMISSION_STATUS.json','demo.mp4',
+                  'requirements.txt','run.py','app.py','ENGINEERING_DEEP_DIVE.md','SUBMISSION_STATUS.json',
                   'src/agent.py','src/document_answers.py','src/document_context.py'}
         assert required<=set(names),'Release is missing required source or submission files'
+        assert {'demo.mp4','Resolovox Demo.mp4'} & set(names),'Demo video missing'
         for name in names:assert (target/name).resolve().is_relative_to(target)
         z.extractall(target)
     env=os.environ.copy();env['DATASET_DIR']=str(ROOT/'Capstone_Project_Dataset_FTTT_2026');env['DENSE_ENABLED']='false';env['COMPOSE_WITH_LLM']='false'

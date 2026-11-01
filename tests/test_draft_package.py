@@ -111,3 +111,28 @@ def test_draft_notice_accurately_identifies_an_included_demo(draft_tree):
     with zipfile.ZipFile(root/'dist/pranay_voiceops_draft.zip') as archive:
         note=archive.read('DRAFT_SUBMISSION.txt').decode('utf-8')
         assert 'included for review' in note and 'will be added next' not in note
+
+
+def test_friendly_demo_filename_is_packaged_once_with_working_links(draft_tree):
+    root,release=draft_tree
+    video=root/'Resolovox Demo.mp4'
+    video.write_bytes(b'Synthetic named-video archive fixture')
+    (root/'demo.mp4').write_bytes(video.read_bytes())
+    (root/'README.md').write_text('[Watch](demo.mp4)',encoding='utf-8')
+    release['blockers']=['Public GitHub repository access has not been confirmed']
+    assert package.main(draft=True)==0
+    with zipfile.ZipFile(root/'dist/pranay_voiceops_draft.zip') as archive:
+        names=set(archive.namelist())
+        assert 'Resolovox Demo.mp4' in names and 'demo.mp4' not in names
+        assert '[Watch](<Resolovox Demo.mp4>)' in archive.read('README.md').decode('utf-8')
+        assert json.loads(archive.read('SUBMISSION_STATUS.json'))['demo_filename']=='Resolovox Demo.mp4'
+        assert verify_manifest(archive)['manifest_verified'] is True
+
+
+def test_friendly_demo_is_used_for_status_and_legacy_name_remains_supported(draft_tree):
+    root,_=draft_tree
+    assert package.demo_file()==root/'demo.mp4'
+    (root/'demo.mp4').write_bytes(b'Legacy video fixture')
+    assert package.demo_file()==root/'demo.mp4'
+    (root/'Resolovox Demo.mp4').write_bytes(b'Friendly video fixture')
+    assert package.demo_file()==root/'Resolovox Demo.mp4'

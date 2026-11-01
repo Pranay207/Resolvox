@@ -24,6 +24,13 @@ def mp4_duration(path:Path):
         with path.open('rb') as f:return boxes(f,path.stat().st_size)
     except (OSError,ValueError,struct.error,IndexError):return None
 
+DEMO_NAMES=('Resolovox Demo.mp4','demo.mp4')
+
+
+def demo_file():
+    return next((ROOT/name for name in DEMO_NAMES if (ROOT/name).is_file()),ROOT/'demo.mp4')
+
+
 def _json_record(name):
     try:
         value=json.loads((ROOT/'sample_outputs'/name).read_text(encoding='utf-8'))
@@ -100,7 +107,7 @@ def status():
         if (not _current_runtime(voice,expected) or not _current_runtime(finished,expected)
                 or voice.get('source_runtime_unchanged') is not True or not voice_passed):
             blockers.append('Current Gnani speech semantic validation missing, stale or failing')
-    duration=mp4_duration(ROOT/'demo.mp4')
+    duration=mp4_duration(demo_file())
     if duration is None:blockers.append('User-recorded demo.mp4 missing or duration unverified')
     elif duration<=0 or duration>120:blockers.append('demo.mp4 must contain at most 120 seconds of valid video')
     report=ROOT/'report.pdf'
@@ -118,7 +125,7 @@ def status():
     if targeted and not (public.get('is_public') is True and public.get('repository_url')=='https://github.com/Pranay207/Resolvox' and public.get('http_status')==200):
         blockers.append('Public GitHub repository access has not been confirmed')
     return {'ready_to_submit':not blockers,'blockers':blockers,'report_pages':pages,
-        'demo_seconds':duration,'public_repository':'https://github.com/Pranay207/Resolvox',
+        'demo_seconds':duration,'demo_filename':demo_file().name,'public_repository':'https://github.com/Pranay207/Resolvox',
         'team_name_assumption':'pranay','speech_provider':'Gnani only',
         'answer_path':'document_context_generation','runtime_source_sha256':expected,
         'verification_policy':'targeted_live_with_disclosed_limits' if targeted else 'full_fixture',
@@ -179,6 +186,8 @@ def main(*,draft=False):
     if blocked:
         print(json.dumps({'status':'blocked','release':release},indent=2))
         return 2
+    selected_demo=demo_file()
+    release=dict(release,demo_filename=selected_demo.name)
     if draft:
         release=dict(release,ready_to_submit=False,package_kind='draft')
     else:
@@ -186,7 +195,7 @@ def main(*,draft=False):
     files=[]
     roots=['.streamlit/config.toml','README.md','LICENSE','assets/resolvox-logo.svg','assets/resolvox-desktop.jpg','assets/resolvox-mobile.jpg','.gitignore','.gitattributes','.env.example','requirements.txt','requirements-lock.txt','pytest.ini','setup.py','setup.ps1','run.py','app.py','eval_step1.py','eval_step2.py','eval_step3.py','eval_adversarial.py','eval_holdout.py','generate_voice_samples.py','check_all.py','package_submission.py','BRIEF_CHECKLIST.md','ENGINEERING_DEEP_DIVE.md','DESIGN.md','DEMO_SCRIPT.md','THIRD_PARTY.md','VERIFICATION.md','report.pdf','report.md','SUBMISSION_STATUS.json']
     files.extend(ROOT/name for name in roots if (ROOT/name).is_file())
-    if (ROOT/'demo.mp4').exists():files.append(ROOT/'demo.mp4')
+    if selected_demo.exists():files.append(selected_demo)
     files.extend(referenced_evidence_files())
     for folder in ['src','scripts','tests']:
         for p in (ROOT/folder).rglob('*'):
@@ -201,13 +210,24 @@ def main(*,draft=False):
         if (p.is_symlink() or not p.resolve().is_relative_to(ROOT.resolve())
                 or any(x in name for x in ['Capstone_Project_Dataset','.cache/','.venv/'])
                 or p.name in {'.env','.env.hosted','secrets.toml'}):raise ValueError('Forbidden archive entry')
-        payloads[name]=p.read_bytes()
+        data=p.read_bytes()
+        if selected_demo.name!='demo.mp4' and p.suffix=='.md':
+            text=data.decode('utf-8').replace('](demo.mp4)','](<'+selected_demo.name+'>)').replace('demo.mp4',selected_demo.name)
+            data=text.encode('utf-8')
+        elif name=='sample_outputs/demo_validation.json':
+            record=json.loads(data.decode('utf-8'))
+            record['video']=selected_demo.name
+            artifacts=record.get('artifacts',{})
+            for alias in DEMO_NAMES:
+                if alias in artifacts:artifacts[selected_demo.name]=artifacts.pop(alias)
+            data=(json.dumps(record,indent=2,ensure_ascii=False)+'\n').encode('utf-8')
+        payloads[name]=data
     payloads['SUBMISSION_STATUS.json']=json.dumps(release,indent=2).encode('utf-8')
     if draft:
-        demo_note=('An actual demo.mp4 is included for review.\n' if 'demo.mp4' in payloads
+        demo_note=('The actual '+selected_demo.name+' is included for review.\n' if selected_demo.name in payloads
                    else 'The demo will be added next. No placeholder video is included.\n')
         note=('DRAFT PACKAGE - NOT THE FINAL SUBMISSION\n\n'+demo_note+
-              'Before final submission, provide a reviewed demo.mp4 (at most 120 seconds), confirm\n'
+              'Before final submission, provide a reviewed demo video (at most 120 seconds), confirm\n'
               'anonymous public repository access, and run python package_submission.py\n'
               'without --draft to rebuild and verify the final package.\n\n'
               'Current blockers:\n'+''.join('- '+reason+'\n' for reason in release.get('blockers',[])))
