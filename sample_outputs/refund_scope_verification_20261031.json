@@ -1,6 +1,6 @@
 {
   "scope": "Targeted automated refund, return-date, language category, source-claim and record-safety regressions. Scripted LLM clients; no live inference, speech calls, full engineering suite or 52-question rerun.",
-  "started_at_utc": "2026-11-01T14:54:19.972377+00:00",
+  "started_at_utc": "2026-11-01T16:16:04.785527+00:00",
   "selected_test_files": [
     "tests/test_refund_context_scope.py",
     "tests/test_refund_payment_timeline.py",
@@ -23,7 +23,8 @@
     "tests/test_placement_exception_guard.py",
     "tests/test_return_category_language.py",
     "tests/test_return_pickup_fee_context.py",
-    "tests/test_claim_audit.py"
+    "tests/test_claim_audit.py",
+    "tests/test_unconfirmed_staff_review.py"
   ],
   "source_and_test_sha256_started": {
     "src/agent.py": "82f2c78833894f5f1defba6a4b80ce15d259bf1c11b833f648d98188febdd9b2",
@@ -38,7 +39,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "63391dbaf2242af4b25faba53646a4664a6bfe79c37eaa6578a79c5089edbfb9",
+    "src/document_answers.py": "d422e3af63d322e497b92d080d36e13d3230188dee706ae149d28dd6a7b93199",
     "src/document_context.py": "f7b124bb5184ae1d67a3e2edfd440d693c6e1209908c9d825083454be801b733",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -53,9 +54,9 @@
     "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
     "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
     "src/operational_explanations.py": "d1494d99315a42eab9eafd2aac42a19641c0fd05181518807be7457ee1d5c248",
-    "src/pending_refund_context.py": "6a2479f9149f42d09985203e61b398673bfc861d44aaca0c53e3675087ba6934",
+    "src/pending_refund_context.py": "e03aec18f74ca20e8567f09450af715139cb28d70c07f879bc860cd377ff5ace",
     "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
-    "src/placement_conditions.py": "34ec2680993410558961cea0483741e276ca651bb97f9ab1627c8ef34756ed82",
+    "src/placement_conditions.py": "61b7be8455f99ae6fc81ae44f399efef01ff43c1fae80ac90be71de0d8dbfe12",
     "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
     "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
     "src/refund_status.py": "05e15fa70c4193196b9eb16df90acd096adc71bc3f0575312775197946a05498",
@@ -98,10 +99,11 @@
     "tests/test_delivery_scope.py": "036a31a7435160c0bbbc77cc0ad215c82982b6e086ad672d9d4074b14834db88",
     "tests/test_delivery_clock_guard.py": "cf3296c7d6f605a91302188d7e90e265632fd5c2665be1f81dbd4e44cbb001e6",
     "tests/test_unknown_return_window.py": "cf072f67d9fe56477473c1b96563a2c9c3afaea5b7498b921dd56716fb3e709f",
-    "tests/test_placement_exception_guard.py": "4d9e28f766b1702daee766cc5c33b7c1c7eecf7f876391ba5dc8fb13859fb49b",
+    "tests/test_placement_exception_guard.py": "bdb5317d6a81011cc84d2627c397f6a713b03f08d49c2e964f607be15433ef61",
     "tests/test_return_category_language.py": "b572cd675767feae25f56a89aa1689cc666acd530fd1dc6a2a58527c6dcb46bb",
     "tests/test_return_pickup_fee_context.py": "4cc50e4bdb36dc11a97deae9749f03825b3fac5a11dd8eae67bc92a0ace2667a",
-    "tests/test_claim_audit.py": "631c69bd3ff6ff9e37706af09b628e9f43e447b7ff330dbcdd0caddf17c0ddca"
+    "tests/test_claim_audit.py": "631c69bd3ff6ff9e37706af09b628e9f43e447b7ff330dbcdd0caddf17c0ddca",
+    "tests/test_unconfirmed_staff_review.py": "462a656c754c785b54b17dd9a258fbeaa80f7562eecf4874773a092eef9a116e"
   },
   "complete": true,
   "command": [
@@ -132,21 +134,22 @@
     "tests/test_return_category_language.py",
     "tests/test_return_pickup_fee_context.py",
     "tests/test_claim_audit.py",
+    "tests/test_unconfirmed_staff_review.py",
     "-q",
     "-p",
     "no:cacheprovider",
     "--override-ini=addopts=",
     "--tb=short",
-    "--junitxml=C:\\Users\\Shiva\\Downloads\\Resolvox\\sample_outputs\\refund_scope_current_20261101T145419Z\\pytest.xml"
+    "--junitxml=C:\\Users\\Shiva\\Downloads\\Resolvox\\sample_outputs\\refund_scope_current_20261101T161559Z\\pytest.xml"
   ],
-  "finished_at_utc": "2026-11-01T14:54:34.949904+00:00",
+  "finished_at_utc": "2026-11-01T16:16:49.630339+00:00",
   "exit_code": 0,
   "pytest": {
-    "tests": 630,
+    "tests": 655,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
-    "passed": 630
+    "passed": 655
   },
   "source_and_test_sha256_finished": {
     "src/agent.py": "82f2c78833894f5f1defba6a4b80ce15d259bf1c11b833f648d98188febdd9b2",
@@ -161,7 +164,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "63391dbaf2242af4b25faba53646a4664a6bfe79c37eaa6578a79c5089edbfb9",
+    "src/document_answers.py": "d422e3af63d322e497b92d080d36e13d3230188dee706ae149d28dd6a7b93199",
     "src/document_context.py": "f7b124bb5184ae1d67a3e2edfd440d693c6e1209908c9d825083454be801b733",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -176,9 +179,9 @@
     "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
     "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
     "src/operational_explanations.py": "d1494d99315a42eab9eafd2aac42a19641c0fd05181518807be7457ee1d5c248",
-    "src/pending_refund_context.py": "6a2479f9149f42d09985203e61b398673bfc861d44aaca0c53e3675087ba6934",
+    "src/pending_refund_context.py": "e03aec18f74ca20e8567f09450af715139cb28d70c07f879bc860cd377ff5ace",
     "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
-    "src/placement_conditions.py": "34ec2680993410558961cea0483741e276ca651bb97f9ab1627c8ef34756ed82",
+    "src/placement_conditions.py": "61b7be8455f99ae6fc81ae44f399efef01ff43c1fae80ac90be71de0d8dbfe12",
     "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
     "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
     "src/refund_status.py": "05e15fa70c4193196b9eb16df90acd096adc71bc3f0575312775197946a05498",
@@ -221,14 +224,15 @@
     "tests/test_delivery_scope.py": "036a31a7435160c0bbbc77cc0ad215c82982b6e086ad672d9d4074b14834db88",
     "tests/test_delivery_clock_guard.py": "cf3296c7d6f605a91302188d7e90e265632fd5c2665be1f81dbd4e44cbb001e6",
     "tests/test_unknown_return_window.py": "cf072f67d9fe56477473c1b96563a2c9c3afaea5b7498b921dd56716fb3e709f",
-    "tests/test_placement_exception_guard.py": "4d9e28f766b1702daee766cc5c33b7c1c7eecf7f876391ba5dc8fb13859fb49b",
+    "tests/test_placement_exception_guard.py": "bdb5317d6a81011cc84d2627c397f6a713b03f08d49c2e964f607be15433ef61",
     "tests/test_return_category_language.py": "b572cd675767feae25f56a89aa1689cc666acd530fd1dc6a2a58527c6dcb46bb",
     "tests/test_return_pickup_fee_context.py": "4cc50e4bdb36dc11a97deae9749f03825b3fac5a11dd8eae67bc92a0ace2667a",
-    "tests/test_claim_audit.py": "631c69bd3ff6ff9e37706af09b628e9f43e447b7ff330dbcdd0caddf17c0ddca"
+    "tests/test_claim_audit.py": "631c69bd3ff6ff9e37706af09b628e9f43e447b7ff330dbcdd0caddf17c0ddca",
+    "tests/test_unconfirmed_staff_review.py": "462a656c754c785b54b17dd9a258fbeaa80f7562eecf4874773a092eef9a116e"
   },
   "all_tested_bytes_unchanged": true,
   "artifacts": {
-    "sample_outputs/refund_scope_current_20261101T145419Z/pytest.log": "5ebbffa51e83cc38b07c31ca677e353d7729516db03adb575c743fb9baa0fd58",
-    "sample_outputs/refund_scope_current_20261101T145419Z/pytest.xml": "0dea7ff564e2b86060814dacbd9c0138b11ef6b1bc8bf28a782466d335c392a3"
+    "sample_outputs/refund_scope_current_20261101T161559Z/pytest.log": "cba933bcd3d3869fcd431dff3e92068b5b71ff69df444abb5aaf83661ca7e75b",
+    "sample_outputs/refund_scope_current_20261101T161559Z/pytest.xml": "f9e08f164ceceab0004514f628cc9b1c3fe86922caf57083dc10586da2e52070"
   }
 }

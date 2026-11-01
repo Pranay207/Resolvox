@@ -235,21 +235,19 @@ See [DESIGN.md](DESIGN.md) for the state model, retrieval strategy and evidence 
 
 ## Evaluation
 
-Verified focused checks and recorded development results:
+Verified offline checks and historical practice results:
 
-| Check | Result | Evidence |
+| Check | Recorded result | Evidence |
 | --- | --- | --- |
-| Current focused offline regressions | **408/408 verified**, zero failures, errors or skips | [Source-bound receipt](sample_outputs/release_update_verification.json) |
-| Recorded broader engineering suite | **3,567 passed** on an earlier revision | [Engineering receipt](sample_outputs/reliability_engineering.json) |
+| Focused offline regressions | **432/432 verified**, zero failures, errors or skips | [Source-bound receipt](sample_outputs/release_update_verification.json) |
+| Refund and grounding regressions | **655/655 verified**, zero failures, errors or skips | [Refund receipt](sample_outputs/refund_scope_verification_20261031.json) |
+| Packaging and report regressions | **148/148 verified**, zero failures, errors or skips | [Release receipt](sample_outputs/targeted_release_tests_20261031.json) |
 | Step 1: prompt-only baseline | **1/52**, including one recorded error | [Baseline outputs](sample_outputs/eval_step1.json) |
 | Step 2: grounded practice questions | **52/52 accumulated checks** across recorded revisions | [Question records](sample_outputs/eval_step2_latest_cases.json) |
-| Recorded conversation scenarios | **18/18 turns**, plus **2/2 refund edge cases** | [Original run evidence](sample_outputs/targeted_live_validation.json) |
-| Recorded English, Hindi and Hinglish speech | **3/3 selected synthetic round trips** | [Speech evidence](sample_outputs/targeted_voice_validation.json) |
-| Official dataset validation | **Passed**: 9 CSVs and 21 knowledge-base documents | [Validator output](sample_outputs/engineering_artifacts/20261031T060814584432Z_92c93db5/dataset_validation.log) |
 
-**Verification scope:** the 408 current checks cover return-date uncertainty, source-support flags, repair context and packaging/report safeguards with scripted clients. Source and test hashes matched before and after execution. Earlier live and speech results retain their original model/source revisions; they are not a fresh complete evaluation of the latest version. The 52/52 total combines saved outputs and targeted retests across revisions. The baseline and later runs use different configurations, so the comparison is descriptive rather than a controlled same-model ablation.
+**Scope:** the offline selections use scripted clients and overlap; their totals must not be added. The historical 52/52 combines saved practice outputs and targeted retests across model/source revisions, rather than a new full score for the current version. Groq's daily-token quota limited further live verification; no complete current live-answer or speech pass is claimed. These are development checks, not organizer scores.
 
-The hosted profile uses Groq for answers and Gnani for speech. Response time depends on model work, network conditions and provider quotas; cached timings do not establish unseen-question performance. Synthetic speech checks do not establish real-speaker or noise performance. These are development results, not organizer scores. See [VERIFICATION.md](VERIFICATION.md) for the exact scopes and [the four-page report](report.pdf) for the implementation and findings.
+The hosted profile uses Groq for answers and Gnani for speech. Response time depends on model work, network conditions and provider quotas. The preserved live outputs, source-review findings and speech checks are documented in [VERIFICATION.md](VERIFICATION.md); the [four-page report](report.pdf) covers the implementation and measured scope.
 
 <details>
 <summary>Verification commands</summary>
@@ -261,7 +259,7 @@ python Capstone_Project_Dataset_FTTT_2026/validate_dataset.py
 python -m pytest -q
 ```
 
-Selected live checks can use the explicit hosted profile; speech requires Gnani access:
+Selected live checks use the configured hosted profile and require available account quota; speech requires Gnani access:
 
 ```sh
 python scripts/validate_targeted_live.py --hosted --pacing-seconds 30

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "STY-1",
+    "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+    "file": "agent_conversation_style.md",
+    "doc_type": "agent_guide",
+    "status": "current",
+    "effective_from": "2026-07-01",
+    "version": "1.1",
+    "title": "Opening"
+  }
+]

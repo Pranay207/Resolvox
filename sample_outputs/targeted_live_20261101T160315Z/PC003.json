@@ -1,0 +1,1793 @@
+{
+  "configuration": {
+    "recorded_at": "2026-11-01T21:35:06",
+    "runtime_sha256": "c02176e4fbada7978884a5c82d556e118c17b026183bc5a601a94b616f4fd83f",
+    "llm_provider": "compatible",
+    "llm_model": "openai/gpt-oss-20b",
+    "reference_date": "2026-10-20",
+    "evaluation_mode": "live_compose_true",
+    "inference_fingerprint": "34061de3f8b9a099cf2b061f8f5f9fedb2191e26f525dc7ed2ea8fd8dcbe1f02",
+    "provenance": {
+      "step": 3,
+      "evaluation_mode": "live_compose_true",
+      "runtime_source_sha256": {
+        "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+        "src/agent.py": "82f2c78833894f5f1defba6a4b80ce15d259bf1c11b833f648d98188febdd9b2",
+        "src/answer_polarity.py": "90c1fb47752d9aeeae95dd474a5ae442cd53e2268249b9b60910464ba35a9272",
+        "src/answering.py": "2b6e62242189eb826e03296d2ee7ee202c3e5fe53bb5ed1519520625ca60f9d3",
+        "src/app_profile.py": "8dc0774cad1e7f1622e95bc9d1e8cb2b939c1139afcec5d801a5d343ff5bae8f",
+        "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
+        "src/category_labels.py": "3937d794fc8e46d40fe16917792f54043f2a875f84bf920aca5cb948c5685bf4",
+        "src/chat_history.py": "83f25171e7689d24d9e61adf8aad5ed7c7c05331c7a0ecddb741bee7adfb897d",
+        "src/claim_audit.py": "2708f180fd2bb4b1e986f304ee2328ebf8ffad8af2b48628c86847fa1e728ddd",
+        "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+        "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+        "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+        "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+        "src/document_answers.py": "3d4b8bef50acfd392faffa1549ea5e1360a4ee27331d6b5141a04620ebbe2710",
+        "src/document_context.py": "f7b124bb5184ae1d67a3e2edfd440d693c6e1209908c9d825083454be801b733",
+        "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
+        "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+        "src/event_dates.py": "50c95bfa6c406662ddf451d6142c9103f280783881dc9e8981ae027715944acc",
+        "src/generation_diagnostics.py": "0ed1f0c9d57577f1db9619c680bbf4c08c6385e3a87c684a53ffe803104de3bb",
+        "src/grounding.py": "fc646ea83bf329e615ecdfa8dafa585b3bd569ba59c2a077e8c837f5500727f4",
+        "src/inference_facts.py": "d3819522d139ff8f64082e000446728185072a37eb3dde7dfa5860a3fa3bec5b",
+        "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+        "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+        "src/llm.py": "e3f7af941a29754c807a6308670797d32f54a87f0de96721cee9ef411c78c280",
+        "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+        "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
+        "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+        "src/operational_explanations.py": "d1494d99315a42eab9eafd2aac42a19641c0fd05181518807be7457ee1d5c248",
+        "src/pending_refund_context.py": "6a2479f9149f42d09985203e61b398673bfc861d44aaca0c53e3675087ba6934",
+        "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
+        "src/placement_conditions.py": "61b7be8455f99ae6fc81ae44f399efef01ff43c1fae80ac90be71de0d8dbfe12",
+        "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
+        "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
+        "src/refund_status.py": "05e15fa70c4193196b9eb16df90acd096adc71bc3f0575312775197946a05498",
+        "src/refund_timeline.py": "63404eac21efa074cbf6d979931868fbfa23b18ec14df841494bf904b6d20b66",
+        "src/remedy_prerequisites.py": "bcc35bc0ea4893e478b0e77e24a9c546f0226bbfbc130af3994813a03a7c575a",
+        "src/repair_contexts.py": "35debfdb9bebd6fd47b5757a0d207d06c2799ac4567743ea25fb60cc263bfe0f",
+        "src/reporting_clock.py": "4bbd09b3788b5454e889b49a5c872983a6fe01bb812a89e415e35a2b5c0d0ccf",
+        "src/response_runtime.py": "1eba6b35813a217b76e1c90e4d98ca0ae812b01758e9f0e052cadbcaeb15698a",
+        "src/retrieval.py": "ca0bdff6f8eb64a530e83175309eea192b00f3895b3ccb3644ae4c7b25c0ae90",
+        "src/return_conditions.py": "c29c8736effec57d7b8d7a0efab1e092bd5bc4a315f5ac8fd28f6ce98b329795",
+        "src/return_transition_claims.py": "569a5c35b84c8d5f2112731374a698118cc34fd8caed354a65e70f6f51aec2c4",
+        "src/return_window_uncertainty.py": "c729de465a3a5179b6f789ad08fa8d4b86d4e7340fbc94c4d109df247a320f05",
+        "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+        "src/source_selection.py": "69f3c79157e6d7b174b7030d6a942f3e8a2e401b5d3e4971fa677f358e79c1d3",
+        "src/source_semantics.py": "3c10ef36e839dc89bc9107931e2d4f8864e843c9a0d2e3332971b385741efce5",
+        "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
+        "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
+        "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+        "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+        "src/voice.py": "028d9446045d19868bb709651f8bd844d7b88a86cbb297eda21390f1c949bb64",
+        "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b",
+        "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1",
+        "scripts/resume_live_practice.py": "ae6c9a5a03e46d3316e7586321a4270a0a64c6c0ed32a059e0a08429fb3e7cda"
+      },
+      "dataset_sha256": {
+        "kb/00_about_this_knowledge_base.md": "de509ece6ea3f6c9fc451f4118fd3b513c3e3069f16fe49d666859a497e40a00",
+        "kb/agent_conversation_style.md": "1e2f8b6e8057c08bfab0f2781c35753906788535a9e5ed6762f9d2ebfffdc064",
+        "kb/agent_escalation_handoff.md": "7cdcf1cac2e1ef96097234c620660b44961d8e323b588c9b5cee7759b78d243c",
+        "kb/agent_identity_verification.md": "65080cf86c01fa180321c77ab27c7d1dffdf6b3bca915cf162bb8c1a694cf182",
+        "kb/faq_general.md": "17f9846d1ffb33ded2206d25dfec3e3e431b1e0759edd4a49fc342106d17cd5a",
+        "kb/faq_hindi.md": "abc9f07bd99100f28ad8ba2f652bc21540b8a1cf7898bb5c0b98a2f783d669a2",
+        "kb/help_reverse_pickup.md": "8b05d9c3c6be72cdf782471372f6b209af48b0a712e747b395c97df3c79350b5",
+        "kb/help_track_order.md": "8c8fe651e97e1b1d088934a25de1bbcb81552fa2ecf5e2e2756374a5679c4bed",
+        "kb/help_troubleshooting_electronics.md": "0aa55f0933a5db0663619d343634ca6a12a2792a1c58258cfc14d9d971965e87",
+        "kb/mkt_plus_benefits_page.md": "f7d1bb3f9a2b555f51cd759c099654e2d36d11132efb231ccc87767c2082f6d7",
+        "kb/pol_cancellations.md": "a81de76931982a96d79416e130fd81d4cacc54b65bce43812767d76d8af66a00",
+        "kb/pol_coupons_offers.md": "e5201e45767003eabb79f8e930ee6b43204a7e08713350579181041233d3467c",
+        "kb/pol_damaged_wrong_missing.md": "6287c52adb81c8f8febf9c262ef34362af2ad33a373dc0768ae7e9d07bf7ec71",
+        "kb/pol_delivery_shipping.md": "828a75578e9f1307b2e4f64f6f151d93636bfd2f2f9bc39fcef86b273b8226eb",
+        "kb/pol_marketplace_sellers.md": "76e1291bf8990152b7f9029c79f58bddcc286f57800fb65de550586f45887dc0",
+        "kb/pol_payments_cod.md": "3d88d83c934a0477955fbe63beb4cae5db3491889ecf01b985ef233d7c19c68f",
+        "kb/pol_plus_membership.md": "9ea896ff307ddb4c28d0aaedcc567cfdf3825335c9eded8f02adacbbb7d6c877",
+        "kb/pol_refunds.md": "aa315a1c5c1ae2f19b1c5678b138ef3970279d1f2ae002c1392db61a4851f48c",
+        "kb/pol_returns_v3_superseded.md": "5f37e77ac47d5aa34d056460ba3b0ef6369f0a846921b74e35801066a01cfd17",
+        "kb/pol_returns_v4.md": "964b54f48edbd9f079d718f11cfc3164e20ba95b3943b723e03eb49fa1ee30f6",
+        "kb/pol_warranty_assured.md": "b2522a4289f808f8d7a2087fef8df5f624fd164770bcad6ce863975c7d0465b1",
+        "data/customers.csv": "1f3aff8002de497698f1e4ff6342c67ceca3c7bb0b68ea97f780126bfe786dc2",
+        "data/holidays.csv": "21b4804250b38150182fa00efc673997dfb81687efa7996403136da688c4d05f",
+        "data/order_items.csv": "62e344a4713ddaa9e10055c8b4931b7b8fab28f6350a5836968ff404046d0dc3",
+        "data/orders.csv": "9fb915f9f401ae26a1d00c0f064f87ab17fcde048cb9652d6e8a234a1401068b",
+        "data/pincodes.csv": "89f17fc33ae98223e70975a36e3e5a55e1bc2e0616e19a3fd45896adceeed19b",
+        "data/products.csv": "0eb917871836ecb5f74100dfa61e85f2adf78eecdaf10554c521e8bc9b461fd7",
+        "data/support_logs.csv": "2ab97c83b46f690310a133a10cdec01e670122bd7f996a15fe18b00c30a60739",
+        "practice/conversations.csv": "f6c9d24112f63047f4af62a9b3f2cfd34c941597b55cf661df8415e8d59fcfc3",
+        "practice/questions.csv": "cac2302c995389f82c831800589b627c9d567620013bc44d6721c7d3c90e9190",
+        "tools/tools.py": "e4192adc096a4d9b5b13bb0f11604354a4c6d3e9cb887915f87756851679d743"
+      },
+      "inference": {
+        "LLM_PROVIDER": "compatible",
+        "LLM_MODEL": "openai/gpt-oss-20b",
+        "RAG_LLM_TIMEOUT": "15",
+        "LLM_TIMEOUT": "15",
+        "DENSE_ENABLED": "true",
+        "REFERENCE_DATE": "2026-10-20",
+        "LLM_FALLBACK_PROVIDER": "",
+        "LLM_FALLBACK_MODEL": "",
+        "LLM_REASONING_EFFORT": "low",
+        "LLM_STRUCTURED_OUTPUT": "json_schema",
+        "RAG_CLAIM_AUDIT": "true",
+        "LLM_BASE_URL_sha256": "be4e9aa82ad238c4f73b0ba8b074a3a21896b0f3784fc23e59241faa21af4ec2",
+        "LLM_FALLBACK_BASE_URL_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "summary": {
+    "search_k": [
+      12
+    ],
+    "search_recall": 0.5714285714285714,
+    "step": "3",
+    "total": 5,
+    "passed": 5,
+    "pass_rate": 1.0,
+    "decision_accuracy": 1.0,
+    "evidence_recall": 1.0,
+    "errors": 0,
+    "composition_counts": {
+      "deterministic_guardrail": 3,
+      "grounded_llm": 2
+    },
+    "note": "Mechanical facts/decision/tool checks; not organizer scoring or semantic certification. Search recall uses all logged candidates; search_k is the requested direct budget, with extra dependencies reported separately. Guardrail lookups are separate.",
+    "retrieval_budgets": {
+      "requested_direct_ks": [
+        12
+      ],
+      "candidate_limits": [
+        16
+      ],
+      "returned_count_histogram": {
+        "14": 1,
+        "13": 1,
+        "16": 1
+      },
+      "candidate_role_counts": {
+        "direct": 36,
+        "dependency": 7
+      },
+      "scope": "Actual saved candidate arrays and trace metadata; missing roles remain unrecorded."
+    },
+    "latency_by_path": {
+      "no_model_call": {
+        "count": 3,
+        "p50_ms": 8.2,
+        "p95_ms": 8.2
+      },
+      "uncached_llm_attempt": {
+        "count": 2,
+        "p50_ms": 2780.6,
+        "p95_ms": 2780.6
+      }
+    },
+    "planned": 5,
+    "complete": true,
+    "scope": "Current source-driven live practice; generation, guards, clarifications and abstentions are reported separately. No authored policy fallback. Mechanical checks are not organizer scoring."
+  },
+  "results": [
+    {
+      "id": "PC003.1",
+      "question": "Hello, mujhe order ke baare mein help chahiye.",
+      "prediction": {
+        "transcript": "Hello, mujhe order ke baare mein help chahiye.",
+        "answer": "Main ZentroMart ki AI support assistant hoon. Aapka order ID kya hai?",
+        "intent": "greeting",
+        "decision": "clarify",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "STY-5"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "TRK-1",
+            "score": 0.085278,
+            "dense_score": 0.2166,
+            "retrieval_role": "direct",
+            "direct_rank": 1,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "STY-3",
+            "score": 0.073927,
+            "dense_score": 0.2383,
+            "retrieval_role": "direct",
+            "direct_rank": 2,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "IDV-3",
+            "score": 0.06996,
+            "dense_score": 0.0374,
+            "retrieval_role": "direct",
+            "direct_rank": 3,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "KB-00.4",
+            "score": 0.06875,
+            "dense_score": 0.0448,
+            "retrieval_role": "direct",
+            "direct_rank": 4,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "CAN-1",
+            "score": 0.067222,
+            "dense_score": 0.1202,
+            "retrieval_role": "direct",
+            "direct_rank": 5,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "CPN-1",
+            "score": 0.064821,
+            "dense_score": -0.009,
+            "retrieval_role": "direct",
+            "direct_rank": 6,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "KB-00.1",
+            "score": 0.063462,
+            "dense_score": 0.0601,
+            "retrieval_role": "direct",
+            "direct_rank": 7,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "CAN-2",
+            "score": 0.062586,
+            "dense_score": 0.1017,
+            "retrieval_role": "direct",
+            "direct_rank": 8,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "MKS-1",
+            "score": 0.0605,
+            "dense_score": 0.0868,
+            "retrieval_role": "direct",
+            "direct_rank": 9,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "CAN-3",
+            "score": 0.055,
+            "dense_score": 0.0271,
+            "retrieval_role": "direct",
+            "direct_rank": 10,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "IDV-2",
+            "score": 0.054656,
+            "dense_score": 0.0163,
+            "retrieval_role": "direct",
+            "direct_rank": 11,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-4",
+            "score": 0.053382,
+            "dense_score": 0.0949,
+            "retrieval_role": "direct",
+            "direct_rank": 12,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-1",
+            "score": 0.032411,
+            "dense_score": 0.0692,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 1.1
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.03079,
+            "dense_score": 0.0714,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 1.1
+          }
+        ],
+        "tool_calls": [],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "deterministic_guardrail",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "retrieval_direct_k": 12,
+        "retrieval_dependency_limit": 4,
+        "retrieval_candidate_limit": 16,
+        "retrieval_returned_count": 14,
+        "retrieval_direct_count": 12,
+        "retrieval_dependency_count": 2,
+        "evidence_supported": true,
+        "validation_error": null,
+        "citations": [],
+        "generation": {},
+        "service_error": null,
+        "generation_context_sources": [],
+        "context_selection": {},
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 52.72,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 57.23
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 0,
+        "search_total": 1,
+        "evidence_hits": 1,
+        "evidence_total": 1,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 29435.5
+    },
+    {
+      "id": "PC003.2",
+      "question": "Order number hai 1859 9253.",
+      "prediction": {
+        "transcript": "Order number hai 1859 9253.",
+        "answer": "Ek verification detail dein: registered phone ke last 4 digits ya order ka delivery pincode.",
+        "intent": "verification",
+        "decision": "clarify",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "IDV-1",
+          "IDV-2",
+          "STY-5"
+        ],
+        "sources": [
+          {
+            "id": "IDV-1",
+            "text": "## [IDV-1] When verification is needed\nBefore sharing anything about a specific order (status, items, address, amounts, refund details), verify the customer. General policy questions need no verification.",
+            "file": "agent_identity_verification.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.2",
+            "title": "When verification is needed"
+          },
+          {
+            "id": "IDV-2",
+            "text": "## [IDV-2] How to verify\nAsk for the order ID, then ask for **one** of: the last 4 digits of the registered phone number, or the delivery pincode for that order. Compare with the `phone_last4` or `delivery_pincode` fields from order lookup.",
+            "file": "agent_identity_verification.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.2",
+            "title": "How to verify"
+          },
+          {
+            "id": "STY-5",
+            "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "One question at a time"
+          }
+        ],
+        "retrieval_candidates": [],
+        "tool_calls": [
+          {
+            "name": "lookup_order",
+            "arguments": {
+              "order_id": "18599253"
+            },
+            "result": {
+              "verified": false,
+              "verification_required": true
+            }
+          }
+        ],
+        "facts": {},
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "deterministic_guardrail",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "retrieval_direct_k": 12,
+        "retrieval_dependency_limit": 4,
+        "retrieval_candidate_limit": 16,
+        "retrieval_returned_count": 0,
+        "retrieval_direct_count": 0,
+        "retrieval_dependency_count": 0,
+        "evidence_supported": true,
+        "validation_error": null,
+        "citations": [],
+        "generation": {},
+        "service_error": null,
+        "generation_context_sources": [],
+        "context_selection": {},
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 0.0,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 5.6
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 0,
+        "search_total": 1,
+        "evidence_hits": 1,
+        "evidence_total": 1,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 8.2
+    },
+    {
+      "id": "PC003.3",
+      "question": "[verification value redacted]",
+      "prediction": {
+        "transcript": "[verification value redacted]",
+        "answer": "Verification successful. Order ke baare mein kya help chahiye?",
+        "intent": "verification",
+        "decision": "answer",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "IDV-2"
+        ],
+        "sources": [
+          {
+            "id": "IDV-2",
+            "text": "## [IDV-2] How to verify\nAsk for the order ID, then ask for **one** of: the last 4 digits of the registered phone number, or the delivery pincode for that order. Compare with the `phone_last4` or `delivery_pincode` fields from order lookup.",
+            "file": "agent_identity_verification.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.2",
+            "title": "How to verify"
+          }
+        ],
+        "retrieval_candidates": [],
+        "tool_calls": [
+          {
+            "name": "lookup_order",
+            "arguments": {
+              "order_id": "18599253",
+              "verification_value": "[REDACTED]"
+            },
+            "result": {
+              "verified": true,
+              "verification_required": false,
+              "found": true,
+              "order": {
+                "order_id": "18599253",
+                "placed_at": "2026-09-30T21:42",
+                "status": "delivered",
+                "payment_method": "wallet",
+                "delivery_type": "standard",
+                "promised_date": "2026-10-12",
+                "shipped_on": "2026-10-01",
+                "delivered_on": "2026-10-12",
+                "delivery_attempts": 1,
+                "subtotal_inr": 4758,
+                "coupon_code": "FEST200",
+                "coupon_discount_inr": 200,
+                "coupon_min_order_inr": 1499,
+                "delivery_fee_inr": 0,
+                "cod_fee_inr": 0,
+                "total_inr": 4558,
+                "contacts_last_7_days": 0,
+                "cancellation_refund_initiated_on": null,
+                "cancellation_refund_method": null,
+                "cancellation_refund_amount_inr": null,
+                "cancellation_rrn": null,
+                "rto_refund_initiated_on": null,
+                "rto_refund_method": null,
+                "rto_refund_amount_inr": null,
+                "rto_rrn": null,
+                "express_late_credit_inr": null,
+                "express_late_credit_on": null,
+                "return_sku": null,
+                "return_line_no": null,
+                "return_qty": null,
+                "return_reason": null,
+                "return_status": null,
+                "return_requested_on": null,
+                "return_pickup_on": null,
+                "return_qc_passed_on": null,
+                "return_refund_initiated_on": null,
+                "return_refund_method": null,
+                "return_refund_amount_inr": null,
+                "return_refund_completed_on": null,
+                "return_rrn": null,
+                "return_reverse_pickup_fee_inr": null,
+                "damage_sku": null,
+                "damage_issue": null,
+                "damage_reported_at": null,
+                "damage_hours_after_delivery": null,
+                "damage_photos_attached": null,
+                "damage_status": null,
+                "items": [
+                  {
+                    "order_id": "18599253",
+                    "line_no": 1,
+                    "sku": "FSH-0033",
+                    "title": "Kaafi Running Sneakers, White",
+                    "return_category": "fashion",
+                    "qty": 1,
+                    "unit_price_inr": 2799
+                  },
+                  {
+                    "order_id": "18599253",
+                    "line_no": 2,
+                    "sku": "FSH-0030",
+                    "title": "UrbanThread Slim Fit Jeans, Maroon",
+                    "return_category": "fashion",
+                    "qty": 1,
+                    "unit_price_inr": 1959
+                  }
+                ],
+                "is_plus": true
+              }
+            }
+          }
+        ],
+        "facts": {},
+        "verified": true,
+        "reference_date": "2026-10-20",
+        "composition": "deterministic_guardrail",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "retrieval_direct_k": 12,
+        "retrieval_dependency_limit": 4,
+        "retrieval_candidate_limit": 16,
+        "retrieval_returned_count": 0,
+        "retrieval_direct_count": 0,
+        "retrieval_dependency_count": 0,
+        "evidence_supported": true,
+        "validation_error": null,
+        "citations": [],
+        "generation": {},
+        "service_error": null,
+        "generation_context_sources": [],
+        "context_selection": {},
+        "llm": {},
+        "timings": {
+          "retrieval_ms": 0.0,
+          "llm_ms": 0.0
+        },
+        "latency_ms": 2.15
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 0,
+        "search_total": 1,
+        "evidence_hits": 1,
+        "evidence_total": 1,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 4.9
+    },
+    {
+      "id": "PC003.4",
+      "question": "Kya main Kaafi Running Sneakers return kar sakti hoon?",
+      "prediction": {
+        "transcript": "Kya main Kaafi Running Sneakers return kar sakti hoon?",
+        "answer": "Return karne ke liye aapko 27 October 2026 tak ka samay milta hai, lekin item ko unused, original tags, packaging aur accessories ke saath hona chahiye. Pickup ke liye koi fee nahi lagegi, kyunki ZentroMart Plus ke policy ke hisaab se free express delivery aur reverse pickup fee waiver diya gaya hai.",
+        "intent": "return",
+        "decision": "answer",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "PLS-2",
+          "RET-2",
+          "RET-4"
+        ],
+        "sources": [
+          {
+            "id": "PLS-2",
+            "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+            "file": "pol_plus_membership.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-01-01",
+            "version": "1.0",
+            "title": "Benefits"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "RET-4",
+            "text": "## [RET-4] Condition of returned items\nItems must be unused, with original tags, packaging, accessories and free gifts. Beauty and personal care products are returnable only if unopened with the seal intact. Electronics must not be physically damaged, and any screen lock or account lock must be removed.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Condition of returned items"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-6",
+            "score": 0.198059,
+            "dense_score": 0.4905,
+            "retrieval_role": "direct",
+            "direct_rank": 1,
+            "dependency_weight": 1.15
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.183654,
+            "dense_score": 0.4095,
+            "retrieval_role": "direct",
+            "direct_rank": 2,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-7",
+            "score": 0.17235,
+            "dense_score": 0.3625,
+            "retrieval_role": "direct",
+            "direct_rank": 3,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-8",
+            "score": 0.155843,
+            "dense_score": 0.4068,
+            "retrieval_role": "direct",
+            "direct_rank": 4,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.150808,
+            "dense_score": 0.3398,
+            "retrieval_role": "direct",
+            "direct_rank": 5,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-2",
+            "score": 0.148782,
+            "dense_score": 0.2833,
+            "retrieval_role": "direct",
+            "direct_rank": 6,
+            "dependency_weight": 1.15
+          },
+          {
+            "id": "DWM-2",
+            "score": 0.147467,
+            "dense_score": 0.3604,
+            "retrieval_role": "direct",
+            "direct_rank": 7,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "PLS-3",
+            "score": 0.144049,
+            "dense_score": 0.2974,
+            "retrieval_role": "direct",
+            "direct_rank": 8,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "PLS-1",
+            "score": 0.141548,
+            "dense_score": 0.3325,
+            "retrieval_role": "direct",
+            "direct_rank": 9,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-1",
+            "score": 0.136672,
+            "dense_score": 0.309,
+            "retrieval_role": "direct",
+            "direct_rank": 10,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RVP-1",
+            "score": 0.136117,
+            "dense_score": 0.3382,
+            "retrieval_role": "direct",
+            "direct_rank": 11,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.125458,
+            "dense_score": 0.2858,
+            "retrieval_role": "direct",
+            "direct_rank": 12,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-4",
+            "score": 0.075517,
+            "dense_score": 0.2454,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 0.97
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [
+            {
+              "operation": "return_calendar_deadline",
+              "source_ids": [
+                "RET-2"
+              ],
+              "inputs": {
+                "category": "fashion",
+                "category_label": "Clothing, footwear and bags",
+                "delivery_date": "2026-10-12",
+                "placement_date": "2026-09-30",
+                "calendar_days": 15
+              },
+              "result": {
+                "deadline": "2026-10-27"
+              }
+            }
+          ],
+          "verified_order": {
+            "placed_at": "2026-09-30T21:42",
+            "status": "delivered",
+            "payment_method": "wallet",
+            "delivery_type": "standard",
+            "promised_date": "2026-10-12",
+            "shipped_on": "2026-10-01",
+            "delivered_on": "2026-10-12",
+            "delivery_attempts": 1,
+            "subtotal_inr": 4758,
+            "coupon_code": "FEST200",
+            "coupon_discount_inr": 200,
+            "coupon_min_order_inr": 1499,
+            "delivery_fee_inr": 0,
+            "cod_fee_inr": 0,
+            "total_inr": 4558,
+            "contacts_last_7_days": 0,
+            "cancellation_refund_initiated_on": null,
+            "cancellation_refund_method": null,
+            "cancellation_refund_amount_inr": null,
+            "cancellation_rrn": null,
+            "rto_refund_initiated_on": null,
+            "rto_refund_method": null,
+            "rto_refund_amount_inr": null,
+            "rto_rrn": null,
+            "express_late_credit_inr": null,
+            "express_late_credit_on": null,
+            "return_sku": null,
+            "return_line_no": null,
+            "return_qty": null,
+            "return_reason": null,
+            "return_status": null,
+            "return_requested_on": null,
+            "return_pickup_on": null,
+            "return_qc_passed_on": null,
+            "return_refund_initiated_on": null,
+            "return_refund_method": null,
+            "return_refund_amount_inr": null,
+            "return_refund_completed_on": null,
+            "return_rrn": null,
+            "return_reverse_pickup_fee_inr": null,
+            "damage_sku": null,
+            "damage_issue": null,
+            "damage_reported_at": null,
+            "damage_hours_after_delivery": null,
+            "damage_photos_attached": null,
+            "damage_status": null,
+            "is_plus": true,
+            "items": [
+              {
+                "line_no": 1,
+                "sku": "FSH-0033",
+                "title": "Kaafi Running Sneakers, White",
+                "return_category": "fashion",
+                "qty": 1,
+                "unit_price_inr": 2799
+              },
+              {
+                "line_no": 2,
+                "sku": "FSH-0030",
+                "title": "UrbanThread Slim Fit Jeans, Maroon",
+                "return_category": "fashion",
+                "qty": 1,
+                "unit_price_inr": 1959
+              }
+            ]
+          },
+          "catalog": [
+            {
+              "sku": "FSH-0033",
+              "title": "Kaafi Running Sneakers, White",
+              "brand": "Kaafi",
+              "return_category": "fashion",
+              "price_inr": "2799",
+              "fulfilled_by": "Shree Traders",
+              "assured": "False",
+              "warranty_months": "0",
+              "description": "Kaafi Running Sneakers, White. Sold on ZentroMart. Ships from a marketplace seller."
+            },
+            {
+              "sku": "FSH-0034",
+              "title": "Kaafi Running Sneakers, Beige",
+              "brand": "Kaafi",
+              "return_category": "fashion",
+              "price_inr": "3959",
+              "fulfilled_by": "Kalpana Fashions",
+              "assured": "False",
+              "warranty_months": "0",
+              "description": "Kaafi Running Sneakers, Beige. Sold on ZentroMart. Ships from a marketplace seller."
+            },
+            {
+              "sku": "FSH-0030",
+              "title": "UrbanThread Slim Fit Jeans, Maroon",
+              "brand": "UrbanThread",
+              "return_category": "fashion",
+              "price_inr": "1959",
+              "fulfilled_by": "Shree Traders",
+              "assured": "False",
+              "warranty_months": "0",
+              "description": "UrbanThread Slim Fit Jeans, Maroon. Sold on ZentroMart. Ships from a marketplace seller."
+            }
+          ],
+          "return_policy": {
+            "category": "fashion",
+            "category_label": "Clothing, footwear and bags",
+            "window_calendar_days": 15,
+            "source_ids": [
+              "RET-2"
+            ],
+            "selection": "standard_window",
+            "placement_exception": {
+              "placed_from": "2026-10-01",
+              "placed_through": "2026-10-15",
+              "window_calendar_days": 30,
+              "source_ids": [
+                "RET-8"
+              ]
+            }
+          },
+          "answer_constraints": [],
+          "source_semantic_constraints": [
+            {
+              "kind": "conditional_rto_refund",
+              "payment_condition": "prepaid",
+              "source_antecedent": "Prepaid order refused at the door or not delivered after 3 attempts",
+              "source_consequence": "once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+              "source_ids": [
+                "REF-1"
+              ],
+              "source_sha256": {
+                "REF-1": "30f3fc9957fa76cc2c3d59df05fd859766d77239c8d2c35dce3f1f510addf9e2"
+              }
+            },
+            {
+              "kind": "membership_refund_timing_exclusion",
+              "membership_label": "ZentroMart Plus",
+              "timing_role": "after_initiation",
+              "source_ids": [
+                "PLS-2"
+              ],
+              "source_sha256": {
+                "PLS-2": "8b54c13f45bf1a25403c0392bb796928ee1a6ac4e1f4641fc3add50b62863246"
+              }
+            }
+          ],
+          "calculation_source_sha256": {
+            "RET-2": "8142a854bd0467400e7452d51b024aed6cb4f1d33b12e12ea090d27e328ea91e"
+          },
+          "date_labels": {
+            "2026-10-20": "20 October 2026",
+            "2026-10-12": "12 October 2026",
+            "2026-09-30": "30 September 2026",
+            "2026-10-27": "27 October 2026",
+            "2026-10-01": "1 October 2026",
+            "2026-10-15": "15 October 2026"
+          }
+        },
+        "verified": true,
+        "reference_date": "2026-10-20",
+        "composition": "grounded_llm",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "retrieval_direct_k": 12,
+        "retrieval_dependency_limit": 4,
+        "retrieval_candidate_limit": 16,
+        "retrieval_returned_count": 13,
+        "retrieval_direct_count": 12,
+        "retrieval_dependency_count": 1,
+        "evidence_supported": true,
+        "validation_error": null,
+        "citations": [],
+        "generation": {
+          "covered": true,
+          "provenance_kind": "generation_context",
+          "context_source_ids": [
+            "PLS-2",
+            "RET-2",
+            "RET-4"
+          ],
+          "model_flags": {
+            "covered": true,
+            "needs_clarification": false
+          },
+          "decision_origin": "host_boolean_mapping",
+          "evaluated_source_constraints": [
+            {
+              "kind": "conditional_rto_refund",
+              "payment_condition": "prepaid",
+              "source_antecedent": "Prepaid order refused at the door or not delivered after 3 attempts",
+              "source_consequence": "once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+              "source_ids": [
+                "REF-1"
+              ],
+              "source_sha256": {
+                "REF-1": "30f3fc9957fa76cc2c3d59df05fd859766d77239c8d2c35dce3f1f510addf9e2"
+              }
+            },
+            {
+              "kind": "membership_refund_timing_exclusion",
+              "membership_label": "ZentroMart Plus",
+              "timing_role": "after_initiation",
+              "source_ids": [
+                "PLS-2"
+              ],
+              "source_sha256": {
+                "PLS-2": "8b54c13f45bf1a25403c0392bb796928ee1a6ac4e1f4641fc3add50b62863246"
+              }
+            }
+          ],
+          "evaluated_remedy_prerequisites": [],
+          "evaluated_delivery_clock_constraints": [],
+          "claim_audits": [
+            {
+              "supported": true,
+              "unsupported_claims": [],
+              "source_ids": [
+                "PLS-2",
+                "RET-2",
+                "RET-4"
+              ],
+              "provider": "compatible:openai/gpt-oss-20b",
+              "metrics": {
+                "cache_hit": false,
+                "attempts": 1,
+                "http_attempts": 1,
+                "http_statuses": [
+                  200
+                ],
+                "rate_limit_events": 0,
+                "rate_limit_retries": 0,
+                "rate_limit_wait_ms": 0.0,
+                "rate_limit_planned_wait_ms": 0.0,
+                "last_http_status": 200,
+                "provider": "compatible:openai/gpt-oss-20b",
+                "wall_ms": 1250.48
+              }
+            }
+          ],
+          "repair_attempted": false,
+          "generation_attempts": 1,
+          "repair_errors": [],
+          "validation_error": null,
+          "attempt_metrics": [
+            {
+              "cache_hit": false,
+              "attempts": 1,
+              "http_attempts": 1,
+              "http_statuses": [
+                200
+              ],
+              "rate_limit_events": 0,
+              "rate_limit_retries": 0,
+              "rate_limit_wait_ms": 0.0,
+              "rate_limit_planned_wait_ms": 0.0,
+              "last_http_status": 200,
+              "provider": "compatible:openai/gpt-oss-20b",
+              "wall_ms": 1295.2
+            }
+          ],
+          "generation_input_contexts": [
+            {
+              "attempt": 1,
+              "source_ids": [
+                "PLS-2",
+                "RET-2",
+                "RET-4"
+              ]
+            }
+          ],
+          "validation_source_ids": [
+            "DEL-2",
+            "DWM-2",
+            "MKS-2",
+            "PLS-1",
+            "PLS-2",
+            "PLS-3",
+            "REF-1",
+            "RET-2",
+            "RET-4",
+            "RET-6",
+            "RET-7",
+            "RET-8",
+            "RVP-1",
+            "products.csv:FSH-0033",
+            "products.csv:FSH-0034"
+          ],
+          "repair_mode": "source_verified_return_restatement",
+          "repair_context_facts": {
+            "return_policy": {
+              "category": "fashion",
+              "category_label": "Clothing, footwear and bags",
+              "window_calendar_days": 15,
+              "source_ids": [
+                "RET-2"
+              ],
+              "selection": "standard_window",
+              "placement_exception": {
+                "placed_from": "2026-10-01",
+                "placed_through": "2026-10-15",
+                "window_calendar_days": 30,
+                "source_ids": [
+                  "RET-8"
+                ]
+              }
+            },
+            "return_deadline": "2026-10-27",
+            "verified_order": {
+              "placed_at": "2026-09-30T21:42",
+              "delivered_on": "2026-10-12",
+              "is_plus": true,
+              "return_reason": null
+            },
+            "calculations": [
+              {
+                "operation": "return_calendar_deadline",
+                "source_ids": [
+                  "RET-2"
+                ],
+                "inputs": {
+                  "category": "fashion",
+                  "category_label": "Clothing, footwear and bags",
+                  "delivery_date": "2026-10-12",
+                  "placement_date": "2026-09-30",
+                  "calendar_days": 15
+                },
+                "result": {
+                  "deadline": "2026-10-27"
+                }
+              }
+            ],
+            "answer_constraints": [],
+            "date_labels": {
+              "2026-10-27": "27 October 2026"
+            }
+          }
+        },
+        "service_error": null,
+        "generation_context_sources": [
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "PLS-2",
+            "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+            "file": "pol_plus_membership.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-01-01",
+            "version": "1.0",
+            "title": "Benefits"
+          },
+          {
+            "id": "RET-4",
+            "text": "## [RET-4] Condition of returned items\nItems must be unused, with original tags, packaging, accessories and free gifts. Beauty and personal care products are returnable only if unopened with the seal intact. Electronics must not be physically damaged, and any screen lock or account lock must be removed.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Condition of returned items"
+          }
+        ],
+        "context_selection": {},
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "http_attempts": 1,
+          "http_statuses": [
+            200
+          ],
+          "rate_limit_events": 0,
+          "rate_limit_retries": 0,
+          "rate_limit_wait_ms": 0.0,
+          "rate_limit_planned_wait_ms": 0.0,
+          "last_http_status": 200,
+          "provider": "compatible:openai/gpt-oss-20b",
+          "wall_ms": 1250.48
+        },
+        "timings": {
+          "retrieval_ms": 94.36,
+          "llm_ms": 2661.25
+        },
+        "latency_ms": 2777.15
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 1,
+        "search_total": 1,
+        "evidence_hits": 1,
+        "evidence_total": 1,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 2780.6
+    },
+    {
+      "id": "PC003.5",
+      "question": "Aur refund kitne din mein aayega?",
+      "prediction": {
+        "transcript": "Aur refund kitne din mein aayega?",
+        "answer": "Refund ZentroMart Wallet se 2 ghante ke andar aayega, kyunki refund initiation ke baad 2 hours ka time hai.",
+        "intent": "refund",
+        "decision": "answer",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "KB-00.3",
+          "PLS-2",
+          "REF-1",
+          "REF-2",
+          "RET-7"
+        ],
+        "sources": [
+          {
+            "id": "KB-00.3",
+            "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+            "file": "00_about_this_knowledge_base.md",
+            "doc_type": "meta",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Business days"
+          },
+          {
+            "id": "PLS-2",
+            "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+            "file": "pol_plus_membership.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-01-01",
+            "version": "1.0",
+            "title": "Benefits"
+          },
+          {
+            "id": "REF-1",
+            "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "When a refund is initiated"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "RET-7",
+            "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "After pickup"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-2",
+            "score": 0.18903,
+            "dense_score": 0.472,
+            "retrieval_role": "direct",
+            "direct_rank": 1,
+            "dependency_weight": 1.15
+          },
+          {
+            "id": "RET-7",
+            "score": 0.186317,
+            "dense_score": 0.4905,
+            "retrieval_role": "direct",
+            "direct_rank": 2,
+            "dependency_weight": 1.15
+          },
+          {
+            "id": "REF-1",
+            "score": 0.173875,
+            "dense_score": 0.4817,
+            "retrieval_role": "direct",
+            "direct_rank": 3,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-6",
+            "score": 0.167538,
+            "dense_score": 0.5422,
+            "retrieval_role": "direct",
+            "direct_rank": 4,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-3",
+            "score": 0.167142,
+            "dense_score": 0.4532,
+            "retrieval_role": "direct",
+            "direct_rank": 5,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "PAY-4",
+            "score": 0.146784,
+            "dense_score": 0.4692,
+            "retrieval_role": "direct",
+            "direct_rank": 6,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-5",
+            "score": 0.146445,
+            "dense_score": 0.5123,
+            "retrieval_role": "direct",
+            "direct_rank": 7,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "CAN-2",
+            "score": 0.139934,
+            "dense_score": 0.4591,
+            "retrieval_role": "direct",
+            "direct_rank": 8,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-4",
+            "score": 0.135483,
+            "dense_score": 0.4509,
+            "retrieval_role": "direct",
+            "direct_rank": 9,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.130376,
+            "dense_score": 0.3893,
+            "retrieval_role": "direct",
+            "direct_rank": 10,
+            "dependency_weight": 0.88
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.122827,
+            "dense_score": 0.307,
+            "retrieval_role": "direct",
+            "direct_rank": 11,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.120201,
+            "dense_score": 0.408,
+            "retrieval_role": "direct",
+            "direct_rank": 12,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.070259,
+            "dense_score": 0.1966,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 1.2
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.022405,
+            "dense_score": 0.1957,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 1.15
+          },
+          {
+            "id": "RET-4",
+            "score": 0.022404,
+            "dense_score": 0.3819,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 0.97
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.022403,
+            "dense_score": 0.3142,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 0.88
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [],
+          "verified_order": {
+            "placed_at": "2026-09-30T21:42",
+            "status": "delivered",
+            "payment_method": "wallet",
+            "delivery_type": "standard",
+            "promised_date": "2026-10-12",
+            "shipped_on": "2026-10-01",
+            "delivered_on": "2026-10-12",
+            "delivery_attempts": 1,
+            "subtotal_inr": 4758,
+            "coupon_code": "FEST200",
+            "coupon_discount_inr": 200,
+            "coupon_min_order_inr": 1499,
+            "delivery_fee_inr": 0,
+            "cod_fee_inr": 0,
+            "total_inr": 4558,
+            "contacts_last_7_days": 0,
+            "cancellation_refund_initiated_on": null,
+            "cancellation_refund_method": null,
+            "cancellation_refund_amount_inr": null,
+            "cancellation_rrn": null,
+            "rto_refund_initiated_on": null,
+            "rto_refund_method": null,
+            "rto_refund_amount_inr": null,
+            "rto_rrn": null,
+            "express_late_credit_inr": null,
+            "express_late_credit_on": null,
+            "return_sku": null,
+            "return_line_no": null,
+            "return_qty": null,
+            "return_reason": null,
+            "return_status": null,
+            "return_requested_on": null,
+            "return_pickup_on": null,
+            "return_qc_passed_on": null,
+            "return_refund_initiated_on": null,
+            "return_refund_method": null,
+            "return_refund_amount_inr": null,
+            "return_refund_completed_on": null,
+            "return_rrn": null,
+            "return_reverse_pickup_fee_inr": null,
+            "damage_sku": null,
+            "damage_issue": null,
+            "damage_reported_at": null,
+            "damage_hours_after_delivery": null,
+            "damage_photos_attached": null,
+            "damage_status": null,
+            "is_plus": true,
+            "items": [
+              {
+                "line_no": 1,
+                "sku": "FSH-0033",
+                "title": "Kaafi Running Sneakers, White",
+                "return_category": "fashion",
+                "qty": 1,
+                "unit_price_inr": 2799
+              },
+              {
+                "line_no": 2,
+                "sku": "FSH-0030",
+                "title": "UrbanThread Slim Fit Jeans, Maroon",
+                "return_category": "fashion",
+                "qty": 1,
+                "unit_price_inr": 1959
+              }
+            ]
+          },
+          "catalog": [
+            {
+              "sku": "FSH-0030",
+              "title": "UrbanThread Slim Fit Jeans, Maroon",
+              "brand": "UrbanThread",
+              "return_category": "fashion",
+              "price_inr": "1959",
+              "fulfilled_by": "Shree Traders",
+              "assured": "False",
+              "warranty_months": "0",
+              "description": "UrbanThread Slim Fit Jeans, Maroon. Sold on ZentroMart. Ships from a marketplace seller."
+            },
+            {
+              "sku": "FSH-0033",
+              "title": "Kaafi Running Sneakers, White",
+              "brand": "Kaafi",
+              "return_category": "fashion",
+              "price_inr": "2799",
+              "fulfilled_by": "Shree Traders",
+              "assured": "False",
+              "warranty_months": "0",
+              "description": "Kaafi Running Sneakers, White. Sold on ZentroMart. Ships from a marketplace seller."
+            }
+          ],
+          "delivery_policy": {
+            "delivery_attempt_limit": 3,
+            "source_ids": [
+              "DEL-3"
+            ]
+          },
+          "refund_arrival_policy": {
+            "payment_method": "wallet",
+            "source_payment_label": "ZentroMart Wallet",
+            "maximum_hours": 2,
+            "timing_unit": "hour",
+            "timing_anchor": "after_refund_initiation",
+            "source_ids": [
+              "REF-2"
+            ],
+            "source_sha256": {
+              "REF-2": "913886a7d0e4810241fd90b1d812c39c5900d428dce65112ccbdfb8c8855ced4"
+            }
+          },
+          "answer_constraints": [],
+          "source_semantic_constraints": [
+            {
+              "kind": "explicit_permission",
+              "action": "refuse_parcel",
+              "source_ids": [
+                "CAN-2"
+              ],
+              "source_sha256": {
+                "CAN-2": "9e9e53f75b7a7ced1cd3348adafe4d68f95aff9c0466a0e1083274b5567b7812"
+              }
+            },
+            {
+              "kind": "conditional_rto_refund",
+              "payment_condition": "prepaid",
+              "source_antecedent": "Prepaid order refused at the door or not delivered after 3 attempts",
+              "source_consequence": "once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+              "source_ids": [
+                "REF-1"
+              ],
+              "source_sha256": {
+                "REF-1": "30f3fc9957fa76cc2c3d59df05fd859766d77239c8d2c35dce3f1f510addf9e2"
+              }
+            },
+            {
+              "kind": "membership_refund_timing_exclusion",
+              "membership_label": "ZentroMart Plus",
+              "timing_role": "after_initiation",
+              "source_ids": [
+                "PLS-2"
+              ],
+              "source_sha256": {
+                "PLS-2": "8b54c13f45bf1a25403c0392bb796928ee1a6ac4e1f4641fc3add50b62863246"
+              }
+            }
+          ],
+          "calculation_source_sha256": {
+            "DEL-3": "8d22f941c929f317ad5578c47daae0f9b8b1027d148a060e40f15aaea4585d1c"
+          },
+          "date_labels": {
+            "2026-10-20": "20 October 2026",
+            "2026-09-30": "30 September 2026",
+            "2026-10-12": "12 October 2026",
+            "2026-10-01": "1 October 2026"
+          }
+        },
+        "verified": true,
+        "reference_date": "2026-10-20",
+        "composition": "grounded_llm",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "retrieval_direct_k": 12,
+        "retrieval_dependency_limit": 4,
+        "retrieval_candidate_limit": 16,
+        "retrieval_returned_count": 16,
+        "retrieval_direct_count": 12,
+        "retrieval_dependency_count": 4,
+        "evidence_supported": true,
+        "validation_error": null,
+        "citations": [],
+        "generation": {
+          "covered": true,
+          "provenance_kind": "generation_context",
+          "context_source_ids": [
+            "KB-00.3",
+            "PLS-2",
+            "REF-1",
+            "REF-2",
+            "RET-7"
+          ],
+          "model_flags": {
+            "covered": true,
+            "needs_clarification": false
+          },
+          "decision_origin": "host_boolean_mapping",
+          "evaluated_source_constraints": [
+            {
+              "kind": "explicit_permission",
+              "action": "refuse_parcel",
+              "source_ids": [
+                "CAN-2"
+              ],
+              "source_sha256": {
+                "CAN-2": "9e9e53f75b7a7ced1cd3348adafe4d68f95aff9c0466a0e1083274b5567b7812"
+              }
+            },
+            {
+              "kind": "conditional_rto_refund",
+              "payment_condition": "prepaid",
+              "source_antecedent": "Prepaid order refused at the door or not delivered after 3 attempts",
+              "source_consequence": "once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+              "source_ids": [
+                "REF-1"
+              ],
+              "source_sha256": {
+                "REF-1": "30f3fc9957fa76cc2c3d59df05fd859766d77239c8d2c35dce3f1f510addf9e2"
+              }
+            },
+            {
+              "kind": "membership_refund_timing_exclusion",
+              "membership_label": "ZentroMart Plus",
+              "timing_role": "after_initiation",
+              "source_ids": [
+                "PLS-2"
+              ],
+              "source_sha256": {
+                "PLS-2": "8b54c13f45bf1a25403c0392bb796928ee1a6ac4e1f4641fc3add50b62863246"
+              }
+            }
+          ],
+          "evaluated_remedy_prerequisites": [],
+          "evaluated_delivery_clock_constraints": [],
+          "claim_audits": [
+            {
+              "supported": true,
+              "unsupported_claims": [],
+              "source_ids": [
+                "KB-00.3",
+                "PLS-2",
+                "REF-1",
+                "REF-2",
+                "RET-7"
+              ],
+              "provider": "compatible:openai/gpt-oss-20b",
+              "metrics": {
+                "cache_hit": false,
+                "attempts": 1,
+                "http_attempts": 1,
+                "http_statuses": [
+                  200
+                ],
+                "rate_limit_events": 0,
+                "rate_limit_retries": 0,
+                "rate_limit_wait_ms": 0.0,
+                "rate_limit_planned_wait_ms": 0.0,
+                "last_http_status": 200,
+                "provider": "compatible:openai/gpt-oss-20b",
+                "wall_ms": 1465.45
+              }
+            }
+          ],
+          "repair_attempted": false,
+          "generation_attempts": 1,
+          "repair_errors": [],
+          "validation_error": null,
+          "attempt_metrics": [
+            {
+              "cache_hit": false,
+              "attempts": 1,
+              "http_attempts": 1,
+              "http_statuses": [
+                200
+              ],
+              "rate_limit_events": 0,
+              "rate_limit_retries": 0,
+              "rate_limit_wait_ms": 0.0,
+              "rate_limit_planned_wait_ms": 0.0,
+              "last_http_status": 200,
+              "provider": "compatible:openai/gpt-oss-20b",
+              "wall_ms": 1661.54
+            }
+          ],
+          "generation_input_contexts": [
+            {
+              "attempt": 1,
+              "source_ids": [
+                "KB-00.3",
+                "PLS-2",
+                "REF-1",
+                "REF-2",
+                "RET-7"
+              ]
+            }
+          ],
+          "validation_source_ids": [
+            "CAN-2",
+            "DEL-1",
+            "DEL-2",
+            "DEL-3",
+            "KB-00.3",
+            "MKS-2",
+            "PAY-4",
+            "PLS-2",
+            "REF-1",
+            "REF-2",
+            "REF-3",
+            "REF-4",
+            "REF-5",
+            "REF-6",
+            "RET-4",
+            "RET-7"
+          ]
+        },
+        "service_error": null,
+        "generation_context_sources": [
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "RET-7",
+            "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "After pickup"
+          },
+          {
+            "id": "REF-1",
+            "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "When a refund is initiated"
+          },
+          {
+            "id": "PLS-2",
+            "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+            "file": "pol_plus_membership.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-01-01",
+            "version": "1.0",
+            "title": "Benefits"
+          },
+          {
+            "id": "KB-00.3",
+            "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+            "file": "00_about_this_knowledge_base.md",
+            "doc_type": "meta",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Business days"
+          }
+        ],
+        "context_selection": {},
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "http_attempts": 1,
+          "http_statuses": [
+            200
+          ],
+          "rate_limit_events": 0,
+          "rate_limit_retries": 0,
+          "rate_limit_wait_ms": 0.0,
+          "rate_limit_planned_wait_ms": 0.0,
+          "last_http_status": 200,
+          "provider": "compatible:openai/gpt-oss-20b",
+          "wall_ms": 1465.45
+        },
+        "timings": {
+          "retrieval_ms": 167.36,
+          "llm_ms": 3225.16
+        },
+        "latency_ms": 3454.09
+      },
+      "checks": {
+        "passed": true,
+        "decision_ok": true,
+        "missing_facts": [],
+        "forbidden_claims": [],
+        "tools_ok": true,
+        "search_hits": 3,
+        "search_total": 3,
+        "evidence_hits": 3,
+        "evidence_total": 3,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 33461.6
+    }
+  ],
+  "segments": [
+    {
+      "started_at_utc": "2026-11-01T16:04:00.460020+00:00",
+      "git_sha": "cc57412380ba34f390141786e602807406b38ee3",
+      "reused_responses": 0,
+      "new_responses": 5,
+      "completed": true,
+      "checkpoint_at_utc": "2026-11-01T16:05:06.241630+00:00"
+    }
+  ],
+  "complete": true
+}

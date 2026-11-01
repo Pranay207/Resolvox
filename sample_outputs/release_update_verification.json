@@ -1,6 +1,6 @@
 {
   "scope": "Selected offline return-date, source-support, repair-context and packaging/report regressions. Scripted clients; no live model, speech, full52 or full96 rerun.",
-  "started_at_utc": "2026-11-01T15:42:06.865722+00:00",
+  "started_at_utc": "2026-11-01T16:21:06.357656+00:00",
   "selected_test_files": [
     "tests/test_unknown_window_support_flag.py",
     "tests/test_placement_exception_guard.py",
@@ -11,7 +11,8 @@
     "tests/test_release_gate.py",
     "tests/test_release_verification.py",
     "tests/test_report_freshness.py",
-    "tests/test_targeted_voice_evidence.py"
+    "tests/test_targeted_voice_evidence.py",
+    "tests/test_unconfirmed_staff_review.py"
   ],
   "command": [
     "C:\\Users\\Shiva\\Downloads\\Resolvox\\.venv\\Scripts\\python.exe",
@@ -29,19 +30,20 @@
     "tests/test_release_verification.py",
     "tests/test_report_freshness.py",
     "tests/test_targeted_voice_evidence.py",
+    "tests/test_unconfirmed_staff_review.py",
     "-q",
     "-p",
     "no:cacheprovider",
     "--override-ini=addopts=",
     "--tb=short",
-    "--junitxml=C:\\Users\\Shiva\\Downloads\\Resolvox\\sample_outputs\\release_update_checks_20261101T154206Z\\pytest.xml"
+    "--junitxml=C:\\Users\\Shiva\\Downloads\\Resolvox\\sample_outputs\\release_update_checks_20261101T162106Z\\pytest.xml"
   ],
   "source_and_test_sha256_started": {
     "app.py": "6f2fb4078467e017c45f96b71c6f59202f602aa1873af15e442ee1769f7ce799",
     "package_submission.py": "6025424101f7e6985a7ffcf9542cde90a8fa55af01c775680cffc90935690214",
     "pytest.ini": "adf35da0642114a4c4867167eb6320584691a6adb313159f0844151961d37840",
     "run.py": "9fe9e285e5e257a51ac84fd66e5bff89e8816b679a7ec18fef2158348c80891e",
-    "scripts/targeted_report.py": "18c7889147cd3de7a06d1d9d9df09c0eaf4cfca63c7a9df25d8d8de1310fc6de",
+    "scripts/targeted_report.py": "786245030fccfbbfac2cc83320755cac67d4ab70a0fb0da8f0cee9184f2aaa11",
     "scripts/validate_return_dates.py": "baba9928c7adb3683d510484e62a8598ad710a3ab18bf5f53675e5b32e4da614",
     "scripts/validate_targeted_live.py": "a9825843aad96f731f1edac528f8af4ee64fe199c38fb834a51898b3ca48f716",
     "scripts/validate_targeted_voice.py": "8a0667c408a1ae28b191836e2a84cc15f9db6882d2d989bd80ee68246f3481c1",
@@ -58,7 +60,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "3d4b8bef50acfd392faffa1549ea5e1360a4ee27331d6b5141a04620ebbe2710",
+    "src/document_answers.py": "d422e3af63d322e497b92d080d36e13d3230188dee706ae149d28dd6a7b93199",
     "src/document_context.py": "f7b124bb5184ae1d67a3e2edfd440d693c6e1209908c9d825083454be801b733",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -73,7 +75,7 @@
     "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
     "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
     "src/operational_explanations.py": "d1494d99315a42eab9eafd2aac42a19641c0fd05181518807be7457ee1d5c248",
-    "src/pending_refund_context.py": "6a2479f9149f42d09985203e61b398673bfc861d44aaca0c53e3675087ba6934",
+    "src/pending_refund_context.py": "e03aec18f74ca20e8567f09450af715139cb28d70c07f879bc860cd377ff5ace",
     "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
     "src/placement_conditions.py": "61b7be8455f99ae6fc81ae44f399efef01ff43c1fae80ac90be71de0d8dbfe12",
     "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
@@ -106,25 +108,26 @@
     "tests/test_report_freshness.py": "26cb642fa812b24420b8cd17727b25cb020b4f0be1bd66007bd0725606f4a40d",
     "tests/test_targeted_release_policy.py": "e6004564c0d7178d115bcadf17bfe875d9ea5a5ef74a49439211f547989075f0",
     "tests/test_targeted_voice_evidence.py": "317069f4f2794813e63f98a9f3fdcbc35629ec4a049f859097017affd6897e52",
+    "tests/test_unconfirmed_staff_review.py": "462a656c754c785b54b17dd9a258fbeaa80f7562eecf4874773a092eef9a116e",
     "tests/test_unknown_return_window.py": "cf072f67d9fe56477473c1b96563a2c9c3afaea5b7498b921dd56716fb3e709f",
     "tests/test_unknown_window_support_flag.py": "85094d055cb0e565d8c1c8e321e43d6068ed0421d3bb3a52917b1b76b198da11"
   },
   "complete": true,
-  "finished_at_utc": "2026-11-01T15:42:37.041667+00:00",
+  "finished_at_utc": "2026-11-01T16:21:40.798466+00:00",
   "exit_code": 0,
   "pytest": {
-    "tests": 408,
+    "tests": 432,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
-    "passed": 408
+    "passed": 432
   },
   "source_and_test_sha256_finished": {
     "app.py": "6f2fb4078467e017c45f96b71c6f59202f602aa1873af15e442ee1769f7ce799",
     "package_submission.py": "6025424101f7e6985a7ffcf9542cde90a8fa55af01c775680cffc90935690214",
     "pytest.ini": "adf35da0642114a4c4867167eb6320584691a6adb313159f0844151961d37840",
     "run.py": "9fe9e285e5e257a51ac84fd66e5bff89e8816b679a7ec18fef2158348c80891e",
-    "scripts/targeted_report.py": "18c7889147cd3de7a06d1d9d9df09c0eaf4cfca63c7a9df25d8d8de1310fc6de",
+    "scripts/targeted_report.py": "786245030fccfbbfac2cc83320755cac67d4ab70a0fb0da8f0cee9184f2aaa11",
     "scripts/validate_return_dates.py": "baba9928c7adb3683d510484e62a8598ad710a3ab18bf5f53675e5b32e4da614",
     "scripts/validate_targeted_live.py": "a9825843aad96f731f1edac528f8af4ee64fe199c38fb834a51898b3ca48f716",
     "scripts/validate_targeted_voice.py": "8a0667c408a1ae28b191836e2a84cc15f9db6882d2d989bd80ee68246f3481c1",
@@ -141,7 +144,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "3d4b8bef50acfd392faffa1549ea5e1360a4ee27331d6b5141a04620ebbe2710",
+    "src/document_answers.py": "d422e3af63d322e497b92d080d36e13d3230188dee706ae149d28dd6a7b93199",
     "src/document_context.py": "f7b124bb5184ae1d67a3e2edfd440d693c6e1209908c9d825083454be801b733",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -156,7 +159,7 @@
     "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
     "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
     "src/operational_explanations.py": "d1494d99315a42eab9eafd2aac42a19641c0fd05181518807be7457ee1d5c248",
-    "src/pending_refund_context.py": "6a2479f9149f42d09985203e61b398673bfc861d44aaca0c53e3675087ba6934",
+    "src/pending_refund_context.py": "e03aec18f74ca20e8567f09450af715139cb28d70c07f879bc860cd377ff5ace",
     "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
     "src/placement_conditions.py": "61b7be8455f99ae6fc81ae44f399efef01ff43c1fae80ac90be71de0d8dbfe12",
     "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
@@ -189,12 +192,13 @@
     "tests/test_report_freshness.py": "26cb642fa812b24420b8cd17727b25cb020b4f0be1bd66007bd0725606f4a40d",
     "tests/test_targeted_release_policy.py": "e6004564c0d7178d115bcadf17bfe875d9ea5a5ef74a49439211f547989075f0",
     "tests/test_targeted_voice_evidence.py": "317069f4f2794813e63f98a9f3fdcbc35629ec4a049f859097017affd6897e52",
+    "tests/test_unconfirmed_staff_review.py": "462a656c754c785b54b17dd9a258fbeaa80f7562eecf4874773a092eef9a116e",
     "tests/test_unknown_return_window.py": "cf072f67d9fe56477473c1b96563a2c9c3afaea5b7498b921dd56716fb3e709f",
     "tests/test_unknown_window_support_flag.py": "85094d055cb0e565d8c1c8e321e43d6068ed0421d3bb3a52917b1b76b198da11"
   },
   "all_tested_bytes_unchanged": true,
   "artifacts": {
-    "sample_outputs/release_update_checks_20261101T154206Z/pytest.log": "f7f1fc3703b962da3a979c3aa9c0305ab5b02792fa2e2ae20807dfffd2bcdfa4",
-    "sample_outputs/release_update_checks_20261101T154206Z/pytest.xml": "df6f50b11cf8fa38e10ccb920ce754e88aabf3085d8820b9aece7192560960ce"
+    "sample_outputs/release_update_checks_20261101T162106Z/pytest.log": "c7155bb2ef5a22a9c7950835782632d9f7af9bc395f9adfe4bba7d9adaf92f31",
+    "sample_outputs/release_update_checks_20261101T162106Z/pytest.xml": "ff8dea5256f6edc7133ffcb96de32a76574b276644973e16eac12c200d920761"
   }
 }

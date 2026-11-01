@@ -41,16 +41,15 @@ The recorded baseline used qwen3:1.7b. The Step 2 total combines actual preserve
 
 | Selected check | Recorded result | Scope |
 | --- | --- | --- |
-| Current offline regression checks | 408/408 verified | Return-date scope, source-support flags, repair context and packaging/report guards. Scripted clients; no live inference. |
-| Selected conversation scenarios | 18/18 turns | Earlier mechanical conversation checks for QC status, overdue refunds, Plus/wallet and Hindi follow-ups. |
-| Selected refund edge cases | 2/2 | Earlier coupon-context and authenticated recorded-completion checks. |
-| Primary-language Gnani speech | 3/3 | Recorded English, Hindi and Hinglish synthetic-audio round trips using actual Gnani STT/TTS. |
+| Focused offline regression checks | 432/432 verified | Return-date scope, source-support flags, repair context and release safeguards. Scripted clients; no live inference. |
+| Refund and grounding regressions | 655/655 verified | Source-bound dates, units, conditional eligibility, record reading and negative action/privacy checks. |
+| Packaging and report regressions | 148/148 verified | Evidence freshness, report limits, archive integrity and release guards. |
 
-Verified scope: the current offline regression checks shown above. Conversation, refund-edge and speech results retain their original model/source revisions; they are recorded evidence, not a fresh complete evaluation of the latest version. Full execution traces and source hashes distinguish the scopes.
+Verified scope is limited to these overlapping offline selections; their counts are not additive. The latest live run contains source-review failures and an unavailable coupon reply, and the speech run did not pass all semantic checks. Groq daily-token quota limited further live verification. Original outputs and execution hashes remain preserved; no complete current live or speech pass is claimed.
 
 These are exposed development regressions, not hidden organizer scores or a new full-suite run. The checks establish the stated selected behavior; they do not certify every unseen question or arbitrary semantic claim. Synthetic speech does not establish human accents, noisy-room performance or subjective listening quality.
 
-Recorded selected generated-turn latency: 3.0-12.7 seconds across 8 saved turns. Host-only steps and speech service time are separate. These timings can include provider quota waits and are not a universal latency guarantee. Per-stage timings are preserved in JSON.
+Recorded selected generated-turn latency: 2.8-5.8 seconds across 7 saved turns. Host-only steps and speech service time are separate. These timings can include provider quota waits and are not a universal latency guarantee. Per-stage timings are preserved in JSON.
 
 
 ---
@@ -60,9 +59,9 @@ What went wrong and the fixes
 | Observed problem | Correction and verification |
 | --- | --- |
 | Missing placement date selected a personal return window | A source-bound guard rejects selecting the ordinary window because a placement date is unknown, including Hindi Unicode-hyphen phrasing. General rules and conditional exceptions remain valid, and requested fee evidence is retained during repair. Common Hinglish clothing nouns now bind to the catalog category. |
-| Missing QC data became an unsupported status claim | A bound pending-status view distinguishes an unrecorded QC/initiation date from a failed check. An absent RRN cannot be offered for bank tracing. The source initiation clock remains anchored to pickup, with QC pass as a prerequisite. The affected conversation was retested. |
+| Missing QC data became an unsupported status claim | A bound pending-status view distinguishes an unrecorded QC/initiation date from a failed check. An absent RRN cannot be offered for bank tracing. The source initiation clock remains anchored to pickup, with QC pass as a prerequisite. Earlier selected outputs and offline tests cover this distinction. |
 | Wallet hours mixed with business days and an invented date | Known payment methods bind to the actual policy row. Wallet hour limits remain hours; other payment methods retain their business-day ranges and initiation anchor. Unsupported dated wallet estimates are rejected. |
-| Compound refund questions lost requested coupon details | Coupon, partial-refund and amount requests retain the full original source/fact context through generation and repair. The live edge verifies both timing and the coupon deduction condition. |
+| Compound refund questions lost requested coupon details | Coupon, partial-refund and amount requests retain the full original source/fact context through generation and repair. Earlier source-grounded outputs and targeted offline tests cover both requested facets. |
 | Valid conditional/record wording was rejected | Source-backed conditional timing is separated from claims of performed actions. Historical completion uses a compact authenticated record-reading view instead of a future policy estimate. The actual recorded date and action/authentication boundaries were checked. |
 | Hindi damage guidance abstained on remedy prerequisites | A source-only first reporting view explains the actual reporting window and required photos without promising an unverified benefit. Selected English, Hindi and Hinglish clips used real Gnani STT/TTS with synthetic input and preserved source hashes. |
 

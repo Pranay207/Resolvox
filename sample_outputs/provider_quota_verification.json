@@ -1,0 +1,14 @@
+{
+  "scope": "Sanitized provider availability diagnostic; no customer question or synthetic dataset context was sent.",
+  "observed_at_utc": "2026-11-01T16:13:51+00:00",
+  "provider": "Groq",
+  "model": "openai/gpt-oss-20b",
+  "http_status": 429,
+  "limit_kind": "tokens_per_day",
+  "daily_limit": 200000,
+  "used_tokens": 199298,
+  "requested_tokens": 1583,
+  "retry_after_seconds": 381,
+  "user_decision": "Keep the current quota",
+  "live_verification_certified": false
+}
