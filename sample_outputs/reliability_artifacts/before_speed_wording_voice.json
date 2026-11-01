@@ -1,0 +1,542 @@
+{
+  "scope": "Actual continuous Gnani STT -> local agent -> Gnani TTS using synthetic customer audio; not human-speech validation",
+  "provider": "Gnani only",
+  "model": "qwen3:4b-instruct",
+  "source_sha256_started": {
+    "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+    "src/agent.py": "82f2c78833894f5f1defba6a4b80ce15d259bf1c11b833f648d98188febdd9b2",
+    "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
+    "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+    "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
+    "src/category_labels.py": "3937d794fc8e46d40fe16917792f54043f2a875f84bf920aca5cb948c5685bf4",
+    "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+    "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+    "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+    "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+    "src/document_answers.py": "c1bedab4189dd6c1eef96112df717b96f8e51bb6167b22e9ae80e791485fed7c",
+    "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
+    "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
+    "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+    "src/event_dates.py": "50c95bfa6c406662ddf451d6142c9103f280783881dc9e8981ae027715944acc",
+    "src/generation_diagnostics.py": "4cc1c9e90ec69fa392effe96bf17d6f9eb028e3d7e2e042670c32342d67e7aee",
+    "src/grounding.py": "2b1fe2642061684ac0e9de452d337bc01bc82038c2386710b1b438b915e09586",
+    "src/inference_facts.py": "d3819522d139ff8f64082e000446728185072a37eb3dde7dfa5860a3fa3bec5b",
+    "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+    "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+    "src/llm.py": "896bf7f8456fa4dd9c381a9055894edc13c111ad92ea40751a6a32c410facc3b",
+    "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+    "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
+    "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+    "src/operational_explanations.py": "f4457d3fdd658b89c449e9f1b3cfc18ecb98fe45330e2867ee46fe65bb4ad1f2",
+    "src/pending_refund_context.py": "7db580e1d420d47a31fc9d99aa7fbd238ed098247c6fa633999a37bdc9292572",
+    "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
+    "src/placement_conditions.py": "3eb576b2a2aee31004165cd5fb69325066e57c7a6aac175023d9879b4bec740c",
+    "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
+    "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
+    "src/refund_status.py": "4fa8084768804b5772dc34b813bf33b00105434303bb4bcc198e3fae0e3f49f9",
+    "src/refund_timeline.py": "e8a293ca89f178edcfebcc54af2e70dba87edd1fafc1f884fe4571a8a9b3198d",
+    "src/remedy_prerequisites.py": "bcc35bc0ea4893e478b0e77e24a9c546f0226bbfbc130af3994813a03a7c575a",
+    "src/repair_contexts.py": "991548ed379332429b82665103e4dc21e18ada072711cb4e58e3998ba0beb833",
+    "src/reporting_clock.py": "4bbd09b3788b5454e889b49a5c872983a6fe01bb812a89e415e35a2b5c0d0ccf",
+    "src/response_runtime.py": "1eba6b35813a217b76e1c90e4d98ca0ae812b01758e9f0e052cadbcaeb15698a",
+    "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+    "src/return_conditions.py": "c29c8736effec57d7b8d7a0efab1e092bd5bc4a315f5ac8fd28f6ce98b329795",
+    "src/return_transition_claims.py": "569a5c35b84c8d5f2112731374a698118cc34fd8caed354a65e70f6f51aec2c4",
+    "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
+    "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+    "src/source_selection.py": "69f3c79157e6d7b174b7030d6a942f3e8a2e401b5d3e4971fa677f358e79c1d3",
+    "src/source_semantics.py": "3c10ef36e839dc89bc9107931e2d4f8864e843c9a0d2e3332971b385741efce5",
+    "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
+    "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
+    "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+    "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+    "src/voice.py": "028d9446045d19868bb709651f8bd844d7b88a86cbb297eda21390f1c949bb64",
+    "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b"
+  },
+  "stt_seconds": 2.27,
+  "agent_seconds": 87.716,
+  "tts_seconds": 2.165,
+  "total_seconds": 92.152,
+  "output": {
+    "transcript": "how fast are refunds to the zentromart wallet",
+    "answer": "I'm ZentroMart's AI support assistant. Refunds to the ZentroMart Wallet are instant, within 2 hours, as specified in the policy for refunds to the ZentroMart Wallet.",
+    "intent": "refund",
+    "decision": "answer",
+    "language": "en",
+    "retrieved_chunk_ids": [
+      "STY-1",
+      "DEL-3",
+      "KB-00.3",
+      "PLS-2",
+      "REF-2",
+      "REF-3"
+    ],
+    "sources": [
+      {
+        "id": "STY-1",
+        "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+        "file": "agent_conversation_style.md",
+        "doc_type": "agent_guide",
+        "status": "current",
+        "effective_from": "2026-07-01",
+        "version": "1.1",
+        "title": "Opening"
+      },
+      {
+        "id": "DEL-3",
+        "text": "## [DEL-3] Delivery attempts\nThe courier makes up to 3 delivery attempts. After a failed attempt the customer gets an SMS to reschedule. If the third attempt fails, the parcel is returned to the warehouse (return to origin, RTO) and REF-1 applies.",
+        "file": "pol_delivery_shipping.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-04-01",
+        "version": "2.0",
+        "title": "Delivery attempts"
+      },
+      {
+        "id": "KB-00.3",
+        "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+        "file": "00_about_this_knowledge_base.md",
+        "doc_type": "meta",
+        "status": "current",
+        "effective_from": "2026-08-01",
+        "version": "1.2",
+        "title": "Business days"
+      },
+      {
+        "id": "PLS-2",
+        "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+        "file": "pol_plus_membership.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-01-01",
+        "version": "1.0",
+        "title": "Benefits"
+      },
+      {
+        "id": "REF-2",
+        "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "How long refunds take after initiation"
+      },
+      {
+        "id": "REF-3",
+        "text": "## [REF-3] Cash-on-delivery refunds\nFor cash-on-delivery orders, the customer chooses either ZentroMart Wallet (instant) or a bank transfer. Bank transfers start only after the bank account details are verified, then take 5 to 7 business days.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "Cash-on-delivery refunds"
+      }
+    ],
+    "retrieval_candidates": [
+      {
+        "id": "REF-2",
+        "score": 0.182432,
+        "dense_score": 0.5691,
+        "retrieval_role": "direct",
+        "direct_rank": 1,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "REF-3",
+        "score": 0.176353,
+        "dense_score": 0.7099,
+        "retrieval_role": "direct",
+        "direct_rank": 2,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "RET-7",
+        "score": 0.17617,
+        "dense_score": 0.6487,
+        "retrieval_role": "direct",
+        "direct_rank": 3,
+        "dependency_weight": 1.15
+      },
+      {
+        "id": "REF-1",
+        "score": 0.164781,
+        "dense_score": 0.6831,
+        "retrieval_role": "direct",
+        "direct_rank": 4,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "PAY-4",
+        "score": 0.150637,
+        "dense_score": 0.5727,
+        "retrieval_role": "direct",
+        "direct_rank": 5,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "REF-6",
+        "score": 0.147738,
+        "dense_score": 0.5801,
+        "retrieval_role": "direct",
+        "direct_rank": 6,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "MKS-2",
+        "score": 0.141018,
+        "dense_score": 0.5734,
+        "retrieval_role": "direct",
+        "direct_rank": 7,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "FAQ-1",
+        "score": 0.136603,
+        "dense_score": 0.7294,
+        "retrieval_role": "direct",
+        "direct_rank": 8,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "REF-5",
+        "score": 0.130933,
+        "dense_score": 0.5996,
+        "retrieval_role": "direct",
+        "direct_rank": 9,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "REF-4",
+        "score": 0.130878,
+        "dense_score": 0.5743,
+        "retrieval_role": "direct",
+        "direct_rank": 10,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "CPN-3",
+        "score": 0.124061,
+        "dense_score": 0.588,
+        "retrieval_role": "direct",
+        "direct_rank": 11,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "DEL-4",
+        "score": 0.123493,
+        "dense_score": 0.4419,
+        "retrieval_role": "direct",
+        "direct_rank": 12,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "KB-00.3",
+        "score": 0.090952,
+        "dense_score": 0.2414,
+        "retrieval_role": "dependency",
+        "direct_rank": null,
+        "dependency_weight": 1.2
+      },
+      {
+        "id": "PLS-2",
+        "score": 0.090951,
+        "dense_score": 0.369,
+        "retrieval_role": "dependency",
+        "direct_rank": null,
+        "dependency_weight": 0.88
+      },
+      {
+        "id": "DEL-3",
+        "score": 0.055038,
+        "dense_score": 0.3388,
+        "retrieval_role": "dependency",
+        "direct_rank": null,
+        "dependency_weight": 0.88
+      }
+    ],
+    "tool_calls": [],
+    "facts": {
+      "reference_date": "2026-10-20",
+      "calculations": [],
+      "delivery_policy": {
+        "delivery_attempt_limit": 3,
+        "source_ids": [
+          "DEL-3"
+        ]
+      },
+      "answer_constraints": [],
+      "source_semantic_constraints": [
+        {
+          "kind": "membership_refund_timing_exclusion",
+          "membership_label": "ZentroMart Plus",
+          "timing_role": "after_initiation",
+          "source_ids": [
+            "PLS-2"
+          ],
+          "source_sha256": {
+            "PLS-2": "8b54c13f45bf1a25403c0392bb796928ee1a6ac4e1f4641fc3add50b62863246"
+          }
+        }
+      ],
+      "calculation_source_sha256": {
+        "DEL-3": "8d22f941c929f317ad5578c47daae0f9b8b1027d148a060e40f15aaea4585d1c"
+      },
+      "date_labels": {
+        "2026-10-20": "20 October 2026"
+      }
+    },
+    "verified": false,
+    "reference_date": "2026-10-20",
+    "composition": "grounded_llm",
+    "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+    "retrieval_k": 12,
+    "retrieval_direct_k": 12,
+    "retrieval_dependency_limit": 4,
+    "retrieval_candidate_limit": 16,
+    "retrieval_returned_count": 15,
+    "retrieval_direct_count": 12,
+    "retrieval_dependency_count": 3,
+    "evidence_supported": true,
+    "validation_error": null,
+    "citations": [],
+    "generation": {
+      "covered": true,
+      "provenance_kind": "generation_context",
+      "context_source_ids": [
+        "DEL-3",
+        "KB-00.3",
+        "PLS-2",
+        "REF-2",
+        "REF-3"
+      ],
+      "model_flags": {
+        "covered": true,
+        "needs_clarification": false
+      },
+      "decision_origin": "host_boolean_mapping",
+      "evaluated_source_constraints": [
+        {
+          "kind": "membership_refund_timing_exclusion",
+          "membership_label": "ZentroMart Plus",
+          "timing_role": "after_initiation",
+          "source_ids": [
+            "PLS-2"
+          ],
+          "source_sha256": {
+            "PLS-2": "8b54c13f45bf1a25403c0392bb796928ee1a6ac4e1f4641fc3add50b62863246"
+          }
+        }
+      ],
+      "evaluated_remedy_prerequisites": [],
+      "evaluated_delivery_clock_constraints": [],
+      "repair_attempted": false,
+      "generation_attempts": 1,
+      "repair_errors": [],
+      "validation_error": null,
+      "attempt_metrics": [
+        {
+          "cache_hit": false,
+          "attempts": 1,
+          "http_attempts": 1,
+          "http_statuses": [
+            200
+          ],
+          "rate_limit_events": 0,
+          "rate_limit_retries": 0,
+          "rate_limit_wait_ms": 0.0,
+          "rate_limit_planned_wait_ms": 0.0,
+          "last_http_status": 200,
+          "provider": "ollama:qwen3:4b-instruct",
+          "wall_ms": 87340.95,
+          "load_ms": 15986.79,
+          "prompt_eval_ms": 60056.08,
+          "eval_ms": 11074.33,
+          "prompt_eval_count": 1230,
+          "eval_count": 55,
+          "done_reason": "stop"
+        }
+      ],
+      "generation_input_contexts": [
+        {
+          "attempt": 1,
+          "source_ids": [
+            "DEL-3",
+            "KB-00.3",
+            "PLS-2",
+            "REF-2",
+            "REF-3"
+          ]
+        }
+      ],
+      "validation_source_ids": [
+        "DEL-3",
+        "KB-00.3",
+        "PLS-2",
+        "REF-2",
+        "REF-3"
+      ]
+    },
+    "service_error": null,
+    "generation_context_sources": [
+      {
+        "id": "REF-2",
+        "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "How long refunds take after initiation"
+      },
+      {
+        "id": "REF-3",
+        "text": "## [REF-3] Cash-on-delivery refunds\nFor cash-on-delivery orders, the customer chooses either ZentroMart Wallet (instant) or a bank transfer. Bank transfers start only after the bank account details are verified, then take 5 to 7 business days.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "Cash-on-delivery refunds"
+      },
+      {
+        "id": "KB-00.3",
+        "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+        "file": "00_about_this_knowledge_base.md",
+        "doc_type": "meta",
+        "status": "current",
+        "effective_from": "2026-08-01",
+        "version": "1.2",
+        "title": "Business days"
+      },
+      {
+        "id": "PLS-2",
+        "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+        "file": "pol_plus_membership.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-01-01",
+        "version": "1.0",
+        "title": "Benefits"
+      },
+      {
+        "id": "DEL-3",
+        "text": "## [DEL-3] Delivery attempts\nThe courier makes up to 3 delivery attempts. After a failed attempt the customer gets an SMS to reschedule. If the third attempt fails, the parcel is returned to the warehouse (return to origin, RTO) and REF-1 applies.",
+        "file": "pol_delivery_shipping.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-04-01",
+        "version": "2.0",
+        "title": "Delivery attempts"
+      }
+    ],
+    "context_selection": {
+      "mode": "ranked_sources_with_dependencies",
+      "available_source_ids": [
+        "REF-2",
+        "REF-3",
+        "RET-7",
+        "REF-1",
+        "PAY-4",
+        "REF-6",
+        "MKS-2",
+        "REF-5",
+        "REF-4",
+        "CPN-3",
+        "DEL-4",
+        "KB-00.3",
+        "PLS-2",
+        "DEL-3"
+      ],
+      "focused_source_ids": [
+        "REF-2",
+        "REF-3",
+        "KB-00.3",
+        "PLS-2",
+        "DEL-3"
+      ]
+    },
+    "llm": {
+      "cache_hit": false,
+      "attempts": 1,
+      "http_attempts": 1,
+      "http_statuses": [
+        200
+      ],
+      "rate_limit_events": 0,
+      "rate_limit_retries": 0,
+      "rate_limit_wait_ms": 0.0,
+      "rate_limit_planned_wait_ms": 0.0,
+      "last_http_status": 200,
+      "provider": "ollama:qwen3:4b-instruct",
+      "wall_ms": 87340.95,
+      "load_ms": 15986.79,
+      "prompt_eval_ms": 60056.08,
+      "eval_ms": 11074.33,
+      "prompt_eval_count": 1230,
+      "eval_count": 55,
+      "done_reason": "stop"
+    },
+    "timings": {
+      "retrieval_ms": 167.43,
+      "llm_ms": 87494.89
+    },
+    "latency_ms": 87708.44
+  },
+  "transcript": "how fast are refunds to the zentromart wallet",
+  "reply_audio": "sample_outputs/reliability_audio/wallet_reply.wav",
+  "reply_audio_sha256": "97df5af35bfd8a797d192d50af26cebbac2c96721ce458ac7238df16179a1cbb",
+  "passed": true,
+  "status": "tested",
+  "source_sha256_finished": {
+    "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+    "src/agent.py": "82f2c78833894f5f1defba6a4b80ce15d259bf1c11b833f648d98188febdd9b2",
+    "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
+    "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+    "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
+    "src/category_labels.py": "3937d794fc8e46d40fe16917792f54043f2a875f84bf920aca5cb948c5685bf4",
+    "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+    "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+    "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+    "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+    "src/document_answers.py": "c1bedab4189dd6c1eef96112df717b96f8e51bb6167b22e9ae80e791485fed7c",
+    "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
+    "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
+    "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+    "src/event_dates.py": "50c95bfa6c406662ddf451d6142c9103f280783881dc9e8981ae027715944acc",
+    "src/generation_diagnostics.py": "4cc1c9e90ec69fa392effe96bf17d6f9eb028e3d7e2e042670c32342d67e7aee",
+    "src/grounding.py": "2b1fe2642061684ac0e9de452d337bc01bc82038c2386710b1b438b915e09586",
+    "src/inference_facts.py": "d3819522d139ff8f64082e000446728185072a37eb3dde7dfa5860a3fa3bec5b",
+    "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+    "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+    "src/llm.py": "896bf7f8456fa4dd9c381a9055894edc13c111ad92ea40751a6a32c410facc3b",
+    "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+    "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
+    "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+    "src/operational_explanations.py": "f4457d3fdd658b89c449e9f1b3cfc18ecb98fe45330e2867ee46fe65bb4ad1f2",
+    "src/pending_refund_context.py": "7db580e1d420d47a31fc9d99aa7fbd238ed098247c6fa633999a37bdc9292572",
+    "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
+    "src/placement_conditions.py": "3eb576b2a2aee31004165cd5fb69325066e57c7a6aac175023d9879b4bec740c",
+    "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
+    "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
+    "src/refund_status.py": "4fa8084768804b5772dc34b813bf33b00105434303bb4bcc198e3fae0e3f49f9",
+    "src/refund_timeline.py": "e8a293ca89f178edcfebcc54af2e70dba87edd1fafc1f884fe4571a8a9b3198d",
+    "src/remedy_prerequisites.py": "bcc35bc0ea4893e478b0e77e24a9c546f0226bbfbc130af3994813a03a7c575a",
+    "src/repair_contexts.py": "991548ed379332429b82665103e4dc21e18ada072711cb4e58e3998ba0beb833",
+    "src/reporting_clock.py": "4bbd09b3788b5454e889b49a5c872983a6fe01bb812a89e415e35a2b5c0d0ccf",
+    "src/response_runtime.py": "1eba6b35813a217b76e1c90e4d98ca0ae812b01758e9f0e052cadbcaeb15698a",
+    "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+    "src/return_conditions.py": "c29c8736effec57d7b8d7a0efab1e092bd5bc4a315f5ac8fd28f6ce98b329795",
+    "src/return_transition_claims.py": "569a5c35b84c8d5f2112731374a698118cc34fd8caed354a65e70f6f51aec2c4",
+    "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
+    "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+    "src/source_selection.py": "69f3c79157e6d7b174b7030d6a942f3e8a2e401b5d3e4971fa677f358e79c1d3",
+    "src/source_semantics.py": "3c10ef36e839dc89bc9107931e2d4f8864e843c9a0d2e3332971b385741efce5",
+    "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
+    "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
+    "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+    "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+    "src/voice.py": "028d9446045d19868bb709651f8bd844d7b88a86cbb297eda21390f1c949bb64",
+    "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b"
+  }
+}

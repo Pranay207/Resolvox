@@ -1,0 +1,19 @@
+{
+  "scope": "Two desktop UI checks in the actual restarted Streamlit app. Existing public model-output cache can be used. Not a fresh cold-start latency benchmark, mobile pass, human speech or noise study.",
+  "url": "http://127.0.0.1:8501/",
+  "passed": true,
+  "observed": [
+    "Wallet reply appears with the documented hour limit and refund-initiation anchor.",
+    "A fresh conversation with the unsupported future-policy claim returns uncertainty without a supporting-policy panel."
+  ],
+  "screenshots": [
+    {
+      "path": "sample_outputs/reliability_artifacts/ui_refund.jpg",
+      "sha256": "5f78762c99b553d6dd90a5dd5d91effb1fd77b8a0d3fdab2ce19501c4e586763"
+    },
+    {
+      "path": "sample_outputs/reliability_artifacts/ui_uncertainty.jpg",
+      "sha256": "58dfa59ab5924d031e4ab3889162f792bfdd1f0709ef40d0dae61251e2d85285"
+    }
+  ]
+}

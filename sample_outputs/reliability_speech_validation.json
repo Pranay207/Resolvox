@@ -1,0 +1,12 @@
+{
+  "scope": "Gnani-only synthetic speech I/O; full agent turn not yet claimed",
+  "provider": "Gnani",
+  "question": "How fast are refunds to the ZentroMart Wallet?",
+  "status": "speech_io_checked",
+  "question_tts_seconds": 1.702,
+  "question_audio_seconds": 2.4,
+  "question_audio_sha256": "6cd37b767f800f05b6eb83a9a4c38d6f1bb2b087db13e697b22f737737cb786d",
+  "transcript": "how fast are refunds to the zentromart wallet",
+  "stt_seconds": 0.286,
+  "passed": true
+}

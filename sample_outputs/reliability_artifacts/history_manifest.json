@@ -1,0 +1,29 @@
+{
+  "scope": "Historical diagnostic/timing records are preserved separately from current verification. The historic WAV output path was reused during development; these old audio bytes were not retained. Use reliability_voice_validation.json and its matching WAV for current audio evidence.",
+  "historical_voice_records": [
+    {
+      "receipt": "sample_outputs/reliability_artifacts/before_speed_wording_voice.json",
+      "receipt_sha256": "fdf2b57154c181d4bc1487b70b69ef7bb42027eea644f8a004843b7045f601dc",
+      "recorded_total_seconds": 92.152,
+      "recorded_agent_seconds": 87.716,
+      "recorded_cache_hit": false,
+      "historic_audio_bytes_available": false,
+      "use": "Historical timing/provenance record only; not current reproducible audio evidence."
+    },
+    {
+      "receipt": "sample_outputs/reliability_artifacts/previous_voice_20261101T103517Z.json",
+      "receipt_sha256": "7d1509645c641e9078545aaf04f35937d7dd522bec9037c9e87e69c9669642fb",
+      "recorded_total_seconds": 38.299,
+      "recorded_agent_seconds": 36.297,
+      "recorded_cache_hit": false,
+      "historic_audio_bytes_available": false,
+      "use": "Historical timing/provenance record only; not current reproducible audio evidence."
+    }
+  ],
+  "current_voice_record": "sample_outputs/reliability_voice_validation.json",
+  "current_audio_verified": true,
+  "internal_diagnostic_correction": {
+    "record": "sample_outputs/reliability_artifacts/previous_live_20261101T103517Z.json",
+    "detail": "The initial internal uncertainty check incorrectly required an empty generation context. Audit context is not an asserted citation. The current check separately requires no supported policy claim, no fabricated numbers and no customer-facing policy reference. Original agent replies and this earlier diagnostic result are preserved."
+  }
+}

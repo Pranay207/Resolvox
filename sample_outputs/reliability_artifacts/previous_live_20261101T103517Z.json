@@ -1,0 +1,1930 @@
+{
+  "scope": "Four targeted current-runtime checks only; model output cache is allowed and disclosed per case. No full52 or full96 rerun. Wallet includes actual synthetic-audio Gnani STT and TTS.",
+  "provider": "ollama",
+  "model": "qwen3:4b-instruct",
+  "complete": true,
+  "source_sha256_started": {
+    ".env.example": "8452ae151f518fb9bec4a2a48d1da7593feaf27efe00a1c1392d1e8a91e055dd",
+    "app.py": "b2d0e372348a0017d08a1c167ea355a9a230778cf7a3db0397200b66d3687275",
+    "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+    "src/agent.py": "82f2c78833894f5f1defba6a4b80ce15d259bf1c11b833f648d98188febdd9b2",
+    "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
+    "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+    "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
+    "src/category_labels.py": "3937d794fc8e46d40fe16917792f54043f2a875f84bf920aca5cb948c5685bf4",
+    "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+    "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+    "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+    "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+    "src/document_answers.py": "aa21416697b18fb86fd63421dc5279555b47f5cdd210f392201ed213615864e1",
+    "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
+    "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
+    "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+    "src/event_dates.py": "50c95bfa6c406662ddf451d6142c9103f280783881dc9e8981ae027715944acc",
+    "src/generation_diagnostics.py": "4cc1c9e90ec69fa392effe96bf17d6f9eb028e3d7e2e042670c32342d67e7aee",
+    "src/grounding.py": "2b1fe2642061684ac0e9de452d337bc01bc82038c2386710b1b438b915e09586",
+    "src/inference_facts.py": "d3819522d139ff8f64082e000446728185072a37eb3dde7dfa5860a3fa3bec5b",
+    "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+    "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+    "src/llm.py": "896bf7f8456fa4dd9c381a9055894edc13c111ad92ea40751a6a32c410facc3b",
+    "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+    "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
+    "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+    "src/operational_explanations.py": "f4457d3fdd658b89c449e9f1b3cfc18ecb98fe45330e2867ee46fe65bb4ad1f2",
+    "src/pending_refund_context.py": "7db580e1d420d47a31fc9d99aa7fbd238ed098247c6fa633999a37bdc9292572",
+    "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
+    "src/placement_conditions.py": "3eb576b2a2aee31004165cd5fb69325066e57c7a6aac175023d9879b4bec740c",
+    "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
+    "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
+    "src/refund_status.py": "4fa8084768804b5772dc34b813bf33b00105434303bb4bcc198e3fae0e3f49f9",
+    "src/refund_timeline.py": "63404eac21efa074cbf6d979931868fbfa23b18ec14df841494bf904b6d20b66",
+    "src/remedy_prerequisites.py": "bcc35bc0ea4893e478b0e77e24a9c546f0226bbfbc130af3994813a03a7c575a",
+    "src/repair_contexts.py": "991548ed379332429b82665103e4dc21e18ada072711cb4e58e3998ba0beb833",
+    "src/reporting_clock.py": "4bbd09b3788b5454e889b49a5c872983a6fe01bb812a89e415e35a2b5c0d0ccf",
+    "src/response_runtime.py": "1eba6b35813a217b76e1c90e4d98ca0ae812b01758e9f0e052cadbcaeb15698a",
+    "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+    "src/return_conditions.py": "c29c8736effec57d7b8d7a0efab1e092bd5bc4a315f5ac8fd28f6ce98b329795",
+    "src/return_transition_claims.py": "569a5c35b84c8d5f2112731374a698118cc34fd8caed354a65e70f6f51aec2c4",
+    "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
+    "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+    "src/source_selection.py": "69f3c79157e6d7b174b7030d6a942f3e8a2e401b5d3e4971fa677f358e79c1d3",
+    "src/source_semantics.py": "3c10ef36e839dc89bc9107931e2d4f8864e843c9a0d2e3332971b385741efce5",
+    "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
+    "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
+    "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+    "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+    "src/voice.py": "028d9446045d19868bb709651f8bd844d7b88a86cbb297eda21390f1c949bb64",
+    "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b"
+  },
+  "cases": [
+    {
+      "id": "wallet",
+      "question": "how fast are refunds to the zentromart wallet",
+      "seconds": 36.297,
+      "output": {
+        "transcript": "how fast are refunds to the zentromart wallet",
+        "answer": "I'm ZentroMart's AI support assistant. Refunds to the ZentroMart Wallet are instant, within 2 hours after the refund is initiated.",
+        "intent": "refund",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "KB-00.3",
+          "PLS-2",
+          "REF-2"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "KB-00.3",
+            "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+            "file": "00_about_this_knowledge_base.md",
+            "doc_type": "meta",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Business days"
+          },
+          {
+            "id": "PLS-2",
+            "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+            "file": "pol_plus_membership.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-01-01",
+            "version": "1.0",
+            "title": "Benefits"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "REF-2",
+            "score": 0.182432,
+            "dense_score": 0.5691,
+            "retrieval_role": "direct",
+            "direct_rank": 1,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-3",
+            "score": 0.176353,
+            "dense_score": 0.7099,
+            "retrieval_role": "direct",
+            "direct_rank": 2,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-7",
+            "score": 0.17617,
+            "dense_score": 0.6487,
+            "retrieval_role": "direct",
+            "direct_rank": 3,
+            "dependency_weight": 1.15
+          },
+          {
+            "id": "REF-1",
+            "score": 0.164781,
+            "dense_score": 0.6831,
+            "retrieval_role": "direct",
+            "direct_rank": 4,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "PAY-4",
+            "score": 0.150637,
+            "dense_score": 0.5727,
+            "retrieval_role": "direct",
+            "direct_rank": 5,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-6",
+            "score": 0.147738,
+            "dense_score": 0.5801,
+            "retrieval_role": "direct",
+            "direct_rank": 6,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.141018,
+            "dense_score": 0.5734,
+            "retrieval_role": "direct",
+            "direct_rank": 7,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "FAQ-1",
+            "score": 0.136603,
+            "dense_score": 0.7294,
+            "retrieval_role": "direct",
+            "direct_rank": 8,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-5",
+            "score": 0.130933,
+            "dense_score": 0.5996,
+            "retrieval_role": "direct",
+            "direct_rank": 9,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-4",
+            "score": 0.130878,
+            "dense_score": 0.5743,
+            "retrieval_role": "direct",
+            "direct_rank": 10,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "CPN-3",
+            "score": 0.124061,
+            "dense_score": 0.588,
+            "retrieval_role": "direct",
+            "direct_rank": 11,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "DEL-4",
+            "score": 0.123493,
+            "dense_score": 0.4419,
+            "retrieval_role": "direct",
+            "direct_rank": 12,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.090952,
+            "dense_score": 0.2414,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 1.2
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.090951,
+            "dense_score": 0.369,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 0.88
+          },
+          {
+            "id": "DEL-3",
+            "score": 0.055038,
+            "dense_score": 0.3388,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 0.88
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [],
+          "delivery_policy": {
+            "delivery_attempt_limit": 3,
+            "source_ids": [
+              "DEL-3"
+            ]
+          },
+          "refund_arrival_policy": {
+            "payment_method": "wallet",
+            "source_payment_label": "ZentroMart Wallet",
+            "maximum_hours": 2,
+            "timing_unit": "hour",
+            "timing_anchor": "after_refund_initiation",
+            "source_ids": [
+              "REF-2"
+            ],
+            "source_sha256": {
+              "REF-2": "913886a7d0e4810241fd90b1d812c39c5900d428dce65112ccbdfb8c8855ced4"
+            }
+          },
+          "answer_constraints": [],
+          "source_semantic_constraints": [
+            {
+              "kind": "membership_refund_timing_exclusion",
+              "membership_label": "ZentroMart Plus",
+              "timing_role": "after_initiation",
+              "source_ids": [
+                "PLS-2"
+              ],
+              "source_sha256": {
+                "PLS-2": "8b54c13f45bf1a25403c0392bb796928ee1a6ac4e1f4641fc3add50b62863246"
+              }
+            }
+          ],
+          "calculation_source_sha256": {
+            "DEL-3": "8d22f941c929f317ad5578c47daae0f9b8b1027d148a060e40f15aaea4585d1c"
+          },
+          "date_labels": {
+            "2026-10-20": "20 October 2026"
+          }
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "grounded_llm",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "retrieval_direct_k": 12,
+        "retrieval_dependency_limit": 4,
+        "retrieval_candidate_limit": 16,
+        "retrieval_returned_count": 15,
+        "retrieval_direct_count": 12,
+        "retrieval_dependency_count": 3,
+        "evidence_supported": true,
+        "validation_error": null,
+        "citations": [],
+        "generation": {
+          "covered": true,
+          "provenance_kind": "generation_context",
+          "context_source_ids": [
+            "KB-00.3",
+            "PLS-2",
+            "REF-2"
+          ],
+          "model_flags": {
+            "covered": true,
+            "needs_clarification": false
+          },
+          "decision_origin": "host_boolean_mapping",
+          "evaluated_source_constraints": [
+            {
+              "kind": "membership_refund_timing_exclusion",
+              "membership_label": "ZentroMart Plus",
+              "timing_role": "after_initiation",
+              "source_ids": [
+                "PLS-2"
+              ],
+              "source_sha256": {
+                "PLS-2": "8b54c13f45bf1a25403c0392bb796928ee1a6ac4e1f4641fc3add50b62863246"
+              }
+            }
+          ],
+          "evaluated_remedy_prerequisites": [],
+          "evaluated_delivery_clock_constraints": [],
+          "repair_attempted": false,
+          "generation_attempts": 1,
+          "repair_errors": [],
+          "validation_error": null,
+          "attempt_metrics": [
+            {
+              "cache_hit": false,
+              "attempts": 1,
+              "http_attempts": 1,
+              "http_statuses": [
+                200
+              ],
+              "rate_limit_events": 0,
+              "rate_limit_retries": 0,
+              "rate_limit_wait_ms": 0.0,
+              "rate_limit_planned_wait_ms": 0.0,
+              "last_http_status": 200,
+              "provider": "ollama:qwen3:4b-instruct",
+              "wall_ms": 36030.98,
+              "load_ms": 7811.17,
+              "prompt_eval_ms": 23023.59,
+              "eval_ms": 5106.87,
+              "prompt_eval_count": 761,
+              "eval_count": 37,
+              "done_reason": "stop"
+            }
+          ],
+          "generation_input_contexts": [
+            {
+              "attempt": 1,
+              "source_ids": [
+                "KB-00.3",
+                "PLS-2",
+                "REF-2"
+              ]
+            }
+          ],
+          "validation_source_ids": [
+            "DEL-3",
+            "KB-00.3",
+            "PLS-2",
+            "REF-2",
+            "REF-3"
+          ]
+        },
+        "service_error": null,
+        "generation_context_sources": [
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "KB-00.3",
+            "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+            "file": "00_about_this_knowledge_base.md",
+            "doc_type": "meta",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Business days"
+          },
+          {
+            "id": "PLS-2",
+            "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+            "file": "pol_plus_membership.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-01-01",
+            "version": "1.0",
+            "title": "Benefits"
+          }
+        ],
+        "context_selection": {
+          "mode": "ranked_sources_with_dependencies",
+          "available_source_ids": [
+            "REF-2",
+            "REF-3",
+            "RET-7",
+            "REF-1",
+            "PAY-4",
+            "REF-6",
+            "MKS-2",
+            "REF-5",
+            "REF-4",
+            "CPN-3",
+            "DEL-4",
+            "KB-00.3",
+            "PLS-2",
+            "DEL-3"
+          ],
+          "focused_source_ids": [
+            "REF-2",
+            "REF-3",
+            "KB-00.3",
+            "PLS-2",
+            "DEL-3"
+          ]
+        },
+        "llm": {
+          "cache_hit": false,
+          "attempts": 1,
+          "http_attempts": 1,
+          "http_statuses": [
+            200
+          ],
+          "rate_limit_events": 0,
+          "rate_limit_retries": 0,
+          "rate_limit_wait_ms": 0.0,
+          "rate_limit_planned_wait_ms": 0.0,
+          "last_http_status": 200,
+          "provider": "ollama:qwen3:4b-instruct",
+          "wall_ms": 36030.98,
+          "load_ms": 7811.17,
+          "prompt_eval_ms": 23023.59,
+          "eval_ms": 5106.87,
+          "prompt_eval_count": 761,
+          "eval_count": 37,
+          "done_reason": "stop"
+        },
+        "timings": {
+          "retrieval_ms": 75.33,
+          "llm_ms": 36183.27
+        },
+        "latency_ms": 36295.74
+      },
+      "cache_hit": false,
+      "checks": {
+        "validated_reply": true,
+        "no_service_error": true,
+        "answered": true,
+        "source": true,
+        "correct_clock": true,
+        "initiation_anchor": true
+      },
+      "passed": true,
+      "manual_review": "Pending source-based review; no automatic score inflation."
+    },
+    {
+      "id": "plus_pickup",
+      "question": "Main Plus member hoon. Bag ka colour pasand nahi aaya aur return karna hai. Reverse pickup ki fee lagegi kya?",
+      "seconds": 0.093,
+      "output": {
+        "transcript": "Main Plus member hoon. Bag ka colour pasand nahi aaya aur return karna hai. Reverse pickup ki fee lagegi kya?",
+        "answer": "Main ZentroMart ki AI support assistant hoon. Nahi, reverse pickup ki fee nahi lagegi kyunki aap ZentroMart Plus member hain aur iski wajah se clothing, footwear aur bags ke liye reverse pickup fee zero hoti hai.",
+        "intent": "pickup",
+        "decision": "answer",
+        "language": "hi-en",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "DEL-2",
+          "DWM-2",
+          "MKS-2",
+          "PLS-1",
+          "PLS-2",
+          "REF-1",
+          "RET-2",
+          "RET-6",
+          "RET-7",
+          "RET-8",
+          "RET-9",
+          "RVP-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "DEL-2",
+            "text": "## [DEL-2] Delivery fees\nStandard delivery is free on orders of ₹499 or more; below that a ₹40 fee applies. Express delivery costs ₹79 and is free for ZentroMart Plus members.",
+            "file": "pol_delivery_shipping.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-04-01",
+            "version": "2.0",
+            "title": "Delivery fees"
+          },
+          {
+            "id": "DWM-2",
+            "text": "## [DWM-2] Resolution\nAfter verification the customer gets a free replacement or a full refund, including delivery fees. No reverse pickup fee applies.",
+            "file": "pol_damaged_wrong_missing.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-05-01",
+            "version": "1.3",
+            "title": "Resolution"
+          },
+          {
+            "id": "MKS-2",
+            "text": "## [MKS-2] Returns and refunds\nReturn windows, reverse pickup and refunds are the same for every seller and are handled by ZentroMart.",
+            "file": "pol_marketplace_sellers.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-03-01",
+            "version": "1.0",
+            "title": "Returns and refunds"
+          },
+          {
+            "id": "PLS-1",
+            "text": "## [PLS-1] Price\nZentroMart Plus costs ₹999 a year.",
+            "file": "pol_plus_membership.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-01-01",
+            "version": "1.0",
+            "title": "Price"
+          },
+          {
+            "id": "PLS-2",
+            "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+            "file": "pol_plus_membership.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-01-01",
+            "version": "1.0",
+            "title": "Benefits"
+          },
+          {
+            "id": "REF-1",
+            "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "When a refund is initiated"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "RET-6",
+            "text": "## [RET-6] Reverse pickup and fees\nReturns are collected from the delivery address through reverse pickup. A reverse pickup fee of ₹49 applies to change-of-mind returns of clothing, footwear and bags. The fee is waived for ZentroMart Plus members and for any item returned because it was damaged, defective or wrong.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Reverse pickup and fees"
+          },
+          {
+            "id": "RET-7",
+            "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "After pickup"
+          },
+          {
+            "id": "RET-8",
+            "text": "## [RET-8] Festive sale returns\nClothing, footwear and bags from orders **placed between 01 October and 15 October 2026** can be returned within 30 days of delivery. All other categories follow the normal windows in RET-2.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Festive sale returns"
+          },
+          {
+            "id": "RET-9",
+            "text": "## [RET-9] Exchanges\nExchanges for a different size or colour are available on clothing and footwear within the return window, subject to stock. If the new size is out of stock, a return and refund is offered instead.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Exchanges"
+          },
+          {
+            "id": "RVP-1",
+            "text": "## [RVP-1] Booking\nRaise the return from My Orders. Choose a pickup slot. The delivery executive will check the item at the door against the condition rules in RET-4.",
+            "file": "help_reverse_pickup.md",
+            "doc_type": "help",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Booking"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-6",
+            "score": 0.200683,
+            "dense_score": 0.5365,
+            "retrieval_role": "direct",
+            "direct_rank": 1,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "PLS-2",
+            "score": 0.167502,
+            "dense_score": 0.3881,
+            "retrieval_role": "direct",
+            "direct_rank": 2,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-7",
+            "score": 0.15575,
+            "dense_score": 0.3443,
+            "retrieval_role": "direct",
+            "direct_rank": 3,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "DWM-2",
+            "score": 0.151747,
+            "dense_score": 0.3716,
+            "retrieval_role": "direct",
+            "direct_rank": 4,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-8",
+            "score": 0.149775,
+            "dense_score": 0.3395,
+            "retrieval_role": "direct",
+            "direct_rank": 5,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RVP-1",
+            "score": 0.144102,
+            "dense_score": 0.4781,
+            "retrieval_role": "direct",
+            "direct_rank": 6,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-9",
+            "score": 0.142278,
+            "dense_score": 0.2901,
+            "retrieval_role": "direct",
+            "direct_rank": 7,
+            "dependency_weight": 1.15
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.135932,
+            "dense_score": 0.2924,
+            "retrieval_role": "direct",
+            "direct_rank": 8,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-2",
+            "score": 0.134867,
+            "dense_score": 0.2388,
+            "retrieval_role": "direct",
+            "direct_rank": 9,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "DEL-2",
+            "score": 0.131616,
+            "dense_score": 0.333,
+            "retrieval_role": "direct",
+            "direct_rank": 10,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "PLS-1",
+            "score": 0.128197,
+            "dense_score": 0.2682,
+            "retrieval_role": "direct",
+            "direct_rank": 11,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-1",
+            "score": 0.123788,
+            "dense_score": 0.2555,
+            "retrieval_role": "direct",
+            "direct_rank": 12,
+            "dependency_weight": 0.0
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [],
+          "public_context": {
+            "category": "fashion"
+          },
+          "return_policy": {
+            "category": "fashion",
+            "category_label": "Clothing, footwear and bags",
+            "window_calendar_days": 15,
+            "source_ids": [
+              "RET-2"
+            ],
+            "selection": "standard_window",
+            "placement_exception": {
+              "placed_from": "2026-10-01",
+              "placed_through": "2026-10-15",
+              "window_calendar_days": 30,
+              "source_ids": [
+                "RET-8"
+              ]
+            },
+            "placement_date_unavailable": true
+          },
+          "answer_constraints": [],
+          "source_semantic_constraints": [
+            {
+              "kind": "conditional_rto_refund",
+              "payment_condition": "prepaid",
+              "source_antecedent": "Prepaid order refused at the door or not delivered after 3 attempts",
+              "source_consequence": "once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+              "source_ids": [
+                "REF-1"
+              ],
+              "source_sha256": {
+                "REF-1": "30f3fc9957fa76cc2c3d59df05fd859766d77239c8d2c35dce3f1f510addf9e2"
+              }
+            },
+            {
+              "kind": "membership_refund_timing_exclusion",
+              "membership_label": "ZentroMart Plus",
+              "timing_role": "after_initiation",
+              "source_ids": [
+                "PLS-2"
+              ],
+              "source_sha256": {
+                "PLS-2": "8b54c13f45bf1a25403c0392bb796928ee1a6ac4e1f4641fc3add50b62863246"
+              }
+            }
+          ],
+          "calculation_source_sha256": {
+            "RET-2": "8142a854bd0467400e7452d51b024aed6cb4f1d33b12e12ea090d27e328ea91e"
+          },
+          "date_labels": {
+            "2026-10-20": "20 October 2026",
+            "2026-10-01": "1 October 2026",
+            "2026-10-15": "15 October 2026"
+          }
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "grounded_llm",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "retrieval_direct_k": 12,
+        "retrieval_dependency_limit": 4,
+        "retrieval_candidate_limit": 16,
+        "retrieval_returned_count": 12,
+        "retrieval_direct_count": 12,
+        "retrieval_dependency_count": 0,
+        "evidence_supported": true,
+        "validation_error": null,
+        "citations": [],
+        "generation": {
+          "covered": true,
+          "provenance_kind": "generation_context",
+          "context_source_ids": [
+            "DEL-2",
+            "DWM-2",
+            "MKS-2",
+            "PLS-1",
+            "PLS-2",
+            "REF-1",
+            "RET-2",
+            "RET-6",
+            "RET-7",
+            "RET-8",
+            "RET-9",
+            "RVP-1"
+          ],
+          "model_flags": {
+            "covered": true,
+            "needs_clarification": false
+          },
+          "decision_origin": "host_boolean_mapping",
+          "evaluated_source_constraints": [
+            {
+              "kind": "conditional_rto_refund",
+              "payment_condition": "prepaid",
+              "source_antecedent": "Prepaid order refused at the door or not delivered after 3 attempts",
+              "source_consequence": "once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+              "source_ids": [
+                "REF-1"
+              ],
+              "source_sha256": {
+                "REF-1": "30f3fc9957fa76cc2c3d59df05fd859766d77239c8d2c35dce3f1f510addf9e2"
+              }
+            },
+            {
+              "kind": "membership_refund_timing_exclusion",
+              "membership_label": "ZentroMart Plus",
+              "timing_role": "after_initiation",
+              "source_ids": [
+                "PLS-2"
+              ],
+              "source_sha256": {
+                "PLS-2": "8b54c13f45bf1a25403c0392bb796928ee1a6ac4e1f4641fc3add50b62863246"
+              }
+            }
+          ],
+          "evaluated_remedy_prerequisites": [],
+          "evaluated_delivery_clock_constraints": [],
+          "repair_attempted": false,
+          "generation_attempts": 1,
+          "repair_errors": [],
+          "validation_error": null,
+          "attempt_metrics": [
+            {
+              "cache_hit": true,
+              "attempts": 0,
+              "http_attempts": 0,
+              "http_statuses": [],
+              "rate_limit_events": 0,
+              "rate_limit_retries": 0,
+              "rate_limit_wait_ms": 0.0,
+              "rate_limit_planned_wait_ms": 0.0,
+              "wall_ms": 2.56,
+              "provider": "ollama:qwen3:4b-instruct"
+            }
+          ],
+          "generation_input_contexts": [
+            {
+              "attempt": 1,
+              "source_ids": [
+                "DEL-2",
+                "DWM-2",
+                "MKS-2",
+                "PLS-1",
+                "PLS-2",
+                "REF-1",
+                "RET-2",
+                "RET-6",
+                "RET-7",
+                "RET-8",
+                "RET-9",
+                "RVP-1"
+              ]
+            }
+          ],
+          "validation_source_ids": [
+            "DEL-2",
+            "DWM-2",
+            "MKS-2",
+            "PLS-1",
+            "PLS-2",
+            "REF-1",
+            "RET-2",
+            "RET-6",
+            "RET-7",
+            "RET-8",
+            "RET-9",
+            "RVP-1"
+          ]
+        },
+        "service_error": null,
+        "generation_context_sources": [
+          {
+            "id": "RET-6",
+            "text": "## [RET-6] Reverse pickup and fees\nReturns are collected from the delivery address through reverse pickup. A reverse pickup fee of ₹49 applies to change-of-mind returns of clothing, footwear and bags. The fee is waived for ZentroMart Plus members and for any item returned because it was damaged, defective or wrong.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Reverse pickup and fees"
+          },
+          {
+            "id": "PLS-2",
+            "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+            "file": "pol_plus_membership.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-01-01",
+            "version": "1.0",
+            "title": "Benefits"
+          },
+          {
+            "id": "RET-7",
+            "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "After pickup"
+          },
+          {
+            "id": "DWM-2",
+            "text": "## [DWM-2] Resolution\nAfter verification the customer gets a free replacement or a full refund, including delivery fees. No reverse pickup fee applies.",
+            "file": "pol_damaged_wrong_missing.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-05-01",
+            "version": "1.3",
+            "title": "Resolution"
+          },
+          {
+            "id": "RET-8",
+            "text": "## [RET-8] Festive sale returns\nClothing, footwear and bags from orders **placed between 01 October and 15 October 2026** can be returned within 30 days of delivery. All other categories follow the normal windows in RET-2.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Festive sale returns"
+          },
+          {
+            "id": "RVP-1",
+            "text": "## [RVP-1] Booking\nRaise the return from My Orders. Choose a pickup slot. The delivery executive will check the item at the door against the condition rules in RET-4.",
+            "file": "help_reverse_pickup.md",
+            "doc_type": "help",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Booking"
+          },
+          {
+            "id": "RET-9",
+            "text": "## [RET-9] Exchanges\nExchanges for a different size or colour are available on clothing and footwear within the return window, subject to stock. If the new size is out of stock, a return and refund is offered instead.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Exchanges"
+          },
+          {
+            "id": "MKS-2",
+            "text": "## [MKS-2] Returns and refunds\nReturn windows, reverse pickup and refunds are the same for every seller and are handled by ZentroMart.",
+            "file": "pol_marketplace_sellers.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-03-01",
+            "version": "1.0",
+            "title": "Returns and refunds"
+          },
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "DEL-2",
+            "text": "## [DEL-2] Delivery fees\nStandard delivery is free on orders of ₹499 or more; below that a ₹40 fee applies. Express delivery costs ₹79 and is free for ZentroMart Plus members.",
+            "file": "pol_delivery_shipping.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-04-01",
+            "version": "2.0",
+            "title": "Delivery fees"
+          },
+          {
+            "id": "PLS-1",
+            "text": "## [PLS-1] Price\nZentroMart Plus costs ₹999 a year.",
+            "file": "pol_plus_membership.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-01-01",
+            "version": "1.0",
+            "title": "Price"
+          },
+          {
+            "id": "REF-1",
+            "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "When a refund is initiated"
+          }
+        ],
+        "context_selection": {
+          "mode": "ranked_sources_with_dependencies",
+          "available_source_ids": [
+            "RET-6",
+            "PLS-2",
+            "RET-7",
+            "DWM-2",
+            "RET-8",
+            "RVP-1",
+            "RET-9",
+            "MKS-2",
+            "RET-2",
+            "DEL-2",
+            "PLS-1",
+            "REF-1"
+          ],
+          "focused_source_ids": [
+            "RET-6",
+            "PLS-2",
+            "RET-7",
+            "DWM-2",
+            "RET-8",
+            "RVP-1",
+            "RET-9",
+            "MKS-2",
+            "RET-2",
+            "DEL-2",
+            "PLS-1",
+            "REF-1"
+          ]
+        },
+        "llm": {
+          "cache_hit": true,
+          "attempts": 0,
+          "http_attempts": 0,
+          "http_statuses": [],
+          "rate_limit_events": 0,
+          "rate_limit_retries": 0,
+          "rate_limit_wait_ms": 0.0,
+          "rate_limit_planned_wait_ms": 0.0,
+          "wall_ms": 2.56,
+          "provider": "ollama:qwen3:4b-instruct"
+        },
+        "timings": {
+          "retrieval_ms": 58.5,
+          "llm_ms": 25.24
+        },
+        "latency_ms": 92.63
+      },
+      "cache_hit": true,
+      "checks": {
+        "validated_reply": true,
+        "no_service_error": true,
+        "answered": true,
+        "fee_waiver": true
+      },
+      "passed": true,
+      "manual_review": "Pending source-based review; no automatic score inflation."
+    },
+    {
+      "id": "damage_reporting",
+      "question": "मेरा सामान टूटा हुआ आया है, अब क्या करूँ?",
+      "seconds": 0.092,
+      "output": {
+        "transcript": "मेरा सामान टूटा हुआ आया है, अब क्या करूँ?",
+        "answer": "मैं ZentroMart की AI सहायता सहायक हूँ। डिलीवरी के 48 घंटे के भीतर अपने टूटे हुए सामान के बारे में रिपोर्ट करें, और वस्तु और पैकेजिंग के लिए फोटो जमा करें।",
+        "intent": "damage",
+        "decision": "answer",
+        "language": "hi",
+        "retrieved_chunk_ids": [
+          "STY-1",
+          "DWM-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          },
+          {
+            "id": "DWM-1",
+            "text": "## [DWM-1] Reporting window\nReport a damaged, defective, expired, wrong or missing item within **48 hours of delivery**, with photos of the item and the packaging. This applies to every category, including grocery and other non-returnable items.",
+            "file": "pol_damaged_wrong_missing.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-05-01",
+            "version": "1.3",
+            "title": "Reporting window"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "DWM-1",
+            "score": 0.127691,
+            "dense_score": 0.3473,
+            "retrieval_role": "direct",
+            "direct_rank": 1,
+            "dependency_weight": 1.15
+          },
+          {
+            "id": "RET-5",
+            "score": 0.117504,
+            "dense_score": 0.3721,
+            "retrieval_role": "direct",
+            "direct_rank": 2,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "DWM-3",
+            "score": 0.111276,
+            "dense_score": 0.2385,
+            "retrieval_role": "direct",
+            "direct_rank": 3,
+            "dependency_weight": 0.97
+          },
+          {
+            "id": "FAQH-3",
+            "score": 0.100214,
+            "dense_score": 0.2512,
+            "retrieval_role": "direct",
+            "direct_rank": 4,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "DWM-2",
+            "score": 0.100213,
+            "dense_score": 0.2375,
+            "retrieval_role": "direct",
+            "direct_rank": 5,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "DWM-4",
+            "score": 0.100212,
+            "dense_score": 0.265,
+            "retrieval_role": "direct",
+            "direct_rank": 6,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-4",
+            "score": 0.100211,
+            "dense_score": 0.3211,
+            "retrieval_role": "direct",
+            "direct_rank": 7,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "DWM-5",
+            "score": 0.076956,
+            "dense_score": 0.1727,
+            "retrieval_role": "direct",
+            "direct_rank": 8,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "WAR-3",
+            "score": 0.068444,
+            "dense_score": 0.0843,
+            "retrieval_role": "direct",
+            "direct_rank": 9,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "FAQH-4",
+            "score": 0.0627,
+            "dense_score": 0.0684,
+            "retrieval_role": "direct",
+            "direct_rank": 10,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "FAQH-1",
+            "score": 0.058592,
+            "dense_score": 0.0521,
+            "retrieval_role": "direct",
+            "direct_rank": 11,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-5",
+            "score": 0.051713,
+            "dense_score": 0.1394,
+            "retrieval_role": "direct",
+            "direct_rank": 12,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "KB-00.1",
+            "score": 0.032343,
+            "dense_score": -0.0542,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 0.92
+          },
+          {
+            "id": "ESC-1",
+            "score": 0.032342,
+            "dense_score": 0.1047,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 0.81
+          },
+          {
+            "id": "ESC-2",
+            "score": 0.032341,
+            "dense_score": -0.0457,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 0.8
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [],
+          "answer_constraints": [],
+          "date_labels": {
+            "2026-10-20": "20 October 2026"
+          }
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "grounded_llm",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "retrieval_direct_k": 12,
+        "retrieval_dependency_limit": 4,
+        "retrieval_candidate_limit": 16,
+        "retrieval_returned_count": 15,
+        "retrieval_direct_count": 12,
+        "retrieval_dependency_count": 3,
+        "evidence_supported": true,
+        "validation_error": null,
+        "citations": [],
+        "generation": {
+          "covered": true,
+          "provenance_kind": "generation_context",
+          "context_source_ids": [
+            "DWM-1"
+          ],
+          "model_flags": {
+            "covered": true,
+            "needs_clarification": false
+          },
+          "decision_origin": "host_boolean_mapping",
+          "evaluated_source_constraints": [],
+          "evaluated_remedy_prerequisites": [
+            {
+              "kind": "remedy_prerequisite",
+              "condition_kind": "verification",
+              "condition_role": "unspecified",
+              "remedies": [
+                "refund",
+                "replacement"
+              ],
+              "scope_topics": [
+                "damage",
+                "wrong",
+                "missing"
+              ],
+              "source_ids": [
+                "DWM-2"
+              ],
+              "source_sha256": {
+                "DWM-2": "03441ce196e8a2b4dfa18b1b5ce725c2a4f7ad1d66e1a2e1e4bcbf8840045f99"
+              },
+              "source_clause": "After verification the customer gets a free replacement or a full refund, including delivery fees",
+              "authority": "policy",
+              "priority": 4
+            }
+          ],
+          "evaluated_delivery_clock_constraints": [],
+          "repair_attempted": false,
+          "generation_attempts": 1,
+          "repair_errors": [],
+          "validation_error": null,
+          "attempt_metrics": [
+            {
+              "cache_hit": true,
+              "attempts": 0,
+              "http_attempts": 0,
+              "http_statuses": [],
+              "rate_limit_events": 0,
+              "rate_limit_retries": 0,
+              "rate_limit_wait_ms": 0.0,
+              "rate_limit_planned_wait_ms": 0.0,
+              "wall_ms": 0.66,
+              "provider": "ollama:qwen3:4b-instruct"
+            }
+          ],
+          "generation_input_contexts": [
+            {
+              "attempt": 1,
+              "source_ids": [
+                "DWM-1"
+              ]
+            }
+          ],
+          "validation_source_ids": [
+            "DWM-1",
+            "DWM-2",
+            "DWM-3",
+            "DWM-4",
+            "DWM-5",
+            "KB-00.1",
+            "REF-5",
+            "RET-4",
+            "RET-5",
+            "WAR-3"
+          ],
+          "reporting_support_contract": {
+            "origin": "explicit_source_support_field",
+            "scope": "public_reporting_obligation_only",
+            "source_ids": [
+              "DWM-1"
+            ],
+            "field_alias": {
+              "has_document_support": "covered"
+            },
+            "original_model_flags": {
+              "has_document_support": true,
+              "needs_clarification": false
+            }
+          },
+          "repair_mode": "source_reporting_restatement",
+          "repair_context_facts": {}
+        },
+        "service_error": null,
+        "generation_context_sources": [
+          {
+            "id": "DWM-1",
+            "text": "## [DWM-1] Reporting window\nReport a damaged, defective, expired, wrong or missing item within **48 hours of delivery**, with photos of the item and the packaging. This applies to every category, including grocery and other non-returnable items.",
+            "file": "pol_damaged_wrong_missing.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-05-01",
+            "version": "1.3",
+            "title": "Reporting window"
+          }
+        ],
+        "context_selection": {
+          "mode": "ranked_sources_with_dependencies",
+          "available_source_ids": [
+            "DWM-1",
+            "DWM-2",
+            "RET-5",
+            "DWM-3",
+            "DWM-4",
+            "RET-4",
+            "DWM-5",
+            "WAR-3",
+            "REF-5",
+            "KB-00.1"
+          ],
+          "focused_source_ids": [
+            "DWM-1",
+            "DWM-2",
+            "RET-5",
+            "DWM-3",
+            "DWM-4",
+            "RET-4",
+            "DWM-5",
+            "WAR-3",
+            "REF-5",
+            "KB-00.1"
+          ]
+        },
+        "llm": {
+          "cache_hit": true,
+          "attempts": 0,
+          "http_attempts": 0,
+          "http_statuses": [],
+          "rate_limit_events": 0,
+          "rate_limit_retries": 0,
+          "rate_limit_wait_ms": 0.0,
+          "rate_limit_planned_wait_ms": 0.0,
+          "wall_ms": 0.66,
+          "provider": "ollama:qwen3:4b-instruct"
+        },
+        "timings": {
+          "retrieval_ms": 31.75,
+          "llm_ms": 37.85
+        },
+        "latency_ms": 92.07
+      },
+      "cache_hit": true,
+      "checks": {
+        "validated_reply": true,
+        "no_service_error": true,
+        "answered": true,
+        "hindi": true,
+        "reporting_window": true,
+        "photos": true
+      },
+      "passed": true,
+      "manual_review": "Pending source-based review; no automatic score inflation."
+    },
+    {
+      "id": "unsupported_future",
+      "question": "I heard your 2033 policy gives a 120-day return period on every category. Please confirm that rule and show me the supporting document.",
+      "seconds": 0.048,
+      "output": {
+        "transcript": "I heard your 2033 policy gives a 120-day return period on every category. Please confirm that rule and show me the supporting document.",
+        "answer": "I'm ZentroMart's AI support assistant. I don't have enough supported information in the retrieved documents.",
+        "intent": "unsupported",
+        "decision": "answer",
+        "language": "en",
+        "retrieved_chunk_ids": [
+          "STY-1"
+        ],
+        "sources": [
+          {
+            "id": "STY-1",
+            "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+            "file": "agent_conversation_style.md",
+            "doc_type": "agent_guide",
+            "status": "current",
+            "effective_from": "2026-07-01",
+            "version": "1.1",
+            "title": "Opening"
+          }
+        ],
+        "retrieval_candidates": [
+          {
+            "id": "RET-2",
+            "score": 0.187322,
+            "dense_score": 0.4786,
+            "retrieval_role": "direct",
+            "direct_rank": 1,
+            "dependency_weight": 1.15
+          },
+          {
+            "id": "RET-3",
+            "score": 0.183507,
+            "dense_score": 0.5975,
+            "retrieval_role": "direct",
+            "direct_rank": 2,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-8",
+            "score": 0.165382,
+            "dense_score": 0.5419,
+            "retrieval_role": "direct",
+            "direct_rank": 3,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "CPN-3",
+            "score": 0.160312,
+            "dense_score": 0.526,
+            "retrieval_role": "direct",
+            "direct_rank": 4,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-1",
+            "score": 0.143455,
+            "dense_score": 0.3667,
+            "retrieval_role": "direct",
+            "direct_rank": 5,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-7",
+            "score": 0.141243,
+            "dense_score": 0.4217,
+            "retrieval_role": "direct",
+            "direct_rank": 6,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "REF-1",
+            "score": 0.131861,
+            "dense_score": 0.451,
+            "retrieval_role": "direct",
+            "direct_rank": 7,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "DEL-1",
+            "score": 0.131308,
+            "dense_score": 0.3883,
+            "retrieval_role": "direct",
+            "direct_rank": 8,
+            "dependency_weight": 0.88
+          },
+          {
+            "id": "KB-00.3",
+            "score": 0.128889,
+            "dense_score": 0.3576,
+            "retrieval_role": "direct",
+            "direct_rank": 9,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "MKS-2",
+            "score": 0.126501,
+            "dense_score": 0.2966,
+            "retrieval_role": "direct",
+            "direct_rank": 10,
+            "dependency_weight": 0.88
+          },
+          {
+            "id": "REF-2",
+            "score": 0.119749,
+            "dense_score": 0.3863,
+            "retrieval_role": "direct",
+            "direct_rank": 11,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "RET-9",
+            "score": 0.118917,
+            "dense_score": 0.3615,
+            "retrieval_role": "direct",
+            "direct_rank": 12,
+            "dependency_weight": 0.0
+          },
+          {
+            "id": "DWM-5",
+            "score": 0.045366,
+            "dense_score": 0.059,
+            "retrieval_role": "dependency",
+            "direct_rank": null,
+            "dependency_weight": 1.15
+          }
+        ],
+        "tool_calls": [],
+        "facts": {
+          "reference_date": "2026-10-20",
+          "calculations": [],
+          "answer_constraints": [],
+          "source_semantic_constraints": [
+            {
+              "kind": "conditional_rto_refund",
+              "payment_condition": "prepaid",
+              "source_antecedent": "Prepaid order refused at the door or not delivered after 3 attempts",
+              "source_consequence": "once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+              "source_ids": [
+                "REF-1"
+              ],
+              "source_sha256": {
+                "REF-1": "30f3fc9957fa76cc2c3d59df05fd859766d77239c8d2c35dce3f1f510addf9e2"
+              }
+            }
+          ],
+          "date_labels": {
+            "2026-10-20": "20 October 2026"
+          }
+        },
+        "verified": false,
+        "reference_date": "2026-10-20",
+        "composition": "abstained_missing_evidence",
+        "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+        "retrieval_k": 12,
+        "retrieval_direct_k": 12,
+        "retrieval_dependency_limit": 4,
+        "retrieval_candidate_limit": 16,
+        "retrieval_returned_count": 13,
+        "retrieval_direct_count": 12,
+        "retrieval_dependency_count": 1,
+        "evidence_supported": false,
+        "validation_error": null,
+        "citations": [],
+        "generation": {
+          "covered": false,
+          "provenance_kind": "generation_context",
+          "context_source_ids": [
+            "CPN-3",
+            "DEL-1",
+            "DWM-5",
+            "KB-00.3",
+            "MKS-2",
+            "REF-1",
+            "REF-2",
+            "RET-1",
+            "RET-2",
+            "RET-3",
+            "RET-7",
+            "RET-8",
+            "RET-9"
+          ],
+          "model_flags": {
+            "covered": false,
+            "needs_clarification": false
+          },
+          "decision_origin": "host_boolean_mapping",
+          "evaluated_source_constraints": [],
+          "evaluated_remedy_prerequisites": [],
+          "evaluated_delivery_clock_constraints": [],
+          "reply_kind": "uncertainty",
+          "evidence_status": "insufficient_evidence",
+          "generation_attempts": 1,
+          "repair_attempted": false,
+          "repair_errors": [
+            "uncited_numeric_or_long_reply"
+          ],
+          "validation_error": "uncited_numeric_or_long_reply",
+          "attempt_metrics": [
+            {
+              "cache_hit": true,
+              "attempts": 0,
+              "http_attempts": 0,
+              "http_statuses": [],
+              "rate_limit_events": 0,
+              "rate_limit_retries": 0,
+              "rate_limit_wait_ms": 0.0,
+              "rate_limit_planned_wait_ms": 0.0,
+              "wall_ms": 0.58,
+              "provider": "ollama:qwen3:4b-instruct"
+            }
+          ],
+          "answer_origin": "host_uncertainty_guardrail",
+          "discarded_model_draft": true,
+          "model_reported_uncertainty": true,
+          "generation_input_contexts": [
+            {
+              "attempt": 1,
+              "source_ids": [
+                "CPN-3",
+                "DEL-1",
+                "DWM-5",
+                "KB-00.3",
+                "MKS-2",
+                "REF-1",
+                "REF-2",
+                "RET-1",
+                "RET-2",
+                "RET-3",
+                "RET-7",
+                "RET-8",
+                "RET-9"
+              ]
+            }
+          ],
+          "validation_source_ids": [
+            "CPN-3",
+            "DEL-1",
+            "DWM-5",
+            "KB-00.3",
+            "MKS-2",
+            "REF-1",
+            "REF-2",
+            "RET-1",
+            "RET-2",
+            "RET-3",
+            "RET-7",
+            "RET-8",
+            "RET-9"
+          ]
+        },
+        "service_error": null,
+        "generation_context_sources": [
+          {
+            "id": "RET-2",
+            "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Return windows by category"
+          },
+          {
+            "id": "RET-3",
+            "text": "## [RET-3] Change to electronics returns\nFrom **1 August 2026**, the return window for electronics and accessories is 7 days. Electronics **delivered before 1 August 2026** keep the earlier 10-day window from version 3 of this policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Change to electronics returns"
+          },
+          {
+            "id": "RET-8",
+            "text": "## [RET-8] Festive sale returns\nClothing, footwear and bags from orders **placed between 01 October and 15 October 2026** can be returned within 30 days of delivery. All other categories follow the normal windows in RET-2.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Festive sale returns"
+          },
+          {
+            "id": "CPN-3",
+            "text": "## [CPN-3] Returns and coupons\nSee REF-4 in the Refunds policy.",
+            "file": "pol_coupons_offers.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-01",
+            "version": "1.2",
+            "title": "Returns and coupons"
+          },
+          {
+            "id": "RET-1",
+            "text": "## [RET-1] Scope\nThis policy covers items bought on ZentroMart, whether shipped by ZentroMart or by a marketplace seller. Seller-specific warranty terms are in the Marketplace sellers policy, but return windows are the same for every seller.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Scope"
+          },
+          {
+            "id": "RET-7",
+            "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "After pickup"
+          },
+          {
+            "id": "REF-1",
+            "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "When a refund is initiated"
+          },
+          {
+            "id": "DEL-1",
+            "text": "## [DEL-1] Delivery times\n| Delivery type | Metro cities | Other locations |\n| --- | --- | --- |\n| Standard | 3 to 6 business days | 5 to 9 business days |\n| Express (selected pincodes) | Next business day if ordered before 2 pm, otherwise the business day after | Not available |\n\nEach order shows a promised delivery date at checkout. That date is the commitment.",
+            "file": "pol_delivery_shipping.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-04-01",
+            "version": "2.0",
+            "title": "Delivery times"
+          },
+          {
+            "id": "KB-00.3",
+            "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+            "file": "00_about_this_knowledge_base.md",
+            "doc_type": "meta",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "1.2",
+            "title": "Business days"
+          },
+          {
+            "id": "MKS-2",
+            "text": "## [MKS-2] Returns and refunds\nReturn windows, reverse pickup and refunds are the same for every seller and are handled by ZentroMart.",
+            "file": "pol_marketplace_sellers.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-03-01",
+            "version": "1.0",
+            "title": "Returns and refunds"
+          },
+          {
+            "id": "REF-2",
+            "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+            "file": "pol_refunds.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-06-15",
+            "version": "2.1",
+            "title": "How long refunds take after initiation"
+          },
+          {
+            "id": "RET-9",
+            "text": "## [RET-9] Exchanges\nExchanges for a different size or colour are available on clothing and footwear within the return window, subject to stock. If the new size is out of stock, a return and refund is offered instead.",
+            "file": "pol_returns_v4.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-08-01",
+            "version": "4.0",
+            "title": "Exchanges"
+          },
+          {
+            "id": "DWM-5",
+            "text": "## [DWM-5] Safety issues\nIf a product shows a safety risk, such as a swelling battery, burning smell, sparks or heat, the customer must stop using it immediately. The agent must hand over to a human at once.",
+            "file": "pol_damaged_wrong_missing.md",
+            "doc_type": "policy",
+            "status": "current",
+            "effective_from": "2026-05-01",
+            "version": "1.3",
+            "title": "Safety issues"
+          }
+        ],
+        "context_selection": {
+          "mode": "ranked_sources_with_dependencies",
+          "available_source_ids": [
+            "RET-2",
+            "RET-3",
+            "RET-8",
+            "CPN-3",
+            "RET-1",
+            "RET-7",
+            "REF-1",
+            "DEL-1",
+            "KB-00.3",
+            "MKS-2",
+            "REF-2",
+            "RET-9",
+            "DWM-5"
+          ],
+          "focused_source_ids": [
+            "RET-2",
+            "RET-3",
+            "RET-8",
+            "CPN-3",
+            "RET-1",
+            "RET-7",
+            "REF-1",
+            "DEL-1",
+            "KB-00.3",
+            "MKS-2",
+            "REF-2",
+            "RET-9",
+            "DWM-5"
+          ]
+        },
+        "llm": {
+          "cache_hit": true,
+          "attempts": 0,
+          "http_attempts": 0,
+          "http_statuses": [],
+          "rate_limit_events": 0,
+          "rate_limit_retries": 0,
+          "rate_limit_wait_ms": 0.0,
+          "rate_limit_planned_wait_ms": 0.0,
+          "wall_ms": 0.58,
+          "provider": "ollama:qwen3:4b-instruct"
+        },
+        "timings": {
+          "retrieval_ms": 32.61,
+          "llm_ms": 8.51
+        },
+        "latency_ms": 47.52
+      },
+      "cache_hit": true,
+      "checks": {
+        "validated_reply": true,
+        "no_service_error": true,
+        "uncertainty": true,
+        "no_fabricated_numbers": true,
+        "no_policy_provenance": false
+      },
+      "passed": false,
+      "manual_review": "Pending source-based review; no automatic score inflation."
+    }
+  ],
+  "source_sha256_finished": {
+    ".env.example": "8452ae151f518fb9bec4a2a48d1da7593feaf27efe00a1c1392d1e8a91e055dd",
+    "app.py": "b2d0e372348a0017d08a1c167ea355a9a230778cf7a3db0397200b66d3687275",
+    "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
+    "src/agent.py": "82f2c78833894f5f1defba6a4b80ce15d259bf1c11b833f648d98188febdd9b2",
+    "src/answer_polarity.py": "b1fbc8380d54f267993641c5480523b7162b5a8d3a59292145932adc0253e574",
+    "src/answering.py": "e1ad738bd8f2448ac917ec0d8bc638d6996cbe5152cbc86b1408fe42e6e2c098",
+    "src/catalog_events.py": "2e9fc7e1eb95db7e9e776917d1316072b4dec8ed504d36d19b7f696673c84c57",
+    "src/category_labels.py": "3937d794fc8e46d40fe16917792f54043f2a875f84bf920aca5cb948c5685bf4",
+    "src/config.py": "025603a6d28713a310838004689b22e48b852acfe7f26b95a14ee2cdfe7d03b5",
+    "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
+    "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
+    "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
+    "src/document_answers.py": "aa21416697b18fb86fd63421dc5279555b47f5cdd210f392201ed213615864e1",
+    "src/document_context.py": "3a00778d73e1b86e0dadf2db13f42727043e561dd1d64f43a16a5816e5b5cdd4",
+    "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
+    "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
+    "src/event_dates.py": "50c95bfa6c406662ddf451d6142c9103f280783881dc9e8981ae027715944acc",
+    "src/generation_diagnostics.py": "4cc1c9e90ec69fa392effe96bf17d6f9eb028e3d7e2e042670c32342d67e7aee",
+    "src/grounding.py": "2b1fe2642061684ac0e9de452d337bc01bc82038c2386710b1b438b915e09586",
+    "src/inference_facts.py": "d3819522d139ff8f64082e000446728185072a37eb3dde7dfa5860a3fa3bec5b",
+    "src/kb.py": "77840c07b7fcc4629d1bc5fcbd069cef11aa0292eabd89537642aa3522bbe55b",
+    "src/languages.py": "9e30a4f89b12b85b02947a807b0518e98fd9a12ba9b05dcc985bd2b53c0257bf",
+    "src/llm.py": "896bf7f8456fa4dd9c381a9055894edc13c111ad92ea40751a6a32c410facc3b",
+    "src/multilingual.py": "242afc355b4e1b6a77774e4ffd12292ea25227cafab14a26c45c7c332580da53",
+    "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
+    "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
+    "src/operational_explanations.py": "f4457d3fdd658b89c449e9f1b3cfc18ecb98fe45330e2867ee46fe65bb4ad1f2",
+    "src/pending_refund_context.py": "7db580e1d420d47a31fc9d99aa7fbd238ed098247c6fa633999a37bdc9292572",
+    "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
+    "src/placement_conditions.py": "3eb576b2a2aee31004165cd5fb69325066e57c7a6aac175023d9879b4bec740c",
+    "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
+    "src/refund_arrival_claims.py": "dea278c81aca9cdaaf85f81e400d85d4f97d1159fd1f3a02eb2045f3b8e8490d",
+    "src/refund_status.py": "4fa8084768804b5772dc34b813bf33b00105434303bb4bcc198e3fae0e3f49f9",
+    "src/refund_timeline.py": "63404eac21efa074cbf6d979931868fbfa23b18ec14df841494bf904b6d20b66",
+    "src/remedy_prerequisites.py": "bcc35bc0ea4893e478b0e77e24a9c546f0226bbfbc130af3994813a03a7c575a",
+    "src/repair_contexts.py": "991548ed379332429b82665103e4dc21e18ada072711cb4e58e3998ba0beb833",
+    "src/reporting_clock.py": "4bbd09b3788b5454e889b49a5c872983a6fe01bb812a89e415e35a2b5c0d0ccf",
+    "src/response_runtime.py": "1eba6b35813a217b76e1c90e4d98ca0ae812b01758e9f0e052cadbcaeb15698a",
+    "src/retrieval.py": "647098b856e3dd566b8d82aa994e7e2ad9640ddb101951ba3a883d9606ed0ac0",
+    "src/return_conditions.py": "c29c8736effec57d7b8d7a0efab1e092bd5bc4a315f5ac8fd28f6ce98b329795",
+    "src/return_transition_claims.py": "569a5c35b84c8d5f2112731374a698118cc34fd8caed354a65e70f6f51aec2c4",
+    "src/return_window_uncertainty.py": "82918b7271a8e216399f349668f8d671ab12c902da1b2ea3af3f81812a384f5f",
+    "src/source_inputs.py": "c54f5f7b96949da477c13947ebb0c220df5aa8774cfd7a2f1030201ab77312ff",
+    "src/source_selection.py": "69f3c79157e6d7b174b7030d6a942f3e8a2e401b5d3e4971fa677f358e79c1d3",
+    "src/source_semantics.py": "3c10ef36e839dc89bc9107931e2d4f8864e843c9a0d2e3332971b385741efce5",
+    "src/spoken_quality.py": "4bb84bfe1ce963beef351352f9f97fb730fe32ac9bf283fdea0c7039cd81a777",
+    "src/store_presence.py": "6c3532dacb3d05e5ac8822cb2516dc7b51108f3a6bf435a2c101b513c15fb794",
+    "src/tools_wrapper.py": "34ae0d04debabd27d4b240d6a3a9f88d0bdd10eb8f12143349282496f27f6e1d",
+    "src/translation.py": "eccadf148a2c5631e51fa2dd2339fa139a4d509dc85f93c6aa749a18d319a935",
+    "src/voice.py": "028d9446045d19868bb709651f8bd844d7b88a86cbb297eda21390f1c949bb64",
+    "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b"
+  },
+  "all_tested_bytes_unchanged": true
+}

@@ -113,8 +113,11 @@ GNANI_API_KEY=your_gnani_api_key
 LLM_PROVIDER=ollama
 LLM_BASE_URL=http://127.0.0.1:11434
 LLM_MODEL=qwen3:4b-instruct
-LLM_TIMEOUT=600
-RAG_LLM_TIMEOUT=600
+LLM_TIMEOUT=120
+RAG_LLM_TIMEOUT=120
+UI_RESPONSE_BUDGET=180
+RAG_RESPONSE_BUDGET=180
+SPEECH_REQUEST_BUDGET=90
 COMPOSE_WITH_LLM=true
 ```
 
@@ -217,6 +220,8 @@ Recorded local development results:
 
 | Check | Recorded result | Evidence |
 | --- | --- | --- |
+| Response reliability engineering suite | **3,461 passed**, zero failures or skips | [Current receipt](sample_outputs/reliability_engineering.json) |
+| Selected response reliability cases | **4/4**, with model cache use disclosed | [Scoped checks](sample_outputs/reliability_live_validation.json) |
 | Step 1: prompt-only baseline | **1/52**, including one recorded error | [Baseline outputs](sample_outputs/eval_step1.json) |
 | Step 2: grounded practice questions | **52/52 accumulated checks** across recorded revisions | [Question records](sample_outputs/eval_step2_latest_cases.json) |
 | Selected conversation scenarios | **18/18 turns**, plus **2/2 refund edge cases** | [Targeted evidence](sample_outputs/targeted_live_validation.json) |
@@ -227,7 +232,7 @@ Recorded local development results:
 
 **Scope:** the 52/52 total combines saved outputs and targeted retests across revisions, rather than a fresh complete run. The baseline used `qwen3:1.7b`, while the selected model is `qwen3:4b-instruct`; this is not a controlled same-model comparison.
 
-These are local development results, not organizer scores. Synthetic speech checks do not establish real-speaker or noise performance. See [VERIFICATION.md](VERIFICATION.md) for provenance, latency, recorded runtime settings and limitations.
+The optimized uncached wallet voice check took **38.3 seconds** on the local CPU. The current setup does not meet a general **5–10 second** response target; cached replies are measured separately. These are local development results, not organizer scores. Synthetic speech checks do not establish real-speaker or noise performance. See [VERIFICATION.md](VERIFICATION.md) for provenance, latency, recorded runtime settings and limitations.
 
 <details>
 <summary>Verification commands</summary>
