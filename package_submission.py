@@ -134,7 +134,7 @@ def status():
 
 def referenced_evidence_files():
     """Follow published evidence references; exclude unreferenced working history."""
-    names=['engineering_verification.json','refund_scope_verification_20261031.json',
+    names=['engineering_verification.json','reliability_engineering.json','release_update_verification.json','return_date_validation.json','refund_scope_verification_20261031.json',
            'targeted_release_tests_20261031.json','targeted_live_validation.json',
            'targeted_voice_validation.json','pdf_qa.json','eval_step1.json',
            'eval_step2_latest_cases.json','eval_step3_latest_cases.json','language_validation.json',

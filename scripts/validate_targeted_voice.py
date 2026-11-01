@@ -1,17 +1,21 @@
 """Three primary-language real Gnani round trips; synthetic inputs only."""
 import argparse
 from pathlib import Path
-import sys,json,hashlib,datetime,shutil,wave,re
+import sys,json,hashlib,datetime,shutil,wave,re,os
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
+parser=argparse.ArgumentParser();parser.add_argument('--hosted',action='store_true',help='Use the explicit Groq application profile; Gnani remains the only speech provider.');parser.add_argument('--samples',nargs='+',choices=['01_en.wav','02_hi.wav','03_hinglish.wav']);parser.add_argument('--manifest',default='sample_outputs/targeted_voice_validation.json');args=parser.parse_args()
+if args.hosted:
+ from src.app_profile import hosted_environment
+ os.environ.update(hosted_environment(ROOT,os.environ))
 from src.voice import GnaniVoice,canonical_wav
 from src.grounding import _numeric_text
 from generate_voice_samples import SAMPLES,ObservedVoice,runtime_source_hashes
 from run import run_batch
-parser=argparse.ArgumentParser();parser.add_argument('--samples',nargs='+',choices=[r[0] for r in SAMPLES[:3]]);parser.add_argument('--manifest',default='sample_outputs/targeted_voice_validation.json');args=parser.parse_args();samples=[row for row in SAMPLES[:3] if args.samples is None or row[0] in args.samples]
+samples=[row for row in SAMPLES[:3] if args.samples is None or row[0] in args.samples]
 stamp=datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ');started=runtime_source_hashes(ROOT)
 inputs=ROOT/'tmp'/('targeted_voice_inputs_'+stamp);inputs.mkdir()
 output=ROOT/'sample_outputs'/('targeted_voice_'+stamp);output.mkdir()
-record={'status':'running','scope':str(len(samples))+' selected synthetic Gnani TTS inputs -> Gnani STT -> local support agent -> Gnani TTS. Not human speech or a listening/noise study.','speech_provider':'Gnani only','live_llm_composition_enabled':True,'runtime_source_sha256':started,'started_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'input_provenance':[]}
+record={'status':'running','scope':str(len(samples))+' selected synthetic Gnani TTS inputs -> Gnani STT -> selected support agent -> Gnani TTS. Not human speech or a listening/noise study.','inference_profile':'hosted_application' if args.hosted else 'local_ollama','speech_provider':'Gnani only','live_llm_composition_enabled':True,'runtime_source_sha256':started,'started_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'input_provenance':[]}
 path=ROOT/args.manifest
 def save():path.write_text(json.dumps(record,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 save()
@@ -39,7 +43,7 @@ try:
  record.update(batch=result,semantic_validation={'passed':sum(c['passed'] for c in checks),'failed':sum(not c['passed'] for c in checks),'checks':checks})
  record['status']='tested' if result['failed']==0 and all(c['passed'] for c in checks) and len(checks)==len(samples) else 'failed'
 except Exception as e:
- record.update(status='blocked',error_type=type(e).__name__,reason=str(e)[:300],no_substitute_speech=True)
+ record.update(status='blocked',error_type=type(e).__name__,reason='Speech verification did not complete; no substitute provider was used.',no_substitute_speech=True)
 finally:
  record.update(finished_at_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),runtime_source_sha256_finished=runtime_source_hashes(ROOT))
  record['source_runtime_unchanged']=started==record['runtime_source_sha256_finished']
