@@ -2,7 +2,7 @@
 
 Resolvox
 
-VoiceOps 2026 Capstone | Technical Report | 31 October 2026
+VoiceOps 2026 Capstone | Technical Report
 
 ## What we built in the four required steps
 
@@ -23,7 +23,7 @@ Operational authentication and tool confirmations are deterministic. Business ex
 
 ## Runtime
 
-Selected runtime: local Ollama qwen3:4b-instruct through its HTTP API, CPU-only laptop, 4096-token request context and 600-second request timeouts. Gnani is the only STT/TTS provider. Streamlit provides voice/text input and source inspection. The supplied dataset reference date is 20 October 2026.
+Selected runtime: local Ollama qwen3:4b-instruct through its HTTP API, CPU-only laptop, 4096-token request context and 600-second request timeouts. Gnani is the only STT/TTS provider. Streamlit provides voice/text input and source inspection.
 
 
 ---
@@ -32,7 +32,7 @@ Evaluation: Step 1 vs Step 2
 
 | Required comparison | Recorded score | Basis |
 | --- | --- | --- |
-| Step 1 - Prompt-only LLM | 1/52 | Baseline artifact; 1 recorded error(s). No company documents or order tools. |
+| Step 1 - Prompt-only LLM | 1/52 | Baseline artifact; 1 recorded error. No company documents or order tools. |
 | Step 2 - Document-grounded answers | 52/52 | Stored actual practice-question predictions and targeted retests across recorded revisions. |
 
 The recorded baseline used qwen3:1.7b. The Step 2 total combines preserved outputs and targeted retests across model/source revisions; the currently selected model is qwen3:4b-instruct. These configuration differences confound a causal comparison. A complete controlled same-model ablation is a remaining evaluation improvement, rather than a claimed result.

@@ -1,5 +1,5 @@
 {
-  "pdf_sha256": "c4a014b35ae0745f63ca93c3adb6b03e58047ad23b6685a90417e8d7b9af4cf9",
+  "pdf_sha256": "a0e9dcd570dcf573757283bce513fa0adbc22992fc82a3b8a73d205477bded00",
   "pages": 4,
   "visually_reviewed_pages": [
     1,
@@ -9,13 +9,13 @@
   ],
   "layout_issues_found": false,
   "reviewer_type": "assistant_visual_inspection",
-  "reviewed_at_utc": "2026-10-31T11:20:01.577857+00:00",
-  "render_engine": "PDFium, scale 1.7",
+  "reviewed_at_utc": "2026-11-01T05:55:21.911676+00:00",
+  "render_engine": "Poppler pdftoppm, 110 DPI",
   "rendered_page_sha256": {
-    "page-1.png": "3b64722873a7930313d48240975bc3ed02d259f3600746a5682e9679235409b5",
-    "page-2.png": "089e207c4c90b13c62fc5f618bb105b00581335caf0c64e46fbc812a22235751",
-    "page-3.png": "d99dc41ff2c157eab0d1a1cadb1e745919e2de28a788ce00a4fce372a179b1ac",
-    "page-4.png": "291e40ae19d898d74134d7336c33d8e248fc404a7f56e105f03fd0c8d0f538cf"
+    "page-1.png": "d21bc265977073ade0ba233c0494f6d9435dfd59bdd32a8e06383ff2f3935835",
+    "page-2.png": "b0219061be4cced45a67e30db19c35e61d8b2f86efc0bae8ee95af7659ca2317",
+    "page-3.png": "ecf45352f7bd9b4ae822e1ca2982a9f09192af4dbcbc99a63fb73e0c639a040b",
+    "page-4.png": "cf17fa2acf0e85818f98b5c570c2384ff14cc45cbb2465495d174f1430883d40"
   },
   "runtime_source_sha256": {
     "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
@@ -70,7 +70,7 @@
   },
   "report_source_sha256": {
     "scripts/build_report.py": "b216ebbbfbb8ce2ce327fdda7c750999d82bf92ff403ced89fe602a6d08a014e",
-    "scripts/targeted_report.py": "6ded9ea3d83c05965d285e2a4cb825e323a2f6d03542ebe257b133f88f92d5ed"
+    "scripts/targeted_report.py": "5e4a6b6e47ec163b8d041d6fae9726fbc74090f91d39a2cc0e4de5a01094b517"
   },
   "scope": "Four-step implementation, recorded Step 1/Step 2 scores, actual selected verification, observed failures/fixes, next improvements and bonus work. All four pages visually reviewed; no clipping or overlapping content."
 }
