@@ -43,4 +43,6 @@ These commands run the selected scenarios and three synthetic speech clips. Smal
 
 `python scripts/check_repository_visibility.py` checks anonymous access without changing repository visibility. `python package_submission.py` requires current evidence, four-page-or-shorter report QA, the real user-recorded demo and public repository confirmation. Packaging excludes credentials, dataset copies, model weights, environments and private input speech. ZIP creation is deferred until the final user steps are complete.
 
+To prepare an archive before recording the demo, run `python package_submission.py --draft`. This creates `dist/pranay_voiceops_draft.zip` with a draft notice and `ready_to_submit=false`. It defers only the missing demo and unconfirmed public-access checks; all other release checks remain active. Rebuild without `--draft` after those steps are complete. The ZIP includes Engineering Deep Dive and excludes credentials, dataset copies and model weights.
+
 Finite source/quantity/action/privacy guards do not establish universal semantic entailment. Own-voice/noise testing and subjective listening quality remain separate from the synthetic clip measurements. Historical runs remain available under `sample_outputs/history/` with their original scopes.
