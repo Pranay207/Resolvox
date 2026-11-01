@@ -12,6 +12,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Python 3.11">
   <img src="https://img.shields.io/badge/Streamlit-Support_Console-FF4B4B?style=flat-square&amp;logo=streamlit&amp;logoColor=white" alt="Streamlit">
+  <img src="https://img.shields.io/badge/Groq-Answer_Model-F55036?style=flat-square" alt="Groq answer model">
   <img src="https://img.shields.io/badge/Ollama-Local_LLM-111827?style=flat-square&amp;logo=ollama&amp;logoColor=white" alt="Ollama local LLM">
   <img src="https://img.shields.io/badge/Gnani-STT_%2B_TTS-16866C?style=flat-square" alt="Gnani STT and TTS">
   <img src="https://img.shields.io/badge/ONNX_Runtime-Local_Retrieval-005CED?style=flat-square&amp;logo=onnx&amp;logoColor=white" alt="ONNX Runtime">
@@ -65,7 +66,7 @@ Choose **Speak** to record a message or **Type** to write a question. **Upload a
 
 **Your case** shows verified order details and confirmed ticket references. **Your next step** provides clarification or handover guidance. The layout adapts to phone, tablet and desktop screens.
 
-**New conversation** clears the history and verification. **Retry reply audio** retries speech without repeating the agent action. Under **Advanced options**, AI policy answers are enabled by default and extra language previews are disabled.
+**New conversation** starts a fresh chat and clears active order verification. **Saved chats** automatically retains conversations on this laptop, including reply audio and supporting policies. Click a saved chat title to continue from its last saved turn; order verification is required again. Removing a saved chat can be undone. Local history is stored in the Git-ignored `.local_data/` folder; this mode is intended for a single laptop, with no customer sign-in or shared-user isolation. **Retry reply audio** retries speech without repeating the agent action. Under **Advanced options**, AI policy answers are enabled by default and extra language previews are disabled.
 
 ## Quick Start
 
@@ -140,7 +141,25 @@ Use Ollama’s default port **11434**, matching `.env.example`. Keep the server 
 <details>
 <summary>Use a compatible hosted LLM instead</summary>
 
-Set `LLM_PROVIDER=compatible`, `LLM_BASE_URL`, `LLM_MODEL` and `LLM_API_KEY` in `.env`. Optional `LLM_FALLBACK_*` settings configure a second LLM endpoint. Gnani remains the only speech provider.
+For the faster Groq application profile, keep local evaluation settings in `.env`. Create the ignored `.env.hosted` with your own key:
+
+```dotenv
+LLM_API_KEY=your_groq_api_key
+LLM_MODEL=openai/gpt-oss-20b
+LLM_REASONING_EFFORT=low
+```
+
+```sh
+python scripts/run_app.py --hosted
+```
+
+This profile uses Groq only for answers and an additional source-claim check. Questions, retrieved policy text and relevant synthetic record fields are sent to Groq. All speech remains Gnani. The local evaluation drivers continue to use `.env`. To use this profile for the organizer batch entry point, add `--hosted` to the normal run command:
+
+```sh
+python run.py --hosted --audio_dir ./input_audio --out_dir ./outputs
+```
+
+Other compatible LLM endpoints can still be configured through the existing `LLM_*` settings. Never commit a key or enable another speech provider.
 
 </details>
 
@@ -206,7 +225,7 @@ flowchart TD
 | Component | Implementation |
 | --- | --- |
 | Interface | Responsive Streamlit workspace with Speak/Type input, one conversation and verified case details |
-| Answer model | Local Ollama `qwen3:4b-instruct` |
+| Answer model | Explicit Groq application profile (`openai/gpt-oss-20b`); separate local Ollama profile (`qwen3:4b-instruct`) |
 | Retrieval | Lexical search + multilingual MiniLM embeddings using quantized ONNX |
 | Speech | Gnani STT and TTS only |
 | State and tools | Shared agent session with supplied dataset lookup/ticket tools |
@@ -216,23 +235,21 @@ See [DESIGN.md](DESIGN.md) for the state model, retrieval strategy and evidence 
 
 ## Evaluation
 
-Recorded local development results:
+Verified focused checks and recorded development results:
 
-| Check | Recorded result | Evidence |
+| Check | Result | Evidence |
 | --- | --- | --- |
-| Response reliability engineering suite | **3,461 passed**, zero failures or skips | [Current receipt](sample_outputs/reliability_engineering.json) |
-| Selected response reliability cases | **4/4**, with model cache use disclosed | [Scoped checks](sample_outputs/reliability_live_validation.json) |
+| Current focused offline regressions | **408/408 verified**, zero failures, errors or skips | [Source-bound receipt](sample_outputs/release_update_verification.json) |
+| Recorded broader engineering suite | **3,567 passed** on an earlier revision | [Engineering receipt](sample_outputs/reliability_engineering.json) |
 | Step 1: prompt-only baseline | **1/52**, including one recorded error | [Baseline outputs](sample_outputs/eval_step1.json) |
 | Step 2: grounded practice questions | **52/52 accumulated checks** across recorded revisions | [Question records](sample_outputs/eval_step2_latest_cases.json) |
-| Selected conversation scenarios | **18/18 turns**, plus **2/2 refund edge cases** | [Targeted evidence](sample_outputs/targeted_live_validation.json) |
-| Refund and reporting regressions | **371 passed** | [Test receipt](sample_outputs/refund_scope_verification_20261031.json) |
-| Packaging and report regressions | **148 passed** | [Test receipt](sample_outputs/targeted_release_tests_20261031.json) |
-| English, Hindi and Hinglish speech | **3/3 selected synthetic round trips**; Hindi retested separately | [Speech evidence](sample_outputs/targeted_voice_validation.json) |
+| Recorded conversation scenarios | **18/18 turns**, plus **2/2 refund edge cases** | [Original run evidence](sample_outputs/targeted_live_validation.json) |
+| Recorded English, Hindi and Hinglish speech | **3/3 selected synthetic round trips** | [Speech evidence](sample_outputs/targeted_voice_validation.json) |
 | Official dataset validation | **Passed**: 9 CSVs and 21 knowledge-base documents | [Validator output](sample_outputs/engineering_artifacts/20261031T060814584432Z_92c93db5/dataset_validation.log) |
 
-**Scope:** the 52/52 total combines saved outputs and targeted retests across revisions, rather than a fresh complete run. The baseline used `qwen3:1.7b`, while the selected model is `qwen3:4b-instruct`; this is not a controlled same-model comparison.
+**Verification scope:** the 408 current checks cover return-date uncertainty, source-support flags, repair context and packaging/report safeguards with scripted clients. Source and test hashes matched before and after execution. Earlier live and speech results retain their original model/source revisions; they are not a fresh complete evaluation of the latest version. The 52/52 total combines saved outputs and targeted retests across revisions. The baseline and later runs use different configurations, so the comparison is descriptive rather than a controlled same-model ablation.
 
-The optimized uncached wallet voice check took **38.3 seconds** on the local CPU. The current setup does not meet a general **5–10 second** response target; cached replies are measured separately. These are local development results, not organizer scores. Synthetic speech checks do not establish real-speaker or noise performance. See [VERIFICATION.md](VERIFICATION.md) for provenance, latency, recorded runtime settings and limitations.
+The hosted profile uses Groq for answers and Gnani for speech. Response time depends on model work, network conditions and provider quotas; cached timings do not establish unseen-question performance. Synthetic speech checks do not establish real-speaker or noise performance. These are development results, not organizer scores. See [VERIFICATION.md](VERIFICATION.md) for the exact scopes and [the four-page report](report.pdf) for the implementation and findings.
 
 <details>
 <summary>Verification commands</summary>
@@ -244,14 +261,15 @@ python Capstone_Project_Dataset_FTTT_2026/validate_dataset.py
 python -m pytest -q
 ```
 
-Selected live checks require the configured local LLM and, for speech, Gnani access:
+Selected live checks can use the explicit hosted profile; speech requires Gnani access:
 
 ```sh
-python scripts/validate_targeted_live.py
-python scripts/validate_targeted_voice.py
+python scripts/validate_targeted_live.py --hosted --pacing-seconds 30
+python scripts/validate_return_dates.py --hosted
+python scripts/validate_targeted_voice.py --hosted
 ```
 
-The original Step 1, Step 2 and Step 3 evaluation drivers remain available as `eval_step1.py`, `eval_step2.py` and `eval_step3.py`. Preserve previous outputs when changing the model or runtime configuration.
+Omit `--hosted` for the separately configured local Ollama profile. The original Step 1, Step 2 and Step 3 drivers remain available as `eval_step1.py`, `eval_step2.py` and `eval_step3.py`. Preserve previous outputs when changing model or runtime configuration.
 
 </details>
 

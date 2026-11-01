@@ -1,66 +1,48 @@
 # Verification
 
-These are recorded local development measurements. Organizer hidden-audio scoring is separate.
+Resolvox records test scope, execution hashes and actual outputs separately from organizer scoring.
 
-| Selected check | Verified result | Evidence |
+| Evidence | Recorded result | Scope |
 | --- | --- | --- |
-| Four conversation scenarios | 18/18 turns | [Live and retained-output evidence](sample_outputs/targeted_live_validation.json) |
-| Coupon and recorded-date refund edges | 2/2 | [Case artifacts](sample_outputs/targeted_live_validation.json) |
-| Affected refund/reporting automated tests | 371 passed; zero failures/errors/skips | [Receipt](sample_outputs/refund_scope_verification_20261031.json) |
-| Packaging/report automated tests | 148 passed; zero failures/errors/skips | [Receipt](sample_outputs/targeted_release_tests_20261031.json) |
-| Primary-language synthetic speech | 3/3 selected clips | [Speech provenance](sample_outputs/targeted_voice_validation.json) |
-| Report | Four pages, every page visually reviewed | [PDF QA](sample_outputs/pdf_qa.json) |
+| [Current focused offline checks](sample_outputs/release_update_verification.json) | **408/408 verified**; no failures, errors or skips | Return-date scope, source-support flags, repair context and packaging/report safeguards. Scripted clients; source/test hashes match before and after the run. |
+| [Recorded engineering suite](sample_outputs/reliability_engineering.json) | **3,567 passed** | Earlier execution revision; not a current complete-suite claim. |
+| [Selected conversation run](sample_outputs/targeted_live_validation.json) | **18/18 turns** and **2/2 refund edges** | Original predictions and mechanical scores retained. Source changed during the run, and the record identifies that fact. |
+| [Primary-language speech](sample_outputs/targeted_voice_validation.json) | **3/3 synthetic round trips** | Actual Gnani STT/TTS in English, Hindi and Hinglish on the recorded revision. |
+| [Return-date check records](sample_outputs/return_date_validation.json) | **1 completed Hindi check passed** in the latest partial run | Interrupted at the user request; no result is assigned to unexecuted cases. |
+| [Four-page report](report.pdf) | Four pages; visual QA recorded separately | Implementation, required baseline comparison, scoped checks, observed failures and bonus work. |
 
-## Response reliability
+## What is verified
 
-The [current engineering receipt](sample_outputs/reliability_engineering.json) records **3,461 passing tests**, zero failures, errors or skips, and matching source/test hashes before and after execution. The [four focused response checks](sample_outputs/reliability_live_validation.json) pass with actual cache use disclosed per case. They cover wallet timing, a Plus pickup waiver, Hindi damage reporting and uncertainty about an unsupported future policy. These are targeted checks, not a fresh run of all 52 questions or 96 conversation turns.
+The 408 current offline tests passed on frozen source/test bytes. The receipt links the exact JUnit and console logs and lists every selected test file. These tests exercise source binding and negative cases without live inference or speech calls. They do not establish current live-model accuracy.
 
-The recorded [uncached wallet voice turn](sample_outputs/reliability_artifacts/previous_voice_20261101T103517Z.json) used actual Gnani STT, local Ollama generation and Gnani TTS. Answer generation took **36.297 seconds** and the whole turn took **38.299 seconds**, compared with **92.152 seconds** in the [earlier voice check](sample_outputs/reliability_artifacts/before_speed_wording_voice.json). The narrower source-only timing prompt reduced prompt tokens from 1,230 to 761. Both runs retain their actual source hashes; the comparison is observational and includes different model loading times. The final [current-runtime voice retest](sample_outputs/reliability_voice_validation.json) reused cached model output; its lower time is not an uncached inference result.
+The saved conversation and speech artifacts retain their original source hashes. Their recorded passes remain inspectable, but they do not certify a fresh full run of the latest revision. The latest return-date live run stopped after its first passing case at the user request. No complete current live pass or overall submission-readiness certification is claimed.
 
-The [history manifest](sample_outputs/reliability_artifacts/history_manifest.json) distinguishes these historical timing records from current audio evidence. Historical WAV bytes were not retained when their output path was reused; the current published reply WAV is checked against its exact recorded SHA-256.
+## Model and speech profiles
 
-A [smaller-model experiment](sample_outputs/reliability_fast_model_candidate.json) disabled model-output caching and tested two focused wallet questions with local `qwen3:1.7b`. It took **30.123 seconds** (timeout) and **18.020 seconds** (incomplete answer rejected). Neither met the 10-second target or passed answer validation. The candidate was rejected; the application default remains `qwen3:4b-instruct`.
+The explicit hosted application profile uses Groq `openai/gpt-oss-20b` with low reasoning effort, constrained JSON and an additional source-claim review. Questions, retrieved policies and relevant synthetic record fields are sent to that provider. Gnani remains the only speech recognition and synthesis provider. Retrieval and the UI run locally.
 
-The laptop is CPU-only. This setup **does not meet a general 5–10 second response target** for unseen questions. Faster inference hardware remains necessary to pursue that target with the selected model; cached-response timing does not establish it. The [desktop UI checks](sample_outputs/reliability_ui_validation.json) confirm that a supported reply and an uncertainty reply are actually shown in the application.
+The separate local profile uses Ollama `qwen3:4b-instruct`. Older CPU measurements and rejected smaller-model experiments retain their original settings in the repository evidence. Provider quotas, repairs, loading and network conditions affect latency; a selected fast result is not a general response-time guarantee.
 
-Response scopes now bound model and speech waits, report busy/time-out/unavailable states separately from missing policy evidence, and keep validated text visible if reply audio fails. Only an active Windows request holds off automatic idle sleep; its previous execution state is restored afterward. Full input context and rejected drafts remain in audit evidence. No hosted LLM was used in these checks, and speech remains Gnani-only. The supplied orders and ticket tools remain capstone fixtures, not a live store backend.
+Credentials stay in the ignored `.env` and `.env.hosted`. Saved chats stay in ignored `.local_data/`; the current history mode is for one laptop and provides no shared-customer account isolation. Supplied order and ticket tools operate on capstone fixtures rather than a live store backend.
 
-## What the scopes mean
+## Required comparison
 
-Actual outputs retain their original inference source hashes. Saved successful responses are checked against current finite validators without pretending that inference was repeated. Retained speech is bound to its original Gnani WAV bytes, recorded source chunks and current spoken-output checks. The initial Hindi abstention remains preserved; its corrected clip was the only speech retest.
-
-The required report comparison is the recorded prompt-only baseline (1/52) and accumulated grounded practice checks (52/52). The baseline used qwen3:1.7b; the current selected model is qwen3:4b-instruct, and recorded model/source revisions differ. This is a descriptive comparison with a disclosed confound, not a controlled same-model ablation.
-
-## Recorded local runtime
-
-The recorded laptop checks used local Ollama `qwen3:4b-instruct` on port **11435**. The README and `.env.example` use the standard port **11434** for setup. To reproduce the recorded endpoint, start Ollama in a separate PowerShell terminal:
-
-```powershell
-$env:OLLAMA_HOST='127.0.0.1:11435'
-ollama serve
-```
-
-Set `LLM_BASE_URL=http://127.0.0.1:11435` in the ignored `.env` when using that server. The server address and client configuration must match.
-
-Selected generated turns took **12.4–257.1 seconds** on the recorded CPU setup. Per-stage timings and execution revisions are retained in the [targeted evidence](sample_outputs/targeted_live_validation.json); these timings do not establish a general latency guarantee. The [new-case UI smoke check](sample_outputs/ui_user_smoke_20261031.json) records interactive probes and their targeted fixes.
+The recorded [prompt-only baseline](sample_outputs/eval_step1.json) is **1/52**, including one recorded error. The [grounded practice total](sample_outputs/eval_step2_latest_cases.json) is **52/52 accumulated checks** from preserved predictions and targeted retests. Model and source revisions differ, so this is a descriptive comparison, not a controlled same-model ablation or a new full evaluation.
 
 ## Reproduce selected checks
 
-```powershell
-python scripts/validate_targeted_live.py
-python scripts/validate_targeted_voice.py
+```sh
+python scripts/validate_targeted_live.py --hosted --pacing-seconds 30
+python scripts/validate_return_dates.py --hosted
+python scripts/validate_targeted_voice.py --hosted
 ```
 
-These commands run the selected scenarios and three synthetic speech clips. Smaller retests can be selected with the documented driver options. They use the actual local model and Gnani APIs; credentials stay in the ignored .env. Automated unit tests use scripted clients and are reported separately from live model/speech evidence.
+Use your own Groq and Gnani credentials. Omit `--hosted` only for the separately configured local model. These drivers select scenarios and retain real outputs; they do not run every practice question or conversation by default. Offline tests use scripted clients and are reported separately.
 
-## Recorded demonstration
+## Report and demonstration
 
-[Resolovox Demo.mp4](<Resolovox Demo.mp4>) is a **105-second edited walkthrough** of three actual UI voice turns: clothing return timing, a contextual pickup-fee follow-up, and uncertainty about an undocumented future policy. Customer speech and narration are synthetic Gnani audio; the replies are actual application outputs. Processing waits are shortened and disclosed. [Demo provenance](sample_outputs/demo_validation.json) preserves unmodified replies, source captures, speech hashes, round-trip transcripts and the observed processing-time bounds. This is a selected product demonstration, not a new full practice score or a human/noise listening study.
+[PDF QA](sample_outputs/pdf_qa.json) binds the visually reviewed pages to the exact report SHA-256. This checks document layout, not universal application correctness.
 
-## Submission checks
+[Resolovox Demo.mp4](<Resolovox Demo.mp4>) is a **105-second edited walkthrough** of actual UI voice turns: a clothing return question, a pickup-fee follow-up and uncertainty about an undocumented future policy. Customer speech and narration are synthetic Gnani audio; replies are actual application outputs. Shortened waits are disclosed. [Demo provenance](sample_outputs/demo_validation.json) retains source captures, output hashes and observed processing bounds.
 
-`python scripts/check_repository_visibility.py` checks anonymous access without changing repository visibility. `python package_submission.py` requires current evidence, four-page-or-shorter report QA, the real recorded demo and public repository confirmation. Packaging excludes credentials, dataset copies, model weights, environments and private input speech. The [current readiness check](sample_outputs/reliability_packaging_status.json) records stale release evidence after these runtime changes. The existing ZIP predates the response reliability updates and must be rebuilt after the targeted release, speech and report checks are refreshed.
-
-To prepare an archive before recording the demo, run `python package_submission.py --draft`. This creates `dist/pranay_voiceops_draft.zip` with a draft notice and `ready_to_submit=false`. It defers only the missing demo and unconfirmed public-access checks; all other release checks remain active. Rebuild without `--draft` after those steps are complete. The ZIP includes Engineering Deep Dive and excludes credentials, dataset copies and model weights.
-
-Finite source/quantity/action/privacy guards do not establish universal semantic entailment. Own-voice/noise testing and subjective listening quality remain separate from the synthetic clip measurements. Historical runs remain available under `sample_outputs/history/` with their original scopes.
+The final ZIP is deferred at the user request. Packaging still enforces its evidence, report, demo and repository-access checks; this update does not bypass them. Finite validators and model-based source review do not prove every qualitative claim or unseen question. Human speech, noise and subjective listening quality are separate from these synthetic recordings.
