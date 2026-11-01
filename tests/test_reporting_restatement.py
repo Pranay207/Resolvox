@@ -58,9 +58,10 @@ def test_generation_uses_original_reporting_section_and_final_original_validatio
     result = document_reply(Client(), 'मेरा सामान टूटा हुआ आया है, अब क्या करूँ?', 'hi', sources, context_provenance=True)
     assert result['answer'] == good
     assert result['repair_mode'] == 'source_reporting_restatement'
-    assert len(calls[0]['source_text']) == 2 and calls[1]['source_text'] == [report()]
+    assert calls[0]['source_text'] == [report()] and calls[1]['source_text'] == [report()]
     assert calls[1]['question'] == 'मेरा सामान टूटा हुआ आया है, अब क्या करूँ?'
-    assert result['context_source_ids'] == ['REPORT-NEW', 'STAFF-X']
+    assert result['context_source_ids'] == ['REPORT-NEW']
+    assert result['validation_source_ids'] == ['REPORT-NEW', 'STAFF-X']
     assert result['repair_context_sources'] == [report()]
 
 

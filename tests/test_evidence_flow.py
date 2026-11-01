@@ -59,15 +59,15 @@ def test_real_source_text_reaches_model_and_actual_generation_context_is_recorde
         assert sources and all(s['text'] for s in sources.values())
         assert 'sentences' not in payload and 'verified_rule_summary' not in payload
         return json.dumps({
-            'decision': 'answer',
             'answer': 'Report damage within 48 hours, with photos of the item and packaging. After verification, a free replacement or full refund including delivery fees is available, without a reverse pickup fee.',
             'covered': True,
+            'needs_clarification': False,
         })
 
     monkeypatch.setattr(r.llm, 'complete', complete)
-    out = Agent(r, compose=True).respond('My item arrived damaged. What should I do?')
+    out = Agent(r, compose=True).respond('My item arrived damaged. What should I do, and which remedies are available after verification?')
     assert out['composition'] == 'grounded_llm'
-    assert seen['question'] == 'My item arrived damaged. What should I do?'
+    assert seen['question'] == 'My item arrived damaged. What should I do, and which remedies are available after verification?'
     supplied = {source['id']: source for source in seen['source_text']}
     assert {'DWM-1', 'DWM-2'} <= set(supplied)
     assert set(out['retrieved_chunk_ids']) == {'STY-1'} | set(supplied)
@@ -125,9 +125,10 @@ def _fixed_retrieval(resources, monkeypatch, ids):
     monkeypatch.setattr(resources.retriever, 'search', lambda *args, **kwargs: rows)
 
 
-def _fake_answer(payload, text):
+def _fake_answer(payload, text, schema=None):
     assert payload['source_text']
-    return json.dumps({'decision': 'answer', 'answer': text, 'covered': True})
+    flag='has_document_support' if schema and 'has_document_support' in schema.get('properties',{}) else 'covered'
+    return json.dumps({'answer': text, flag: True, 'needs_clarification': False})
 
 
 def test_composed_missing_policy_has_no_stale_rule_payload_and_rejects_old_value(monkeypatch):
@@ -139,7 +140,7 @@ def test_composed_missing_policy_has_no_stale_rule_payload_and_rejects_old_value
     def complete(system, user, *args, **kwargs):
         payload = json.loads(user)
         seen.append(payload)
-        return _fake_answer(payload, 'Report the damage within 48 hours.')
+        return _fake_answer(payload, 'Report the damage within 48 hours.', kwargs.get('schema'))
 
     monkeypatch.setattr(r.llm, 'complete', complete)
     out = Agent(r, compose=True).respond('My item arrived damaged. What is the reporting deadline?')
@@ -147,7 +148,7 @@ def test_composed_missing_policy_has_no_stale_rule_payload_and_rejects_old_value
     assert all('DWM-1' not in {s['id'] for s in payload['source_text']} for payload in seen)
     assert all('verified_rule_summary' not in payload for payload in seen)
     assert all(not payload.get('required_citations', []) for payload in seen)
-    assert all(payload['deterministic_facts']['calculations'] == [] for payload in seen)
+    assert all(payload['deterministic_facts'].get('calculations',[]) == [] for payload in seen)
     assert out['composition'] == 'abstained_model_or_evidence'
     assert out['validation_error'].endswith('unsupported_number')
     assert '48' not in out['answer']
@@ -164,7 +165,7 @@ def test_composed_changed_source_uses_new_text_and_rejects_stale_values(monkeypa
     def complete(system, user, *args, **kwargs):
         payload = json.loads(user)
         seen.append(payload)
-        return _fake_answer(payload, f'Report the damage within {hours} hours, with photos of the item and packaging.')
+        return _fake_answer(payload, f'Report the damage within {hours} hours, with photos of the item and packaging.', kwargs.get('schema'))
 
     monkeypatch.setattr(r.llm, 'complete', complete)
     out = Agent(r, compose=True).respond('My item arrived damaged. What is the reporting deadline?')
@@ -173,7 +174,7 @@ def test_composed_changed_source_uses_new_text_and_rejects_stale_values(monkeypa
         actual = next(s for s in payload['source_text'] if s['id'] == 'DWM-1')
         assert fingerprint(actual) == fingerprint(r.kb.chunks['DWM-1'].public())
         assert '72' in actual['text'] and '48' not in actual['text']
-        assert payload['deterministic_facts']['calculations'] == []
+        assert payload['deterministic_facts'].get('calculations',[]) == []
         assert 'verified_rule_summary' not in payload
     if accepted:
         assert out['composition'] == 'grounded_llm'
