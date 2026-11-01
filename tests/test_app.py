@@ -367,3 +367,38 @@ def test_clarification_hides_internal_sources_and_empty_policy_panel():
     visible = '\n'.join(x.value for x in app.markdown) + '\n'.join(x.value for x in app.text)
     assert 'agent_conversation_style.md' not in visible
     assert 'STY-1' not in visible and 'STY-5' not in visible
+
+
+def test_validated_voice_text_is_published_before_synthesis(monkeypatch):
+    from src import voice as voice_module
+    class Voice:
+        def transcribe(self, path, language):
+            return 'My phone last four digits are 1234'
+        def synthesize(self, text, path, language):
+            import streamlit as st
+            assert st.session_state._text_published is True
+            assert st.session_state.messages[-1]['output']['transcript'] == '[verification value redacted]'
+            assert st.session_state.messages[-1]['audio'] is None
+            path.write_bytes(wav_bytes())
+    monkeypatch.setattr(voice_module, 'GnaniVoice', Voice)
+    script = VOICE_SCRIPT.replace("ui['process_voice'](clip, 'English / Hinglish')", "ui['process_voice'](clip, 'English / Hinglish', on_answer=lambda: st.session_state.update(_text_published=True))")
+    app = start(script)
+    app.session_state._test_incoming_voice = True
+    app.run()
+    assert not app.exception
+    assert app.session_state._text_published is True
+    assert app.session_state.messages[-1]['audio'] == wav_bytes()
+
+
+def test_unexpected_text_failure_is_visible_without_private_exception(monkeypatch):
+    def fail(*args, **kwargs):
+        raise RuntimeError('private-customer-provider-sentinel')
+    monkeypatch.setattr(Agent, 'respond', fail)
+    app = start()
+    app.radio(key='input_mode').set_value('Type').run()
+    app.chat_input[0].set_value('A fresh policy question').run()
+    app.run()
+    assert not app.exception
+    assert app.session_state.messages == []
+    assert any('could not finish that message' in item.value for item in app.error)
+    assert 'private-customer-provider-sentinel' not in str(app)

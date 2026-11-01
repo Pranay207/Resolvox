@@ -9,6 +9,7 @@ from src.agent import resources
 from src.multilingual import MultilingualAgent as Agent
 from src.languages import LANGUAGE_NAMES, STT_CODES, normalize_language
 from src.config import ROOT
+from src.response_runtime import response_scope, configured_budget
 from src.voice import GnaniVoice, VoiceError, VoiceUnavailable
 
 # Inline SVG keeps the sidebar mark and favicon portable in the submission.
@@ -166,12 +167,14 @@ if 'agent' not in st.session_state or 'messages' not in st.session_state:
     st.session_state.messages = []
     st.session_state.voice_epoch = 0
     st.session_state.voice_error = None
+    st.session_state.request_error = None
     st.session_state.pop('voice_agent', None)
 
 def reset_conversation():
     st.session_state.agent = Agent(r, compose=st.session_state.get('compose_live', True))
     st.session_state.messages = []
     st.session_state.voice_error = None
+    st.session_state.request_error = None
     st.session_state.voice_epoch += 1
     for key in list(st.session_state):
         if key.startswith(('voice_recording_', 'voice_upload_')):
@@ -251,12 +254,22 @@ def render_conversation(channel):
 
 VOICE_LANGUAGES = {'English / Hinglish': 'en', **{name: code for code, name in LANGUAGE_NAMES.items() if code not in {'en', 'hi-en'}}}
 
-def respond_in_language(text, selected=None):
-    if selected is None:
-        return st.session_state.agent.respond(text)
-    return st.session_state.agent.respond(text, language_hint=selected)
+def generation_progress(status):
+    def update(stage):
+        label = {'generating': 'Preparing your answer from the documents…',
+                 'repairing': 'Checking the answer against the documents…'}[stage]
+        status.update(label=label)
+    return update
 
-def process_voice(audio, spoken_language):
+
+def respond_in_language(text, selected=None, progress=None):
+    with response_scope(configured_budget('UI_RESPONSE_BUDGET'), progress):
+        if selected is None:
+            return st.session_state.agent.respond(text)
+        return st.session_state.agent.respond(text, language_hint=selected)
+
+
+def process_voice(audio, spoken_language, on_answer=None):
     folder = ROOT / 'tmp/voice_ui'
     folder.mkdir(parents=True, exist_ok=True)
     suffix = Path(audio.name).suffix.lower()
@@ -268,25 +281,34 @@ def process_voice(audio, spoken_language):
     entry = None
     st.session_state.voice_error = None
     try:
-        with st.status('Listening to your message…', expanded=True) as progress:
-            voice = GnaniVoice()
-            st.write('Listening to your recorded message')
-            selected = VOICE_LANGUAGES[spoken_language]
-            heard = voice.transcribe(path, STT_CODES[selected])
-            progress.update(label='Checking your question…')
-            st.write('Checking your question against ZentroMart information')
-            out = respond_in_language(heard, None if spoken_language == 'English / Hinglish' else selected)
-            entry = {'output': out, 'audio': None, 'audio_error': None}
-            st.session_state.messages.append(entry)
-            progress.update(label='Preparing your voice reply…')
-            st.write('Preparing your spoken reply')
-            speak_reply(entry, voice)
-            progress.update(label='Reply ready', state='complete', expanded=False)
+        with st.status('Listening to your message…', expanded=True) as status:
+            with response_scope(configured_budget('UI_RESPONSE_BUDGET'), generation_progress(status)):
+                voice = GnaniVoice()
+                st.write('Listening to your recorded message')
+                selected = VOICE_LANGUAGES[spoken_language]
+                heard = voice.transcribe(path, STT_CODES[selected])
+                status.update(label='Checking your question…')
+                out = respond_in_language(heard, None if spoken_language == 'English / Hinglish' else selected,
+                                          generation_progress(status))
+                entry = {'output': out, 'audio': None, 'audio_error': None}
+                st.session_state.messages.append(entry)
+                # Send the already-validated text to the browser before TTS.
+                if on_answer is not None:
+                    on_answer()
+                status.update(label='Your text reply is ready. Preparing speech…')
+                speak_reply(entry, voice)
+                status.update(label='Reply ready', state='complete', expanded=False)
     except (VoiceUnavailable, VoiceError, OSError) as exc:
         if entry is not None:
             entry['audio_error'] = str(exc)
         else:
-            st.session_state.voice_error = str(exc)
+            st.session_state.voice_error = 'speech_unavailable'
+    except Exception:
+        # Never display raw provider errors or repeat a possibly completed tool.
+        if entry is not None:
+            entry['audio_error'] = 'speech_unavailable'
+        else:
+            st.session_state.voice_error = 'request_failed'
     finally:
         path.unlink(missing_ok=True)
         st.session_state.voice_epoch += 1
@@ -389,8 +411,15 @@ with st.container(key='support_layout'):
     with conversation_column:
         with st.container(border=True, key='support_conversation'):
             st.subheader('Your conversation')
+            if st.session_state.get('request_error'):
+                st.error(st.session_state.request_error)
             with st.container(height=260, border=False, key='conversation_history'):
-                render_conversation('support')
+                history_slot = st.empty()
+                with history_slot.container():
+                    render_conversation('support')
+            def refresh_answer():
+                with history_slot.container():
+                    render_conversation('support_pending')
             with st.container(key='input_composer'):
                 with st.container(horizontal=True, vertical_alignment='center', gap='small', key='composer_toolbar'):
                     mode = st.radio('Message input', ['Speak', 'Type'], horizontal=True,
@@ -414,10 +443,15 @@ with st.container(key='support_layout'):
                                     example_prompt = question
                     prompt = st.chat_input('Type your question…', key='support_chat') or example_prompt
                     if prompt:
-                        with st.spinner('Checking your question…'):
-                            selected = None if spoken_language == 'English / Hinglish' else VOICE_LANGUAGES[spoken_language]
-                            out = respond_in_language(prompt, selected)
-                        st.session_state.messages.append({'output': out, 'audio': None, 'audio_error': None})
+                        st.session_state.request_error = None
+                        try:
+                            with st.status('Checking your question…', expanded=True) as status:
+                                st.write('Message received. Reading the relevant ZentroMart documents.')
+                                selected = None if spoken_language == 'English / Hinglish' else VOICE_LANGUAGES[spoken_language]
+                                out = respond_in_language(prompt, selected, generation_progress(status))
+                            st.session_state.messages.append({'output': out, 'audio': None, 'audio_error': None})
+                        except Exception:
+                            st.session_state.request_error = 'We could not finish that message. Please try again. No answer has been confirmed.'
                         st.rerun()
             if mode == 'Speak':
                 with st.expander('Upload an audio clip', expanded=False):
@@ -431,5 +465,5 @@ with st.container(key='support_layout'):
                 with send_action:
                     send_voice = st.button('Send voice message', type='primary', use_container_width=True, disabled=selected_audio is None)
                 if send_voice:
-                    process_voice(selected_audio, spoken_language)
+                    process_voice(selected_audio, spoken_language, refresh_answer)
                     st.rerun()
