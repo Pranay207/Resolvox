@@ -39,8 +39,14 @@ python scripts/validate_targeted_voice.py
 
 These commands run the selected scenarios and three synthetic speech clips. Smaller retests can be selected with the documented driver options. They use the actual local model and Gnani APIs; credentials stay in the ignored .env. Automated unit tests use scripted clients and are reported separately from live model/speech evidence.
 
+## Recorded demonstration
+
+[Resolovox Demo.mp4](<Resolovox Demo.mp4>) is a **105-second edited walkthrough** of three actual UI voice turns: clothing return timing, a contextual pickup-fee follow-up, and uncertainty about an undocumented future policy. Customer speech and narration are synthetic Gnani audio; the replies are actual application outputs. Processing waits are shortened and disclosed. [Demo provenance](sample_outputs/demo_validation.json) preserves unmodified replies, source captures, speech hashes, round-trip transcripts and the observed processing-time bounds. This is a selected product demonstration, not a new full practice score or a human/noise listening study.
+
 ## Submission checks
 
 `python scripts/check_repository_visibility.py` checks anonymous access without changing repository visibility. `python package_submission.py` requires current evidence, four-page-or-shorter report QA, the real user-recorded demo and public repository confirmation. Packaging excludes credentials, dataset copies, model weights, environments and private input speech. ZIP creation is deferred until the final user steps are complete.
+
+To prepare an archive before recording the demo, run `python package_submission.py --draft`. This creates `dist/pranay_voiceops_draft.zip` with a draft notice and `ready_to_submit=false`. It defers only the missing demo and unconfirmed public-access checks; all other release checks remain active. Rebuild without `--draft` after those steps are complete. The ZIP includes Engineering Deep Dive and excludes credentials, dataset copies and model weights.
 
 Finite source/quantity/action/privacy guards do not establish universal semantic entailment. Own-voice/noise testing and subjective listening quality remain separate from the synthetic clip measurements. Historical runs remain available under `sample_outputs/history/` with their original scopes.

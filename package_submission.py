@@ -24,6 +24,13 @@ def mp4_duration(path:Path):
         with path.open('rb') as f:return boxes(f,path.stat().st_size)
     except (OSError,ValueError,struct.error,IndexError):return None
 
+DEMO_NAMES=('Resolovox Demo.mp4','demo.mp4')
+
+
+def demo_file():
+    return next((ROOT/name for name in DEMO_NAMES if (ROOT/name).is_file()),ROOT/'demo.mp4')
+
+
 def _json_record(name):
     try:
         value=json.loads((ROOT/'sample_outputs'/name).read_text(encoding='utf-8'))
@@ -100,7 +107,7 @@ def status():
         if (not _current_runtime(voice,expected) or not _current_runtime(finished,expected)
                 or voice.get('source_runtime_unchanged') is not True or not voice_passed):
             blockers.append('Current Gnani speech semantic validation missing, stale or failing')
-    duration=mp4_duration(ROOT/'demo.mp4')
+    duration=mp4_duration(demo_file())
     if duration is None:blockers.append('User-recorded demo.mp4 missing or duration unverified')
     elif duration<=0 or duration>120:blockers.append('demo.mp4 must contain at most 120 seconds of valid video')
     report=ROOT/'report.pdf'
@@ -118,7 +125,7 @@ def status():
     if targeted and not (public.get('is_public') is True and public.get('repository_url')=='https://github.com/Pranay207/Resolvox' and public.get('http_status')==200):
         blockers.append('Public GitHub repository access has not been confirmed')
     return {'ready_to_submit':not blockers,'blockers':blockers,'report_pages':pages,
-        'demo_seconds':duration,'public_repository':'https://github.com/Pranay207/Resolvox',
+        'demo_seconds':duration,'demo_filename':demo_file().name,'public_repository':'https://github.com/Pranay207/Resolvox',
         'team_name_assumption':'pranay','speech_provider':'Gnani only',
         'answer_path':'document_context_generation','runtime_source_sha256':expected,
         'verification_policy':'targeted_live_with_disclosed_limits' if targeted else 'full_fixture',
@@ -131,7 +138,7 @@ def referenced_evidence_files():
            'targeted_release_tests_20261031.json','targeted_live_validation.json',
            'targeted_voice_validation.json','pdf_qa.json','eval_step1.json',
            'eval_step2_latest_cases.json','eval_step3_latest_cases.json','language_validation.json',
-           'repository_visibility.json']
+           'repository_visibility.json','demo_validation.json']
     pending=[ROOT/'sample_outputs'/name for name in names];seen=set();result=[]
     def strings(value):
         if isinstance(value,str):yield value
@@ -170,16 +177,25 @@ def contains_credential(data):
     return False
 
 
-def main():
+def main(*,draft=False):
     release=status()
-    if release.get('ready_to_submit') is not True or release.get('blockers'):
+    deferred={'User-recorded demo.mp4 missing or duration unverified',
+              'Public GitHub repository access has not been confirmed'}
+    blocked=(any(reason not in deferred for reason in release.get('blockers',[]))
+             if draft else release.get('ready_to_submit') is not True or bool(release.get('blockers')))
+    if blocked:
         print(json.dumps({'status':'blocked','release':release},indent=2))
         return 2
-    (ROOT/'SUBMISSION_STATUS.json').write_text(json.dumps(release,indent=2),encoding='utf-8')
+    selected_demo=demo_file()
+    release=dict(release,demo_filename=selected_demo.name)
+    if draft:
+        release=dict(release,ready_to_submit=False,package_kind='draft')
+    else:
+        (ROOT/'SUBMISSION_STATUS.json').write_text(json.dumps(release,indent=2),encoding='utf-8')
     files=[]
-    roots=['.streamlit/config.toml','README.md','LICENSE','assets/resolvox-logo.svg','.gitignore','.gitattributes','.env.example','requirements.txt','requirements-lock.txt','pytest.ini','setup.py','setup.ps1','run.py','app.py','eval_step1.py','eval_step2.py','eval_step3.py','eval_adversarial.py','eval_holdout.py','generate_voice_samples.py','check_all.py','package_submission.py','BRIEF_CHECKLIST.md','DESIGN.md','DEMO_SCRIPT.md','THIRD_PARTY.md','VERIFICATION.md','report.pdf','report.md','SUBMISSION_STATUS.json']
+    roots=['.streamlit/config.toml','README.md','LICENSE','assets/resolvox-logo.svg','assets/resolvox-desktop.jpg','assets/resolvox-mobile.jpg','.gitignore','.gitattributes','.env.example','requirements.txt','requirements-lock.txt','pytest.ini','setup.py','setup.ps1','run.py','app.py','eval_step1.py','eval_step2.py','eval_step3.py','eval_adversarial.py','eval_holdout.py','generate_voice_samples.py','check_all.py','package_submission.py','BRIEF_CHECKLIST.md','ENGINEERING_DEEP_DIVE.md','DESIGN.md','DEMO_SCRIPT.md','THIRD_PARTY.md','VERIFICATION.md','report.pdf','report.md','SUBMISSION_STATUS.json']
     files.extend(ROOT/name for name in roots if (ROOT/name).is_file())
-    if (ROOT/'demo.mp4').exists():files.append(ROOT/'demo.mp4')
+    if selected_demo.exists():files.append(selected_demo)
     files.extend(referenced_evidence_files())
     for folder in ['src','scripts','tests']:
         for p in (ROOT/folder).rglob('*'):
@@ -188,17 +204,58 @@ def main():
             engineering_evidence=(relative.parts[:2]==('sample_outputs','engineering_artifacts')
                                   and p.suffix.lower() in {'.xml','.log'})
             if p.suffix.lower() in {'.py','.json','.txt','.wav','.md'} or engineering_evidence:files.append(p)
-    manifest=[]
-    for p in files:
+    payloads={}
+    for p in sorted(set(files)):
         name=p.relative_to(ROOT).as_posix()
-        if any(x in name for x in ['Capstone_Project_Dataset','.cache/','.venv/']) or p.name=='.env':raise ValueError('Forbidden archive entry')
+        if (p.is_symlink() or not p.resolve().is_relative_to(ROOT.resolve())
+                or any(x in name for x in ['Capstone_Project_Dataset','.cache/','.venv/'])
+                or p.name in {'.env','.env.hosted','secrets.toml'}):raise ValueError('Forbidden archive entry')
         data=p.read_bytes()
-        if contains_credential(data):raise ValueError('Potential API secret in deliverable')
+        if selected_demo.name!='demo.mp4' and p.suffix=='.md':
+            text=data.decode('utf-8').replace('](demo.mp4)','](<'+selected_demo.name+'>)').replace('demo.mp4',selected_demo.name)
+            data=text.encode('utf-8')
+        elif name=='sample_outputs/demo_validation.json':
+            record=json.loads(data.decode('utf-8'))
+            record['video']=selected_demo.name
+            artifacts=record.get('artifacts',{})
+            for alias in DEMO_NAMES:
+                if alias in artifacts:artifacts[selected_demo.name]=artifacts.pop(alias)
+            data=(json.dumps(record,indent=2,ensure_ascii=False)+'\n').encode('utf-8')
+        payloads[name]=data
+    payloads['SUBMISSION_STATUS.json']=json.dumps(release,indent=2).encode('utf-8')
+    if draft:
+        demo_note=('The actual '+selected_demo.name+' is included for review.\n' if selected_demo.name in payloads
+                   else 'The demo will be added next. No placeholder video is included.\n')
+        note=('DRAFT PACKAGE - NOT THE FINAL SUBMISSION\n\n'+demo_note+
+              'Before final submission, provide a reviewed demo video (at most 120 seconds), confirm\n'
+              'anonymous public repository access, and run python package_submission.py\n'
+              'without --draft to rebuild and verify the final package.\n\n'
+              'Current blockers:\n'+''.join('- '+reason+'\n' for reason in release.get('blockers',[])))
+        payloads['DRAFT_SUBMISSION.txt']=note.encode('utf-8')
+    required={'README.md','.env.example','requirements.txt','run.py','app.py','setup.py',
+              'report.pdf','ENGINEERING_DEEP_DIVE.md','LICENSE','src/agent.py'}
+    if not required<=set(payloads):raise ValueError('Required deliverables missing: '+', '.join(sorted(required-set(payloads))))
+    manifest=[]
+    for name,data in sorted(payloads.items()):
+        if contains_credential(data):raise ValueError('Potential API secret in deliverable: '+name)
         manifest.append({'path':name,'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()})
-    out=ROOT/'dist';out.mkdir(exist_ok=True);archive=out/'pranay_voiceops.zip'
-    with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED) as z:
-        for p in files:z.write(p,p.relative_to(ROOT).as_posix())
+    out=ROOT/'dist';out.mkdir(exist_ok=True)
+    archive=out/('pranay_voiceops_draft.zip' if draft else 'pranay_voiceops.zip')
+    if not archive.resolve().is_relative_to(ROOT.resolve()):raise ValueError('Unsafe archive target')
+    pending=archive.with_suffix('.zip.part')
+    with zipfile.ZipFile(pending,'w',compression=zipfile.ZIP_DEFLATED) as z:
+        for name,data in sorted(payloads.items()):z.writestr(name,data)
         z.writestr('package_manifest.json',json.dumps({'files':manifest,'release':release},indent=2))
-    print(json.dumps({'archive':str(archive),'files':len(files),'release':release},indent=2))
+    from scripts.verify_package import verify_manifest
+    with zipfile.ZipFile(pending) as z:
+        verify_manifest(z)
+        if z.testzip() is not None:raise ValueError('Archive CRC verification failed')
+    pending.replace(archive)
+    print(json.dumps({'archive':str(archive),'files':len(payloads),'draft':draft,'release':release},indent=2))
     return 0
-if __name__=='__main__':raise SystemExit(main())
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--draft',action='store_true',help='Prepare a clearly marked draft while demo/public access are pending; retain all other release checks.')
+    args=parser.parse_args()
+    raise SystemExit(main(draft=args.draft))

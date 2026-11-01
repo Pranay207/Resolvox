@@ -28,7 +28,7 @@ Resolvox answers customer questions from ZentroMart’s documents, looks up veri
 
 Capstone for **From Tokens to Transformers**, organized by the Consulting & Analytics Club, IIT Guwahati × Gnani.ai.
 
-[Report](report.pdf) · [Demo](#demo-video) · [Quick Start](#quick-start) · [Batch Command](#organizer-batch-command) · [Architecture](#architecture) · [Evaluation](#evaluation) · [Documentation](#documentation)
+[Report](report.pdf) · [Watch Demo (1:45)](#demo-video) · [Quick Start](#quick-start) · [Batch Command](#organizer-batch-command) · [Architecture](#architecture) · [Evaluation](#evaluation) · [Documentation](#documentation)
 
 ## Demo Video
 

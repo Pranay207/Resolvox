@@ -22,9 +22,9 @@ Implementation and evidence for the supplied capstone brief. Recorded test scope
 - [x] README, setup instructions, exact organizer command and key-free .env.example.
 - [x] Command: `python run.py --audio_dir <in> --out_dir <out>`; saves text, JSON, real reply WAV and source chunks.
 - [x] Updated **four-page report**, covering every required report topic, with visual QA of every page.
-- [ ] User-recorded demo.mp4, at most two minutes: document-based answer, follow-up and handover or uncertainty. The user records it last.
+- [x] **105-second Resolovox Demo.mp4**: actual application voice replies, document-based answer, follow-up and uncertainty. Synthetic customer speech/narration and shortened processing waits are clearly labelled. [Provenance](sample_outputs/demo_validation.json).
 - [ ] Confirm anonymous public GitHub access before submission; repository visibility is controlled by the user.
-- [ ] Create the final submission ZIP only after the real demo and release checks pass. No submission ZIP has been created.
+- [ ] Create the final submission ZIP only after the real demo and release checks pass. A draft ZIP is available; rebuild and check the final archive after public access is confirmed.
 
 ## Rules and interpretation
 

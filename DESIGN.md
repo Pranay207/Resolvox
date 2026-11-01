@@ -137,4 +137,4 @@ Distinguish cold startup, warm uncached inference and output-cache hits. Agent-t
 
 ## Release boundary
 
-Report length is at most four pages. The user records `demo.mp4`, at most 120 seconds, **last** after own-voice rehearsal. The report PDF remains a draft awaiting current QA. No submission ZIP exists; creation waits for all required evidence and artifacts. Exclude credentials, dataset copies, caches, model weights, environments and private inputs. Release readiness remains draft until current evidence and required artifacts are complete. No ranking or hidden-test result is guaranteed.
+Report length is at most four pages. The user records `Resolovox Demo.mp4`, at most 120 seconds, **last** after own-voice rehearsal. The report PDF remains a draft awaiting current QA. No submission ZIP exists; creation waits for all required evidence and artifacts. Exclude credentials, dataset copies, caches, model weights, environments and private inputs. Release readiness remains draft until current evidence and required artifacts are complete. No ranking or hidden-test result is guaranteed.
