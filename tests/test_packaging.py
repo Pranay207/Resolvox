@@ -7,6 +7,16 @@ import zipfile
 import package_submission
 
 
+def seed_required_deliverables(root):
+    # Package safety still requires a complete release layout even when the
+    # readiness computation is replaced for an isolated archive-content test.
+    for name in ('README.md','.env.example','requirements.txt','run.py','app.py',
+                 'setup.py','report.pdf','ENGINEERING_DEEP_DIVE.md','LICENSE','src/agent.py'):
+        path=root/name
+        path.parent.mkdir(parents=True,exist_ok=True)
+        if not path.exists():path.write_text('# Synthetic package fixture.\n' if name=='.env.example' else 'Synthetic package fixture.',encoding='utf-8')
+
+
 def test_release_preserves_app_theme_and_excludes_local_settings(tmp_path, monkeypatch):
     theme = (Path(__file__).resolve().parents[1] / '.streamlit/config.toml').read_bytes()
     (tmp_path / '.streamlit').mkdir()
@@ -14,6 +24,7 @@ def test_release_preserves_app_theme_and_excludes_local_settings(tmp_path, monke
     (tmp_path / '.streamlit/secrets.toml').write_text('private = "local-only"')
     (tmp_path / '.env').write_text('GNANI_API_KEY=local-only')
     (tmp_path / 'app.py').write_text('import streamlit as st\nst.title("Resolvox")\n')
+    seed_required_deliverables(tmp_path)
     monkeypatch.setattr(package_submission, 'ROOT', tmp_path)
     monkeypatch.setattr(package_submission, 'status', lambda: {'ready_to_submit': True, 'blockers': []})
 
@@ -59,6 +70,9 @@ def test_package_keeps_linked_engineering_xml_logs_without_widening_private_inpu
         path = tmp_path / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(b'private or out of scope synthetic fixture')
+    receipt=tmp_path/'sample_outputs/engineering_verification.json'
+    receipt.write_text(json.dumps({'artifacts':{name:hashlib.sha256(content).hexdigest() for name,content in expected.items()}}),encoding='utf-8')
+    seed_required_deliverables(tmp_path)
     monkeypatch.setattr(package_submission, 'ROOT', tmp_path)
     monkeypatch.setattr(package_submission, 'status', lambda: {'ready_to_submit': True, 'blockers': []})
 
