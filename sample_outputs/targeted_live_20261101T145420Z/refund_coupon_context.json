@@ -1,0 +1,829 @@
+{
+  "id": "refund_coupon_context",
+  "kind": "refund_edge",
+  "question": "When will my refund arrive, and how will my coupon discount affect a partial refund?",
+  "prediction": {
+    "transcript": "When will my refund arrive, and how will my coupon discount affect a partial refund?",
+    "answer": "Your refund will be credited to your UPI account within 1 to 3 business days after the refund is initiated. If you return part of your order, the refund amount will be the price paid for the returned item(s) after subtracting that item’s share of any coupon discount. If the remaining items in the order fall below the coupon’s minimum order value, the coupon discount on those remaining items will be deducted from the refund you receive for the returned portion.",
+    "intent": "refund",
+    "decision": "answer",
+    "language": "en",
+    "retrieved_chunk_ids": [
+      "CAN-2",
+      "CPN-3",
+      "DEL-1",
+      "DEL-2",
+      "DEL-3",
+      "KB-00.3",
+      "PLS-2",
+      "REF-1",
+      "REF-2",
+      "REF-3",
+      "REF-4",
+      "REF-5",
+      "REF-6",
+      "RET-4",
+      "RET-7"
+    ],
+    "sources": [
+      {
+        "id": "CAN-2",
+        "text": "## [CAN-2] After the order ships\nA shipped order cannot be cancelled. The customer can:\n- refuse the parcel at the door. For cash-on-delivery orders nothing is charged. For prepaid orders the refund follows REF-1 once the parcel returns to the warehouse; or\n- accept the delivery and return the item within its return window, if the category is returnable.",
+        "file": "pol_cancellations.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-05-01",
+        "version": "1.4",
+        "title": "After the order ships"
+      },
+      {
+        "id": "CPN-3",
+        "text": "## [CPN-3] Returns and coupons\nSee REF-4 in the Refunds policy.",
+        "file": "pol_coupons_offers.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-01",
+        "version": "1.2",
+        "title": "Returns and coupons"
+      },
+      {
+        "id": "DEL-1",
+        "text": "## [DEL-1] Delivery times\n| Delivery type | Metro cities | Other locations |\n| --- | --- | --- |\n| Standard | 3 to 6 business days | 5 to 9 business days |\n| Express (selected pincodes) | Next business day if ordered before 2 pm, otherwise the business day after | Not available |\n\nEach order shows a promised delivery date at checkout. That date is the commitment.",
+        "file": "pol_delivery_shipping.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-04-01",
+        "version": "2.0",
+        "title": "Delivery times"
+      },
+      {
+        "id": "DEL-2",
+        "text": "## [DEL-2] Delivery fees\nStandard delivery is free on orders of ₹499 or more; below that a ₹40 fee applies. Express delivery costs ₹79 and is free for ZentroMart Plus members.",
+        "file": "pol_delivery_shipping.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-04-01",
+        "version": "2.0",
+        "title": "Delivery fees"
+      },
+      {
+        "id": "DEL-3",
+        "text": "## [DEL-3] Delivery attempts\nThe courier makes up to 3 delivery attempts. After a failed attempt the customer gets an SMS to reschedule. If the third attempt fails, the parcel is returned to the warehouse (return to origin, RTO) and REF-1 applies.",
+        "file": "pol_delivery_shipping.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-04-01",
+        "version": "2.0",
+        "title": "Delivery attempts"
+      },
+      {
+        "id": "KB-00.3",
+        "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+        "file": "00_about_this_knowledge_base.md",
+        "doc_type": "meta",
+        "status": "current",
+        "effective_from": "2026-08-01",
+        "version": "1.2",
+        "title": "Business days"
+      },
+      {
+        "id": "PLS-2",
+        "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+        "file": "pol_plus_membership.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-01-01",
+        "version": "1.0",
+        "title": "Benefits"
+      },
+      {
+        "id": "REF-1",
+        "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "When a refund is initiated"
+      },
+      {
+        "id": "REF-2",
+        "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "How long refunds take after initiation"
+      },
+      {
+        "id": "REF-3",
+        "text": "## [REF-3] Cash-on-delivery refunds\nFor cash-on-delivery orders, the customer chooses either ZentroMart Wallet (instant) or a bank transfer. Bank transfers start only after the bank account details are verified, then take 5 to 7 business days.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "Cash-on-delivery refunds"
+      },
+      {
+        "id": "REF-4",
+        "text": "## [REF-4] Partial refunds and coupons\nIf part of an order is returned, the refund is the price paid for that item after its share of any coupon discount. If the remaining order falls below the coupon's minimum order value, the coupon discount on the remaining items is deducted from the refund.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "Partial refunds and coupons"
+      },
+      {
+        "id": "REF-5",
+        "text": "## [REF-5] Delivery and COD fees\nDelivery fees and the ₹25 cash-on-delivery fee are refunded only when the whole order is cancelled before shipping or returned because it was damaged, defective or wrong.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "Delivery and COD fees"
+      },
+      {
+        "id": "REF-6",
+        "text": "## [REF-6] Refund reference number\nEvery initiated refund has a refund reference number (RRN) that the customer's bank can trace. Share it when a customer says the money has not arrived.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "Refund reference number"
+      },
+      {
+        "id": "RET-4",
+        "text": "## [RET-4] Condition of returned items\nItems must be unused, with original tags, packaging, accessories and free gifts. Beauty and personal care products are returnable only if unopened with the seal intact. Electronics must not be physically damaged, and any screen lock or account lock must be removed.",
+        "file": "pol_returns_v4.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-08-01",
+        "version": "4.0",
+        "title": "Condition of returned items"
+      },
+      {
+        "id": "RET-7",
+        "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy.",
+        "file": "pol_returns_v4.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-08-01",
+        "version": "4.0",
+        "title": "After pickup"
+      }
+    ],
+    "retrieval_candidates": [
+      {
+        "id": "REF-2",
+        "score": 0.194942,
+        "dense_score": 0.6054,
+        "retrieval_role": "direct",
+        "direct_rank": 1,
+        "dependency_weight": 1.15
+      },
+      {
+        "id": "REF-4",
+        "score": 0.177874,
+        "dense_score": 0.6683,
+        "retrieval_role": "direct",
+        "direct_rank": 2,
+        "dependency_weight": 1.15
+      },
+      {
+        "id": "RET-7",
+        "score": 0.1758,
+        "dense_score": 0.5348,
+        "retrieval_role": "direct",
+        "direct_rank": 3,
+        "dependency_weight": 1.15
+      },
+      {
+        "id": "REF-1",
+        "score": 0.174111,
+        "dense_score": 0.5864,
+        "retrieval_role": "direct",
+        "direct_rank": 4,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "REF-6",
+        "score": 0.157532,
+        "dense_score": 0.5848,
+        "retrieval_role": "direct",
+        "direct_rank": 5,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "REF-3",
+        "score": 0.152216,
+        "dense_score": 0.5064,
+        "retrieval_role": "direct",
+        "direct_rank": 6,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "CAN-2",
+        "score": 0.136161,
+        "dense_score": 0.5211,
+        "retrieval_role": "direct",
+        "direct_rank": 7,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "REF-5",
+        "score": 0.135468,
+        "dense_score": 0.5622,
+        "retrieval_role": "direct",
+        "direct_rank": 8,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "CPN-3",
+        "score": 0.132111,
+        "dense_score": 0.5132,
+        "retrieval_role": "direct",
+        "direct_rank": 9,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "PLS-2",
+        "score": 0.131691,
+        "dense_score": 0.4381,
+        "retrieval_role": "direct",
+        "direct_rank": 10,
+        "dependency_weight": 0.88
+      },
+      {
+        "id": "FAQ-1",
+        "score": 0.121352,
+        "dense_score": 0.5323,
+        "retrieval_role": "direct",
+        "direct_rank": 11,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "DEL-1",
+        "score": 0.12021,
+        "dense_score": 0.3704,
+        "retrieval_role": "direct",
+        "direct_rank": 12,
+        "dependency_weight": 0.0
+      },
+      {
+        "id": "KB-00.3",
+        "score": 0.067272,
+        "dense_score": 0.181,
+        "retrieval_role": "dependency",
+        "direct_rank": null,
+        "dependency_weight": 1.2
+      },
+      {
+        "id": "DEL-2",
+        "score": 0.026691,
+        "dense_score": 0.1645,
+        "retrieval_role": "dependency",
+        "direct_rank": null,
+        "dependency_weight": 1.15
+      },
+      {
+        "id": "RET-4",
+        "score": 0.02669,
+        "dense_score": 0.3373,
+        "retrieval_role": "dependency",
+        "direct_rank": null,
+        "dependency_weight": 0.97
+      },
+      {
+        "id": "DEL-3",
+        "score": 0.026689,
+        "dense_score": 0.2978,
+        "retrieval_role": "dependency",
+        "direct_rank": null,
+        "dependency_weight": 0.88
+      }
+    ],
+    "tool_calls": [],
+    "facts": {
+      "reference_date": "2026-10-20",
+      "calculations": [],
+      "verified_order": {
+        "placed_at": "2026-10-06T19:44",
+        "status": "delivered",
+        "payment_method": "upi",
+        "delivery_type": "standard",
+        "promised_date": "2026-10-13",
+        "shipped_on": "2026-10-07",
+        "delivered_on": "2026-10-14",
+        "delivery_attempts": 1,
+        "subtotal_inr": 2978,
+        "coupon_code": null,
+        "coupon_discount_inr": null,
+        "coupon_min_order_inr": null,
+        "delivery_fee_inr": 0,
+        "cod_fee_inr": 0,
+        "total_inr": 2978,
+        "contacts_last_7_days": 0,
+        "cancellation_refund_initiated_on": null,
+        "cancellation_refund_method": null,
+        "cancellation_refund_amount_inr": null,
+        "cancellation_rrn": null,
+        "rto_refund_initiated_on": null,
+        "rto_refund_method": null,
+        "rto_refund_amount_inr": null,
+        "rto_rrn": null,
+        "express_late_credit_inr": null,
+        "express_late_credit_on": null,
+        "return_sku": null,
+        "return_line_no": null,
+        "return_qty": null,
+        "return_reason": null,
+        "return_status": null,
+        "return_requested_on": null,
+        "return_pickup_on": null,
+        "return_qc_passed_on": null,
+        "return_refund_initiated_on": null,
+        "return_refund_method": null,
+        "return_refund_amount_inr": null,
+        "return_refund_completed_on": null,
+        "return_rrn": null,
+        "return_reverse_pickup_fee_inr": null,
+        "damage_sku": null,
+        "damage_issue": null,
+        "damage_reported_at": null,
+        "damage_hours_after_delivery": null,
+        "damage_photos_attached": null,
+        "damage_status": null,
+        "is_plus": false,
+        "items": [
+          {
+            "line_no": 1,
+            "sku": "FSH-0030",
+            "title": "UrbanThread Slim Fit Jeans, Maroon",
+            "return_category": "fashion",
+            "qty": 1,
+            "unit_price_inr": 1959
+          },
+          {
+            "line_no": 2,
+            "sku": "FSH-0036",
+            "title": "Sootra Linen Shirt, Maroon",
+            "return_category": "fashion",
+            "qty": 1,
+            "unit_price_inr": 1019
+          }
+        ]
+      },
+      "catalog": [
+        {
+          "sku": "FSH-0030",
+          "title": "UrbanThread Slim Fit Jeans, Maroon",
+          "brand": "UrbanThread",
+          "return_category": "fashion",
+          "price_inr": "1959",
+          "fulfilled_by": "Shree Traders",
+          "assured": "False",
+          "warranty_months": "0",
+          "description": "UrbanThread Slim Fit Jeans, Maroon. Sold on ZentroMart. Ships from a marketplace seller."
+        },
+        {
+          "sku": "FSH-0036",
+          "title": "Sootra Linen Shirt, Maroon",
+          "brand": "Sootra",
+          "return_category": "fashion",
+          "price_inr": "1019",
+          "fulfilled_by": "ZentroMart",
+          "assured": "False",
+          "warranty_months": "0",
+          "description": "Sootra Linen Shirt, Maroon. Sold on ZentroMart."
+        }
+      ],
+      "delivery_policy": {
+        "delivery_attempt_limit": 3,
+        "source_ids": [
+          "DEL-3"
+        ]
+      },
+      "refund_arrival_policy": {
+        "payment_method": "upi",
+        "source_payment_label": "UPI",
+        "minimum_business_days": 1,
+        "maximum_business_days": 3,
+        "timing_anchor": "after_refund_initiation",
+        "source_ids": [
+          "REF-2"
+        ],
+        "source_sha256": {
+          "REF-2": "913886a7d0e4810241fd90b1d812c39c5900d428dce65112ccbdfb8c8855ced4"
+        }
+      },
+      "answer_constraints": [],
+      "source_semantic_constraints": [
+        {
+          "kind": "explicit_permission",
+          "action": "refuse_parcel",
+          "source_ids": [
+            "CAN-2"
+          ],
+          "source_sha256": {
+            "CAN-2": "9e9e53f75b7a7ced1cd3348adafe4d68f95aff9c0466a0e1083274b5567b7812"
+          }
+        },
+        {
+          "kind": "conditional_rto_refund",
+          "payment_condition": "prepaid",
+          "source_antecedent": "Prepaid order refused at the door or not delivered after 3 attempts",
+          "source_consequence": "once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+          "source_ids": [
+            "REF-1"
+          ],
+          "source_sha256": {
+            "REF-1": "30f3fc9957fa76cc2c3d59df05fd859766d77239c8d2c35dce3f1f510addf9e2"
+          }
+        },
+        {
+          "kind": "membership_refund_timing_exclusion",
+          "membership_label": "ZentroMart Plus",
+          "timing_role": "after_initiation",
+          "source_ids": [
+            "PLS-2"
+          ],
+          "source_sha256": {
+            "PLS-2": "8b54c13f45bf1a25403c0392bb796928ee1a6ac4e1f4641fc3add50b62863246"
+          }
+        }
+      ],
+      "calculation_source_sha256": {
+        "DEL-3": "8d22f941c929f317ad5578c47daae0f9b8b1027d148a060e40f15aaea4585d1c"
+      },
+      "date_labels": {
+        "2026-10-20": "20 October 2026",
+        "2026-10-06": "6 October 2026",
+        "2026-10-13": "13 October 2026",
+        "2026-10-07": "7 October 2026",
+        "2026-10-14": "14 October 2026"
+      }
+    },
+    "verified": true,
+    "reference_date": "2026-10-20",
+    "composition": "grounded_llm",
+    "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+    "retrieval_k": 12,
+    "retrieval_direct_k": 12,
+    "retrieval_dependency_limit": 4,
+    "retrieval_candidate_limit": 16,
+    "retrieval_returned_count": 16,
+    "retrieval_direct_count": 12,
+    "retrieval_dependency_count": 4,
+    "evidence_supported": true,
+    "validation_error": null,
+    "citations": [],
+    "generation": {
+      "covered": true,
+      "provenance_kind": "generation_context",
+      "context_source_ids": [
+        "CAN-2",
+        "CPN-3",
+        "DEL-1",
+        "DEL-2",
+        "DEL-3",
+        "KB-00.3",
+        "PLS-2",
+        "REF-1",
+        "REF-2",
+        "REF-3",
+        "REF-4",
+        "REF-5",
+        "REF-6",
+        "RET-4",
+        "RET-7"
+      ],
+      "model_flags": {
+        "covered": true,
+        "needs_clarification": false
+      },
+      "decision_origin": "host_boolean_mapping",
+      "evaluated_source_constraints": [
+        {
+          "kind": "explicit_permission",
+          "action": "refuse_parcel",
+          "source_ids": [
+            "CAN-2"
+          ],
+          "source_sha256": {
+            "CAN-2": "9e9e53f75b7a7ced1cd3348adafe4d68f95aff9c0466a0e1083274b5567b7812"
+          }
+        },
+        {
+          "kind": "conditional_rto_refund",
+          "payment_condition": "prepaid",
+          "source_antecedent": "Prepaid order refused at the door or not delivered after 3 attempts",
+          "source_consequence": "once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+          "source_ids": [
+            "REF-1"
+          ],
+          "source_sha256": {
+            "REF-1": "30f3fc9957fa76cc2c3d59df05fd859766d77239c8d2c35dce3f1f510addf9e2"
+          }
+        },
+        {
+          "kind": "membership_refund_timing_exclusion",
+          "membership_label": "ZentroMart Plus",
+          "timing_role": "after_initiation",
+          "source_ids": [
+            "PLS-2"
+          ],
+          "source_sha256": {
+            "PLS-2": "8b54c13f45bf1a25403c0392bb796928ee1a6ac4e1f4641fc3add50b62863246"
+          }
+        }
+      ],
+      "evaluated_remedy_prerequisites": [],
+      "evaluated_delivery_clock_constraints": [],
+      "claim_audits": [
+        {
+          "supported": true,
+          "unsupported_claims": [],
+          "source_ids": [
+            "CAN-2",
+            "CPN-3",
+            "DEL-1",
+            "DEL-2",
+            "DEL-3",
+            "KB-00.3",
+            "PLS-2",
+            "REF-1",
+            "REF-2",
+            "REF-3",
+            "REF-4",
+            "REF-5",
+            "REF-6",
+            "RET-4",
+            "RET-7"
+          ],
+          "provider": "compatible:openai/gpt-oss-20b",
+          "metrics": {
+            "cache_hit": false,
+            "attempts": 1,
+            "http_attempts": 1,
+            "http_statuses": [
+              200
+            ],
+            "rate_limit_events": 0,
+            "rate_limit_retries": 0,
+            "rate_limit_wait_ms": 0.0,
+            "rate_limit_planned_wait_ms": 0.0,
+            "last_http_status": 200,
+            "provider": "compatible:openai/gpt-oss-20b",
+            "wall_ms": 2498.56
+          }
+        }
+      ],
+      "repair_attempted": false,
+      "generation_attempts": 1,
+      "repair_errors": [],
+      "validation_error": null,
+      "attempt_metrics": [
+        {
+          "cache_hit": false,
+          "attempts": 1,
+          "http_attempts": 1,
+          "http_statuses": [
+            200
+          ],
+          "rate_limit_events": 0,
+          "rate_limit_retries": 0,
+          "rate_limit_wait_ms": 0.0,
+          "rate_limit_planned_wait_ms": 0.0,
+          "last_http_status": 200,
+          "provider": "compatible:openai/gpt-oss-20b",
+          "wall_ms": 1775.34
+        }
+      ],
+      "generation_input_contexts": [
+        {
+          "attempt": 1,
+          "source_ids": [
+            "CAN-2",
+            "CPN-3",
+            "DEL-1",
+            "DEL-2",
+            "DEL-3",
+            "KB-00.3",
+            "PLS-2",
+            "REF-1",
+            "REF-2",
+            "REF-3",
+            "REF-4",
+            "REF-5",
+            "REF-6",
+            "RET-4",
+            "RET-7"
+          ]
+        }
+      ],
+      "validation_source_ids": [
+        "CAN-2",
+        "CPN-3",
+        "DEL-1",
+        "DEL-2",
+        "DEL-3",
+        "KB-00.3",
+        "PLS-2",
+        "REF-1",
+        "REF-2",
+        "REF-3",
+        "REF-4",
+        "REF-5",
+        "REF-6",
+        "RET-4",
+        "RET-7"
+      ]
+    },
+    "service_error": null,
+    "generation_context_sources": [
+      {
+        "id": "REF-4",
+        "text": "## [REF-4] Partial refunds and coupons\nIf part of an order is returned, the refund is the price paid for that item after its share of any coupon discount. If the remaining order falls below the coupon's minimum order value, the coupon discount on the remaining items is deducted from the refund.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "Partial refunds and coupons"
+      },
+      {
+        "id": "REF-2",
+        "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "How long refunds take after initiation"
+      },
+      {
+        "id": "RET-7",
+        "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy.",
+        "file": "pol_returns_v4.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-08-01",
+        "version": "4.0",
+        "title": "After pickup"
+      },
+      {
+        "id": "REF-1",
+        "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "When a refund is initiated"
+      },
+      {
+        "id": "REF-6",
+        "text": "## [REF-6] Refund reference number\nEvery initiated refund has a refund reference number (RRN) that the customer's bank can trace. Share it when a customer says the money has not arrived.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "Refund reference number"
+      },
+      {
+        "id": "REF-3",
+        "text": "## [REF-3] Cash-on-delivery refunds\nFor cash-on-delivery orders, the customer chooses either ZentroMart Wallet (instant) or a bank transfer. Bank transfers start only after the bank account details are verified, then take 5 to 7 business days.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "Cash-on-delivery refunds"
+      },
+      {
+        "id": "CAN-2",
+        "text": "## [CAN-2] After the order ships\nA shipped order cannot be cancelled. The customer can:\n- refuse the parcel at the door. For cash-on-delivery orders nothing is charged. For prepaid orders the refund follows REF-1 once the parcel returns to the warehouse; or\n- accept the delivery and return the item within its return window, if the category is returnable.",
+        "file": "pol_cancellations.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-05-01",
+        "version": "1.4",
+        "title": "After the order ships"
+      },
+      {
+        "id": "REF-5",
+        "text": "## [REF-5] Delivery and COD fees\nDelivery fees and the ₹25 cash-on-delivery fee are refunded only when the whole order is cancelled before shipping or returned because it was damaged, defective or wrong.",
+        "file": "pol_refunds.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-15",
+        "version": "2.1",
+        "title": "Delivery and COD fees"
+      },
+      {
+        "id": "CPN-3",
+        "text": "## [CPN-3] Returns and coupons\nSee REF-4 in the Refunds policy.",
+        "file": "pol_coupons_offers.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-06-01",
+        "version": "1.2",
+        "title": "Returns and coupons"
+      },
+      {
+        "id": "PLS-2",
+        "text": "## [PLS-2] Benefits\n- Free Express delivery where Express is available.\n- No reverse pickup fee on any return.\n- Refunds on returns are initiated at pickup, without waiting for quality check.\n\nZentroMart Plus does **not** change return windows, return eligibility or refund timelines after initiation.",
+        "file": "pol_plus_membership.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-01-01",
+        "version": "1.0",
+        "title": "Benefits"
+      },
+      {
+        "id": "DEL-1",
+        "text": "## [DEL-1] Delivery times\n| Delivery type | Metro cities | Other locations |\n| --- | --- | --- |\n| Standard | 3 to 6 business days | 5 to 9 business days |\n| Express (selected pincodes) | Next business day if ordered before 2 pm, otherwise the business day after | Not available |\n\nEach order shows a promised delivery date at checkout. That date is the commitment.",
+        "file": "pol_delivery_shipping.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-04-01",
+        "version": "2.0",
+        "title": "Delivery times"
+      },
+      {
+        "id": "KB-00.3",
+        "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+        "file": "00_about_this_knowledge_base.md",
+        "doc_type": "meta",
+        "status": "current",
+        "effective_from": "2026-08-01",
+        "version": "1.2",
+        "title": "Business days"
+      },
+      {
+        "id": "DEL-2",
+        "text": "## [DEL-2] Delivery fees\nStandard delivery is free on orders of ₹499 or more; below that a ₹40 fee applies. Express delivery costs ₹79 and is free for ZentroMart Plus members.",
+        "file": "pol_delivery_shipping.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-04-01",
+        "version": "2.0",
+        "title": "Delivery fees"
+      },
+      {
+        "id": "RET-4",
+        "text": "## [RET-4] Condition of returned items\nItems must be unused, with original tags, packaging, accessories and free gifts. Beauty and personal care products are returnable only if unopened with the seal intact. Electronics must not be physically damaged, and any screen lock or account lock must be removed.",
+        "file": "pol_returns_v4.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-08-01",
+        "version": "4.0",
+        "title": "Condition of returned items"
+      },
+      {
+        "id": "DEL-3",
+        "text": "## [DEL-3] Delivery attempts\nThe courier makes up to 3 delivery attempts. After a failed attempt the customer gets an SMS to reschedule. If the third attempt fails, the parcel is returned to the warehouse (return to origin, RTO) and REF-1 applies.",
+        "file": "pol_delivery_shipping.md",
+        "doc_type": "policy",
+        "status": "current",
+        "effective_from": "2026-04-01",
+        "version": "2.0",
+        "title": "Delivery attempts"
+      }
+    ],
+    "context_selection": {},
+    "llm": {
+      "cache_hit": false,
+      "attempts": 1,
+      "http_attempts": 1,
+      "http_statuses": [
+        200
+      ],
+      "rate_limit_events": 0,
+      "rate_limit_retries": 0,
+      "rate_limit_wait_ms": 0.0,
+      "rate_limit_planned_wait_ms": 0.0,
+      "last_http_status": 200,
+      "provider": "compatible:openai/gpt-oss-20b",
+      "wall_ms": 2498.56
+    },
+    "timings": {
+      "retrieval_ms": 210.73,
+      "llm_ms": 4397.24
+    },
+    "latency_ms": 4636.54
+  },
+  "checks": {
+    "decision_answer": true,
+    "coupon_policy_in_model_context": true,
+    "generated": true
+  },
+  "passed": true,
+  "authentication_setup_artifact": null
+}

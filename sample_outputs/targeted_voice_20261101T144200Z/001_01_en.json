@@ -1,0 +1,400 @@
+{
+  "transcript": "how long does a UPI refund take",
+  "answer": "I'm ZentroMart's AI support assistant. A UPI refund takes 1 to 3 business days after the refund is initiated.",
+  "intent": "refund",
+  "decision": "answer",
+  "language": "en",
+  "retrieved_chunk_ids": [
+    "STY-1",
+    "KB-00.3",
+    "REF-2",
+    "RET-7"
+  ],
+  "sources": [
+    {
+      "id": "STY-1",
+      "text": "## [STY-1] Opening\nIntroduce yourself as ZentroMart's AI support assistant in your first reply.",
+      "file": "agent_conversation_style.md",
+      "doc_type": "agent_guide",
+      "status": "current",
+      "effective_from": "2026-07-01",
+      "version": "1.1",
+      "title": "Opening"
+    },
+    {
+      "id": "KB-00.3",
+      "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+      "file": "00_about_this_knowledge_base.md",
+      "doc_type": "meta",
+      "status": "current",
+      "effective_from": "2026-08-01",
+      "version": "1.2",
+      "title": "Business days"
+    },
+    {
+      "id": "REF-2",
+      "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+      "file": "pol_refunds.md",
+      "doc_type": "policy",
+      "status": "current",
+      "effective_from": "2026-06-15",
+      "version": "2.1",
+      "title": "How long refunds take after initiation"
+    },
+    {
+      "id": "RET-7",
+      "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy.",
+      "file": "pol_returns_v4.md",
+      "doc_type": "policy",
+      "status": "current",
+      "effective_from": "2026-08-01",
+      "version": "4.0",
+      "title": "After pickup"
+    }
+  ],
+  "retrieval_candidates": [
+    {
+      "id": "REF-2",
+      "score": 0.188847,
+      "dense_score": 0.5468,
+      "retrieval_role": "direct",
+      "direct_rank": 1,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "RET-7",
+      "score": 0.174051,
+      "dense_score": 0.5841,
+      "retrieval_role": "direct",
+      "direct_rank": 2,
+      "dependency_weight": 1.15
+    },
+    {
+      "id": "REF-3",
+      "score": 0.171456,
+      "dense_score": 0.6124,
+      "retrieval_role": "direct",
+      "direct_rank": 3,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "REF-1",
+      "score": 0.166487,
+      "dense_score": 0.6524,
+      "retrieval_role": "direct",
+      "direct_rank": 4,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "FAQ-1",
+      "score": 0.159437,
+      "dense_score": 0.7644,
+      "retrieval_role": "direct",
+      "direct_rank": 5,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "REF-6",
+      "score": 0.154227,
+      "dense_score": 0.5345,
+      "retrieval_role": "direct",
+      "direct_rank": 6,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "REF-5",
+      "score": 0.140205,
+      "dense_score": 0.5914,
+      "retrieval_role": "direct",
+      "direct_rank": 7,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "REF-4",
+      "score": 0.130968,
+      "dense_score": 0.4336,
+      "retrieval_role": "direct",
+      "direct_rank": 8,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "PLS-3",
+      "score": 0.124114,
+      "dense_score": 0.4573,
+      "retrieval_role": "direct",
+      "direct_rank": 9,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "PLS-2",
+      "score": 0.119792,
+      "dense_score": 0.4086,
+      "retrieval_role": "direct",
+      "direct_rank": 10,
+      "dependency_weight": 0.88
+    },
+    {
+      "id": "MKS-2",
+      "score": 0.119513,
+      "dense_score": 0.3537,
+      "retrieval_role": "direct",
+      "direct_rank": 11,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "CAN-2",
+      "score": 0.118031,
+      "dense_score": 0.4535,
+      "retrieval_role": "direct",
+      "direct_rank": 12,
+      "dependency_weight": 0.0
+    },
+    {
+      "id": "KB-00.3",
+      "score": 0.084751,
+      "dense_score": 0.152,
+      "retrieval_role": "dependency",
+      "direct_rank": null,
+      "dependency_weight": 1.2
+    },
+    {
+      "id": "RET-4",
+      "score": 0.023695,
+      "dense_score": 0.222,
+      "retrieval_role": "dependency",
+      "direct_rank": null,
+      "dependency_weight": 0.97
+    },
+    {
+      "id": "KB-00.1",
+      "score": 0.02251,
+      "dense_score": 0.0478,
+      "retrieval_role": "dependency",
+      "direct_rank": null,
+      "dependency_weight": 0.92
+    },
+    {
+      "id": "DEL-3",
+      "score": 0.022509,
+      "dense_score": 0.3717,
+      "retrieval_role": "dependency",
+      "direct_rank": null,
+      "dependency_weight": 0.88
+    }
+  ],
+  "tool_calls": [],
+  "facts": {
+    "reference_date": "2026-10-20",
+    "calculations": [],
+    "delivery_policy": {
+      "delivery_attempt_limit": 3,
+      "source_ids": [
+        "DEL-3"
+      ]
+    },
+    "refund_arrival_policy": {
+      "payment_method": "upi",
+      "source_payment_label": "UPI",
+      "minimum_business_days": 1,
+      "maximum_business_days": 3,
+      "timing_anchor": "after_refund_initiation",
+      "source_ids": [
+        "REF-2"
+      ],
+      "source_sha256": {
+        "REF-2": "913886a7d0e4810241fd90b1d812c39c5900d428dce65112ccbdfb8c8855ced4"
+      }
+    },
+    "answer_constraints": [],
+    "calculation_source_sha256": {
+      "DEL-3": "8d22f941c929f317ad5578c47daae0f9b8b1027d148a060e40f15aaea4585d1c"
+    },
+    "date_labels": {
+      "2026-10-20": "20 October 2026"
+    }
+  },
+  "verified": false,
+  "reference_date": "2026-10-20",
+  "composition": "grounded_llm",
+  "retrieval_mode": "multilingual MiniLM ONNX int8; raw/expanded hybrid fusion",
+  "retrieval_k": 12,
+  "retrieval_direct_k": 12,
+  "retrieval_dependency_limit": 4,
+  "retrieval_candidate_limit": 16,
+  "retrieval_returned_count": 16,
+  "retrieval_direct_count": 12,
+  "retrieval_dependency_count": 4,
+  "evidence_supported": true,
+  "validation_error": null,
+  "citations": [],
+  "generation": {
+    "covered": true,
+    "provenance_kind": "generation_context",
+    "context_source_ids": [
+      "KB-00.3",
+      "REF-2",
+      "RET-7"
+    ],
+    "model_flags": {
+      "covered": true,
+      "needs_clarification": false
+    },
+    "decision_origin": "host_boolean_mapping",
+    "evaluated_source_constraints": [],
+    "evaluated_remedy_prerequisites": [],
+    "evaluated_delivery_clock_constraints": [],
+    "claim_audits": [
+      {
+        "supported": true,
+        "unsupported_claims": [],
+        "source_ids": [
+          "KB-00.3",
+          "REF-2",
+          "RET-7"
+        ],
+        "provider": "compatible:openai/gpt-oss-20b",
+        "metrics": {
+          "cache_hit": false,
+          "attempts": 1,
+          "http_attempts": 1,
+          "http_statuses": [
+            200
+          ],
+          "rate_limit_events": 0,
+          "rate_limit_retries": 0,
+          "rate_limit_wait_ms": 0.0,
+          "rate_limit_planned_wait_ms": 0.0,
+          "last_http_status": 200,
+          "provider": "compatible:openai/gpt-oss-20b",
+          "wall_ms": 1498.09
+        }
+      }
+    ],
+    "repair_attempted": false,
+    "generation_attempts": 1,
+    "repair_errors": [],
+    "validation_error": null,
+    "attempt_metrics": [
+      {
+        "cache_hit": false,
+        "attempts": 1,
+        "http_attempts": 1,
+        "http_statuses": [
+          200
+        ],
+        "rate_limit_events": 0,
+        "rate_limit_retries": 0,
+        "rate_limit_wait_ms": 0.0,
+        "rate_limit_planned_wait_ms": 0.0,
+        "last_http_status": 200,
+        "provider": "compatible:openai/gpt-oss-20b",
+        "wall_ms": 930.28
+      }
+    ],
+    "generation_input_contexts": [
+      {
+        "attempt": 1,
+        "source_ids": [
+          "KB-00.3",
+          "REF-2",
+          "RET-7"
+        ]
+      }
+    ],
+    "validation_source_ids": [
+      "DEL-3",
+      "KB-00.1",
+      "KB-00.3",
+      "REF-2",
+      "RET-4",
+      "RET-7"
+    ]
+  },
+  "service_error": null,
+  "generation_context_sources": [
+    {
+      "id": "REF-2",
+      "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |",
+      "file": "pol_refunds.md",
+      "doc_type": "policy",
+      "status": "current",
+      "effective_from": "2026-06-15",
+      "version": "2.1",
+      "title": "How long refunds take after initiation"
+    },
+    {
+      "id": "RET-7",
+      "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy.",
+      "file": "pol_returns_v4.md",
+      "doc_type": "policy",
+      "status": "current",
+      "effective_from": "2026-08-01",
+      "version": "4.0",
+      "title": "After pickup"
+    },
+    {
+      "id": "KB-00.3",
+      "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |",
+      "file": "00_about_this_knowledge_base.md",
+      "doc_type": "meta",
+      "status": "current",
+      "effective_from": "2026-08-01",
+      "version": "1.2",
+      "title": "Business days"
+    }
+  ],
+  "context_selection": {
+    "mode": "ranked_sources_with_dependencies",
+    "available_source_ids": [
+      "REF-2",
+      "RET-7",
+      "REF-3",
+      "REF-1",
+      "REF-6",
+      "REF-5",
+      "REF-4",
+      "PLS-3",
+      "PLS-2",
+      "MKS-2",
+      "CAN-2",
+      "KB-00.3",
+      "RET-4",
+      "KB-00.1",
+      "DEL-3"
+    ],
+    "focused_source_ids": [
+      "REF-2",
+      "RET-7",
+      "KB-00.3",
+      "RET-4",
+      "KB-00.1",
+      "DEL-3"
+    ]
+  },
+  "llm": {
+    "cache_hit": false,
+    "attempts": 1,
+    "http_attempts": 1,
+    "http_statuses": [
+      200
+    ],
+    "rate_limit_events": 0,
+    "rate_limit_retries": 0,
+    "rate_limit_wait_ms": 0.0,
+    "rate_limit_planned_wait_ms": 0.0,
+    "last_http_status": 200,
+    "provider": "compatible:openai/gpt-oss-20b",
+    "wall_ms": 1498.09
+  },
+  "timings": {
+    "retrieval_ms": 97.12,
+    "llm_ms": 2623.96
+  },
+  "latency_ms": 2749.55,
+  "voice_timings": {
+    "stt_ms": 871.94,
+    "agent_ms": 2750.9,
+    "tts_ms": 1117.77,
+    "total_ms": 4742.68
+  }
+}

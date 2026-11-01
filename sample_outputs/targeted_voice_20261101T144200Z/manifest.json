@@ -1,0 +1,52 @@
+{
+  "total": 3,
+  "succeeded": 3,
+  "failed": 0,
+  "speech_provider": "Gnani only",
+  "startup_ms": 924.18,
+  "batch_wall_ms": 15457.85,
+  "entries": [
+    {
+      "input": "01_en.wav",
+      "output_prefix": "001_01_en",
+      "session_id": "01_en.wav",
+      "status": "ok",
+      "agent_succeeded": true,
+      "decision": "answer",
+      "audio": "001_01_en_reply.wav",
+      "stt_ms": 871.94,
+      "agent_ms": 2750.9,
+      "tts_ms": 1117.77,
+      "total_ms": 4742.68,
+      "latency_ms": 4742.68
+    },
+    {
+      "input": "02_hi.wav",
+      "output_prefix": "002_02_hi",
+      "session_id": "02_hi.wav",
+      "status": "ok",
+      "agent_succeeded": true,
+      "decision": "answer",
+      "audio": "002_02_hi_reply.wav",
+      "stt_ms": 231.03,
+      "agent_ms": 2913.16,
+      "tts_ms": 1362.04,
+      "total_ms": 4506.48,
+      "latency_ms": 4506.48
+    },
+    {
+      "input": "03_hinglish.wav",
+      "output_prefix": "003_03_hinglish",
+      "session_id": "03_hinglish.wav",
+      "status": "ok",
+      "agent_succeeded": true,
+      "decision": "answer",
+      "audio": "003_03_hinglish_reply.wav",
+      "stt_ms": 438.58,
+      "agent_ms": 3393.32,
+      "tts_ms": 1421.32,
+      "total_ms": 5253.74,
+      "latency_ms": 5253.74
+    }
+  ]
+}

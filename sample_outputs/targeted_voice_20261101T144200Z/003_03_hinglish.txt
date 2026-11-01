@@ -1,0 +1,1 @@
+Main ZentroMart ki AI support assistant hoon. Refund net banking ke liye 3 se 5 business din lag sakte hain, initiation ke baad. Business days Monday se Saturday tak hote hain, aur 2026-10-19 aur 2026-10-02 jaise warehouse holidays ko exclude kiya jata hai.
