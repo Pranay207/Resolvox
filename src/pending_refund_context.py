@@ -51,3 +51,35 @@ def check_unverified_return_reason(answer,query,facts):
         if re.search(r'\b(?:if|for|agar|yadi)\b|यदि|अगर|के\s*लिए',clause,re.I):continue
         personal=re.search(r'\b(?:your|this|the)\s+return\s+is\b.{0,35}change[ -]of[ -]mind|(?:यह|आपका|ये).{0,50}मन\s*बदलने.{0,20}(?:का|की)\s*रिटर्न\s*है',clause,re.I)
         if personal:raise ValueError('unverified_return_reason')
+
+
+def check_unconfirmed_staff_review(answer, facts):
+    """A queued escalation is not evidence that staff are actively reviewing it."""
+    if not facts.get('operational_escalation'):
+        return
+    activity = re.compile(
+        r'\b(?:is|are|was|were|has\s+been|have\s+been)\s+'
+        r'(?:(?:currently|already|actively|now)\s+)*'
+        r'(?:being\s+reviewed|under\s+(?:active\s+)?review)\b|'
+        r'\b(?:team|staff|agent|specialist|support)\b.{0,35}\b(?:is|are)\s+'
+        r'(?:(?:currently|already|actively|now)\s+)*reviewing\b|'
+        r'\breview\s+(?:(?:kiya|kiye)\s+ja\s+rah[aei]+|ho\s+rah[aei]+)\b|'
+        r'समीक्षा\s*(?:की\s*जा\s*रही|हो\s*रही)|समीक्षाधीन\s*(?:है|हैं)', re.I)
+    uncertain = re.compile(
+        r"\b(?:cannot|can't|could\s+not|unable\s+to|do\s+not|don't)\s+(?:confirm|verify|know)\b|"
+        r'\b(?:unknown|unconfirmed|not\s+(?:yet\s+)?known|not\s+confirmed)\b|'
+        r'\b(?:nahi|nahin)\s+pata\b|\bpata\s+(?:nahi|nahin)\b|'
+        r'पता\s*नहीं|पुष्टि\s*नहीं|नहीं\s*(?:जान|कह)')
+    conditional = re.compile(r'\b(?:if|unless|assuming|whether|agar|yadi)\b|यदि|अगर', re.I)
+    for clause in re.split(r'[.!?;।\n]+|,\s*|\b(?:but|however|yet|and|aur)\b|लेकिन|परंतु|और', answer, flags=re.I):
+        for match in activity.finditer(clause):
+            prefix = clause[:match.start()]
+            # Scope qualifications to this predicate, never the next contrastive clause.
+            if uncertain.search(prefix) or conditional.search(prefix):
+                continue
+            suffix = clause[match.end():match.end()+60]
+            if re.search(r'^\s*(?:hai\s+)?ya\s+(?:nahi|nahin)\b',suffix,re.I):
+                continue
+            if re.search(r'\b(?:nahi|nahin)\b|नहीं', suffix, re.I):
+                continue
+            raise ValueError('unconfirmed_active_staff_review')
