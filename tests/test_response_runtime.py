@@ -153,3 +153,31 @@ def test_speech_respects_the_remaining_shared_response_budget(monkeypatch):
         with pytest.raises(VoiceError, match='time budget'):
             voice._request('/synthetic')
     assert calls == [(0.25, 0.75)]
+
+
+def test_request_releases_windows_execution_hold_after_error(monkeypatch):
+    calls=[]
+    def state(flags):
+        calls.append(flags)
+        return 0x80000000
+    monkeypatch.setattr(runtime,'_set_execution_state',state)
+    with pytest.raises(RuntimeError):
+        with runtime.response_scope(5):
+            raise RuntimeError('synthetic request failure')
+    assert calls==[0x80000001,0x80000000]
+    assert runtime.remaining_seconds() is None
+
+
+def test_nested_generation_uses_only_one_execution_hold(monkeypatch):
+    calls=[]
+    monkeypatch.setattr(runtime,'_set_execution_state',lambda flags:calls.append(flags) or 0x80000000)
+    with runtime.response_scope(10):
+        with runtime.response_scope(5):
+            assert calls==[0x80000001]
+    assert calls==[0x80000001,0x80000000]
+
+
+def test_unsupported_execution_hold_does_not_break_inference(monkeypatch):
+    monkeypatch.setattr(runtime,'_set_execution_state',lambda flags:None)
+    with runtime.response_scope(5):
+        assert runtime.remaining_seconds()>0

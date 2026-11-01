@@ -1,9 +1,10 @@
 """Per-request deadlines, progress and local inference admission control."""
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from contextvars import ContextVar
 from functools import wraps
 import math
 import os
+import sys
 import threading
 import time
 
@@ -26,6 +27,32 @@ def configured_budget(name, default=180):
     return seconds
 
 
+def _set_execution_state(flags):
+    if sys.platform != 'win32':
+        return None
+    try:
+        import ctypes
+        function=ctypes.WinDLL('kernel32',use_last_error=True).SetThreadExecutionState
+        function.argtypes=[ctypes.c_uint32]
+        function.restype=ctypes.c_uint32
+        return function(flags) or None
+    except (OSError,AttributeError):
+        return None
+
+
+@contextmanager
+def keep_system_awake():
+    # CPU/network activity alone does not prevent Windows idle standby.
+    # Hold only system execution during this request; never change the power
+    # plan, display requirement, or the user's explicit Sleep/lid behavior.
+    previous=_set_execution_state(0x80000001)
+    try:
+        yield previous is not None
+    finally:
+        if previous is not None:
+            _set_execution_state(previous)
+
+
 @contextmanager
 def response_scope(seconds, progress=None):
     if not math.isfinite(seconds) or seconds <= 0:
@@ -38,7 +65,8 @@ def response_scope(seconds, progress=None):
             progress = parent['progress']
     token = _scope.set({'deadline': deadline, 'progress': progress})
     try:
-        yield
+        with (keep_system_awake() if parent is None else nullcontext()):
+            yield
     finally:
         _scope.reset(token)
 
