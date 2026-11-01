@@ -149,3 +149,18 @@ def test_operational_refund_view_keeps_record_roles_and_host_facts_unchanged(eve
     assert facts==before
     assert operational_refund_explanation_inputs('What about the coupon discount?',facts,[{'id':'MUTABLE-RANGE'}]) is None
     assert operational_refund_explanation_inputs('Where is my refund?',facts,[]) is None
+
+
+
+def test_unknown_public_return_window_keeps_requested_fee_evidence():
+ facts,sources=window_fixture(12,24)
+ fee={'id':'FEE-MUTATED','doc_type':'policy','status':'current','effective_from':'2030-01-01',
+      'text':'A reverse pickup fee of 73 rupees applies to change-of-mind returns of Garments and bags.'}
+ # Use the exact source category words; the value is read from text, never a runtime constant.
+ fee['text']='A reverse pickup fee of 73 rupees applies to change-of-mind returns of '+facts['return_policy']['category_label']+'.'
+ sources=sources+[fee,dict(fee,id='FUTURE-FEE',effective_from='2099-01-01')]
+ before=copy.deepcopy((facts,sources))
+ view=unresolved_return_window_inputs(facts,sources,query='What is the return window and pickup charge?')
+ assert 'FEE-MUTATED' in {row['id'] for row in view['sources']}
+ assert 'FUTURE-FEE' not in {row['id'] for row in view['sources']}
+ assert (facts,sources)==before

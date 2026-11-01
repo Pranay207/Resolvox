@@ -23,7 +23,7 @@ def _active(source, reference):
     return True
 
 
-def unresolved_return_window_inputs(facts, sources):
+def unresolved_return_window_inputs(facts, sources, *, query=None):
     status = placement_exception_status(facts, sources)
     if not status or status['applicability'] != 'unknown' or status['input_origin'] != 'missing':
         return None
@@ -39,6 +39,11 @@ def unresolved_return_window_inputs(facts, sources):
         text = re.sub(r'[*`]', '', source.get('text', ''))
         if (_active(source, reference) and re.search(r'\breturn\s+windows?\b.{0,180}\bdelivery\b', text, re.I | re.S)):
             ids.add(source['id'])
+        if (isinstance(query,str) and re.search(r'\b(?:pick.?up|fees?|charg\w*|cost\w*)\b|पिकअप|शुल्क',query,re.I)
+                and _active(source,reference) and re.search(r'reverse\s+pickup\s+fee',text,re.I)
+                and re.search(r'change.of.mind',text,re.I)):
+            category_words=set(re.findall(r'[a-z]+',policy.get('category_label','').casefold()))-{'and','the'}
+            if category_words and category_words <= set(re.findall(r'[a-z]+',text.casefold())):ids.add(source['id'])
         if source.get('doc_type') == 'catalog' and source.get('status') == 'current':
             try:
                 row = json.loads(source['text'])

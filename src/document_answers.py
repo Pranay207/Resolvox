@@ -1138,6 +1138,7 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
         repair_scope_check = None
         coverage_contract = None
         reporting_support_contract = None
+        window_support_contract = None
         language_contract = None
         if attempt:
             payload['repair_validation_error'] = errors[-1]
@@ -1442,7 +1443,7 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                         "A supported factual explanation has covered true. " + CONTEXT_LANGUAGE[language])
             elif errors[-1] in {'unsupported_placement_exception_personal_window',
                     'unsupported_placement_exception_entitlement', 'invented_placement_premise'}:
-                window = unresolved_return_window_inputs(facts or {}, actual_sources)
+                window = unresolved_return_window_inputs(facts or {}, actual_sources, query=query)
                 if window:
                     focused = window['sources']
                     focused_facts = window['facts']
@@ -1825,6 +1826,49 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                     "Return exactly JSON with answer, covered, needs_clarification; both flags are booleans. " + CONTEXT_LANGUAGE[language])
                 payload = {'deterministic_facts':focused_facts,'source_text':focused,'language':language}
                 if attempt:payload['repair_validation_error']=errors[-1]
+        if (context_provenance and not private and language_contract is None
+                and (facts or {}).get('return_policy',{}).get('placement_date_unavailable') is True
+                and re.search(r'\b(?:window|period|duration|days|how\s+long|kitn\w*\s+din)\b|कितने\s*दिन|अवधि',query,re.I)
+                and not re.search(r'\b(?:refund\w*|warrant\w*|cancel\w*|coupon\w*|exchange\w*|replac\w*)\b|रिफ़?ंड|वारंटी|कूपन|रद्द',query,re.I)):
+            public_window=unresolved_return_window_inputs(facts or {},actual_sources,query=query)
+            if public_window:
+                repair_mode='source_window_scope'
+                compact={key:public_window['facts'][key] for key in ('return_policy','public_context','answer_constraints') if key in public_window['facts']}
+                compact['individual_return_window_status']='unresolved'
+                payload={'question':query,'source_text':public_window['sources'],'deterministic_facts':compact,
+                         'placement_scope':public_window['placement_scope'],'language':language}
+                if attempt:payload['repair_validation_error']=errors[-1]
+                call_system=(
+                    "Answer the duration and any requested pickup charge only from the supplied source paragraphs. "
+                    "No customer placement date was supplied. Never assert that this order was placed in the source interval. "
+                    "Explain BOTH the ordinary rule as general AND the placement-date exception with if, never because. "
+                    "Do not omit the source exception just to make the answer shorter. A bare duration can incorrectly select a personal window. "
+                    "Neither personal window is selected. Explicitly say the placement date is needed to choose the applicable window. "
+                    "Read pickup charges and waivers from the supplied fee policy; a missing customer condition never makes pickup free. "
+                    "Keep each fee attached to its change-of-mind condition and each waiver conditional unless the customer qualifies. "
+                    "Do not add refund processing, item-state assumptions, performed actions or unrelated policies. "
+                    "Read window_calendar_days as calendar days, never business days. "
+                    "has_document_support asks whether the documents support the general explanation, not whether a personal date or eligibility is known. "
+                    "A supported general or conditional policy explanation uses has_document_support true, even if the placement date is missing. "
+                    "Use needs_clarification true when asking for that date. If the supplied evidence cannot support an answer, use false support and only uncertainty. "
+                    "Keep the flags outside the spoken answer. Return exactly JSON answer, has_document_support, needs_clarification. " + CONTEXT_LANGUAGE[language])
+                schema=json.loads(json.dumps(schema))
+                if 'covered' in schema['properties']:
+                    schema['properties']['has_document_support']=schema['properties'].pop('covered')
+                    schema['required']=['has_document_support' if key=='covered' else key for key in schema['required']]
+                window_support_contract={'origin':'explicit_source_support_field','scope':'general_conditional_return_window',
+                    'source_ids':[row['id'] for row in public_window['sources']],'field_alias':{'has_document_support':'covered'}}
+                if language=='hi':
+                    call_system += (' वापसी की अवधि कैलेंडर दिनों में लिखें, कार्यदिवसों में नहीं। सामान्य नियम को सामान्य कहें और विशेष नियम को यदि के साथ रखें। '
+                                    'व्यक्तिगत अवधि की पुष्टि न करें; ऑर्डर की तारीख अज्ञात है। सामान्य और विशेष दोनों नियम स्रोत से पढ़कर समझाएँ। '
+                                    'विशेष नियम की तारीखें और अवधि छोड़ें नहीं। सामान्य अवधि को सामान्यतः कहें; विशेष अवधि को यदि वाली शर्त के साथ कहें। '
+                                    'ग्राहक की सही अवधि चुनने के लिए ऑर्डर की तारीख चाहिए, यह स्पष्ट करें। '
+                                    'पिकअप शुल्क को मन बदलने वाली वापसी की शर्त से जोड़ें और छूट को शर्त के साथ ही बताएँ। '
+                                    'प्रमाण सामान्य नियम का समर्थन कर सकता है, भले ही ग्राहक की तारीख अज्ञात हो।')
+                elif language=='hi-en':
+                    call_system += (' Dono source rules batayein: ordinary rule ko generally aur exception ko agar ke saath. '
+                                    'Exact window chunne ke liye placement date chahiye; date unknown hai. '
+                                    'Pickup fee ko change-of-mind condition ke saath aur waiver ko conditional rakhein.')
         if context_provenance and (facts or {}).get('operational_escalation'):
             if private:
                 refund_view = operational_refund_explanation_inputs(query, facts or {}, actual_sources)
@@ -1866,6 +1910,12 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                     'needs_clarification': value['needs_clarification']}
                 value = {'answer': value['answer'], 'covered': value['has_document_support'],
                          'needs_clarification': value['needs_clarification']}
+            if window_support_contract is not None:
+                if isinstance(value,dict) and set(value)=={'answer','has_document_support','needs_clarification'}:
+                    window_support_contract['original_model_flags']={'has_document_support':value['has_document_support'],'needs_clarification':value['needs_clarification']}
+                    value={'answer':value['answer'],'covered':value['has_document_support'],'needs_clarification':value['needs_clarification']}
+                elif isinstance(value,dict) and set(value)=={'answer','covered','needs_clarification'}:
+                    window_support_contract['original_model_flags']={'covered':value['covered'],'needs_clarification':value['needs_clarification']}
             if coverage_contract is not None:
                 if isinstance(value, dict) and set(value) == {'answer','has_document_support','needs_clarification'}:
                     coverage_contract['original_model_flags'] = {
@@ -1934,6 +1984,8 @@ def document_reply(client, query, language, sources, *, facts=None, private=Fals
                 result['coverage_contract'] = coverage_contract
             if reporting_support_contract is not None:
                 result['reporting_support_contract'] = reporting_support_contract
+            if window_support_contract is not None:
+                result['window_support_contract'] = window_support_contract
             if report_clock is not None:
                 result['reporting_time_check'] = report_clock
             if repair_mode == 'source_window_scope':

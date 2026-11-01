@@ -313,9 +313,10 @@ def _requested_date_predicate(clause, position):
     prefix = re.split(r'[,;]|\b(?:but|however|yet|then)\b|लेकिन|परंतु', clause[:position], flags=re.I)[-1]
     suffix = clause[position:]
     return bool(
-        re.search(r'\b(?:tell|confirm|clarify|check)\s+(?:me\s+|us\s+)?whether\s*$', prefix, re.I)
+        re.search(r'\b(?:tell|confirm|clarify|check)\s+(?:me\s+|us\s+)?(?:whether|when)\s*$', prefix, re.I)
+        or re.search(r'\b(?:let\s+(?:me|us)\s+know|tell\s+(?:me|us)|provide|share|confirm)\s+(?:(?:the|your)\s+)?(?:(?:placement|order|purchase)\s+)?date\s*(?:(?:on\s+which|when|that)\s*)?$',prefix,re.I)
         or (re.search(r'(?:बताएं|बताएँ|बताइए|पुष्टि\s*करें)\s*(?:कि\s*)?$', prefix)
-            and re.search(r'या\s*नहीं', suffix)))
+            and re.search(r'या\s*नहीं|(?<![\u0900-\u097f])कब(?![\u0900-\u097f])', suffix)))
 
 
 def _uncertain_predicate(clause, position):

@@ -395,3 +395,21 @@ def test_request_for_missing_date_is_not_an_asserted_personal_date(staged, place
 def test_requested_date_does_not_rescue_later_asserted_date(staged, placement, answer):
     with pytest.raises(ValueError, match='invented_placement_premise'):
         check(staged, answer, placement)
+
+
+@pytest.mark.parametrize('answer',[
+ 'Please let me know the date your order was placed.',
+ 'Tell me when your order was placed.',
+])
+def test_request_for_the_missing_date_is_not_a_placement_assertion(staged,placement,answer):
+ check(staged,answer,placement)
+
+
+def test_relative_date_request_does_not_allow_an_assertion_in_the_next_clause(staged,placement):
+ with pytest.raises(ValueError,match='invented_placement_premise'):
+  check(staged,'Please let me know the date your order was placed, but your order was placed during this period.',placement)
+
+
+
+def test_hindi_when_question_requests_a_date_without_asserting_it(staged,placement):
+ check(staged,'कृपया बताइए कि आपका ऑर्डर कब रखा गया था।',placement)
