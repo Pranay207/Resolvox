@@ -14,3 +14,6 @@ sample_outputs/voice_inputs/
 
 .streamlit/secrets.toml
 **/voice_inputs/
+
+# Local customer conversation history; never commit or package.
+.local_data/

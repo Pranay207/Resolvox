@@ -1,5 +1,7 @@
 """Resolvox support console. Voice and text share one verified conversation."""
 import base64
+import os
+import sqlite3
 import tempfile
 from pathlib import Path
 from datetime import date
@@ -9,6 +11,7 @@ from src.agent import resources
 from src.multilingual import MultilingualAgent as Agent
 from src.languages import LANGUAGE_NAMES, STT_CODES, normalize_language
 from src.config import ROOT
+from src.chat_history import LocalHistory, HistoryError, restore_state
 from src.response_runtime import response_scope, configured_budget
 from src.voice import GnaniVoice, VoiceError, VoiceUnavailable
 
@@ -39,6 +42,14 @@ st.markdown("""<style>
 [data-testid="stSidebar"] h1 {font-size:1.65rem;letter-spacing:-.8px;}
 [data-testid="stSidebar"] [data-testid="stSidebarContent"] {padding:0!important;}
 [data-testid="stMainBlockContainer"] > [data-testid="stVerticalBlock"] {gap:.75rem;}
+/* Keep saved-chat controls on one compact row in the narrow sidebar. */
+.st-key-saved_chat_list [data-testid="stHorizontalBlock"] {flex-wrap:nowrap!important;gap:4px!important;}
+.st-key-saved_chat_list [data-testid="stHorizontalBlock"] > [data-testid="stElementContainer"] {flex:1 1 0!important;min-width:0!important;width:0!important;}
+.st-key-saved_chat_list [data-testid="stHorizontalBlock"] > [data-testid="stElementContainer"] button {justify-content:flex-start;width:100%;min-width:0;}
+.st-key-saved_chat_list [data-testid="stHorizontalBlock"] > [data-testid="stElementContainer"] button p {overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;}
+.st-key-saved_chat_list [data-testid="stPopoverButton"] {width:40px;min-width:40px;min-height:40px;padding:0;border:1px solid #dce5f1;border-radius:9px;}
+.st-key-saved_chat_list [data-testid="stPopoverButton"] > div:last-child {display:none;}
+.st-key-saved_chat_list [data-testid="stPopoverButton"] p {font-size:1.4rem!important;line-height:1;}
 .st-key-support_conversation {background:white;border-radius:18px;border:1px solid #dfe7f2;box-shadow:0 10px 35px #233b5806;}
 .st-key-support_conversation [data-testid="stVerticalBlock"] {gap:.65rem;}
 [data-testid="stChatMessage"] {background:#f5f8fd;border-radius:16px;}
@@ -94,17 +105,22 @@ st.markdown("""<style>
 @media(max-height:760px) and (min-width:801px) {.empty-reply {min-height:150px;}}
 
 .support-intro {color:#596b82;font-size:.9rem;margin:0 0 .25rem;}
-.st-key-case_column {min-width:0;}
-.st-key-case_column [data-testid="stMarkdownContainer"] {overflow-wrap:anywhere;}
-.st-key-next_step {background:#eef4ff;border:1px solid #d9e5fa;border-radius:16px;}
-.st-key-next_step h3 {font-size:1rem!important;}
+/* Render one read-only case in the visible location for this screen size. */
+[data-testid="stMain"] [data-testid="stLayoutWrapper"]:has(> .st-key-mobile_case) {display:none;}
+.st-key-sidebar_case [data-testid="stMarkdownContainer"] {overflow-wrap:anywhere;}
+.st-key-sidebar_next_step,.st-key-mobile_next_step {border-top:1px solid #dce5f1;padding-top:.5rem;}
+.st-key-sidebar_next_step h3,.st-key-mobile_next_step h3 {font-size:.9rem!important;}
+@media(max-width:800px) {
+[data-testid="stSidebar"] [data-testid="stLayoutWrapper"]:has(> .st-key-sidebar_case) {display:none;}
+[data-testid="stMain"] [data-testid="stLayoutWrapper"]:has(> .st-key-mobile_case) {display:block;}
+}
 .case-label {font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#596b82;margin:0 0 7px;}
 .case-status {display:inline-block;font-size:.78rem;font-weight:600;padding:5px 9px;border-radius:8px;background:#eaf0f8;color:#425975;margin-bottom:5px;}
 .case-status.verified {background:#e8f5ef;color:#246447;}
 .case-status.ticket {background:#eaf0ff;color:#294eb0;}
 .case-value {font-size:.9rem;overflow-wrap:anywhere;margin:0 0 12px;}
-.st-key-support_conversation [data-testid="stLayoutWrapper"]:has(> .st-key-conversation_history) {height:clamp(200px,calc(100dvh - 450px),320px)!important;flex:none!important;min-height:0!important;}
-.st-key-conversation_history {height:100%!important;overflow-y:auto;overscroll-behavior:contain;}
+/* Messages use page scrolling so long replies cannot be clipped behind the input. */
+.st-key-conversation_history {height:auto!important;min-height:0;overflow:visible;}
 .st-key-conversation_history .empty-reply {min-height:180px;margin-top:0;border:0;background:transparent;}
 .st-key-input_mode [role="radiogroup"] {display:flex;flex-wrap:nowrap;gap:3px;width:fit-content;background:#eef3fb;border:1px solid #dce5f1;border-radius:12px;padding:3px;}
 .st-key-input_mode [role="radiogroup"] label {padding:7px 12px;margin:0!important;min-height:38px;box-sizing:border-box;border-radius:9px;}
@@ -118,12 +134,6 @@ st.markdown("""<style>
 .st-key-upload_audio {margin:0;}
 .st-key-quick_questions button {font-size:.8rem;min-height:36px;}
 @media(max-width:800px) {
-.st-key-support_layout > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] {flex-direction:column;gap:.8rem;}
-.st-key-support_layout > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {width:100%!important;flex:1 1 auto!important;min-width:0!important;}
-.st-key-case_column [data-testid="stVerticalBlock"] {gap:.45rem;}
-.st-key-next_step {padding:0!important;}
-.st-key-next_step [data-testid="stVerticalBlock"] {gap:.2rem;}
-.st-key-support_conversation [data-testid="stLayoutWrapper"]:has(> .st-key-conversation_history) {height:180px!important;}
 .st-key-conversation_history .empty-reply {min-height:120px;padding:.65rem;}
 .st-key-input_mode [role="radiogroup"] label {min-height:44px;padding:9px 12px;}
 .st-key-conversation_language {max-width:100%;}
@@ -131,10 +141,8 @@ st.markdown("""<style>
 .st-key-quick_questions [data-testid="stHorizontalBlock"] {flex-wrap:wrap;gap:.4rem;}
 }
 
-/* Let the primary recording action stay in view, including short screens. */
-.st-key-support_conversation > [data-testid="stLayoutWrapper"]:has(> .st-key-input_composer) {position:sticky;bottom:.5rem;z-index:3;background:#fff;border-radius:12px;}
-.st-key-compact_case {max-width:100%;}
-.st-key-support_conversation [data-testid="stLayoutWrapper"]:has(> .st-key-conversation_history) {height:clamp(90px,calc(100dvh - 580px),260px)!important;}
+/* Keep the composer after the complete conversation, without covering replies. */
+.st-key-input_composer {position:static;background:#fff;border-radius:12px;}
 @media(max-height:760px) {
 .st-key-conversation_history .empty-reply {min-height:70px;padding:.35rem;}
 .st-key-conversation_history .wave {height:28px;}
@@ -142,23 +150,27 @@ st.markdown("""<style>
 .st-key-conversation_history .empty-reply p {font-size:.8rem;margin:3px 0 0;}
 }
 @media(max-width:800px) {
-.st-key-support_conversation [data-testid="stLayoutWrapper"]:has(> .st-key-conversation_history) {height:clamp(72px,calc(100dvh - 620px),160px)!important;}
-.st-key-support_layout:has(.st-key-case_column) .st-key-support_conversation [data-testid="stLayoutWrapper"]:has(> .st-key-conversation_history) {height:clamp(56px,calc(100dvh - 720px),100px)!important;}
-.st-key-next_step [data-testid="stCaptionContainer"] {display:none;}
-.st-key-next_step h3 {font-size:.85rem!important;}
-.st-key-next_step p {font-size:.85rem;}
 .st-key-conversation_history .empty-reply {min-height:64px;padding:.25rem;}
 .st-key-conversation_history .empty-reply .wave {display:none;}
 }
 @media(max-width:800px) and (max-height:700px) {
 .st-key-support_conversation [data-testid="stLayoutWrapper"]:has(> .st-key-conversation_history):has(.empty-reply) {display:none;}
-.st-key-next_step h3 {display:none;}
 }
 </style>""", unsafe_allow_html=True)
 
 @st.cache_resource
 def shared():
     return resources()
+
+@st.cache_resource
+def saved_history(directory):
+    return LocalHistory(Path(directory) / 'conversations.sqlite3')
+
+
+try:
+    history = saved_history(os.getenv('RESOLVOX_HISTORY_DIR', str(ROOT / '.local_data')))
+except (OSError, sqlite3.Error, HistoryError):
+    history = None
 
 r = shared()
 if 'agent' not in st.session_state or 'messages' not in st.session_state:
@@ -170,19 +182,110 @@ if 'agent' not in st.session_state or 'messages' not in st.session_state:
     st.session_state.request_error = None
     st.session_state.pop('voice_agent', None)
 
-def reset_conversation():
+st.session_state.setdefault('active_chat_id', None)
+st.session_state.setdefault('history_revision', None)
+st.session_state.setdefault('history_error', None)
+
+
+def persist_conversation():
+    if not st.session_state.messages:
+        return True
+    try:
+        if history is None:
+            raise HistoryError('History unavailable')
+        chat_id, revision = history.save(st.session_state.active_chat_id,
+            st.session_state.agent.state, st.session_state.messages,
+            st.session_state.history_revision)
+        st.session_state.active_chat_id = chat_id
+        st.session_state.history_revision = revision
+        st.session_state.history_error = None
+        return True
+    except (HistoryError, OSError, sqlite3.Error):
+        st.session_state.history_error = 'Your reply is available in this session, but local history could not be updated. Keep this chat open to retain unsaved messages.'
+        return False
+
+
+def reset_conversation(persist=True):
+    if persist and not persist_conversation():
+        return
+    st.session_state.active_chat_id = None
+    st.session_state.history_revision = None
     st.session_state.agent = Agent(r, compose=st.session_state.get('compose_live', True))
     st.session_state.messages = []
     st.session_state.voice_error = None
     st.session_state.request_error = None
+    st.session_state.pop('case_example_prompt', None)
     st.session_state.voice_epoch += 1
     for key in list(st.session_state):
         if key.startswith(('voice_recording_', 'voice_upload_')):
             del st.session_state[key]
 
+def open_saved_conversation(chat_id):
+    if not persist_conversation():
+        return False
+    try:
+        record = history.load(chat_id)
+        state = restore_state(record['state'])
+    except (HistoryError, OSError, sqlite3.Error):
+        st.session_state.history_error = 'That saved conversation could not be opened. Your current chat is still available.'
+        return False
+    reset_conversation(persist=False)
+    st.session_state.agent.state = state
+    st.session_state.messages = record['messages']
+    st.session_state.active_chat_id = record['id']
+    st.session_state.history_revision = record['revision']
+    st.session_state.input_mode = 'Type'
+    st.session_state.history_error = None
+    return True
+
+
+# Save an existing in-memory conversation when this feature is first loaded.
+if st.session_state.messages and st.session_state.active_chat_id is None:
+    persist_conversation()
+
+
 with st.sidebar:
     st.markdown(f'<div class="brand-lockup"><span class="brand-mark"><img src="{LOGO_DATA_URI}" alt="Resolvox voice support" width="44" height="44"></span><div><strong>Resolvox</strong><small>ZENTROMART SUPPORT</small></div></div>', unsafe_allow_html=True)
     st.button('New conversation', icon=':material/add:', use_container_width=True, on_click=reset_conversation)
+    sidebar_case_slot = st.empty()
+    with st.expander('Saved chats', expanded=False):
+        try:
+            records = history.list() if history is not None else []
+            if records:
+                with st.container(key='saved_chat_list'):
+                    for row in records:
+                        chat_id = row['id']
+                        # Chat titles are customer text, so render Markdown punctuation literally.
+                        title = ''.join('\\' + char if char in r'\`*_{}[]()#+-.!>|~' else char
+                                        for char in row['title'])
+                        with st.container(horizontal=True, vertical_alignment='center', gap='small',
+                                          key=f'saved_chat_row_{chat_id}'):
+                            if st.button(title, key=f'history_open_{chat_id}', help=title,
+                                         type='tertiary', use_container_width=True):
+                                open_saved_conversation(chat_id)
+                            with st.popover('⋮', help='Chat options', width=44, type='tertiary'):
+                                delete_key = f'history_remove_{chat_id}'
+                                if st.button('Delete chat', icon=':material/delete_outline:', key=delete_key,
+                                             use_container_width=True):
+                                    st.session_state.pop(delete_key, None)
+                                    history.delete(chat_id)
+                                    st.session_state.history_undo = chat_id
+                                    if st.session_state.active_chat_id == chat_id:
+                                        reset_conversation(persist=False)
+                                    st.rerun()
+            else:
+                st.caption('Your saved conversations will appear here.')
+            if st.session_state.get('history_undo'):
+                if st.button('Undo delete', key='history_undo_button'):
+                    st.session_state.pop('history_undo_button', None)
+                    history.undo_delete(st.session_state.pop('history_undo'))
+                    st.rerun()
+        except (HistoryError, OSError, sqlite3.Error):
+            st.warning('Saved chats are temporarily unavailable. You can continue the current conversation.')
+        if history is None:
+            st.warning('Local history storage is unavailable.')
+        if st.session_state.history_error:
+            st.warning(st.session_state.history_error)
     st.divider()
     with st.expander('Advanced options', expanded=True):
         live = st.toggle('AI policy answers', value=True, key='compose_live',
@@ -225,6 +328,7 @@ def speak_reply(entry, voice=None):
         (voice or GnaniVoice()).synthesize(entry['output']['answer'], reply_path, entry['output']['language'])
         entry['audio'] = reply_path.read_bytes()
         entry['audio_error'] = None
+        persist_conversation()
     finally:
         reply_path.unlink(missing_ok=True)
 
@@ -292,6 +396,7 @@ def process_voice(audio, spoken_language, on_answer=None):
                                           generation_progress(status))
                 entry = {'output': out, 'audio': None, 'audio_error': None}
                 st.session_state.messages.append(entry)
+                persist_conversation()
                 # Send the already-validated text to the browser before TTS.
                 if on_answer is not None:
                     on_answer()
@@ -310,6 +415,8 @@ def process_voice(audio, spoken_language, on_answer=None):
         else:
             st.session_state.voice_error = 'request_failed'
     finally:
+        if entry is not None:
+            persist_conversation()
         path.unlink(missing_ok=True)
         st.session_state.voice_epoch += 1
 
@@ -350,7 +457,7 @@ def case_snapshot(agent, messages):
         next_title = 'Follow the support guidance'
         next_detail = 'No handover ticket is confirmed. Check the latest reply for how to continue.'
     elif decision == 'clarify':
-        next_title = 'Answer the question below'
+        next_title = 'Provide the requested detail'
         next_detail = 'Share only the detail requested in the latest reply.'
     else:
         next_title = 'Review your support guidance'
@@ -359,8 +466,22 @@ def case_snapshot(agent, messages):
             'items': items, 'ticket_id': ticket, 'next_title': next_title, 'next_detail': next_detail}
 
 
-def render_case(snapshot):
-    with st.expander('Your case', expanded=snapshot['verified']):
+CASE_EXAMPLES = (
+    ('track', 'Track an order', 'Where is my order?'),
+    ('return', 'Return an item', 'What are the return window and pickup fee for clothing?'),
+    ('refund', 'Refund timing', 'How long does a UPI refund take after it is initiated?'),
+    ('warranty', 'Warranty help', 'How can I check whether my item is covered by a warranty?'),
+)
+
+
+def choose_case_example(question):
+    st.session_state.input_mode = 'Type'
+    st.session_state.case_example_prompt = question
+
+
+
+def render_case(snapshot, *, location):
+    with st.expander('Your case', expanded=False):
         if snapshot['verified']:
             st.markdown('<span class="case-status verified">Order verified</span>', unsafe_allow_html=True)
             details = snapshot['details']
@@ -384,36 +505,36 @@ def render_case(snapshot):
             st.write('Verification needed')
             st.caption('Order details stay hidden until the requested verification succeeds.')
         else:
-            st.write('No order linked yet')
-            st.caption('You can ask a general policy question without an order ID.')
+            if location == 'sidebar':
+                for code, label, question in CASE_EXAMPLES:
+                    if st.button(label, key=f'case_example_{code}', use_container_width=True):
+                        choose_case_example(question)
         if snapshot['ticket_id']:
             st.markdown('<span class="case-status ticket">Ticket created</span>', unsafe_allow_html=True)
             st.write('**Reference** · ' + str(snapshot['ticket_id']))
-    if snapshot['show_next_step']:
-        with st.container(border=True, key='next_step'):
-            st.subheader('Your next step')
-            st.write('**' + snapshot['next_title'] + '**')
-            st.caption(snapshot['next_detail'])
+        if snapshot['show_next_step'] and (snapshot['order_linked'] or snapshot['ticket_id']):
+            with st.container(key=f'{location}_next_step'):
+                st.subheader('Your next step')
+                st.write('**' + snapshot['next_title'] + '**')
+                st.caption(snapshot['next_detail'])
 
 
 snapshot = case_snapshot(st.session_state.agent, st.session_state.messages)
-has_case_context = snapshot['order_linked'] or snapshot['ticket_id'] or snapshot['show_next_step']
+has_case_context = snapshot['order_linked'] or snapshot['ticket_id']
+with sidebar_case_slot.container(key='sidebar_case'):
+    render_case(snapshot, location='sidebar')
 with st.container(key='support_layout'):
     if has_case_context:
-        case_column, conversation_column = st.columns([.9, 2.1], gap='medium')
-        with case_column:
-            with st.container(key='case_column'):
-                render_case(snapshot)
-    else:
-        with st.container(key='compact_case', width=280):
-            render_case(snapshot)
-        conversation_column = st.container()
-    with conversation_column:
+        with st.container(key='mobile_case'):
+            render_case(snapshot, location='mobile')
+    with st.container():
         with st.container(border=True, key='support_conversation'):
             st.subheader('Your conversation')
             if st.session_state.get('request_error'):
                 st.error(st.session_state.request_error)
-            with st.container(height=260, border=False, key='conversation_history'):
+            if st.session_state.get('history_error'):
+                st.warning(st.session_state.history_error)
+            with st.container(border=False, key='conversation_history'):
                 history_slot = st.empty()
                 with history_slot.container():
                     render_conversation('support')
@@ -441,7 +562,8 @@ with st.container(key='support_layout'):
                                                     ('Refund timing', 'How long does a UPI refund take?')]:
                                 if st.button(label):
                                     example_prompt = question
-                    prompt = st.chat_input('Type your question…', key='support_chat') or example_prompt
+                    queued_example = st.session_state.pop('case_example_prompt', None)
+                    prompt = st.chat_input('Type your question…', key='support_chat') or example_prompt or queued_example
                     if prompt:
                         st.session_state.request_error = None
                         try:
@@ -450,6 +572,7 @@ with st.container(key='support_layout'):
                                 selected = None if spoken_language == 'English / Hinglish' else VOICE_LANGUAGES[spoken_language]
                                 out = respond_in_language(prompt, selected, generation_progress(status))
                             st.session_state.messages.append({'output': out, 'audio': None, 'audio_error': None})
+                            persist_conversation()
                         except Exception:
                             st.session_state.request_error = 'We could not finish that message. Please try again. No answer has been confirmed.'
                         st.rerun()

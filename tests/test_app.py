@@ -13,6 +13,11 @@ from src.agent import Agent
 from src.voice import VoiceError
 
 
+@pytest.fixture(autouse=True)
+def isolated_saved_history(monkeypatch, tmp_path):
+    monkeypatch.setenv('RESOLVOX_HISTORY_DIR', str(tmp_path / 'saved_history'))
+
+
 VOICE_SCRIPT = '''
 import io
 import runpy
@@ -89,6 +94,9 @@ def test_text_ui_and_source_panel():
     panels = [item for item in app.expander if item.label == 'View supporting policy']
     assert len(panels) == 1  # One shared conversation renders each reply once.
     assert len(app.session_state.messages) == 1
+    assert [x.label for x in app.sidebar.expander].count('Your case') == 1
+    assert not any(x.label == 'Your case' for x in app.main.expander)
+    assert len(app.get('column')) == 0
     output = app.session_state.messages[0]['output']
     assert output['retrieved_chunk_ids']
     assert any(source['id'] == 'REF-2' for source in output['sources'])
@@ -220,7 +228,12 @@ def test_workspace_keeps_evaluation_metrics_out_of_customer_ui():
     app = start()
     assert not app.tabs and not app.metric
     assert [item.value for item in app.title] == ['How can we help?']
-    assert any(item.label == 'Your case' for item in app.expander)
+    case = next(x for x in app.sidebar.expander if x.label == 'Your case')
+    assert case.proto.expanded is False
+    assert not case.markdown
+    assert [x.label for x in case.button] == ['Track an order', 'Return an item', 'Refund timing', 'Warranty help']
+    assert [x.label for x in app.sidebar.expander].count('Your case') == 1
+    assert not any(x.label == 'Your case' for x in app.main.expander)
     assert not any(item.value == 'Your next step' for item in app.subheader)
     assert not any('Tell us what happened' in item.value for item in app.markdown)
     assert len(app.get('column')) == 0
@@ -290,6 +303,9 @@ def test_verified_lookup_renders_case_once_and_new_order_hides_it():
     assert not app.exception
     assert not any('Order verified' in item.value for item in app.markdown)
     assert any('Verification needed' in item.value for item in app.markdown)
+    assert [x.label for x in app.sidebar.expander].count('Your case') == 1
+    assert [x.label for x in app.main.expander].count('Your case') == 1
+    assert len(app.get('column')) == 0
     app.chat_input[0].set_value('4533').run()  # Supplied fictional verification example.
     app.run()
     assert not app.exception
@@ -306,6 +322,7 @@ def test_verified_lookup_renders_case_once_and_new_order_hides_it():
     assert not app.exception
     assert app.session_state.agent.state.order is None
     assert not any('Order verified' in item.value for item in app.markdown)
+    assert not any('89782837' in item.value for item in app.sidebar.markdown)
 
 
 def test_case_context_and_next_step_only_expand_when_action_is_needed():
@@ -315,9 +332,20 @@ def test_case_context_and_next_step_only_expand_when_action_is_needed():
     app.chat_input[0].set_value('Where is my order?').run()
     app.run()
     assert not app.exception
+    assert [x.label for x in app.sidebar.expander].count('Your case') == 1
+    assert not any(x.label == 'Your case' for x in app.main.expander)
+    assert not any(x.value == 'Your next step' for x in app.subheader)
+    assert len(app.get('column')) == 0
+    # Asking a follow-up alone must not open an empty case side panel.
+    app.chat_input[0].set_value('Where is my order 89782837?').run()
+    app.run()
+    assert not app.exception
+    assert any(x.label == 'Your case' for x in app.expander)
     assert any(x.value == 'Your next step' for x in app.subheader)
-    assert any('Answer the question below' in x.value for x in app.markdown)
+    assert any('Provide the requested detail' in x.value for x in app.markdown)
     button(app, 'New conversation').click().run()
+    assert [x.label for x in app.sidebar.expander].count('Your case') == 1
+    assert not any(x.label == 'Your case' for x in app.main.expander)
     assert not any(x.value == 'Your next step' for x in app.subheader)
 
 
@@ -402,3 +430,150 @@ def test_unexpected_text_failure_is_visible_without_private_exception(monkeypatc
     assert app.session_state.messages == []
     assert any('could not finish that message' in item.value for item in app.error)
     assert 'private-customer-provider-sentinel' not in str(app)
+
+
+@pytest.mark.parametrize('code,question', [
+    ('track', 'Where is my order?'),
+    ('return', 'What are the return window and pickup fee for clothing?'),
+    ('refund', 'How long does a UPI refund take after it is initiated?'),
+    ('warranty', 'How can I check whether my item is covered by a warranty?'),
+])
+def test_case_example_uses_agent_once_and_keeps_shared_history(monkeypatch, code, question):
+    calls = []
+    original = Agent.respond
+
+    def tracked(self, text, **kwargs):
+        calls.append(text)
+        return original(self, text, **kwargs)
+
+    monkeypatch.setattr(Agent, 'respond', tracked)
+    app = start()
+    assert app.radio(key='input_mode').value == 'Speak'
+    app.button(key=f'case_example_{code}').click().run()
+    app.run()
+    assert not app.exception
+    assert app.radio(key='input_mode').value == 'Type'
+    assert calls == [question]
+    assert len(app.session_state.messages) == 1
+    output = app.session_state.messages[0]['output']
+    assert output['transcript'] == question
+    assert output['answer']
+    assert not any(call['name'] == 'create_ticket' for call in output['tool_calls'])
+    assert app.session_state.agent.state.order is None
+    assert app.session_state.agent.state.order_id is None
+    app.radio(key='input_mode').set_value('Speak').run()
+    assert not app.exception
+    assert calls == [question]
+    assert app.session_state.messages[0]['output'] == output
+
+
+def test_saved_chat_reopens_after_new_session_and_continues_without_replay():
+    first = start()
+    first.radio(key='input_mode').set_value('Type').run()
+    first.chat_input[0].set_value('UPI refund timing please').run()
+    first.run()
+    chat_id = first.session_state.active_chat_id
+    assert chat_id
+    saved = first.session_state.messages[0]['output']['answer']
+    second = start()
+    assert second.session_state.messages == []
+    second.button(key=f'history_open_{chat_id}').click().run()
+    assert not second.exception
+    assert second.session_state.active_chat_id == chat_id
+    assert len(second.session_state.messages) == 1
+    assert second.session_state.messages[0]['output']['answer'] == saved
+    second.chat_input[0].set_value('Would Plus membership make it faster?').run()
+    second.run()
+    assert not second.exception
+    assert len(second.session_state.messages) == 2
+    assert second.session_state.active_chat_id == chat_id
+
+
+def test_saved_order_history_does_not_restore_verification():
+    app = start()
+    app.radio(key='input_mode').set_value('Type').run()
+    app.chat_input[0].set_value('Where is my order 89782837?').run()
+    app.run()
+    app.chat_input[0].set_value('4533').run()
+    app.run()
+    assert app.session_state.agent.state.order is not None
+    chat_id = app.session_state.active_chat_id
+    restored = start()
+    restored.button(key=f'history_open_{chat_id}').click().run()
+    assert not restored.exception
+    assert restored.session_state.agent.state.order_id == '89782837'
+    assert restored.session_state.agent.state.order is None
+    assert not any('Order verified' in x.value for x in restored.markdown)
+    assert '4533' not in str(restored.session_state.messages)
+
+
+def test_removed_history_can_be_restored_without_resaving_deleted_chat():
+    app = start()
+    app.radio(key='input_mode').set_value('Type').run()
+    app.chat_input[0].set_value('UPI refund timing please').run()
+    app.run()
+    chat_id = app.session_state.active_chat_id
+    app.button(key=f'history_remove_{chat_id}').click().run()
+    assert not app.exception
+    assert app.session_state.messages == []
+    assert not any(x.key and x.key.startswith('history_open_') for x in app.button)
+    app.button(key='history_undo_button').click().run()
+    assert not app.exception
+    app.button(key=f'history_open_{chat_id}').click().run()
+    assert app.session_state.active_chat_id == chat_id
+    assert len(app.session_state.messages) == 1
+
+
+def test_history_storage_failure_keeps_answer_visible_and_never_exposes_error(monkeypatch):
+    from src.chat_history import LocalHistory
+    app = start()
+    def fail(*args, **kwargs):
+        raise OSError('private-storage-sentinel')
+    monkeypatch.setattr(LocalHistory, 'save', fail)
+    app.radio(key='input_mode').set_value('Type').run()
+    app.chat_input[0].set_value('UPI refund timing please').run()
+    app.run()
+    assert not app.exception
+    assert len(app.session_state.messages) == 1
+    assert any('local history could not be updated' in x.value for x in app.warning)
+    assert 'private-storage-sentinel' not in str(app)
+
+
+def test_removing_one_saved_chat_does_not_remove_other_chats():
+    app = start()
+    app.radio(key='input_mode').set_value('Type').run()
+    app.chat_input[0].set_value('UPI refund timing please').run()
+    app.run()
+    first = app.session_state.active_chat_id
+    button(app, 'New conversation').click().run()
+    app.chat_input[0].set_value('Where is my order?').run()
+    app.run()
+    second = app.session_state.active_chat_id
+    app.button(key=f'history_remove_{second}').click().run()
+    assert not app.exception
+    assert any(x.key == f'history_open_{first}' for x in app.button)
+    assert not any(x.key == f'history_open_{second}' for x in app.button)
+    app.run()
+    app.button(key=f'history_open_{first}').click().run()
+    assert app.session_state.active_chat_id == first
+
+
+def test_clicking_saved_chat_restores_last_turn_without_another_agent_call(monkeypatch):
+    app = start()
+    app.radio(key='input_mode').set_value('Type').run()
+    app.chat_input[0].set_value('UPI refund timing please').run()
+    app.run()
+    app.chat_input[0].set_value('Would Plus membership make it faster?').run()
+    app.run()
+    chat_id = app.session_state.active_chat_id
+    last_answer = app.session_state.messages[-1]['output']['answer']
+    button(app, 'New conversation').click().run()
+    def fail(*args, **kwargs):
+        raise AssertionError('Opening history must not run the agent or repeat its tools')
+    monkeypatch.setattr(Agent, 'respond', fail)
+    app.button(key=f'history_open_{chat_id}').click().run()
+    assert not app.exception
+    assert len(app.session_state.messages) == 2
+    assert app.session_state.messages[-1]['output']['answer'] == last_answer
+    assert not any(x.label == 'Open conversation' for x in app.button)
+    assert app.radio(key='input_mode').value == 'Type'
