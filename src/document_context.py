@@ -301,6 +301,7 @@ def _selected_return_policy(order, public, catalog, sources):
                     selected['selection'] = 'placement_exception_window'
                 elif not placed:
                     selected['placement_date_unavailable'] = True
+                    selected['selection'] = 'unresolved_placement_window'
     return selected
 
 

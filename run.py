@@ -1,6 +1,6 @@
 """Batch runner: python run.py --audio_dir <in> --out_dir <out>."""
 from pathlib import Path
-import argparse,json,re,sys,time
+import argparse,json,re,sys,time,os
 from src.agent import resources
 from src.multilingual import MultilingualAgent as Agent
 from src.languages import LANGUAGE_NAMES, STT_CODES, normalize_language
@@ -73,8 +73,12 @@ def run_batch(audio_dir:Path,out_dir:Path,language:str='en-IN',session_mode:str=
     (out_dir/'manifest.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8');return summary
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__); p.add_argument('--audio_dir',required=True,type=Path);p.add_argument('--out_dir',required=True,type=Path);p.add_argument('--language',default='en-IN',help='Spoken language: '+', '.join(dict.fromkeys(STT_CODES.values()))+'; hi-en uses en-IN speech recognition');p.add_argument('--session_mode',choices=['auto','independent','sequential'],default='auto');p.add_argument('--offline-rules',action='store_true');a=p.parse_args()
-    try:result=run_batch(a.audio_dir,a.out_dir,a.language,a.session_mode,not a.offline_rules)
+    p=argparse.ArgumentParser(description=__doc__); p.add_argument('--audio_dir',required=True,type=Path);p.add_argument('--out_dir',required=True,type=Path);p.add_argument('--language',default='en-IN',help='Spoken language: '+', '.join(dict.fromkeys(STT_CODES.values()))+'; hi-en uses en-IN speech recognition');p.add_argument('--session_mode',choices=['auto','independent','sequential'],default='auto');group=p.add_mutually_exclusive_group();group.add_argument('--offline-rules',action='store_true');group.add_argument('--hosted',action='store_true',help='Use the explicit Groq answer profile from ignored .env.hosted; speech stays Gnani');a=p.parse_args()
+    try:
+        if a.hosted:
+            from src.app_profile import hosted_environment
+            os.environ.update(hosted_environment(Path(__file__).resolve().parent,os.environ))
+        result=run_batch(a.audio_dir,a.out_dir,a.language,a.session_mode,not a.offline_rules)
     except (ValueError,OSError) as e:p.error(str(e))
     print(json.dumps({k:v for k,v in result.items() if k!='entries'},indent=2));return 0 if result['total'] and not result['failed'] else 1
 if __name__=='__main__':sys.exit(main())

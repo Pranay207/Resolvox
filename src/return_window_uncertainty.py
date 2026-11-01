@@ -110,7 +110,43 @@ def _ordinary_placement_condition(clause, status, normalizer):
     return bool(before or after or (outside and (exact_range or (deictic_range and not explicit_date))))
 
 
-def check_unknown_placement_window(answer, status, sources, *, category, normalizer):
+_MISSING_PLACEMENT = re.compile(
+    r"\b(?:order|placement|purchase)\s+date\b.{0,65}\b(?:unknown|unavailable|missing|not\s+(?:provided|supplied|given|known)|isn['’]t\s+(?:provided|given|known))\b|"
+    r'\b(?:unknown|missing|unavailable)\s+(?:(?:order|purchase)\s+)?(?:placement|order|purchase)\s+date\b|'
+    r'\bwithout\s+(?:(?:the|your|an?)\s+)?(?:order|placement|purchase)\s+date\b|'
+    r'ऑर्डर\s*(?:की\s*)?(?:तारीख|तिथि|डेट).{0,40}(?:नहीं|अज्ञात|उपलब्ध\s*नहीं)|'
+    r'\border\s+(?:ki\s+)?date\b.{0,40}\b(?:nahi|nahin|unknown|missing)\b', re.I)
+_BRANCH_CHOICE = re.compile(
+    r'\b(?:appl(?:y|ies|ied)|us(?:e|ing)|select\w*|default\w*|assum\w*)\b|'
+    r'लागू|मान\s*(?:ले|लें)|\b(?:lagega|lagu|maan\s+le)\b', re.I)
+_CAUSAL_CHOICE = re.compile(r'^\s*(?:therefore|so|hence|thus|because|since)\b|^\s*(?:इसलिए|इसीलिए|kyunki|isliye)\b', re.I)
+
+
+def _check_missing_date_default(answer, status, duration, normalizer):
+    text = normalizer(re.sub(r'[-\u2010-\u2015]', ' ', answer.casefold()))
+    if not _MISSING_PLACEMENT.search(text):
+        return
+    for fragment in re.split(r'[.!?;।\n]+|\b(?:but|however|yet)\b|लेकिन|परन्तु|परंतु|\blekin\b', text):
+        if not (_MISSING_PLACEMENT.search(fragment) or _CAUSAL_CHOICE.search(fragment)):
+            continue
+        if not duration.search(fragment):
+            continue
+        if _REFUND.search(fragment) and not _WINDOW.search(fragment):
+            continue
+        if _LOGISTICS.search(fragment) and not (_WINDOW.search(fragment) or _REQUEST.search(fragment)):
+            continue
+        if not (_RETURN.search(fragment) or re.search(r'\bwindow\b|अवधि', fragment) or _RETURN.search(text)):
+            continue
+        if _ordinary_placement_condition(fragment, status, normalizer):
+            continue
+        for choice in _BRANCH_CHOICE.finditer(fragment):
+            prefix = re.split(r'[,;]|\b(?:and|so|therefore|hence|thus|then|isliye|kyunki)\b|इसलिए|इसीलिए', fragment[:choice.start()])[-1]
+            if _UNCERTAIN.search(prefix):
+                continue
+            raise ValueError('unsupported_placement_exception_personal_window')
+
+
+def check_unknown_placement_window(answer, status, sources, *, category, normalizer, query=None):
     """Reject unqualified individual standard durations while placement is unknown."""
     if not status or status.get('applicability') != 'unknown' or status.get('input_origin') != 'missing':
         return
@@ -121,6 +157,15 @@ def check_unknown_placement_window(answer, status, sources, *, category, normali
     other_names = _catalog_names(sources, category, different=True)
     duration = re.compile(r'(?<!\d)' + re.escape(str(standard)) +
                           r'\s*-?\s*(?:calendar\s*|कैलेंडर\s*)?(?:days?|din(?:on)?|दिन(?:ों|ो)?)(?![A-Za-z\u0900-\u097f])', re.I)
+    _check_missing_date_default(answer, status, duration, normalizer)
+    if query and _RETURN.search(query) and not _GENERAL.search(query):
+        asks_duration = re.search(r'\b(?:window|period|duration|days?|how\s+long|kitn\w*\s+din)\b|कितन|दिन|अवधि', query, re.I)
+        normalized = normalizer(re.sub(r'[-\u2010-\u2015]', ' ', answer.casefold()))
+        alternate_duration = re.compile(r'(?<!\d)' + re.escape(str(alternate)) +
+            r'\s*(?:calendar\s*|कैलेंडर\s*)?(?:days?|din(?:on)?|दिन(?:ों|ो)?)(?![A-Za-z\u0900-\u097f])', re.I)
+        asks_date = re.search(r'(?:when|which\s+date|what\s+date).{0,50}(?:placed|ordered|purchase)|ऑर्डर.{0,30}कब|कब.{0,30}ऑर्डर|\b(?:order|place).{0,25}\bkab\b', answer, re.I)
+        if asks_duration and duration.search(normalized) and not alternate_duration.search(normalized) and not asks_date:
+            raise ValueError('unsupported_placement_exception_personal_window')
     for original in re.findall(r'[^.!?;।\n]+[.!?;।\n]?', answer):
         clause = normalizer(original.casefold().replace(',', ';'))
         if '?' in original and _QUESTION.search(original.casefold()):

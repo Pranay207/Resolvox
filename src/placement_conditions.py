@@ -32,10 +32,10 @@ _PLACED_ASSERTION = re.compile(
     r'\byou\s+(?:placed|ordered|purchased)\b|'
     r'\b(?:your\s+(?:order|purchase)\s+date|(?:order|placement)\s+date\s+of\s+'
     r'(?:your|the|this)\s+(?:order|purchase))\s+(?:is|was|falls|lies)\s+(?:on|before|after|between|within)\b|'
-    r'\u0906\u092a\u0915\u093e\s*(?:\u0911\u0930\u094d\u0921\u0930|\u0906\u0930\u094d\u0921\u0930).{0,100}'
+    r'\u0906\u092a\u0915\u093e\s*(?:\u0911\u0930\u094d\u0921\u0930|\u0906\u0930\u094d\u0921\u0930)[^,;\u0964\n]{0,100}?'
     r'(?:\u0930\u0916\u093e\s*\u0917\u092f\u093e|\u0915\u093f\u092f\u093e\s*\u0917\u092f\u093e|'
     r'\u092a\u094d\u0932\u0947\u0938\s*\u0939\u0941\u0906|\u0926\u093f\u092f\u093e\s*\u0917\u092f\u093e)|'
-    r'\baapka\s+order\b.{0,100}\b(?:place\s+hua|placed|kiya\s+tha)\b|'
+    r'\baapka\s+order\b[^,;\u0964\n]{0,100}?\b(?:place\s+hua|placed|kiya\s+tha)\b|'
     r'\baapne\b.{0,80}\border\b.{0,50}\b(?:kiya|place)\b', re.I)
 _DELIVERED_ASSERTION = re.compile(
     r'\b(?:it|this|that)\s+(?:was|is|has\s+been|had\s+been)\s+'
@@ -308,6 +308,16 @@ def _implicit_date_condition(clause, kind):
                           r'(?:it\s+(?:was|is|has\s+been)\s+)?' + predicate + r'\b', clause, re.I))
 
 
+def _requested_date_predicate(clause, position):
+    """A scoped request for a date is not an assertion that the event happened."""
+    prefix = re.split(r'[,;]|\b(?:but|however|yet|then)\b|लेकिन|परंतु', clause[:position], flags=re.I)[-1]
+    suffix = clause[position:]
+    return bool(
+        re.search(r'\b(?:tell|confirm|clarify|check)\s+(?:me\s+|us\s+)?whether\s*$', prefix, re.I)
+        or (re.search(r'(?:बताएं|बताएँ|बताइए|पुष्टि\s*करें)\s*(?:कि\s*)?$', prefix)
+            and re.search(r'या\s*नहीं', suffix)))
+
+
 def _uncertain_predicate(clause, position):
     # Uncertainty governs only the immediate predicate, not a later assertion.
     prefix = re.split(r'[,;]|\b(?:and|but|however|yet|then)\b', clause[:position], flags=re.I)[-1]
@@ -441,7 +451,7 @@ def _check_personal_current_window(answer, status, normalizer):
                 raise ValueError('unsupported_delivery_exception_personal_window')
 
 
-def check_placement_exception_answer(answer, facts, sources, *, normalizer=_numeric_text):
+def check_placement_exception_answer(answer, facts, sources, *, normalizer=_numeric_text, query=None):
     """Check unsupported personal date premises and definite exception entitlement."""
     policy = facts.get('return_policy', {})
     if not isinstance(policy, dict) or not policy:
@@ -466,7 +476,8 @@ def check_placement_exception_answer(answer, facts, sources, *, normalizer=_nume
                 if inputs[kind] is None and not _conditional(clause, asserted.start()):
                     if kind == 'placement' and _unless_placement_hypothesis(clause, asserted.start()):
                         continue
-                    if not _uncertain_predicate(clause, asserted.start()):
+                    if not (_uncertain_predicate(clause, asserted.start())
+                            or _requested_date_predicate(clause, asserted.start())):
                         raise ValueError('invented_' + kind + '_premise')
         for entitlement in _ENTITLEMENT.finditer(clause):
             if _uncertain_predicate(clause, entitlement.start()):
@@ -484,4 +495,4 @@ def check_placement_exception_answer(answer, facts, sources, *, normalizer=_nume
                     raise ValueError('unsupported_' + kind + '_exception_entitlement')
     _check_personal_current_window(answer, delivery, normalizer)
     check_unknown_placement_window(answer, placement, sources,
-        category=policy.get('category'), normalizer=normalizer)
+        category=policy.get('category'), normalizer=normalizer, query=query)

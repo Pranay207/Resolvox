@@ -188,3 +188,15 @@ def test_six_digit_price_is_not_mistaken_for_the_explicit_public_pincode():
     public_data = data()
     public_data.pincodes = {}
     assert 'pincode_listed' not in build_context('COD for 150000 rupees?', [], public_data)
+
+
+def test_missing_placement_never_labels_the_general_rule_as_a_selected_customer_window():
+    sources=[source('RET-2','| Clothing, footwear and bags | 13 days | fashion |'),
+             source('RET-8','Clothing, footwear and bags from orders placed between 3 April and 11 April 2026 can be returned within 27 days of delivery.')]
+    context=build_context('What is the return window?',sources,data(),public_context={'category':'fashion'})
+    assert context['return_policy']['selection']=='unresolved_placement_window'
+    assert context['return_policy']['placement_date_unavailable'] is True
+    assert context['return_policy']['window_calendar_days']==13
+    known=build_context('What is the return window?',sources,data(),public_context={'category':'fashion','placed_on':'2026-04-05'})
+    assert known['return_policy']['selection']=='placement_exception_window'
+    assert known['return_policy']['window_calendar_days']==27

@@ -268,6 +268,9 @@ def _hindi_generic_prerequisite_view(answer):
     return clauses.sub(replace, answer)
 
 def _completed_action(answer):
+    # A passive modifier naming a calculated value is not a performed order,
+    # refund or ticket operation. Preserve the value and adjacent action text.
+    answer = re.sub(r'गणना\s+की\s+गई\s+((?:अंतिम\s+)?(?:तारीख|तिथि|समयसीमा|राशि))',r'गणितीय \1',answer)
     answer = _english_pronoun_prerequisite_view(answer)
     # Completed operational outcomes are rendered by deterministic tool/state
     # code. Even a true-looking model assertion falls back for review there.

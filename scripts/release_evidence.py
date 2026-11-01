@@ -29,10 +29,14 @@ def snapshot(root, env=None):
     if env is None:
         from dotenv import dotenv_values
         env = {**dotenv_values(root / '.env'), **os.environ}
+        if read(root/'sample_outputs/targeted_live_validation.json').get('inference_profile') == 'hosted_application':
+            from src.app_profile import hosted_settings
+            env.update(hosted_settings(root))
     defaults = {'LLM_PROVIDER': 'ollama', 'LLM_MODEL': 'qwen3:4b-instruct',
                 'LLM_TIMEOUT': '120', 'RAG_LLM_TIMEOUT': '120', 'DENSE_ENABLED': 'true',
                 'REFERENCE_DATE': '2026-10-20', 'LLM_FALLBACK_PROVIDER': '',
-                'LLM_FALLBACK_MODEL': '', 'GNANI_TTS_MODEL': ''}
+                'LLM_FALLBACK_MODEL': '', 'GNANI_TTS_MODEL': '',
+                'LLM_REASONING_EFFORT': '', 'LLM_STRUCTURED_OUTPUT': '', 'RAG_CLAIM_AUDIT': 'false'}
     inference = {name: env.get(name, default) for name, default in defaults.items()}
     for name in ('LLM_BASE_URL', 'LLM_FALLBACK_BASE_URL'):
         inference[name + '_sha256'] = hashlib.sha256((env.get(name) or '').encode()).hexdigest()

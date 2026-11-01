@@ -95,6 +95,34 @@ def resolve_business_escalation(query,intent,plan_intent,legacy_escalate,kb,pool
             'sources':list(explanation.values()),'source_sha256':{sid:_source_digest(row) for sid,row in explanation.items()}}
 
 
+def _attach_verified_reference(generated, facts, sources):
+    """Render a source-required existing reference, never a policy answer."""
+    scope=facts.get('operational_escalation', {})
+    order=facts.get('verified_order', {})
+    if (generated.get('covered') is not True or generated.get('decision') != 'answer'
+            or scope.get('reason') != 'refund_overdue' or not isinstance(order, dict)):
+        return generated
+    event=scope.get('facts', {}).get('refund_event')
+    if event not in {'return','cancellation','rto'}:return generated
+    field=event+'_rrn';value=order.get(field)
+    if isinstance(value,bool) or not isinstance(value,(str,int)):return generated
+    value=str(value).strip()
+    if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9-]{2,63}',value):return generated
+    instructions=[]
+    for source in sources:
+        if source.get('doc_type')!='policy' or not _effective(source):continue
+        text=re.sub(r'[*`]', '', source.get('text',''))
+        if not re.search(r'\bRRN\b',text,re.I):continue
+        for sentence in re.split(r'(?<=[.!?])\s+|\n',text):
+            if re.search(r'^Share\s+(?:it|(?:the\s+)?(?:refund\s+)?(?:reference(?:\s+number)?|RRN))\s+when\b.*\bnot\s+arrived\b',sentence.strip(),re.I):
+                instructions.append(source)
+    if not instructions or value in generated.get('answer',''):return generated
+    return {**generated,'answer':generated['answer'].rstrip()+' RRN: '+value+'.',
+            'record_field_annotations':[{'kind':'verified_record_reference','field':field,
+                'origin':'host_authenticated_record_reading','source_ids':[row['id'] for row in instructions],
+                'source_sha256':{row['id']:_source_digest(row) for row in instructions}}]}
+
+
 def business_explanation(client,query,language,route,data,*,verified_order=None,public_context=None):
     sources=route['sources']
     if route.get('source_sha256')!={row['id']:_source_digest(row) for row in sources}:raise ValueError('changed_business_explanation_sources')
@@ -105,6 +133,7 @@ def business_explanation(client,query,language,route,data,*,verified_order=None,
     if generated is None:
         generated=document_reply(client,query,language,sources,facts=facts,
                                  private=bool(verified_order),context_provenance=True)
+    generated=_attach_verified_reference(generated,facts,sources)
     return generated,facts
 
 

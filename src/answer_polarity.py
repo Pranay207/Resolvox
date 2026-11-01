@@ -85,3 +85,21 @@ def normalize_answer_acknowledgment(value, query):
                             'removed_prefix': answer[:opening.end()],
                             'inserted_text': '', 'remaining_text_unchanged': True}
     return value, None
+
+
+
+def normalize_iso_date_punctuation(value):
+    """Canonicalize only valid ISO date punctuation; preserve every date value."""
+    from datetime import date
+    if not isinstance(value,dict) or not isinstance(value.get('answer'),str):return value,None
+    count=0
+    def canonical(match):
+        nonlocal count
+        normalized='-'.join(match.groups())
+        try:date.fromisoformat(normalized)
+        except ValueError:return match[0]
+        if normalized!=match[0]:count+=1
+        return normalized
+    answer=re.sub(r'(?<!\d)(\d{4})[-\u2010-\u2015](\d{2})[-\u2010-\u2015](\d{2})(?!\d)',canonical,value['answer'])
+    if not count:return value,None
+    return dict(value,answer=answer),{'kind':'canonical_iso_date_punctuation','dates_normalized':count,'date_values_unchanged':True}

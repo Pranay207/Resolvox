@@ -44,9 +44,12 @@ def reply(text, *, facts=None, private=True):
 @pytest.mark.parametrize('text', [
     'The order record lists status as Delivered.',
     'The order record lists refund completed on 18 October 2026.',
+    'The order record shows the refund was completed on 18 October 2026.',
+    'The order record lists the refund has been completed on 18 October 2026.',
     'The verified order record shows refund completed on 2026-10-18.',
     'The recorded refund completion date is 18 October 2026.',
     'RRN: ' + RRN + '.',
+    'The refund reference number (RRN) ' + RRN + '.',
     'The refund reference is ' + RRN + '.',
 ])
 def test_actual_authenticated_record_fields_are_read_without_claiming_actions(text):
@@ -58,8 +61,12 @@ def test_actual_authenticated_record_fields_are_read_without_claiming_actions(te
 @pytest.mark.parametrize('text', [
     'The order record lists status as Shipped.',
     'The order record lists refund completed on 19 October 2026.',
+    'The order record shows the refund was completed on 19 October 2026.',
+    'The order record shows the refund was completed on 18 October 2026. I have issued a refund.',
     'The recorded refund completion date is 19 October 2026.',
     'RRN: 999999999999.',
+    'The refund reference number (RRN) 999999999999.',
+    'The refund reference number (RRN) ' + RRN + '. I have created a ticket.',
     'The refund reference is 999999999999.',
     'The phone number is ' + RRN + '.',
     'The refund reference is ' + RRN + '. I have issued your refund.',
@@ -72,6 +79,7 @@ def test_invalid_record_readings_and_assistant_claims_are_rejected(text):
 
 @pytest.mark.parametrize('text', [
     'RRN: ' + RRN + '.',
+    'The refund reference number (RRN) ' + RRN + '.',
     'The order record lists status as Delivered.',
     'The order record lists refund completed on 18 October 2026.',
     'The recorded refund completion date is 18 October 2026.',
@@ -105,3 +113,19 @@ def test_uncited_refusal_cannot_append_a_policy_claim_after_a_disclaimer():
             })
     with pytest.raises(ValueError):
         document_reply(RefusalClient(), 'Are returns free?', 'en', [POLICY])
+
+
+def test_valid_parenthesized_reference_keeps_action_guard_and_one_repair():
+    class RepairClient:
+        def __init__(self):self.calls=0
+        def complete(self, system, user, **options):
+            self.calls+=1
+            text=('The refund reference number (RRN) '+RRN+'. I have created a ticket.'
+                  if self.calls==1 else 'The refund reference number (RRN) '+RRN+'.')
+            return json.dumps({'answer':text,'covered':True,'needs_clarification':False})
+    client=RepairClient()
+    out=document_reply(client,'What refund reference is recorded?','en',[POLICY],
+                       facts=FACTS,private=True,context_provenance=True)
+    assert out['repair_errors']==['unsupported_action']
+    assert out['answer']=='The refund reference number (RRN) '+RRN+'.'
+    assert client.calls==2

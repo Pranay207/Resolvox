@@ -209,3 +209,50 @@ def test_two_failed_fake_attempts_stop(case):
     client=Client(copy.deepcopy(bad),copy.deepcopy(bad))
     with pytest.raises(ValueError,match=ERROR): answers.document_reply(client,'What is the return window?','en',sources,facts=facts,context_provenance=True)
     assert len(client.calls)==2
+
+
+@pytest.mark.parametrize('answer', [
+    "The ordinary window is 12 days, unless your order falls in the stated exception; but because the order date isn't provided, the 12-day window applies.",
+    'Since the placement date is unknown, the standard return window of 12 days applies.',
+    'The purchase date is missing. Therefore use the ordinary 12-day return window.',
+    'Without your order date, we use the standard return period of twelve days.',
+    'ऑर्डर की तारीख उपलब्ध नहीं है, इसलिए सामान्य 12 दिन की रिटर्न अवधि लागू है।',
+    'Order ki date nahi pata, isliye standard return window 12 din lagu hai.',
+])
+def test_missing_placement_cannot_select_the_standard_branch(case, answer):
+    with pytest.raises(ValueError, match=ERROR):
+        check(answer, case)
+
+
+@pytest.mark.parametrize('answer', [
+    'The placement date is unknown. The standard return window is 12 days; the stated placement-date exception remains conditional.',
+    'Because the placement date is unknown, I cannot confirm whether the 12-day return window applies.',
+    'Without your order date, I can explain the standard return window of 12 days and its conditional exception.',
+])
+def test_missing_placement_still_allows_general_explanation_and_uncertainty(case, answer):
+    check(answer, case)
+
+
+def test_unicode_hindi_default_claim_without_repeated_return_noun_is_rejected(case):
+    answer='सामान्य रिटर्न अवधि 12 दिन है। लेकिन चूँकि ऑर्डर की तिथि उपलब्ध नहीं है, हम सामान्य 12‑दिन की शर्त को लागू मानते हैं।'
+    with pytest.raises(ValueError, match=ERROR):
+        check(answer, case)
+
+
+def test_missing_placement_does_not_confuse_refund_or_transport_clocks(case):
+    check('The placement date is unknown. The standard return rule has a conditional exception. A refund takes 12 days after initiation.',case)
+
+
+def test_hindi_conditional_exception_does_not_turn_general_rule_mention_into_default(case):
+    check('सामान्य रिटर्न अवधि 12 दिन है। यदि ऑर्डर बताई अवधि में रखा गया हो तो 24 दिन की विशेष विंडो लागू हो सकती है, परन्तु चूँकि ऑर्डर की तिथि उपलब्ध नहीं है, हम सामान्य 12‑दिन नियम का उल्लेख कर रहे हैं।', case)
+
+
+def test_general_duration_question_with_unknown_placement_requires_conditional_exception(case):
+    facts,sources=case
+    with pytest.raises(ValueError,match=ERROR):
+        placement.check_placement_exception_answer('The return window is 12 calendar days.',facts,sources,
+            normalizer=answers._constraint_text,query='How many days can I return it?')
+    placement.check_placement_exception_answer('The standard return window is 12 calendar days.',facts,sources,
+        normalizer=answers._constraint_text,query='What is the standard return window?')
+    placement.check_placement_exception_answer('The standard return window is 12 days. If the order was placed during the stated exception period, it is 24 days.',facts,sources,
+        normalizer=answers._constraint_text,query='What is the return window?')

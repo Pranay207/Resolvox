@@ -37,6 +37,7 @@ def provenance(step):
         'LLM_PROVIDER':'ollama', 'LLM_MODEL':'qwen3:4b-instruct', 'RAG_LLM_TIMEOUT':'120',
         'LLM_TIMEOUT':'120', 'DENSE_ENABLED':'true', 'REFERENCE_DATE':'2026-10-20',
         'LLM_FALLBACK_PROVIDER':'', 'LLM_FALLBACK_MODEL':'',
+        'LLM_REASONING_EFFORT':'', 'LLM_STRUCTURED_OUTPUT':'', 'RAG_CLAIM_AUDIT':'false',
     }.items()}
     # Endpoint identity matters, but URLs can contain credentials. Hash them.
     for key in ('LLM_BASE_URL','LLM_FALLBACK_BASE_URL'):

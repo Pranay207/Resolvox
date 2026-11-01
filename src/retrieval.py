@@ -294,7 +294,7 @@ class Retriever:
         primary_files = {self.chunks[i].file for i in primary if self.chunks[i].doc_type == 'policy'}
         for i in allowed:
             c = self.chunks[i]
-            if c.file in primary_files and re.search(r'high.value|exceptions?|limitations?|not cover|exclusions?|reporting window', c.title, re.I):
+            if c.file in primary_files and re.search(r'high.value|exceptions?|limitations?|conditions?|not cover|exclusions?|reporting window', c.title, re.I):
                 additions[i] = .97
         # Other current policies may narrow the same named entitlement. Their
         # exclusion must accompany the general rule even when the customer does

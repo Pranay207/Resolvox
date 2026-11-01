@@ -176,3 +176,16 @@ def test_refund_stage_and_implicit_timing_dependencies(retriever, query, expecte
 ])
 def test_bank_receipt_refund_keeps_method_timeline(retriever, query):
     assert {'REF-2', 'REF-3'} <= {row['chunk'].id for row in retriever.search(query, k=12)}
+
+
+
+def test_low_ranked_conditions_accompany_the_same_file_policy(monkeypatch):
+ window=make_chunk('WINDOW-NEW','Return deadline','Return deadline and window.','policy','pol_changed_returns.md')
+ fillers=[make_chunk('FILL-'+str(i),'Return deadline alternative','Return window deadline details.','policy','pol_other_'+str(i)+'.md') for i in range(9)]
+ condition=make_chunk('TERMS-NEW','Conditions of returned items','Items must be unused with original tags.','policy',window.file)
+ unrelated=make_chunk('UNRELATED-TERMS','Conditions','A different product has other conditions.','policy','pol_unrelated.md')
+ r=Retriever(make_kb(window,*fillers,condition,unrelated),dense=False)
+ monkeypatch.setattr(r,'_bm25',lambda query:np.array([20]+list(range(18,9,-1))+[0,0],dtype=float))
+ rows=r.search('return deadline window',k=8)
+ assert any(row['chunk'].id=='TERMS-NEW' and row['retrieval_role']=='dependency' for row in rows)
+ assert 'UNRELATED-TERMS' not in {row['chunk'].id for row in rows}

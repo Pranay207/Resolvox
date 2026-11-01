@@ -98,7 +98,8 @@ def test_general_window_repair_never_assigns_the_missing_personal_date(monkeypat
     payload = client.calls[1][1]
     assert payload['placement_scope']['input_origin'] == 'missing'
     assert client.calls[0][1]['deterministic_facts'] == payload['deterministic_facts']
-    assert 'question' not in payload and 'previous_response' not in payload
+    assert payload['question'] == 'How long can I return my Aster Bag?'
+    assert 'previous_response' not in payload
     assert client.calls[1][2]['cache'] is False
     assert out['repair_scope_check']['focused_context_allowed'] is True
 
@@ -129,3 +130,22 @@ def test_compound_question_keeps_original_context_when_focus_would_drop_a_topic(
     assert out['repair_scope_check']['focused_context_allowed'] is False
     assert 'question' in client.calls[1][1]
     assert {s['id'] for s in client.calls[1][1]['source_text']} == {s['id'] for s in sources}
+
+
+@pytest.mark.parametrize('event', ['return','cancellation','rto'])
+def test_operational_refund_view_keeps_record_roles_and_host_facts_unchanged(event):
+    from src.repair_contexts import operational_refund_explanation_inputs
+    facts={'reference_date':'2031-05-01','verified_order':{'status':'pending',event+'_refund_initiated_on':'2031-04-01',event+'_rrn':'REF-2468','phone':'private','items':[{'sku':'unrelated'}]},
+           'operational_escalation':{'reason':'refund_overdue','binding_status':'bound','source_ids':['MUTABLE-RANGE'],
+               'facts':{'refund_event':event,'maximum_date':'2031-04-09','maximum_business_days':7,'elapsed_business_days_past_maximum':18},
+               'calculations':[{'result':{'elapsed_business_days_past_maximum':18}}]}}
+    before=copy.deepcopy(facts)
+    view=operational_refund_explanation_inputs('Where is my refund?',facts,[{'id':'MUTABLE-RANGE'}])
+    assert view['verified_order'][event+'_rrn']=='REF-2468'
+    assert view['operational_escalation']['facts']['maximum_business_days']==7
+    assert view['operational_escalation']['facts']['maximum_date']=='2031-04-09'
+    assert 'elapsed_business_days_past_maximum' not in view['operational_escalation']['facts']
+    assert not {'phone','items'} & view['verified_order'].keys()
+    assert facts==before
+    assert operational_refund_explanation_inputs('What about the coupon discount?',facts,[{'id':'MUTABLE-RANGE'}]) is None
+    assert operational_refund_explanation_inputs('Where is my refund?',facts,[]) is None

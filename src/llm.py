@@ -9,11 +9,41 @@ import threading
 from datetime import timezone
 from email.utils import parsedate_to_datetime
 import requests
+import re
 from .config import CACHE
 from .response_runtime import remaining_seconds, local_inference_slot, InferenceBusy
 
 class LLMUnavailable(RuntimeError):
     pass
+
+
+def _hosted_schema(value):
+    """Keep schema semantics while translating API regex syntax."""
+    def unicode_literal(match):
+        slashes = match[1]
+        if len(slashes) % 2 == 0:
+            return match[0]
+        codepoint = int(match[2] or match[3], 16)
+        return slashes[:-1] + chr(codepoint)
+    if isinstance(value,dict):
+        converted = {key:(re.sub(r'(\\+)(?:u([0-9a-fA-F]{4})|U([0-9a-fA-F]{8}))',unicode_literal,item)
+                          if key=='pattern' and isinstance(item,str) else _hosted_schema(item))
+                     for key,item in value.items()}
+        # Some API regex engines cap counted repetitions. For this exact
+        # single-character-class shape, the existing identical min/maxLength
+        # constraints already enforce those counts. Keep both length bounds.
+        pattern = converted.get('pattern')
+        if isinstance(pattern,str):
+            match = re.fullmatch(r'\^(?P<atom>\[(?:\\.|[^\]\\])+\])\{(?P<low>\d+),(?P<high>\d+)\}\$',pattern,re.S)
+            if (match and int(match['high']) > 1000
+                    and converted.get('minLength') == int(match['low'])
+                    and converted.get('maxLength') == int(match['high'])):
+                converted['pattern'] = '^' + match['atom'] + '*$'
+        return converted
+    if isinstance(value,list):
+        return [_hosted_schema(item) for item in value]
+    return value
+
 
 def _retry_after_seconds(value):
     """Read server delay without storing headers or credential-bearing details."""
@@ -121,9 +151,18 @@ class LLM:
                     self.last_metrics['rate_limit_wait_ms'] + 1000 * measured, 2)
 
         for provider, model, base, key in choices:
+            effort = os.getenv('LLM_REASONING_EFFORT', '').strip() if provider != 'ollama' else ''
+            if effort not in {'', 'low', 'medium', 'high'}:
+                self.last_metrics.update(unavailable=True)
+                raise LLMUnavailable('Invalid configured reasoning effort.')
             settings = {'provider': provider, 'model': model, 'base': base, 'temperature': 0,
                         'seed': 42, 'max_tokens': max_tokens, 'num_ctx': 4096,
                         'format': schema or ('json' if json_mode else None)}
+            if effort:
+                settings['reasoning_effort'] = effort
+            strict_schema = provider != 'ollama' and schema is not None and os.getenv('LLM_STRUCTURED_OUTPUT', '') == 'json_schema'
+            if strict_schema:
+                settings['structured_output'] = 'json_schema'
             digest = hashlib.sha256(json.dumps([settings, system, user], ensure_ascii=False, sort_keys=True).encode()).hexdigest()
             path = self.cache / (digest + '.json')
             if cache and path.exists():
@@ -151,8 +190,12 @@ class LLM:
                             raise LLMUnavailable('The local model is busy; please retry shortly.') from None
                     else:
                         payload = {'model': model, 'messages': messages, 'temperature': 0, 'max_tokens': max_tokens}
+                        if effort:
+                            payload['reasoning_effort'] = effort
                         if json_mode or schema:
-                            payload['response_format'] = {'type': 'json_object'}
+                            payload['response_format'] = (
+                                {'type': 'json_schema', 'json_schema': {'name': 'agent_response', 'strict': True, 'schema': _hosted_schema(schema)}}
+                                if strict_schema else {'type': 'json_object'})
                         while True:
                             response = send(base.rstrip('/')+'/chat/completions', headers={'Authorization': 'Bearer '+key}, json=payload, timeout=(2, read_timeout))
                             if getattr(response, 'status_code', None) != 429:

@@ -45,3 +45,46 @@ def test_actual_generation_uses_bound_status_view_with_all_original_validators()
  result=document_reply(client,'Where is my refund?','en',[SOURCE],facts=FACTS,private=True,context_provenance=True)
  assert result['answer']==answer and result['repair_mode']=='source_pending_refund_status'
  assert client.calls[0][1]['source_text']==[SOURCE]
+
+
+@pytest.mark.parametrize('term',['क्वालिटी चेक','क्वालिटी जांच','गुणवत्ता जाँच','QC'])
+def test_native_quality_check_terms_preserve_the_source_prerequisite(term):
+ from src.refund_status import check_pending_refund_answer
+ text=f'रिकॉर्ड में {term} पास होने की तारीख दर्ज नहीं है। यदि {term} पास हो तो स्रोत की रिफंड समयसीमा लागू होगी।'
+ check_pending_refund_answer(text,'Where is my refund?',FACTS,[SOURCE],'2026-10-20')
+ with pytest.raises(ValueError,match='missing_pending_refund_condition'):
+  check_pending_refund_answer('रिफंड समयसीमा लागू होगी।','Where is my refund?',FACTS,[SOURCE],'2026-10-20')
+
+
+@pytest.mark.parametrize('days',[9,13])
+def test_qc_prerequisite_does_not_replace_source_pickup_clock(days):
+ from src.refund_status import check_pending_refund_answer
+ source=dict(SOURCE,text=SOURCE['text'].replace('9 business days',str(days)+' business days'))
+ bad=f'QC पास होने के {days} कार्यदिवस के भीतर रिफंड शुरू होगा।'
+ with pytest.raises(ValueError,match='missing_refund_initiation_anchor'):
+  check_pending_refund_answer(bad,'Where is my refund?',FACTS,[source],'2026-10-20')
+ good=f'QC पास होने पर पिकअप के {days} कार्यदिवस के भीतर रिफंड शुरू होगा।'
+ requirement=check_pending_refund_answer(good,'Where is my refund?',FACTS,[source],'2026-10-20')
+ assert requirement['initiation_clocks'][0]['business_days']==days
+
+
+@pytest.mark.parametrize('answer',[
+ 'Therefore the refund requirements have not been met.',
+ 'इसलिए रिफंड शुरू होने की शर्तें पूरी नहीं हुई हैं।',
+ 'Refund ki shartein puri nahi hui hain.',
+])
+def test_missing_dates_do_not_establish_unfulfilled_refund_prerequisites(answer):
+ with pytest.raises(ValueError,match='unrecorded_refund_quality_claim'):
+  check_pending_record_claims(answer,'Where is my refund?',FACTS,[SOURCE],'2026-10-20')
+ view=pending_status_inputs('Where is my refund?',FACTS,[SOURCE],'2026-10-20')
+ assert view['facts']['record_evidence']['prerequisite_satisfaction']=='unknown'
+
+
+
+def test_unknown_return_reason_is_not_an_asserted_change_of_mind():
+ from src.pending_refund_context import check_unverified_return_reason
+ facts={'return_pickup_policy':{'personal_charge_confirmed':False},'verified_order':{'return_reason':None}}
+ with pytest.raises(ValueError,match='unverified_return_reason'):
+  check_unverified_return_reason('यह मन बदलने के कारण का रिटर्न है।','Can I return this?',facts)
+ check_unverified_return_reason('यदि यह मन बदलने के कारण का रिटर्न है तो शुल्क लागू है।','Can I return this?',facts)
+ check_unverified_return_reason('यह मन बदलने के कारण का रिटर्न है।','मेरा मन बदल गया।',facts)

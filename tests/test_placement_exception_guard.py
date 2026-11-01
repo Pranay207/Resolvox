@@ -377,3 +377,21 @@ def test_uncertain_historical_duration_is_not_definite_delivery_entitlement(stag
 def test_uncertainty_does_not_rescue_a_later_definite_personal_date(staged, placement):
     with pytest.raises(ValueError, match='invented_placement_premise'):
         check(staged, 'I cannot confirm your order was placed during this period, but your order was placed during this period.', placement)
+
+
+@pytest.mark.parametrize('answer', [
+    'कृपया बताएं कि आपका ऑर्डर इन तिथियों के भीतर रखा गया था या नहीं।',
+    'कृपया पुष्टि करें कि आपका ऑर्डर इस अवधि में किया गया था या नहीं।',
+    'Please tell me whether your order was placed during this period.',
+])
+def test_request_for_missing_date_is_not_an_asserted_personal_date(staged, placement, answer):
+    check(staged, answer, placement)
+
+
+@pytest.mark.parametrize('answer', [
+    'कृपया बताएं कि आपका ऑर्डर इन तिथियों के भीतर रखा गया था या नहीं, लेकिन आपका ऑर्डर इस अवधि में किया गया था।',
+    'Please tell me whether your order was placed during this period, but your order was placed during this period.',
+])
+def test_requested_date_does_not_rescue_later_asserted_date(staged, placement, answer):
+    with pytest.raises(ValueError, match='invented_placement_premise'):
+        check(staged, answer, placement)

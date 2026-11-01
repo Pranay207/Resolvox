@@ -29,6 +29,8 @@ def unresolved_return_window_inputs(facts, sources):
         return None
     policy = facts['return_policy']
     ids = set(status['source_ids']) | set(policy['source_ids'])
+    for constraint in facts.get('answer_constraints', []):
+        ids.update(constraint.get('source_ids', []))
     reference = facts['reference_date']
     by_id = {source['id']: source for source in sources}
     if not ids <= by_id.keys():
@@ -271,21 +273,57 @@ def verified_return_restatement_inputs(query, facts, sources, reference_date):
     from .document_context import _return_pickup_fee, _return_calculation
     actual={row['id']:row for row in sources}
     fee=facts.get('return_pickup_policy');policy=facts.get('return_policy')
-    if not isinstance(fee,dict) or not isinstance(policy,dict):return None
-    if _return_pickup_fee(query,facts,actual)!=fee:return None
+    if not isinstance(policy,dict) or (fee is not None and not isinstance(fee,dict)):return None
+    if fee is not None and _return_pickup_fee(query,facts,actual)!=fee:return None
     rebound=_return_calculation(facts['verified_order'],facts.get('public_context',{}),facts.get('catalog',[]),actual)
     recorded=[row for row in facts.get('calculations',[]) if row.get('operation')=='return_calendar_deadline']
     if len(rebound)!=1 or recorded!=rebound:return None
-    ids=set(fee['source_ids'])|set(policy['source_ids'])|set(rebound[0]['source_ids'])
+    ids=set((fee or {}).get('source_ids', []))|set(policy['source_ids'])|set(rebound[0]['source_ids'])
     # Retain actual item-condition rules, not unrelated methods/refund phases.
     for row in sources:
-        if _active(row,reference_date) and re.search(r'\bitems\s+must\s+be\s+unused\b',row['text'],re.I):ids.add(row['id'])
+        if _active(row,reference_date) and (
+                re.search(r'\bitems\s+must\s+be\s+unused\b',row['text'],re.I)
+                or (facts['verified_order'].get('is_plus') is True
+                    and re.search(r'(?:^|\n)[-* ]*No reverse pickup fee\b',row['text'],re.I))):ids.add(row['id'])
     if not ids<=actual.keys() or any(not _active(actual[sid],reference_date) for sid in ids):return None
     selected=[row for row in sources if row['id'] in ids]
     if sum(len(row['text']) for row in selected)>5000:return None
     order=facts['verified_order']
-    view={'return_policy':dict(policy),'return_pickup_policy':dict(fee),
+    view={'return_policy':dict(policy),
           'return_deadline':rebound[0]['result']['deadline'],
           'verified_order':{key:order[key] for key in ('placed_at','delivered_on','is_plus','return_reason') if key in order},
           'calculations':rebound,'answer_constraints':facts.get('answer_constraints',[])}
+    deadline=rebound[0]['result']['deadline']
+    parsed=date.fromisoformat(deadline)
+    view['date_labels']={deadline:f'{parsed.day} {parsed:%B %Y}'}
+    if fee is not None:view['return_pickup_policy']=dict(fee)
     return {'sources':selected,'facts':project_inference_facts(view)}
+
+
+def operational_refund_explanation_inputs(query, facts, sources):
+    """Small record view for a plain overdue-refund explanation, never a summary."""
+    selected = facts.get('operational_escalation', {})
+    order = facts.get('verified_order', {})
+    if (not isinstance(selected, dict) or selected.get('reason') != 'refund_overdue'
+            or selected.get('binding_status') != 'bound' or not isinstance(order, dict) or not order):
+        return None
+    if re.search(r'coupon|discount|partial|warrant|pick.?up|fee|charg|return.{0,20}(?:window|eligib)|कूपन|छूट|वारंटी|पिकअप|शुल्क', query, re.I):
+        return None
+    bound = selected.get('facts', {})
+    event = bound.get('refund_event')
+    if event not in {'return', 'cancellation', 'rto'}:
+        return None
+    if not set(selected.get('source_ids', [])) <= {source['id'] for source in sources}:
+        return None
+    # The complete original facts remain with host validators and public traces.
+    # Remove duplicate calculations and unrelated record columns only from the
+    # model view. No policy values or generated answer text are supplied here.
+    record_keys = {'status', event+'_rrn'} | {event+'_refund_'+suffix for suffix in
+                   ('initiated_on', 'method', 'amount_inr', 'completed_on')}
+    scope_keys = {'refund_event','initiated_on','reference_date','earliest_date','maximum_date',
+                  'payment_method','minimum_business_days','maximum_business_days','tolerance_business_days'}
+    return {'reference_date':facts.get('reference_date'),
+            'verified_order':{key:order[key] for key in record_keys if key in order},
+            'operational_escalation':{'reason':selected['reason'],
+                'source_ids':list(selected.get('source_ids', [])),
+                'facts':{key:bound[key] for key in scope_keys if key in bound}}}

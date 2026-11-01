@@ -179,7 +179,7 @@ class Policy:
                   ('digital',r'\b(?:gift[ -]?cards?|digital codes?)\b'),
                   ('beauty_sealed',r'\b(?:beauty|personal care|lipstick|parfum|perfume|serum|cream)\b|ब्यूटी|सीरम'),
                   ('electronics',r'\b(?:electronics?|accessor(?:y|ies)|smartphone|phone|smartwatch|earbuds?|laptop|speaker|cable|charger|power bank)\b|इलेक्ट्रॉनिक'),
-                  ('fashion',r'\b(?:fashion|clothing|shirt|jeans|kurta|shoes?|bags?|sneakers?|hoodie|footwear|trousers?|saree|dress)\b|कपड़े|जूते'),
+                  ('fashion',r'\b(?:fashion|clothing|kapd[aeoy]|kapdon|kapade|kappde|shirt|jeans|kurta|shoes?|bags?|sneakers?|hoodie|footwear|trousers?|saree|dress)\b|कपड़े|जूते'),
                   ('home_kitchen',r'\b(?:home|kitchen|furniture|bedsheet|mixer|kettle)\b|रसोई'),
                   ('books_media',r'\b(?:books?|notebook|stationery)\b|किताब')]
         return next((category for category,pattern in patterns if has(text,pattern)),None)

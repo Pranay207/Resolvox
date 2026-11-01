@@ -289,3 +289,23 @@ def test_compound_refund_and_return_window_request_retains_extra_requested_polic
     route=explanation.resolve_business_escalation('Where is my refund and what return window applies?',
         'refund','refund',True,r.kb,pool,r.data,verified_order=agent.state.order)
     assert 'RET-2' in {s['id'] for s in route['sources']}
+
+
+
+@pytest.mark.parametrize('event',['return','cancellation','rto'])
+def test_required_reference_is_read_from_only_the_authenticated_event_field(event):
+ generated={'answer':'The recorded refund is overdue.','covered':True,'decision':'answer'}
+ facts={'verified_order':{event+'_rrn':'REF-246810','phone':'123456789012'},
+        'operational_escalation':{'reason':'refund_overdue','facts':{'refund_event':event}}}
+ source={'id':'TRACE-CHANGED','doc_type':'policy','status':'current','effective_from':'2020-01-01',
+         'text':'Every initiated refund has an RRN. Share it when a customer says the money has not arrived.'}
+ before=copy.deepcopy((generated,facts,source))
+ out=explanation._attach_verified_reference(generated,facts,[source])
+ assert out['answer'].endswith('RRN: REF-246810.')
+ assert out['record_field_annotations'][0]['field']==event+'_rrn'
+ assert (generated,facts,source)==before
+ assert explanation._attach_verified_reference(out,facts,[source])==out
+ for changed in (dict(source,status='superseded'),dict(source,effective_from='2099-01-01'),dict(source,text='Never share an RRN.')):
+  assert explanation._attach_verified_reference(generated,facts,[changed])==generated
+ assert explanation._attach_verified_reference(generated,dict(facts,verified_order={'phone':'123456789012'}),[source])==generated
+ assert explanation._attach_verified_reference(dict(generated,covered=False),facts,[source])['answer']==generated['answer']
