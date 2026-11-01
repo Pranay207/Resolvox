@@ -32,9 +32,7 @@ Capstone for **From Tokens to Transformers**, organized by the Consulting & Anal
 
 ## Demo Video
 
-<video controls preload="metadata" src="https://raw.githubusercontent.com/Pranay207/Resolvox/09cce65f266ae2ccd40a8d49819fc5a0b6b668b3/Resolovox%20Demo.mp4" aria-label="Resolovox Demo — 1 minute 45 seconds" width="960"></video>
-
-[Download Resolovox Demo (MP4)](<Resolovox Demo.mp4>) · **1 minute 45 seconds**
+[Download and play Resolovox Demo — 1:45](https://github.com/Pranay207/Resolvox/raw/09cce65f266ae2ccd40a8d49819fc5a0b6b668b3/Resolovox%20Demo.mp4)
 
 A policy-grounded answer, a follow-up and an uncertainty response in one voice conversation. The edited walkthrough uses synthetic customer speech and narration, actual application replies, and clearly disclosed shortened processing waits.
 
