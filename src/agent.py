@@ -7,7 +7,7 @@ from .answering import Policy,Plan,classify
 from .config import REFERENCE_DATE
 from .data import Data
 from .kb import KnowledgeBase
-from .retrieval import Retriever
+from .retrieval import Retriever,query_facets
 from .tools_wrapper import Tools
 from .normalize import order_id,proof_value,language,redact,number_words,public_acronyms
 from .llm import LLM,LLMUnavailable
@@ -17,7 +17,7 @@ from .document_answers import document_reply
 from .generation_diagnostics import failure_diagnostics, failure_validation_error, safe_attempt_metrics
 from .document_context import build_context
 from .source_inputs import source_input_clarification, make_source_input_workflow, resume_source_input, workflow_binding_sources, ModelCallProbe
-from .source_selection import select_policy_context
+from .source_selection import select_policy_context,focus_policy_context
 from .operational_explanations import resolve_business_escalation, business_explanation, ticket_outcome, unresolved_business
 
 def _private_delivery_facet_request(query):
@@ -429,7 +429,7 @@ class Agent:
                 plan.ids=list(dict.fromkeys(plan.ids+['IDV-2']))
                 pool += [r.kb.chunks['IDV-2'].public()]
         available={x['id']:x for x in pool}
-        validation_error=None; llm_ms=0.0; citations=[]; generation={}; generation_context_sources=[]
+        validation_error=None; llm_ms=0.0; citations=[]; generation={}; generation_context_sources=[]; context_selection={}
         if business_route and business_route['state']=='unresolved':
             source_ids=[];sources=[];supported=False
             answer=unresolved_business(s.language);plan.decision='answer'
@@ -489,6 +489,20 @@ class Agent:
             context_query=answer_query+('\nPublic catalog pincode: '+public_pins[0] if len(public_pins)==1 else '')
             plan.facts=build_context(context_query,selected,r.data,
                 verified_order=s.order,public_context=s.public_context)
+            if self.compose and selected and not s.order_id:
+                available_context_ids=[row['id'] for row in selected]
+                # Resolve source-bound missing inputs before any context focus.
+                # Private records and pending source workflows retain full recall.
+                if 'required_application_inputs' not in plan.facts:
+                    focused=focus_policy_context(selected,candidates,plan.ids,query=answer_query,
+                        facet_count=len(query_facets(answer_query)))
+                    if len(focused)<len(selected):
+                        selected=focused
+                        plan.facts=build_context(context_query,selected,r.data,
+                            verified_order=s.order,public_context=s.public_context)
+                context_selection={'mode':'ranked_sources_with_dependencies',
+                    'available_source_ids':available_context_ids,
+                    'focused_source_ids':[row['id'] for row in selected]}
             supported=bool(selected)
             source_ids=[]; sources=[]
             answer=abstention(s.language)
@@ -564,7 +578,7 @@ class Agent:
                 'tool_calls':calls,'facts':plan.facts,'verified':bool(s.order),'reference_date':REFERENCE_DATE.isoformat(),'composition':composition,
                 'retrieval_mode':r.retriever.dense_status,'retrieval_k':12,'retrieval_direct_k':12,'retrieval_dependency_limit':4,'retrieval_candidate_limit':16,'retrieval_returned_count':len(candidates),'retrieval_direct_count':sum(x.get('retrieval_role')=='direct' for x in candidates),'retrieval_dependency_count':sum(x.get('retrieval_role')=='dependency' for x in candidates),'evidence_supported':supported,
                 'validation_error':validation_error,'citations':citations,'generation':generation,'service_error':service_error,
-                'generation_context_sources':generation_context_sources,
+                'generation_context_sources':generation_context_sources,'context_selection':context_selection,
                 'llm':(safe_attempt_metrics(r.llm.last_metrics) if generation.get('generation_failed')
                        else r.llm.last_metrics.copy()) if llm_ms else {},
                 'timings':{'retrieval_ms':round(retrieval_ms,2),'llm_ms':round(llm_ms,2)},
