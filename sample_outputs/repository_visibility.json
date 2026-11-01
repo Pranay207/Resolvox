@@ -1,8 +1,7 @@
 {
   "repository_url": "https://github.com/Pranay207/Resolvox",
-  "checked_at_utc": "2026-10-31T09:45:51.382656+00:00",
+  "checked_at_utc": "2026-11-01T08:02:02.510312+00:00",
   "method": "anonymous_github_api",
-  "is_public": false,
-  "http_status": 404,
-  "reason": "Repository is not accessible anonymously"
+  "is_public": true,
+  "http_status": 200
 }

@@ -1,11 +1,24 @@
 {
-  "archive_files": 179,
+  "archive_files": 352,
+  "manifest_verified": true,
+  "manifest_deliverables": 351,
   "excluded_secrets_dataset_models_venv": true,
-  "extracted_imports_and_answer": true,
+  "extracted_imports_and_document_excerpts": true,
+  "smoke_mode": "offline document_excerpts diagnostic",
+  "llm_inference_tested": false,
+  "recorded_release_status_checked": true,
+  "release_gate_rerun_in_smoke": false,
+  "dataset_source": "working checkout; not a clean setup",
+  "smoke_dense_enabled": false,
   "cli_help": true,
   "test_collection_scoped": true,
   "report_pages": 4,
-  "release_blockers": [
-    "User-recorded demo.mp4 missing or duration unverified"
-  ]
+  "release_blockers": [],
+  "archive_sha256": "cdd9a9d1af7eb9b02c1174d1053b773e183a95e4ff6b86865762e564642d377a",
+  "archive_bytes": 22329850,
+  "demo_filename": "Resolovox Demo.mp4",
+  "demo_seconds": 105.0,
+  "current_readme_and_media_verified": true,
+  "credential_scan_passed": true,
+  "public_repository_confirmed": true
 }

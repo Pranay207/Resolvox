@@ -1,8 +1,6 @@
 {
-  "ready_to_submit": false,
-  "blockers": [
-    "Public GitHub repository access has not been confirmed"
-  ],
+  "ready_to_submit": true,
+  "blockers": [],
   "report_pages": 4,
   "demo_seconds": 105.0,
   "demo_filename": "Resolovox Demo.mp4",
