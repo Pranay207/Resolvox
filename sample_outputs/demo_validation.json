@@ -121,10 +121,12 @@
     "sample_outputs/demo_assets/question_03.wav": "b34445a5973ebbba5bddb5288f40f7730d41dd59f4b250a4cd55633ece15ce46",
     "sample_outputs/demo_assets/reply_03.wav": "f979115ef182b7ca70d43e3cf33d5bbc333cf110033f7db9c6771b24ef681280",
     "sample_outputs/demo_assets/answer_03.jpg": "4a436bea16e05d8c6a5d336553e05b41775b409fd5a8b4f529b2b49d3c5eeff0",
-    "Resolovox Demo.mp4": "db6311054b959c963f2ac6766ffc03238bc4645d5ac6fc965cf23a2b77eca284"
+    "Resolovox Demo.mp4": "e0b77dd847d1dd89d8b23a8eb0d882a52ffed3b67590458a87a32c73368acd39",
+    "assets/resolvox-demo-cover.png": "7c3fb7b41d327f7a3575af2e8509fab919652f988171bc3821d0594086ea1104",
+    "assets/resolvox-demo-cover.svg": "5703c8c967d5ff626ae86b03ec61bdb5673c9d6e1f0c14b412ec08980227402f"
   },
   "video": "Resolovox Demo.mp4",
-  "video_sha256": "db6311054b959c963f2ac6766ffc03238bc4645d5ac6fc965cf23a2b77eca284",
+  "video_sha256": "e0b77dd847d1dd89d8b23a8eb0d882a52ffed3b67590458a87a32c73368acd39",
   "video_seconds": 105.0,
   "resolution": [
     1920,
@@ -195,5 +197,32 @@
       "seconds": 9.6,
       "sha256": "22a5765ce8df23b9c7722e13d5385edd04357f19bbb93c9447720d05dd0eec2d"
     }
+  },
+  "cover_update": {
+    "previous_video_sha256": "db6311054b959c963f2ac6766ffc03238bc4645d5ac6fc965cf23a2b77eca284",
+    "video_sha256": "e0b77dd847d1dd89d8b23a8eb0d882a52ffed3b67590458a87a32c73368acd39",
+    "video_seconds": 105.0,
+    "opening_cover_seconds": 9.5,
+    "original_video_tail_preserved_from_frame": 250,
+    "original_video_tail_preserved_from_seconds": 10.416666666666666,
+    "encoded_audio_identical": true,
+    "decoded_audio_identical": true,
+    "encoded_audio_sha256": "342cecfba4bf7cf1d65bcf9c819a161ccfb635978e16c1b264c5ea7012dab16d",
+    "decoded_audio_sha256": "e75e11040e54c04da180f83f4c260bc09dae8988bd70600a0ae49f4761dbecf4",
+    "h264_picture_payloads_preserved_after_opening": true,
+    "h264_picture_payload_sha256": "ab71db5b2c85a5667c748b4245a907a0deae0c0c05e1f8a873bde892e89719f5",
+    "full_decode_passed": true,
+    "all_original_questions_and_replies_preserved": true,
+    "cover_asset": "assets/resolvox-demo-cover.png",
+    "editable_cover_asset": "assets/resolvox-demo-cover.svg",
+    "cover_sha256": "7c3fb7b41d327f7a3575af2e8509fab919652f988171bc3821d0594086ea1104",
+    "disclosure_locations": [
+      "README",
+      "Unchanged remaining video scenes"
+    ],
+    "cover_call_to_action": "Watch video",
+    "opening_visual_reviewed": true,
+    "conversation_transition_at_seconds_reviewed": 9.6,
+    "layout_issues_found": false
   }
 }
