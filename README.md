@@ -36,6 +36,18 @@ https://github.com/user-attachments/assets/626020a7-bed4-404f-84f3-e1190f432900
 
 A policy-grounded answer, a follow-up and an uncertainty response in one voice conversation. The edited walkthrough uses synthetic customer speech and narration, actual application replies, and clearly disclosed shortened processing waits.
 
+## Application Preview
+
+<p align="center">
+  <img src="assets/resolvox-desktop.jpg" alt="Resolvox desktop workspace with voice and text input, compact case details and visible support controls" width="1100">
+</p>
+<p align="center"><em>Desktop workspace</em></p>
+
+<p align="center">
+  <img src="assets/resolvox-mobile.jpg" alt="Resolvox mobile layout with Speak and Type controls, microphone recording and audio upload" width="300">
+</p>
+<p align="center"><em>Mobile layout</em></p>
+
 ## What Resolvox Does
 
 | Capability | How it works |
