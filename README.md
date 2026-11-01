@@ -32,7 +32,7 @@ Capstone for **From Tokens to Transformers**, organized by the Consulting & Anal
 
 ## Demo Video
 
-<a href="https://github.com/Pranay207/Resolvox/raw/09cce65f266ae2ccd40a8d49819fc5a0b6b668b3/Resolovox%20Demo.mp4"><kbd><strong>▶ WATCH DEMO · 1:45</strong></kbd></a>
+https://github.com/user-attachments/assets/626020a7-bed4-404f-84f3-e1190f432900
 
 A policy-grounded answer, a follow-up and an uncertainty response in one voice conversation. The edited walkthrough uses synthetic customer speech and narration, actual application replies, and clearly disclosed shortened processing waits.
 
