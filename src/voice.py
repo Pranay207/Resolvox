@@ -2,6 +2,7 @@
 from pathlib import Path
 import io,os,re,struct,time,wave
 import requests
+from .response_runtime import remaining_seconds, configured_budget
 from .languages import STT_CODES, TTS_CODES, TTS_VOICES, normalize_language
 
 class VoiceUnavailable(RuntimeError): pass
@@ -77,22 +78,37 @@ class GnaniVoice:
     def _request(self,path:str,**kwargs) -> requests.Response:
         if not self.key: raise VoiceUnavailable('GNANI_API_KEY is missing. Add your own key to .env; no alternate speech service is used.')
         last=None
+        deadline=time.monotonic()+configured_budget('SPEECH_REQUEST_BUDGET',90)
         for attempt in range(4):
             try:
                 # Rewind multipart files for every retry.
                 for value in kwargs.get('files',{}).values():
                     handle=value[1] if isinstance(value,tuple) else value
                     if hasattr(handle,'seek'):handle.seek(0)
-                response=self.session.post(self.BASE+path,headers={'X-API-Key-ID':self.key},timeout=(15,90),**kwargs)
+                remaining=max(0.0,deadline-time.monotonic())
+                parent_remaining=remaining_seconds()
+                if parent_remaining is not None:remaining=min(remaining,parent_remaining)
+                if remaining<=0:raise VoiceError('Speech request time budget exhausted; text replies are retained.')
+                connect=min(15.0,remaining/4)
+                response=self.session.post(self.BASE+path,headers={'X-API-Key-ID':self.key},timeout=(connect,remaining-connect),**kwargs)
                 if response.status_code in {403,429,500,502,503,504}:
                     last=response.status_code
-                    if attempt<3:self.sleep(min(2**attempt,8));continue
+                    if attempt<3:
+                        self._wait(min(2**attempt,8),deadline)
+                        continue
                 if response.status_code!=200:raise VoiceError(f'Gnani request failed with HTTP {response.status_code}; check key, credits, format, and limits.')
                 return response
             except requests.RequestException:
                 if attempt==3:raise VoiceError('Gnani network request failed after bounded retries') from None
-                self.sleep(2**attempt)
+                self._wait(2**attempt,deadline)
         raise VoiceError(f'Gnani retry limit reached (HTTP {last})')
+    def _wait(self,seconds,deadline):
+        remaining=deadline-time.monotonic()
+        parent_remaining=remaining_seconds()
+        if parent_remaining is not None:remaining=min(remaining,parent_remaining)
+        if seconds>=remaining:raise VoiceError('Speech request time budget exhausted; text replies are retained.')
+        self.sleep(seconds)
+
     def transcribe(self,path:Path,language:str='en-IN') -> str:
         try:language=STT_CODES[normalize_language(language)]
         except ValueError as error:raise VoiceError(str(error)) from None

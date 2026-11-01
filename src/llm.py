@@ -4,10 +4,13 @@ import json
 import math
 import os
 import time
+import tempfile
+import threading
 from datetime import timezone
 from email.utils import parsedate_to_datetime
 import requests
 from .config import CACHE
+from .response_runtime import remaining_seconds, local_inference_slot, InferenceBusy
 
 class LLMUnavailable(RuntimeError):
     pass
@@ -34,10 +37,27 @@ class LLM:
     def __init__(self, provider=None, model=None):
         self.provider = provider or os.getenv('LLM_PROVIDER', 'ollama')
         self.model = model or os.getenv('LLM_MODEL', 'qwen3:4b-instruct')
+        self._thread = threading.local()
         self.last_provider = ''
         self.last_metrics = {}
         self.cache = CACHE / 'llm'
         self.cache.mkdir(exist_ok=True)
+
+    @property
+    def last_metrics(self):
+        return getattr(self._thread, 'metrics', {})
+
+    @last_metrics.setter
+    def last_metrics(self, value):
+        self._thread.metrics = value
+
+    @property
+    def last_provider(self):
+        return getattr(self._thread, 'provider', '')
+
+    @last_provider.setter
+    def last_provider(self, value):
+        self._thread.provider = value
 
     def complete(self, system, user, json_mode=False, cache=True, *, max_tokens=240,
                  timeout=None, attempts=1, schema=None):
@@ -53,6 +73,13 @@ class LLM:
         planned_wait = 0.0
 
         def send(url, **options):
+            remaining = remaining_seconds()
+            if remaining is not None:
+                if remaining <= 0:
+                    self.last_metrics.update(timed_out=True, budget_exhausted=True, unavailable=True)
+                    raise LLMUnavailable('Response time budget exhausted.')
+                connect = min(2.0, remaining / 4)
+                options['timeout'] = (connect, min(read_timeout, remaining - connect))
             self.last_metrics['attempts'] += 1
             self.last_metrics['http_attempts'] += 1
             response = requests.post(url, **options)
@@ -78,6 +105,10 @@ class LLM:
                 # Do not bypass a server delay through an outer attempt or a
                 # fallback choice when this complete() call cannot honor it.
                 raise LLMUnavailable('LLM rate limit exceeded the bounded retry budget; no response fabricated.')
+            remaining = remaining_seconds()
+            if remaining is not None and delay >= remaining:
+                self.last_metrics.update(timed_out=True, budget_exhausted=True, unavailable=True)
+                raise LLMUnavailable('Response time budget exhausted during rate limiting.')
             planned_wait += delay
             self.last_metrics['rate_limit_retries'] += 1
             self.last_metrics['rate_limit_planned_wait_ms'] = round(1000 * planned_wait, 2)
@@ -101,7 +132,7 @@ class LLM:
                     self.last_provider = value['provider']
                     self.last_metrics.update(cache_hit=True, wall_ms=round(1000*(time.perf_counter()-started), 2), provider=self.last_provider)
                     return value['text']
-                except (ValueError, KeyError):
+                except (ValueError, KeyError, OSError):
                     pass
             for attempt in range(attempts):
                 try:
@@ -111,7 +142,13 @@ class LLM:
                                    'keep_alive': '10m', 'options': {'temperature': 0, 'seed': 42, 'num_predict': max_tokens, 'num_ctx': 4096}}
                         if json_mode or schema:
                             payload['format'] = schema or 'json'
-                        response = send(base.rstrip('/')+'/api/chat', json=payload, timeout=(2, read_timeout))
+                        try:
+                            with local_inference_slot(base):
+                                response = send(base.rstrip('/')+'/api/chat', json=payload, timeout=(2, read_timeout))
+                        except InferenceBusy:
+                            self.last_metrics.update(busy=True, unavailable=True,
+                                wall_ms=round(1000*(time.perf_counter()-started), 2))
+                            raise LLMUnavailable('The local model is busy; please retry shortly.') from None
                     else:
                         payload = {'model': model, 'messages': messages, 'temperature': 0, 'max_tokens': max_tokens}
                         if json_mode or schema:
@@ -135,9 +172,25 @@ class LLM:
                         if name in data:
                             self.last_metrics[name] = data[name]
                     if cache:
-                        path.write_text(json.dumps({'text': result, 'provider': self.last_provider}, ensure_ascii=False), encoding='utf-8')
+                        temporary = None
+                        try:
+                            with tempfile.NamedTemporaryFile(dir=self.cache, suffix='.part', mode='w', encoding='utf-8', delete=False) as handle:
+                                temporary = handle.name
+                                json.dump({'text': result, 'provider': self.last_provider}, handle, ensure_ascii=False)
+                            os.replace(temporary, path)
+                        except OSError:
+                            # A cache failure must not discard an actual validated response.
+                            pass
+                        finally:
+                            if temporary:
+                                try:
+                                    os.unlink(temporary)
+                                except OSError:
+                                    pass
                     return result
-                except (requests.RequestException, KeyError, ValueError):
+                except (requests.RequestException, KeyError, ValueError) as exc:
+                    if isinstance(exc, requests.Timeout):
+                        self.last_metrics['timed_out'] = True
                     if attempt+1 < attempts:
                         time.sleep(min(2**attempt, 4))
         self.last_metrics.update(wall_ms=round(1000*(time.perf_counter()-started), 2), unavailable=True)

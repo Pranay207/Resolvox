@@ -11,6 +11,7 @@ from .retrieval import Retriever
 from .tools_wrapper import Tools
 from .normalize import order_id,proof_value,language,redact,number_words,public_acronyms
 from .llm import LLM,LLMUnavailable
+from .response_runtime import service_failure, service_message
 from .grounding import compatible,abstention
 from .document_answers import document_reply
 from .generation_diagnostics import failure_diagnostics, failure_validation_error, safe_attempt_metrics
@@ -542,6 +543,12 @@ class Agent:
             if composition.startswith('abstained'):
                 supported=False
                 plan.intent='unsupported'
+        service_error=service_failure(generation)
+        if service_error:
+            # Infrastructure failure is not evidence that a policy is absent.
+            answer=service_message(service_error,s.language)
+            if composition=='operational_handover_generation_failed':
+                answer+=' '+outcome
         for cid in auth_source_ids:
             if cid not in source_ids:
                 source_ids.append(cid); sources.append(r.kb.chunks[cid].public())
@@ -556,7 +563,7 @@ class Agent:
                 'retrieved_chunk_ids':source_ids,'sources':sources,'retrieval_candidates':[{'id':x['chunk'].id,'score':x['score'],'dense_score':x['dense_score'],**{key:x[key] for key in ('retrieval_role','direct_rank','dependency_weight') if key in x}} for x in candidates],
                 'tool_calls':calls,'facts':plan.facts,'verified':bool(s.order),'reference_date':REFERENCE_DATE.isoformat(),'composition':composition,
                 'retrieval_mode':r.retriever.dense_status,'retrieval_k':12,'retrieval_direct_k':12,'retrieval_dependency_limit':4,'retrieval_candidate_limit':16,'retrieval_returned_count':len(candidates),'retrieval_direct_count':sum(x.get('retrieval_role')=='direct' for x in candidates),'retrieval_dependency_count':sum(x.get('retrieval_role')=='dependency' for x in candidates),'evidence_supported':supported,
-                'validation_error':validation_error,'citations':citations,'generation':generation,
+                'validation_error':validation_error,'citations':citations,'generation':generation,'service_error':service_error,
                 'generation_context_sources':generation_context_sources,
                 'llm':(safe_attempt_metrics(r.llm.last_metrics) if generation.get('generation_failed')
                        else r.llm.last_metrics.copy()) if llm_ms else {},

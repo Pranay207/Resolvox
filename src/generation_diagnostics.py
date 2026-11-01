@@ -59,7 +59,7 @@ _TIMINGS = frozenset((
     'wall_ms', 'load_ms', 'prompt_eval_ms', 'eval_ms',
     'rate_limit_wait_ms', 'rate_limit_planned_wait_ms',
 ))
-_BOOLEANS = frozenset(('cache_hit', 'unavailable'))
+_BOOLEANS = frozenset(('cache_hit', 'unavailable', 'timed_out', 'busy', 'budget_exhausted'))
 _STATUSES = frozenset(('last_http_status', 'rate_limit_last_http_status'))
 
 

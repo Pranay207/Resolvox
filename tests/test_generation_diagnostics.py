@@ -275,3 +275,17 @@ def test_new_bound_placement_window_code_is_retained_without_dynamic_private_suf
     assert out['repair_errors']==[code,code] and out['validation_error']==code
     assert out['generation_attempts']==2 and len(out['attempt_metrics'])==2
     assert_private_absent({'diagnostics':out,'exception':str(exc)})
+
+
+@pytest.mark.parametrize('metric,code', [('busy','busy'),('timed_out','timeout'),('budget_exhausted','timeout')])
+def test_agent_transport_failure_is_not_reported_as_missing_policy(monkeypatch, metric, code):
+    diagnostic = metrics(1)
+    diagnostic[metric] = True
+    client = Client((LLMUnavailable(PRIVATE[4]), diagnostic))
+    module, resources = agent_resources(monkeypatch, client)
+    out = module.Agent(resources, compose=True).respond('How many days can I return shoes?', 'en')
+    assert out['service_error'] == code
+    assert out['evidence_supported'] is False
+    assert 'retrieved documents' not in out['answer']
+    assert not out['tool_calls']
+    assert_private_absent(out['answer'])
