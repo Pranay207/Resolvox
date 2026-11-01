@@ -89,3 +89,25 @@ def test_draft_is_marked_unready_even_when_all_final_checks_pass(draft_tree):
     assert package.main(draft=True)==0
     with zipfile.ZipFile(root/'dist/pranay_voiceops_draft.zip') as archive:
         assert json.loads(archive.read('SUBMISSION_STATUS.json'))['ready_to_submit'] is False
+
+
+def test_draft_includes_the_two_readme_screenshots(draft_tree):
+    root,_=draft_tree
+    assets=root/'assets'
+    assets.mkdir()
+    for name in ['resolvox-desktop.jpg','resolvox-mobile.jpg']:
+        (assets/name).write_bytes(b'Synthetic screenshot archive fixture')
+    assert package.main(draft=True)==0
+    with zipfile.ZipFile(root/'dist/pranay_voiceops_draft.zip') as archive:
+        for name in ['resolvox-desktop.jpg','resolvox-mobile.jpg']:
+            assert archive.read('assets/'+name)==(assets/name).read_bytes()
+
+
+def test_draft_notice_accurately_identifies_an_included_demo(draft_tree):
+    root,release=draft_tree
+    (root/'demo.mp4').write_bytes(b'Synthetic archive fixture; not a real video')
+    release['blockers']=['Public GitHub repository access has not been confirmed']
+    assert package.main(draft=True)==0
+    with zipfile.ZipFile(root/'dist/pranay_voiceops_draft.zip') as archive:
+        note=archive.read('DRAFT_SUBMISSION.txt').decode('utf-8')
+        assert 'included for review' in note and 'will be added next' not in note
