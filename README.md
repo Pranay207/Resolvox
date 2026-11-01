@@ -32,9 +32,9 @@ Capstone for **From Tokens to Transformers**, organized by the Consulting & Anal
 
 ## Demo Video
 
-> Demo video — recording to be added here.
+[Download and play Resolovox Demo — 1:45](https://github.com/Pranay207/Resolvox/raw/09cce65f266ae2ccd40a8d49819fc5a0b6b668b3/Resolovox%20Demo.mp4)
 
-<!-- Add the actual recording link or embedded video here after the final own-voice rehearsal. -->
+A policy-grounded answer, a follow-up and an uncertainty response in one voice conversation. The edited walkthrough uses synthetic customer speech and narration, actual application replies, and clearly disclosed shortened processing waits.
 
 ## What Resolvox Does
 
