@@ -20,3 +20,4 @@ sample_outputs/manifest.json -text whitespace=cr-at-eol
 sample_outputs/final_evaluation.json -text whitespace=cr-at-eol
 .gitattributes text eol=lf
 sample_outputs/history/source_context_guarded_full_second_pass/** -text whitespace=cr-at-eol
+*.svg text eol=lf

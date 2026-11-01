@@ -223,6 +223,10 @@
     "cover_call_to_action": "Watch video",
     "opening_visual_reviewed": true,
     "conversation_transition_at_seconds_reviewed": 9.6,
-    "layout_issues_found": false
+    "layout_issues_found": false,
+    "readme_click_to_play_verified": true,
+    "readme_playback_seconds_observed": 6.550513,
+    "github_attachment_url": "https://github.com/user-attachments/assets/ee5deb90-a242-40d9-8698-a69a14129704",
+    "github_video_filename": "Resolvox Video.mp4"
   }
 }

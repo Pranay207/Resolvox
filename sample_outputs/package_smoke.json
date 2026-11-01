@@ -1,7 +1,7 @@
 {
-  "archive_files": 352,
+  "archive_files": 354,
   "manifest_verified": true,
-  "manifest_deliverables": 351,
+  "manifest_deliverables": 353,
   "excluded_secrets_dataset_models_venv": true,
   "extracted_imports_and_document_excerpts": true,
   "smoke_mode": "offline document_excerpts diagnostic",
@@ -14,11 +14,15 @@
   "test_collection_scoped": true,
   "report_pages": 4,
   "release_blockers": [],
-  "archive_sha256": "cdd9a9d1af7eb9b02c1174d1053b773e183a95e4ff6b86865762e564642d377a",
-  "archive_bytes": 22329850,
+  "archive_sha256": "c8824ce7997c7f9ce6f8623ba5c8e41efb9c182292dd847798fa61e30daebc27",
+  "archive_bytes": 22748931,
   "demo_filename": "Resolovox Demo.mp4",
   "demo_seconds": 105.0,
+  "demo_video_sha256": "e0b77dd847d1dd89d8b23a8eb0d882a52ffed3b67590458a87a32c73368acd39",
   "current_readme_and_media_verified": true,
+  "cover_assets_verified": true,
+  "original_audio_unchanged": true,
+  "readme_click_to_play_verified": true,
   "credential_scan_passed": true,
   "public_repository_confirmed": true
 }
