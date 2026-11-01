@@ -8,7 +8,7 @@ import re
 from .grounding import _numeric_text, _UNITS
 
 _REFUND = re.compile(r"refund|रिफ़?ंड|धनवापसी", re.I)
-_DURATION = re.compile(r"\b(?:days?|long|soon|when|time|kab|kitn\w*)\b|दिन|कब|समय", re.I)
+_DURATION = re.compile(r"\b(?:days?|long|soon|when|time|fast|quick(?:ly)?|speed|kab|kitn\w*|jaldi|tez)\b|दिन|कब|समय|जल्दी|ते[ज़ज]", re.I)
 _RECEIPT = re.compile(r"\b(?:arriv\w*|receiv\w*|reach\w*|get|aay\w*|aeg\w*|mil\w*)\b|आए|आय|मिल", re.I)
 _START = re.compile(r"\b(?:initiat\w*|start\w*|begin\w*|shuru)\b|शुरू|शुरुआत|आरंभ|प्रारंभ", re.I)
 _COMPOUND = re.compile(r"\b(?:compare|all|each|every|warrant\w*|return\s+(?:window|deadline)|pick.?up\s+(?:cost|fee)|RRN)\b|तुलना|सभी|वारंटी|शुल्क", re.I)

@@ -516,7 +516,7 @@ class Agent:
                     if generated is None:
                         s.source_input_workflow={}
                         generated=document_reply(model_probe,answer_query,s.language,selected,
-                            facts=plan.facts,private=bool(s.order_id),context_provenance=True)
+                            facts=plan.facts,private=bool(s.order_id),context_provenance=True,fast_uncertainty=True)
                     else:
                         generation_context_sources=[]
                         s.source_input_workflow=make_source_input_workflow(plan.facts,selected,answer_query,

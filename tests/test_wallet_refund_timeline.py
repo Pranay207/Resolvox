@@ -26,3 +26,28 @@ def test_changed_wallet_row_cannot_reuse_old_binding():
 def test_conflicting_wallet_rows_do_not_choose_one():
  facts,sources=context();sources[0]['text']=sources[0]['text']+'\n| ZentroMart Wallet | Instant, within 19 hours |'
  assert refund_timeline_binding('Refund kitne din mein aayega?',facts,sources,'2026-10-20') is None
+
+
+@pytest.mark.parametrize('query',[
+    'How fast are refunds to the ZentroMart Wallet?',
+    'How quickly do wallet refunds arrive?',
+    'Wallet refund ki speed kya hai?',
+    'Wallet refund kitni jaldi aayega?',
+    'वॉलेट में रिफंड कितनी जल्दी आएगा?',
+])
+def test_speed_wording_binds_public_refund_to_actual_source_clock(query):
+    _,sources=context(hours=19)
+    facts=build_context(query,sources,SimpleNamespace(products={},holidays=set()))
+    assert facts['refund_arrival_policy']['maximum_hours']==19
+    assert refund_timeline_inputs(query,facts,sources,'2026-10-20')
+    check_refund_timeline_answer('After initiation, wallet refunds arrive within 19 hours.',query,facts,sources,'2026-10-20')
+    with pytest.raises(ValueError,match='missing_refund_initiation_anchor'):
+        check_refund_timeline_answer('Wallet refunds arrive within 19 hours.',query,facts,sources,'2026-10-20')
+
+
+def test_fast_initiation_question_keeps_full_context_instead_of_arrival_projection():
+    query='How fast do you initiate a wallet refund?'
+    _,sources=context()
+    facts=build_context(query,sources,SimpleNamespace(products={},holidays=set()))
+    assert 'refund_arrival_policy' not in facts
+    assert refund_timeline_inputs(query,facts,sources,'2026-10-20') is None
