@@ -1,53 +1,48 @@
 # Verification
 
-Resolvox records the scope, source hashes and actual outputs of each check separately from organizer scoring.
+The current core check set uses **Groq `openai/gpt-oss-120b`**, low reasoning effort, constrained JSON and an additional source-claim review. Speech uses **Gnani only**. These are selected development results; organizer hidden-audio scoring is separate.
 
-| Evidence | Recorded result | Scope |
+| Check | Verified scope | Evidence |
 | --- | --- | --- |
-| [Focused offline regressions](sample_outputs/release_update_verification.json) | **432/432 verified**; zero failures, errors or skips | Source-support flags, return-date and eligibility scope, repair context and release safeguards. Scripted clients. |
-| [Refund and grounding regressions](sample_outputs/refund_scope_verification_20261031.json) | **655/655 verified**; zero failures, errors or skips | Source-bound dates, units, record reading and negative action/privacy cases. |
-| [Packaging and report regressions](sample_outputs/targeted_release_tests_20261031.json) | **148/148 verified**; zero failures, errors or skips | Evidence freshness, document limits, archive filtering and release guards. |
-| [Latest selected live run](sample_outputs/targeted_live_validation.json) | **Failed/incomplete** | The original mechanical checks and predictions are retained; source review rejected claims, and the coupon edge was unavailable. This is not a complete current live pass. |
-| [Latest Gnani speech run](sample_outputs/targeted_voice_validation.json) | Audio batch **3/3 completed**; semantic checks **1/3 passed** | Actual Gnani STT/TTS with synthetic English, Hindi and Hinglish clips. Successful audio transport is separate from answer correctness. |
-| [Return-date check records](sample_outputs/return_date_validation.json) | **1 completed Hindi check passed** in the partial run | The interrupted run has no result for unexecuted cases. |
-| [Four-page report](report.pdf) | Layout QA recorded separately | Implementation, required comparison, observed failures, fixes and the stated verification limits. |
+| Conversations | **18/18 turns** across four scenarios, with source-by-source review | [Current manifest](sample_outputs/targeted_live_validation.json) |
+| Refund edges | **2/2**: coupon context and authenticated recorded completion date | [Case artifacts](sample_outputs/targeted_live_validation.json) |
+| Primary speech | **3/3 assessed synthetic round trips** | [Text, sources, audio and hashes](sample_outputs/targeted_voice_validation.json) |
+| Focused offline regressions | **432/432 passed**; zero failures, errors or skips | [Frozen receipt](sample_outputs/release_update_verification.json) |
+| Refund and grounding regressions | **655/655 passed**; zero failures, errors or skips | [Frozen receipt](sample_outputs/refund_scope_verification_20261031.json) |
+| Packaging and report regressions | **148/148 passed**; zero failures, errors or skips | [Frozen receipt](sample_outputs/targeted_release_tests_20261031.json) |
+| Report | Four-page layout QA, bound to the actual PDF hash | [PDF QA](sample_outputs/pdf_qa.json) |
 
-## Verified offline scope
+The offline selections overlap, so their totals are not additive. Receipts retain the exact selected files, console/JUnit artifacts and before/after source hashes. The [3,567-test engineering run](sample_outputs/reliability_engineering.json) belongs to an earlier revision and is historical rather than a current broad-suite claim.
 
-The three automated selections overlap; their counts are not additive. Their receipts list selected files, actual JUnit/console artifacts and source/test hashes before and after each execution. They use scripted clients and negative cases, not live model inference. The broader [3,567-test engineering receipt](sample_outputs/reliability_engineering.json) belongs to an earlier revision and is not represented as current.
+## Actual live and speech evidence
 
-## Live results and daily quota
+The selected current core run contains all four conversation scenarios and both refund edges on one declared runtime/profile, with mechanical checks and independent text/source reviews. Earlier failed/incomplete runs remain preserved with their original outputs and hashes; their earlier mechanical passes do not override source-review failures.
 
-The preserved [selected conversation run](sample_outputs/targeted_live_validation.json) is marked failed and incomplete. Its original mechanical scores do not override the source-by-source review: unsupported eligibility/status claims were identified before the later fixes. The coupon edge encountered provider unavailability. The original artifacts remain unmodified and retain their actual inference source hashes.
+The fresh Gnani batch transcribed and generated reply audio for the three synthetic primary-language inputs. Its original detector recorded **2/3** because it missed the equivalent Hindi spelling **फ़ोटो**. Only that spelling detector was extended; the exact original semantic logic was re-executed as **3/3** without changing predictions, LLM flags, numeric/source checks or WAVs. The [original manifest](sample_outputs/targeted_voice_20261101T181229Z/validation_before_unicode_fix.json), original driver and SHA-256 rescoring provenance are retained in the [current voice record](sample_outputs/targeted_voice_validation.json). Manual source review and WAV integrity checks do not establish subjective listening quality or human/noise performance.
 
-Groq returned **HTTP 429** for the configured `openai/gpt-oss-20b` account's daily-token allowance: **200,000 tokens allowed, 199,298 used**, with the observed request needing 1,583 tokens. The user retained the existing quota and account. Further verification was limited by that allowance; no new key, paid tier or alternate provider was substituted. Later offline fixes are verified only to their recorded scope, and no complete current live-answer or speech pass is certified.
+## Supplementary return-date probes and quota
 
-The [latest speech manifest](sample_outputs/targeted_voice_validation.json) preserves real transcriptions, generated replies and audio hashes. All three audio round trips completed, while English and Hinglish semantic checks failed and Hindi passed. An audio file's existence does not establish that its answer is correct. Synthetic clips do not establish real-speaker, accent, noise or subjective listening performance.
+[Additional return-date probes](sample_outputs/return_date_validation.json) are outside the declared core six-scenario/three-clip release set. They were limited by provider token quota and are **not reported as 4/4**. An unconditional pickup-fee draft was rejected by source review; its conditional repair could not complete the further audit call under quota. An unfinished or unavailable probe is not assigned a pass.
 
-## Model, speech and data
+Earlier Groq 20b calls reached the account's 200,000-token daily allowance; the recorded rejection showed 199,298 used and a 1,583-token request. The current core results explicitly use 120b on the same configured account/key, rather than mixing 20b and 120b outcomes. No new account key, paid tier or substitute speech provider is implied. Provider quotas, model work and network conditions affect latency; a selected result is not a general response-time guarantee.
 
-The configured hosted profile uses Groq `openai/gpt-oss-20b` with low reasoning effort, constrained JSON and an additional source-claim review. Questions, retrieved policies and relevant synthetic record fields are sent to that provider. Gnani remains the only speech recognition and synthesis provider. Retrieval and the UI run locally; a separate local Ollama `qwen3:4b-instruct` profile remains available.
+## Historical required comparison
 
-Credentials stay in the ignored `.env` and `.env.hosted`. Saved chats stay in ignored `.local_data/`; this mode is for one laptop and has no shared-customer account isolation. Supplied order and ticket tools operate on capstone fixtures rather than a live store backend. Response time depends on model work, loading, quota and network conditions; cached timings do not establish unseen-question performance.
-
-## Required comparison
-
-The recorded [prompt-only baseline](sample_outputs/eval_step1.json) is **1/52**, including one recorded error. The [grounded practice total](sample_outputs/eval_step2_latest_cases.json) is **52/52 accumulated checks** from preserved predictions and targeted retests. Model and source revisions differ, so the comparison is descriptive rather than a controlled same-model ablation or a fresh full evaluation of the current version.
+The recorded [prompt-only baseline](sample_outputs/eval_step1.json) is **1/52**, including one recorded error. The [grounded practice total](sample_outputs/eval_step2_latest_cases.json) is **52/52 accumulated checks** from preserved outputs and targeted retests across earlier model/source revisions. This is descriptive, not a controlled same-model ablation or a fresh full evaluation of the current version.
 
 ## Reproduce selected checks
 
 ```sh
 python scripts/validate_targeted_live.py --hosted --pacing-seconds 30
-python scripts/validate_return_dates.py --hosted
 python scripts/validate_targeted_voice.py --hosted
 ```
 
-Use your own configured credentials and available account quota. Omit `--hosted` only for the separately configured local model. These drivers select scenarios and retain real outputs; they do not run every practice question or conversation by default. Offline scripted-client tests are reported separately.
+The supplementary driver is `python scripts/validate_return_dates.py --hosted`. Your ignored `.env.hosted` provides the explicit Groq profile and your key; ignored `.env` holds Gnani credentials and local settings. Omit `--hosted` only for the separately configured local Ollama profile. Drivers preserve actual outputs and execution profiles; model cache metrics remain visible in voice artifacts.
 
-## Report, demonstration and archive
+## Demonstration, data and packaging
 
-[PDF QA](sample_outputs/pdf_qa.json) binds visual inspection to the exact report SHA-256. It verifies document layout, not universal application correctness.
+[Resolovox Demo.mp4](<Resolovox Demo.mp4>) is a **105-second edited walkthrough** with synthetic customer speech/narration, actual application replies and disclosed shortened processing waits. [Demo provenance](sample_outputs/demo_validation.json) preserves source captures and output hashes.
 
-[Resolovox Demo.mp4](<Resolovox Demo.mp4>) is a **105-second edited walkthrough** of actual UI voice turns: a return question, pickup-fee follow-up and uncertainty about an undocumented future policy. Customer speech and narration are synthetic Gnani audio; replies are actual application outputs. Shortened waits are disclosed. [Demo provenance](sample_outputs/demo_validation.json) retains source captures, output hashes and observed processing bounds.
+The ordinary package checker uses its original `targeted_live_with_disclosed_limits` policy. It preserves selected evidence and its warnings rather than claiming an unseen organizer score or universal semantic accuracy. Supplementary return-date checks do not become a fabricated complete score. The archive's `SUBMISSION_STATUS.json` records the actual core release decision; ordinary final gates remain active.
 
-The archive's `SUBMISSION_STATUS.json` preserves its actual release decision and scope. A current source snapshot is distinct from a fully verified release; ordinary final packaging checks remain active. Credentials, local chat history, input speech, dataset copies, model weights and environments are excluded. Finite validators and model-based source review do not prove every qualitative claim or unseen question.
+Credentials, local chat history, private input speech, dataset copies, model weights and environments are excluded. The current store/ticket tools use the supplied capstone fixtures. Saved history is intended for one laptop and provides no shared-customer account isolation. Human-speaker/noise testing and deployment-scale behavior remain distinct from these selected checks.

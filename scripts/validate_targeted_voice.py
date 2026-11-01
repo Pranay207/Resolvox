@@ -32,7 +32,7 @@ try:
  for entry in result['entries']:
   prediction=json.loads((output/(entry['output_prefix']+'.json')).read_text(encoding='utf-8'));answer=_numeric_text(prediction.get('answer',''));ids=prediction.get('retrieved_chunk_ids',[]);name=entry['input'];language=mapping[name]['language']
   if name=='01_en.wav':semantic=prediction['decision']=='answer' and 'REF-2' in ids and bool(re.search(r'1\s*(?:to|[-–])\s*3',answer))
-  elif name=='02_hi.wav':semantic=prediction['decision']=='answer' and 'DWM-1' in ids and '48' in answer and bool(re.search(r'photo|फोटो|तस्वीर',answer,re.I))
+  elif name=='02_hi.wav':semantic=prediction['decision']=='answer' and 'DWM-1' in ids and '48' in answer and bool(re.search(r'photo|(?:फ\u093c?|\u095e)ोटो|तस्वीर',answer,re.I))
   else:semantic=prediction['decision']=='answer' and 'REF-2' in ids and bool(re.search(r'3\s*(?:to|se|से|[-–])\s*5',answer))
   audio=False;seconds=0
   if entry.get('audio'):

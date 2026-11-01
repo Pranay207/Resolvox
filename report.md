@@ -23,7 +23,7 @@ Operational authentication and tool confirmations are deterministic. When curren
 
 ## Runtime
 
-Implemented application profile: Groq openai/gpt-oss-20b with low reasoning effort, constrained JSON output and an additional source-claim review. Requests and repairs have bounded time budgets; no answer-provider fallback is enabled. Gnani is the only STT/TTS provider. Retrieval and the Streamlit interface run on the laptop. A separate local Ollama profile remains available.
+Implemented application profile: Groq openai/gpt-oss-120b with low reasoning effort, constrained JSON output and an additional source-claim review. Requests and repairs have bounded time budgets; no answer-provider fallback is enabled. Gnani is the only STT/TTS provider. Retrieval and the Streamlit interface run on the laptop. A separate local Ollama profile remains available.
 
 
 ---
@@ -41,15 +41,18 @@ The recorded baseline used qwen3:1.7b. The Step 2 total combines actual preserve
 
 | Selected check | Recorded result | Scope |
 | --- | --- | --- |
-| Focused offline regression checks | 432/432 verified | Return-date scope, source-support flags, repair context and release safeguards. Scripted clients; no live inference. |
-| Refund and grounding regressions | 655/655 verified | Source-bound dates, units, conditional eligibility, record reading and negative action/privacy checks. |
-| Packaging and report regressions | 148/148 verified | Evidence freshness, report limits, archive integrity and release guards. |
+| Selected conversations | 18/18 turns | Four current scenarios with source-by-source review of generated replies. |
+| Refund edge cases | 2/2 | Current coupon-context and authenticated completion-date checks. |
+| Primary-language Gnani speech | 3/3 | Current synthetic English, Hindi and Hinglish STT/agent/TTS round trips; text/source review and audio integrity. |
+| Focused offline regressions | 432/432 verified | Source support, return-date and eligibility scope, repair context and release safeguards. |
+| Refund and grounding regressions | 655/655 verified | Dates, units, record reading and negative action/privacy cases. |
+| Packaging and report regressions | 148/148 verified | Evidence freshness, document limits, archive integrity and release guards. |
 
-Verified scope is limited to these overlapping offline selections; their counts are not additive. The latest live run contains source-review failures and an unavailable coupon reply, and the speech run did not pass all semantic checks. Groq daily-token quota limited further live verification. Original outputs and execution hashes remain preserved; no complete current live or speech pass is claimed.
+The selected core conversation, refund and speech checks use the current hosted profile and source revision. The speech matcher was corrected for equivalent Hindi spellings of photo; unchanged predictions and audio were re-evaluated from 2/3 to 3/3, with the original manifest preserved. Supplementary return-date probes were quota-limited and are not claimed as 4/4. Offline selections overlap and are not additive. No fresh full52 or full96 result is claimed.
 
 These are exposed development regressions, not hidden organizer scores or a new full-suite run. The checks establish the stated selected behavior; they do not certify every unseen question or arbitrary semantic claim. Synthetic speech does not establish human accents, noisy-room performance or subjective listening quality.
 
-Recorded selected generated-turn latency: 2.8-5.8 seconds across 7 saved turns. Host-only steps and speech service time are separate. These timings can include provider quota waits and are not a universal latency guarantee. Per-stage timings are preserved in JSON.
+Recorded selected generated-turn latency: 5.2-6.4 seconds across 8 saved turns. Host-only steps and speech service time are separate. These timings can include provider quota waits and are not a universal latency guarantee. Per-stage timings are preserved in JSON.
 
 
 ---

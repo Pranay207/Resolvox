@@ -1,6 +1,6 @@
 {
   "scope": "Selected offline return-date, source-support, repair-context and packaging/report regressions. Scripted clients; no live model, speech, full52 or full96 rerun.",
-  "started_at_utc": "2026-11-01T16:21:06.357656+00:00",
+  "started_at_utc": "2026-11-01T18:19:41.066031+00:00",
   "selected_test_files": [
     "tests/test_unknown_window_support_flag.py",
     "tests/test_placement_exception_guard.py",
@@ -36,17 +36,17 @@
     "no:cacheprovider",
     "--override-ini=addopts=",
     "--tb=short",
-    "--junitxml=C:\\Users\\Shiva\\Downloads\\Resolvox\\sample_outputs\\release_update_checks_20261101T162106Z\\pytest.xml"
+    "--junitxml=C:\\Users\\Shiva\\Downloads\\Resolvox\\sample_outputs\\release_update_checks_20261101T181941Z\\pytest.xml"
   ],
   "source_and_test_sha256_started": {
     "app.py": "6f2fb4078467e017c45f96b71c6f59202f602aa1873af15e442ee1769f7ce799",
     "package_submission.py": "6025424101f7e6985a7ffcf9542cde90a8fa55af01c775680cffc90935690214",
     "pytest.ini": "adf35da0642114a4c4867167eb6320584691a6adb313159f0844151961d37840",
     "run.py": "9fe9e285e5e257a51ac84fd66e5bff89e8816b679a7ec18fef2158348c80891e",
-    "scripts/targeted_report.py": "786245030fccfbbfac2cc83320755cac67d4ab70a0fb0da8f0cee9184f2aaa11",
+    "scripts/targeted_report.py": "146cf8939dc0f33ac0798d97eef14ca0193c921f9db6049e918ced2bd8742ecd",
     "scripts/validate_return_dates.py": "baba9928c7adb3683d510484e62a8598ad710a3ab18bf5f53675e5b32e4da614",
     "scripts/validate_targeted_live.py": "a9825843aad96f731f1edac528f8af4ee64fe199c38fb834a51898b3ca48f716",
-    "scripts/validate_targeted_voice.py": "8a0667c408a1ae28b191836e2a84cc15f9db6882d2d989bd80ee68246f3481c1",
+    "scripts/validate_targeted_voice.py": "5a423b711065c0be0ff2b3489beb758b44f58b176163d585afdf6f798311d072",
     "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
     "src/agent.py": "82f2c78833894f5f1defba6a4b80ce15d259bf1c11b833f648d98188febdd9b2",
     "src/answer_polarity.py": "90c1fb47752d9aeeae95dd474a5ae442cd53e2268249b9b60910464ba35a9272",
@@ -113,7 +113,7 @@
     "tests/test_unknown_window_support_flag.py": "85094d055cb0e565d8c1c8e321e43d6068ed0421d3bb3a52917b1b76b198da11"
   },
   "complete": true,
-  "finished_at_utc": "2026-11-01T16:21:40.798466+00:00",
+  "finished_at_utc": "2026-11-01T18:20:49.476422+00:00",
   "exit_code": 0,
   "pytest": {
     "tests": 432,
@@ -127,10 +127,10 @@
     "package_submission.py": "6025424101f7e6985a7ffcf9542cde90a8fa55af01c775680cffc90935690214",
     "pytest.ini": "adf35da0642114a4c4867167eb6320584691a6adb313159f0844151961d37840",
     "run.py": "9fe9e285e5e257a51ac84fd66e5bff89e8816b679a7ec18fef2158348c80891e",
-    "scripts/targeted_report.py": "786245030fccfbbfac2cc83320755cac67d4ab70a0fb0da8f0cee9184f2aaa11",
+    "scripts/targeted_report.py": "146cf8939dc0f33ac0798d97eef14ca0193c921f9db6049e918ced2bd8742ecd",
     "scripts/validate_return_dates.py": "baba9928c7adb3683d510484e62a8598ad710a3ab18bf5f53675e5b32e4da614",
     "scripts/validate_targeted_live.py": "a9825843aad96f731f1edac528f8af4ee64fe199c38fb834a51898b3ca48f716",
-    "scripts/validate_targeted_voice.py": "8a0667c408a1ae28b191836e2a84cc15f9db6882d2d989bd80ee68246f3481c1",
+    "scripts/validate_targeted_voice.py": "5a423b711065c0be0ff2b3489beb758b44f58b176163d585afdf6f798311d072",
     "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
     "src/agent.py": "82f2c78833894f5f1defba6a4b80ce15d259bf1c11b833f648d98188febdd9b2",
     "src/answer_polarity.py": "90c1fb47752d9aeeae95dd474a5ae442cd53e2268249b9b60910464ba35a9272",
@@ -198,7 +198,7 @@
   },
   "all_tested_bytes_unchanged": true,
   "artifacts": {
-    "sample_outputs/release_update_checks_20261101T162106Z/pytest.log": "c7155bb2ef5a22a9c7950835782632d9f7af9bc395f9adfe4bba7d9adaf92f31",
-    "sample_outputs/release_update_checks_20261101T162106Z/pytest.xml": "ff8dea5256f6edc7133ffcb96de32a76574b276644973e16eac12c200d920761"
+    "sample_outputs/release_update_checks_20261101T181941Z/pytest.log": "86a597c364656d0b6695321bfd72cf3602768af8f85921a299db29e38903e0be",
+    "sample_outputs/release_update_checks_20261101T181941Z/pytest.xml": "637a1beb56f30ed63b2655f2374734f395a6701c01a42d41c8ad3d924dc81c8c"
   }
 }

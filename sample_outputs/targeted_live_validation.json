@@ -1,9 +1,9 @@
 {
-  "status": "failed",
-  "complete": false,
+  "status": "tested",
+  "complete": true,
   "inference_profile": "hosted_application",
   "scope": "Selected official conversations PC009,PC010,PC003,PC004 plus two refund edges. Approved Groq application profile and supplied tools; not full52 or full96, not organizer scoring.",
-  "started_at_utc": "2026-11-01T16:03:15.645132+00:00",
+  "started_at_utc": "2026-11-01T18:05:32.157656+00:00",
   "runtime_source_sha256": {
     "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
     "src/agent.py": "82f2c78833894f5f1defba6a4b80ce15d259bf1c11b833f648d98188febdd9b2",
@@ -18,7 +18,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "3d4b8bef50acfd392faffa1549ea5e1360a4ee27331d6b5141a04620ebbe2710",
+    "src/document_answers.py": "d422e3af63d322e497b92d080d36e13d3230188dee706ae149d28dd6a7b93199",
     "src/document_context.py": "f7b124bb5184ae1d67a3e2edfd440d693c6e1209908c9d825083454be801b733",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -33,7 +33,7 @@
     "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
     "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
     "src/operational_explanations.py": "d1494d99315a42eab9eafd2aac42a19641c0fd05181518807be7457ee1d5c248",
-    "src/pending_refund_context.py": "6a2479f9149f42d09985203e61b398673bfc861d44aaca0c53e3675087ba6934",
+    "src/pending_refund_context.py": "e03aec18f74ca20e8567f09450af715139cb28d70c07f879bc860cd377ff5ace",
     "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
     "src/placement_conditions.py": "61b7be8455f99ae6fc81ae44f399efef01ff43c1fae80ac90be71de0d8dbfe12",
     "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
@@ -63,8 +63,8 @@
     {
       "id": "PC009",
       "kind": "official_conversation_subset",
-      "artifact": "sample_outputs/targeted_live_20261101T160315Z/PC009.json",
-      "sha256": "06b28aaef427f4a38bf9247ca214985767f5356cac2e54384e02eef1a0d28e3d",
+      "artifact": "sample_outputs/targeted_live_20261101T180532Z/PC009.json",
+      "sha256": "da4ad8a480fe35106183308492f666a6012196f0fe3912f9df3a81a6dbf0a020",
       "summary": {
         "search_k": [
           12
@@ -102,13 +102,13 @@
         "latency_by_path": {
           "no_model_call": {
             "count": 3,
-            "p50_ms": 7.0,
-            "p95_ms": 7.0
+            "p50_ms": 13.5,
+            "p95_ms": 13.5
           },
           "uncached_llm_attempt": {
             "count": 1,
-            "p50_ms": 5849.8,
-            "p95_ms": 5849.8
+            "p50_ms": 6429.8,
+            "p95_ms": 6429.8
           }
         },
         "planned": 4,
@@ -120,8 +120,8 @@
     {
       "id": "PC010",
       "kind": "official_conversation_subset",
-      "artifact": "sample_outputs/targeted_live_20261101T160315Z/PC010.json",
-      "sha256": "c791ceda6a01623d1fddbe4182063035afb41978d0ff1214324274663550f1f7",
+      "artifact": "sample_outputs/targeted_live_20261101T180532Z/PC010.json",
+      "sha256": "06550214699089c02e056abe196c3afb6b4546fc989f04a178645322920a09ab",
       "summary": {
         "search_k": [
           12
@@ -158,13 +158,13 @@
         "latency_by_path": {
           "no_model_call": {
             "count": 3,
-            "p50_ms": 43.8,
-            "p95_ms": 43.8
+            "p50_ms": 45.2,
+            "p95_ms": 45.2
           },
           "uncached_llm_attempt": {
             "count": 1,
-            "p50_ms": 4116.1,
-            "p95_ms": 4116.1
+            "p50_ms": 5552.9,
+            "p95_ms": 5552.9
           }
         },
         "planned": 4,
@@ -176,8 +176,8 @@
     {
       "id": "PC003",
       "kind": "official_conversation_subset",
-      "artifact": "sample_outputs/targeted_live_20261101T160315Z/PC003.json",
-      "sha256": "fcd29c564eef41cf40cd3e3a6a1c06a98b917fbef408f22fa296cf830557dbe0",
+      "artifact": "sample_outputs/targeted_live_20261101T180532Z/PC003.json",
+      "sha256": "0302fee6186d734188d549c0ce964d387f3b2e74b6e3bfbac6cbdf1c03bc6e9c",
       "summary": {
         "search_k": [
           12
@@ -216,13 +216,13 @@
         "latency_by_path": {
           "no_model_call": {
             "count": 3,
-            "p50_ms": 8.2,
-            "p95_ms": 8.2
+            "p50_ms": 11.9,
+            "p95_ms": 11.9
           },
           "uncached_llm_attempt": {
             "count": 2,
-            "p50_ms": 2780.6,
-            "p95_ms": 2780.6
+            "p50_ms": 5460.3,
+            "p95_ms": 5460.3
           }
         },
         "planned": 5,
@@ -234,8 +234,8 @@
     {
       "id": "PC004",
       "kind": "official_conversation_subset",
-      "artifact": "sample_outputs/targeted_live_20261101T160315Z/PC004.json",
-      "sha256": "c12c0c919485089ee072f3077f53844a9ec96e975b93854bc20e1f3c8f334aa6",
+      "artifact": "sample_outputs/targeted_live_20261101T180532Z/PC004.json",
+      "sha256": "0b96aa1687ab786edba103badc625cda5a0681dff218a6f24f28948aa45a4b25",
       "summary": {
         "search_k": [
           12
@@ -273,13 +273,13 @@
         "latency_by_path": {
           "no_model_call": {
             "count": 3,
-            "p50_ms": 8.9,
-            "p95_ms": 8.9
+            "p50_ms": 12.4,
+            "p95_ms": 12.4
           },
           "uncached_llm_attempt": {
             "count": 2,
-            "p50_ms": 4347.5,
-            "p95_ms": 4347.5
+            "p50_ms": 6082.9,
+            "p95_ms": 6082.9
           }
         },
         "planned": 5,
@@ -291,56 +291,64 @@
     {
       "id": "refund_coupon_context",
       "kind": "refund_edge",
-      "artifact": "sample_outputs/targeted_live_20261101T160315Z/refund_coupon_context.json",
-      "sha256": "8cdf876b7777bc3bc8a0ccd6ef4028da8e9e7aca8944612abfa474d029136e56",
-      "passed": false
+      "artifact": "sample_outputs/targeted_live_20261101T180532Z/refund_coupon_context.json",
+      "sha256": "829715b3f298ea4233a888fd58a783ea089a37096944ff4a1e8e834099233621",
+      "passed": true
+    },
+    {
+      "id": "refund_completed_date",
+      "kind": "refund_edge",
+      "artifact": "sample_outputs/targeted_live_20261101T180532Z/refund_completed_date.json",
+      "sha256": "1104da376357b0c366e2fbe1cbe80966fd5b67cb72417d63cd2e6f39eab24925",
+      "passed": true
     }
   ],
   "manual_semantic_review": {
-    "status": "failed",
+    "status": "passed",
     "reviewer_type": "assistant_source_review_not_human_certification",
-    "reviewed_at_utc": "2026-11-01T16:18:22.577158+00:00",
+    "reviewed_at_utc": "2026-11-01T18:15:23.237301+00:00",
     "cases": [
       {
         "id": "PC009",
-        "artifact_sha256": "06b28aaef427f4a38bf9247ca214985767f5356cac2e54384e02eef1a0d28e3d",
+        "artifact_sha256": "da4ad8a480fe35106183308492f666a6012196f0fe3912f9df3a81a6dbf0a020",
         "passed": true,
-        "notes": "Missing QC/initiation remain unrecorded; prerequisites unknown and pickup-anchored initiation are preserved."
+        "notes": "Missing QC/initiation stay unrecorded; unknown prerequisites and pickup-anchored conditional initiation are preserved."
       },
       {
         "id": "PC010",
-        "artifact_sha256": "c791ceda6a01623d1fddbe4182063035afb41978d0ff1214324274663550f1f7",
-        "passed": false,
-        "notes": "Overstates unrecorded completion and asserts active staff review beyond confirmed ticket creation."
+        "artifact_sha256": "06550214699089c02e056abe196c3afb6b4546fc989f04a178645322920a09ab",
+        "passed": true,
+        "notes": "Positive initiated backend statuses support operational status reporting; no bank-balance/nonreceipt claim. Date, RRN and actual ticket confirmed; review needed, not active."
       },
       {
         "id": "PC003",
-        "artifact_sha256": "fcd29c564eef41cf40cd3e3a6a1c06a98b917fbef408f22fa296cf830557dbe0",
+        "artifact_sha256": "0302fee6186d734188d549c0ce964d387f3b2e74b6e3bfbac6cbdf1c03bc6e9c",
         "passed": true,
-        "notes": "Source-derived deadline, conditional item conditions, Plus pickup waiver and wallet hours are supported."
+        "notes": "Conditional item requirements, source-derived deadline, verified Plus pickup waiver and wallet hours are supported."
       },
       {
         "id": "PC004",
-        "artifact_sha256": "c12c0c919485089ee072f3077f53844a9ec96e975b93854bc20e1f3c8f334aa6",
-        "passed": false,
-        "notes": "Incorrectly transfers a change-of-mind pickup-fee condition to return eligibility; item-state requirements omitted."
+        "artifact_sha256": "0b96aa1687ab786edba103badc625cda5a0681dff218a6f24f28948aa45a4b25",
+        "passed": true,
+        "notes": "Conditional item requirements and festive deadline supported; fee conditions stay separate from eligibility. UPI range anchored to initiation; no specific holiday-inclusive arrival date asserted."
       },
       {
         "id": "refund_coupon_context",
-        "artifact_sha256": "8cdf876b7777bc3bc8a0ccd6ef4028da8e9e7aca8944612abfa474d029136e56",
-        "passed": false,
-        "notes": "Service unavailable; no generated answer can be approved."
+        "artifact_sha256": "829715b3f298ea4233a888fd58a783ea089a37096944ff4a1e8e834099233621",
+        "passed": true,
+        "notes": "Requested timing and coupon allocation/minimum deduction supported for actual non-Plus/no-coupon caller. Ambiguous parenthetical Plus/QC wording does not certify Plus prerequisites or every possible fee."
+      },
+      {
+        "id": "refund_completed_date",
+        "artifact_sha256": "1104da376357b0c366e2fbe1cbe80966fd5b67cb72417d63cd2e6f39eab24925",
+        "passed": true,
+        "notes": "Exact completed date explicitly attributed to authenticated order record; no performed-action claim."
       }
     ],
-    "scope": "Original pre-fix predictions. Subsequent source corrections pass offline regressions but lack a fresh live inference certification.",
-    "not_run": [
-      "refund_completed_date"
-    ]
+    "scope": "Selected actual customer facets and source support; not universal entailment, exhaustive policy narration or unseen organizer scoring."
   },
-  "inter_turn_pacing_seconds": 30.0,
-  "error_type": "RuntimeError",
-  "error_summary": "Coupon edge failed",
-  "finished_at_utc": "2026-11-01T16:09:00.972126+00:00",
+  "inter_turn_pacing_seconds": 45.0,
+  "finished_at_utc": "2026-11-01T18:11:36.599813+00:00",
   "runtime_source_sha256_finished": {
     "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
     "src/agent.py": "82f2c78833894f5f1defba6a4b80ce15d259bf1c11b833f648d98188febdd9b2",
@@ -355,7 +363,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "3d4b8bef50acfd392faffa1549ea5e1360a4ee27331d6b5141a04620ebbe2710",
+    "src/document_answers.py": "d422e3af63d322e497b92d080d36e13d3230188dee706ae149d28dd6a7b93199",
     "src/document_context.py": "f7b124bb5184ae1d67a3e2edfd440d693c6e1209908c9d825083454be801b733",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -370,7 +378,7 @@
     "src/navigation_labels.py": "c2c63feb494cafc11d9eef45a408c0b0f477e64ec506a4c2e2242466212efdf5",
     "src/normalize.py": "83f12d53489270eac1e91d53be13bd7ecf361b58983f73dbacc98d4a05fa410e",
     "src/operational_explanations.py": "d1494d99315a42eab9eafd2aac42a19641c0fd05181518807be7457ee1d5c248",
-    "src/pending_refund_context.py": "6a2479f9149f42d09985203e61b398673bfc861d44aaca0c53e3675087ba6934",
+    "src/pending_refund_context.py": "e03aec18f74ca20e8567f09450af715139cb28d70c07f879bc860cd377ff5ace",
     "src/personal_money.py": "77c6f8a31377b001274a0048b9670d8ee6514b1d1ea3e9da076c4fdec9d42ef4",
     "src/placement_conditions.py": "61b7be8455f99ae6fc81ae44f399efef01ff43c1fae80ac90be71de0d8dbfe12",
     "src/policy_choices.py": "837dd578e6dcf4847ddc7fe0cb8b8ed5a083f08a6007579856f08346578238aa",
@@ -396,6 +404,5 @@
     "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b",
     "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1"
   },
-  "source_runtime_unchanged": true,
-  "provider_availability_diagnostic": "sample_outputs/provider_quota_verification.json"
+  "source_runtime_unchanged": true
 }

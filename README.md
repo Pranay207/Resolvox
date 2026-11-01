@@ -145,7 +145,7 @@ For the faster Groq application profile, keep local evaluation settings in `.env
 
 ```dotenv
 LLM_API_KEY=your_groq_api_key
-LLM_MODEL=openai/gpt-oss-20b
+LLM_MODEL=openai/gpt-oss-120b
 LLM_REASONING_EFFORT=low
 ```
 
@@ -225,7 +225,7 @@ flowchart TD
 | Component | Implementation |
 | --- | --- |
 | Interface | Responsive Streamlit workspace with Speak/Type input, one conversation and verified case details |
-| Answer model | Explicit Groq application profile (`openai/gpt-oss-20b`); separate local Ollama profile (`qwen3:4b-instruct`) |
+| Answer model | Explicit Groq application profile (`openai/gpt-oss-120b`); separate local Ollama profile (`qwen3:4b-instruct`) |
 | Retrieval | Lexical search + multilingual MiniLM embeddings using quantized ONNX |
 | Speech | Gnani STT and TTS only |
 | State and tools | Shared agent session with supplied dataset lookup/ticket tools |
@@ -235,19 +235,24 @@ See [DESIGN.md](DESIGN.md) for the state model, retrieval strategy and evidence 
 
 ## Evaluation
 
-Verified offline checks and historical practice results:
+Current selected checks and historical practice results:
 
 | Check | Recorded result | Evidence |
 | --- | --- | --- |
-| Focused offline regressions | **432/432 verified**, zero failures, errors or skips | [Source-bound receipt](sample_outputs/release_update_verification.json) |
-| Refund and grounding regressions | **655/655 verified**, zero failures, errors or skips | [Refund receipt](sample_outputs/refund_scope_verification_20261031.json) |
-| Packaging and report regressions | **148/148 verified**, zero failures, errors or skips | [Release receipt](sample_outputs/targeted_release_tests_20261031.json) |
-| Step 1: prompt-only baseline | **1/52**, including one recorded error | [Baseline outputs](sample_outputs/eval_step1.json) |
-| Step 2: grounded practice questions | **52/52 accumulated checks** across recorded revisions | [Question records](sample_outputs/eval_step2_latest_cases.json) |
+| Selected conversation scenarios | **18/18 turns**, with source review | [Current live evidence](sample_outputs/targeted_live_validation.json) |
+| Refund edge cases | **2/2**, with source review | [Case artifacts](sample_outputs/targeted_live_validation.json) |
+| English, Hindi and Hinglish speech | **3/3 assessed synthetic round trips** | [Gnani evidence](sample_outputs/targeted_voice_validation.json) |
+| Focused offline regressions | **432/432 verified** | [Source-bound receipt](sample_outputs/release_update_verification.json) |
+| Refund and grounding regressions | **655/655 verified** | [Refund receipt](sample_outputs/refund_scope_verification_20261031.json) |
+| Packaging and report regressions | **148/148 verified** | [Release receipt](sample_outputs/targeted_release_tests_20261031.json) |
+| Step 1: prompt-only baseline | **1/52**, including one recorded error | [Baseline](sample_outputs/eval_step1.json) |
+| Step 2: grounded practice questions | **52/52 accumulated checks** across recorded revisions | [Practice records](sample_outputs/eval_step2_latest_cases.json) |
 
-**Scope:** the offline selections use scripted clients and overlap; their totals must not be added. The historical 52/52 combines saved practice outputs and targeted retests across model/source revisions, rather than a new full score for the current version. Groq's daily-token quota limited further live verification; no complete current live-answer or speech pass is claimed. These are development checks, not organizer scores.
+**Scope:** current core checks use Groq `openai/gpt-oss-120b` with low reasoning effort and Gnani-only speech. These are selected development checks; no fresh full 52-question or 96-turn result is claimed. The historical 52/52 combines saved outputs and retests across earlier configurations, rather than a controlled same-model comparison. Offline selections overlap and must not be added.
 
-The hosted profile uses Groq for answers and Gnani for speech. Response time depends on model work, network conditions and provider quotas. The preserved live outputs, source-review findings and speech checks are documented in [VERIFICATION.md](VERIFICATION.md); the [four-page report](report.pdf) covers the implementation and measured scope.
+Speech scoring was re-evaluated **2/3 → 3/3** after accepting equivalent Hindi फ़ोटो/फोटो spellings. Original predictions, model flags, numeric/source checks and WAVs were unchanged; the original manifest and driver are retained. Supplementary return-date probes were limited by provider quota and have no claimed 4/4 result. [VERIFICATION.md](VERIFICATION.md) records the exact evidence and limits.
+
+Response time depends on model work, network conditions and provider quotas. Synthetic clips do not establish human-speaker or noise performance. See the [four-page report](report.pdf) for the implementation and findings.
 
 <details>
 <summary>Verification commands</summary>
@@ -257,17 +262,11 @@ Activate the virtual environment before running these commands:
 ```sh
 python Capstone_Project_Dataset_FTTT_2026/validate_dataset.py
 python -m pytest -q
-```
-
-Selected live checks use the configured hosted profile and require available account quota; speech requires Gnani access:
-
-```sh
 python scripts/validate_targeted_live.py --hosted --pacing-seconds 30
-python scripts/validate_return_dates.py --hosted
 python scripts/validate_targeted_voice.py --hosted
 ```
 
-Omit `--hosted` for the separately configured local Ollama profile. The original Step 1, Step 2 and Step 3 drivers remain available as `eval_step1.py`, `eval_step2.py` and `eval_step3.py`. Preserve previous outputs when changing model or runtime configuration.
+The supplementary return-date driver is `python scripts/validate_return_dates.py --hosted`. Live checks require available account quota and your configured credentials. Omit `--hosted` for the separately configured local Ollama profile. Original Step 1, Step 2 and Step 3 drivers remain available as `eval_step1.py`, `eval_step2.py` and `eval_step3.py`; preserve previous outputs when changing model or runtime configuration.
 
 </details>
 

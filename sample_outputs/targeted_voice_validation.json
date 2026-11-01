@@ -1,5 +1,5 @@
 {
-  "status": "failed",
+  "status": "tested",
   "scope": "3 selected synthetic Gnani TTS inputs -> Gnani STT -> selected support agent -> Gnani TTS. Not human speech or a listening/noise study.",
   "inference_profile": "hosted_application",
   "speech_provider": "Gnani only",
@@ -18,7 +18,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "c7505108371b8d8df1ef2713bfa58047977a5b8f164f2dd2319e029015abb9d0",
+    "src/document_answers.py": "d422e3af63d322e497b92d080d36e13d3230188dee706ae149d28dd6a7b93199",
     "src/document_context.py": "f7b124bb5184ae1d67a3e2edfd440d693c6e1209908c9d825083454be801b733",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -59,7 +59,7 @@
     "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b",
     "src/rule_bindings.json": "ef002c276615cc2331f48df538b1c4b1f33017f8c1537a8659af9bc7e65c36b1"
   },
-  "started_at_utc": "2026-11-01T16:10:22.351028+00:00",
+  "started_at_utc": "2026-11-01T18:12:29.275528+00:00",
   "input_provenance": [
     {
       "file": "01_en.wav",
@@ -82,8 +82,8 @@
     "succeeded": 3,
     "failed": 0,
     "speech_provider": "Gnani only",
-    "startup_ms": 3146.75,
-    "batch_wall_ms": 15222.43,
+    "startup_ms": 3512.63,
+    "batch_wall_ms": 40244.2,
     "entries": [
       {
         "input": "01_en.wav",
@@ -91,13 +91,13 @@
         "session_id": "01_en.wav",
         "status": "ok",
         "agent_succeeded": true,
-        "decision": "refuse",
+        "decision": "answer",
         "audio": "001_01_en_reply.wav",
-        "stt_ms": 1841.19,
-        "agent_ms": 2050.6,
-        "tts_ms": 1088.77,
-        "total_ms": 4986.11,
-        "latency_ms": 4986.11
+        "stt_ms": 2629.03,
+        "agent_ms": 5233.09,
+        "tts_ms": 967.56,
+        "total_ms": 8837.71,
+        "latency_ms": 8837.71
       },
       {
         "input": "02_hi.wav",
@@ -107,11 +107,11 @@
         "agent_succeeded": true,
         "decision": "answer",
         "audio": "002_02_hi_reply.wav",
-        "stt_ms": 298.38,
-        "agent_ms": 2256.71,
-        "tts_ms": 1161.29,
-        "total_ms": 3716.64,
-        "latency_ms": 3716.64
+        "stt_ms": 13500.67,
+        "agent_ms": 4873.56,
+        "tts_ms": 1526.8,
+        "total_ms": 19901.74,
+        "latency_ms": 19901.74
       },
       {
         "input": "03_hinglish.wav",
@@ -119,29 +119,29 @@
         "session_id": "03_hinglish.wav",
         "status": "ok",
         "agent_succeeded": true,
-        "decision": "refuse",
+        "decision": "answer",
         "audio": "003_03_hinglish_reply.wav",
-        "stt_ms": 363.59,
-        "agent_ms": 1616.61,
-        "tts_ms": 1370.43,
-        "total_ms": 3351.15,
-        "latency_ms": 3351.15
+        "stt_ms": 256.28,
+        "agent_ms": 5707.15,
+        "tts_ms": 1979.04,
+        "total_ms": 7943.4,
+        "latency_ms": 7943.4
       }
     ]
   },
   "semantic_validation": {
-    "passed": 1,
-    "failed": 2,
+    "passed": 3,
+    "failed": 0,
     "checks": [
       {
         "case": "01_en.wav",
         "language": "en",
         "actual_output_language": "en",
         "input_understood": true,
-        "semantic_ok": false,
+        "semantic_ok": true,
         "speech_nonempty": true,
-        "reply_seconds": 5.44,
-        "passed": false
+        "reply_seconds": 5.92,
+        "passed": true
       },
       {
         "case": "02_hi.wav",
@@ -150,7 +150,7 @@
         "input_understood": true,
         "semantic_ok": true,
         "speech_nonempty": true,
-        "reply_seconds": 8.96,
+        "reply_seconds": 8.0,
         "passed": true
       },
       {
@@ -158,14 +158,14 @@
         "language": "hi-en",
         "actual_output_language": "hi-en",
         "input_understood": true,
-        "semantic_ok": false,
+        "semantic_ok": true,
         "speech_nonempty": true,
-        "reply_seconds": 7.2,
-        "passed": false
+        "reply_seconds": 12.64,
+        "passed": true
       }
     ]
   },
-  "finished_at_utc": "2026-11-01T16:10:37.605168+00:00",
+  "finished_at_utc": "2026-11-01T18:13:09.579127+00:00",
   "runtime_source_sha256_finished": {
     "src/__init__.py": "a30dfd4ddfe2078ed24d7ae115191280643adba7f48e192bfee688c7b4e01034",
     "src/agent.py": "82f2c78833894f5f1defba6a4b80ce15d259bf1c11b833f648d98188febdd9b2",
@@ -180,7 +180,7 @@
     "src/data.py": "0c581c8b986a1ed9f7d256d09231af377b3c8c15bac64c257957127ef5e24438",
     "src/dates.py": "328a5fa53c613f3892227a3f4bee66d96f24286e75f7783e5e16dfe73e898eee",
     "src/delivery_clock.py": "1f2c3d59418b432cadb72080fd08ad466fd5209fd2914da73714ec29f064a1e1",
-    "src/document_answers.py": "c7505108371b8d8df1ef2713bfa58047977a5b8f164f2dd2319e029015abb9d0",
+    "src/document_answers.py": "d422e3af63d322e497b92d080d36e13d3230188dee706ae149d28dd6a7b93199",
     "src/document_context.py": "f7b124bb5184ae1d67a3e2edfd440d693c6e1209908c9d825083454be801b733",
     "src/escalation_rules.py": "efeaff077a0acbd898cb4d4ce369ef9e42659abe27b57351223a60e04ab45c5e",
     "src/evals.py": "080cc10e853ae2d3f818f8bf63b0dd7658a8e61bd12ddb33dbe59f44814c8760",
@@ -223,19 +223,80 @@
   },
   "source_runtime_unchanged": true,
   "artifacts": {
-    "sample_outputs/targeted_voice_20261101T161022Z/001_01_en.json": "c37e59dce612281f9c167f02cc0ed2e89932aa8e81aab7d269de030144963564",
-    "sample_outputs/targeted_voice_20261101T161022Z/001_01_en.txt": "988b4af19b6b3f9ac964b4cf14ed69ac75c64f55a12eb47de28902e3aaab5fd9",
-    "sample_outputs/targeted_voice_20261101T161022Z/001_01_en_reply.wav": "060a01923d8f4004c00b2759b0a7d35b30f1f0d1c0fceaead60cbc3617266784",
-    "sample_outputs/targeted_voice_20261101T161022Z/001_01_en_sources.json": "cb8b2370cbcefca0190ca41929700cdad5498372b73b15a6fac45be35602c3d2",
-    "sample_outputs/targeted_voice_20261101T161022Z/002_02_hi.json": "829a171b89076f0620641b861d717be03879c4ff2e5b8c4eadba4092cc754782",
-    "sample_outputs/targeted_voice_20261101T161022Z/002_02_hi.txt": "df1b19fb8d487c49c79ca0afcbfa2646e0eed7931aacd96be4f3a5510b0e69d3",
-    "sample_outputs/targeted_voice_20261101T161022Z/002_02_hi_reply.wav": "5cd5de0bbab766faac5a6ce03ab35a43d83ca1904cf0b26c6dfef1d78bffb6a4",
-    "sample_outputs/targeted_voice_20261101T161022Z/002_02_hi_sources.json": "cf270c17ab2309ae00101e7baf556eaa4a9a6f4a271cfa1952c8521ecd231ea6",
-    "sample_outputs/targeted_voice_20261101T161022Z/003_03_hinglish.json": "ff87a6cc762b8041e99509b8c4f103c2a9fa1ac7e2a0c2b862134ac47792277e",
-    "sample_outputs/targeted_voice_20261101T161022Z/003_03_hinglish.txt": "289877e876e62dc84d57eaf0f7c96648739284860437e6a4c6fa0797e48e0e32",
-    "sample_outputs/targeted_voice_20261101T161022Z/003_03_hinglish_reply.wav": "de90023a6e32b82a1c39e67f883c46c87071f0619d1b3112b5bd0f5df7ceb0de",
-    "sample_outputs/targeted_voice_20261101T161022Z/003_03_hinglish_sources.json": "cb8b2370cbcefca0190ca41929700cdad5498372b73b15a6fac45be35602c3d2",
-    "sample_outputs/targeted_voice_20261101T161022Z/manifest.json": "c0ba98857a9df1faea2acb4bb7e387d4a219aeda23a826e91948e65b85f3ab74"
+    "sample_outputs/targeted_voice_20261101T181229Z/001_01_en.json": "fa97695baf5889e946a0af6465a968e31fc08ba746f484b5ec0735e3774dc38f",
+    "sample_outputs/targeted_voice_20261101T181229Z/001_01_en.txt": "51de513efa178ae9d5ab612ffbca16285d6b0af25ac9c2448b9362ee22a9a829",
+    "sample_outputs/targeted_voice_20261101T181229Z/001_01_en_reply.wav": "87b8f84ca9ad7028151f9310d9a151cd620220245d6fe290b43d1aac26dd2d0e",
+    "sample_outputs/targeted_voice_20261101T181229Z/001_01_en_sources.json": "53ff155144ba986f092f5a9f8ca12e2de43b2e8222223d85f8f2c171873deb45",
+    "sample_outputs/targeted_voice_20261101T181229Z/002_02_hi.json": "cca335e0796bcaed7dee0dcbe8d4ce86293c36749741ad6cdf98726adad59637",
+    "sample_outputs/targeted_voice_20261101T181229Z/002_02_hi.txt": "f09379b65d50a6cfbfc0317de099257160a614b9fd722d0ccf68f372f4b52a2f",
+    "sample_outputs/targeted_voice_20261101T181229Z/002_02_hi_reply.wav": "acbe0f717b2da7718ae7cc78b384ca65641fe70a6c63a51ab518b2c478f4e4e6",
+    "sample_outputs/targeted_voice_20261101T181229Z/002_02_hi_sources.json": "cf270c17ab2309ae00101e7baf556eaa4a9a6f4a271cfa1952c8521ecd231ea6",
+    "sample_outputs/targeted_voice_20261101T181229Z/003_03_hinglish.json": "8822558d5e301daf1816452ed00b11691a9f6d76838db3ae37391ec238baff78",
+    "sample_outputs/targeted_voice_20261101T181229Z/003_03_hinglish.txt": "ab5482f3e00d4ae9655098b1cd97bf9664ff61483cab133b67af8fd587eb0d7d",
+    "sample_outputs/targeted_voice_20261101T181229Z/003_03_hinglish_reply.wav": "b6b477ab20acd331cbd97a19508a3cc1cb8699c654c82f8def378bff01dbf699",
+    "sample_outputs/targeted_voice_20261101T181229Z/003_03_hinglish_sources.json": "0d3eaa63d0e7dca081c1f4d99f65cd80f5655cea699761c0ee7bd65b0fa96607",
+    "sample_outputs/targeted_voice_20261101T181229Z/manifest.json": "dc900071c99f1bf029868dcf2eb9e1406e2fbb3118bccef35d6cbc5ced22e028",
+    "sample_outputs/targeted_voice_20261101T181229Z/validator_before_unicode_fix.py": "8a0667c408a1ae28b191836e2a84cc15f9db6882d2d989bd80ee68246f3481c1",
+    "sample_outputs/targeted_voice_20261101T181229Z/validation_before_unicode_fix.json": "37c4dd7a204f3fd2e3f3fdd92c7facbb3be78757080c32a69d0245cebd986205"
   },
-  "provider_availability_diagnostic": "sample_outputs/provider_quota_verification.json"
+  "verification_mode": "unicode_equivalent_matcher_revalidation_of_original_fresh_batch",
+  "rescoring_provenance": {
+    "scope": "Exact original semantic logic re-executed with only equivalent Hindi photo spellings admitted. No new model or speech calls; original predictions, model flags, numeric/source checks and WAVs unchanged.",
+    "original_driver_artifact": "sample_outputs/targeted_voice_20261101T181229Z/validator_before_unicode_fix.py",
+    "original_driver_sha256": "8a0667c408a1ae28b191836e2a84cc15f9db6882d2d989bd80ee68246f3481c1",
+    "current_driver_artifact": "scripts/validate_targeted_voice.py",
+    "current_driver_sha256": "5a423b711065c0be0ff2b3489beb758b44f58b176163d585afdf6f798311d072",
+    "original_manifest_artifact": "sample_outputs/targeted_voice_20261101T181229Z/validation_before_unicode_fix.json",
+    "original_manifest_sha256": "37c4dd7a204f3fd2e3f3fdd92c7facbb3be78757080c32a69d0245cebd986205",
+    "original_semantic_passed": 2,
+    "original_semantic_failed": 1,
+    "focused_offline_assertions": [
+      "photo_spelling_फोटो",
+      "photo_spelling_फ़ोटो",
+      "photo_spelling_फ़ोटो",
+      "no_photo_negative",
+      "wrong_numeric_negative",
+      "wrong_source_negative",
+      "wrong_decision_negative",
+      "actual_item_and_packaging_evidence_unchanged"
+    ],
+    "revalidated_at_utc": "2026-11-01T18:15:32.578717+00:00"
+  },
+  "manual_source_review": {
+    "status": "passed",
+    "reviewer_type": "assistant_text_source_review_and_audio_integrity_not_listening_certification",
+    "scope": "UPI1–3businessdays afterinitiation; Hindi48hours fromdelivery with item and packaging photos; netbanking3–5businessdays afterinitiation and an actual documented warehouse holiday. No performed actions or personal record facts claimed. No human/noise/listening assessment.",
+    "cases": [
+      {
+        "case": "01_en.wav",
+        "passed": true,
+        "prediction_artifact": "sample_outputs/targeted_voice_20261101T181229Z/001_01_en.json",
+        "prediction_sha256": "fa97695baf5889e946a0af6465a968e31fc08ba746f484b5ec0735e3774dc38f",
+        "source_artifact": "sample_outputs/targeted_voice_20261101T181229Z/001_01_en_sources.json",
+        "source_sha256": "53ff155144ba986f092f5a9f8ca12e2de43b2e8222223d85f8f2c171873deb45",
+        "audio_artifact": "sample_outputs/targeted_voice_20261101T181229Z/001_01_en_reply.wav",
+        "audio_sha256": "87b8f84ca9ad7028151f9310d9a151cd620220245d6fe290b43d1aac26dd2d0e"
+      },
+      {
+        "case": "02_hi.wav",
+        "passed": true,
+        "prediction_artifact": "sample_outputs/targeted_voice_20261101T181229Z/002_02_hi.json",
+        "prediction_sha256": "cca335e0796bcaed7dee0dcbe8d4ce86293c36749741ad6cdf98726adad59637",
+        "source_artifact": "sample_outputs/targeted_voice_20261101T181229Z/002_02_hi_sources.json",
+        "source_sha256": "cf270c17ab2309ae00101e7baf556eaa4a9a6f4a271cfa1952c8521ecd231ea6",
+        "audio_artifact": "sample_outputs/targeted_voice_20261101T181229Z/002_02_hi_reply.wav",
+        "audio_sha256": "acbe0f717b2da7718ae7cc78b384ca65641fe70a6c63a51ab518b2c478f4e4e6"
+      },
+      {
+        "case": "03_hinglish.wav",
+        "passed": true,
+        "prediction_artifact": "sample_outputs/targeted_voice_20261101T181229Z/003_03_hinglish.json",
+        "prediction_sha256": "8822558d5e301daf1816452ed00b11691a9f6d76838db3ae37391ec238baff78",
+        "source_artifact": "sample_outputs/targeted_voice_20261101T181229Z/003_03_hinglish_sources.json",
+        "source_sha256": "0d3eaa63d0e7dca081c1f4d99f65cd80f5655cea699761c0ee7bd65b0fa96607",
+        "audio_artifact": "sample_outputs/targeted_voice_20261101T181229Z/003_03_hinglish_reply.wav",
+        "audio_sha256": "b6b477ab20acd331cbd97a19508a3cc1cb8699c654c82f8def378bff01dbf699"
+      }
+    ]
+  }
 }

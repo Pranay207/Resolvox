@@ -1,7 +1,7 @@
 {
   "status": "verified",
-  "scope": "Four-page document layout and explicitly identified overlapping offline selections (432 publication,655 refund,148 release). No complete current live accuracy or speech certification.",
-  "pdf_sha256": "7cf49faa526f971d357f3cadfd058c50e088e29baf956bbc176290809f06fb7c",
+  "scope": "Four-page layout and the explicitly disclosed core-targeted release scope; supplementaryreturn-date probes remainquota-limited, no4/4/full52claim.",
+  "pdf_sha256": "98b0e50fbe0c3d0ea9570228370bca80e859341f5a38b8a83ad7980e48a209e7",
   "pages": 4,
   "visually_reviewed_pages": [
     1,
@@ -11,11 +11,11 @@
   ],
   "layout_issues_found": false,
   "reviewer_type": "assistant_visual_inspection",
-  "reviewed_at_utc": "2026-11-01T16:22:39.592305+00:00",
-  "render_engine": "Poppler pdftoppm,100DPI",
+  "reviewed_at_utc": "2026-11-01T18:22:15.026448+00:00",
+  "render_engine": "Poppler pdftoppm100DPI",
   "rendered_page_sha256": {
-    "page-1.png": "2879e04dcb3f2520be3e5928e7f26907a4633fee9c3f273d7b3b29d294f70ee0",
-    "page-2.png": "da6b23e327a732300e2e5b116690f10c2108f706130ec7e05bcdad02c2c8f53e",
+    "page-1.png": "843696f4b715a58df48aca0cfac902b8d651efc8a3b3d5cce50095e008fe70dc",
+    "page-2.png": "6107862fcf590151f0916e3a633c9b72de4ace34631a125c793bb8623cd76ff3",
     "page-3.png": "a28e514f6f52092944d9abdef430f6d11b7db8c0ba52a64f2a429a1d1d0ae4cf",
     "page-4.png": "09fbe256dabd14c94b4d05846ca3a8eb0c8a584ae09d30d9fbc7f12e4ce02f47"
   },
@@ -73,7 +73,8 @@
     "src/voice.py": "028d9446045d19868bb709651f8bd844d7b88a86cbb297eda21390f1c949bb64",
     "src/warranty_durations.py": "9172c44e61082db6023c5c03d70e11c3efcd359a77f6224372fd3ea16c4dde9b"
   },
-  "report_generator_sha256": "786245030fccfbbfac2cc83320755cac67d4ab70a0fb0da8f0cee9184f2aaa11",
-  "verified_check_receipt": "sample_outputs/release_update_verification.json",
-  "verified_check_receipt_sha256": "5882df1e32cb9f695ec2f6ab2348489198701de37741c6be32f6ca0308265942"
+  "report_generator_sha256": "146cf8939dc0f33ac0798d97eef14ca0193c921f9db6049e918ced2bd8742ecd",
+  "inference_profile": "explicit_Groq_application",
+  "model": "openai/gpt-oss-120b",
+  "voice_rescore": "EquivalentHindi photo spellings only; original2/3manifest retained."
 }
