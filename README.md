@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>Multilingual voice and text support for ZentroMart</strong><br>
-  VoiceOps 2026 Capstone · From Tokens to Transformers
+  VoiceOps  · 
 </p>
 
 <p align="center">
